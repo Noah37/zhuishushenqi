@@ -8,14 +8,41 @@
 
 import UIKit
 
+let rightScaleX:CGFloat = 0.2
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate ,RESideMenuDelegate{
 
     var window: UIWindow?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let sideVC = SideViewController.sharedInstance
+        sideVC.contentViewController = RootViewController()
+        sideVC.rightViewController = RightViewController(style: .Grouped)
+        sideVC.leftViewController = LeftViewController()
+        let sideNavVC = UINavigationController(rootViewController: SideViewController.sharedInstance)
+        window?.rootViewController = sideNavVC
+        window?.makeKeyAndVisible()
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Fade)
+        #if DEBUG
+            let fpsLabel = V2FPSLabel(frame: CGRectMake(15, ScreenHeight-40, 55, 20));
+            self.window?.addSubview(fpsLabel);
+        #else
+        #endif
+
+//        [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        /**
+         设置 UINavigationNar 外观
+         */
+        UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
+//        let navbarTitleTextAttributes = [NSForegroundColorAttributeName:UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )]
+//        UINavigationBar.appearance().titleTextAttributes = navbarTitleTextAttributes
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+
         return true
     }
 
@@ -42,5 +69,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+// 首先要明确一点: swift里面是没有宏定义的概念
+// 自定义内容输入格式: 文件名[行号]函数名: 输入内容
+// 需要在info.plist的other swift flag的Debug中添加DEBUG
+func XYCLog<T>(message: T, fileName: String = #file, lineNum: Int = #line, funcName: String = #function)
+{
+    #if DEBUG
+        print("\((fileName as NSString).lastPathComponent)[\(lineNum)] \(funcName): \(message)")
+    #endif
 }
 

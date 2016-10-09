@@ -1,0 +1,23 @@
+//
+//  BookShelfAPI.swift
+//  zhuishushenqi
+//
+//  Created by caonongyun on 16/10/5.
+//  Copyright © 2016年 CNY. All rights reserved.
+//
+
+import UIKit
+
+class BookShelfAPI: XYCBaseRequest {
+    override func requestUrl() -> String {
+        return "/user/bookshelf"
+    }
+    
+    override func requestMethod() -> XYCRequestMethod? {
+        return XYCRequestMethod.Get
+    }
+    
+    override func requestArgument() -> AnyObject? {
+        return ["books":"","token":"n6yRYCPkv29VbN3HSKVRfuTP"]
+    }
+}
