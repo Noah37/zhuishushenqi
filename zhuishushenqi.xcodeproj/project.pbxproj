@@ -116,7 +116,6 @@
 		B2260F581D8D508800581DD8 /* XYCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2260F521D8D508800581DD8 /* XYCRequest.swift */; };
 		B2260F591D8D508800581DD8 /* XYCUrlArgumentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2260F531D8D508800581DD8 /* XYCUrlArgumentFilter.swift */; };
 		B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */; };
-		B251228B1DB329050040CAD3 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228A1DB329050040CAD3 /* Reveal.framework */; };
 		B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228C1DB3291A0040CAD3 /* CFNetwork.framework */; };
 		B28D60321D9E0D5B00147D3E /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D60311D9E0D5B00147D3E /* SideViewController.swift */; };
 		B2A95CC81DA8E65B00E12A38 /* V2FPSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */; };
@@ -387,7 +386,6 @@
 		B2260F521D8D508800581DD8 /* XYCRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCRequest.swift; sourceTree = "<group>"; };
 		B2260F531D8D508800581DD8 /* XYCUrlArgumentFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCUrlArgumentFilter.swift; sourceTree = "<group>"; };
 		B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCActionSheet.swift; sourceTree = "<group>"; };
-		B251228A1DB329050040CAD3 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		B251228C1DB3291A0040CAD3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B28D60311D9E0D5B00147D3E /* SideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
 		B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V2FPSLabel.swift; sourceTree = "<group>"; };
@@ -478,7 +476,6 @@
 				B22182BD1DA40550002458D2 /* CoreGraphics.framework in Frameworks */,
 				B22182BB1DA40548002458D2 /* CoreFoundation.framework in Frameworks */,
 				B22182B91DA40540002458D2 /* CoreText.framework in Frameworks */,
-				B251228B1DB329050040CAD3 /* Reveal.framework in Frameworks */,
 				B22182B71DA404D1002458D2 /* WebP.framework in Frameworks */,
 				9B8838ED613170FC4422C61D /* Pods_zhuishushenqi.framework in Frameworks */,
 			);
@@ -888,7 +885,6 @@
 		B2BB5B8D1D8BDF8E00379217 = {
 			isa = PBXGroup;
 			children = (
-				B251228A1DB329050040CAD3 /* Reveal.framework */,
 				B2C91DDE1DAB4D9E002B6C6F /* PKHUD */,
 				B22181AD1DA40326002458D2 /* YYKit */,
 				B2260F4D1D8D508800581DD8 /* XYCNetwork */,
