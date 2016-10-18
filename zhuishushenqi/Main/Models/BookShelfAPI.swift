@@ -18,6 +18,6 @@ class BookShelfAPI: XYCBaseRequest {
     }
     
     override func requestArgument() -> AnyObject? {
-        return ["books":"","token":"n6yRYCPkv29VbN3HSKVRfuTP"]
+        return ["books":"","token":"pv4GJDGNlK6xomuTblrFSM5q"]
     }
 }

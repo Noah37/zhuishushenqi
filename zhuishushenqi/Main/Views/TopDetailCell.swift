@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TopDetailCell: UITableViewCell {
  
@@ -31,8 +32,8 @@ class TopDetailCell: UITableViewCell {
             self.authorWidth.constant = width + 5
             let urlString = "\((self.model?.cover ?? "" as NSString).substringFromIndex(7))"
             let url = NSURL(string: urlString)
-            let data = NSData(contentsOfURL: url!)
-            self.icon.image = data == nil ? nil: UIImage(data:data!)
+            
+            self.icon.kf_setImageWithURL(url, placeholderImage: UIImage(named: "default_book_cover"), optionsInfo: nil, progressBlock: nil, completionHandler: nil)
         }
     }
     

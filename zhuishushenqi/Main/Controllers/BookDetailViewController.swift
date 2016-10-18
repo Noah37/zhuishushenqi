@@ -40,6 +40,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         let bookDetailApi = BookDetailAPI()
         bookDetailApi.id = id
         bookDetailApi.startWithCompletionBlockWithHUD({ (request) in
+            
             self.bookModel = BookDetail.modelWithDictionary(request as! [NSObject : AnyObject])
             self.view.addSubview(self.tableView)
             self.tableView.reloadData()

@@ -44,6 +44,7 @@ public class XYCBaseRequest: NSObject {
     }
     
     public func startWithCompletionBlockWithHUD(successCompletionBlock:XYCRequestCompletionBlock,failureCompletionBlock:XYCRequestCompletionBlock){
+        HUD.showProgressHud(false)
         startWithCompletionBlockWithSuccess(successCompletionBlock, failureCompletionBlock: failureCompletionBlock)
     }
     

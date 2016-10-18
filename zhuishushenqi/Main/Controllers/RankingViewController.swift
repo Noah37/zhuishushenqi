@@ -32,7 +32,7 @@ class RankingViewController: UIViewController,UITableViewDataSource,UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if self.navigationController?.navigationBarHidden == false{
-            self.tableView!.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64)
+            self.tableView!.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight)
         }
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }

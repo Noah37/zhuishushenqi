@@ -23,9 +23,6 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
         shelfMsgApi.startWithCompletionBlockWithHUD({ (request) in
                 XYCLog("request:\(request.objectForKey("message"))")
             let postLink = request.objectForKey("message")?.objectForKey("postLink")
-            if postLink == nil {
-                
-            }
             self.shelfMsgLabel.text = "\((self.postLinkArchive(postLink).1))"
             }) { (request) in
         }
@@ -95,7 +92,6 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
         
         let segView = SegMenu(frame: CGRectMake(0, 64, UIScreen.mainScreen().bounds.size.width, 40), WithTitles: ["追书架","追书社区"])
         segView.menuDelegate = self
-        self.shelfMsgLabel.frame = CGRectMake(20,0,ScreenWidth - 40,44)
         view.addSubview(segView)
         let tableView = UITableView(frame: CGRectMake(0, 104, ScreenWidth, ScreenHeight - 104), style: UITableViewStyle.Grouped)
         tableView.dataSource = self
@@ -118,6 +114,7 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
     
     private lazy var shelfMsgLabel:UILabel = {
         let label = UILabel()
+        label.frame = CGRectMake(20,0,ScreenWidth - 40,44)
         label.textColor = UIColor.grayColor()
         label.font = UIFont.systemFontOfSize(13)
         label.textAlignment = .Center
@@ -135,6 +132,7 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
         return .LightContent
     }
     
+    //MARK: - UITableViewDataSource and UITableViewDelegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -190,6 +188,12 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
         }
         return 128
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    
+    
     
 }
 

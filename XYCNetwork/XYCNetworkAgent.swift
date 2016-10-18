@@ -46,6 +46,7 @@ public class XYCNetworkAgent: NSObject {
             Alamofire.request(.POST, url, parameters: param as? [String:String])
                 .validate()
                 .responseJSON { response in
+                    HUD.hide()
                     print("request:\(response.request)")  // original URL request
                     print("response:\(response.response)") // URL response
                     print("data:\(response.data)")     // server data
@@ -67,6 +68,7 @@ public class XYCNetworkAgent: NSObject {
             Alamofire.request(.GET, url, parameters: param as? [String:String])
                 .validate()
                 .responseJSON { response in
+                    HUD.hide()
                     print("request:\(response.request)")  // original URL request
                     print("response:\(response.response)") // URL response
                     print("data:\(response.data)")     // server data

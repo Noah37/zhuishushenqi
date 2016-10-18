@@ -116,6 +116,8 @@
 		B2260F581D8D508800581DD8 /* XYCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2260F521D8D508800581DD8 /* XYCRequest.swift */; };
 		B2260F591D8D508800581DD8 /* XYCUrlArgumentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2260F531D8D508800581DD8 /* XYCUrlArgumentFilter.swift */; };
 		B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */; };
+		B251228B1DB329050040CAD3 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228A1DB329050040CAD3 /* Reveal.framework */; };
+		B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228C1DB3291A0040CAD3 /* CFNetwork.framework */; };
 		B28D60321D9E0D5B00147D3E /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D60311D9E0D5B00147D3E /* SideViewController.swift */; };
 		B2A95CC81DA8E65B00E12A38 /* V2FPSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */; };
 		B2B160A51D8EDCEE00E165D2 /* SwipableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B160A41D8EDCEE00E165D2 /* SwipableCell.swift */; };
@@ -149,6 +151,26 @@
 		B2BB5DB01D8C0DAE00379217 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5DAF1D8C0DAE00379217 /* LeftViewController.swift */; };
 		B2BB5DB21D8C0DBA00379217 /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5DB11D8C0DBA00379217 /* RightViewController.swift */; };
 		B2BB5DB61D8CF2FA00379217 /* SegMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5DB51D8CF2FA00379217 /* SegMenu.swift */; };
+		B2C91DF21DAB4D9E002B6C6F /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DDF1DAB4D9E002B6C6F /* FrameView.swift */; };
+		B2C91DF31DAB4D9E002B6C6F /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DE01DAB4D9E002B6C6F /* HUD.swift */; };
+		B2C91DF41DAB4D9E002B6C6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2C91DE11DAB4D9E002B6C6F /* Images.xcassets */; };
+		B2C91DF51DAB4D9E002B6C6F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2C91DE21DAB4D9E002B6C6F /* Info.plist */; };
+		B2C91DF61DAB4D9E002B6C6F /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DE41DAB4D9E002B6C6F /* PKHUD.swift */; };
+		B2C91DF71DAB4D9E002B6C6F /* PKHUDAnimating.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DE51DAB4D9E002B6C6F /* PKHUDAnimating.swift */; };
+		B2C91DF81DAB4D9E002B6C6F /* PKHUDAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DE61DAB4D9E002B6C6F /* PKHUDAnimation.swift */; };
+		B2C91DF91DAB4D9E002B6C6F /* PKHUDAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DE71DAB4D9E002B6C6F /* PKHUDAssets.swift */; };
+		B2C91DFA1DAB4D9E002B6C6F /* PKHUDErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DE81DAB4D9E002B6C6F /* PKHUDErrorView.swift */; };
+		B2C91DFB1DAB4D9E002B6C6F /* PKHUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DE91DAB4D9E002B6C6F /* PKHUDProgressView.swift */; };
+		B2C91DFC1DAB4D9E002B6C6F /* PKHUDRotatingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DEA1DAB4D9E002B6C6F /* PKHUDRotatingImageView.swift */; };
+		B2C91DFD1DAB4D9E002B6C6F /* PKHUDSquareBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DEB1DAB4D9E002B6C6F /* PKHUDSquareBaseView.swift */; };
+		B2C91DFE1DAB4D9E002B6C6F /* PKHUDSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DEC1DAB4D9E002B6C6F /* PKHUDSuccessView.swift */; };
+		B2C91DFF1DAB4D9E002B6C6F /* PKHUDSystemActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DED1DAB4D9E002B6C6F /* PKHUDSystemActivityIndicatorView.swift */; };
+		B2C91E001DAB4D9E002B6C6F /* PKHUDTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DEE1DAB4D9E002B6C6F /* PKHUDTextView.swift */; };
+		B2C91E011DAB4D9E002B6C6F /* PKHUDWideBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DEF1DAB4D9E002B6C6F /* PKHUDWideBaseView.swift */; };
+		B2C91E021DAB4D9E002B6C6F /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DF01DAB4D9E002B6C6F /* Window.swift */; };
+		B2C91E031DAB4D9E002B6C6F /* WindowRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91DF11DAB4D9E002B6C6F /* WindowRootViewController.swift */; };
+		B2C91E751DACEECB002B6C6F /* AllChapterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91E741DACEECB002B6C6F /* AllChapterAPI.swift */; };
+		B2C91E771DACEFC3002B6C6F /* LatestChapterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91E761DACEFC3002B6C6F /* LatestChapterAPI.swift */; };
 		B2CE21B51D9F76E400775B73 /* RankingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CE21B41D9F76E400775B73 /* RankingAPI.swift */; };
 		B2DE0A321D8D570200B27AD8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DE0A311D8D570200B27AD8 /* Config.swift */; };
 /* End PBXBuildFile section */
@@ -365,6 +387,8 @@
 		B2260F521D8D508800581DD8 /* XYCRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCRequest.swift; sourceTree = "<group>"; };
 		B2260F531D8D508800581DD8 /* XYCUrlArgumentFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCUrlArgumentFilter.swift; sourceTree = "<group>"; };
 		B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCActionSheet.swift; sourceTree = "<group>"; };
+		B251228A1DB329050040CAD3 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		B251228C1DB3291A0040CAD3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B28D60311D9E0D5B00147D3E /* SideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
 		B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V2FPSLabel.swift; sourceTree = "<group>"; };
 		B2B160A41D8EDCEE00E165D2 /* SwipableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipableCell.swift; sourceTree = "<group>"; };
@@ -410,6 +434,27 @@
 		B2BB5DAF1D8C0DAE00379217 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeftViewController.swift; path = ../../LeftViewController.swift; sourceTree = "<group>"; };
 		B2BB5DB11D8C0DBA00379217 /* RightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RightViewController.swift; path = ../../RightViewController.swift; sourceTree = "<group>"; };
 		B2BB5DB51D8CF2FA00379217 /* SegMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegMenu.swift; path = ../SegMenu.swift; sourceTree = "<group>"; };
+		B2C91DDF1DAB4D9E002B6C6F /* FrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
+		B2C91DE01DAB4D9E002B6C6F /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
+		B2C91DE11DAB4D9E002B6C6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B2C91DE21DAB4D9E002B6C6F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2C91DE31DAB4D9E002B6C6F /* PKHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKHUD.h; sourceTree = "<group>"; };
+		B2C91DE41DAB4D9E002B6C6F /* PKHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUD.swift; sourceTree = "<group>"; };
+		B2C91DE51DAB4D9E002B6C6F /* PKHUDAnimating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDAnimating.swift; sourceTree = "<group>"; };
+		B2C91DE61DAB4D9E002B6C6F /* PKHUDAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDAnimation.swift; sourceTree = "<group>"; };
+		B2C91DE71DAB4D9E002B6C6F /* PKHUDAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDAssets.swift; sourceTree = "<group>"; };
+		B2C91DE81DAB4D9E002B6C6F /* PKHUDErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDErrorView.swift; sourceTree = "<group>"; };
+		B2C91DE91DAB4D9E002B6C6F /* PKHUDProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDProgressView.swift; sourceTree = "<group>"; };
+		B2C91DEA1DAB4D9E002B6C6F /* PKHUDRotatingImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDRotatingImageView.swift; sourceTree = "<group>"; };
+		B2C91DEB1DAB4D9E002B6C6F /* PKHUDSquareBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDSquareBaseView.swift; sourceTree = "<group>"; };
+		B2C91DEC1DAB4D9E002B6C6F /* PKHUDSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDSuccessView.swift; sourceTree = "<group>"; };
+		B2C91DED1DAB4D9E002B6C6F /* PKHUDSystemActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDSystemActivityIndicatorView.swift; sourceTree = "<group>"; };
+		B2C91DEE1DAB4D9E002B6C6F /* PKHUDTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDTextView.swift; sourceTree = "<group>"; };
+		B2C91DEF1DAB4D9E002B6C6F /* PKHUDWideBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDWideBaseView.swift; sourceTree = "<group>"; };
+		B2C91DF01DAB4D9E002B6C6F /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		B2C91DF11DAB4D9E002B6C6F /* WindowRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowRootViewController.swift; sourceTree = "<group>"; };
+		B2C91E741DACEECB002B6C6F /* AllChapterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllChapterAPI.swift; sourceTree = "<group>"; };
+		B2C91E761DACEFC3002B6C6F /* LatestChapterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestChapterAPI.swift; sourceTree = "<group>"; };
 		B2CE21B41D9F76E400775B73 /* RankingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankingAPI.swift; sourceTree = "<group>"; };
 		B2DE0A311D8D570200B27AD8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		EB84B5067B075C5F0373D0F0 /* Pods_zhuishushenqi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_zhuishushenqi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -420,6 +465,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */,
 				B22182CF1DA40594002458D2 /* libz.tbd in Frameworks */,
 				B22182CD1DA4058E002458D2 /* libsqlite3.tbd in Frameworks */,
 				B22182CB1DA40588002458D2 /* SystemConfiguration.framework in Frameworks */,
@@ -432,6 +478,7 @@
 				B22182BD1DA40550002458D2 /* CoreGraphics.framework in Frameworks */,
 				B22182BB1DA40548002458D2 /* CoreFoundation.framework in Frameworks */,
 				B22182B91DA40540002458D2 /* CoreText.framework in Frameworks */,
+				B251228B1DB329050040CAD3 /* Reveal.framework in Frameworks */,
 				B22182B71DA404D1002458D2 /* WebP.framework in Frameworks */,
 				9B8838ED613170FC4422C61D /* Pods_zhuishushenqi.framework in Frameworks */,
 			);
@@ -466,6 +513,7 @@
 		96FE9B86D6BF6F1F079B71F4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B251228C1DB3291A0040CAD3 /* CFNetwork.framework */,
 				B22182CE1DA40594002458D2 /* libz.tbd */,
 				B22182CC1DA4058E002458D2 /* libsqlite3.tbd */,
 				B22182CA1DA40588002458D2 /* SystemConfiguration.framework */,
@@ -798,6 +846,8 @@
 				B2B40B451DA2D750001F972B /* Book.swift */,
 				B2B40B501DA3E84A001F972B /* BookDetail.swift */,
 				B22182D41DA4A870002458D2 /* BookShelf.swift */,
+				B2C91E761DACEFC3002B6C6F /* LatestChapterAPI.swift */,
+				B2C91E741DACEECB002B6C6F /* AllChapterAPI.swift */,
 				B2B40B421DA2C58B001F972B /* XYCBaseModel.h */,
 				B2B40B431DA2C58B001F972B /* XYCBaseModel.m */,
 			);
@@ -838,6 +888,8 @@
 		B2BB5B8D1D8BDF8E00379217 = {
 			isa = PBXGroup;
 			children = (
+				B251228A1DB329050040CAD3 /* Reveal.framework */,
+				B2C91DDE1DAB4D9E002B6C6F /* PKHUD */,
 				B22181AD1DA40326002458D2 /* YYKit */,
 				B2260F4D1D8D508800581DD8 /* XYCNetwork */,
 				B2BB5D9D1D8C0AA100379217 /* RESideMenu */,
@@ -918,6 +970,32 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		B2C91DDE1DAB4D9E002B6C6F /* PKHUD */ = {
+			isa = PBXGroup;
+			children = (
+				B2C91DDF1DAB4D9E002B6C6F /* FrameView.swift */,
+				B2C91DE01DAB4D9E002B6C6F /* HUD.swift */,
+				B2C91DE11DAB4D9E002B6C6F /* Images.xcassets */,
+				B2C91DE21DAB4D9E002B6C6F /* Info.plist */,
+				B2C91DE31DAB4D9E002B6C6F /* PKHUD.h */,
+				B2C91DE41DAB4D9E002B6C6F /* PKHUD.swift */,
+				B2C91DE51DAB4D9E002B6C6F /* PKHUDAnimating.swift */,
+				B2C91DE61DAB4D9E002B6C6F /* PKHUDAnimation.swift */,
+				B2C91DE71DAB4D9E002B6C6F /* PKHUDAssets.swift */,
+				B2C91DE81DAB4D9E002B6C6F /* PKHUDErrorView.swift */,
+				B2C91DE91DAB4D9E002B6C6F /* PKHUDProgressView.swift */,
+				B2C91DEA1DAB4D9E002B6C6F /* PKHUDRotatingImageView.swift */,
+				B2C91DEB1DAB4D9E002B6C6F /* PKHUDSquareBaseView.swift */,
+				B2C91DEC1DAB4D9E002B6C6F /* PKHUDSuccessView.swift */,
+				B2C91DED1DAB4D9E002B6C6F /* PKHUDSystemActivityIndicatorView.swift */,
+				B2C91DEE1DAB4D9E002B6C6F /* PKHUDTextView.swift */,
+				B2C91DEF1DAB4D9E002B6C6F /* PKHUDWideBaseView.swift */,
+				B2C91DF01DAB4D9E002B6C6F /* Window.swift */,
+				B2C91DF11DAB4D9E002B6C6F /* WindowRootViewController.swift */,
+			);
+			path = PKHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -985,7 +1063,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = CNY;
+				ORGANIZATIONNAME = XYC;
 				TargetAttributes = {
 					B2BB5B951D8BDF8E00379217 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1028,8 +1106,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2C91DF51DAB4D9E002B6C6F /* Info.plist in Resources */,
 				B22182631DA40326002458D2 /* LICENSE in Resources */,
 				B2B40B4C1DA390F2001F972B /* BookDetailHeader.xib in Resources */,
+				B2C91DF41DAB4D9E002B6C6F /* Images.xcassets in Resources */,
 				B2B40B411DA2BCB7001F972B /* TopDetailCell.xib in Resources */,
 				B2BB5BA41D8BDF8E00379217 /* LaunchScreen.storyboard in Resources */,
 				B2BB5BA11D8BDF8E00379217 /* Assets.xcassets in Resources */,
@@ -1107,10 +1187,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2B40B441DA2C58B001F972B /* XYCBaseModel.m in Sources */,
+				B2C91E001DAB4D9E002B6C6F /* PKHUDTextView.swift in Sources */,
 				B22182A71DA40326002458D2 /* YYTextRunDelegate.m in Sources */,
 				B22182941DA40326002458D2 /* YYWebImageOperation.m in Sources */,
+				B2C91DFE1DAB4D9E002B6C6F /* PKHUDSuccessView.swift in Sources */,
 				B2B40B3B1DA2B965001F972B /* TopDetailViewController.swift in Sources */,
 				B22182A61DA40326002458D2 /* YYTextRubyAnnotation.m in Sources */,
+				B2C91E771DACEFC3002B6C6F /* LatestChapterAPI.swift in Sources */,
 				B22182831DA40326002458D2 /* UIView+YYAdd.m in Sources */,
 				B221828D1DA40326002458D2 /* YYAnimatedImageView.m in Sources */,
 				B22182A51DA40326002458D2 /* YYTextParser.m in Sources */,
@@ -1123,6 +1206,7 @@
 				B22182D11DA42A5A002458D2 /* AddBookAPI.swift in Sources */,
 				B221826F1DA40326002458D2 /* NSObject+YYAddForARC.m in Sources */,
 				B22182761DA40326002458D2 /* UIApplication+YYAdd.m in Sources */,
+				B2C91E751DACEECB002B6C6F /* AllChapterAPI.swift in Sources */,
 				B22182701DA40326002458D2 /* NSObject+YYAddForKVO.m in Sources */,
 				B221829B1DA40326002458D2 /* YYTextKeyboardManager.m in Sources */,
 				B22182641DA40326002458D2 /* README.md in Sources */,
@@ -1130,6 +1214,7 @@
 				B2B40B4F1DA39FB7001F972B /* UINavigationItem+BackItem.m in Sources */,
 				B221826C1DA40326002458D2 /* NSNotificationCenter+YYAdd.m in Sources */,
 				B22182721DA40326002458D2 /* NSThread+YYAdd.m in Sources */,
+				B2C91E031DAB4D9E002B6C6F /* WindowRootViewController.swift in Sources */,
 				B22182D51DA4A870002458D2 /* BookShelf.swift in Sources */,
 				B221827F1DA40326002458D2 /* UIScreen+YYAdd.m in Sources */,
 				B2B1610E1D9185AC00E165D2 /* BaseViewController.swift in Sources */,
@@ -1152,15 +1237,21 @@
 				B22182661DA40326002458D2 /* NSArray+YYAdd.m in Sources */,
 				B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */,
 				B221828F1DA40326002458D2 /* YYImage.m in Sources */,
+				B2C91DFB1DAB4D9E002B6C6F /* PKHUDProgressView.swift in Sources */,
 				B22182A21DA40326002458D2 /* UIPasteboard+YYText.m in Sources */,
 				B2260F561D8D508800581DD8 /* XYCNetworkConfig.swift in Sources */,
 				B22182A31DA40326002458D2 /* YYTextArchiver.m in Sources */,
+				B2C91DF31DAB4D9E002B6C6F /* HUD.swift in Sources */,
+				B2C91E021DAB4D9E002B6C6F /* Window.swift in Sources */,
 				B22182961DA40326002458D2 /* YYClassInfo.m in Sources */,
 				B221826D1DA40326002458D2 /* NSNumber+YYAdd.m in Sources */,
+				B2C91DFC1DAB4D9E002B6C6F /* PKHUDRotatingImageView.swift in Sources */,
 				B2BB5B9C1D8BDF8E00379217 /* ViewController.swift in Sources */,
 				B2BB5DAE1D8C0D9A00379217 /* RootViewController.swift in Sources */,
+				B2C91DF61DAB4D9E002B6C6F /* PKHUD.swift in Sources */,
 				B22182801DA40326002458D2 /* UIScrollView+YYAdd.m in Sources */,
 				B2BB5DB61D8CF2FA00379217 /* SegMenu.swift in Sources */,
+				B2C91DFD1DAB4D9E002B6C6F /* PKHUDSquareBaseView.swift in Sources */,
 				B22182871DA40326002458D2 /* YYMemoryCache.m in Sources */,
 				B2BB5DA61D8C0AA100379217 /* UIViewController+RESideMenu.m in Sources */,
 				B221828B1DA40326002458D2 /* UIButton+YYWebImage.m in Sources */,
@@ -1168,6 +1259,7 @@
 				B221827A1DA40326002458D2 /* UIControl+YYAdd.m in Sources */,
 				B2260F581D8D508800581DD8 /* XYCRequest.swift in Sources */,
 				B22182AE1DA40326002458D2 /* YYGestureRecognizer.m in Sources */,
+				B2C91E011DAB4D9E002B6C6F /* PKHUDWideBaseView.swift in Sources */,
 				B22182B51DA40326002458D2 /* YYTransaction.m in Sources */,
 				B22182B61DA40326002458D2 /* YYWeakProxy.m in Sources */,
 				B22182A91DA40326002458D2 /* YYLabel.m in Sources */,
@@ -1179,6 +1271,7 @@
 				B2260F571D8D508800581DD8 /* XYCNetworkPrivate.swift in Sources */,
 				B221827E1DA40326002458D2 /* UIImage+YYAdd.m in Sources */,
 				B221828A1DA40326002458D2 /* MKAnnotationView+YYWebImage.m in Sources */,
+				B2C91DF81DAB4D9E002B6C6F /* PKHUDAnimation.swift in Sources */,
 				B2260F551D8D508800581DD8 /* XYCNetworkAgent.swift in Sources */,
 				B22182A01DA40326002458D2 /* NSAttributedString+YYText.m in Sources */,
 				B22182951DA40326002458D2 /* NSObject+YYModel.m in Sources */,
@@ -1186,6 +1279,7 @@
 				B22182771DA40326002458D2 /* UIBarButtonItem+YYAdd.m in Sources */,
 				B22182AA1DA40326002458D2 /* YYTextView.m in Sources */,
 				B22182901DA40326002458D2 /* YYImageCache.m in Sources */,
+				B2C91DFF1DAB4D9E002B6C6F /* PKHUDSystemActivityIndicatorView.swift in Sources */,
 				B22182821DA40326002458D2 /* UITextField+YYAdd.m in Sources */,
 				B22182A41DA40326002458D2 /* YYTextAttribute.m in Sources */,
 				B22182931DA40326002458D2 /* YYWebImageManager.m in Sources */,
@@ -1194,6 +1288,7 @@
 				B22182B01DA40326002458D2 /* YYReachability.m in Sources */,
 				B22182731DA40326002458D2 /* NSTimer+YYAdd.m in Sources */,
 				B2B160A91D8F7C0300E165D2 /* RankingViewController.swift in Sources */,
+				B2C91DF91DAB4D9E002B6C6F /* PKHUDAssets.swift in Sources */,
 				B221826E1DA40326002458D2 /* NSObject+YYAdd.m in Sources */,
 				B221826B1DA40326002458D2 /* NSKeyedUnarchiver+YYAdd.m in Sources */,
 				B221829D1DA40326002458D2 /* YYTextLine.m in Sources */,
@@ -1207,6 +1302,7 @@
 				B2B1610C1D917D3400E165D2 /* XYCContainerViewController.swift in Sources */,
 				B22182D31DA4A5F6002458D2 /* BookShelfAPI.swift in Sources */,
 				B22182971DA40326002458D2 /* YYTextContainerView.m in Sources */,
+				B2C91DF71DAB4D9E002B6C6F /* PKHUDAnimating.swift in Sources */,
 				B221826A1DA40326002458D2 /* NSDictionary+YYAdd.m in Sources */,
 				B22182711DA40326002458D2 /* NSString+YYAdd.m in Sources */,
 				B22182811DA40326002458D2 /* UITableView+YYAdd.m in Sources */,
@@ -1223,6 +1319,8 @@
 				B22182A81DA40326002458D2 /* YYTextUtilities.m in Sources */,
 				B22182781DA40326002458D2 /* UIBezierPath+YYAdd.m in Sources */,
 				B2260F471D8D45AD00581DD8 /* BarButton.swift in Sources */,
+				B2C91DF21DAB4D9E002B6C6F /* FrameView.swift in Sources */,
+				B2C91DFA1DAB4D9E002B6C6F /* PKHUDErrorView.swift in Sources */,
 				B22182B11DA40326002458D2 /* YYSentinel.m in Sources */,
 				B221828E1DA40326002458D2 /* YYFrameImage.m in Sources */,
 				B22182751DA40326002458D2 /* YYCGUtilities.m in Sources */,
@@ -1377,6 +1475,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YYKit/Vendor",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1385,6 +1484,14 @@
 				INFOPLIST_FILE = zhuishushenqi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-ObjC",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = CNY.zhuishushenqi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1402,10 +1509,19 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YYKit/Vendor",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = zhuishushenqi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-ObjC",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = CNY.zhuishushenqi;
 				PRODUCT_NAME = "$(TARGET_NAME)";

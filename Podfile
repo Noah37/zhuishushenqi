@@ -6,6 +6,7 @@
 target 'zhuishushenqi' do
 #pod 'XYCNetwork','~>0.0.7'
 pod 'Alamofire'
+pod 'Kingfisher','~>2.6.0'
 end
 
 target 'zhuishushenqiTests' do
