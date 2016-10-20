@@ -42,6 +42,10 @@ public class XYCNetworkAgent: NSObject {
         let url = self.buildRequestUrl(request)
         let param = request.requestArgument()
         let method:XYCRequestMethod = request.requestMethod()!
+        dispatch_async(dispatch_get_main_queue()) { 
+            
+            HUD.showProgressHud(true)
+        }
         if method == .Post {
             Alamofire.request(.POST, url, parameters: param as? [String:String])
                 .validate()
@@ -51,6 +55,7 @@ public class XYCNetworkAgent: NSObject {
                     print("response:\(response.response)") // URL response
                     print("data:\(response.data)")     // server data
                     print("result:\(response.result)")   // result of response serialization
+                    HUD.hide()
                     switch response.result {
                     case .Success:
                         print("Validation Successful")
@@ -73,6 +78,7 @@ public class XYCNetworkAgent: NSObject {
                     print("response:\(response.response)") // URL response
                     print("data:\(response.data)")     // server data
                     print("result:\(response.result.value)")   // result of response serialization
+                    HUD.hide()
                     switch response.result {
                     case .Success:
                         print("Validation Successful")

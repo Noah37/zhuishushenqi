@@ -34,7 +34,6 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
             if data != nil {
                 imgView?.image = UIImage(data:data!)
             }
-
         }
     }
     
@@ -65,6 +64,9 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
         scrollView.delegate = self
         scrollView.showsHorizontalScrollIndicator = false
         addSubview(scrollView)
+        //此处解决 UIScrollView屏蔽 UITableViewCell的点击事件，将 scrollView的手势识别交给他的父视图，苹果官方推荐的做法
+        scrollView.userInteractionEnabled = false
+        contentView.addGestureRecognizer(scrollView.panGestureRecognizer)
         
         let imgView = UIImageView(frame: CGRectMake(15, 10, 34, 44))
         imgView.backgroundColor = UIColor.orangeColor()
@@ -78,6 +80,7 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
         detaillabel.font = UIFont.systemFontOfSize(13)
 
         self.detailTitle = detaillabel
+        
         
         scrollView.addSubview(self.imgView!)
         scrollView.addSubview(self.title!)

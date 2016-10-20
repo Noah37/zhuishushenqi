@@ -75,7 +75,7 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
         if indexPath.row == 0 {
             showShare()
         }else{
-            SideViewController.sharedInstance.closeLeftViewController()
+            SideViewController.sharedInstance.closeSideViewController()
         }
     }
     

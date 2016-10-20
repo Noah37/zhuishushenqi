@@ -8,7 +8,12 @@
 
 import UIKit
 
-class SideViewController: UIViewController {
+private enum HorizonalXSideType{
+    case Left
+    case Right
+}
+
+class SideViewController: UIViewController,UIGestureRecognizerDelegate {
     /**
      *  右侧视图控制器相对于容器视图的比例,1.0不进行缩放
      */
@@ -44,13 +49,26 @@ class SideViewController: UIViewController {
     private var contentView:UIView = UIView()
     private var rightView:UIView = UIView()
     private var leftView:UIView = UIView()
+    private var maskView:UIView = UIView()
+    
+    /// 显示菜单方向
+    private var horizonalXSide:HorizonalXSideType?
+    /// 弹性空间，可以回弹
+    private var bounchesX:CGFloat = 20
+    /// 最小open宽度
+    private var minimumSwipeX:CGFloat = 20
+
+    private lazy var panGes:UIPanGestureRecognizer =  {
+        let pan:UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.panAction(_:)))
+        pan.delegate = self
+        return pan
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initSubview()
         addChildController()
         updateContentViewShadow()
-
     }
     
     private func initSubview(){
@@ -67,7 +85,138 @@ class SideViewController: UIViewController {
         contentView = UIView(frame: self.view.bounds)
         contentView.backgroundColor = UIColor.orangeColor()
         view.addSubview(contentView)
+        contentView.addGestureRecognizer(panGes)
         
+        
+        
+        maskView.frame = self.view.bounds
+        maskView.backgroundColor = UIColor(white: 0.5, alpha: 0.2)
+        let ges = UITapGestureRecognizer(target: self, action: #selector(maskAction(_:)))
+        maskView.addGestureRecognizer(ges)
+    }
+    
+    @objc private func panAction(pan:UIPanGestureRecognizer){
+        let translation:CGPoint = pan.translationInView(self.contentView)
+        let velocity:CGPoint = pan.velocityInView(self.contentView)
+
+        if pan.state == UIGestureRecognizerState.Began {
+            if velocity.x > 0  && isCloseLeftSide{
+                horizonalXSide = .Left
+            }else if velocity.x < 0 && isCloseRightSide {
+                horizonalXSide = .Right
+            }
+            if !isCloseLeftSide {
+                rightView.hidden = true
+            }else if !isCloseRightSide {
+                rightView.hidden = false
+            }
+            updateContentViewShadow()
+        }
+        
+        if pan.state == UIGestureRecognizerState.Ended {
+            //停止时的手势速度方向为哪边则显示哪边
+            //这里设置了最小 open 宽度，小于它则不会显示侧边栏
+            if self.minimumSwipeX > 0 && (self.contentView.frame.origin.x < 0 && self.contentView.frame.origin.x > -self.minimumSwipeX) ||
+                (self.contentView.frame.origin.x > 0 && self.contentView.frame.origin.x < self.minimumSwipeX){
+                closeSideViewController()
+            }else if self.contentView.frame.origin.x  == 0 {
+                closeSideViewController()
+            }else{
+                if velocity.x > 0 {
+                    if contentView.frame.origin.x < 0 {
+                        closeSideViewController()
+                    }else{
+                        isCloseLeftSide = true
+                        showLeftViewController()
+                    }
+                }else{
+                    if contentView.frame.origin.x < 20 {
+                        isCloseRightSide = true
+                        showRightViewController()
+                    }else{
+                        closeSideViewController()
+                    }
+                }
+            }
+        }
+        else if pan.state == .Changed{
+            let offSetX = translation.x
+            /**
+             *  显示与隐藏 rightView
+             */
+            self.contentView.frame.origin.x > 0 ? (self.rightView.hidden = true):(self.rightView.hidden = false)
+            /**
+             *  滑动主视图时的四种状态，1.左侧显示 2.右侧显示 3.左右都不显示，向右滑动 4.向左滑动
+             */
+            if !isCloseLeftSide {
+                if offSetX > bounchesX {
+                    return
+                }
+                //增加一点缓冲空间
+                if offSetX < -leftOffSetXScale*ScreenWidth - bounchesX {
+                    return
+                }
+                let transT = CGAffineTransformMakeTranslation(offSetX + leftOffSetXScale*ScreenWidth, 0)
+                self.contentView.transform = transT
+
+            }else if !isCloseRightSide {
+                if offSetX < -bounchesX{
+                    return
+                }
+                if offSetX > rightOffSetXScale*ScreenWidth + bounchesX {
+                    return
+                }
+                let transT = CGAffineTransformMakeTranslation(offSetX + -rightOffSetXScale*ScreenWidth, 0)
+                //目前只考虑了平移的问题，缩放的暂时未考虑
+                let scaleT = CGAffineTransformMakeScale(offSetX/ScreenWidth, leftViewControllerScale)
+                let conT = CGAffineTransformConcat(transT, scaleT)
+                self.contentView.transform = transT
+
+            }else if horizonalXSide == .Left {
+                /**
+                 *  左右侧边栏都处于关闭状态
+                 */
+                if offSetX < -bounchesX {
+                    return
+                }
+                if offSetX > leftOffSetXScale*ScreenWidth + bounchesX {
+                    return
+                }
+                let transT = CGAffineTransformMakeTranslation(offSetX, 0)
+                self.contentView.transform = transT
+            }else if horizonalXSide == .Right {
+                if offSetX  > bounchesX  {
+                    return
+                }
+                if offSetX <  -rightOffSetXScale*ScreenWidth - bounchesX {
+                    return
+                }
+                let transT = CGAffineTransformMakeTranslation(offSetX, 0)
+                self.contentView.transform = transT
+            }
+        }
+    }
+    
+    //MARK: - UIGestureRecognizerDelegate
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == panGes {
+            let pan:UIPanGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
+            let velocity:CGPoint = pan.velocityInView(self.contentView)
+            if pan.velocityInView(self.contentView).x < 3000 && abs(velocity.x)/abs(velocity.y) > 1 {
+                return true
+            }
+            return false
+        }
+        return true
+    }
+
+    
+    @objc private func maskAction(tap:UITapGestureRecognizer){
+        if !isCloseLeftSide {
+            showLeftViewController()
+        }else if !isCloseRightSide{
+            showRightViewController()
+        }
     }
     
     private func addChildController(){
@@ -89,11 +238,16 @@ class SideViewController: UIViewController {
         }
     }
     
+    /**
+     显示左侧滑菜单，若已处于显示状态，调用该方法将关闭左侧滑菜单
+     */
     func showLeftViewController(){
         if !isCloseLeftSide {
-            closeLeftViewController()
+            closeSideViewController()
+            maskView.removeFromSuperview()
             return
         }
+        self.contentView.addSubview(maskView)
         rightView.hidden = true
         let transT = CGAffineTransformMakeTranslation(leftOffSetXScale*ScreenWidth, 0)
         let scaleT = CGAffineTransformMakeScale(leftViewControllerScale, leftViewControllerScale)
@@ -104,22 +258,16 @@ class SideViewController: UIViewController {
             self.isCloseLeftSide = false
         }
     }
-    
-    func closeLeftViewController(){
-        let orit = CGAffineTransformIdentity
-        UIView.animateWithDuration(animateDuration, animations: {
-            self.contentView.transform = orit
-        }) { (finished) in
-            self.isCloseLeftSide = true
-            self.rightView.hidden = false
-        }
-    }
-    
+    /**
+     显示右侧滑菜单，若已处于显示状态，调用该方法将关闭右侧滑菜单
+     */
     func showRightViewController(){
         if !isCloseRightSide {
-            closeRightViewController()
+            closeSideViewController()
+            maskView.removeFromSuperview()
             return
         }
+        self.contentView.addSubview(maskView)
         let transT = CGAffineTransformMakeTranslation(-rightOffSetXScale*ScreenWidth, 0)
         let scaleT = CGAffineTransformMakeScale(rightViewControllerScale, rightViewControllerScale)
         let conT = CGAffineTransformConcat(transT, scaleT)
@@ -131,12 +279,17 @@ class SideViewController: UIViewController {
         }
     }
     
-    func closeRightViewController(){
+    /**
+     关闭侧滑菜单
+     */
+    func closeSideViewController(){
         let orit = CGAffineTransformIdentity
-        UIView.animateWithDuration(animateDuration, animations: { 
-                self.contentView.transform = orit
-            }) { (finished) in
-              self.isCloseRightSide = true
+        UIView.animateWithDuration(animateDuration, animations: {
+            self.contentView.transform = orit
+        }) { (finished) in
+            self.isCloseLeftSide = true
+            self.isCloseRightSide = true
+            self.rightView.hidden = false
         }
     }
     

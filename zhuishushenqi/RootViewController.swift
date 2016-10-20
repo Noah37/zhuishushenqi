@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+
+let AllChapterUrl = "http://api.zhuishushenqi.com/ctoc/57df797cb061df9e19b8b030"
 
 
 class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,UITableViewDataSource {
@@ -190,8 +193,43 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let chapterUrl =  "http://api.zhuishushenqi.com/ctoc/\(bookShelfArr![indexPath.row]._id!)"
+        requestAllChapters(withUrl: chapterUrl)
     }
+    
+    func requestAllChapters(withUrl url:String){
+        HUD.showProgressHud(true)
+        Alamofire.request(.GET, url, parameters: ["view":"chapters"])
+            .validate()
+            .responseJSON { response in
+                HUD.hide()
+                print("request:\(response.request)")  // original URL request
+                print("response:\(response.response)") // URL response
+                //                print("data:\(response.data)")     // server data
+                print("result:\(response.result.value)")   // result of response serialization
+                switch response.result {
+                case .Success:
+                    let vc = OnlineViewController()
+                    let model = PageInfoModel()
+                    model.type = .Online
+                    vc.currentPage = model.pageIndex
+                    vc.currentChapter = model.chapter
+                    vc.chapters = (response.result.value as! NSDictionary)["chapters"] as! NSArray
+                    vc.bookName = (response.result.value as! NSDictionary)["_id"] as! String
+                    print("Validation Successful")
+                    dispatch_async(dispatch_get_main_queue(), {
+                        HUD.hide()
+                        self.presentViewController(vc, animated: true, completion: nil)
+                    })
+                    
+                case .Failure(let error):
+                    print(error)
+                    
+                }
+        }
+    }
+
     
     
     

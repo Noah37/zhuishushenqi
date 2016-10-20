@@ -118,6 +118,14 @@
 		B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */; };
 		B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228C1DB3291A0040CAD3 /* CFNetwork.framework */; };
 		B28D60321D9E0D5B00147D3E /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D60311D9E0D5B00147D3E /* SideViewController.swift */; };
+		B28EA4991DB63C540062722A /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4911DB63C540062722A /* CategoryTableViewCell.swift */; };
+		B28EA49A1DB63C540062722A /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4921DB63C540062722A /* CategoryViewController.swift */; };
+		B28EA49B1DB63C540062722A /* ChapterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4931DB63C540062722A /* ChapterModel.swift */; };
+		B28EA49C1DB63C540062722A /* OnlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4941DB63C540062722A /* OnlineViewController.swift */; };
+		B28EA49D1DB63C540062722A /* PageInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4951DB63C540062722A /* PageInfoModel.swift */; };
+		B28EA49E1DB63C540062722A /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4961DB63C540062722A /* PageView.swift */; };
+		B28EA49F1DB63C540062722A /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4971DB63C540062722A /* PageViewController.swift */; };
+		B28EA4A01DB63C540062722A /* ToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4981DB63C540062722A /* ToolBar.swift */; };
 		B2A95CC81DA8E65B00E12A38 /* V2FPSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */; };
 		B2B160A51D8EDCEE00E165D2 /* SwipableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B160A41D8EDCEE00E165D2 /* SwipableCell.swift */; };
 		B2B160A71D8EF02F00E165D2 /* RightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B160A61D8EF02F00E165D2 /* RightTableViewCell.swift */; };
@@ -388,6 +396,14 @@
 		B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCActionSheet.swift; sourceTree = "<group>"; };
 		B251228C1DB3291A0040CAD3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B28D60311D9E0D5B00147D3E /* SideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
+		B28EA4911DB63C540062722A /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		B28EA4921DB63C540062722A /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		B28EA4931DB63C540062722A /* ChapterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterModel.swift; sourceTree = "<group>"; };
+		B28EA4941DB63C540062722A /* OnlineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineViewController.swift; sourceTree = "<group>"; };
+		B28EA4951DB63C540062722A /* PageInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfoModel.swift; sourceTree = "<group>"; };
+		B28EA4961DB63C540062722A /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		B28EA4971DB63C540062722A /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		B28EA4981DB63C540062722A /* ToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBar.swift; sourceTree = "<group>"; };
 		B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V2FPSLabel.swift; sourceTree = "<group>"; };
 		B2B160A41D8EDCEE00E165D2 /* SwipableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipableCell.swift; sourceTree = "<group>"; };
 		B2B160A61D8EF02F00E165D2 /* RightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightTableViewCell.swift; sourceTree = "<group>"; };
@@ -882,6 +898,21 @@
 			path = XYCNetwork;
 			sourceTree = "<group>";
 		};
+		B28EA4901DB63C460062722A /* reader */ = {
+			isa = PBXGroup;
+			children = (
+				B28EA4911DB63C540062722A /* CategoryTableViewCell.swift */,
+				B28EA4921DB63C540062722A /* CategoryViewController.swift */,
+				B28EA4931DB63C540062722A /* ChapterModel.swift */,
+				B28EA4941DB63C540062722A /* OnlineViewController.swift */,
+				B28EA4951DB63C540062722A /* PageInfoModel.swift */,
+				B28EA4961DB63C540062722A /* PageView.swift */,
+				B28EA4971DB63C540062722A /* PageViewController.swift */,
+				B28EA4981DB63C540062722A /* ToolBar.swift */,
+			);
+			name = reader;
+			sourceTree = "<group>";
+		};
 		B2BB5B8D1D8BDF8E00379217 = {
 			isa = PBXGroup;
 			children = (
@@ -911,6 +942,7 @@
 		B2BB5B981D8BDF8E00379217 /* zhuishushenqi */ = {
 			isa = PBXGroup;
 			children = (
+				B28EA4901DB63C460062722A /* reader */,
 				B2BB5DB41D8CF28800379217 /* Main */,
 				B2BB5B991D8BDF8E00379217 /* AppDelegate.swift */,
 				B2BB5B9B1D8BDF8E00379217 /* ViewController.swift */,
@@ -1191,6 +1223,7 @@
 				B22182A61DA40326002458D2 /* YYTextRubyAnnotation.m in Sources */,
 				B2C91E771DACEFC3002B6C6F /* LatestChapterAPI.swift in Sources */,
 				B22182831DA40326002458D2 /* UIView+YYAdd.m in Sources */,
+				B28EA49C1DB63C540062722A /* OnlineViewController.swift in Sources */,
 				B221828D1DA40326002458D2 /* YYAnimatedImageView.m in Sources */,
 				B22182A51DA40326002458D2 /* YYTextParser.m in Sources */,
 				B2B40B391DA2B48C001F972B /* RankingDetailAPI.swift in Sources */,
@@ -1208,6 +1241,7 @@
 				B22182641DA40326002458D2 /* README.md in Sources */,
 				B2B40B481DA38FEE001F972B /* BookDetailViewController.swift in Sources */,
 				B2B40B4F1DA39FB7001F972B /* UINavigationItem+BackItem.m in Sources */,
+				B28EA4A01DB63C540062722A /* ToolBar.swift in Sources */,
 				B221826C1DA40326002458D2 /* NSNotificationCenter+YYAdd.m in Sources */,
 				B22182721DA40326002458D2 /* NSThread+YYAdd.m in Sources */,
 				B2C91E031DAB4D9E002B6C6F /* WindowRootViewController.swift in Sources */,
@@ -1246,6 +1280,7 @@
 				B2BB5DAE1D8C0D9A00379217 /* RootViewController.swift in Sources */,
 				B2C91DF61DAB4D9E002B6C6F /* PKHUD.swift in Sources */,
 				B22182801DA40326002458D2 /* UIScrollView+YYAdd.m in Sources */,
+				B28EA49E1DB63C540062722A /* PageView.swift in Sources */,
 				B2BB5DB61D8CF2FA00379217 /* SegMenu.swift in Sources */,
 				B2C91DFD1DAB4D9E002B6C6F /* PKHUDSquareBaseView.swift in Sources */,
 				B22182871DA40326002458D2 /* YYMemoryCache.m in Sources */,
@@ -1257,9 +1292,11 @@
 				B22182AE1DA40326002458D2 /* YYGestureRecognizer.m in Sources */,
 				B2C91E011DAB4D9E002B6C6F /* PKHUDWideBaseView.swift in Sources */,
 				B22182B51DA40326002458D2 /* YYTransaction.m in Sources */,
+				B28EA49D1DB63C540062722A /* PageInfoModel.swift in Sources */,
 				B22182B61DA40326002458D2 /* YYWeakProxy.m in Sources */,
 				B22182A91DA40326002458D2 /* YYLabel.m in Sources */,
 				B22182741DA40326002458D2 /* CALayer+YYAdd.m in Sources */,
+				B28EA49B1DB63C540062722A /* ChapterModel.swift in Sources */,
 				B22182AF1DA40326002458D2 /* YYKeychain.m in Sources */,
 				B2260F541D8D508800581DD8 /* XYCBaseRequest.swift in Sources */,
 				B221829E1DA40326002458D2 /* YYTextMagnifier.m in Sources */,
@@ -1277,6 +1314,7 @@
 				B22182901DA40326002458D2 /* YYImageCache.m in Sources */,
 				B2C91DFF1DAB4D9E002B6C6F /* PKHUDSystemActivityIndicatorView.swift in Sources */,
 				B22182821DA40326002458D2 /* UITextField+YYAdd.m in Sources */,
+				B28EA49F1DB63C540062722A /* PageViewController.swift in Sources */,
 				B22182A41DA40326002458D2 /* YYTextAttribute.m in Sources */,
 				B22182931DA40326002458D2 /* YYWebImageManager.m in Sources */,
 				B2B40B401DA2BCB7001F972B /* TopDetailCell.swift in Sources */,
@@ -1286,6 +1324,7 @@
 				B2B160A91D8F7C0300E165D2 /* RankingViewController.swift in Sources */,
 				B2C91DF91DAB4D9E002B6C6F /* PKHUDAssets.swift in Sources */,
 				B221826E1DA40326002458D2 /* NSObject+YYAdd.m in Sources */,
+				B28EA49A1DB63C540062722A /* CategoryViewController.swift in Sources */,
 				B221826B1DA40326002458D2 /* NSKeyedUnarchiver+YYAdd.m in Sources */,
 				B221829D1DA40326002458D2 /* YYTextLine.m in Sources */,
 				B221829C1DA40326002458D2 /* YYTextLayout.m in Sources */,
@@ -1322,6 +1361,7 @@
 				B22182751DA40326002458D2 /* YYCGUtilities.m in Sources */,
 				B28D60321D9E0D5B00147D3E /* SideViewController.swift in Sources */,
 				B22182981DA40326002458D2 /* YYTextDebugOption.m in Sources */,
+				B28EA4991DB63C540062722A /* CategoryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1467,7 +1507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guangzhou Rural Commercial Bank Co., Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YYKit/Vendor",
@@ -1489,8 +1529,9 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = CNY.zhuishushenqi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grcbank.zhuishushenqi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d0c1f583-be4e-4971-ac81-48500f6b6d8b";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/zhuishushenqi/zhuishushenqi-Bridge-Header.h";
 			};
 			name = Debug;
@@ -1501,7 +1542,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guangzhou Rural Commercial Bank Co., Ltd";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YYKit/Vendor",
@@ -1519,8 +1560,9 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
-				PRODUCT_BUNDLE_IDENTIFIER = CNY.zhuishushenqi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grcbank.zhuishushenqi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d0c1f583-be4e-4971-ac81-48500f6b6d8b";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/zhuishushenqi/zhuishushenqi-Bridge-Header.h";
 			};
 			name = Release;
