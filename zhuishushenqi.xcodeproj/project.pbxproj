@@ -115,9 +115,9 @@
 		B2260F571D8D508800581DD8 /* XYCNetworkPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2260F511D8D508800581DD8 /* XYCNetworkPrivate.swift */; };
 		B2260F581D8D508800581DD8 /* XYCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2260F521D8D508800581DD8 /* XYCRequest.swift */; };
 		B2260F591D8D508800581DD8 /* XYCUrlArgumentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2260F531D8D508800581DD8 /* XYCUrlArgumentFilter.swift */; };
+		B231193F1DBB51FE008A6D92 /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B231193E1DBB51FE008A6D92 /* SideViewController.swift */; };
 		B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */; };
 		B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228C1DB3291A0040CAD3 /* CFNetwork.framework */; };
-		B28D60321D9E0D5B00147D3E /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D60311D9E0D5B00147D3E /* SideViewController.swift */; };
 		B28EA4991DB63C540062722A /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4911DB63C540062722A /* CategoryTableViewCell.swift */; };
 		B28EA49A1DB63C540062722A /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4921DB63C540062722A /* CategoryViewController.swift */; };
 		B28EA49B1DB63C540062722A /* ChapterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EA4931DB63C540062722A /* ChapterModel.swift */; };
@@ -393,9 +393,9 @@
 		B2260F511D8D508800581DD8 /* XYCNetworkPrivate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCNetworkPrivate.swift; sourceTree = "<group>"; };
 		B2260F521D8D508800581DD8 /* XYCRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCRequest.swift; sourceTree = "<group>"; };
 		B2260F531D8D508800581DD8 /* XYCUrlArgumentFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCUrlArgumentFilter.swift; sourceTree = "<group>"; };
+		B231193E1DBB51FE008A6D92 /* SideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
 		B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCActionSheet.swift; sourceTree = "<group>"; };
 		B251228C1DB3291A0040CAD3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		B28D60311D9E0D5B00147D3E /* SideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
 		B28EA4911DB63C540062722A /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		B28EA4921DB63C540062722A /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		B28EA4931DB63C540062722A /* ChapterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterModel.swift; sourceTree = "<group>"; };
@@ -840,7 +840,7 @@
 				B2B40B3A1DA2B965001F972B /* TopDetailViewController.swift */,
 				B2B40B471DA38FEE001F972B /* BookDetailViewController.swift */,
 				B2B1610D1D9185AC00E165D2 /* BaseViewController.swift */,
-				B28D60311D9E0D5B00147D3E /* SideViewController.swift */,
+				B231193E1DBB51FE008A6D92 /* SideViewController.swift */,
 				B2B40B4D1DA39FB7001F972B /* UINavigationItem+BackItem.h */,
 				B2B40B4E1DA39FB7001F972B /* UINavigationItem+BackItem.m */,
 			);
@@ -1277,6 +1277,7 @@
 				B221826D1DA40326002458D2 /* NSNumber+YYAdd.m in Sources */,
 				B2C91DFC1DAB4D9E002B6C6F /* PKHUDRotatingImageView.swift in Sources */,
 				B2BB5B9C1D8BDF8E00379217 /* ViewController.swift in Sources */,
+				B231193F1DBB51FE008A6D92 /* SideViewController.swift in Sources */,
 				B2BB5DAE1D8C0D9A00379217 /* RootViewController.swift in Sources */,
 				B2C91DF61DAB4D9E002B6C6F /* PKHUD.swift in Sources */,
 				B22182801DA40326002458D2 /* UIScrollView+YYAdd.m in Sources */,
@@ -1359,7 +1360,6 @@
 				B22182B11DA40326002458D2 /* YYSentinel.m in Sources */,
 				B221828E1DA40326002458D2 /* YYFrameImage.m in Sources */,
 				B22182751DA40326002458D2 /* YYCGUtilities.m in Sources */,
-				B28D60321D9E0D5B00147D3E /* SideViewController.swift in Sources */,
 				B22182981DA40326002458D2 /* YYTextDebugOption.m in Sources */,
 				B28EA4991DB63C540062722A /* CategoryTableViewCell.swift in Sources */,
 			);

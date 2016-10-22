@@ -34,7 +34,7 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
     /**
      *  侧滑菜单加载时间
      */
-    var animateDuration = 0.35
+    var animateDuration = 0.25
     
     /// 是否右侧边栏处于关闭状态
     var isCloseRightSide:Bool = true
@@ -110,6 +110,7 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
             }else if !isCloseRightSide {
                 rightView.hidden = false
             }
+            
             updateContentViewShadow()
         }
         
@@ -156,8 +157,12 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
                 if offSetX < -leftOffSetXScale*ScreenWidth - bounchesX {
                     return
                 }
+                //缩放实现
+                let scale:CGFloat = leftViewControllerScale + abs(offSetX)/(leftOffSetXScale*ScreenWidth)*(1 - leftViewControllerScale)
+                let scaleT = CGAffineTransformMakeScale(scale, scale)
                 let transT = CGAffineTransformMakeTranslation(offSetX + leftOffSetXScale*ScreenWidth, 0)
-                self.contentView.transform = transT
+                let conT = CGAffineTransformConcat(transT, scaleT)
+                self.contentView.transform = conT
 
             }else if !isCloseRightSide {
                 if offSetX < -bounchesX{
@@ -166,16 +171,22 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
                 if offSetX > rightOffSetXScale*ScreenWidth + bounchesX {
                     return
                 }
+                pan.setTranslation(CGPointMake(offSetX, translation.y), inView: self.contentView)
                 let transT = CGAffineTransformMakeTranslation(offSetX + -rightOffSetXScale*ScreenWidth, 0)
-                //目前只考虑了平移的问题，缩放的暂时未考虑
-                let scaleT = CGAffineTransformMakeScale(offSetX/ScreenWidth, leftViewControllerScale)
+                //目前只考虑了平移的问题，缩放后面慢慢加上
+                let scale:CGFloat = rightViewControllerScale + abs(offSetX)/(rightOffSetXScale*ScreenWidth)*(1 - rightViewControllerScale)
+                let scaleT = CGAffineTransformMakeScale(scale, scale)
                 let conT = CGAffineTransformConcat(transT, scaleT)
-                self.contentView.transform = transT
+                self.contentView.transform = conT
 
             }else if horizonalXSide == .Left {
                 /**
                  *  左右侧边栏都处于关闭状态
                  */
+                //缩放实现
+                let scale:CGFloat = 1 - abs(offSetX)/(leftOffSetXScale*ScreenWidth)*(1 - leftViewControllerScale)
+                let scaleT = CGAffineTransformMakeScale(scale, scale)
+                
                 if offSetX < -bounchesX {
                     return
                 }
@@ -183,8 +194,14 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
                     return
                 }
                 let transT = CGAffineTransformMakeTranslation(offSetX, 0)
-                self.contentView.transform = transT
+                let conT = CGAffineTransformConcat(transT, scaleT)
+
+
+                self.contentView.transform = conT
             }else if horizonalXSide == .Right {
+                //缩放实现
+                let scale:CGFloat = 1 - abs(offSetX)/(rightOffSetXScale*ScreenWidth)*(1 - rightViewControllerScale)
+                let scaleT = CGAffineTransformMakeScale(scale, scale)
                 if offSetX  > bounchesX  {
                     return
                 }
@@ -192,8 +209,12 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
                     return
                 }
                 let transT = CGAffineTransformMakeTranslation(offSetX, 0)
-                self.contentView.transform = transT
+                let conT = CGAffineTransformConcat(transT, scaleT)
+
+                self.contentView.transform = conT
             }
+            
+           
         }
     }
     
@@ -290,6 +311,7 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
             self.isCloseLeftSide = true
             self.isCloseRightSide = true
             self.rightView.hidden = false
+            self.maskView.removeFromSuperview()
         }
     }
     

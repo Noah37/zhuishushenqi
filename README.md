@@ -11,3 +11,7 @@
 * 本地阅读与在线阅读无缝衔接，可以同时使用同一 model
 
 =======
+
+###效果图如下：
+
+![zhuishushenqi](zhuishushenqi.png)
