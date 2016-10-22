@@ -194,8 +194,8 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let chapterUrl =  "http://api.zhuishushenqi.com/ctoc/\(bookShelfArr![indexPath.row]._id!)"
-        requestAllChapters(withUrl: chapterUrl)
+//        let chapterUrl =  "http://api.zhuishushenqi.com/ctoc/\(bookShelfArr![indexPath.row]._id!)"
+        requestAllChapters(withUrl: AllChapterUrl)
     }
     
     func requestAllChapters(withUrl url:String){

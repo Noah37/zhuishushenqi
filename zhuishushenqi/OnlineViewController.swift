@@ -95,8 +95,8 @@ class OnlineViewController: UIViewController,UIPageViewControllerDataSource,UIPa
     
     //目录按钮点击
     func catagoryClicked(){
-//        let cateVC = CategoryViewController()
-//        cateVC.showCategoryWithViewController(self, chapter: currentChapter,titles:getTitles() as! [String])
+        let cateVC = CategoryViewController()
+        cateVC.showCategoryWithViewController(self, chapter: currentChapter,titles:getTitles() as! [String])
         navBar.hideWithAnimations(true)
     }
     
@@ -113,8 +113,8 @@ class OnlineViewController: UIViewController,UIPageViewControllerDataSource,UIPa
     private func getTitles()->NSArray{
         let tittles = NSMutableArray()
         if self.pageInfoModel?.chapters?.count > 0 || self.pageInfoModel?.chapters != nil {
-            for item in self.pageInfoModel!.chapters! {
-                tittles.addObject((item as ChapterModel).title)
+            for item in self.chapters {
+                tittles.addObject((item as! NSDictionary).objectForKey("title")!)
             }
         }
         return tittles.copy() as! NSArray
