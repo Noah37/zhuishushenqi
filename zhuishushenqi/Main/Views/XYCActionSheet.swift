@@ -9,47 +9,47 @@
 import UIKit
 
 protocol XYCActionSheetDelegate {
-    func didSelectedAtIndex(index:Int, sheet:XYCActionSheet)
+    func didSelectedAtIndex(_ index:Int, sheet:XYCActionSheet)
 }
 
 class XYCActionSheet: UIView {
     
     var delegate:XYCActionSheetDelegate?
     var titles:NSMutableArray = NSMutableArray()
-    var backColor:NSArray = [UIColor.redColor(),UIColor.greenColor(),UIColor.blueColor(),UIColor.cyanColor(),UIColor.orangeColor(),UIColor.yellowColor(),UIColor.purpleColor()]
-    private var colorArr:NSMutableArray = NSMutableArray(objects: ["0","1","2","3","4","5","6"], count: 7)
+    var backColor:NSArray = [UIColor.red,UIColor.green,UIColor.blue,UIColor.cyan,UIColor.orange,UIColor.yellow,UIColor.purple]
+    fileprivate var colorArr:NSMutableArray = NSMutableArray(objects: ["0" as AnyObject,"1" as AnyObject,"2" as AnyObject,"3" as AnyObject,"4" as AnyObject,"5" as AnyObject,"6" as AnyObject], count: 7)
     init(frame: CGRect,titles:NSArray) {
         super.init(frame: frame)
         backgroundColor = UIColor(white: 0.00, alpha: 0.8)
-        self.titles.addObjectsFromArray(titles as [AnyObject])
-        self.titles.addObject("取消")
+        self.titles.addObjects(from: titles as [AnyObject])
+        self.titles.add("取消")
         initSuview()
     }
     
-    private func initSuview(){
+    fileprivate func initSuview(){
         if titles.count == 0 {
             return
         }
         for index in 0..<titles.count{
-            let btn = UIButton(type: .Custom)
-            btn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-            btn.frame = CGRectMake(20, 20 + 40*CGFloat(index) + 5*CGFloat(index), ScreenWidth - 40, 40)
+            let btn = UIButton(type: .custom)
+            btn.setTitleColor(UIColor.white, for: UIControlState())
+            btn.frame = CGRect(x: 20, y: 20 + 40*CGFloat(index) + 5*CGFloat(index), width: ScreenWidth - 40, height: 40)
             let randomIndex = getIndexNotExist()
             
             btn.tag = index
-            btn.titleLabel?.font = UIFont.systemFontOfSize(13)
+            btn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
             btn.layer.cornerRadius = 4
-            btn.addTarget(self, action: #selector(btnAction(_:)), forControlEvents: .TouchUpInside)
+            btn.addTarget(self, action: #selector(btnAction(_:)), for: .touchUpInside)
             btn.backgroundColor = backColor[Int(randomIndex)] as? UIColor
-            btn.setTitle(titles[index] as? String, forState: .Normal)
+            btn.setTitle(titles[index] as? String, for: UIControlState())
             if index == titles.count - 1 {
-                btn.backgroundColor = UIColor.grayColor()
+                btn.backgroundColor = UIColor.gray
             }
             addSubview(btn)
         }
     }
     
-    private func existColor(index:Int,colorArray:NSArray) ->Bool{
+    fileprivate func existColor(_ index:Int,colorArray:NSArray) ->Bool{
         if colorArray.count == 0 {
             return false
         }
@@ -61,16 +61,16 @@ class XYCActionSheet: UIView {
         return false
     }
     
-    private func getIndexNotExist()->Int{
+    fileprivate func getIndexNotExist()->Int{
         var randomIndex = arc4random()%UInt32(backColor.count)
-        while !colorArr.containsObject("\(randomIndex)") {
+        while !colorArr.contains("\(randomIndex)") {
             randomIndex = arc4random()%UInt32(backColor.count)
         }
-        colorArr.removeObject("\(randomIndex)")
+        colorArr.remove("\(randomIndex)")
         return Int(randomIndex)
     }
     
-    @objc private func btnAction(btn:UIButton){
+    @objc fileprivate func btnAction(_ btn:UIButton){
         delegate?.didSelectedAtIndex(btn.tag,sheet: self)
     }
     

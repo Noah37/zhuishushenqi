@@ -9,8 +9,8 @@
 #ifndef zhuishushenqi_Bridge_Header_h
 #define zhuishushenqi_Bridge_Header_h
 
-#import "RESideMenu.h"
 #import "XYCBaseModel.h"
 #import "NSObject+YYModel.h"
+#import <CommonCrypto/CommonDigest.h>
 
 #endif /* zhuishushenqi_Bridge_Header_h */

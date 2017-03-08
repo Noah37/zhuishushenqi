@@ -21,16 +21,16 @@ class PageView: UIView {
         }
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetTextMatrix(context, CGAffineTransformIdentity)
+        context!.textMatrix = CGAffineTransform.identity
         //x，y轴方向移动
-        CGContextTranslateCTM(context, 0, bounds.size.height)
+        context?.translateBy(x: 0, y: bounds.size.height)
         //缩放x，y轴方向缩放，－1.0为反向1.0倍,坐标系转换,沿x轴翻转180度
-        CGContextScaleCTM(context, 1.0, -1.0)
+        context?.scaleBy(x: 1.0, y: -1.0)
         let childFramesetter = CTFramesetterCreateWithAttributedString(attributedText!)
         let bezierPath = UIBezierPath(rect: rect)
-        let frame = CTFramesetterCreateFrame(childFramesetter, CFRangeMake(0, 0), bezierPath.CGPath, nil)
+        let frame = CTFramesetterCreateFrame(childFramesetter, CFRangeMake(0, 0), bezierPath.cgPath, nil)
         CTFrameDraw(frame, context!)
 //        CFRelease(frame) //auto release
 //        CFRelease(childFramesetter)

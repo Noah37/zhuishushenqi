@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CategoryDelegate {
-    func categoryDidSelectAtIndex(index:Int)
+    func categoryDidSelectAtIndex(_ index:Int)
 }
 
 class CategoryViewController: UITableViewController {
@@ -19,51 +19,51 @@ class CategoryViewController: UITableViewController {
     var selectedIndex:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.separatorStyle = .SingleLineEtched
-        tableView.separatorColor = UIColor.grayColor()
-        navigationController?.navigationBar.barTintColor = UIColor.blackColor()
-        tableView.registerNib(UINib(nibName: "CategoryTableViewCell", bundle: nil), forCellReuseIdentifier: "Category")
+        tableView.separatorStyle = .singleLineEtched
+        tableView.separatorColor = UIColor.gray
+        navigationController?.navigationBar.barTintColor = UIColor.black
+        tableView.register(UINib(nibName: "CategoryTableViewCell", bundle: nil), forCellReuseIdentifier: "Category")
         
-        let leftItem = UIBarButtonItem(image: UIImage(named: "bg_back_white"), style: .Plain, target: self, action: #selector(dismiss(_:)))
+        let leftItem = UIBarButtonItem(image: UIImage(named: "bg_back_white"), style: .plain, target: self, action: #selector(dismiss(_:)))
         navigationItem.leftBarButtonItem = leftItem
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return titles.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Category",forIndexPath: indexPath) as! CategoryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Category",for: indexPath) as! CategoryTableViewCell
         cell.count.text = "\(indexPath.row)."
         if titles.count > indexPath.row {
             cell.tittle.text = titles[indexPath.row]
         }
-        cell.tittle.textColor =  (selectedIndex == indexPath.row ? UIColor.greenColor():UIColor.blackColor())
+        cell.tittle.textColor =  (selectedIndex == indexPath.row ? UIColor.green:UIColor.black)
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         categoryDelegate?.categoryDidSelectAtIndex(indexPath.row)
-        dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func dismiss(sender:AnyObject){
-        dismissViewControllerAnimated(true, completion: nil)
+    @objc fileprivate func dismiss(_ sender:AnyObject){
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func showCategoryWithViewController(vc:OnlineViewController,chapter:Int,titles:NSArray){
-        let indexPATH = NSIndexPath(forRow: chapter, inSection: 0)
+    func showCategoryWithViewController(_ vc:OnlineViewController,chapter:Int,titles:NSArray){
+        let indexPATH = IndexPath(row: chapter, section: 0)
         self.titles = titles as! [String]
         self.categoryDelegate = vc
         self.selectedIndex = chapter
         let nav = UINavigationController(rootViewController: self)
-        vc.presentViewController(nav, animated: true,completion: nil)
-        self.tableView.scrollToRowAtIndexPath(indexPATH, atScrollPosition: .Middle, animated: false)
+        vc.present(nav, animated: true,completion: nil)
+        self.tableView.scrollToRow(at: indexPATH, at: .middle, animated: false)
     }
     
     override func didReceiveMemoryWarning() {

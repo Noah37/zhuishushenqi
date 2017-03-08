@@ -15,7 +15,7 @@ class RightTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -23,10 +23,10 @@ class RightTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView?.frame = CGRectMake(ScreenWidth*CGFloat(rightScaleX) + 10, 6.0, 30, 30)
-        textLabel?.frame = CGRectMake(CGRectGetMaxX(imageView!.frame) + 15, 0, 150, 43.5)
-        textLabel?.textColor = UIColor.whiteColor()
-        textLabel?.font = UIFont.systemFontOfSize(14)
+        imageView?.frame = CGRect(x: ScreenWidth*CGFloat(rightScaleX) + 10, y: 6.0, width: 30, height: 30)
+        textLabel?.frame = CGRect(x: imageView!.frame.maxX + 15, y: 0, width: 150, height: 43.5)
+        textLabel?.textColor = UIColor.white
+        textLabel?.font = UIFont.systemFont(ofSize: 14)
     }
 
 }

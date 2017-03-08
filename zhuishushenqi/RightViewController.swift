@@ -17,7 +17,7 @@ class RightViewController: UITableViewController {
     override init(style: UITableViewStyle) {
         super.init(style: style)
         let scale = SideViewController.sharedInstance.leftOffSetXScale
-        self.tableView.frame = CGRectMake(ScreenWidth*scale + 20, 0, ScreenWidth*(1-scale) - 20, ScreenHeight)
+        self.tableView.frame = CGRect(x: ScreenWidth*scale + 20, y: 0, width: ScreenWidth*(1-scale) - 20, height: ScreenHeight)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,22 +31,22 @@ class RightViewController: UITableViewController {
         tableView.backgroundColor  = UIColor(red: 0.211, green: 0.211, blue: 0.211, alpha: 1.00)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         automaticallyAdjustsScrollViewInsets = false
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIden:String = "cellIden"
-        var cell:RightTableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIden) as? RightTableViewCell
+        var cell:RightTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIden) as? RightTableViewCell
         if cell == nil{
-            cell = RightTableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: cellIden)
-            cell?.selectionStyle = .None
+            cell = RightTableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: cellIden)
+            cell?.selectionStyle = .none
         }
         
         cell?.backgroundColor = UIColor ( red: 0.16, green: 0.16, blue: 0.16, alpha: 1.0 )
@@ -55,12 +55,12 @@ class RightViewController: UITableViewController {
         return cell!
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {//搜索
             
         }else if indexPath.row == 1 {//排行榜

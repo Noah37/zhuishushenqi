@@ -17,10 +17,10 @@ class RankingDetailAPI: XYCBaseRequest {
     }
     
     override func requestMethod() -> XYCRequestMethod? {
-        return XYCRequestMethod.Get
+        return XYCRequestMethod.get
     }
     
-    override func requestArgument() -> AnyObject? {
-        return []
+    override func requestArgument() -> NSDictionary? {
+        return ["": ""]
     }
 }

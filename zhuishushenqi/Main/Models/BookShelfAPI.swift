@@ -14,10 +14,10 @@ class BookShelfAPI: XYCBaseRequest {
     }
     
     override func requestMethod() -> XYCRequestMethod? {
-        return XYCRequestMethod.Get
+        return XYCRequestMethod.get
     }
     
-    override func requestArgument() -> AnyObject? {
+    override func requestArgument() -> NSDictionary? {
         return ["books":"","token":"pv4GJDGNlK6xomuTblrFSM5q"]
     }
 }

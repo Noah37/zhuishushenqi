@@ -8,20 +8,20 @@
 
 import UIKit
 
-public class XYCUrlArgumentFilter: NSObject,XYCUrlFilterProtocol{
+open class XYCUrlArgumentFilter: NSObject,XYCUrlFilterProtocol{
 
-    public var arguments:NSDictionary?
+    open var arguments:NSDictionary?
     public init(WithArguments _arguments:NSDictionary) {
         super.init()
         arguments = _arguments
     }
     
-    public class func filterWithArguments(arguments:NSDictionary) ->XYCUrlArgumentFilter{
+    open class func filterWithArguments(_ arguments:NSDictionary) ->XYCUrlArgumentFilter{
         let filter:XYCUrlArgumentFilter = XYCUrlArgumentFilter(WithArguments:arguments)
         return filter
     }
     
-    public func filterUrl(originUrl:String,withRequest request:XYCBaseRequest) ->String
+    open func filterUrl(_ originUrl:String,withRequest request:XYCBaseRequest) ->String
     {
         return XYCNetworkPrivate.urlStringWithOriginUrlString(originUrl, appendParameters: arguments)
     }

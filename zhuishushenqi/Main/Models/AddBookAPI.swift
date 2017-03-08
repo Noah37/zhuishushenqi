@@ -16,10 +16,10 @@ class AddBookAPI: XYCBaseRequest {
     }
     
     override func requestMethod() -> XYCRequestMethod? {
-        return XYCRequestMethod.Post
+        return XYCRequestMethod.post
     }
     
-    override func requestArgument() -> AnyObject? {
+    override func requestArgument() -> NSDictionary? {
         return ["token":"iGbZwXqxxsf1A8duVXyyReLq","books":id ?? ""]
     }
 }

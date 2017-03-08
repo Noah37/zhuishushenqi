@@ -10,29 +10,33 @@ import UIKit
 
 class SwipableCell: UITableViewCell,UIScrollViewDelegate {
 
-    var model:BookShelf?{
+    var model:BookDetail?{
         didSet{
             title!.text = model?.title
             
-            let date = NSDate()
-            let dateFormat = NSDateFormatter()
+            let date = Date()
+            let dateFormat = DateFormatter()
             dateFormat.dateFormat = "yyyy-MM-dd HH-mm-ss"
-            (model!.updated! as NSString).substringWithRange(NSMakeRange(5, 2))
-            let dateString = "\((model!.updated! as NSString).substringToIndex(4))-\((model!.updated! as NSString).substringWithRange(NSMakeRange(5, 2)))-\((model!.updated! as NSString).substringWithRange(NSMakeRange(8, 2))) \((model!.updated! as NSString).substringWithRange(NSMakeRange(11, 2)))-\((model!.updated! as NSString).substringWithRange(NSMakeRange(14, 2)))-\((model!.updated! as NSString).substringWithRange(NSMakeRange(17, 2)))"
-            let beginDate = dateFormat.dateFromString(dateString)
+            (model!.updated as NSString).substring(with: NSMakeRange(5, 2))
+            let dateString = "\((model!.updated as NSString).substring(to: 4))-\((model!.updated as NSString).substring(with: NSMakeRange(5, 2)))-\((model!.updated as NSString).substring(with: NSMakeRange(8, 2))) \((model!.updated as NSString).substring(with: NSMakeRange(11, 2)))-\((model!.updated as NSString).substring(with: NSMakeRange(14, 2)))-\((model!.updated as NSString).substring(with: NSMakeRange(17, 2)))"
+            let beginDate = dateFormat.date(from: dateString)
             let  timeIn =  timeBetween(beginDate, endDate: date)
             if timeIn > 3600 && timeIn < 3600*24 {
                 
-                detailTitle!.text = "\(String(format: "%.0f",timeIn/3600 ))小时前更新:\(model!.lastChapter!)"
+                detailTitle!.text = "\(String(format: "%.0f",timeIn/3600 ))小时前更新:\(model?.updateInfo?.lastChapter ?? "")"
             }else if timeIn > 3600*24{
-                detailTitle!.text = "\(String(format: "%.0f",timeIn/3600/24))天前更新:\(model!.lastChapter!)"
+                detailTitle!.text = "\(String(format: "%.0f",timeIn/3600/24))天前更新:\(model?.updateInfo?.lastChapter ?? "")"
             }else{
-                detailTitle!.text = "\(String(format: "%.0f",timeIn/60))分钟前更新:\(model!.lastChapter!)"
+                detailTitle!.text = "\(String(format: "%.0f",timeIn/60))分钟前更新:\(model?.updateInfo?.lastChapter ?? "")"
             }
-            let urlString = (model!.cover! as NSString).substringFromIndex(7)
-            let data = NSData(contentsOfURL: NSURL(string: urlString)!)
-            if data != nil {
-                imgView?.image = UIImage(data:data!)
+            let urlString = (model!.cover as NSString).substring(from: 7)
+            DispatchQueue.global().async {
+                let data = try? Data(contentsOf: URL(string: urlString)!)
+                if let imageData = data {
+                    DispatchQueue.main.async {
+                        self.imgView?.image = UIImage(data:imageData)
+                    }
+                }
             }
         }
     }
@@ -57,27 +61,28 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func initSubview(){
-        let scrollView = UIScrollView(frame: CGRectMake(0,0,ScreenWidth,64))
-        scrollView.contentSize = CGSizeMake((ScreenWidth - 74)*2, 64)
-        scrollView.pagingEnabled = true
+    fileprivate func initSubview(){
+        let scrollView = UIScrollView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: 64))
+        scrollView.contentSize = CGSize(width: (ScreenWidth - 74)*2, height: 64)
+        scrollView.isPagingEnabled = true
         scrollView.delegate = self
         scrollView.showsHorizontalScrollIndicator = false
         addSubview(scrollView)
         //此处解决 UIScrollView屏蔽 UITableViewCell的点击事件，将 scrollView的手势识别交给他的父视图，苹果官方推荐的做法
-        scrollView.userInteractionEnabled = false
+        scrollView.isUserInteractionEnabled = false
         contentView.addGestureRecognizer(scrollView.panGestureRecognizer)
         
-        let imgView = UIImageView(frame: CGRectMake(15, 10, 34, 44))
-        imgView.backgroundColor = UIColor.orangeColor()
+        let imgView = UIImageView(frame: CGRect(x: 15, y: 10, width: 34, height: 44))
+        imgView.backgroundColor = UIColor.orange
+        imgView.image = UIImage(named: "default_book_cover")
         self.imgView = imgView
         
-        let label = UILabel(frame: CGRectMake(CGRectGetMaxX(imgView.frame) + 10,10,ScreenWidth - CGRectGetMaxX(imgView.frame) - 20,20))
-        label.font = UIFont.systemFontOfSize(13)
+        let label = UILabel(frame: CGRect(x: imgView.frame.maxX + 10,y: 10,width: ScreenWidth - imgView.frame.maxX - 20,height: 20))
+        label.font = UIFont.systemFont(ofSize: 13)
         self.title = label
         
-        let detaillabel = UILabel(frame: CGRectMake(CGRectGetMaxX(imgView.frame) + 10,30,ScreenWidth - CGRectGetMaxX(imgView.frame) - 20,20))
-        detaillabel.font = UIFont.systemFontOfSize(13)
+        let detaillabel = UILabel(frame: CGRect(x: imgView.frame.maxX + 10,y: 30,width: ScreenWidth - imgView.frame.maxX - 20,height: 20))
+        detaillabel.font = UIFont.systemFont(ofSize: 13)
 
         self.detailTitle = detaillabel
         
@@ -88,7 +93,7 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
 
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         
     }
@@ -101,7 +106,7 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
 //        }
 //    }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

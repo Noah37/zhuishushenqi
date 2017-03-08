@@ -7,54 +7,86 @@
 //
 
 import Foundation
+import UIKit
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+//MARK:- API
+let baseUrl = "http://api.zhuishushenqi.com"
+let picBaseUrl = "http://statics.zhuishushenqi.com"
+let chapterURL = "http://chapter2.zhuishushenqi.com/chapter"
+let bookshelf =  "user/bookshelf"
+let ranking = "ranking/gender"
+
 
 //MARK: - 常用frame
-let BOUNDS = UIScreen.mainScreen().bounds
-let ScreenWidth = UIScreen.mainScreen().bounds.size.width
-let ScreenHeight = UIScreen.mainScreen().bounds.size.height
+let BOUNDS = UIScreen.main.bounds
+let ScreenWidth = UIScreen.main.bounds.size.width
+let ScreenHeight = UIScreen.main.bounds.size.height
 let SCALE = (ScreenWidth / 320.0)
 let TOP_BAR_Height = 64
 let FOOT_BAR_Height = 49
-let STATEBARHEIGHT = CGRectGetHeight(UIApplication.sharedApplication().statusBarFrame)
+let STATEBARHEIGHT = UIApplication.shared.statusBarFrame.height
 
 //区分屏幕
-let IPHONE4 = UIScreen.instancesRespondToSelector(Selector("currentMode")) ? CGSizeEqualToSize(CGSizeMake(640, 960), (UIScreen.mainScreen().currentMode?.size)!) : false
-let IPHONE5 = UIScreen.instancesRespondToSelector(Selector("currentMode")) ? CGSizeEqualToSize(CGSizeMake(640, 1136), (UIScreen.mainScreen().currentMode?.size)!) : false
-let IPHONE6 = UIScreen.instancesRespondToSelector(Selector("currentMode")) ? CGSizeEqualToSize(CGSizeMake(750, 1334), (UIScreen.mainScreen().currentMode?.size)!) : false
-let IPHONE6Plus = UIScreen.instancesRespondToSelector(Selector("currentMode")) ? CGSizeEqualToSize(CGSizeMake(1242, 2208), (UIScreen.mainScreen().currentMode?.size)!) : false
+let IPHONE4 = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 640, height: 960).equalTo((UIScreen.main.currentMode?.size)!) : false
+let IPHONE5 = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 640, height: 1136).equalTo((UIScreen.main.currentMode?.size)!) : false
+let IPHONE6 = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 750, height: 1334).equalTo((UIScreen.main.currentMode?.size)!) : false
+let IPHONE6Plus = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 1242, height: 2208).equalTo((UIScreen.main.currentMode?.size)!) : false
 
 
 //根据系统判断 获取iPad的屏幕尺寸
 
-let IOS9_OR_LATER = (Float(UIDevice.currentDevice().systemVersion) >= 9.0)
-let IOS8_OR_LATER = (Float(UIDevice.currentDevice().systemVersion) >= 8.0)
-let IOS7_OR_LATER = (Float(UIDevice.currentDevice().systemVersion) >= 7.0)
-let APP_DELEGATE = (UIApplication.sharedApplication().delegate as! AppDelegate)
-let APP_DELEGATEKeyWindow = UIApplication.sharedApplication().delegate?.window
-let USER_DEFAULTS =  NSUserDefaults.standardUserDefaults()
-let KeyWindow = UIApplication.sharedApplication().keyWindow
+let IOS9_OR_LATER = (Float(UIDevice.current.systemVersion) >= 9.0)
+let IOS8_OR_LATER = (Float(UIDevice.current.systemVersion) >= 8.0)
+let IOS7_OR_LATER = (Float(UIDevice.current.systemVersion) >= 7.0)
+let APP_DELEGATE = (UIApplication.shared.delegate as! AppDelegate)
+let APP_DELEGATEKeyWindow = UIApplication.shared.delegate?.window
+let USER_DEFAULTS =  UserDefaults.standard
+let KeyWindow = UIApplication.shared.keyWindow
 
-func widthOfString(str:String, font:UIFont,height:CGFloat) ->CGFloat
+func widthOfString(_ str:String, font:UIFont,height:CGFloat) ->CGFloat
 {
     let dict = [NSFontAttributeName:font]
-    let sttt:NSString = str
-    let rect:CGRect = sttt.boundingRectWithSize(CGSize(width: CGFloat(MAXFLOAT), height: CGFloat(height)), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: dict, context: nil)
+    let sttt:NSString = str as NSString
+    let rect:CGRect = sttt.boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: CGFloat(height)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
     return rect.size.width
 }
 
-func heightOfString(str:String, font:UIFont,width:CGFloat) ->CGFloat
+func heightOfString(_ str:String, font:UIFont,width:CGFloat) ->CGFloat
 {
     let dict = [NSFontAttributeName:font]
-    let sttt:NSString = str
-    let rect:CGRect = sttt.boundingRectWithSize(CGSize(width: width, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: dict, context: nil)
+    let sttt:NSString = str as NSString
+    let rect:CGRect = sttt.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
     return rect.size.height
 }
 
-func timeBetween(beginDate:NSDate?,endDate:NSDate?)->NSTimeInterval{
+func timeBetween(_ beginDate:Date?,endDate:Date?)->TimeInterval{
     if beginDate == nil || endDate == nil {
         return 0
     }
-    let dateFormat = NSDateFormatter()
+    let dateFormat = DateFormatter()
     dateFormat.dateFormat = "yyyy-MM-dd hh-mm-ss"
     let beginTime = beginDate?.timeIntervalSince1970
     let endTime = endDate?.timeIntervalSince1970

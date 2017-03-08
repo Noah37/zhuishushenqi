@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+
 
 class TopDetailCell: UITableViewCell {
  
@@ -28,12 +28,18 @@ class TopDetailCell: UITableViewCell {
             self.type.text = "\(self.model?.cat ?? "")"
             self.name.text = "\(self.model?.title ?? "")"
             self.author.text = "\(self.model?.author ?? "")"
-            let width = widthOfString(self.author.text ?? "", font: UIFont.systemFontOfSize(11), height: 21)
+            let width = widthOfString(self.author.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
             self.authorWidth.constant = width + 5
-            let urlString = "\((self.model?.cover ?? "" as NSString).substringFromIndex(7))"
-            let url = NSURL(string: urlString)
-            
-            self.icon.kf_setImageWithURL(url, placeholderImage: UIImage(named: "default_book_cover"), optionsInfo: nil, progressBlock: nil, completionHandler: nil)
+            self.icon.image = UIImage(named: "default_book_cover")
+            if self.model?.cover == "" {
+                return;
+            }
+            let urlString = "\(((self.model?.cover ?? "qqqqqqqq") as NSString).substring(from: 7))"
+            let url = URL(string: urlString)
+            if let urlstring = url {
+                let resource:QSResource = QSResource(url: urlstring)
+                self.icon.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
+            }
         }
     }
     
@@ -42,7 +48,7 @@ class TopDetailCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

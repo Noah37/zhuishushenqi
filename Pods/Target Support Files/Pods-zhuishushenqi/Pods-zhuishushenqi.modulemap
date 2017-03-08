@@ -1,6 +1,0 @@
-framework module Pods_zhuishushenqi {
-  umbrella header "Pods-zhuishushenqi-umbrella.h"
-
-  export *
-  module * { export * }
-}

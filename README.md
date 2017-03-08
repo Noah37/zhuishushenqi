@@ -1,16 +1,21 @@
 # zhuishushenqi
 
+![Platform](https://img.shields.io/badge/platforms-iOS%208.0+%20%7C%20macOS%2010.10+%20%7C%20tvOS%209.0+%20%7C%20watchOS%202.0+-333333.svg)
+
+[![Language](https://img.shields.io/badge/language-Swift-brightgreen.svg?style=flat)](https://developer.apple.com/Objective-C)
+[![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)
+
 **采用Swift语言，仿追书神器做的，主要是练习阅读器的一些技术，包括仿真阅读等。不断更新中......**
 
-以下功能正待加入，欢迎查看我的 demo，XYCReader
-**新增功能，在线阅读，与本地阅读**
+## Requirements
 
-* 本地阅读可以阅读已经下载的本地txt文件
+- iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
+- Xcode 8.1+
+- Swift 3.0+
 
-* 在线阅读，接口抓取的追书神器的接口，每章节下载以后，进行缓存，再次阅读不需要重新下载，优化了加载速度
-* 本地阅读与在线阅读无缝衔接，可以同时使用同一 model
+Main development of TXTReader olny support Swift 3.0+.
 
-**说明：由于追书神器的所有章节目录的接口参数"_id"与书籍详情的 id 不一致，导致无法获取到所有章节，想看仿真阅读的请点击书籍`科技巨头`，该书获取目录的接口为写死，可以直接查看，在线阅读章节暂不支持目录跳转，后面会做支持**
+###Here you can see blow.
 
 
 =======
@@ -18,3 +23,13 @@
 ###效果图如下：
 
 ![zhuishushenqi](zhuishushenqi.png)
+
+## Contact
+
+#### mail 2252055382@qq.com
+
+Follow and contact me on [mail](https://mail.qq.com/). If you find an issue, just [open a ticket](https://github.com/TomasEdison/TXTReader/issues/new). Pull requests are warmly welcome as well.
+
+## License
+
+zhuishushenqi is released under the MIT license. See LICENSE for details.

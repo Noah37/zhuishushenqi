@@ -9,23 +9,23 @@
 import UIKit
 
 public protocol XYCUrlFilterProtocol {
-    func filterUrl(originUrl:String,withRequest request:XYCBaseRequest) ->String
+    func filterUrl(_ originUrl:String,withRequest request:XYCBaseRequest) ->String
 }
 
-public class XYCNetworkConfig: NSObject {
+open class XYCNetworkConfig: NSObject {
     
-    public var baseUrl:String?
-    public var cdnUrl:String?
-    public var urlFilters:NSMutableArray?
+    open var baseUrl:String?
+    open var cdnUrl:String?
+    open var urlFilters:NSMutableArray?
     
-    private var cacheDirPathFilters = NSMutableArray()
+    fileprivate var cacheDirPathFilters = NSMutableArray()
     
-    public func addfilter(filter:XYCUrlFilterProtocol){
-        urlFilters!.addObject(filter as! AnyObject)
+    open func addfilter(_ filter:XYCUrlFilterProtocol){
+        urlFilters!.add(filter as AnyObject)
     }
     
-    public static let sharedInstance = XYCNetworkConfig()
-    private override init() {
+    open static let sharedInstance = XYCNetworkConfig()
+    fileprivate override init() {
         urlFilters = NSMutableArray()
     }
 

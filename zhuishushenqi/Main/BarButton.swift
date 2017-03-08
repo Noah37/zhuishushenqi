@@ -13,6 +13,6 @@ class BarButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView?.frame = self.bounds
-        imageView?.contentMode = .ScaleAspectFill
+        imageView?.contentMode = .scaleAspectFill
     }
 }

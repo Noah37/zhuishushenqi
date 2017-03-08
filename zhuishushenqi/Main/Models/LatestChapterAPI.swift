@@ -16,11 +16,10 @@ class LatestChapterAPI: XYCBaseRequest {
     }
     
     override func requestMethod() -> XYCRequestMethod? {
-        return XYCRequestMethod.Get
+        return XYCRequestMethod.get
     }
     
-    override func requestArgument() -> AnyObject? {
-        return ["view":"summary"
-            ,"book":id]
+    override func requestArgument() -> NSDictionary? {
+        return ["view":"summary","book":id]
     }
 }

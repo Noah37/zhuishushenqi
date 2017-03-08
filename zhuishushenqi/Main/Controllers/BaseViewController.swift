@@ -12,9 +12,22 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
-
-        // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.white
+        navigationController?.navigationBar.tintColor = UIColor.red
+        navigationController?.navigationBar.barTintColor = UIColor.white
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .default
+    }
+    
+    override var prefersStatusBarHidden : Bool {
+        return false
     }
 
     override func didReceiveMemoryWarning() {

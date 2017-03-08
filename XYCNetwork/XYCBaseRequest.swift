@@ -7,82 +7,82 @@
 //
 
 import UIKit
-import Alamofire
+
 
 public enum XYCRequestMethod:Int{
-    case Get = 0
-    case Post
+    case get = 0
+    case post
 }
 
-public typealias XYCRequestCompletionBlock = (request:AnyObject) ->Void
+public typealias XYCRequestCompletionBlock = (_ request:AnyObject) ->Void
 
-public class XYCBaseRequest: NSObject {
+open class XYCBaseRequest: NSObject {
 
-    public var successCompletionBlock:XYCRequestCompletionBlock?
-    public var failureCompletionBlock:XYCRequestCompletionBlock?
+    open var successCompletionBlock:XYCRequestCompletionBlock?
+    open var failureCompletionBlock:XYCRequestCompletionBlock?
     
-    public func baseUrl() ->String{
+    open func baseUrl() ->String{
         return ""
     }
     
-    public func requestUrl() ->String {
+    open func requestUrl() ->String {
         return ""
     }
     
-    public func requestArgument() ->AnyObject?{
+    open func requestArgument() ->NSDictionary?{
         return nil
     }
     
-    public func requestMethod() ->XYCRequestMethod?{
-        return XYCRequestMethod.Get;
+    open func requestMethod() ->XYCRequestMethod?{
+        return XYCRequestMethod.get;
     }
     
-    public func startWithCompletionBlockWithSuccess(successCompletionBlock:XYCRequestCompletionBlock,failureCompletionBlock:XYCRequestCompletionBlock){
+    open func startWithCompletionBlockWithSuccess(_ successCompletionBlock:@escaping XYCRequestCompletionBlock,failureCompletionBlock:@escaping XYCRequestCompletionBlock){
         self.successCompletionBlock = successCompletionBlock
         self.failureCompletionBlock = failureCompletionBlock
         start()
     }
     
-    public func startWithCompletionBlockWithHUD(successCompletionBlock:XYCRequestCompletionBlock,failureCompletionBlock:XYCRequestCompletionBlock){
-        HUD.showProgressHud(false)
+    open func startWithCompletionBlockWithHUD(_ successCompletionBlock:@escaping XYCRequestCompletionBlock,failureCompletionBlock:@escaping XYCRequestCompletionBlock){
+//        HUD.showProgressHud(false)
         startWithCompletionBlockWithSuccess(successCompletionBlock, failureCompletionBlock: failureCompletionBlock)
     }
     
-    public func start(){
-        XYCNetworkAgent.sharedInstance.addRequest(self)
+    open func start(){
+//        XYCNetworkAgent.sharedInstance.addRequest(self)
     }
 }
 
-let RequestValidRespondKey:UnsafePointer<Void> = UnsafePointer(bitPattern: 12131)
+let RequestValidRespondKey:UnsafeRawPointer = UnsafeRawPointer(bitPattern: 12131)!
 let resultMap = "resultMap"
 
 public extension XYCBaseRequest
 {
 
-    func transactionWithSuccess(success: XYCRequestCompletionBlock? = nil,failure:XYCRequestCompletionBlock? = nil){
-        startWithCompletionBlockWithHUD({ (request) in
-            let dict = request as? NSDictionary
-            dict?.addAssociatedObject(request.objectForKey("resultMap")!)
-            if success != nil {
-                success!(request: dict!)
-            }
-            }) { (request) in
-                if failure != nil{
-                    failure!(request:request)
-                }
-        }
-    }
-    
+//    func transactionWithSuccess(_ success: XYCRequestCompletionBlock? = nil,failure:XYCRequestCompletionBlock? = nil){
+//        startWithCompletionBlockWithHUD({ (request) in
+//            let dict = request as? NSDictionary
+//            dict?.addAssociatedObject(request.object(forKey: "resultMap")!)
+//            if success != nil {
+//                success!(dict!)
+//            }
+//            }) { (request) in
+//                if failure != nil{
+//                    failure!(request)
+//                }
+//        }
+//    }
 }
+
 
 public extension NSDictionary
 {
-    func addAssociatedObject(object:AnyObject){
+    func addAssociatedObject(_ object:AnyObject){
         objc_setAssociatedObject(self, RequestValidRespondKey, object, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     //获取关联对象
     func resultMap() ->AnyObject{
-        return objc_getAssociatedObject(self, RequestValidRespondKey)
+        return objc_getAssociatedObject(self, RequestValidRespondKey) as AnyObject
     }
 }
 

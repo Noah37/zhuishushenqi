@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8EAE421A06CC5A2DA4924CB8CA9D1557C230C9E4",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8EAE421A06CC5A2DA4924CB8CA9D1557C230C9E4" : 9223372036854775807,
+    "207AB710B2CF8977BF5E9345336B930D3171DF4B" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7644B9BC-DD25-482A-8102-8CC05A4B3F4A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8EAE421A06CC5A2DA4924CB8CA9D1557C230C9E4" : "zhuishushenqi\/",
+    "207AB710B2CF8977BF5E9345336B930D3171DF4B" : "..\/iOS-New\/TXTReader"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "zhuishushenqi",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "zhuishushenqi.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:TomasEdison\/TXTReader.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "207AB710B2CF8977BF5E9345336B930D3171DF4B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:TomasEdison\/zhuishushenqi.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EAE421A06CC5A2DA4924CB8CA9D1557C230C9E4"
+    }
+  ]
+}

@@ -14,10 +14,10 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-        view.backgroundColor = UIColor.brownColor()
+        view.backgroundColor = UIColor.brown
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
@@ -25,51 +25,51 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
         super.didReceiveMemoryWarning()
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return images.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let iden = "CellIden"
-        var cell = tableView.dequeueReusableCellWithIdentifier(iden)
+        var cell = tableView.dequeueReusableCell(withIdentifier: iden)
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: iden)
+            cell = UITableViewCell(style: .default, reuseIdentifier: iden)
             cell?.backgroundColor = UIColor ( red: 0.16, green: 0.16, blue: 0.16, alpha: 1.0 )
-            cell?.selectionStyle = .None
+            cell?.selectionStyle = .none
         }
         let scale = SideViewController.sharedInstance.leftOffSetXScale
-        let headIcon = UIImageView(frame: CGRectMake(ScreenWidth*scale/2 - 12.5, 10, 25, 25))
+        let headIcon = UIImageView(frame: CGRect(x: ScreenWidth*scale/2 - 12.5, y: 10, width: 25, height: 25))
         cell?.contentView.addSubview(headIcon)
         headIcon.image = UIImage(named: images[indexPath.row] as! String)
         if indexPath.row == 0 {
-            let label = UILabel(frame: CGRectMake(ScreenWidth*scale/2 - 20,35,40,10))
-            label.font = UIFont.systemFontOfSize(9)
+            let label = UILabel(frame: CGRect(x: ScreenWidth*scale/2 - 20,y: 35,width: 40,height: 10))
+            label.font = UIFont.systemFont(ofSize: 9)
             label.text = "登录"
-            label.textAlignment = .Center
+            label.textAlignment = .center
             label.textColor = UIColor(white: 1.0, alpha: 0.5)
             cell?.contentView.addSubview(label)
         }
-        let view = UIView(frame: CGRectMake(0,0,5,44))
+        let view = UIView(frame: CGRect(x: 0,y: 0,width: 5,height: 44))
         view.backgroundColor =  UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
         view.tag = 12306 + indexPath.row
-        view.hidden = true
+        view.isHidden = true
         cell?.contentView.addSubview(view)
         if indexPath.row == 1 {
-            view.hidden = false
+            view.isHidden = false
         }
         return cell!
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         for index in 0..<images.count {
             let selectedImage = view.viewWithTag(12306 + index)
-            selectedImage?.hidden = true
+            selectedImage?.isHidden = true
             if indexPath.row == index {
-                selectedImage?.hidden = false
+                selectedImage?.isHidden = false
             }
         }
         if indexPath.row == 0 {
@@ -82,42 +82,42 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
     func showShare(){
         maskView.addSubview(shareActionSheet)
         KeyWindow?.addSubview(maskView)
-        UIView.animateWithDuration(0.35, animations: {
-            self.shareActionSheet.frame = CGRectMake(0, ScreenHeight - 200, ScreenWidth, 200)
-        }) { (finished) in
+        UIView.animate(withDuration: 0.35, animations: {
+            self.shareActionSheet.frame = CGRect(x: 0, y: ScreenHeight - 200, width: ScreenWidth, height: 200)
+        }, completion: { (finished) in
             
-        }
+        }) 
     }
     
-    func didSelectedAtIndex(index:Int,sheet:XYCActionSheet){
+    func didSelectedAtIndex(_ index:Int,sheet:XYCActionSheet){
         if index == 3 {
-            UIView.animateWithDuration(0.35, animations: {
-                sheet.frame = CGRectMake(0, ScreenHeight, ScreenWidth, 200)
-            }) { (finished) in
+            UIView.animate(withDuration: 0.35, animations: {
+                sheet.frame = CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: 200)
+            }, completion: { (finished) in
                 self.maskView.removeFromSuperview()
                 self.shareActionSheet.removeFromSuperview()
-            }
+            }) 
         }
     }
     
-    private lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRectMake(0, 0, ScreenWidth, ScreenHeight), style: .Grouped)
+    fileprivate lazy var tableView:UITableView = {
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         tableView.backgroundColor  = UIColor(red: 0.211, green: 0.211, blue: 0.211, alpha: 1.00)
         return tableView
     }()
     
-    private lazy var maskView:UIView = {
+    fileprivate lazy var maskView:UIView = {
         let maskView = UIView()
         maskView.frame = self.view.bounds
         maskView.backgroundColor = UIColor(white: 0.00, alpha: 0.2)
         return maskView
     }()
 
-    private lazy var shareActionSheet:XYCActionSheet = {
-        let showActionSheet = XYCActionSheet(frame: CGRectMake(0, ScreenHeight, ScreenWidth, 200), titles: ["新浪微博账号登录","QQ账号登录","微信登录"])
+    fileprivate lazy var shareActionSheet:XYCActionSheet = {
+        let showActionSheet = XYCActionSheet(frame: CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: 200), titles: ["新浪微博账号登录","QQ账号登录","微信登录"])
         showActionSheet.delegate = self
         return showActionSheet
     }()

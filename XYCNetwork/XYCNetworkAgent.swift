@@ -7,19 +7,19 @@
 //
 
 import UIKit
-import Alamofire
 
-public class XYCNetworkAgent: NSObject {
 
-    private var config:XYCNetworkConfig?
+open class XYCNetworkAgent: NSObject {
+
+    fileprivate var config:XYCNetworkConfig?
     
-    func addRequest(request:XYCBaseRequest){
-        dispatch_async(dispatch_queue_create("com.XYC.XYCnetwork.request.processing", DISPATCH_QUEUE_SERIAL)) { 
+    func addRequest(_ request:XYCBaseRequest){
+        DispatchQueue(label: "com.XYC.XYCnetwork.request.processing", attributes: []).async { 
             self.XYC_addRequst(request)
         }
     }
     
-    func buildRequestUrl(request:XYCBaseRequest) ->String{
+    func buildRequestUrl(_ request:XYCBaseRequest) ->String{
         var detailUrl:String = request.requestUrl()
         if detailUrl.hasPrefix("http") == true {
             return detailUrl;
@@ -38,64 +38,64 @@ public class XYCNetworkAgent: NSObject {
         return "\(baseUrl)\(detailUrl)"
     }
     
-    func XYC_addRequst(request:XYCBaseRequest){
+    func XYC_addRequst(_ request:XYCBaseRequest){
         let url = self.buildRequestUrl(request)
         let param = request.requestArgument()
         let method:XYCRequestMethod = request.requestMethod()!
-        dispatch_async(dispatch_get_main_queue()) { 
+        DispatchQueue.main.async { 
             
-            HUD.showProgressHud(true)
+//            HUD.showProgressHud(true)
         }
-        if method == .Post {
-            Alamofire.request(.POST, url, parameters: param as? [String:String])
-                .validate()
-                .responseJSON { response in
-                    HUD.hide()
-                    print("request:\(response.request)")  // original URL request
-                    print("response:\(response.response)") // URL response
-                    print("data:\(response.data)")     // server data
-                    print("result:\(response.result)")   // result of response serialization
-                    HUD.hide()
-                    switch response.result {
-                    case .Success:
-                        print("Validation Successful")
-                        if request.successCompletionBlock != nil{
-                            request.successCompletionBlock!(request:response.data as! AnyObject)
-                        }
-                    case .Failure(let error):
-                        print(error)
-                        if request.failureCompletionBlock != nil{
-                            request.failureCompletionBlock!(request: error as AnyObject)
-                        }
-                    }
-            }
-        }else{
-            Alamofire.request(.GET, url, parameters: param as? [String:String])
-                .validate()
-                .responseJSON { response in
-                    HUD.hide()
-                    print("request:\(response.request)")  // original URL request
-                    print("response:\(response.response)") // URL response
-                    print("data:\(response.data)")     // server data
-                    print("result:\(response.result.value)")   // result of response serialization
-                    HUD.hide()
-                    switch response.result {
-                    case .Success:
-                        print("Validation Successful")
-                        if request.successCompletionBlock != nil{
-                            request.successCompletionBlock!(request:response.result.value!)
-                        }
-                    case .Failure(let error):
-                        print(error)
-                        if request.failureCompletionBlock != nil{
-                            request.failureCompletionBlock!(request: error as AnyObject)
-                        }
-                    }
-            }
+        if method == .post {
+//            Alamofire.request(.POST, url, parameters: param as? [String:String])
+//                .validate()
+//                .responseJSON { response in
+//                    HUD.hide()
+//                    print("request:\(response.request)")  // original URL request
+//                    print("response:\(response.response)") // URL response
+//                    print("data:\(response.data)")     // server data
+//                    print("result:\(response.result)")   // result of response serialization
+//                    HUD.hide()
+//                    switch response.result {
+//                    case .Success:
+//                        print("Validation Successful")
+//                        if request.successCompletionBlock != nil{
+//                            request.successCompletionBlock!(request:response.data as! AnyObject)
+//                        }
+//                    case .Failure(let error):
+//                        print(error)
+//                        if request.failureCompletionBlock != nil{
+//                            request.failureCompletionBlock!(request: error as AnyObject)
+//                        }
+//                    }
+//            }
+//        }else{
+//            Alamofire.request(.GET, url, parameters: param as? [String:String])
+//                .validate()
+//                .responseJSON { response in
+//                    HUD.hide()
+//                    print("request:\(response.request)")  // original URL request
+//                    print("response:\(response.response)") // URL response
+//                    print("data:\(response.data)")     // server data
+//                    print("result:\(response.result.value)")   // result of response serialization
+//                    HUD.hide()
+//                    switch response.result {
+//                    case .Success:
+//                        print("Validation Successful")
+//                        if request.successCompletionBlock != nil{
+//                            request.successCompletionBlock!(request:response.result.value!)
+//                        }
+//                    case .Failure(let error):
+//                        print(error)
+//                        if request.failureCompletionBlock != nil{
+//                            request.failureCompletionBlock!(request: error as AnyObject)
+//                        }
+//                    }
+//            }
         }
     }
-    static let sharedInstance = XYCNetworkAgent()
-    private override init() {
-        config = XYCNetworkConfig.sharedInstance
-    }
+    let sharedInstance = XYCNetworkAgent()
+//    private init() {
+//        config = XYCNetworkConfig.sharedInstance
+//    }
 }

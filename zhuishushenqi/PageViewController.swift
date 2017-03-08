@@ -15,9 +15,9 @@ class PageViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         view.addSubview(pageView)
         view.addSubview(currentPageLabel)
         view.addSubview(titleLabel)
@@ -25,16 +25,16 @@ class PageViewController: UIViewController {
     
     lazy var pageView:PageView = {
         let pageView = PageView()
-        pageView.frame = CGRectMake(20, 20, self.view.bounds.size.width - 40, self.view.bounds.size.height - 40)
-        pageView.backgroundColor = UIColor.whiteColor()
+        pageView.frame = CGRect(x: 20, y: 20, width: self.view.bounds.size.width - 40, height: self.view.bounds.size.height - 40)
+        pageView.backgroundColor = UIColor.white
         return pageView
     }()
     
     lazy var titleLabel:UILabel = {
-        let label = UILabel(frame: CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,20))
-        label.textAlignment = .Center
-        label.font = UIFont.systemFontOfSize(11)
-        label.textColor = UIColor.grayColor()
+        let label = UILabel(frame: CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 20))
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 11)
+        label.textColor = UIColor.gray
         return label
     }()
     
@@ -44,11 +44,11 @@ class PageViewController: UIViewController {
         }
     }
     
-    private lazy var currentPageLabel:UILabel = {
-       let label = UILabel(frame: CGRectMake(0,self.view.bounds.size.height - 30,self.view.bounds.size.width,30))
+    fileprivate lazy var currentPageLabel:UILabel = {
+       let label = UILabel(frame: CGRect(x: 0,y: self.view.bounds.size.height - 30,width: self.view.bounds.size.width,height: 30))
         label.text = "\(self.pageIndex + 1)/\(self.totalPage)"
-        label.font = UIFont.systemFontOfSize(13)
-        label.textAlignment = .Center
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textAlignment = .center
         return label
     }()
 
