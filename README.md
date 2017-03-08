@@ -13,7 +13,7 @@
 - Xcode 8.1+
 - Swift 3.0+
 
-Main development of TXTReader olny support Swift 3.0+.
+Main development of zhuishushenqi olny support Swift 3.0+.
 
 ###Here you can see blow.
 
@@ -28,7 +28,7 @@ Main development of TXTReader olny support Swift 3.0+.
 
 #### mail 2252055382@qq.com
 
-Follow and contact me on [mail](https://mail.qq.com/). If you find an issue, just [open a ticket](https://github.com/TomasEdison/TXTReader/issues/new). Pull requests are warmly welcome as well.
+Follow and contact me on [mail](https://mail.qq.com/). If you find an issue, just [open a ticket](https://github.com/TomasEdison/zhuishushenqi/issues/new). Pull requests are warmly welcome as well.
 
 ## License
 
