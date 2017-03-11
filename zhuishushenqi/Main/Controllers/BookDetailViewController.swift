@@ -23,11 +23,14 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         UIColor(red: 0.75, green: 0.41, blue: 0.82, alpha: 1.0)]
     fileprivate var sectionTwoY:CGFloat = 0
     fileprivate var bookModel:BookDetail?
+    fileprivate var hotComment:[QSHotComment]?
+    
     fileprivate var tableView:UITableView{
         let tableView = UITableView(frame: CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .singleLine
+        tableView.register(UINib(nibName: "HotCommentCell", bundle: nil), forCellReuseIdentifier: "HotCommentCell")
         tableView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
         return tableView
     }
@@ -51,9 +54,23 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
                 }
             }
         }
+        
+        let hotUrl = "\(baseUrl)/post/review/best-by-book?book=\(self.id)"
+        QSNetwork.request(hotUrl) { (response) in
+            do{
+                if let json = response.json?["reviews"] as? [Any] {
+                    self.hotComment = try XYCBaseModel.model(withModleClass: QSHotComment.self, withJsArray: json) as? [QSHotComment]
+                    self.tableView.reloadData()
+                }
+            }catch{
+                
+            }
+        }
     }
     
     fileprivate func initSubview(){
+        
+        
         let titleView = UIView(frame: CGRect(x: 0,y: 0,width: 120,height: 30))
         let titleLabel = UILabel(frame: CGRect(x: 0,y: 0,width: 90,height: 30))
         titleLabel.textAlignment = .center
@@ -83,7 +100,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         if section == 0 {
             return 3
         }else if section == 1{
-            return 2
+            return self.hotComment?.count ?? 0
         }else if section == 5{
             return 5
         }
@@ -91,7 +108,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -113,8 +130,11 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
                 cell = sectionThree()
                 return cell!
             }
+        }else if indexPath.section == 1{
+            let hotCell:HotCommentCell = tableView.dequeueReusableCell(withIdentifier: "HotCommentCell", for: indexPath) as! HotCommentCell
+            hotCell.model = self.hotComment?[indexPath.row]
+            return hotCell
         }
-        
         return cell!
     }
     
@@ -137,12 +157,36 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             if headerview != nil {
                 return headerview!
             }
+        }else if section == 1 {
+            let headerView = UIView()
+            headerView.backgroundColor = UIColor.white
+            let label = UILabel()
+            label.text = "热门评论"
+            label.font = UIFont.systemFont(ofSize: 13)
+            label.textColor = UIColor.darkGray
+            label.frame = CGRect(x: 15, y: 0, width: 100, height: 30)
+            headerView.addSubview(label)
+            
+            let moreBtn = UIButton(type: .custom)
+            moreBtn.frame = CGRect(x: self.view.bounds.width - 135, y: 0, width: 120, height: 30)
+            moreBtn.setTitle("更多", for: .normal)
+            moreBtn.setTitleColor(UIColor.darkGray, for: .normal)
+            moreBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+            moreBtn.addTarget(self, action: #selector(moreCommentAction(btn:)), for: .touchUpInside)
+            moreBtn.contentHorizontalAlignment = .right
+            headerView.addSubview(moreBtn)
+            return headerView
         }
         return nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 165
+        if section == 0 {
+            return 165
+        }else if section == 1 {
+            return 30
+        }
+        return 0.01
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -158,8 +202,14 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             }else{
                 return 120
             }
+        }else if indexPath.section == 1 {
+            return 127
         }
         return 60
+    }
+    
+    @objc func moreCommentAction(btn:UIButton){
+        
     }
     
     fileprivate func sectionOne()->UITableViewCell{
@@ -211,7 +261,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             btn.setTitle(bookModel!.tags![index] as? String, for: UIControlState())
             btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
             btn.setTitleColor(UIColor.white, for: UIControlState())
-            btn.backgroundColor = tagColor[index]
+            btn.backgroundColor = tagColor[index%tagColor.count]
             btn.layer.cornerRadius = 2
             cell.contentView.addSubview(btn)
             

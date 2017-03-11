@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         #endif
 
+        configureDataBase()
 //        [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         /**
          设置 UINavigationNar 外观
@@ -44,6 +45,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
 
         return true
+    }
+    
+    func configureDataBase(){
+        let store  = YTKKeyValueStore(dbWithName: dbName)
+        
+        if store?.isTableExists(searchHistory) == false {
+            store?.createTable(withName: searchHistory)
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

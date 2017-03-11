@@ -39,6 +39,8 @@ let chapterURL = "http://chapter2.zhuishushenqi.com/chapter"
 let bookshelf =  "user/bookshelf"
 let ranking = "ranking/gender"
 
+let searchHistory = "searchHistory"
+let dbName = "QS.zhuishushenqi.searchHistory"
 
 //MARK: - 常用frame
 let BOUNDS = UIScreen.main.bounds

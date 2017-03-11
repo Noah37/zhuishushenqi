@@ -28,10 +28,13 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
 //        QSNetwork.setDefaultURL(url: baseUrl)
         QSNetwork.request(shelfUrl, method: HTTPMethodType.get, parameters: ["platform":"ios"], headers: nil) { (response) in
             if let _ = response.json {
-                let postLink = (response.json?["message"] as AnyObject).object(forKey: "postLink")
-                DispatchQueue.main.async {
-                    self.shelfMsgLabel.text = "\(self.postLinkArchive(postLink as AnyObject?).1)"
-                    self.tableView?.reloadData()
+                let message:AnyObject? = response.json?["message"] as AnyObject
+                if message?.isKind(of: NSNull.self) == false {
+                    let postLink = message?.object(forKey: "postLink")
+                    DispatchQueue.main.async {
+                        self.shelfMsgLabel.text = "\(self.postLinkArchive(postLink as AnyObject?).1)"
+                        self.tableView?.reloadData()
+                    }
                 }
             }
         }

@@ -130,6 +130,27 @@
 		B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */; };
 		B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228C1DB3291A0040CAD3 /* CFNetwork.framework */; };
 		B263507D1E6E9F3200D08DAC /* QSRankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263507C1E6E9F3200D08DAC /* QSRankModel.swift */; };
+		B294CDA71E7104100098926D /* HotCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294CDA51E7104100098926D /* HotCommentCell.swift */; };
+		B294CDA81E7104100098926D /* HotCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B294CDA61E7104100098926D /* HotCommentCell.xib */; };
+		B294CDB61E712EF80098926D /* LightStarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294CDB51E712EF80098926D /* LightStarView.swift */; };
+		B294CDC01E712F0C0098926D /* DarkStarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294CDBF1E712F0C0098926D /* DarkStarView.swift */; };
+		B294CDC21E71300A0098926D /* LightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294CDC11E71300A0098926D /* LightView.swift */; };
+		B294CDC41E7130150098926D /* DarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294CDC31E7130150098926D /* DarkView.swift */; };
+		B2A119631E718A6300E71AB1 /* QSHotComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A119621E718A6300E71AB1 /* QSHotComment.swift */; };
+		B2A1196E1E719CE200E71AB1 /* ThemeTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A1196C1E719CE200E71AB1 /* ThemeTopicCell.swift */; };
+		B2A119711E719D4E00E71AB1 /* ThemeTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A119701E719D4E00E71AB1 /* ThemeTopicViewController.swift */; };
+		B2A119731E71A05400E71AB1 /* ThemeTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A119721E71A05400E71AB1 /* ThemeTopicModel.swift */; };
+		B2A119751E71A50C00E71AB1 /* ThemeTopicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A119741E71A50C00E71AB1 /* ThemeTopicCell.xib */; };
+		B2A119771E71A8B300E71AB1 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A119761E71A8B300E71AB1 /* TopicDetailViewController.swift */; };
+		B2A119791E71AB0200E71AB1 /* TopicDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A119781E71AB0200E71AB1 /* TopicDetailModel.swift */; };
+		B2A1197C1E71ADBF00E71AB1 /* TopicDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A1197A1E71ADBF00E71AB1 /* TopicDetailCell.swift */; };
+		B2A1197D1E71ADBF00E71AB1 /* TopicDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A1197B1E71ADBF00E71AB1 /* TopicDetailCell.xib */; };
+		B2A119801E72397A00E71AB1 /* TopicDetailHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A1197E1E72397A00E71AB1 /* TopicDetailHeaderCell.swift */; };
+		B2A119811E72397A00E71AB1 /* TopicDetailHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A1197F1E72397A00E71AB1 /* TopicDetailHeaderCell.xib */; };
+		B2A119831E7247D900E71AB1 /* TopicDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A119821E7247D900E71AB1 /* TopicDetailHeader.swift */; };
+		B2A119851E72577D00E71AB1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A119841E72577D00E71AB1 /* CategoryViewController.swift */; };
+		B2A119881E72585F00E71AB1 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A119861E72585F00E71AB1 /* CategoryCell.swift */; };
+		B2A119891E72585F00E71AB1 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A119871E72585F00E71AB1 /* CategoryCell.xib */; };
 		B2A95CC81DA8E65B00E12A38 /* V2FPSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */; };
 		B2B160A51D8EDCEE00E165D2 /* SwipableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B160A41D8EDCEE00E165D2 /* SwipableCell.swift */; };
 		B2B160A71D8EF02F00E165D2 /* RightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B160A61D8EF02F00E165D2 /* RightTableViewCell.swift */; };
@@ -175,6 +196,17 @@
 		B2BB5DB61D8CF2FA00379217 /* SegMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5DB51D8CF2FA00379217 /* SegMenu.swift */; };
 		B2C91E751DACEECB002B6C6F /* AllChapterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91E741DACEECB002B6C6F /* AllChapterAPI.swift */; };
 		B2C91E771DACEFC3002B6C6F /* LatestChapterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91E761DACEFC3002B6C6F /* LatestChapterAPI.swift */; };
+		B2CD138D1E730309000D97D9 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CD138C1E730309000D97D9 /* CategoryDetailViewController.swift */; };
+		B2CD13971E7304D0000D97D9 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CD13961E7304D0000D97D9 /* CategoryModel.swift */; };
+		B2CD13991E730EF9000D97D9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CD13981E730EF9000D97D9 /* SearchViewController.swift */; };
+		B2CD139B1E7394D3000D97D9 /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CD139A1E7394D3000D97D9 /* SearchDetailViewController.swift */; };
+		B2CD139D1E73A8BE000D97D9 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CD139C1E73A8BE000D97D9 /* SearchView.swift */; };
+		B2CD13AC1E73BD52000D97D9 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CD13A01E73BD52000D97D9 /* FMDatabase.m */; };
+		B2CD13AD1E73BD52000D97D9 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CD13A21E73BD52000D97D9 /* FMDatabaseAdditions.m */; };
+		B2CD13AE1E73BD52000D97D9 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CD13A41E73BD52000D97D9 /* FMDatabasePool.m */; };
+		B2CD13AF1E73BD52000D97D9 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CD13A61E73BD52000D97D9 /* FMDatabaseQueue.m */; };
+		B2CD13B01E73BD52000D97D9 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CD13A91E73BD52000D97D9 /* FMResultSet.m */; };
+		B2CD13B11E73BD52000D97D9 /* YTKKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CD13AB1E73BD52000D97D9 /* YTKKeyValueStore.m */; };
 		B2CE21B51D9F76E400775B73 /* RankingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CE21B41D9F76E400775B73 /* RankingAPI.swift */; };
 		B2DE0A321D8D570200B27AD8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DE0A311D8D570200B27AD8 /* Config.swift */; };
 /* End PBXBuildFile section */
@@ -460,6 +492,27 @@
 		B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCActionSheet.swift; sourceTree = "<group>"; };
 		B251228C1DB3291A0040CAD3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B263507C1E6E9F3200D08DAC /* QSRankModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankModel.swift; sourceTree = "<group>"; };
+		B294CDA51E7104100098926D /* HotCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotCommentCell.swift; sourceTree = "<group>"; };
+		B294CDA61E7104100098926D /* HotCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotCommentCell.xib; sourceTree = "<group>"; };
+		B294CDB51E712EF80098926D /* LightStarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightStarView.swift; sourceTree = "<group>"; };
+		B294CDBF1E712F0C0098926D /* DarkStarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkStarView.swift; sourceTree = "<group>"; };
+		B294CDC11E71300A0098926D /* LightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightView.swift; sourceTree = "<group>"; };
+		B294CDC31E7130150098926D /* DarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkView.swift; sourceTree = "<group>"; };
+		B2A119621E718A6300E71AB1 /* QSHotComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHotComment.swift; sourceTree = "<group>"; };
+		B2A1196C1E719CE200E71AB1 /* ThemeTopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTopicCell.swift; sourceTree = "<group>"; };
+		B2A119701E719D4E00E71AB1 /* ThemeTopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTopicViewController.swift; sourceTree = "<group>"; };
+		B2A119721E71A05400E71AB1 /* ThemeTopicModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTopicModel.swift; sourceTree = "<group>"; };
+		B2A119741E71A50C00E71AB1 /* ThemeTopicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeTopicCell.xib; sourceTree = "<group>"; };
+		B2A119761E71A8B300E71AB1 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
+		B2A119781E71AB0200E71AB1 /* TopicDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailModel.swift; sourceTree = "<group>"; };
+		B2A1197A1E71ADBF00E71AB1 /* TopicDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailCell.swift; sourceTree = "<group>"; };
+		B2A1197B1E71ADBF00E71AB1 /* TopicDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicDetailCell.xib; sourceTree = "<group>"; };
+		B2A1197E1E72397A00E71AB1 /* TopicDetailHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailHeaderCell.swift; sourceTree = "<group>"; };
+		B2A1197F1E72397A00E71AB1 /* TopicDetailHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicDetailHeaderCell.xib; sourceTree = "<group>"; };
+		B2A119821E7247D900E71AB1 /* TopicDetailHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailHeader.swift; sourceTree = "<group>"; };
+		B2A119841E72577D00E71AB1 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		B2A119861E72585F00E71AB1 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		B2A119871E72585F00E71AB1 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V2FPSLabel.swift; sourceTree = "<group>"; };
 		B2B160A41D8EDCEE00E165D2 /* SwipableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipableCell.swift; sourceTree = "<group>"; };
 		B2B160A61D8EF02F00E165D2 /* RightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightTableViewCell.swift; sourceTree = "<group>"; };
@@ -514,6 +567,24 @@
 		B2BB5DB51D8CF2FA00379217 /* SegMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegMenu.swift; path = ../SegMenu.swift; sourceTree = "<group>"; };
 		B2C91E741DACEECB002B6C6F /* AllChapterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllChapterAPI.swift; sourceTree = "<group>"; };
 		B2C91E761DACEFC3002B6C6F /* LatestChapterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestChapterAPI.swift; sourceTree = "<group>"; };
+		B2CD138C1E730309000D97D9 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
+		B2CD13961E7304D0000D97D9 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
+		B2CD13981E730EF9000D97D9 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		B2CD139A1E7394D3000D97D9 /* SearchDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
+		B2CD139C1E73A8BE000D97D9 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		B2CD139F1E73BD52000D97D9 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		B2CD13A01E73BD52000D97D9 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		B2CD13A11E73BD52000D97D9 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		B2CD13A21E73BD52000D97D9 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		B2CD13A31E73BD52000D97D9 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		B2CD13A41E73BD52000D97D9 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		B2CD13A51E73BD52000D97D9 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		B2CD13A61E73BD52000D97D9 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		B2CD13A71E73BD52000D97D9 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		B2CD13A81E73BD52000D97D9 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		B2CD13A91E73BD52000D97D9 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		B2CD13AA1E73BD52000D97D9 /* YTKKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTKKeyValueStore.h; path = ../YTKKeyValueStore.h; sourceTree = "<group>"; };
+		B2CD13AB1E73BD52000D97D9 /* YTKKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTKKeyValueStore.m; path = ../YTKKeyValueStore.m; sourceTree = "<group>"; };
 		B2CE21B41D9F76E400775B73 /* RankingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankingAPI.swift; sourceTree = "<group>"; };
 		B2DE0A311D8D570200B27AD8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -876,6 +947,12 @@
 				B2B160A81D8F7C0300E165D2 /* RankingViewController.swift */,
 				B2B40B3A1DA2B965001F972B /* TopDetailViewController.swift */,
 				B2B40B471DA38FEE001F972B /* BookDetailViewController.swift */,
+				B2A119701E719D4E00E71AB1 /* ThemeTopicViewController.swift */,
+				B2A119761E71A8B300E71AB1 /* TopicDetailViewController.swift */,
+				B2A119841E72577D00E71AB1 /* CategoryViewController.swift */,
+				B2CD138C1E730309000D97D9 /* CategoryDetailViewController.swift */,
+				B2CD13981E730EF9000D97D9 /* SearchViewController.swift */,
+				B2CD139A1E7394D3000D97D9 /* SearchDetailViewController.swift */,
 				B2B1610D1D9185AC00E165D2 /* BaseViewController.swift */,
 				B231193E1DBB51FE008A6D92 /* SideViewController.swift */,
 				B23119441DBB674E008A6D92 /* DynamicViewController.swift */,
@@ -907,6 +984,11 @@
 				B2B297A71E6D11E90044E539 /* UpdateInfo.swift */,
 				B2B297EB1E6D9BD40044E539 /* ResourceModel.swift */,
 				B263507C1E6E9F3200D08DAC /* QSRankModel.swift */,
+				B2A119621E718A6300E71AB1 /* QSHotComment.swift */,
+				B2A119721E71A05400E71AB1 /* ThemeTopicModel.swift */,
+				B2A119781E71AB0200E71AB1 /* TopicDetailModel.swift */,
+				B2A119821E7247D900E71AB1 /* TopicDetailHeader.swift */,
+				B2CD13961E7304D0000D97D9 /* CategoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -928,6 +1010,21 @@
 				B23119481DBB7551008A6D92 /* DynamicCell.swift */,
 				B23119491DBB7551008A6D92 /* DynamicCell.xib */,
 				B21AFC7F1E6C318E009B2858 /* RankingViewCell.swift */,
+				B294CDA51E7104100098926D /* HotCommentCell.swift */,
+				B294CDA61E7104100098926D /* HotCommentCell.xib */,
+				B294CDC11E71300A0098926D /* LightView.swift */,
+				B294CDC31E7130150098926D /* DarkView.swift */,
+				B294CDB51E712EF80098926D /* LightStarView.swift */,
+				B294CDBF1E712F0C0098926D /* DarkStarView.swift */,
+				B2A1196C1E719CE200E71AB1 /* ThemeTopicCell.swift */,
+				B2A119741E71A50C00E71AB1 /* ThemeTopicCell.xib */,
+				B2A1197A1E71ADBF00E71AB1 /* TopicDetailCell.swift */,
+				B2A1197B1E71ADBF00E71AB1 /* TopicDetailCell.xib */,
+				B2A1197E1E72397A00E71AB1 /* TopicDetailHeaderCell.swift */,
+				B2A1197F1E72397A00E71AB1 /* TopicDetailHeaderCell.xib */,
+				B2A119861E72585F00E71AB1 /* CategoryCell.swift */,
+				B2A119871E72585F00E71AB1 /* CategoryCell.xib */,
+				B2CD139C1E73A8BE000D97D9 /* SearchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1019,6 +1116,7 @@
 				B22181AD1DA40326002458D2 /* YYKit */,
 				B2B297B11E6D5E380044E539 /* TXTReader */,
 				B2260F4D1D8D508800581DD8 /* XYCNetwork */,
+				B2CD139E1E73BD52000D97D9 /* FMDB */,
 				B2BB5B981D8BDF8E00379217 /* zhuishushenqi */,
 				B2BB5BAD1D8BDF8E00379217 /* zhuishushenqiTests */,
 				B2BB5BB81D8BDF8E00379217 /* zhuishushenqiUITests */,
@@ -1080,6 +1178,26 @@
 				B2260F4A1D8D4A4F00581DD8 /* Views */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		B2CD139E1E73BD52000D97D9 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				B2CD13AA1E73BD52000D97D9 /* YTKKeyValueStore.h */,
+				B2CD13AB1E73BD52000D97D9 /* YTKKeyValueStore.m */,
+				B2CD139F1E73BD52000D97D9 /* FMDatabase.h */,
+				B2CD13A01E73BD52000D97D9 /* FMDatabase.m */,
+				B2CD13A11E73BD52000D97D9 /* FMDatabaseAdditions.h */,
+				B2CD13A21E73BD52000D97D9 /* FMDatabaseAdditions.m */,
+				B2CD13A31E73BD52000D97D9 /* FMDatabasePool.h */,
+				B2CD13A41E73BD52000D97D9 /* FMDatabasePool.m */,
+				B2CD13A51E73BD52000D97D9 /* FMDatabaseQueue.h */,
+				B2CD13A61E73BD52000D97D9 /* FMDatabaseQueue.m */,
+				B2CD13A71E73BD52000D97D9 /* FMDB.h */,
+				B2CD13A81E73BD52000D97D9 /* FMResultSet.h */,
+				B2CD13A91E73BD52000D97D9 /* FMResultSet.m */,
+			);
+			path = FMDB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1273,14 +1391,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2B297C11E6D5E600044E539 /* CategoryTableViewCell.xib in Resources */,
+				B2A119811E72397A00E71AB1 /* TopicDetailHeaderCell.xib in Resources */,
+				B294CDA81E7104100098926D /* HotCommentCell.xib in Resources */,
 				B22182631DA40326002458D2 /* LICENSE in Resources */,
 				B2B40B4C1DA390F2001F972B /* BookDetailHeader.xib in Resources */,
 				B2B40B411DA2BCB7001F972B /* TopDetailCell.xib in Resources */,
 				B2B297C51E6D5E600044E539 /* Chapters.json in Resources */,
+				B2A1197D1E71ADBF00E71AB1 /* TopicDetailCell.xib in Resources */,
 				B2B297C31E6D5E600044E539 /* ChapterInfo.json in Resources */,
 				B2BB5BA41D8BDF8E00379217 /* LaunchScreen.storyboard in Resources */,
+				B2A119891E72585F00E71AB1 /* CategoryCell.xib in Resources */,
 				B2BB5BA11D8BDF8E00379217 /* Assets.xcassets in Resources */,
 				B2BB5B9F1D8BDF8E00379217 /* Main.storyboard in Resources */,
+				B2A119751E71A50C00E71AB1 /* ThemeTopicCell.xib in Resources */,
 				B231194B1DBB7551008A6D92 /* DynamicCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1362,7 +1485,9 @@
 				B22182941DA40326002458D2 /* YYWebImageOperation.m in Sources */,
 				B2B40B3B1DA2B965001F972B /* TopDetailViewController.swift in Sources */,
 				B22182A61DA40326002458D2 /* YYTextRubyAnnotation.m in Sources */,
+				B2CD139B1E7394D3000D97D9 /* SearchDetailViewController.swift in Sources */,
 				B2C91E771DACEFC3002B6C6F /* LatestChapterAPI.swift in Sources */,
+				B2CD13B01E73BD52000D97D9 /* FMResultSet.m in Sources */,
 				B22182831DA40326002458D2 /* UIView+YYAdd.m in Sources */,
 				B221828D1DA40326002458D2 /* YYAnimatedImageView.m in Sources */,
 				B22182A51DA40326002458D2 /* YYTextParser.m in Sources */,
@@ -1375,6 +1500,7 @@
 				B2B160A51D8EDCEE00E165D2 /* SwipableCell.swift in Sources */,
 				B22182D11DA42A5A002458D2 /* AddBookAPI.swift in Sources */,
 				B221826F1DA40326002458D2 /* NSObject+YYAddForARC.m in Sources */,
+				B2A119801E72397A00E71AB1 /* TopicDetailHeaderCell.swift in Sources */,
 				B22182761DA40326002458D2 /* UIApplication+YYAdd.m in Sources */,
 				B2C91E751DACEECB002B6C6F /* AllChapterAPI.swift in Sources */,
 				B22182701DA40326002458D2 /* NSObject+YYAddForKVO.m in Sources */,
@@ -1391,9 +1517,13 @@
 				B221827F1DA40326002458D2 /* UIScreen+YYAdd.m in Sources */,
 				B2B1610E1D9185AC00E165D2 /* BaseViewController.swift in Sources */,
 				B22182671DA40326002458D2 /* NSBundle+YYAdd.m in Sources */,
+				B294CDB61E712EF80098926D /* LightStarView.swift in Sources */,
 				B22182AD1DA40326002458D2 /* YYFileHash.m in Sources */,
 				B22182681DA40326002458D2 /* NSData+YYAdd.m in Sources */,
+				B2CD13991E730EF9000D97D9 /* SearchViewController.swift in Sources */,
 				B22182921DA40326002458D2 /* YYSpriteSheetImage.m in Sources */,
+				B2CD13AD1E73BD52000D97D9 /* FMDatabaseAdditions.m in Sources */,
+				B294CDC01E712F0C0098926D /* DarkStarView.swift in Sources */,
 				B22182B41DA40326002458D2 /* YYTimer.m in Sources */,
 				B2B297A81E6D11E90044E539 /* UpdateInfo.swift in Sources */,
 				B2B297BF1E6D5E600044E539 /* CategoryController.swift in Sources */,
@@ -1403,12 +1533,14 @@
 				B221827B1DA40326002458D2 /* UIDevice+YYAdd.m in Sources */,
 				B2B40B461DA2D750001F972B /* Book.swift in Sources */,
 				B22182691DA40326002458D2 /* NSDate+YYAdd.m in Sources */,
+				B2A119631E718A6300E71AB1 /* QSHotComment.swift in Sources */,
 				B22182AC1DA40326002458D2 /* YYDispatchQueuePool.m in Sources */,
 				B22182A11DA40326002458D2 /* NSParagraphStyle+YYText.m in Sources */,
 				B2BB5DB21D8C0DBA00379217 /* RightViewController.swift in Sources */,
 				B22182881DA40326002458D2 /* _YYWebImageSetter.m in Sources */,
 				B2B297C61E6D5E600044E539 /* PageInfo.swift in Sources */,
 				B2B297C81E6D5E600044E539 /* PageViewController.swift in Sources */,
+				B2CD139D1E73A8BE000D97D9 /* SearchView.swift in Sources */,
 				B221829F1DA40326002458D2 /* YYTextSelectionView.m in Sources */,
 				B22182661DA40326002458D2 /* NSArray+YYAdd.m in Sources */,
 				B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */,
@@ -1417,6 +1549,7 @@
 				B2260F561D8D508800581DD8 /* XYCNetworkConfig.swift in Sources */,
 				B22182A31DA40326002458D2 /* YYTextArchiver.m in Sources */,
 				B22182961DA40326002458D2 /* YYClassInfo.m in Sources */,
+				B2A119731E71A05400E71AB1 /* ThemeTopicModel.swift in Sources */,
 				B221826D1DA40326002458D2 /* NSNumber+YYAdd.m in Sources */,
 				B2BB5B9C1D8BDF8E00379217 /* ViewController.swift in Sources */,
 				B231193F1DBB51FE008A6D92 /* SideViewController.swift in Sources */,
@@ -1426,6 +1559,7 @@
 				B263507D1E6E9F3200D08DAC /* QSRankModel.swift in Sources */,
 				B22182871DA40326002458D2 /* YYMemoryCache.m in Sources */,
 				B221828B1DA40326002458D2 /* UIButton+YYWebImage.m in Sources */,
+				B2CD138D1E730309000D97D9 /* CategoryDetailViewController.swift in Sources */,
 				B2260F591D8D508800581DD8 /* XYCUrlArgumentFilter.swift in Sources */,
 				B21AFD2B1E6CFBD4009B2858 /* User.swift in Sources */,
 				B221827A1DA40326002458D2 /* UIControl+YYAdd.m in Sources */,
@@ -1441,6 +1575,7 @@
 				B2260F541D8D508800581DD8 /* XYCBaseRequest.swift in Sources */,
 				B221829E1DA40326002458D2 /* YYTextMagnifier.m in Sources */,
 				B2DE0A321D8D570200B27AD8 /* Config.swift in Sources */,
+				B294CDA71E7104100098926D /* HotCommentCell.swift in Sources */,
 				B2260F571D8D508800581DD8 /* XYCNetworkPrivate.swift in Sources */,
 				B221827E1DA40326002458D2 /* UIImage+YYAdd.m in Sources */,
 				B221828A1DA40326002458D2 /* MKAnnotationView+YYWebImage.m in Sources */,
@@ -1448,6 +1583,7 @@
 				B2260F551D8D508800581DD8 /* XYCNetworkAgent.swift in Sources */,
 				B22182A01DA40326002458D2 /* NSAttributedString+YYText.m in Sources */,
 				B22182951DA40326002458D2 /* NSObject+YYModel.m in Sources */,
+				B294CDC41E7130150098926D /* DarkView.swift in Sources */,
 				B22182771DA40326002458D2 /* UIBarButtonItem+YYAdd.m in Sources */,
 				B22182AA1DA40326002458D2 /* YYTextView.m in Sources */,
 				B22182901DA40326002458D2 /* YYImageCache.m in Sources */,
@@ -1460,37 +1596,51 @@
 				B22182B01DA40326002458D2 /* YYReachability.m in Sources */,
 				B22182731DA40326002458D2 /* NSTimer+YYAdd.m in Sources */,
 				B2B160A91D8F7C0300E165D2 /* RankingViewController.swift in Sources */,
+				B2A119791E71AB0200E71AB1 /* TopicDetailModel.swift in Sources */,
 				B221826E1DA40326002458D2 /* NSObject+YYAdd.m in Sources */,
 				B221826B1DA40326002458D2 /* NSKeyedUnarchiver+YYAdd.m in Sources */,
+				B294CDC21E71300A0098926D /* LightView.swift in Sources */,
+				B2A119851E72577D00E71AB1 /* CategoryViewController.swift in Sources */,
+				B2A1196E1E719CE200E71AB1 /* ThemeTopicCell.swift in Sources */,
 				B221829D1DA40326002458D2 /* YYTextLine.m in Sources */,
 				B221829C1DA40326002458D2 /* YYTextLayout.m in Sources */,
 				B22182911DA40326002458D2 /* YYImageCoder.m in Sources */,
 				B2CE21B51D9F76E400775B73 /* RankingAPI.swift in Sources */,
 				B22182851DA40326002458D2 /* YYDiskCache.m in Sources */,
+				B2CD13971E7304D0000D97D9 /* CategoryModel.swift in Sources */,
+				B2A119831E7247D900E71AB1 /* TopicDetailHeader.swift in Sources */,
 				B231194A1DBB7551008A6D92 /* DynamicCell.swift in Sources */,
 				B22182B21DA40326002458D2 /* YYThreadSafeArray.m in Sources */,
 				B22182861DA40326002458D2 /* YYKVStorage.m in Sources */,
 				B22182B31DA40326002458D2 /* YYThreadSafeDictionary.m in Sources */,
+				B2A119711E719D4E00E71AB1 /* ThemeTopicViewController.swift in Sources */,
 				B22182D31DA4A5F6002458D2 /* BookShelfAPI.swift in Sources */,
 				B22182971DA40326002458D2 /* YYTextContainerView.m in Sources */,
+				B2CD13B11E73BD52000D97D9 /* YTKKeyValueStore.m in Sources */,
 				B221826A1DA40326002458D2 /* NSDictionary+YYAdd.m in Sources */,
 				B22182711DA40326002458D2 /* NSString+YYAdd.m in Sources */,
 				B2B297EA1E6D96F10044E539 /* String+crypto.swift in Sources */,
 				B22182811DA40326002458D2 /* UITableView+YYAdd.m in Sources */,
+				B2CD13AF1E73BD52000D97D9 /* FMDatabaseQueue.m in Sources */,
 				B2BB5DB01D8C0DAE00379217 /* LeftViewController.swift in Sources */,
 				B22182AB1DA40326002458D2 /* YYAsyncLayer.m in Sources */,
 				B221828C1DA40326002458D2 /* UIImageView+YYWebImage.m in Sources */,
+				B2A119771E71A8B300E71AB1 /* TopicDetailViewController.swift in Sources */,
 				B22182991DA40326002458D2 /* YYTextEffectWindow.m in Sources */,
 				B22182891DA40326002458D2 /* CALayer+YYWebImage.m in Sources */,
 				B2BB5B9A1D8BDF8E00379217 /* AppDelegate.swift in Sources */,
 				B2B40B511DA3E84A001F972B /* BookDetail.swift in Sources */,
+				B2CD13AC1E73BD52000D97D9 /* FMDatabase.m in Sources */,
 				B21AFC811E6C318E009B2858 /* RankingViewCell.swift in Sources */,
+				B2A119881E72585F00E71AB1 /* CategoryCell.swift in Sources */,
 				B221827D1DA40326002458D2 /* UIGestureRecognizer+YYAdd.m in Sources */,
 				B2B297CB1E6D5E600044E539 /* TXTReaderViewController.swift in Sources */,
+				B2CD13AE1E73BD52000D97D9 /* FMDatabasePool.m in Sources */,
 				B221827C1DA40326002458D2 /* UIFont+YYAdd.m in Sources */,
 				B2B40B531DA3EE27001F972B /* BookDetailAPI.swift in Sources */,
 				B22182A81DA40326002458D2 /* YYTextUtilities.m in Sources */,
 				B22182781DA40326002458D2 /* UIBezierPath+YYAdd.m in Sources */,
+				B2A1197C1E71ADBF00E71AB1 /* TopicDetailCell.swift in Sources */,
 				B2260F471D8D45AD00581DD8 /* BarButton.swift in Sources */,
 				B22182B11DA40326002458D2 /* YYSentinel.m in Sources */,
 				B221828E1DA40326002458D2 /* YYFrameImage.m in Sources */,

@@ -62,11 +62,22 @@ class RightViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {//搜索
-            
+            let rankVC = SearchDetailViewController()
+            self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
+            SideViewController.sharedInstance.navigationController?.pushViewController(rankVC, animated: true)
         }else if indexPath.row == 1 {//排行榜
             let rankVC = RankingViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
             SideViewController.sharedInstance.navigationController?.pushViewController(rankVC, animated: true)
+        }else if indexPath.row == 2 {//主题书单
+            let themeVC = ThemeTopicViewController()
+            self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
+            SideViewController.sharedInstance.navigationController?.pushViewController(themeVC, animated: true)
+
+        }else if indexPath.row == 3 {
+            let categoryVC = CategoryViewController()
+            self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
+            SideViewController.sharedInstance.navigationController?.pushViewController(categoryVC, animated: true)
         }
     }
 }

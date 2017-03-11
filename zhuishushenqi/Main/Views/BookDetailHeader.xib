@@ -169,6 +169,7 @@
                 <outlet property="name" destination="ryN-3P-hWn" id="h3J-07-d7a"/>
                 <outlet property="new" destination="aDu-ar-VmQ" id="jbn-wX-6c6"/>
                 <outlet property="typeWidth" destination="taS-d2-6lg" id="tD9-19-Owf"/>
+                <outlet property="typeWidthConst" destination="ZVT-yo-6xA" id="iYz-e4-1MR"/>
                 <outlet property="words" destination="8Z9-mk-vmb" id="6zc-AN-q20"/>
             </connections>
             <point key="canvasLocation" x="127.5" y="357.5"/>

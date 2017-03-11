@@ -12,5 +12,6 @@
 #import "XYCBaseModel.h"
 #import "NSObject+YYModel.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "YTKKeyValueStore.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */

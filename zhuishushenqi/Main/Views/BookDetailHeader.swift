@@ -16,13 +16,7 @@ class BookDetailHeader: UIView {
     var model:BookDetail?{
         didSet{
             name.text = model?.title
-            
-            let urlString = (model!.cover as NSString).substring(from: 7)
-            let url = URL(string: urlString)
-            let data = try? Data(contentsOf: url!)
-            if data != nil {
-                icon.image = UIImage(data: data!)
-            }
+        
             let mArr:[BookDetail]? = BookShelfInfo.books.bookShelf as? [BookDetail]
             for item in mArr ?? [] {
                 if item._id == model?._id {
@@ -33,7 +27,10 @@ class BookDetailHeader: UIView {
             let widthttt = widthOfString(authorWidth.text!, font: UIFont.boldSystemFont(ofSize: 13), height: 21)
             authorWidthh.constant = widthttt
             
-            typeWidth.text = model?.minorCate
+            typeWidth.text = model?.minorCate == "" ? model?.majorCate : model?.minorCate
+            let typeConst = widthOfString(typeWidth.text!, font: UIFont.systemFont(ofSize: 13), height: 21)
+            typeWidthConst.constant = typeConst + 5
+            
             words.text = "\(Int(model!.wordCount)!/10000)万字"
             let date = Date()
             let dateFormat = DateFormatter()
@@ -49,6 +46,16 @@ class BookDetailHeader: UIView {
             }else{
                 new.text = "\(String(format: "%.0f",timeIn/60))分钟前更新"
             }
+            
+            if self.model?.cover == "" {
+                return;
+            }
+            let urlString = "\(picBaseUrl)\(self.model?.cover ?? "qqqqqqqq")"
+            let url = URL(string: urlString)
+            if let urlstring = url {
+                let resource:QSResource = QSResource(url: urlstring)
+                self.icon.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
+            }
         }
     }
     
@@ -60,6 +67,7 @@ class BookDetailHeader: UIView {
     @IBOutlet weak var words: UILabel!
     @IBOutlet weak var authorWidth: UILabel!
 
+    @IBOutlet weak var typeWidthConst: NSLayoutConstraint!
     @IBOutlet weak var typeWidth: UILabel!
     
     @IBOutlet weak var addButton: UIButton!
