@@ -13,9 +13,13 @@ class ThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableViewD
     
     var id:String? = ""
     var books:NSArray? = []
+    fileprivate var selectedIndex = 0
+    fileprivate var tag = ""
+    fileprivate var gender = ""
     fileprivate let iden = "ThemeTopicCell"
     
     fileprivate var booksModel:NSArray? = []
+    fileprivate var titleView:UIButton?
     fileprivate lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104), style: .grouped)
         tableView.dataSource = self
@@ -29,7 +33,8 @@ class ThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         initSubview()
-        requestDetail()
+        requestDetail(index: selectedIndex,tag: "",gender: "")
+        titleView(title: "全部书单")
     }
     
     fileprivate func initSubview(){
@@ -38,7 +43,48 @@ class ThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableViewD
         view.addSubview(segView)
     }
     
-    fileprivate func requestDetail(){
+    func titleView(title:String) -> Void {
+        if let _ = self.titleView {
+            self.titleView?.setTitle(title, for: .normal)
+            let width = widthOfString(self.titleView?.currentTitle ?? "", font: UIFont.systemFont(ofSize: 17), height: 21)*1.3
+            self.titleView?.imageEdgeInsets = UIEdgeInsetsMake(0, width, 0, -width)
+            return
+        }
+        let titleView = UIButton(type: .custom)
+        titleView.frame = CGRect(x: 0, y: 0, width: 200, height: 21)
+        titleView.setImage(UIImage(named: "c_arrow_down"), for: .normal)
+        titleView.setTitle(title, for: .normal)
+        let width = widthOfString(titleView.currentTitle ?? "", font: UIFont.systemFont(ofSize: 17), height: 21)*1.3
+        titleView.imageEdgeInsets = UIEdgeInsetsMake(0, width, 0, -width)
+        titleView.setTitleColor(UIColor.black, for: .normal)
+        titleView.addTarget(self, action: #selector(titleViewAction(btn:)), for: .touchUpInside)
+        self.titleView = titleView
+        self.navigationItem.titleView = self.titleView
+        
+    }
+    
+    @objc func titleViewAction(btn:UIButton){
+        let filterVC = FilterThemeViewController()
+        filterVC.clickAction =  { (index:Int,title:String,name:String) in
+            var titleString = title
+            let genders = ["male","female"]
+            if name == "性别" {
+                self.gender = genders[index]
+                self.tag = ""
+                titleString = "\(titleString)生小说"
+            }else{
+                self.gender = ""
+                self.tag = title
+            }
+            self.titleView(title: titleString)
+            self.requestDetail(index: self.selectedIndex, tag: self.tag, gender: self.gender)
+        }
+        self.navigationController?.pushViewController(filterVC, animated: true)
+    }
+    
+    fileprivate func requestDetail(index:Int,tag:String,gender:String){
+        var sorts:[String] = ["collectorCount","created","collectorCount"]
+        var durations:[String] = ["last-seven-days","all","all"]
         //本周最热
 //        http://api.zhuishushenqi.com/book-list?sort=collectorCount&duration=last-seven-days&start=0
         
@@ -47,10 +93,8 @@ class ThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableViewD
         
         //最多收藏 （全部书单）
 //        http://api.zhuishushenqi.com/book-list?sort=collectorCount&duration=all&start=0
-        
         let urlString = "\(baseUrl)/book-list"
-        let param = ["sort":"collectorCount","duration":"last-seven-days","start":"0"]
-        //        QSNetwork.setDefaultURL(url: baseUrl)
+        let param = ["sort":sorts[index],"duration":durations[index],"start":"0","gender":gender,"tag":tag]
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             print(response.json ?? "")
             do{
@@ -65,12 +109,15 @@ class ThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableViewD
                 self.view.addSubview(self.tableView)
                 self.tableView.reloadData()
             }
-            //            http://api.zhuishushenqi.com/ranking/54d42d92321052167dfb75e3
         }
     }
     
     func didSelectAtIndex(_ index:Int){
-        
+        if selectedIndex == index {
+            return
+        }
+        selectedIndex = index
+        requestDetail(index: selectedIndex,tag: tag,gender: gender)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,5 +155,4 @@ class ThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableViewD
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }

@@ -130,6 +130,8 @@
 		B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */; };
 		B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228C1DB3291A0040CAD3 /* CFNetwork.framework */; };
 		B263507D1E6E9F3200D08DAC /* QSRankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263507C1E6E9F3200D08DAC /* QSRankModel.swift */; };
+		B2801B591E75B33400766E3D /* FilterThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2801B581E75B33400766E3D /* FilterThemeViewController.swift */; };
+		B2801B631E75B56F00766E3D /* FilterThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2801B621E75B56F00766E3D /* FilterThemeCell.swift */; };
 		B294CDA71E7104100098926D /* HotCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294CDA51E7104100098926D /* HotCommentCell.swift */; };
 		B294CDA81E7104100098926D /* HotCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B294CDA61E7104100098926D /* HotCommentCell.xib */; };
 		B294CDB61E712EF80098926D /* LightStarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294CDB51E712EF80098926D /* LightStarView.swift */; };
@@ -492,6 +494,8 @@
 		B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCActionSheet.swift; sourceTree = "<group>"; };
 		B251228C1DB3291A0040CAD3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B263507C1E6E9F3200D08DAC /* QSRankModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankModel.swift; sourceTree = "<group>"; };
+		B2801B581E75B33400766E3D /* FilterThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterThemeViewController.swift; sourceTree = "<group>"; };
+		B2801B621E75B56F00766E3D /* FilterThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterThemeCell.swift; sourceTree = "<group>"; };
 		B294CDA51E7104100098926D /* HotCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotCommentCell.swift; sourceTree = "<group>"; };
 		B294CDA61E7104100098926D /* HotCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotCommentCell.xib; sourceTree = "<group>"; };
 		B294CDB51E712EF80098926D /* LightStarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightStarView.swift; sourceTree = "<group>"; };
@@ -956,6 +960,8 @@
 				B2B1610D1D9185AC00E165D2 /* BaseViewController.swift */,
 				B231193E1DBB51FE008A6D92 /* SideViewController.swift */,
 				B23119441DBB674E008A6D92 /* DynamicViewController.swift */,
+				B2801B581E75B33400766E3D /* FilterThemeViewController.swift */,
+				B2801B621E75B56F00766E3D /* FilterThemeCell.swift */,
 				B2B40B4D1DA39FB7001F972B /* UINavigationItem+BackItem.h */,
 				B2B40B4E1DA39FB7001F972B /* UINavigationItem+BackItem.m */,
 			);
@@ -1489,6 +1495,7 @@
 				B2C91E771DACEFC3002B6C6F /* LatestChapterAPI.swift in Sources */,
 				B2CD13B01E73BD52000D97D9 /* FMResultSet.m in Sources */,
 				B22182831DA40326002458D2 /* UIView+YYAdd.m in Sources */,
+				B2801B591E75B33400766E3D /* FilterThemeViewController.swift in Sources */,
 				B221828D1DA40326002458D2 /* YYAnimatedImageView.m in Sources */,
 				B22182A51DA40326002458D2 /* YYTextParser.m in Sources */,
 				B2B40B391DA2B48C001F972B /* RankingDetailAPI.swift in Sources */,
@@ -1569,6 +1576,7 @@
 				B22182B51DA40326002458D2 /* YYTransaction.m in Sources */,
 				B22182B61DA40326002458D2 /* YYWeakProxy.m in Sources */,
 				B22182A91DA40326002458D2 /* YYLabel.m in Sources */,
+				B2801B631E75B56F00766E3D /* FilterThemeCell.swift in Sources */,
 				B22182741DA40326002458D2 /* CALayer+YYAdd.m in Sources */,
 				B23119471DBB70B9008A6D92 /* DynamicAPI.swift in Sources */,
 				B22182AF1DA40326002458D2 /* YYKeychain.m in Sources */,

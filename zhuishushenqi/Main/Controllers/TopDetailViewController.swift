@@ -37,6 +37,8 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 class TopDetailViewController: BaseViewController ,SegMenuDelegate,UITableViewDataSource,UITableViewDelegate{
 
     var id:String? = ""
+    var selectedIndex = 0
+    var model:QSRankModel?
     var books:NSArray? = []
     fileprivate let iden = "TopDetailCell"
 
@@ -54,7 +56,7 @@ class TopDetailViewController: BaseViewController ,SegMenuDelegate,UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         initSubview()
-        requestDetail()
+        requestDetail(idString: model?._id ?? "")
     }
     
     fileprivate func initSubview(){
@@ -63,9 +65,8 @@ class TopDetailViewController: BaseViewController ,SegMenuDelegate,UITableViewDa
         view.addSubview(segView)
     }
     
-    fileprivate func requestDetail(){
-        let urlString = "\(baseUrl)/ranking/\(id ?? "")"
-//        QSNetwork.setDefaultURL(url: baseUrl)
+    fileprivate func requestDetail(idString:String){
+        let urlString = "\(baseUrl)/ranking/\(idString)"
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             print(response.json ?? "No Data")
             do{
@@ -76,35 +77,21 @@ class TopDetailViewController: BaseViewController ,SegMenuDelegate,UITableViewDa
                 
             }
             DispatchQueue.main.sync {
-                
+                self.tableView.removeFromSuperview()
                 self.view.addSubview(self.tableView)
                 self.tableView.reloadData()
             }
 //            http://api.zhuishushenqi.com/ranking/54d42d92321052167dfb75e3
         }
-        
-//        let rankDetail = RankingDetailAPI()
-//        rankDetail.id = id! as NSString
-        
-//        rankDetail.startWithCompletionBlockWithHUD({ (request) in
-//            XYCLog(request)
-//            if let books:NSArray =  (request.object(forKey: "ranking") as AnyObject).object(forKey: "books") as? NSArray{
-//                do {
-//                    self.booksModel = try  XYCBaseModel.model(withModleClass: Book.self, withJsArray: books as? [AnyObject]) as NSArray?
-//                    self.view.addSubview(self.tableView)
-//                    self.tableView.reloadData()
-//                }catch {
-//                    
-//                }
-//            }
-//            
-//        }) { (request) in
-//            
-//        }
     }
     
     func didSelectAtIndex(_ index:Int){
-        
+        if selectedIndex == index {
+            return
+        }
+        selectedIndex = index
+        let ids:[String] = [model?._id ?? "1",model?.monthRank ?? "2",model?.totalRank ?? "3"]
+        requestDetail(idString: ids[selectedIndex])
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

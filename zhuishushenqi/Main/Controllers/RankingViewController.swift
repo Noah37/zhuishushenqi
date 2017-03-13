@@ -175,31 +175,24 @@ class RankingViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            if indexPath.row == 5 {
+        var rank:[[QSRankModel]] = [maleRank!,femaleRank!]
+        if indexPath.row == 5{
+            if indexPath.section == 0 {
                 showMale = !showMale
-                let cell:RankingViewCell? = self.tableView?.cellForRow(at: indexPath) as? RankingViewCell
-                cell?.accessoryImageView.isSelected = showMale
-                self.tableView?.reloadData()
             }else{
-                let topVC = TopDetailViewController()
-                topVC.id = maleRank![indexPath.row]._id
-                topVC.title = maleRank?[indexPath.row].title ?? ""
-                self.navigationController?.pushViewController(topVC, animated: true)
-            }
-        }else{
-            if indexPath.row == 5 {
                 showFemale = !showFemale
-                let cell:RankingViewCell? = self.tableView?.cellForRow(at: indexPath) as? RankingViewCell
-                cell?.accessoryImageView.isSelected = !(cell?.accessoryImageView.isSelected)!
-                self.tableView?.reloadData()
-            }else{
-                let topVC = TopDetailViewController()
-                topVC.id = femaleRank![indexPath.row]._id
-                topVC.title = maleRank?[indexPath.row].title ?? ""
-                self.navigationController?.pushViewController(topVC, animated: true)
             }
+            let cell:RankingViewCell? = self.tableView?.cellForRow(at: indexPath) as? RankingViewCell
+            cell?.accessoryImageView.isSelected = showMale
+            self.tableView?.reloadData()
+            return
         }
+        let topVC = TopDetailViewController()
+        topVC.id = rank[indexPath.section][indexPath.row]._id
+        topVC.title = rank[indexPath.section][indexPath.row].title
+        topVC.model = rank[indexPath.section][indexPath.row]
+        self.navigationController?.pushViewController(topVC, animated: true)
+
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
