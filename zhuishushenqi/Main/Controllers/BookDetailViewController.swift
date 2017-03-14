@@ -155,6 +155,11 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
                     BookShelfInfo.books.bookShelf = mArr
                 NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
             }
+            headerview?.startReading = {(isSelected:Bool,model:BookDetail) in
+                let allChapterUrl = "\(baseUrl)/toc"
+                self.requestAllChapters(withUrl: allChapterUrl,param:["view":"summary","book":model._id ?? ""])
+            }
+            
             if headerview != nil {
                 return headerview!
             }
@@ -294,6 +299,30 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         cell.contentView.addSubview(label)
         return cell
     }
+    
+    func requestAllChapters(withUrl url:String,param:[String:Any]){
+        //先查询书籍来源，根据来源返回的id再查询所有章节
+        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
+            var res:NSArray = [ResourceModel]() as NSArray
+            if let resources = response.json as? NSArray {
+                do{
+                    res = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as NSArray
+                }catch{
+                    print(error)
+                }
+            }
+            
+            if let json:NSDictionary = (response.json as? NSArray)?.object(at: 1) as? NSDictionary {
+                DispatchQueue.main.async {
+                    let txtVC = TXTReaderViewController()
+                    txtVC.id = json["_id"] as? String ?? ""
+                    txtVC.resources = res
+                    self.present(txtVC, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

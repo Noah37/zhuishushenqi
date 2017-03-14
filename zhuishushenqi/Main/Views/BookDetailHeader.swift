@@ -13,6 +13,7 @@ typealias AddButtonAction = (_ isSelected:Bool,_ model:BookDetail)->Void
 class BookDetailHeader: UIView {
 
     var addBtnAction:AddButtonAction?
+    var startReading:AddButtonAction?
     var model:BookDetail?{
         didSet{
             name.text = model?.title
@@ -71,8 +72,13 @@ class BookDetailHeader: UIView {
     @IBOutlet weak var typeWidth: UILabel!
     
     @IBOutlet weak var addButton: UIButton!
-    @IBAction func readingStart(_ sender: AnyObject) {
-        
+    
+    @IBAction func readingStart(_ sender: UIButton) {
+        if let action = startReading {
+            if let model = self.model {
+                action(sender.isSelected,model)
+            }
+        }
     }
     
     @IBAction func addBook(_ sender: UIButton) {
@@ -82,14 +88,5 @@ class BookDetailHeader: UIView {
                 action(sender.isSelected,model)
             }
         }
-        
-        
-//        let addBookApi = AddBookAPI()
-//        addBookApi.id = model?._id
-//        addBookApi.startWithCompletionBlockWithHUD({ (request) in
-//            
-//            }) { (request) in
-//                
-//        }
     }
 }
