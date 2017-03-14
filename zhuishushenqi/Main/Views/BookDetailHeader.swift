@@ -29,7 +29,7 @@ class BookDetailHeader: UIView {
             authorWidthh.constant = widthttt
             
             typeWidth.text = model?.minorCate == "" ? model?.majorCate : model?.minorCate
-            let typeConst = widthOfString(typeWidth.text!, font: UIFont.systemFont(ofSize: 13), height: 21)
+            let typeConst = widthOfString(typeWidth.text ?? "", font: UIFont.systemFont(ofSize: 13), height: 21)
             typeWidthConst.constant = typeConst + 5
             
             words.text = "\(Int(model?.wordCount ?? "0")!/10000)万字"
