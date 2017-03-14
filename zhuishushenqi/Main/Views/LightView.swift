@@ -10,17 +10,17 @@ import UIKit
 
 class LightView: UIView {
 
-    override init(frame: CGRect) {
+    init(frame: CGRect,image:UIImage?) {
         super.init(frame: frame)
         self.layer.masksToBounds = true
-        makeLightView()
+        makeLightView(image: image)
     }
     
-    func makeLightView(){
+    func makeLightView(image:UIImage?){
         for index in 0..<5 {
             let width = self.bounds.width/5 - 10/5
             let height = self.bounds.height
-            let lightStarView = LightStarView(frame: CGRect(x: CGFloat(1) + CGFloat(index)*width + CGFloat(2*index), y: 0, width: width, height: height))
+            let lightStarView = LightStarView(frame: CGRect(x: CGFloat(1) + CGFloat(index)*width + CGFloat(2*index), y: 0, width: width, height: height), image: image)
             addSubview(lightStarView)
         }
     }

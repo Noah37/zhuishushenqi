@@ -70,8 +70,10 @@ class TopDetailViewController: BaseViewController ,SegMenuDelegate,UITableViewDa
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             print(response.json ?? "No Data")
             do{
-                if let books = (response.json?.object(forKey: "ranking") as AnyObject).object(forKey: "books") {
-                    self.booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject]) as NSArray
+                if let json = response.json {
+                    if let books = (json.object(forKey: "ranking") as AnyObject).object(forKey: "books") {
+                        self.booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject]) as NSArray
+                    }
                 }
             }catch{
                 

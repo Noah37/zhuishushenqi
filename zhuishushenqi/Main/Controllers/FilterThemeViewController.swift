@@ -90,7 +90,7 @@ class FilterThemeViewController: BaseViewController,UITableViewDataSource,UITabl
     func didSelectedTag(index:Int,title:String,name:String){
         if let click = self.clickAction {
             let popedVC = self.navigationController?.popViewController(animated: true)
-            print(popedVC)
+            print(popedVC ?? "Nothing")
             click(index,title,name)
         }
     }

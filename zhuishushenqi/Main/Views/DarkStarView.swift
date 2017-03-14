@@ -10,9 +10,15 @@ import UIKit
 
 class DarkStarView: UIImageView {
 
-    override init(frame: CGRect) {
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        self.image = UIImage(named: "bd_star_empty")
+////        bd_star_empty
+//    }
+    
+    init(frame: CGRect,image:UIImage?) {
         super.init(frame: frame)
-        self.image = UIImage(named: "bd_star_empty")
+        self.image = image
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -127,11 +127,17 @@
 		B23119471DBB70B9008A6D92 /* DynamicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23119461DBB70B9008A6D92 /* DynamicAPI.swift */; };
 		B231194A1DBB7551008A6D92 /* DynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23119481DBB7551008A6D92 /* DynamicCell.swift */; };
 		B231194B1DBB7551008A6D92 /* DynamicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B23119491DBB7551008A6D92 /* DynamicCell.xib */; };
+		B238C2F91E76932100332BB9 /* FilterThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238C2F81E76932100332BB9 /* FilterThemeCell.swift */; };
+		B238C2FB1E76937B00332BB9 /* BookCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238C2FA1E76937B00332BB9 /* BookCommentViewController.swift */; };
+		B238C2FD1E76950700332BB9 /* BookComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238C2FC1E76950700332BB9 /* BookComment.swift */; };
+		B238C3001E7697D700332BB9 /* BookCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238C2FE1E7697D700332BB9 /* BookCommentCell.swift */; };
+		B238C3011E7697D700332BB9 /* BookCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B238C2FF1E7697D700332BB9 /* BookCommentCell.xib */; };
+		B238C3041E7697FE00332BB9 /* BookCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238C3021E7697FE00332BB9 /* BookCommentViewCell.swift */; };
+		B238C3051E7697FE00332BB9 /* BookCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B238C3031E7697FE00332BB9 /* BookCommentViewCell.xib */; };
 		B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */; };
 		B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228C1DB3291A0040CAD3 /* CFNetwork.framework */; };
 		B263507D1E6E9F3200D08DAC /* QSRankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263507C1E6E9F3200D08DAC /* QSRankModel.swift */; };
 		B2801B591E75B33400766E3D /* FilterThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2801B581E75B33400766E3D /* FilterThemeViewController.swift */; };
-		B2801B631E75B56F00766E3D /* FilterThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2801B621E75B56F00766E3D /* FilterThemeCell.swift */; };
 		B294CDA71E7104100098926D /* HotCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294CDA51E7104100098926D /* HotCommentCell.swift */; };
 		B294CDA81E7104100098926D /* HotCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B294CDA61E7104100098926D /* HotCommentCell.xib */; };
 		B294CDB61E712EF80098926D /* LightStarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B294CDB51E712EF80098926D /* LightStarView.swift */; };
@@ -153,6 +159,8 @@
 		B2A119851E72577D00E71AB1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A119841E72577D00E71AB1 /* CategoryViewController.swift */; };
 		B2A119881E72585F00E71AB1 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A119861E72585F00E71AB1 /* CategoryCell.swift */; };
 		B2A119891E72585F00E71AB1 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2A119871E72585F00E71AB1 /* CategoryCell.xib */; };
+		B2A7B7951E77E537008A154A /* BookCommentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7B7941E77E537008A154A /* BookCommentDetail.swift */; };
+		B2A8BA4D1E784399001506EF /* NSDate+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A8BA4C1E784398001506EF /* NSDate+Date.m */; };
 		B2A95CC81DA8E65B00E12A38 /* V2FPSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */; };
 		B2B160A51D8EDCEE00E165D2 /* SwipableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B160A41D8EDCEE00E165D2 /* SwipableCell.swift */; };
 		B2B160A71D8EF02F00E165D2 /* RightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B160A61D8EF02F00E165D2 /* RightTableViewCell.swift */; };
@@ -210,6 +218,9 @@
 		B2CD13B01E73BD52000D97D9 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CD13A91E73BD52000D97D9 /* FMResultSet.m */; };
 		B2CD13B11E73BD52000D97D9 /* YTKKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CD13AB1E73BD52000D97D9 /* YTKKeyValueStore.m */; };
 		B2CE21B51D9F76E400775B73 /* RankingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CE21B41D9F76E400775B73 /* RankingAPI.swift */; };
+		B2CFCC291E77D50200CCEF04 /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CFCC281E77D50200CCEF04 /* RateView.swift */; };
+		B2CFCC341E77D93200CCEF04 /* UserfulCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CFCC321E77D93200CCEF04 /* UserfulCell.swift */; };
+		B2CFCC351E77D93200CCEF04 /* UserfulCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2CFCC331E77D93200CCEF04 /* UserfulCell.xib */; };
 		B2DE0A321D8D570200B27AD8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DE0A311D8D570200B27AD8 /* Config.swift */; };
 /* End PBXBuildFile section */
 
@@ -491,11 +502,17 @@
 		B23119461DBB70B9008A6D92 /* DynamicAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicAPI.swift; sourceTree = "<group>"; };
 		B23119481DBB7551008A6D92 /* DynamicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCell.swift; sourceTree = "<group>"; };
 		B23119491DBB7551008A6D92 /* DynamicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DynamicCell.xib; sourceTree = "<group>"; };
+		B238C2F81E76932100332BB9 /* FilterThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterThemeCell.swift; sourceTree = "<group>"; };
+		B238C2FA1E76937B00332BB9 /* BookCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCommentViewController.swift; sourceTree = "<group>"; };
+		B238C2FC1E76950700332BB9 /* BookComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookComment.swift; sourceTree = "<group>"; };
+		B238C2FE1E7697D700332BB9 /* BookCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCommentCell.swift; sourceTree = "<group>"; };
+		B238C2FF1E7697D700332BB9 /* BookCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookCommentCell.xib; sourceTree = "<group>"; };
+		B238C3021E7697FE00332BB9 /* BookCommentViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCommentViewCell.swift; sourceTree = "<group>"; };
+		B238C3031E7697FE00332BB9 /* BookCommentViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookCommentViewCell.xib; sourceTree = "<group>"; };
 		B23FDB451DA69DAC0084B413 /* XYCActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCActionSheet.swift; sourceTree = "<group>"; };
 		B251228C1DB3291A0040CAD3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B263507C1E6E9F3200D08DAC /* QSRankModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankModel.swift; sourceTree = "<group>"; };
 		B2801B581E75B33400766E3D /* FilterThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterThemeViewController.swift; sourceTree = "<group>"; };
-		B2801B621E75B56F00766E3D /* FilterThemeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterThemeCell.swift; sourceTree = "<group>"; };
 		B294CDA51E7104100098926D /* HotCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotCommentCell.swift; sourceTree = "<group>"; };
 		B294CDA61E7104100098926D /* HotCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotCommentCell.xib; sourceTree = "<group>"; };
 		B294CDB51E712EF80098926D /* LightStarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightStarView.swift; sourceTree = "<group>"; };
@@ -517,6 +534,9 @@
 		B2A119841E72577D00E71AB1 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		B2A119861E72585F00E71AB1 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		B2A119871E72585F00E71AB1 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
+		B2A7B7941E77E537008A154A /* BookCommentDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCommentDetail.swift; sourceTree = "<group>"; };
+		B2A8BA4B1E784398001506EF /* NSDate+Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Date.h"; sourceTree = "<group>"; };
+		B2A8BA4C1E784398001506EF /* NSDate+Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Date.m"; sourceTree = "<group>"; };
 		B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V2FPSLabel.swift; sourceTree = "<group>"; };
 		B2B160A41D8EDCEE00E165D2 /* SwipableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipableCell.swift; sourceTree = "<group>"; };
 		B2B160A61D8EF02F00E165D2 /* RightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightTableViewCell.swift; sourceTree = "<group>"; };
@@ -547,8 +567,8 @@
 		B2B40B471DA38FEE001F972B /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
 		B2B40B491DA390DE001F972B /* BookDetailHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailHeader.swift; sourceTree = "<group>"; };
 		B2B40B4B1DA390F2001F972B /* BookDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookDetailHeader.xib; sourceTree = "<group>"; };
-		B2B40B4D1DA39FB7001F972B /* UINavigationItem+BackItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+BackItem.h"; sourceTree = "<group>"; };
-		B2B40B4E1DA39FB7001F972B /* UINavigationItem+BackItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+BackItem.m"; sourceTree = "<group>"; };
+		B2B40B4D1DA39FB7001F972B /* UINavigationItem+BackItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationItem+BackItem.h"; path = "../Controllers/UINavigationItem+BackItem.h"; sourceTree = "<group>"; };
+		B2B40B4E1DA39FB7001F972B /* UINavigationItem+BackItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationItem+BackItem.m"; path = "../Controllers/UINavigationItem+BackItem.m"; sourceTree = "<group>"; };
 		B2B40B501DA3E84A001F972B /* BookDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetail.swift; sourceTree = "<group>"; };
 		B2B40B521DA3EE27001F972B /* BookDetailAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailAPI.swift; sourceTree = "<group>"; };
 		B2BB5B961D8BDF8E00379217 /* zhuishushenqi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhuishushenqi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -590,6 +610,9 @@
 		B2CD13AA1E73BD52000D97D9 /* YTKKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTKKeyValueStore.h; path = ../YTKKeyValueStore.h; sourceTree = "<group>"; };
 		B2CD13AB1E73BD52000D97D9 /* YTKKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTKKeyValueStore.m; path = ../YTKKeyValueStore.m; sourceTree = "<group>"; };
 		B2CE21B41D9F76E400775B73 /* RankingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankingAPI.swift; sourceTree = "<group>"; };
+		B2CFCC281E77D50200CCEF04 /* RateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateView.swift; sourceTree = "<group>"; };
+		B2CFCC321E77D93200CCEF04 /* UserfulCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserfulCell.swift; sourceTree = "<group>"; };
+		B2CFCC331E77D93200CCEF04 /* UserfulCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserfulCell.xib; sourceTree = "<group>"; };
 		B2DE0A311D8D570200B27AD8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -961,9 +984,7 @@
 				B231193E1DBB51FE008A6D92 /* SideViewController.swift */,
 				B23119441DBB674E008A6D92 /* DynamicViewController.swift */,
 				B2801B581E75B33400766E3D /* FilterThemeViewController.swift */,
-				B2801B621E75B56F00766E3D /* FilterThemeCell.swift */,
-				B2B40B4D1DA39FB7001F972B /* UINavigationItem+BackItem.h */,
-				B2B40B4E1DA39FB7001F972B /* UINavigationItem+BackItem.m */,
+				B238C2FA1E76937B00332BB9 /* BookCommentViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -995,6 +1016,8 @@
 				B2A119781E71AB0200E71AB1 /* TopicDetailModel.swift */,
 				B2A119821E7247D900E71AB1 /* TopicDetailHeader.swift */,
 				B2CD13961E7304D0000D97D9 /* CategoryModel.swift */,
+				B238C2FC1E76950700332BB9 /* BookComment.swift */,
+				B2A7B7941E77E537008A154A /* BookCommentDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1002,6 +1025,7 @@
 		B2260F4A1D8D4A4F00581DD8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B238C2F81E76932100332BB9 /* FilterThemeCell.swift */,
 				B2A95CC71DA8E65B00E12A38 /* V2FPSLabel.swift */,
 				B2BB5DB51D8CF2FA00379217 /* SegMenu.swift */,
 				B2260F461D8D45AD00581DD8 /* BarButton.swift */,
@@ -1018,6 +1042,7 @@
 				B21AFC7F1E6C318E009B2858 /* RankingViewCell.swift */,
 				B294CDA51E7104100098926D /* HotCommentCell.swift */,
 				B294CDA61E7104100098926D /* HotCommentCell.xib */,
+				B2CFCC281E77D50200CCEF04 /* RateView.swift */,
 				B294CDC11E71300A0098926D /* LightView.swift */,
 				B294CDC31E7130150098926D /* DarkView.swift */,
 				B294CDB51E712EF80098926D /* LightStarView.swift */,
@@ -1031,6 +1056,12 @@
 				B2A119861E72585F00E71AB1 /* CategoryCell.swift */,
 				B2A119871E72585F00E71AB1 /* CategoryCell.xib */,
 				B2CD139C1E73A8BE000D97D9 /* SearchView.swift */,
+				B238C2FE1E7697D700332BB9 /* BookCommentCell.swift */,
+				B238C2FF1E7697D700332BB9 /* BookCommentCell.xib */,
+				B238C3021E7697FE00332BB9 /* BookCommentViewCell.swift */,
+				B238C3031E7697FE00332BB9 /* BookCommentViewCell.xib */,
+				B2CFCC321E77D93200CCEF04 /* UserfulCell.swift */,
+				B2CFCC331E77D93200CCEF04 /* UserfulCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1107,7 +1138,11 @@
 		B2B297E81E6D96B80044E539 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				B2B40B4D1DA39FB7001F972B /* UINavigationItem+BackItem.h */,
+				B2B40B4E1DA39FB7001F972B /* UINavigationItem+BackItem.m */,
 				B2B297E91E6D96F10044E539 /* String+crypto.swift */,
+				B2A8BA4B1E784398001506EF /* NSDate+Date.h */,
+				B2A8BA4C1E784398001506EF /* NSDate+Date.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1398,7 +1433,10 @@
 			files = (
 				B2B297C11E6D5E600044E539 /* CategoryTableViewCell.xib in Resources */,
 				B2A119811E72397A00E71AB1 /* TopicDetailHeaderCell.xib in Resources */,
+				B2CFCC351E77D93200CCEF04 /* UserfulCell.xib in Resources */,
+				B238C3011E7697D700332BB9 /* BookCommentCell.xib in Resources */,
 				B294CDA81E7104100098926D /* HotCommentCell.xib in Resources */,
+				B238C3051E7697FE00332BB9 /* BookCommentViewCell.xib in Resources */,
 				B22182631DA40326002458D2 /* LICENSE in Resources */,
 				B2B40B4C1DA390F2001F972B /* BookDetailHeader.xib in Resources */,
 				B2B40B411DA2BCB7001F972B /* TopDetailCell.xib in Resources */,
@@ -1488,11 +1526,13 @@
 				B23119451DBB674E008A6D92 /* DynamicViewController.swift in Sources */,
 				B2B40B441DA2C58B001F972B /* XYCBaseModel.m in Sources */,
 				B22182A71DA40326002458D2 /* YYTextRunDelegate.m in Sources */,
+				B2A7B7951E77E537008A154A /* BookCommentDetail.swift in Sources */,
 				B22182941DA40326002458D2 /* YYWebImageOperation.m in Sources */,
 				B2B40B3B1DA2B965001F972B /* TopDetailViewController.swift in Sources */,
 				B22182A61DA40326002458D2 /* YYTextRubyAnnotation.m in Sources */,
 				B2CD139B1E7394D3000D97D9 /* SearchDetailViewController.swift in Sources */,
 				B2C91E771DACEFC3002B6C6F /* LatestChapterAPI.swift in Sources */,
+				B2CFCC291E77D50200CCEF04 /* RateView.swift in Sources */,
 				B2CD13B01E73BD52000D97D9 /* FMResultSet.m in Sources */,
 				B22182831DA40326002458D2 /* UIView+YYAdd.m in Sources */,
 				B2801B591E75B33400766E3D /* FilterThemeViewController.swift in Sources */,
@@ -1550,10 +1590,12 @@
 				B2CD139D1E73A8BE000D97D9 /* SearchView.swift in Sources */,
 				B221829F1DA40326002458D2 /* YYTextSelectionView.m in Sources */,
 				B22182661DA40326002458D2 /* NSArray+YYAdd.m in Sources */,
+				B238C2FB1E76937B00332BB9 /* BookCommentViewController.swift in Sources */,
 				B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */,
 				B221828F1DA40326002458D2 /* YYImage.m in Sources */,
 				B22182A21DA40326002458D2 /* UIPasteboard+YYText.m in Sources */,
 				B2260F561D8D508800581DD8 /* XYCNetworkConfig.swift in Sources */,
+				B2CFCC341E77D93200CCEF04 /* UserfulCell.swift in Sources */,
 				B22182A31DA40326002458D2 /* YYTextArchiver.m in Sources */,
 				B22182961DA40326002458D2 /* YYClassInfo.m in Sources */,
 				B2A119731E71A05400E71AB1 /* ThemeTopicModel.swift in Sources */,
@@ -1576,7 +1618,7 @@
 				B22182B51DA40326002458D2 /* YYTransaction.m in Sources */,
 				B22182B61DA40326002458D2 /* YYWeakProxy.m in Sources */,
 				B22182A91DA40326002458D2 /* YYLabel.m in Sources */,
-				B2801B631E75B56F00766E3D /* FilterThemeCell.swift in Sources */,
+				B238C2F91E76932100332BB9 /* FilterThemeCell.swift in Sources */,
 				B22182741DA40326002458D2 /* CALayer+YYAdd.m in Sources */,
 				B23119471DBB70B9008A6D92 /* DynamicAPI.swift in Sources */,
 				B22182AF1DA40326002458D2 /* YYKeychain.m in Sources */,
@@ -1615,6 +1657,7 @@
 				B22182911DA40326002458D2 /* YYImageCoder.m in Sources */,
 				B2CE21B51D9F76E400775B73 /* RankingAPI.swift in Sources */,
 				B22182851DA40326002458D2 /* YYDiskCache.m in Sources */,
+				B238C3041E7697FE00332BB9 /* BookCommentViewCell.swift in Sources */,
 				B2CD13971E7304D0000D97D9 /* CategoryModel.swift in Sources */,
 				B2A119831E7247D900E71AB1 /* TopicDetailHeader.swift in Sources */,
 				B231194A1DBB7551008A6D92 /* DynamicCell.swift in Sources */,
@@ -1622,6 +1665,7 @@
 				B22182861DA40326002458D2 /* YYKVStorage.m in Sources */,
 				B22182B31DA40326002458D2 /* YYThreadSafeDictionary.m in Sources */,
 				B2A119711E719D4E00E71AB1 /* ThemeTopicViewController.swift in Sources */,
+				B238C3001E7697D700332BB9 /* BookCommentCell.swift in Sources */,
 				B22182D31DA4A5F6002458D2 /* BookShelfAPI.swift in Sources */,
 				B22182971DA40326002458D2 /* YYTextContainerView.m in Sources */,
 				B2CD13B11E73BD52000D97D9 /* YTKKeyValueStore.m in Sources */,
@@ -1634,6 +1678,8 @@
 				B22182AB1DA40326002458D2 /* YYAsyncLayer.m in Sources */,
 				B221828C1DA40326002458D2 /* UIImageView+YYWebImage.m in Sources */,
 				B2A119771E71A8B300E71AB1 /* TopicDetailViewController.swift in Sources */,
+				B2A8BA4D1E784399001506EF /* NSDate+Date.m in Sources */,
+				B238C2FD1E76950700332BB9 /* BookComment.swift in Sources */,
 				B22182991DA40326002458D2 /* YYTextEffectWindow.m in Sources */,
 				B22182891DA40326002458D2 /* CALayer+YYWebImage.m in Sources */,
 				B2BB5B9A1D8BDF8E00379217 /* AppDelegate.swift in Sources */,

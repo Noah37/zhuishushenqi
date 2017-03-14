@@ -10,9 +10,9 @@ import UIKit
 
 class LightStarView: UIImageView {
     
-    override init(frame: CGRect) {
+    init(frame: CGRect,image:UIImage?) {
         super.init(frame: frame)
-        self.image = UIImage(named: "bd_star_filled")
+        self.image = image
     }
     
     required init?(coder aDecoder: NSCoder) {

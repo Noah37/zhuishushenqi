@@ -42,13 +42,12 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
     
     fileprivate func requestData(){
         let url = "\(baseUrl)/book/\(id)"
-//        QSNetwork.setDefaultURL(url: baseUrl)
         QSNetwork.request(url, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             do{
                 if let json = response.json as? [AnyHashable : Any]{
                     self.bookModel = BookDetail.model(with: json)
                 }
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     self.view.addSubview(self.tableView)
                     self.tableView.reloadData()
                 }
@@ -60,7 +59,11 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             do{
                 if let json = response.json?["reviews"] as? [Any] {
                     self.hotComment = try XYCBaseModel.model(withModleClass: QSHotComment.self, withJsArray: json) as? [QSHotComment]
-                    self.tableView.reloadData()
+                    DispatchQueue.main.async {
+                        self.tableView.removeFromSuperview()
+                        self.view.addSubview(self.tableView)
+                        self.tableView.reloadData()
+                    }
                 }
             }catch{
                 
@@ -69,8 +72,6 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
     }
     
     fileprivate func initSubview(){
-        
-        
         let titleView = UIView(frame: CGRect(x: 0,y: 0,width: 120,height: 30))
         let titleLabel = UILabel(frame: CGRect(x: 0,y: 0,width: 90,height: 30))
         titleLabel.textAlignment = .center
@@ -208,6 +209,15 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         return 60
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 1 {
+            let bookCommentVC = BookCommentViewController()
+            bookCommentVC.id = self.hotComment?[indexPath.row]._id ?? ""
+            self.navigationController?.pushViewController(bookCommentVC, animated: true)
+        }
+    }
+    
     @objc func moreCommentAction(btn:UIButton){
         
     }
@@ -217,7 +227,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         cell.selectionStyle = .none
 
         let text = ["追书人数","读者留存率","更新字数/天"]
-        let sText = [bookModel!.latelyFollower,"\(bookModel?.retentionRatio ?? "0")%","\(bookModel!.serializeWordCount)"]
+        let sText = [bookModel?.latelyFollower ?? "0","\(bookModel?.retentionRatio ?? "0")%","\(bookModel?.serializeWordCount ?? "未知")"]
         let x:CGFloat = 0
         let y:CGFloat = 20
         let width = ScreenWidth/3
@@ -250,7 +260,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         let spacex:CGFloat = 10
         let spacey:CGFloat = 10
         let height:CGFloat = 30
-        for index in 0..<bookModel!.tags!.count {
+        for index in 0..<(bookModel?.tags?.count ?? 0) {
             let width = widthOfString(bookModel!.tags![index] as! String, font: UIFont.systemFont(ofSize: 15), height: 21) + 20
             if x + width + 20 > ScreenWidth {
                 x = 20

@@ -146,8 +146,8 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
     }
     
     fileprivate func postLinkArchive(_ postLink:AnyObject?) ->(String,String){
+        return ("","")
         if postLink == nil{
-            return ("","")
         }
         let rangeRight = postLink?.range(of: "]]")
         let rangeBet = postLink?.range(of: ":")

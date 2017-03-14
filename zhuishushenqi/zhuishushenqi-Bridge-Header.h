@@ -13,5 +13,6 @@
 #import "NSObject+YYModel.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "YTKKeyValueStore.h"
+#import "NSDate+Date.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */
