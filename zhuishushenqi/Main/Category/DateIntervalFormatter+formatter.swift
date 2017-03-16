@@ -59,7 +59,8 @@ extension DateIntervalFormatter{
         }else {
             if abs(year) <= 1 {
                 if year == 0 {//同年
-                    return String(format: "%d个月前",abs(month))
+                    return String(format: "%d个月前",
+                                  (month))
                 }
             }
             if month < 0 { //未满一年不计算

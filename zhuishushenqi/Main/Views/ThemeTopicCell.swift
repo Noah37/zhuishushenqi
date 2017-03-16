@@ -32,16 +32,8 @@ class ThemeTopicCell: UITableViewCell {
             let width = widthOfString(self.reading.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
             self.persueWidth.constant = width + 5
             
-            self.icon.image = UIImage(named: "default_book_cover")
-            if self.model?.cover == "" {
-                return;
-            }
             let urlString = "\(picBaseUrl)\(self.model?.cover ?? "qqqqqqqq")"
-            let url = URL(string: urlString)
-            if let urlstring = url {
-                let resource:QSResource = QSResource(url: urlstring)
-                self.icon.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
-            }
+            self.icon.qs_setBookCoverWithURLString(urlString: urlString)
         }
     }
     

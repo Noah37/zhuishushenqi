@@ -22,12 +22,7 @@ class RankingViewCell: UITableViewCell {
                 return
             }
             let imageUrlString =  "\(picBaseUrl)\(model?.cover ?? "")"
-            let url:URL? = URL(string: imageUrlString)
-            if let imageUrl = url {
-                self.accessoryImageView.isHidden = true
-                let resource:QSResource = QSResource(url: imageUrl)
-                self.imageView?.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
-            }
+            self.imageView?.qs_setBookCoverWithURLString(urlString: imageUrlString)
         }
     }
     
@@ -61,7 +56,6 @@ class RankingViewCell: UITableViewCell {
     public lazy var accessoryImageView:UIButton = {
        let imageView = UIButton()
         imageView.frame = CGRect(x: self.bounds.width - 29, y: self.bounds.height/2 - 3.5, width: 14, height: 7)
-//        imageView.image = UIImage(named: "ranking_arrow_down")
         imageView.setImage(UIImage(named: "IQButtonBarArrowDown"), for: .normal)
         imageView.setImage(UIImage(named: "IQButtonBarArrowUp"), for: .selected)
         imageView.isSelected = false

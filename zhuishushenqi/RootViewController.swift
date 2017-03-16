@@ -25,7 +25,6 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
         initSubview()
 //        http://api.zhuishushenqi.com/notification/shelfMessage?platform=ios
         let shelfUrl = "\(baseUrl)/notification/shelfMessage"
-//        QSNetwork.setDefaultURL(url: baseUrl)
         QSNetwork.request(shelfUrl, method: HTTPMethodType.get, parameters: ["platform":"ios"], headers: nil) { (response) in
             if let _ = response.json {
                 let message:AnyObject? = response.json?["message"] as AnyObject
@@ -38,16 +37,6 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
                 }
             }
         }
-        
-//        let config = XYCNetworkConfig.sharedInstance
-//        config.baseUrl = "http://api.zhuishushenqi.com"
-//        let shelfMsgApi = ShelfMessageAPI()
-//        shelfMsgApi.startWithCompletionBlockWithHUD({ (request) in
-//                XYCLog("request:\(request.object(forKey: "message"))")
-//            let postLink = (request.object(forKey: "message") as AnyObject).object(forKey: "postLink")
-//            self.shelfMsgLabel.text = "\((self.postLinkArchive(postLink as AnyObject?).1))"
-//            }) { (request) in
-//        }
         requestBookShelf()
     }
     
@@ -339,16 +328,6 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
                 }
             }
         }
-    }
-    
-    func chapterLink(allSources:NSArray,id:String)->NSDictionary{
-        //获取免费来源
-        for index in 0..<allSources.count {
-            if let source:NSDictionary = allSources[index] as! NSDictionary {
-
-            }
-        }
-        return allSources[0] as? NSDictionary ?? ["":""]
     }
 }
 

@@ -43,11 +43,7 @@ class TopicDetailCell: UITableViewCell {
                 return;
             }
             let urlString = "\(picBaseUrl)\(self.model?.book.cover ?? "qqqqqqqq")"
-            let url = URL(string: urlString)
-            if let urlstring = url {
-                let resource:QSResource = QSResource(url: urlstring)
-                self.icon.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
-            }
+            self.icon.qs_setBookCoverWithURLString(urlString: urlString)
         }
     }
     override func awakeFromNib() {

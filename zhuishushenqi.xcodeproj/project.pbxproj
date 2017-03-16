@@ -193,6 +193,8 @@
 		B2B40B4F1DA39FB7001F972B /* UINavigationItem+BackItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B40B4E1DA39FB7001F972B /* UINavigationItem+BackItem.m */; };
 		B2B40B511DA3E84A001F972B /* BookDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B40B501DA3E84A001F972B /* BookDetail.swift */; };
 		B2B40B531DA3EE27001F972B /* BookDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B40B521DA3EE27001F972B /* BookDetailAPI.swift */; };
+		B2B58B411E7A2A320054FE84 /* UIImageView+zhuishu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B58B401E7A2A320054FE84 /* UIImageView+zhuishu.swift */; };
+		B2B58B4B1E7A2D8E0054FE84 /* UILabel+zhuishu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B58B4A1E7A2D8E0054FE84 /* UILabel+zhuishu.swift */; };
 		B2BB5B9A1D8BDF8E00379217 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5B991D8BDF8E00379217 /* AppDelegate.swift */; };
 		B2BB5B9C1D8BDF8E00379217 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5B9B1D8BDF8E00379217 /* ViewController.swift */; };
 		B2BB5B9F1D8BDF8E00379217 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BB5B9D1D8BDF8E00379217 /* Main.storyboard */; };
@@ -574,6 +576,8 @@
 		B2B40B4E1DA39FB7001F972B /* UINavigationItem+BackItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationItem+BackItem.m"; path = "../Controllers/UINavigationItem+BackItem.m"; sourceTree = "<group>"; };
 		B2B40B501DA3E84A001F972B /* BookDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetail.swift; sourceTree = "<group>"; };
 		B2B40B521DA3EE27001F972B /* BookDetailAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailAPI.swift; sourceTree = "<group>"; };
+		B2B58B401E7A2A320054FE84 /* UIImageView+zhuishu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+zhuishu.swift"; sourceTree = "<group>"; };
+		B2B58B4A1E7A2D8E0054FE84 /* UILabel+zhuishu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+zhuishu.swift"; sourceTree = "<group>"; };
 		B2BB5B961D8BDF8E00379217 /* zhuishushenqi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhuishushenqi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2BB5B991D8BDF8E00379217 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2BB5B9B1D8BDF8E00379217 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1154,6 +1158,8 @@
 				B2A8BA4C1E784398001506EF /* NSDate+Date.m */,
 				B2BB78C21E794489005FD8EB /* DateIntervalFormatter+formatter.swift */,
 				B2BB78CF1E794E8B005FD8EB /* Date+Extension.swift */,
+				B2B58B401E7A2A320054FE84 /* UIImageView+zhuishu.swift */,
+				B2B58B4A1E7A2D8E0054FE84 /* UILabel+zhuishu.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1603,6 +1609,7 @@
 				B22182661DA40326002458D2 /* NSArray+YYAdd.m in Sources */,
 				B238C2FB1E76937B00332BB9 /* BookCommentViewController.swift in Sources */,
 				B23FDB461DA69DAC0084B413 /* XYCActionSheet.swift in Sources */,
+				B2B58B411E7A2A320054FE84 /* UIImageView+zhuishu.swift in Sources */,
 				B221828F1DA40326002458D2 /* YYImage.m in Sources */,
 				B22182A21DA40326002458D2 /* UIPasteboard+YYText.m in Sources */,
 				B2260F561D8D508800581DD8 /* XYCNetworkConfig.swift in Sources */,
@@ -1640,6 +1647,7 @@
 				B2260F571D8D508800581DD8 /* XYCNetworkPrivate.swift in Sources */,
 				B221827E1DA40326002458D2 /* UIImage+YYAdd.m in Sources */,
 				B221828A1DA40326002458D2 /* MKAnnotationView+YYWebImage.m in Sources */,
+				B2B58B4B1E7A2D8E0054FE84 /* UILabel+zhuishu.swift in Sources */,
 				B2B297C91E6D5E600044E539 /* SwiftyJSON.swift in Sources */,
 				B2260F551D8D508800581DD8 /* XYCNetworkAgent.swift in Sources */,
 				B22182A01DA40326002458D2 /* NSAttributedString+YYText.m in Sources */,

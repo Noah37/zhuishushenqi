@@ -35,14 +35,7 @@ class TopDetailCell: UITableViewCell {
                 return;
             }
             var urlString = "\(((self.model?.cover ?? "qqqqqqqq") as NSString).substring(from: 7))"
-            if urlString.contains("http") == false {
-                urlString = "\(picBaseUrl)\(self.model?.cover ?? "qqqqqqqq")"
-            }
-            let url = URL(string: urlString)
-            if let urlstring = url {
-                let resource:QSResource = QSResource(url: urlstring)
-                self.icon.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
-            }
+            self.icon.qs_setBookCoverWithURLString(urlString: urlString)
         }
     }
     

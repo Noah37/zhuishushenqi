@@ -20,31 +20,9 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
             title!.text = model?.title
             
             let created = model?.updated ?? "2014-02-23T16:48:18.179Z"
-            if created.lengthOfBytes(using: String.Encoding.utf8) > 18{
-                
-                let year = created.subStr(to: 4)
-                let month = created.sub(start: 5, end: 7)
-                let day = created.sub(start: 8, length: 2)
-                let hour = created.sub(start: 11, length: 2)
-                let mimute = created.sub(start: 14, length: 2)
-                let second = created.sub(start: 17, length: 2)
-                let beginDate = NSDate.getWithYear(year, month: month, day: day, hour: hour, mimute: mimute, second: second)
-                let endDate = Date()
-                let formatter = DateIntervalFormatter()
-                let out = formatter.timeInfo(from: beginDate!, to: endDate)
-                self.detailTitle?.text = "\(out)前更新：\(model?.updateInfo?.lastChapter ?? "")"
-                print(out)
-            }
-            
-            if self.model?.cover == "" {
-                return;
-            }
+            self.detailTitle?.qs_setCreateTime(createTime: created, append: "前更新：\(model?.updateInfo?.lastChapter ?? "")")
             let urlString = "\(self.model?.cover.subStr(from: 7) ?? "")"
-            let url = URL(string: urlString)
-            if let urlstring = url {
-                let resource:QSResource = QSResource(url: urlstring)
-                self.imgView?.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
-            }
+            self.imgView?.qs_setBookCoverWithURLString(urlString: urlString)
         }
     }
     

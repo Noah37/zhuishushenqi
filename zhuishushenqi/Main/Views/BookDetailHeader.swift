@@ -17,7 +17,6 @@ class BookDetailHeader: UIView {
     var model:BookDetail?{
         didSet{
             name.text = model?.title
-        
             let mArr:[BookDetail]? = BookShelfInfo.books.bookShelf as? [BookDetail]
             for item in mArr ?? [] {
                 if item._id == model?._id {
@@ -35,31 +34,8 @@ class BookDetailHeader: UIView {
             words.text = "\(Int(model?.wordCount ?? "0")!/10000)万字"
             
             let created = model?.updated ?? "2014-02-23T16:48:18.179Z"
-            if created.lengthOfBytes(using: String.Encoding.utf8) > 18{
-                
-                let year = created.subStr(to: 4)
-                let month = created.sub(start: 5, end: 7)
-                let day = created.sub(start: 8, length: 2)
-                let hour = created.sub(start: 11, length: 2)
-                let mimute = created.sub(start: 14, length: 2)
-                let second = created.sub(start: 17, length: 2)
-                let beginDate = NSDate.getWithYear(year, month: month, day: day, hour: hour, mimute: mimute, second: second)
-                let endDate = Date()
-                let formatter = DateIntervalFormatter()
-                let out = formatter.timeInfo(from: beginDate!, to: endDate)
-                self.new.text = "\(out)"
-                print(out)
-            }
-            
-            if self.model?.cover == "" {
-                return;
-            }
-            let urlString = "\(picBaseUrl)\(self.model?.cover ?? "qqqqqqqq")"
-            let url = URL(string: urlString)
-            if let urlstring = url {
-                let resource:QSResource = QSResource(url: urlstring)
-                self.icon.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
-            }
+            self.new.qs_setCreateTime(createTime: created,append: "")
+            self.icon.qs_setBookCoverWithURLString(urlString: self.model?.cover ?? "qqqqqqqq")
         }
     }
     

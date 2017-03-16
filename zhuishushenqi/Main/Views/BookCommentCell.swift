@@ -32,26 +32,9 @@ class BookCommentCell: UITableViewCell {
     
     @discardableResult
     func modelSetAction(model:BookComment?)->CGFloat{
-        
         let created = model?.created ?? "2014-02-23T16:48:18.179Z"
-        if created.lengthOfBytes(using: String.Encoding.utf8) > 18{
-            
-            let year = created.subStr(to: 4)
-            let month = created.sub(start: 5, end: 7)
-            let day = created.sub(start: 8, length: 2)
-            let hour = created.sub(start: 11, length: 2)
-            let mimute = created.sub(start: 14, length: 2)
-            let second = created.sub(start: 17, length: 2)
-            let beginDate = NSDate.getWithYear(year, month: month, day: day, hour: hour, mimute: mimute, second: second)
-            let endDate = Date()
-            let formatter = DateIntervalFormatter()
-            let out = formatter.timeInfo(from: beginDate!, to: endDate)
-            self.createTime.text = "\(out)"
-            print(out)
-        }
-        
+        self.createTime.qs_setCreateTime(createTime: created,append: "")
         readerName.text = "\(model?.author.nickname ?? "") lv.\(model?.author.lv ?? 0)"
-//        createTime.text = ""
         title.text = "\(model?.title ?? "")"
         var height = heightOfString(title.text ?? "", font: UIFont.systemFont(ofSize: 13), width: self.bounds.width - 30)
         titleHeight.constant = height
@@ -66,27 +49,16 @@ class BookCommentCell: UITableViewCell {
         toolBar(height:totalHeight)
         makeStarView()
         self.totalCellHeight = totalHeight + 80
-
-        
         if model?.book.cover == "" {
             return totalHeight + 80
         }
         let cover = ("\(model?.book.cover ?? "qqqqqqqq")" as NSString).substring(from: 7)
-        
-        let coverUrl = URL(string: cover)
-        if let coverURL = coverUrl {
-            let resource:QSResource = QSResource(url: coverURL)
-            self.bookCover.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
-        }
+        self.bookCover.qs_setBookCoverWithURLString(urlString: cover)
         if self.model?.author.avatar == "" {
             return totalHeight + 80
         }
         let urlString = "\(picBaseUrl)\(self.model?.author.avatar ?? "qqqqqqqq")"
-        let url = URL(string: urlString)
-        if let urlstring = url {
-            let resource:QSResource = QSResource(url: urlstring)
-            self.readerIcon.kf.setImage(with: resource, placeholder: UIImage(named: "default_avatar_light"), options: nil, progressBlock: nil, completionHandler: nil)
-        }
+        self.readerIcon.qs_setAvatarWithURLString(urlString: urlString)
         setNeedsDisplay()
         return totalHeight + 80
     }
