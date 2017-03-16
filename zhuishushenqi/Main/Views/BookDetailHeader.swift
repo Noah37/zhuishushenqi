@@ -33,19 +33,22 @@ class BookDetailHeader: UIView {
             typeWidthConst.constant = typeConst + 5
             
             words.text = "\(Int(model?.wordCount ?? "0")!/10000)万字"
-            let date = Date()
-            let dateFormat = DateFormatter()
-            dateFormat.dateFormat = "yyyy-MM-dd HH-mm-ss"
-            (model!.updated as NSString).substring(with: NSMakeRange(5, 2))
-            let dateString = "\((model!.updated as NSString).substring(to: 4))-\((model!.updated as NSString).substring(with: NSMakeRange(5, 2)))-\((model!.updated as NSString).substring(with: NSMakeRange(8, 2))) \((model!.updated as NSString).substring(with: NSMakeRange(11, 2)))-\((model!.updated as NSString).substring(with: NSMakeRange(14, 2)))-\((model!.updated as NSString).substring(with: NSMakeRange(17, 2)))"
-            let beginDate = dateFormat.date(from: dateString)
-            let  timeIn =  timeBetween(beginDate, endDate: date)
-            if timeIn > 3600 && timeIn < 3600*24 {
-                new.text = "\(String(format: "%.0f",timeIn/3600 ))小时前更新"
-            }else if timeIn > 3600*24{
-                new.text = "\(String(format: "%.0f",timeIn/3600/24))天前更新"
-            }else{
-                new.text = "\(String(format: "%.0f",timeIn/60))分钟前更新"
+            
+            let created = model?.updated ?? "2014-02-23T16:48:18.179Z"
+            if created.lengthOfBytes(using: String.Encoding.utf8) > 18{
+                
+                let year = created.subStr(to: 4)
+                let month = created.sub(start: 5, end: 7)
+                let day = created.sub(start: 8, length: 2)
+                let hour = created.sub(start: 11, length: 2)
+                let mimute = created.sub(start: 14, length: 2)
+                let second = created.sub(start: 17, length: 2)
+                let beginDate = NSDate.getWithYear(year, month: month, day: day, hour: hour, mimute: mimute, second: second)
+                let endDate = Date()
+                let formatter = DateIntervalFormatter()
+                let out = formatter.timeInfo(from: beginDate!, to: endDate)
+                self.new.text = "\(out)"
+                print(out)
             }
             
             if self.model?.cover == "" {

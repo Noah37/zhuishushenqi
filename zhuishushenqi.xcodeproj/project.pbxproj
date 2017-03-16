@@ -204,6 +204,9 @@
 		B2BB5DB01D8C0DAE00379217 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5DAF1D8C0DAE00379217 /* LeftViewController.swift */; };
 		B2BB5DB21D8C0DBA00379217 /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5DB11D8C0DBA00379217 /* RightViewController.swift */; };
 		B2BB5DB61D8CF2FA00379217 /* SegMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5DB51D8CF2FA00379217 /* SegMenu.swift */; };
+		B2BB78C31E794489005FD8EB /* DateIntervalFormatter+formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB78C21E794489005FD8EB /* DateIntervalFormatter+formatter.swift */; };
+		B2BB78CE1E794D5E005FD8EB /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BB78CD1E794D5E005FD8EB /* NSDate+Extension.m */; };
+		B2BB78D01E794E8B005FD8EB /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB78CF1E794E8B005FD8EB /* Date+Extension.swift */; };
 		B2C91E751DACEECB002B6C6F /* AllChapterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91E741DACEECB002B6C6F /* AllChapterAPI.swift */; };
 		B2C91E771DACEFC3002B6C6F /* LatestChapterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C91E761DACEFC3002B6C6F /* LatestChapterAPI.swift */; };
 		B2CD138D1E730309000D97D9 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CD138C1E730309000D97D9 /* CategoryDetailViewController.swift */; };
@@ -589,6 +592,10 @@
 		B2BB5DAF1D8C0DAE00379217 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeftViewController.swift; path = ../../LeftViewController.swift; sourceTree = "<group>"; };
 		B2BB5DB11D8C0DBA00379217 /* RightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RightViewController.swift; path = ../../RightViewController.swift; sourceTree = "<group>"; };
 		B2BB5DB51D8CF2FA00379217 /* SegMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegMenu.swift; path = ../SegMenu.swift; sourceTree = "<group>"; };
+		B2BB78C21E794489005FD8EB /* DateIntervalFormatter+formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateIntervalFormatter+formatter.swift"; sourceTree = "<group>"; };
+		B2BB78CC1E794D5E005FD8EB /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
+		B2BB78CD1E794D5E005FD8EB /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
+		B2BB78CF1E794E8B005FD8EB /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		B2C91E741DACEECB002B6C6F /* AllChapterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllChapterAPI.swift; sourceTree = "<group>"; };
 		B2C91E761DACEFC3002B6C6F /* LatestChapterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestChapterAPI.swift; sourceTree = "<group>"; };
 		B2CD138C1E730309000D97D9 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
@@ -1138,11 +1145,15 @@
 		B2B297E81E6D96B80044E539 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				B2BB78CC1E794D5E005FD8EB /* NSDate+Extension.h */,
+				B2BB78CD1E794D5E005FD8EB /* NSDate+Extension.m */,
 				B2B40B4D1DA39FB7001F972B /* UINavigationItem+BackItem.h */,
 				B2B40B4E1DA39FB7001F972B /* UINavigationItem+BackItem.m */,
 				B2B297E91E6D96F10044E539 /* String+crypto.swift */,
 				B2A8BA4B1E784398001506EF /* NSDate+Date.h */,
 				B2A8BA4C1E784398001506EF /* NSDate+Date.m */,
+				B2BB78C21E794489005FD8EB /* DateIntervalFormatter+formatter.swift */,
+				B2BB78CF1E794E8B005FD8EB /* Date+Extension.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1634,6 +1645,7 @@
 				B22182A01DA40326002458D2 /* NSAttributedString+YYText.m in Sources */,
 				B22182951DA40326002458D2 /* NSObject+YYModel.m in Sources */,
 				B294CDC41E7130150098926D /* DarkView.swift in Sources */,
+				B2BB78CE1E794D5E005FD8EB /* NSDate+Extension.m in Sources */,
 				B22182771DA40326002458D2 /* UIBarButtonItem+YYAdd.m in Sources */,
 				B22182AA1DA40326002458D2 /* YYTextView.m in Sources */,
 				B22182901DA40326002458D2 /* YYImageCache.m in Sources */,
@@ -1647,6 +1659,7 @@
 				B22182731DA40326002458D2 /* NSTimer+YYAdd.m in Sources */,
 				B2B160A91D8F7C0300E165D2 /* RankingViewController.swift in Sources */,
 				B2A119791E71AB0200E71AB1 /* TopicDetailModel.swift in Sources */,
+				B2BB78D01E794E8B005FD8EB /* Date+Extension.swift in Sources */,
 				B221826E1DA40326002458D2 /* NSObject+YYAdd.m in Sources */,
 				B221826B1DA40326002458D2 /* NSKeyedUnarchiver+YYAdd.m in Sources */,
 				B294CDC21E71300A0098926D /* LightView.swift in Sources */,
@@ -1671,6 +1684,7 @@
 				B2CD13B11E73BD52000D97D9 /* YTKKeyValueStore.m in Sources */,
 				B221826A1DA40326002458D2 /* NSDictionary+YYAdd.m in Sources */,
 				B22182711DA40326002458D2 /* NSString+YYAdd.m in Sources */,
+				B2BB78C31E794489005FD8EB /* DateIntervalFormatter+formatter.swift in Sources */,
 				B2B297EA1E6D96F10044E539 /* String+crypto.swift in Sources */,
 				B22182811DA40326002458D2 /* UITableView+YYAdd.m in Sources */,
 				B2CD13AF1E73BD52000D97D9 /* FMDatabaseQueue.m in Sources */,

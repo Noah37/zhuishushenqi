@@ -14,5 +14,6 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "YTKKeyValueStore.h"
 #import "NSDate+Date.h"
+#import "NSDate+Extension.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */

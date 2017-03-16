@@ -146,10 +146,16 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             headerview?.model = bookModel
             headerview?.addBtnAction = { (isSelected:Bool,model:BookDetail) in
                 let mArr = NSMutableArray(array: BookShelfInfo.books.bookShelf)
+                //需要遍历删除
                 if isSelected == true {
                     mArr.add(model)
                 }else{
                     mArr.remove(model)
+                    for item in mArr {
+                        if (item as! BookDetail)._id == model._id {
+                            mArr.remove(item)
+                        }
+                    }
                 }
                 print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
                     BookShelfInfo.books.bookShelf = mArr
@@ -157,7 +163,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             }
             headerview?.startReading = {(isSelected:Bool,model:BookDetail) in
                 let allChapterUrl = "\(baseUrl)/toc"
-                self.requestAllChapters(withUrl: allChapterUrl,param:["view":"summary","book":model._id ?? ""])
+                self.requestAllChapters(withUrl: allChapterUrl,param:["view":"summary","book":model._id ])
             }
             
             if headerview != nil {

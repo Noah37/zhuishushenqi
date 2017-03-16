@@ -8,35 +8,42 @@
 
 import UIKit
 
+protocol SwipableCellDelegate {
+    func delete(model:BookDetail)
+}
+
 class SwipableCell: UITableViewCell,UIScrollViewDelegate {
 
+    var delegate:SwipableCellDelegate?
     var model:BookDetail?{
         didSet{
             title!.text = model?.title
             
-            let date = Date()
-            let dateFormat = DateFormatter()
-            dateFormat.dateFormat = "yyyy-MM-dd HH-mm-ss"
-            (model!.updated as NSString).substring(with: NSMakeRange(5, 2))
-            let dateString = "\((model!.updated as NSString).substring(to: 4))-\((model!.updated as NSString).substring(with: NSMakeRange(5, 2)))-\((model!.updated as NSString).substring(with: NSMakeRange(8, 2))) \((model!.updated as NSString).substring(with: NSMakeRange(11, 2)))-\((model!.updated as NSString).substring(with: NSMakeRange(14, 2)))-\((model!.updated as NSString).substring(with: NSMakeRange(17, 2)))"
-            let beginDate = dateFormat.date(from: dateString)
-            let  timeIn =  timeBetween(beginDate, endDate: date)
-            if timeIn > 3600 && timeIn < 3600*24 {
+            let created = model?.updated ?? "2014-02-23T16:48:18.179Z"
+            if created.lengthOfBytes(using: String.Encoding.utf8) > 18{
                 
-                detailTitle!.text = "\(String(format: "%.0f",timeIn/3600 ))小时前更新:\(model?.updateInfo?.lastChapter ?? "")"
-            }else if timeIn > 3600*24{
-                detailTitle!.text = "\(String(format: "%.0f",timeIn/3600/24))天前更新:\(model?.updateInfo?.lastChapter ?? "")"
-            }else{
-                detailTitle!.text = "\(String(format: "%.0f",timeIn/60))分钟前更新:\(model?.updateInfo?.lastChapter ?? "")"
+                let year = created.subStr(to: 4)
+                let month = created.sub(start: 5, end: 7)
+                let day = created.sub(start: 8, length: 2)
+                let hour = created.sub(start: 11, length: 2)
+                let mimute = created.sub(start: 14, length: 2)
+                let second = created.sub(start: 17, length: 2)
+                let beginDate = NSDate.getWithYear(year, month: month, day: day, hour: hour, mimute: mimute, second: second)
+                let endDate = Date()
+                let formatter = DateIntervalFormatter()
+                let out = formatter.timeInfo(from: beginDate!, to: endDate)
+                self.detailTitle?.text = "\(out)前更新：\(model?.updateInfo?.lastChapter ?? "")"
+                print(out)
             }
-            let urlString = (model!.cover as NSString).substring(from: 7)
-            DispatchQueue.global().async {
-                let data = try? Data(contentsOf: URL(string: urlString)!)
-                if let imageData = data {
-                    DispatchQueue.main.async {
-                        self.imgView?.image = UIImage(data:imageData)
-                    }
-                }
+            
+            if self.model?.cover == "" {
+                return;
+            }
+            let urlString = "\(self.model?.cover.subStr(from: 7) ?? "")"
+            let url = URL(string: urlString)
+            if let urlstring = url {
+                let resource:QSResource = QSResource(url: urlstring)
+                self.imgView?.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
             }
         }
     }
@@ -90,7 +97,17 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
         scrollView.addSubview(self.imgView!)
         scrollView.addSubview(self.title!)
         scrollView.addSubview(self.detailTitle!)
-
+        
+        let delete:UIButton = UIButton(type: .custom)
+        delete.frame = CGRect(x: scrollView.contentSize.width - 45, y: 17, width: 30, height: 30)
+        delete.setTitle("删除", for: .normal)
+        delete.setTitleColor(UIColor.red, for: .normal)
+        delete.addTarget(self, action: #selector(deleteAction(btn:)), for: .touchUpInside)
+        scrollView.addSubview(delete)
+    }
+    
+    @objc func deleteAction(btn:UIButton){
+        delegate?.delete(model: self.model!)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

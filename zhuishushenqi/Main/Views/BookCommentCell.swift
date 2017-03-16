@@ -33,6 +33,22 @@ class BookCommentCell: UITableViewCell {
     @discardableResult
     func modelSetAction(model:BookComment?)->CGFloat{
         
+        let created = model?.created ?? "2014-02-23T16:48:18.179Z"
+        if created.lengthOfBytes(using: String.Encoding.utf8) > 18{
+            
+            let year = created.subStr(to: 4)
+            let month = created.sub(start: 5, end: 7)
+            let day = created.sub(start: 8, length: 2)
+            let hour = created.sub(start: 11, length: 2)
+            let mimute = created.sub(start: 14, length: 2)
+            let second = created.sub(start: 17, length: 2)
+            let beginDate = NSDate.getWithYear(year, month: month, day: day, hour: hour, mimute: mimute, second: second)
+            let endDate = Date()
+            let formatter = DateIntervalFormatter()
+            let out = formatter.timeInfo(from: beginDate!, to: endDate)
+            self.createTime.text = "\(out)"
+            print(out)
+        }
         
         readerName.text = "\(model?.author.nickname ?? "") lv.\(model?.author.lv ?? 0)"
 //        createTime.text = ""

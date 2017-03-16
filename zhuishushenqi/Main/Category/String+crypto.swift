@@ -22,4 +22,37 @@ extension String{
         result.deinitialize()
         return String(format: hash as String)
     }
+    
+    //Half open
+    func sub(start:Int,end:Int)->String{
+        let startIndex = self.index(self.startIndex, offsetBy: start)
+        let endIndex = self.index(self.startIndex, offsetBy: end)
+        let range = startIndex..<endIndex
+        let sub = self.substring(with: range)
+        return sub
+    }
+    
+    func sub(start:Int,length:Int)->String{
+        let startIndex = self.index(self.startIndex, offsetBy: start)
+        let endIndex = self.index(self.startIndex, offsetBy: start + length)
+        let range = startIndex..<endIndex
+        let sub = self.substring(with: range)
+        return sub
+    }
+    
+    func subStr(from:Int)->String{
+        let startIndex = self.index(self.startIndex, offsetBy: from)
+        let endIndex = self.endIndex
+        let range = startIndex..<endIndex
+        let sub = self.substring(with: range)
+        return sub
+    }
+    
+    func subStr(to:Int)->String{
+        let startIndex = self.startIndex
+        let endIndex = self.index(self.startIndex, offsetBy: to)
+        let range = startIndex..<endIndex
+        let sub = self.substring(with: range)
+        return sub
+    }
 }

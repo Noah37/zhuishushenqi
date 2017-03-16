@@ -13,7 +13,7 @@ import QSNetwork
 let AllChapterUrl = "http://api.zhuishushenqi.com/ctoc/57df797cb061df9e19b8b030"
 
 
-class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,UITableViewDataSource,ComnunityDelegate {
+class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,UITableViewDataSource,ComnunityDelegate ,SwipableCellDelegate{
 
     var bookShelfArr:[BookDetail]?
     var updateInfoArr:[UpdateInfo]?
@@ -197,6 +197,15 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
         SideViewController.sharedInstance.showRightViewController()
     }
     
+    func delete(model:BookDetail){
+        for index in 0..<(self.bookShelfArr?.count ?? 0){
+            let bookDetail:BookDetail = self.bookShelfArr![index]
+            if bookDetail._id == model._id {
+                self.bookShelfArr?.remove(at: index)
+                self.tableView?.reloadData()
+            }
+        }
+    }
     
     func didSelectAtIndex(_ index: Int) {
         XYCLog("选择了第\(index)个")
@@ -259,6 +268,7 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
         if cell == nil{
             cell = SwipableCell.init(style: UITableViewCellStyle.default, reuseIdentifier: cellIden)
         }
+        cell?.delegate = self
         cell?.model =  bookShelfArr?.count ?? 0 > indexPath.row ? bookShelfArr![indexPath.row]:nil
         return cell!
     }
@@ -308,6 +318,7 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
     }
     
     func requestAllChapters(withUrl url:String,param:[String:Any]){
+        
         //先查询书籍来源，根据来源返回的id再查询所有章节
         QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             var res:NSArray = [ResourceModel]() as NSArray
