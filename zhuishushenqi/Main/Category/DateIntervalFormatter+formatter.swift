@@ -61,6 +61,8 @@ extension DateIntervalFormatter{
                 if year == 0 {//同年
                     return String(format: "%d个月前",
                                   (month))
+                } else {//跨年计算月份
+                    return String(format: "%d个月前",12 - from.month() + to.month())
                 }
             }
             if month < 0 { //未满一年不计算

@@ -13,10 +13,13 @@ extension UIImageView{
     func qs_setBookCoverWithURLString(urlString:String){
         self.image = UIImage(named: "default_book_cover")
         var urlStr = urlString
+        if urlStr.subStr(to: 4) != "http"{
+            urlStr = urlStr.subStr(from: 7)
+        }
         if urlStr.contains("http") == false {
             urlStr = "\(picBaseUrl)\(urlString)"
         }
-        let url = URL(string: urlString)
+        let url = URL(string: urlStr)
         guard let imageURL = url else {
             print("Invalid URL")
             return

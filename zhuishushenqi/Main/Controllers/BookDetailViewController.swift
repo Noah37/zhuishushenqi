@@ -309,10 +309,10 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
     func requestAllChapters(withUrl url:String,param:[String:Any]){
         //先查询书籍来源，根据来源返回的id再查询所有章节
         QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
-            var res:NSArray = [ResourceModel]() as NSArray
-            if let resources = response.json as? NSArray {
+            var res:[ResourceModel]? = [ResourceModel]()
+            if let resources = response.json  {
                 do{
-                    res = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as NSArray
+                    res = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as? [ResourceModel]
                 }catch{
                     print(error)
                 }
@@ -322,7 +322,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
                 DispatchQueue.main.async {
                     let txtVC = TXTReaderViewController()
                     txtVC.id = json["_id"] as? String ?? ""
-                    txtVC.resources = res
+                    txtVC.resources = res!
                     self.present(txtVC, animated: true, completion: nil)
                 }
             }

@@ -20,8 +20,8 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
             title!.text = model?.title
             
             let created = model?.updated ?? "2014-02-23T16:48:18.179Z"
-            self.detailTitle?.qs_setCreateTime(createTime: created, append: "前更新：\(model?.updateInfo?.lastChapter ?? "")")
-            let urlString = "\(self.model?.cover.subStr(from: 7) ?? "")"
+            self.detailTitle?.qs_setCreateTime(createTime: created, append: "更新：\(model?.updateInfo?.lastChapter ?? "")")
+            let urlString = "\(self.model?.cover ?? "")"
             self.imgView?.qs_setBookCoverWithURLString(urlString: urlString)
         }
     }

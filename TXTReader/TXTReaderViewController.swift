@@ -12,6 +12,9 @@ import Alamofire
 class TXTReaderViewController: UIViewController {
 
     var CategoryUrl = "\(baseUrl)/atoc/57df797cb061df9e19b8b030?view=chapters"
+    //这个id是zhuishu的id
+    var bookId:String = ""
+    //这个是不同来源的id
     var id:String = "" {
         didSet{
             CategoryUrl = "\(baseUrl)/atoc/\(id)?view=chapters"
@@ -29,16 +32,18 @@ class TXTReaderViewController: UIViewController {
     var pageViewController:PageViewController?
     var window:UIWindow?
     var model:NSDictionary?
-    var resources:NSArray = [ResourceModel]() as NSArray {
+    var resources:[ResourceModel] = [ResourceModel]()  {
         didSet{
             if resources.count > 1 {
-                selectedResource = resources[1] as? ResourceModel
+                selectedResource = resources[1]
             }else if resources.count > 0{
-                selectedResource = resources[0] as? ResourceModel
+                selectedResource = resources[0]
             }
         }
     }
     var selectedResource:ResourceModel?
+    
+    var selectedIndex:Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +79,7 @@ class TXTReaderViewController: UIViewController {
     }
     
     //网络请求所有的章节信息
-    private func requestAllChapters(){
+    func requestAllChapters(){
         Alamofire.request(CategoryUrl).responseJSON { (response) in
             if let json = response.result.value as? NSDictionary {
                 print("JSON:\(json)")
@@ -309,6 +314,22 @@ extension TXTReaderViewController:UIPageViewControllerDataSource,UIPageViewContr
         present(modalVC, animated: true){
             (finished) in
             self.isToolBarHidden = false
+        }
+    }
+    
+    func changeSourceClicked() {
+        let sourceVC = ChangeSourceViewController()
+        sourceVC.id = "\(self.bookId)"
+        sourceVC.sources = self.resources
+        sourceVC.selectedIndex = self.selectedIndex
+        sourceVC.selectAction = { (index:Int) in
+            self.selectedIndex = index
+            self.id = self.resources[index]._id
+            self.requestAllChapters()
+        }
+        let nav = UINavigationController(rootViewController: sourceVC)
+        present(nav, animated: true) {
+            self.toolBar.hideWithAnimations(animation: false)
         }
     }
     

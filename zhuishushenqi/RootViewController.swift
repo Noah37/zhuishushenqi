@@ -50,21 +50,6 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
     
     @objc func requestBookShelf(){
         //已登录状态的书架
-//        let bookShelfApi = BookShelfAPI()
-//        bookShelfApi.startWithCompletionBlockWithHUD({ (request) in
-//                XYCLog(request)
-//            if let bookshelf = request["bookshelf"] as? NSArray{
-//                do {
-//                    self.bookShelfArr = try  XYCBaseModel.model(withModleClass: BookShelf.self, withJsArray: bookshelf as [AnyObject]) as? [BookShelf]
-//                    self.tableView?.reloadData()
-//                }catch {
-//                    
-//                }
-//            }
-//            self.tableView!.reloadData()
-//            }) { (request) in
-//
-//        }
         
         //未登录中状态下，图书的信息保存在userdefault中
         if !User.user.isLogin {
@@ -148,24 +133,7 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
     
     
     fileprivate func initSubview(){
-        let leftBtn = BarButton(type: .custom)
-        leftBtn .addTarget(self, action: #selector(leftAction(_:)), for: .touchUpInside)
-        leftBtn.setBackgroundImage(UIImage(named: "nav_home_side_menu"), for: UIControlState())
-        leftBtn.setBackgroundImage(UIImage(named: "nav_home_side_menu_selected"), for: .highlighted)
-        leftBtn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        let leftBar = UIBarButtonItem(customView: leftBtn)
-        
-        let rightBtn = BarButton(type: .custom)
-        rightBtn.addTarget(self, action: #selector(rightAction(_:)), for: .touchUpInside)
-        rightBtn.setBackgroundImage(UIImage(named: "nav_add_book"), for: UIControlState())
-        rightBtn.setBackgroundImage(UIImage(named: "nav_add_book_selected"), for: .highlighted)
-        rightBtn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        let rightBar = UIBarButtonItem(customView: rightBtn)
-    
-        navigationItem.leftBarButtonItem = leftBar
-        navigationItem.rightBarButtonItem = rightBar
-        let titleImg = UIImageView(image: UIImage(named: "zssq_image"))
-        navigationItem.titleView = titleImg
+        RootNavigationView.make(delegate: self)
         
         let segView = SegMenu(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: 40), WithTitles: ["追书架","追书社区"])
         segView.menuDelegate = self
@@ -178,11 +146,11 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
         view.addSubview(communityView)
     }
     
-    @objc fileprivate func leftAction(_ btn:UIButton){
+    @objc func leftAction(_ btn:UIButton){
         SideViewController.sharedInstance.showLeftViewController()
     }
     
-    @objc fileprivate func rightAction(_ btn:UIButton){
+    @objc func rightAction(_ btn:UIButton){
         SideViewController.sharedInstance.showRightViewController()
     }
     
@@ -303,27 +271,28 @@ class RootViewController: UIViewController,SegMenuDelegate,UITableViewDelegate,U
 //        http://api.zhuishushenqi.com/btoc?view=summary&book=51d11e782de6405c45000068
         let cell:SwipableCell? = self.tableView?.cellForRow(at: indexPath) as? SwipableCell
         let allChapterUrl = "\(baseUrl)/toc"
-        requestAllChapters(withUrl: allChapterUrl,param:["view":"summary","book":cell?.model?._id ?? ""])
+        requestAllChapters(withUrl: allChapterUrl,param:["view":"summary","book":cell?.model?._id ?? ""],index: indexPath.row)
     }
     
-    func requestAllChapters(withUrl url:String,param:[String:Any]){
+    func requestAllChapters(withUrl url:String,param:[String:Any],index:Int){
         
         //先查询书籍来源，根据来源返回的id再查询所有章节
         QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
-            var res:NSArray = [ResourceModel]() as NSArray
-            if let resources = response.json as? NSArray {
+            var res:[ResourceModel]?
+            if let resources = response.json  {
                 do{
-                   res = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as NSArray
+                   res = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as? [ResourceModel]
                 }catch{
                     print(error)
                 }
             }
             
-            if let json:NSDictionary = (response.json as? NSArray)?.object(at: 1) as? NSDictionary {
+            if (res?.count ?? 0) > 0 {
                 DispatchQueue.main.async {
                     let txtVC = TXTReaderViewController()
-                    txtVC.id = json["_id"] as? String ?? ""
-                    txtVC.resources = res
+                    txtVC.id = res?[1]._id ?? ""
+                    txtVC.bookId = self.bookShelfArr?[index]._id ?? ""
+                    txtVC.resources = res!
                     self.present(txtVC, animated: true, completion: nil)
                 }
             }

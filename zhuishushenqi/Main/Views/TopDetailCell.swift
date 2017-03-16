@@ -30,11 +30,7 @@ class TopDetailCell: UITableViewCell {
             self.author.text = "\(self.model?.author ?? "")"
             let width = widthOfString(self.author.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
             self.authorWidth.constant = width + 5
-            self.icon.image = UIImage(named: "default_book_cover")
-            if self.model?.cover == "" {
-                return;
-            }
-            var urlString = "\(((self.model?.cover ?? "qqqqqqqq") as NSString).substring(from: 7))"
+            let urlString = "\((self.model?.cover ?? "qqqqqqqq"))"
             self.icon.qs_setBookCoverWithURLString(urlString: urlString)
         }
     }

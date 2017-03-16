@@ -11,6 +11,7 @@ import UIKit
 protocol ToolBarDelegate{
     func backButtonDidClicked()
     func catagoryClicked()
+    func changeSourceClicked()
     func toolBarDidShow()
     func toolBarDidHidden()
 }
@@ -42,6 +43,13 @@ class ToolBar: UIView {
         backBtn.addTarget(self, action: #selector(backAction(btn:)), for: .touchUpInside)
         backBtn.frame = CGRect(x:10, y:27,width: 30,height: 30)
         topBar?.addSubview(backBtn)
+        
+        let changeSourceBtn = UIButton(type: .custom)
+        changeSourceBtn.setTitle("换源", for: .normal)
+        changeSourceBtn.setTitleColor(UIColor.white, for: .normal)
+        changeSourceBtn.addTarget(self, action: #selector(changeSourceAction(btn:)), for: .touchUpInside)
+        changeSourceBtn.frame = CGRect(x:self.bounds.width - 65, y: 27,width: 50,height: 30)
+        topBar?.addSubview(changeSourceBtn)
         
         let btn = UIButton(type: .custom)
         btn.setImage(UIImage(named: "catelog"), for: .normal)
@@ -81,6 +89,10 @@ class ToolBar: UIView {
     
     @objc private func catalogAction(btn:UIButton){
         toolBarDelegate?.catagoryClicked()
+    }
+    
+    @objc private func changeSourceAction(btn:UIButton){
+        toolBarDelegate?.changeSourceClicked()
     }
     
     required init?(coder aDecoder: NSCoder) {

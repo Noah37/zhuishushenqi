@@ -52,12 +52,12 @@ class BookCommentCell: UITableViewCell {
         if model?.book.cover == "" {
             return totalHeight + 80
         }
-        let cover = ("\(model?.book.cover ?? "qqqqqqqq")" as NSString).substring(from: 7)
+        let cover = "\(model?.book.cover ?? "qqqqqqqq")"
         self.bookCover.qs_setBookCoverWithURLString(urlString: cover)
         if self.model?.author.avatar == "" {
             return totalHeight + 80
         }
-        let urlString = "\(picBaseUrl)\(self.model?.author.avatar ?? "qqqqqqqq")"
+        let urlString = "\(model?.author.avatar ?? "qqqqqqqq")"
         self.readerIcon.qs_setAvatarWithURLString(urlString: urlString)
         setNeedsDisplay()
         return totalHeight + 80

@@ -23,7 +23,6 @@ extension UILabel{
             let formatter = DateIntervalFormatter()
             let out = formatter.timeInfo(from: beginDate!, to: endDate)
             self.text = "\(out)\(append)"
-            print(out)
         }
     }
 }

@@ -41,7 +41,6 @@ class BookDetailHeader: UIView {
     
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var icon: UIImageView!
-//    [UIColor colorWithRed:0.69f green:0.04f blue:0.04f alpha:1.00f];
     @IBOutlet weak var authorWidthh: NSLayoutConstraint!
     @IBOutlet weak var new: UILabel!
     @IBOutlet weak var words: UILabel!

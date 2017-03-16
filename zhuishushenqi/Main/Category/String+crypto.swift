@@ -25,6 +25,9 @@ extension String{
     
     //Half open
     func sub(start:Int,end:Int)->String{
+        if self == "" {
+            return self
+        }
         let startIndex = self.index(self.startIndex, offsetBy: start)
         let endIndex = self.index(self.startIndex, offsetBy: end)
         let range = startIndex..<endIndex
@@ -33,6 +36,9 @@ extension String{
     }
     
     func sub(start:Int,length:Int)->String{
+        if self == "" {
+            return self
+        }
         let startIndex = self.index(self.startIndex, offsetBy: start)
         let endIndex = self.index(self.startIndex, offsetBy: start + length)
         let range = startIndex..<endIndex
@@ -41,6 +47,9 @@ extension String{
     }
     
     func subStr(from:Int)->String{
+        if self == "" {
+            return self
+        }
         let startIndex = self.index(self.startIndex, offsetBy: from)
         let endIndex = self.endIndex
         let range = startIndex..<endIndex
@@ -49,6 +58,9 @@ extension String{
     }
     
     func subStr(to:Int)->String{
+        if self == "" {
+            return self
+        }
         let startIndex = self.startIndex
         let endIndex = self.index(self.startIndex, offsetBy: to)
         let range = startIndex..<endIndex
