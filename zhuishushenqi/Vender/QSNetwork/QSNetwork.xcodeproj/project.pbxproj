@@ -10,11 +10,11 @@
 		B28822C11E11095C00144E44 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B28822BF1E11095C00144E44 /* Info.plist */; };
 		B28822C21E11095C00144E44 /* QSNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = B28822C01E11095C00144E44 /* QSNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B2A074DD1E11520300183B1A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A074DC1E11520300183B1A /* Request.swift */; };
-		B2A074DF1E11521100183B1A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A074DE1E11521100183B1A /* Response.swift */; };
 		B2A074E11E1155B400183B1A /* QSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A074E01E1155B400183B1A /* QSManager.swift */; };
 		B2A074F91E12148300183B1A /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A074F81E12148300183B1A /* Tests.swift */; };
 		B2A074FB1E12148300183B1A /* QSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B28822A41E11092400144E44 /* QSNetwork.framework */; };
 		B2A075021E12197300183B1A /* QSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A075011E12197300183B1A /* QSError.swift */; };
+		B2B4BD5B1E7EA65E000CC201 /* QSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BD5A1E7EA65E000CC201 /* QSResponse.swift */; };
 		B2FD40491E11167B002A60F0 /* QSNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FD40481E11167B002A60F0 /* QSNetwork.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,12 +33,12 @@
 		B28822BF1E11095C00144E44 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B28822C01E11095C00144E44 /* QSNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNetwork.h; sourceTree = "<group>"; };
 		B2A074DC1E11520300183B1A /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		B2A074DE1E11521100183B1A /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		B2A074E01E1155B400183B1A /* QSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSManager.swift; sourceTree = "<group>"; };
 		B2A074F61E12148300183B1A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A074F81E12148300183B1A /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		B2A074FA1E12148300183B1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2A075011E12197300183B1A /* QSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSError.swift; sourceTree = "<group>"; };
+		B2B4BD5A1E7EA65E000CC201 /* QSResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSResponse.swift; sourceTree = "<group>"; };
 		B2FD40481E11167B002A60F0 /* QSNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSNetwork.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,11 +82,11 @@
 		B28822BE1E11095C00144E44 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B2B4BD5A1E7EA65E000CC201 /* QSResponse.swift */,
 				B28822BF1E11095C00144E44 /* Info.plist */,
 				B28822C01E11095C00144E44 /* QSNetwork.h */,
 				B2FD40481E11167B002A60F0 /* QSNetwork.swift */,
 				B2A074DC1E11520300183B1A /* Request.swift */,
-				B2A074DE1E11521100183B1A /* Response.swift */,
 				B2A074E01E1155B400183B1A /* QSManager.swift */,
 				B2A075011E12197300183B1A /* QSError.swift */,
 			);
@@ -213,10 +213,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2A074DF1E11521100183B1A /* Response.swift in Sources */,
 				B2FD40491E11167B002A60F0 /* QSNetwork.swift in Sources */,
 				B2A074DD1E11520300183B1A /* Request.swift in Sources */,
 				B2A074E11E1155B400183B1A /* QSManager.swift in Sources */,
+				B2B4BD5B1E7EA65E000CC201 /* QSResponse.swift in Sources */,
 				B2A075021E12197300183B1A /* QSError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

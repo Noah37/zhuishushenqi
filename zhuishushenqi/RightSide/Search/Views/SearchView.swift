@@ -2,7 +2,7 @@
 //  SearchView.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/3/11.
+//  Created by Nory Chao on 2017/3/11.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

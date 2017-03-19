@@ -2,13 +2,13 @@
 //  Response.swift
 //  QSNetwork
 //
-//  Created by caonongyun on 16/12/26.
-//  Copyright © 2016年 masterY. All rights reserved.
+//  Created by Nory Chao on 16/12/26.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 import UIKit
 
-open class Response: NSObject {
+open class QSResponse: NSObject {
     public var request:URLRequest? { return task?.originalRequest }
     public var response:URLResponse?
     public var data:Data?

@@ -2,7 +2,7 @@
 //  CommunityView.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 16/10/22.
+//  Created by Nory Chao on 16/10/22.
 //  Copyright © 2016年 XYC. All rights reserved.
 //
 

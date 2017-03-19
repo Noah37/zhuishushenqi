@@ -2,8 +2,8 @@
 //  QSNetwork.swift
 //  QSNetwork
 //
-//  Created by caonongyun on 16/12/26.
-//  Copyright © 2016年 masterY. All rights reserved.
+//  Created by Nory Chao on 16/12/26.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 import Foundation
@@ -84,8 +84,9 @@ public class QSNetwork{
     }
     
     @discardableResult
-    public static func request(_ url:String,method:HTTPMethodType = .get,parameters:Parameters? = nil,headers:HTTPHeaders? = nil,completionHandler: completionHandler?)->Response{
+    public static func request(_ url:String,method:HTTPMethodType = .get,parameters:Parameters? = nil,headers:HTTPHeaders? = nil,completionHandler: completionHandler?)->QSResponse{
         let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = QSManager.defaultHTTPHeaders
         let manager = QSManager(configuration: configuration)
         return manager.request(url, method: .get, parameters: parameters, headers: headers,completionHandler: completionHandler)
     }

@@ -2,8 +2,8 @@
 //  zhuishushenqi-Bridge-Header.h
 //  zhuishushenqi
 //
-//  Created by caonongyun on 16/9/16.
-//  Copyright © 2016年 CNY. All rights reserved.
+//  Created by Nory Chao on 16/9/16.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 #ifndef zhuishushenqi_Bridge_Header_h

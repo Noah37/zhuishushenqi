@@ -2,13 +2,13 @@
 //  SessionManager.swift
 //  QSNetwork
 //
-//  Created by caonongyun on 16/12/26.
-//  Copyright © 2016年 masterY. All rights reserved.
+//  Created by Nory Chao on 16/12/26.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 import Foundation
 
-public typealias completionHandler = (Response)->Void
+public typealias completionHandler = (QSResponse)->Void
 
 public protocol ParameterEncoding {
     func encode(_ urlRequest: URLRequest, with parameters: Parameters?) throws -> URLRequest
@@ -193,14 +193,14 @@ public class QSManager:NSObject{
         method: HTTPMethod = .get,
         parameters: Parameters? = nil,
         encoding:ParameterEncoding = URLEncoding.default,
-        headers: HTTPHeaders? = nil,completionHandler:completionHandler?)->Response{
+        headers: HTTPHeaders? = nil,completionHandler:completionHandler?)->QSResponse{
         var originalRequest: URLRequest?
         var encodedURLRequest:URLRequest = URLRequest(url: URL(string: url) ?? URL(string:"http://caony.applinzi.com")!)
         do {
             originalRequest = try URLRequest(urlString: makeURL(url: url), method: method, headers: headers)
             encodedURLRequest = try encoding.encode(originalRequest!, with: parameters)
         } catch {
-            let errorResult = Response(data: nil, response: nil, error: error, task: nil)
+            let errorResult = QSResponse(data: nil, response: nil, error: error, task: nil)
             if let errorHandler = completionHandler {
                 errorHandler(errorResult)
             }
@@ -210,17 +210,23 @@ public class QSManager:NSObject{
     }
     
     @discardableResult
-    func request(urlRequest:URLRequest,completionHandler:completionHandler?) ->Response{
+    func request(urlRequest:URLRequest,completionHandler:completionHandler?) ->QSResponse{
         let request = urlRequest
         let isSyn = completionHandler == nil
-        var session = URLSession.shared
+        var session:URLSession!
+        if let sessionsss = self.session {
+            session = sessionsss
+        }
         let semaphore = DispatchSemaphore(value: 0)
-        var requestResult = Response(data: nil, response: nil, error: nil, task: nil)
-        session = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: URLSession.shared.delegateQueue)
+        var requestResult = QSResponse(data: nil, response: nil, error: nil, task: nil)
+//        session = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: URLSession.shared.delegateQueue)
+        
         let task:URLSessionDataTask = session.dataTask(with: request)
         let config = SessionConfiguration(data: NSMutableData()) { (result) in
             if let complete = completionHandler {
-                complete(result)
+                DispatchQueue.main.async {
+                    complete(result)
+                }
             }
             if isSyn {
                 requestResult = result
@@ -351,7 +357,7 @@ extension QSManager:URLSessionDataDelegate,URLSessionTaskDelegate,URLSessionDown
         if let config = configurations[task.taskIdentifier],
             let handler = config.completionHandler
         {
-            let result = Response(
+            let result = QSResponse(
                 data: config.data as Data,
                 response: task.response,
                 error: error,

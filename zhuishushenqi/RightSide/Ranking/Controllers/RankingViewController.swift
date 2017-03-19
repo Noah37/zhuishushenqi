@@ -2,8 +2,8 @@
 //  RankingViewController.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 16/9/19.
-//  Copyright © 2016年 CNY. All rights reserved.
+//  Created by Nory Chao on 16/9/19.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 import UIKit
@@ -213,6 +213,7 @@ class RankingViewController: UIViewController,UITableViewDataSource,UITableViewD
             imageData = UIImageJPEGRepresentation(image, 1.0)
             mimeType = "image/jpeg"
         }
+        QSLog(mimeType)
         return imageData?.base64EncodedString(options: .endLineWithCarriageReturn)
     }
     

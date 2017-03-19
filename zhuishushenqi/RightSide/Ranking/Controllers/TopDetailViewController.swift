@@ -2,8 +2,8 @@
 //  TopDetailViewController.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 16/10/4.
-//  Copyright © 2016年 CNY. All rights reserved.
+//  Created by Nory Chao on 16/10/4.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 import UIKit
@@ -79,13 +79,12 @@ class TopDetailViewController: BaseViewController ,SegMenuDelegate,UITableViewDa
             }catch{
                 
             }
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 self.tableView.removeFromSuperview()
                 self.view.addSubview(self.tableView)
                 self.tableView.reloadData()
                 self.tableView.checkEmpty()
             }
-//            http://api.zhuishushenqi.com/ranking/54d42d92321052167dfb75e3
         }
     }
     

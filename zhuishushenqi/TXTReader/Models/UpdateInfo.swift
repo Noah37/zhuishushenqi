@@ -2,7 +2,7 @@
 //  UpdateInfo.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/3/6.
+//  Created by Nory Chao on 2017/3/6.
 //  Copyright © 2017年 XYC. All rights reserved.
 //
 

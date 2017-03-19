@@ -3,7 +3,7 @@
 //  O2O_Clients
 //
 //  Created by chaozhi on 16/3/9.
-//  Copyright © 2016年 CNY. All rights reserved.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 #import "XYCBaseModel.h"

@@ -2,8 +2,8 @@
 //  QSKingfisher.h
 //  QSKingfisher
 //
-//  Created by caonongyun on 2017/3/5.
-//  Copyright © 2017年 masterY. All rights reserved.
+//  Created by Nory Chao on 2017/3/5.
+//  Copyright © 2017年 QS. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

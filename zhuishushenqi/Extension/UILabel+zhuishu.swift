@@ -2,7 +2,7 @@
 //  UILabel+zhuishu.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/3/16.
+//  Created by Nory Chao on 2017/3/16.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

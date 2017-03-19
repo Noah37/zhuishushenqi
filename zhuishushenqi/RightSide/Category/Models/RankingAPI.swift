@@ -2,8 +2,8 @@
 //  RankingAPI.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 16/10/1.
-//  Copyright © 2016年 CNY. All rights reserved.
+//  Created by Nory Chao on 16/10/1.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 import UIKit

@@ -2,12 +2,12 @@
 //  TXTReaderViewController.swift
 //  TXTReader
 //
-//  Created by caonongyun on 16/11/24.
-//  Copyright © 2016年 masterY. All rights reserved.
+//  Created by Nory Chao on 16/11/24.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 import UIKit
-import Alamofire
+import QSNetwork
 
 class TXTReaderViewController: UIViewController {
 
@@ -17,7 +17,7 @@ class TXTReaderViewController: UIViewController {
     //这个是不同来源的id
     var id:String = "" {
         didSet{
-            CategoryUrl = "\(baseUrl)/atoc/\(id)?view=chapters"
+            CategoryUrl = "\(baseUrl)/toc/\(id)?view=chapters"
         }
     }
     //all chapters
@@ -80,14 +80,12 @@ class TXTReaderViewController: UIViewController {
     
     //网络请求所有的章节信息
     func requestAllChapters(){
-        Alamofire.request(CategoryUrl).responseJSON { (response) in
-            if let json = response.result.value as? NSDictionary {
-                QSLog("JSON:\(json)")
-                if let chapters = json["chapters"] as? [NSDictionary] {
-                    QSLog("Chapters:\(chapters)")
-                    self.chapters = chapters
-                    self.requestChapter(atIndex: self.currentChapter)
-                }
+        QSNetwork.request(CategoryUrl) { (response) in
+            QSLog("JSON:\(response.json)")
+            if let chapters = response.json?["chapters"] as? [NSDictionary] {
+                QSLog("Chapters:\(chapters)")
+                self.chapters = chapters
+                self.requestChapter(atIndex: self.currentChapter)
             }
         }
     }
@@ -97,9 +95,9 @@ class TXTReaderViewController: UIViewController {
         if index >= chapters.count {
             return;
         }
-        let url = "\(chapterURL)/\(chapters[index].object(forKey: "link") ?? "")?k=19ec78553ec3a169&t=1476188085"
-        Alamofire.request(url).responseJSON { (response) in
-            if let json = response.result.value as? Dictionary<String, Any> {
+        let url = "\(chapterURL)/\(chapters[index].object(forKey: "link") ?? "")?k=22870c026d978c75&t=1489933049"
+        QSNetwork.request(url) { (response) in
+            if let json = response.json as? Dictionary<String, Any> {
                 QSLog("JSON:\(json)")
                 if let chapter = json["chapter"] as?  Dictionary<String, Any> {
                     
@@ -112,14 +110,15 @@ class TXTReaderViewController: UIViewController {
                     //不论向前或向后翻页，都从第一页开始显示
                     self.tempPage = 0
                     //请求到数据后需要刷新当前页,如果不是当前页，则不需要刷新,否则会出现跳页
-//                    if self.chapterInfo?.id == self.pageViewController?.pageInfo?.chapterInfo?.id {
-                        DispatchQueue.main.async {
-                            let pageInfp:PageInfo = PageInfo(self.chapterInfo!, pageIndex: self.tempPage, total: self.chapterInfo?.ranges?.count ?? 0)
-                            self.pageViewController?.pageInfo = pageInfp
-                        }
-//                    }
+                    //                    if self.chapterInfo?.id == self.pageViewController?.pageInfo?.chapterInfo?.id {
+                    DispatchQueue.main.async {
+                        let pageInfp:PageInfo = PageInfo(self.chapterInfo!, pageIndex: self.tempPage, total: self.chapterInfo?.ranges?.count ?? 0)
+                        self.pageViewController?.pageInfo = pageInfp
+                    }
+                    //                    }
                 }
             }
+
         }
     }
     

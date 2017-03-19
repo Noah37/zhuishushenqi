@@ -2,8 +2,8 @@
 //  BookDetailViewController.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 16/10/4.
-//  Copyright © 2016年 CNY. All rights reserved.
+//  Created by Nory Chao on 16/10/4.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 import UIKit
@@ -321,7 +321,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         
         let  cell = UITableViewCell(style: .default, reuseIdentifier: "cellTwo")
         cell.selectionStyle = .none
-        var height = tableView(self.tableView, heightForRowAt: IndexPath(row: 2, section: 0))
+        let height = tableView(self.tableView, heightForRowAt: IndexPath(row: 2, section: 0))
         let label = UILabel(frame: CGRect(x: 20,y: 10,width: ScreenWidth - 40,height: height))
         if !contentShow {
             label.frame = CGRect(x: 20,y: 5,width: ScreenWidth - 40,height: height)

@@ -2,7 +2,7 @@
 //  FilterThemeCell.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/3/13.
+//  Created by Nory Chao on 2017/3/13.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
