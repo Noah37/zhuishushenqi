@@ -96,3 +96,7 @@ func timeBetween(_ beginDate:Date?,endDate:Date?)->TimeInterval{
     return resultTime
 }
 
+func QSLog<T>(_ message:T,fileName:String = #file,lineName:Int = #line,funcName:String = #function){
+    print("QSLog:\((fileName as NSString).lastPathComponent)[\(lineName)]\(funcName):\n\(message)\n")
+}
+
