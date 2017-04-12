@@ -41,7 +41,7 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
             cell?.backgroundColor = UIColor ( red: 0.16, green: 0.16, blue: 0.16, alpha: 1.0 )
             cell?.selectionStyle = .none
         }
-        let scale = SideViewController.sharedInstance.leftOffSetXScale
+        let scale = SideVC.leftOffSetXScale
         let headIcon = UIImageView(frame: CGRect(x: ScreenWidth*scale/2 - 12.5, y: 10, width: 25, height: 25))
         cell?.contentView.addSubview(headIcon)
         headIcon.image = UIImage(named: images[indexPath.row] as! String)
@@ -75,7 +75,7 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
         if indexPath.row == 0 {
             showShare()
         }else{
-            SideViewController.sharedInstance.closeSideViewController()
+            SideVC.closeSideViewController()
         }
     }
     

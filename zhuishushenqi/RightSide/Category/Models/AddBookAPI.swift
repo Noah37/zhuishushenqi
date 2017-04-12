@@ -12,7 +12,7 @@ class AddBookAPI: XYCBaseRequest {
     
     var id:String?
     override func requestUrl() -> String {
-        return "/user/bookshelf"
+        return "/user/BOOKSHELF"
     }
     
     override func requestMethod() -> XYCRequestMethod? {

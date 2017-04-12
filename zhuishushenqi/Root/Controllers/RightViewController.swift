@@ -16,7 +16,7 @@ class RightViewController: UITableViewController {
 
     override init(style: UITableViewStyle) {
         super.init(style: style)
-        let scale = SideViewController.sharedInstance.leftOffSetXScale
+        let scale = SideVC.leftOffSetXScale
         self.tableView.frame = CGRect(x: ScreenWidth*scale + 20, y: 0, width: ScreenWidth*(1-scale) - 20, height: ScreenHeight)
         self.tableView.qs_registerCellClass(RightTableViewCell.self)
     }
@@ -43,7 +43,6 @@ class RightViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIden:String = "cellIden"
         let cell:RightTableViewCell? = tableView.qs_dequeueReusableCell(RightTableViewCell.self)
         cell?.selectionStyle = .none
         
@@ -60,22 +59,22 @@ class RightViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {//搜索
-            let rankVC = SearchDetailViewController()
+//            let rankVC = QSSearchViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-            SideViewController.sharedInstance.navigationController?.pushViewController(rankVC, animated: true)
+            SideVC.navigationController?.pushViewController(QSSearchRouter.createModule(), animated: true)
         }else if indexPath.row == 1 {//排行榜
             let rankVC = RankingViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-            SideViewController.sharedInstance.navigationController?.pushViewController(rankVC, animated: true)
+            SideVC.navigationController?.pushViewController(rankVC, animated: true)
         }else if indexPath.row == 2 {//主题书单
             let themeVC = ThemeTopicViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-            SideViewController.sharedInstance.navigationController?.pushViewController(themeVC, animated: true)
+            SideVC.navigationController?.pushViewController(themeVC, animated: true)
 
         }else if indexPath.row == 3 {
             let categoryVC = QSCategoryViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-            SideViewController.sharedInstance.navigationController?.pushViewController(categoryVC, animated: true)
+            SideVC.navigationController?.pushViewController(categoryVC, animated: true)
         }
     }
 }

@@ -33,11 +33,11 @@ fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 //MARK:- API
-let baseUrl = "http://api.zhuishushenqi.com"
-let picBaseUrl = "http://statics.zhuishushenqi.com"
-let chapterURL = "http://chapter2.zhuishushenqi.com/chapter"
-let bookshelf =  "user/bookshelf"
-let ranking = "ranking/gender"
+let BASEURL = "http://api.zhuishushenqi.com"
+let IMAGE_BASEURL = "http://statics.zhuishushenqi.com"
+let CHAPTERURL = "http://chapter2.zhuishushenqi.com/chapter"
+let BOOKSHELF =  "user/bookshelf"
+let RANKING = "ranking/gender"
 
 let searchHistory = "searchHistory"
 let dbName = "QS.zhuishushenqi.searchHistory"
@@ -67,6 +67,7 @@ let APP_DELEGATE = (UIApplication.shared.delegate as! AppDelegate)
 let APP_DELEGATEKeyWindow = UIApplication.shared.delegate?.window
 let USER_DEFAULTS =  UserDefaults.standard
 let KeyWindow = UIApplication.shared.keyWindow
+let SideVC = SideViewController.shared
 
 func widthOfString(_ str:String, font:UIFont,height:CGFloat) ->CGFloat
 {
@@ -97,6 +98,8 @@ func timeBetween(_ beginDate:Date?,endDate:Date?)->TimeInterval{
 }
 
 func QSLog<T>(_ message:T,fileName:String = #file,lineName:Int = #line,funcName:String = #function){
-    print("QSLog:\((fileName as NSString).lastPathComponent)[\(lineName)]\(funcName):\n\(message)\n")
+    #if DEBUG
+        print("QSLog:\((fileName as NSString).lastPathComponent)[\(lineName)]\(funcName):\n\(message)\n")
+    #endif
 }
 

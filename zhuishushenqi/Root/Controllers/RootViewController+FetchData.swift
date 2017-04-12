@@ -13,13 +13,13 @@ extension RootViewController{
     
     func requetShelfMsg(){
 //        http://api.zhuishushenqi.com/notification/shelfMessage?platform=ios
-        let shelfUrl = "\(baseUrl)/notification/shelfMessage"
+        let shelfUrl = "\(BASEURL)/notification/shelfMessage"
         QSNetwork.request(shelfUrl, method: HTTPMethodType.get, parameters: ["platform":"ios"], headers: nil) { (response) in
             if let _ = response.json {
                 let message:AnyObject? = response.json?["message"] as AnyObject
                 if message?.isKind(of: NSNull.self) == false {
                     let postLink = message?.object(forKey: "postLink")
-                    self.shelfMsgLabel.text = "\(self.postLinkArchive(postLink as AnyObject?).1)"
+                    self.bookShelfLB.text = "\(self.postLinkArchive(postLink as AnyObject?).1)"
                 }
             }
         }
@@ -40,9 +40,9 @@ extension RootViewController{
                 QSLog(url.pathExtension)
             }
         }
-//        DispatchQueue.main.async {
-//            self.tableView?.reloadData()
-//        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     //匹配当前书籍的更新信息
@@ -51,7 +51,7 @@ extension RootViewController{
         guard let update  = self.bookShelfArr else {
             return
         }
-        let url = "\(baseUrl)/book"
+        let url = "\(BASEURL)/book"
         let ids = self.param(bookArr: update)
         let param = ["view":"updated","id":"\(ids)"]
         QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
@@ -85,7 +85,29 @@ extension RootViewController{
             }
         }
         DispatchQueue.main.async {
-            self.tableView?.reloadData()
+            self.tableView.reloadData()
+        }
+    }
+    
+    func requestAllChapters(withUrl url:String,param:[String:Any],index:Int){
+        
+        //先查询书籍来源，根据来源返回的id再查询所有章节
+        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
+            var res:[ResourceModel]?
+            if let resources = response.json  {
+                do{
+                    res = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as? [ResourceModel]
+                }catch{
+                    QSLog(error)
+                }
+            }
+            if (res?.count ?? 0) > 0 {
+                let txtVC = TXTReaderViewController()
+                txtVC.id = res?[1]._id ?? ""
+                txtVC.bookId = self.bookShelfArr?[index]._id ?? ""
+                txtVC.resources = res!
+                self.present(txtVC, animated: true, completion: nil)
+            }
         }
     }
     

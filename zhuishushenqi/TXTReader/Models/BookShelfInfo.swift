@@ -3,7 +3,7 @@
 //  zhuishushenqi
 //
 //  Created by Nory Chao on 2017/3/6.
-//  Copyright © 2017年 XYC. All rights reserved.
+//  Copyright © 2017年 QS. All rights reserved.
 //
 
 import UIKit
@@ -20,7 +20,7 @@ class BookShelfInfo: NSObject {
     //Local store BookDetail models array when you add persue update
     var bookShelf:NSArray {
         get{
-//            XYCBaseModel.model(withModleClass: BookShelf.self, withJsArray: bookshelf as [AnyObject]) as? [BookShelf]
+//            XYCBaseModel.model(withModleClass: BookShelf.self, withJsArray: BOOKSHELF as [AnyObject]) as? [BookShelf]
             var data:NSArray? = []
             if let dict:Data = UserDefaults.standard.value(forKey: bookShelfInfo) as? Data {
                 let unarchiver = NSKeyedUnarchiver.unarchiveObject(with: dict)

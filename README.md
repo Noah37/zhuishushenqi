@@ -7,21 +7,22 @@
 
 **采用Swift语言，仿追书神器做的，主要是练习阅读器的一些技术，包括仿真阅读等。不断更新中......**
 
-**仅供学习交流，严禁用于商业用途**
-
 ## Requirements
 
 - iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
 - Xcode 8.1+
 - Swift 3.0+
 
-Main development of zhuishushenqi olny support Swift 3.0+.
+Main development of TXTReader olny support Swift 3.0+.
 
 ###Here you can see blow.
 
 
 =======
 
+###效果图如下：
+
+![zhuishushenqi](zhuishushenqi.png)
 
 ## Contact
 

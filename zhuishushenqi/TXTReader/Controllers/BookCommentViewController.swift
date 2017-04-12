@@ -10,14 +10,23 @@ import UIKit
 import QSNetwork
 import QSPullToRefresh
 
+enum QSBookCommentType {
+    case normal
+    case hotUser
+    case hotPost
+}
+
 class BookCommentViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
 
     var id:String = ""
+    var commentType:QSBookCommentType = .normal
     private var start:Int = 0
     private var limit:Int = 1000
+    private var param:[String:Any]?
     fileprivate var magicComments:[BookCommentDetail]? = [BookCommentDetail]()
     fileprivate var normalComments:[BookCommentDetail]? = [BookCommentDetail]()
     fileprivate var readerModel:BookComment?
+    fileprivate var hotModel:QSHotModel?
 
     fileprivate lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64), style: .grouped)
@@ -52,6 +61,8 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
         self.navigationItem.rightBarButtonItem = rightBar
         
         requestDetail(idString: self.id)
+        requestBest()
+        requestMore()
     }
     
     @objc func jump(btn:UIButton){
@@ -68,8 +79,8 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
     }
     
     fileprivate func requestDetail(idString:String){
-//        http://api.zhuishushenqi.com/post/review/530a26522852d5280e04c19c
-        let urlString = "\(baseUrl)/post/review/\(self.id)"
+
+        let urlString = self.getDetailURL(type: commentType)
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let reader = response.json?.object(forKey: "review") {
@@ -81,8 +92,11 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
                 self.tableView.reloadData()
             }
         }
-//        http://api.zhuishushenqi.com/post/530a26522852d5280e04c19c/comment/best
-        let best = "\(baseUrl)/post/\(self.id)/comment/best"
+    }
+    
+    func requestBest(){
+//http://api.zhuishushenqi.com/post/530a26522852d5280e04c19c/comment/best
+        let best = "\(BASEURL)/post/\(self.id)/comment/best"
         QSNetwork.request(best) { (response) in
             do{
                 if let books = response.json?.object(forKey: "comments")  {
@@ -97,14 +111,11 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
                 
             }
         }
-//        http://api.zhuishushenqi.com/post/review/530a26522852d5280e04c19c/comment?start=0&limit=50
-        requestMore()
     }
     
     func requestMore(){
-        let comment = "\(baseUrl)/post/review/\(self.id)/comment"
-        let commentParam = ["start":"\(start)","limit":"\(self.limit)"]
-        QSNetwork.request(comment, method: HTTPMethodType.get, parameters: commentParam, headers: nil) { (response) in
+        let comment = getCommentURL(type: self.commentType)
+        QSNetwork.request(comment, method: HTTPMethodType.get, parameters: self.param, headers: nil) { (response) in
             do{
                 if let books = response.json?.object(forKey: "comments")  {
                     if let normalComment = self.normalComments {
@@ -125,6 +136,46 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
                 
             }
         }
+    }
+    
+    func getCommentURL(type:QSBookCommentType)->String{
+        var urlString = ""
+        switch type {
+        case .normal:
+//        http://api.zhuishushenqi.com/post/review/530a26522852d5280e04c19c/comment?start=0&limit=50
+            urlString = "\(BASEURL)/post/review/\(self.id)/comment"
+            param = ["start":"\(start)","limit":"\(self.limit)"]
+            break
+        case .hotUser:
+//            http://api.zhuishushenqi.com/user/twitter/58d14859d0693ae736034619/comments
+            urlString = "\(BASEURL)/user/twitter/\(self.id)/comments"
+            param = nil
+            break
+        case .hotPost:
+//            http://api.zhuishushenqi.com/post/58d1d313bd7cc9961f93192d/comment?start=0&limit=50
+            urlString = "\(BASEURL)/post/\(self.id)/comment"
+            param = ["start":"\(start)","limit":"\(self.limit)"]
+            break
+        }
+        return urlString
+    }
+    
+    func getDetailURL(type:QSBookCommentType)->String{
+        var urlString = ""
+        switch type {
+        case .normal:
+            urlString = "\(BASEURL)/post/review/\(self.id)"
+            break
+        case .hotUser:
+           
+            urlString = "\(BASEURL)/user/twitter/\(self.id)"
+            break
+        case .hotPost:
+//            http://api.zhuishushenqi.com/post/58d1d313bd7cc9961f93192d/comment?start=0&limit=50
+            urlString = "\(BASEURL)/post/\(self.id)"
+            break
+        }
+        return urlString
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -242,3 +293,5 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
         }
     }
 }
+
+

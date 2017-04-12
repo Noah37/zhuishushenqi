@@ -44,8 +44,8 @@ class TopicDetailViewController: BaseViewController ,SegMenuDelegate,UITableView
     
     fileprivate func requestDetail(){
 //        http://api.zhuishushenqi.com/book-list/58b782f5a7674a5f67618731
-        let urlString = "\(baseUrl)/book-list/\(self.id ?? "")"
-        //        QSNetwork.setDefaultURL(url: baseUrl)
+        let urlString = "\(BASEURL)/book-list/\(self.id ?? "")"
+        //        QSNetwork.setDefaultURL(url: BASEURL)
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let bookList = response.json?.object(forKey: "bookList") as? [AnyHashable : Any] {

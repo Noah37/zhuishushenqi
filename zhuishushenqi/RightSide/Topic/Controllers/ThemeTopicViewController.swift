@@ -92,7 +92,7 @@ class ThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableViewD
         
         //最多收藏 （全部书单）
 //        http://api.zhuishushenqi.com/book-list?sort=collectorCount&duration=all&start=0
-        let urlString = "\(baseUrl)/book-list"
+        let urlString = "\(BASEURL)/book-list"
         let param = ["sort":sorts[index],"duration":durations[index],"start":"0","gender":gender,"tag":tag]
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             QSLog(response.json)

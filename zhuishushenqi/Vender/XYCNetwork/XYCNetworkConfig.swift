@@ -14,7 +14,7 @@ public protocol XYCUrlFilterProtocol {
 
 open class XYCNetworkConfig: NSObject {
     
-    open var baseUrl:String?
+    open var BASEURL:String?
     open var cdnUrl:String?
     open var urlFilters:NSMutableArray?
     

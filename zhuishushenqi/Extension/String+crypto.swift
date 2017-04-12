@@ -3,7 +3,7 @@
 //  zhuishushenqi
 //
 //  Created by Nory Chao on 2017/3/6.
-//  Copyright © 2017年 XYC. All rights reserved.
+//  Copyright © 2017年 QS. All rights reserved.
 //
 
 import Foundation
@@ -24,7 +24,7 @@ extension String{
     }
     
     //Half open
-    func sub(start:Int,end:Int)->String{
+    func qs_subStr(start:Int,end:Int)->String{
         if self == "" {
             return self
         }
@@ -35,7 +35,7 @@ extension String{
         return sub
     }
     
-    func sub(start:Int,length:Int)->String{
+    func qs_subStr(start:Int,length:Int)->String{
         if self == "" {
             return self
         }
@@ -46,7 +46,7 @@ extension String{
         return sub
     }
     
-    func subStr(from:Int)->String{
+    func qs_subStr(from:Int)->String{
         if self == "" {
             return self
         }
@@ -57,7 +57,7 @@ extension String{
         return sub
     }
     
-    func subStr(to:Int)->String{
+    func qs_subStr(to:Int)->String{
         if self == "" {
             return self
         }

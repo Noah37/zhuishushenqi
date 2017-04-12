@@ -11,13 +11,13 @@ import QSNetwork
 
 class TXTReaderViewController: UIViewController {
 
-    var CategoryUrl = "\(baseUrl)/atoc/57df797cb061df9e19b8b030?view=chapters"
+    var CategoryUrl = "\(BASEURL)/atoc/57df797cb061df9e19b8b030?view=chapters"
     //这个id是zhuishu的id
     var bookId:String = ""
     //这个是不同来源的id
     var id:String = "" {
         didSet{
-            CategoryUrl = "\(baseUrl)/toc/\(id)?view=chapters"
+            CategoryUrl = "\(BASEURL)/toc/\(id)?view=chapters"
         }
     }
     //all chapters
@@ -95,7 +95,7 @@ class TXTReaderViewController: UIViewController {
         if index >= chapters.count {
             return;
         }
-        let url = "\(chapterURL)/\(chapters[index].object(forKey: "link") ?? "")?k=22870c026d978c75&t=1489933049"
+        let url = "\(CHAPTERURL)/\(chapters[index].object(forKey: "link") ?? "")?k=22870c026d978c75&t=1489933049"
         QSNetwork.request(url) { (response) in
             if let json = response.json as? Dictionary<String, Any> {
                 QSLog("JSON:\(json)")

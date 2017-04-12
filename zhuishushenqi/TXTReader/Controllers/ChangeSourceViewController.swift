@@ -52,13 +52,13 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
     
     func requestData(id:String){
 //        http://api.zhuishushenqi.com/toc?view=summary&book=57e0dac5de88e4e83c6c5297
-        let urlString = "\(baseUrl)/toc"
+        let urlString = "\(BASEURL)/toc"
         let param = ["view":"summary","book":"\(self.id)"]
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             QSLog(response.json)
-            if let resources = response.json  {
+            if let resources:[Any] = response.json as? [Any]  {
                 do{
-                    self.sources = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as? [ResourceModel]
+                    self.sources = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources ) as? [ResourceModel]
                 }catch{
                     QSLog(error)
                 }

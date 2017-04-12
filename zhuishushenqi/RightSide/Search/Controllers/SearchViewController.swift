@@ -31,6 +31,7 @@ class SearchViewController: BaseViewController,UITableViewDataSource,UITableView
         tableView.sectionFooterHeight = 10
         tableView.rowHeight = 44
         tableView.backgroundColor = UIColor.white
+        tableView.qs_registerCellClass(UITableViewCell.self)
         return tableView
     }()
     
@@ -66,7 +67,7 @@ class SearchViewController: BaseViewController,UITableViewDataSource,UITableView
     
     func requestData() -> Void {
 //        http://api.zhuishushenqi.com/book/hot-word
-        let urlString = "\(baseUrl)/book/hot-word"
+        let urlString = "\(BASEURL)/book/hot-word"
         QSNetwork.request(urlString) { (response) in
             QSLog(response.json)
             if let json = response.json {
@@ -189,13 +190,10 @@ class SearchViewController: BaseViewController,UITableViewDataSource,UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "HotWords")
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "HotWords")
-        }
-        cell?.backgroundColor = UIColor.white
-        cell?.selectionStyle = .none
-        return cell!
+        let cell:UITableViewCell = tableView.qs_dequeueReusableCell(UITableViewCell.self)
+        cell.backgroundColor = UIColor.white
+        cell.selectionStyle = .none
+        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -13,11 +13,11 @@ extension UIImageView{
     func qs_setBookCoverWithURLString(urlString:String){
         self.image = UIImage(named: "default_book_cover")
         var urlStr = urlString
-        if urlStr.subStr(to: 4) != "http"{
-            urlStr = urlStr.subStr(from: 7)
+        if urlStr.qs_subStr(to: 4) != "http"{
+            urlStr = urlStr.qs_subStr(from: 7)
         }
         if urlStr.contains("http") == false {
-            urlStr = "\(picBaseUrl)\(urlString)"
+            urlStr = "\(IMAGE_BASEURL)\(urlString)"
         }
         let url = URL(string: urlStr)
         guard let imageURL = url else {
@@ -30,7 +30,7 @@ extension UIImageView{
     
     func qs_setAvatarWithURLString(urlString:String){
         self.image = UIImage(named: "default_avatar_light")
-        let imageUrlString =  "\(picBaseUrl)\(urlString)"
+        let imageUrlString =  "\(IMAGE_BASEURL)\(urlString)"
         let url:URL? = URL(string: imageUrlString)
         guard let imageURL = url else {
             QSLog("Invalid URL")

@@ -14,7 +14,7 @@ open class XYCNetworkAgent: NSObject {
     fileprivate var config:XYCNetworkConfig?
     
     func addRequest(_ request:XYCBaseRequest){
-        DispatchQueue(label: "com.XYC.XYCnetwork.request.processing", attributes: []).async { 
+        DispatchQueue(label: "com.QS.XYCnetwork.request.processing", attributes: []).async { 
             self.XYC_addRequst(request)
         }
     }
@@ -28,14 +28,14 @@ open class XYCNetworkAgent: NSObject {
         for f in filters! {
             detailUrl = (f as! XYCUrlArgumentFilter).filterUrl(detailUrl,withRequest:request)
         }
-        var baseUrl = ""
-        if (request.baseUrl() as NSString).length > 0{
-            baseUrl = request.baseUrl()
+        var BASEURL = ""
+        if (request.BASEURL() as NSString).length > 0{
+            BASEURL = request.BASEURL()
         }else{
-            baseUrl = config?.baseUrl ?? ""
+            BASEURL = config?.BASEURL ?? ""
         }
-        print("\(baseUrl)\(detailUrl)")
-        return "\(baseUrl)\(detailUrl)"
+        print("\(BASEURL)\(detailUrl)")
+        return "\(BASEURL)\(detailUrl)"
     }
     
     func XYC_addRequst(_ request:XYCBaseRequest){

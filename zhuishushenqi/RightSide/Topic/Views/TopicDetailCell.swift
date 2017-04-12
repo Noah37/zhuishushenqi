@@ -42,7 +42,7 @@ class TopicDetailCell: UITableViewCell {
             if self.model?.book.cover == "" {
                 return;
             }
-            let urlString = "\(picBaseUrl)\(self.model?.book.cover ?? "qqqqqqqq")"
+            let urlString = "\(IMAGE_BASEURL)\(self.model?.book.cover ?? "qqqqqqqq")"
             self.icon.qs_setBookCoverWithURLString(urlString: urlString)
         }
     }

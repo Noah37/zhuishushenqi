@@ -35,15 +35,12 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class RankingViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class RankingViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
 
     fileprivate var tableView:UITableView?
     
     fileprivate var maleRank:[QSRankModel]? = [QSRankModel]()
     fileprivate var femaleRank:[QSRankModel]? = [QSRankModel]()
-    fileprivate var maleImage:NSArray = ["userCenter_msg","zuire","zuire","zuire","zuire","ranking_other"]
-    fileprivate var femaleImage:NSArray = ["zuire","zuire","zuire","zuire","zuire","zuire"]
-
     fileprivate var showMale:Bool = false
     fileprivate var showFemale:Bool = false
 
@@ -58,10 +55,7 @@ class RankingViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if self.navigationController?.isNavigationBarHidden == false{
-            self.tableView!.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
-        }
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
     }
     
     fileprivate func initSubview(){
@@ -77,27 +71,19 @@ class RankingViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     fileprivate func requestData(){
-//        QSNetwork.setDefaultURL(url: baseUrl)
-        
-        QSNetwork.request("\(baseUrl)/\(ranking)") { (response) in
-            if let data = response.data {
+        QSNetwork.request("\(BASEURL)/\(RANKING)") { (response) in
+            if let dict = response.json as? NSDictionary {
                 do{
-                    let dict:NSDictionary? = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary
-                    if let male:[Any] = dict?["male"] as? [Any] {
-                        
+                    if let male:[Any] = dict["male"] as? [Any] {
                        self.maleRank = try XYCBaseModel.model(withModleClass: QSRankModel.self, withJsArray: male) as? [QSRankModel]
                         //添加别人家的榜单
-                        let otherRank = QSRankModel()
-                        otherRank.title = "别人家的榜单"
-                        otherRank.image = "ranking_other"
+                        let otherRank = self.rankModel(title: "别人家的榜单", image: "ranking_other")
                         self.maleRank?.insert(otherRank, at: 5)
                     }
-                    if let female:[Any] = dict?["female"] as? [Any] {
+                    if let female:[Any] = dict["female"] as? [Any] {
                         
                         self.femaleRank = try XYCBaseModel.model(withModleClass: QSRankModel.self, withJsArray: female ) as? [QSRankModel]
-                        let otherRank = QSRankModel()
-                        otherRank.title = "别人家的榜单"
-                        otherRank.image = "ranking_other"
+                        let otherRank = self.rankModel(title: "别人家的榜单", image: "ranking_other")
                         self.femaleRank?.insert(otherRank, at: 5)
                     }
                     
@@ -148,24 +134,17 @@ class RankingViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: 60))
+        let label = UILabel(frame: CGRect(x: 15,y: 15,width: 100,height: 15))
+        label.textColor = UIColor.gray
+        label.font = UIFont.systemFont(ofSize: 11)
         if section == 0 {
-            let headerView = UIView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: 60))
-            let label = UILabel(frame: CGRect(x: 15,y: 15,width: 100,height: 15))
-            label.textColor = UIColor.gray
-            label.font = UIFont.systemFont(ofSize: 11)
             label.text = "男生"
-            headerView.addSubview(label)
-            return headerView;
         }else if section == 1{
-            let headerView = UIView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: 60))
-            let label = UILabel(frame: CGRect(x: 15,y: 15,width: 100,height: 15))
-            label.textColor = UIColor.gray
-            label.font = UIFont.systemFont(ofSize: 11)
             label.text = "女生"
-            headerView.addSubview(label)
-            return headerView
         }
-        return nil
+        headerView.addSubview(label)
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -197,54 +176,15 @@ class RankingViewController: UIViewController,UITableViewDataSource,UITableViewD
         return .default
     }
     
-    func imageHasAlpha(image:UIImage)->Bool{
-        let alpha:CGImageAlphaInfo? = image.cgImage?.alphaInfo
-        return (alpha == CGImageAlphaInfo.first || alpha == CGImageAlphaInfo.last  || alpha == CGImageAlphaInfo.premultipliedLast || alpha == CGImageAlphaInfo.premultipliedFirst)
-        
-    }
-    
-    func image2DataURL(image:UIImage) -> String? {
-        var imageData:Data?
-        var mimeType:String?
-        if self.imageHasAlpha(image: image) {
-            imageData = UIImagePNGRepresentation(image)
-            mimeType = "image/png"
-        }else{
-            imageData = UIImageJPEGRepresentation(image, 1.0)
-            mimeType = "image/jpeg"
-        }
-        QSLog(mimeType)
-        return imageData?.base64EncodedString(options: .endLineWithCarriageReturn)
-    }
-    
-    func base64ToImage(imageSrc:String) -> UIImage? {
-        let data:Data? = Data(base64Encoded: imageSrc, options: .ignoreUnknownCharacters)
-        if let decodeData = data{
-            return UIImage(data: decodeData)
-        }
-        return nil
-    }
-    
-    func imageFromUrl(url:String)->UIImage?{
-        var image:UIImage?
-        DispatchQueue.global().async {
-            do{
-                let url:URL? = URL(string: url)
-                if let imageUrl = url {
-                    let data:Data = try Data(contentsOf: imageUrl, options: .alwaysMapped)
-                    image = UIImage(data: data)
-                }
-                
-            }catch{
-                QSLog(error)
-            }
-        }
-        return image
+    func rankModel(title:String,image:String)->QSRankModel{
+        let otherRank = QSRankModel()
+        otherRank.title = title
+        otherRank.image = image
+        return otherRank
     }
 }
 
 public class QSResource:Resource{
-    
     
     public var imageURL:URL? = URL(string: "http://statics.zhuishushenqi.com/ranking-cover/142319144267827")
     public var downloadURL: URL {

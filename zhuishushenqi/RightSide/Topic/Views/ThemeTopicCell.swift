@@ -32,7 +32,7 @@ class ThemeTopicCell: UITableViewCell {
             let width = widthOfString(self.reading.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
             self.persueWidth.constant = width + 5
             
-            let urlString = "\(picBaseUrl)\(self.model?.cover ?? "qqqqqqqq")"
+            let urlString = "\(IMAGE_BASEURL)\(self.model?.cover ?? "qqqqqqqq")"
             self.icon.qs_setBookCoverWithURLString(urlString: urlString)
         }
     }

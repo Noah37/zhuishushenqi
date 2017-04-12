@@ -10,7 +10,7 @@ import UIKit
 
 class BookShelfAPI: XYCBaseRequest {
     override func requestUrl() -> String {
-        return "/user/bookshelf"
+        return "/user/BOOKSHELF"
     }
     
     override func requestMethod() -> XYCRequestMethod? {

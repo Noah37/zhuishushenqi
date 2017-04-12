@@ -329,7 +329,7 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    static let sharedInstance = SideViewController()
+    static let shared = SideViewController()
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent

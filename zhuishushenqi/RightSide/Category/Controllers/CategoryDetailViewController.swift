@@ -53,7 +53,7 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
     
     fileprivate func requestDetail(){
         //        http://api.zhuishushenqi.com/book/by-categories?gender=male&type=new&major=都市&minor=&start=0&limit=50
-        let urlString = "\(baseUrl)/book/by-categories"
+        let urlString = "\(BASEURL)/book/by-categories"
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             QSLog(response.json)
             do{
@@ -72,7 +72,7 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
     }
     
     func didSelectAtIndex(_ index:Int){
-        let urlString = "\(baseUrl)/book/by-categories"
+        let urlString = "\(BASEURL)/book/by-categories"
         let types = ["new","hot","reputation","over"]
         
         let major = param["major"] ?? ""

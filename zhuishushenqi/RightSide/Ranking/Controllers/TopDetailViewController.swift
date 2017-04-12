@@ -67,17 +67,17 @@ class TopDetailViewController: BaseViewController ,SegMenuDelegate,UITableViewDa
     }
     
     fileprivate func requestDetail(idString:String){
-        let urlString = "\(baseUrl)/ranking/\(idString)"
+        let urlString = "\(BASEURL)/ranking/\(idString)"
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
-            do{
-                if let json = response.json {
-                    if let books = (json.object(forKey: "ranking") as AnyObject).object(forKey: "books") {
+            if let json = response.json {
+                if let books = (json.object(forKey: "ranking") as AnyObject).object(forKey: "books") {
+                    do{
                         self.booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject]) as NSArray
+                    }catch{
+                        
                     }
                 }
-            }catch{
-                
             }
             DispatchQueue.main.async {
                 self.tableView.removeFromSuperview()

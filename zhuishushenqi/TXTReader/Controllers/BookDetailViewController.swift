@@ -44,7 +44,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
     }
     
     fileprivate func requestData(){
-        let url = "\(baseUrl)/book/\(id)"
+        let url = "\(BASEURL)/book/\(id)"
         QSNetwork.request(url, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             do{
                 if let json = response.json as? [AnyHashable : Any]{
@@ -60,7 +60,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             }
         }
         
-        let hotUrl = "\(baseUrl)/post/review/best-by-book?book=\(self.id)"
+        let hotUrl = "\(BASEURL)/post/review/best-by-book?book=\(self.id)"
         QSNetwork.request(hotUrl) { (response) in
             do{
                 if let json = response.json?["reviews"] as? [Any] {
@@ -170,7 +170,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
                 NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
             }
             headerview?.startReading = {(isSelected:Bool,model:BookDetail) in
-                let allChapterUrl = "\(baseUrl)/toc"
+                let allChapterUrl = "\(BASEURL)/toc"
                 self.requestAllChapters(withUrl: allChapterUrl,param:["view":"summary","book":model._id ])
             }
             

@@ -36,7 +36,7 @@ class QSCategoryViewController: BaseViewController ,UITableViewDataSource,UITabl
     }
     
     fileprivate func requestDetail(){
-        let urlString = "\(baseUrl)/cats/lv2/statistics"
+        let urlString = "\(BASEURL)/cats/lv2/statistics"
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let books:NSArray = response.json?.object(forKey: "male") as? NSArray {

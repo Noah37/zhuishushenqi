@@ -12,6 +12,7 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.white
         navigationController?.navigationBar.tintColor = UIColor.red
         navigationController?.navigationBar.barTintColor = UIColor.white

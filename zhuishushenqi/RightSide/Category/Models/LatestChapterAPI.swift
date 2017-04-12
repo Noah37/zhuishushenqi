@@ -3,7 +3,7 @@
 //  zhuishushenqi
 //
 //  Created by Nory Chao on 16/10/11.
-//  Copyright © 2016年 XYC. All rights reserved.
+//  Copyright © 2016年 QS. All rights reserved.
 //
 
 import UIKit

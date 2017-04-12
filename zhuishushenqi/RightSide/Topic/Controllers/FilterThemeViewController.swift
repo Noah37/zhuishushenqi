@@ -39,7 +39,7 @@ class FilterThemeViewController: BaseViewController,UITableViewDataSource,UITabl
     
     fileprivate func requestDetail(index:Int){
 //       http://api.zhuishushenqi.com/book-list/tagType
-        let urlString = "\(baseUrl)/book-list/tagType"
+        let urlString = "\(BASEURL)/book-list/tagType"
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "data") as? NSArray {

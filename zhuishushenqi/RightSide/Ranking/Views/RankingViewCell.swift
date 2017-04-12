@@ -3,7 +3,7 @@
 //  zhuishushenqi
 //
 //  Created by Nory Chao on 2017/3/5.
-//  Copyright © 2017年 XYC. All rights reserved.
+//  Copyright © 2017年 QS. All rights reserved.
 //
 
 import UIKit
@@ -21,7 +21,7 @@ class RankingViewCell: UITableViewCell {
                 self.accessoryImageView.isHidden = false
                 return
             }
-            let imageUrlString =  "\(picBaseUrl)\(model?.cover ?? "")"
+            let imageUrlString =  "\(IMAGE_BASEURL)\(model?.cover ?? "")"
             self.imageView?.qs_setBookCoverWithURLString(urlString: imageUrlString)
         }
     }

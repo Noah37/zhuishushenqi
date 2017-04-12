@@ -175,13 +175,13 @@ public class QSManager:NSObject{
                 
                 return "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(alamofireVersion)"
             }
-            return "QSNetwork"
+            return "YouShaQi/2.24.10 (iPhone; iOS 10.1.1; Scale/2.00)"
         }()
         
         return [
             "Accept-Encoding": acceptEncoding,
             "Accept-Language": acceptLanguage,
-            "User-Agent": userAgent
+            "User-Agent": "YouShaQi/2.24.10 (iPhone; iOS 10.1.1; Scale/2.00)"
         ]
     }()
     
@@ -281,14 +281,14 @@ public class QSManager:NSObject{
     
     fileprivate func makeURL(url:String)->String{
         //http://
-        var baseURL = defaultURL
+        var BASEURL = defaultURL
         var urlString = url
-        if baseURL != "" {
-            baseURL = remove(str: baseURL)
+        if BASEURL != "" {
+            BASEURL = remove(str: BASEURL)
             if urlString != "" {
-                urlString = baseURL + "/" + urlString
+                urlString = BASEURL + "/" + urlString
             }else{
-                urlString = baseURL
+                urlString = BASEURL
             }
         }
         return urlString

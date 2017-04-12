@@ -19,11 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let sideVC = SideViewController.sharedInstance
+        let sideVC = SideViewController.shared
         sideVC.contentViewController = RootViewController()
         sideVC.rightViewController = RightViewController(style: .grouped)
         sideVC.leftViewController = LeftViewController()
-        let sideNavVC = UINavigationController(rootViewController: SideViewController.sharedInstance)
+        let sideNavVC = UINavigationController(rootViewController: sideVC)
         window?.rootViewController = sideNavVC
         window?.makeKeyAndVisible()
         UIApplication.shared.setStatusBarHidden(false, with: .fade)
@@ -80,13 +80,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-// 首先要明确一点: swift里面是没有宏定义的概念
-// 自定义内容输入格式: 文件名[行号]函数名: 输入内容
-// 需要在info.plist的other swift flag的Debug中添加DEBUG
-func XYCLog<T>(_ message: T, fileName: String = #file, lineNum: Int = #line, funcName: String = #function)
-{
-    #if DEBUG
-        print("\((fileName as NSString).lastPathComponent)[\(lineNum)] \(funcName): \(message)")
-    #endif
-}
 

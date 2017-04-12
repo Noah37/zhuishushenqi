@@ -21,7 +21,7 @@ open class XYCBaseRequest: NSObject {
     open var successCompletionBlock:XYCRequestCompletionBlock?
     open var failureCompletionBlock:XYCRequestCompletionBlock?
     
-    open func baseUrl() ->String{
+    open func BASEURL() ->String{
         return ""
     }
     

@@ -32,7 +32,7 @@ class TopicDetailHeaderCell: UITableViewCell {
             if self.model?.author.avatar == "" {
                 return;
             }
-            let urlString = "\(picBaseUrl)\(self.model?.author.avatar ?? "qqqqqqqq")"
+            let urlString = "\(IMAGE_BASEURL)\(self.model?.author.avatar ?? "qqqqqqqq")"
             let url = URL(string: urlString)
             if let urlstring = url {
                 let resource:QSResource = QSResource(url: urlstring)

@@ -40,21 +40,7 @@ class BookCommentViewCell: UITableViewCell {
         floorWidth.constant = width
         readerName.text = "\(model?.author.nickname ?? "") lv.\(model?.author.lv ?? 0)"
         let created = model?.created ?? "2014-02-23T16:48:18.179Z"
-        if created.lengthOfBytes(using: String.Encoding.utf8) > 18{
-            
-            let year = created.subStr(to: 4)
-            let month = created.sub(start: 5, end: 7)
-            let day = created.sub(start: 8, length: 2)
-            let hour = created.sub(start: 11, length: 2)
-            let mimute = created.sub(start: 14, length: 2)
-            let second = created.sub(start: 17, length: 2)
-            let beginDate = NSDate.getWithYear(year, month: month, day: day, hour: hour, mimute: mimute, second: second)
-            let endDate = Date()
-            let formatter = DateIntervalFormatter()
-            let out = formatter.timeInfo(from: beginDate!, to: endDate)
-            self.createTime.text = "\(out)"
-            QSLog(out)
-        }
+        self.createTime.qs_setCreateTime(createTime: created, append: "")
         var replyHeight = reply.frame.height
         if type == .magical {
             createTime.text = "\(model?.likeCount ?? 0)同感"
@@ -72,17 +58,11 @@ class BookCommentViewCell: UITableViewCell {
         contentHeight.constant = height
         cellHeight = floor.frame.minY + floor.frame.height + height + replyHeight
         
-        self.readerIcon.layer.cornerRadius = 3
-        self.readerIcon.layer.masksToBounds = true
         if self.model?.author.avatar == "" {
             return cellHeight
         }
-        let urlString = "\(picBaseUrl)\(self.model?.author.avatar ?? "qqqqqqqq")"
-        let url = URL(string: urlString)
-        if let urlstring = url {
-            let resource:QSResource = QSResource(url: urlstring)
-            self.readerIcon.kf.setImage(with: resource, placeholder: UIImage(named: "default_avatar_light"), options: nil, progressBlock: nil, completionHandler: nil)
-        }
+        let urlString = "\(IMAGE_BASEURL)\(self.model?.author.avatar ?? "qqqqqqqq")"
+        self.readerIcon.qs_setAvatarWithURLString(urlString: urlString)
         return cellHeight
     }
     
@@ -95,6 +75,8 @@ class BookCommentViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.readerIcon.layer.cornerRadius = 3
+        self.readerIcon.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -42,7 +42,6 @@ class SearchDetailViewController: BaseViewController,UITableViewDataSource,UITab
         searchVC.hidesNavigationBarDuringPresentation = true
         searchVC.searchBar.sizeToFit()
         searchVC.searchBar.backgroundColor = UIColor.darkGray
-        
         return searchVC
     }()
     
@@ -79,7 +78,7 @@ class SearchDetailViewController: BaseViewController,UITableViewDataSource,UITab
     
     func requestData(){
 //        http://api.zhuishushenqi.com/book/fuzzy-search?query=偷&start=0&limit=100
-        let urlString = "\(baseUrl)/book/fuzzy-search"
+        let urlString = "\(BASEURL)/book/fuzzy-search"
         let param = ["query":self.searchWords,"start":"0","limit":"100"]
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             QSLog(response.json)
@@ -100,7 +99,7 @@ class SearchDetailViewController: BaseViewController,UITableViewDataSource,UITab
     
     func requestHot() -> Void {
         //        http://api.zhuishushenqi.com/book/hot-word
-        let urlString = "\(baseUrl)/book/hot-word"
+        let urlString = "\(BASEURL)/book/hot-word"
         QSNetwork.request(urlString) { (response) in
             QSLog(response.json)
             if let json = response.json {
