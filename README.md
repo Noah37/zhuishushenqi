@@ -6,6 +6,7 @@
 [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)
 
 **采用Swift语言，仿追书神器做的，主要是练习阅读器的一些技术，包括仿真阅读等。不断更新中......**
+
 **仅供学习交流，严禁用于商业用途**
 
 ## Requirements
