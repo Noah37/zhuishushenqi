@@ -29,9 +29,7 @@ Main development of TXTReader olny support Swift 3.0+.
 
 ## Contact
 
-#### mail 2252055382@qq.com
-
-Follow and contact me on [mail](https://mail.qq.com/). If you find an issue, just [open a ticket](https://github.com/TomasEdison/TXTReader/issues/new). Pull requests are warmly welcome as well.
+Follow and contact me on mail [2252055382@qq.com](https://mail.qq.com/). If you find an issue, just [open a ticket](https://github.com/TomasEdison/TXTReader/issues/new). Pull requests are warmly welcome as well.
 
 ## License
 
