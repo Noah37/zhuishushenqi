@@ -103,7 +103,7 @@ class ThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableViewD
             }catch{
                 
             }
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 
                 self.view.addSubview(self.tableView)
                 self.tableView.reloadData()

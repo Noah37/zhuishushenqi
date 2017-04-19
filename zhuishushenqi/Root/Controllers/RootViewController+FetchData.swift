@@ -30,7 +30,7 @@ extension RootViewController{
         
         //未登录中状态下，图书的信息保存在userdefault中
         if !User.user.isLogin {
-            self.bookShelfArr = BookShelfInfo.books.bookShelf as? [BookDetail]
+            self.bookShelfArr = BookShelfInfo.books.bookShelf
             let url:NSString = "http://www.luoqiu.com/read/175859"
             QSLog(url.lastPathComponent)
             QSLog(url.deletingLastPathComponent)
@@ -77,14 +77,17 @@ extension RootViewController{
                 let bookShelf = bookShelfModels[y]
                 if updateInfo._id == bookShelf._id {
                     bookShelf.updateInfo = updateInfo
-                    let bookShelfMutable = NSMutableArray(array: bookShelfModels)
-                    bookShelfMutable.replaceObject(at: y, with: bookShelf)
-                    let bookShelfUnMutable = NSArray(array: bookShelfMutable)
-                    self.bookShelfArr = bookShelfUnMutable as? [BookDetail]
+                    var bookShelfs = bookShelfModels
+                    bookShelfs[y] = bookShelf
+                    self.bookShelfArr = bookShelfs
+                    if let shelf = self.bookShelfArr {
+                        BookShelfInfo.books.bookShelf = shelf
+                    }
                 }
             }
         }
         DispatchQueue.main.async {
+            self.tableView.endAllRefreshing()
             self.tableView.reloadData()
         }
     }
@@ -92,23 +95,21 @@ extension RootViewController{
     func requestAllChapters(withUrl url:String,param:[String:Any],index:Int){
         
         //先查询书籍来源，根据来源返回的id再查询所有章节
-        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
-            var res:[ResourceModel]?
-            if let resources = response.json  {
-                do{
-                    res = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as? [ResourceModel]
-                }catch{
-                    QSLog(error)
-                }
-            }
-            if (res?.count ?? 0) > 0 {
-                let txtVC = TXTReaderViewController()
-                txtVC.id = res?[1]._id ?? ""
-                txtVC.bookId = self.bookShelfArr?[index]._id ?? ""
-                txtVC.resources = res!
-                self.present(txtVC, animated: true, completion: nil)
-            }
-        }
+//        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
+//            var res:[ResourceModel]?
+//            if let resources = response.json  {
+//                do{
+//                    res = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as? [ResourceModel]
+//                }catch{
+//                    QSLog(error)
+//                }
+//            }else{
+//                res = [ResourceModel()]
+//            }
+//            if (res?.count ?? 0) > 0 {
+                self.present(QSTextRouter.createModule(bookDetail:self.bookShelfArr![index]), animated: true, completion: nil)
+//            }
+//        }
     }
     
     func param(bookArr:[BookDetail])->String{

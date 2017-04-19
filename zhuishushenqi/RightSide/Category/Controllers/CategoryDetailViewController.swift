@@ -63,7 +63,7 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
             }catch{
                 
             }
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 
                 self.view.addSubview(self.tableView)
                 self.tableView.reloadData()
@@ -89,7 +89,7 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
             }catch{
                 
             }
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 
                 self.view.addSubview(self.tableView)
                 self.tableView.reloadData()

@@ -29,12 +29,14 @@ protocol QSSearchPresenterProtocol: class {
     func didClickChangeBtn()
     func didSelectResultRow(indexPath:IndexPath)
     func didSelectHistoryRow(indexPath:IndexPath)
+    func didSelectAutoCompleteRow(indexPath:IndexPath)
 }
 
 //MARK: Output -
 protocol QSSearchInteractorOutputProtocol: class {
     func fetchHotwordsSuccess(hotwords:[String])
     func fetchHotwordsFailed()
+    func fetchAutoComplete(keys:[String])
     func searchListFetch(list:[[String]])
     func fetchBooksSuccess(books:[Book],key:String)
     func fetchBooksFailed(key:String)
@@ -47,6 +49,7 @@ protocol QSSearchInteractorProtocol: class {
     func fetchHotwords()
     func subWords()->[String]
     func fetchSearchList()
+    func autoComplete(key:String)
     func clearSearchList()
     func updateHistoryList(history:String)
     func fetchBooks(key:String)
@@ -60,8 +63,10 @@ protocol QSSearchViewProtocol: class {
     func showNoHistoryView()
     func showSearchListData(searchList:[[String]])
     func showBooks(books:[Book],key:String)
+    func showAutoComplete(keywords:[String])
 }
 
 protocol IndicatableView: class {
-
+    func showActivityView()
+    func hideActivityView()
 }

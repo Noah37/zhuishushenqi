@@ -48,7 +48,7 @@ class FilterThemeViewController: BaseViewController,UITableViewDataSource,UITabl
                 mutAttay.insert(["name":"all","tags":["全部书单"]], at: 0)
                 self.data = mutAttay
             }
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 
                 self.view.addSubview(self.tableView)
                 self.tableView.reloadData()

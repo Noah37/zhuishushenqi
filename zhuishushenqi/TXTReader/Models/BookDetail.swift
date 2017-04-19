@@ -27,12 +27,18 @@ class BookDetail: NSObject,NSCoding {
     var wordCount:String = ""
     var updated:String = ""//更新时间
     var tags:NSArray?
+    var sourceIndex:Int = 0 //当前选择的源
+    var chapter:Int = 0 //最后阅读的章节
+    var page:Int = 0 //最后阅读的页数
+    var resources:[ResourceModel]?
+    var chapters:[NSDictionary]?
+    
     
     //更新信息
     var updateInfo:UpdateInfo?
     
     class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["author":"author","cover":"cover","creater":"creater","longIntro":"longIntro","title":"title","cat":"cat","majorCate":"majorCate","minorCate":"minorCate","latelyFollower":"latelyFollower","retentionRatio":"retentionRatio","serializeWordCount":"serializeWordCount","wordCount":"wordCount","updated":"updated","tags":"tags","_id":"_id"]
+        return ["author":"author","cover":"cover","creater":"creater","longIntro":"longIntro","title":"title","cat":"cat","majorCate":"majorCate","minorCate":"minorCate","latelyFollower":"latelyFollower","retentionRatio":"retentionRatio","serializeWordCount":"serializeWordCount","wordCount":"wordCount","updated":"updated","tags":"tags","_id":"_id","sourceIndex":"sourceIndex","chapter":"chapter","page":"page"]
     }
     
     
@@ -53,6 +59,12 @@ class BookDetail: NSObject,NSCoding {
         self.updated = aDecoder.decodeObject(forKey: "updated") as? String ?? ""
         self.tags = aDecoder.decodeObject(forKey: "tags") as? NSArray
         self.updateInfo = aDecoder.decodeObject(forKey: "updateInfo") as? UpdateInfo
+        QSLog(aDecoder.decodeInteger(forKey:"chapter"))
+        self.chapter = aDecoder.decodeInteger(forKey:"chapter")
+        self.page = aDecoder.decodeInteger(forKey:"page")
+        self.sourceIndex = aDecoder.decodeInteger(forKey:"sourceIndex")
+        self.resources = aDecoder.decodeObject(forKey: "resources") as? [ResourceModel]
+        self.chapters = aDecoder.decodeObject(forKey: "chapters") as? [NSDictionary]
     }
     
     override init() {
@@ -77,6 +89,10 @@ class BookDetail: NSObject,NSCoding {
         aCoder.encode(self.updated, forKey: "updated")
         aCoder.encode(self.tags, forKey: "tags")
         aCoder.encode(self.updateInfo, forKey: "updateInfo")
-
+        aCoder.encode(self.chapter, forKey: "chapter")
+        aCoder.encode(self.page, forKey: "page")
+        aCoder.encode(self.sourceIndex, forKey: "sourceIndex")
+        aCoder.encode(self.resources, forKey: "resources")
+        aCoder.encode(self.chapters, forKey: "chapters")
     }
 }

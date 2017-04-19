@@ -15,12 +15,16 @@ class QSSearchHeaderView: UIView {
     
     var hotwords:[String] = [] {
         didSet{
+            if hotwords.count > 0{
+                stop()
+            }
             setNeedsLayout()
         }
     }
     
     var change:Change?
     var hotwordClick:HotwordClick?
+    var activity:UIActivityIndicatorView!
     
     fileprivate var tagColor = [UIColor(red: 0.56, green: 0.77, blue: 0.94, alpha: 1.0),
                                 UIColor(red: 0.75, green: 0.41, blue: 0.82, alpha: 1.0),
@@ -57,6 +61,7 @@ class QSSearchHeaderView: UIView {
         btn.addTarget(self, action: #selector(changeHotWord(btn:)), for: .touchUpInside)
         btn.frame = CGRect(x: self.bounds.width - 90, y: 0, width: 70, height: 21)
         self.addSubview(btn)
+        animate()
     }
     
     @objc func changeHotWord(btn:UIButton){
@@ -71,8 +76,22 @@ class QSSearchHeaderView: UIView {
         }
     }
     
+    func animate(){
+        activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activity.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        activity.center = self.center
+        self.addSubview(activity)
+        activity.startAnimating()
+    }
+    
+    func stop(){
+        activity.stopAnimating()
+        activity.removeFromSuperview()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         for item in self.subviews {
             if item.isKind(of: UIButton.self) {
                 let btn:UIButton? = item as? UIButton

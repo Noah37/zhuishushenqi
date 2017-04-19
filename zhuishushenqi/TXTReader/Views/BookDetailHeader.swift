@@ -17,11 +17,9 @@ class BookDetailHeader: UIView {
     var model:BookDetail?{
         didSet{
             name.text = model?.title
-            let mArr:[BookDetail]? = BookShelfInfo.books.bookShelf as? [BookDetail]
-            for item in mArr ?? [] {
-                if item._id == model?._id {
-                    addButton.isSelected = true
-                }
+            let exist = isExistShelf(bookDetail: model)
+            if exist{
+                addButton.isSelected = true
             }
             authorWidth.text = model?.author
             let widthttt = widthOfString(authorWidth.text ?? "", font: UIFont.boldSystemFont(ofSize: 13), height: 21)

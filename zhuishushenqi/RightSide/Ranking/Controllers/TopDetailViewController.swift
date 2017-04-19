@@ -123,10 +123,7 @@ class TopDetailViewController: BaseViewController ,SegMenuDelegate,UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let bookDetailVC = BookDetailViewController()
-        let book:Book? = booksModel![indexPath.row] as? Book
-        bookDetailVC.id = book?._id ?? ""
-        self.navigationController?.pushViewController(bookDetailVC, animated: true)
+        
     }
 
     override func didReceiveMemoryWarning() {

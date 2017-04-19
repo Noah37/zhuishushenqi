@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import QSNetwork
+import QSPullToRefresh
 
 let AllChapterUrl = "http://api.zhuishushenqi.com/ctoc/57df797cb061df9e19b8b030"
 
@@ -33,6 +34,12 @@ class RootViewController: UIViewController {
         tableView.estimatedSectionHeaderHeight = self.kHeaderViewHeight
         tableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         tableView.qs_registerCellClass(SwipableCell.self)
+        let refresh = PullToRefresh(height: 20, position: .top, tip: "正在刷新")
+        tableView.addPullToRefresh(refresh, action: { 
+            self.requetShelfMsg()
+            self.requestBookShelf()
+            self.updateInfo()
+        })
         return tableView
     }()
 

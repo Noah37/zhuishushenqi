@@ -9,7 +9,7 @@
 import Foundation
 
 extension String{
-    func md5() ->String!{
+    func md5() ->String{
         let str = self.cString(using: String.Encoding.utf8)
         let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
         let digestLen = Int(CC_MD5_DIGEST_LENGTH)
@@ -28,8 +28,12 @@ extension String{
         if self == "" {
             return self
         }
+        var ends = end
+        if self.characters.count < ends {
+            ends = self.characters.count
+        }
         let startIndex = self.index(self.startIndex, offsetBy: start)
-        let endIndex = self.index(self.startIndex, offsetBy: end)
+        let endIndex = self.index(self.startIndex, offsetBy: ends)
         let range = startIndex..<endIndex
         let sub = self.substring(with: range)
         return sub
@@ -66,5 +70,24 @@ extension String{
         let range = startIndex..<endIndex
         let sub = self.substring(with: range)
         return sub
+    }
+    
+    func qs_subStr(range:CountableRange<Int>)->String{
+        if  self == "" {
+            return self
+        }
+        let startIndex = range.startIndex
+        let endIndex = range.endIndex
+        let sub = self.qs_subStr(start: startIndex, end: endIndex)
+        return sub
+    }
+    
+    func qs_subStr(range:NSRange)->String{
+        if  self == "" {
+            return self
+        }
+        let start = range.location
+        let end = range.location + range.length
+        return self.qs_subStr(start: start, end: end)
     }
 }

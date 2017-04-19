@@ -79,7 +79,8 @@ class TXTReaderViewController: UIViewController {
     }
     
     //网络请求所有的章节信息
-    func requestAllChapters(){
+    func requestAllChapters(
+        ){
         QSNetwork.request(CategoryUrl) { (response) in
             QSLog("JSON:\(response.json)")
             if let chapters = response.json?["chapters"] as? [NSDictionary] {
@@ -365,5 +366,4 @@ extension TXTReaderViewController:UIPageViewControllerDataSource,UIPageViewContr
             self.toolBar.hideWithAnimations(animation: true)
         }
     }
-
 }

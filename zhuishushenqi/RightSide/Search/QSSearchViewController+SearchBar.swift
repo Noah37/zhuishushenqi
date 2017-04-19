@@ -33,7 +33,7 @@ extension QSSearchViewController:UISearchResultsUpdating,UISearchControllerDeleg
     }
     
     func didPresentSearchController(_ searchController: UISearchController){
-        
+
     }
     
     func willDismissSearchController(_ searchController: UISearchController){
@@ -46,6 +46,9 @@ extension QSSearchViewController:UISearchResultsUpdating,UISearchControllerDeleg
     
     //MARK: - UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController){
-    
+        let text = searchController.searchBar.text ?? ""
+        if !text.isEmpty {
+            presenter?.interactor.autoComplete(key: text)
+        }
     }
 }

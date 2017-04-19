@@ -17,6 +17,8 @@ class ChangeSourceCell: UITableViewCell {
 
     @IBOutlet weak var sourceWidth: NSLayoutConstraint!
     @IBOutlet weak var updated: UILabel!
+    
+    var higherCase:UILabel!
     var isCurrentSelected:Bool = false
     var model:ResourceModel? {
         didSet{
@@ -27,6 +29,7 @@ class ChangeSourceCell: UITableViewCell {
             self.updated.qs_setCreateTime(createTime: created, append: "")
             self.novelInfo.text = "\(model?.lastChapter ?? "")"
             self.currentSelect.isHidden = !self.isCurrentSelected
+            higherCase.text = (model?.source ?? "zz").qs_subStr(to: 1).uppercased()
         }
     }
     override func awakeFromNib() {
@@ -34,7 +37,12 @@ class ChangeSourceCell: UITableViewCell {
         // Initialization code
         icon.layer.cornerRadius = 16.5
         icon.layer.masksToBounds = true
-        
+        higherCase = UILabel(frame: CGRect(x: 0, y: 0, width: 33, height: 33))
+        higherCase.textAlignment = .center
+        higherCase.textColor = UIColor.white
+        higherCase.font = UIFont.systemFont(ofSize: 20)
+        higherCase.backgroundColor = UIColor.gray
+        icon.addSubview(higherCase)
     }
     
     override func prepareForReuse() {

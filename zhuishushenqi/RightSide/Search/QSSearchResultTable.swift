@@ -20,7 +20,7 @@ class QSSearchResultTable: UIView,UITableViewDataSource,UITableViewDelegate {
     var selectRow:DidSelectRow?
     
     lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - 114), style: .grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: self.bounds.height), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.sectionHeaderHeight = CGFloat.leastNonzeroMagnitude

@@ -198,6 +198,8 @@ public class QSManager:NSObject{
         var encodedURLRequest:URLRequest = URLRequest(url: URL(string: url) ?? URL(string:"http://caony.applinzi.com")!)
         do {
             originalRequest = try URLRequest(urlString: makeURL(url: url), method: method, headers: headers)
+            originalRequest?.cachePolicy = .useProtocolCachePolicy
+            originalRequest?.timeoutInterval = 30
             encodedURLRequest = try encoding.encode(originalRequest!, with: parameters)
         } catch {
             let errorResult = QSResponse(data: nil, response: nil, error: error, task: nil)

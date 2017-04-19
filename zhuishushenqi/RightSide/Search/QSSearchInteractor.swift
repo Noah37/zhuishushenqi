@@ -49,6 +49,18 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
         self.output.searchListFetch(list: list)
     }
     
+    func autoComplete(key:String){
+//        http://api.zhuishushenqi.com/book/auto-complete?query=%E6%9F%AF%E5%8D%97
+        let url = "\(BASEURL)/book/auto-complete"
+        let param = ["query":"\(key)"]
+        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
+            guard let keywords = response.json?["keywords"] as? [String] else {
+                return
+            }
+            self.output.fetchAutoComplete(keys: keywords)
+        }
+    }
+    
     func updateHistoryList(history:String){
         var list = getHistoryList()
         if !isExistSearchWord(key: history, historyList:list) {
@@ -90,7 +102,6 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
         return store
     }
     
-    
     func isExistSearchWord(key:String,historyList:[String])->Bool{
         var isExist = false
         for item in historyList {
@@ -102,6 +113,9 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
     }
     
     func subWords()->[String]{
+        if hotwords.count == 0 {
+            return []
+        }
         var subWords:[String] = []
         for item in offset..<offset+6 {
             subWords.append(hotwords[item%hotwords.count])

@@ -41,14 +41,14 @@ extension UIImage{
         
     }
     
-    func base64(from image:UIImage) -> String? {
+    func base64() -> String? {
         var imageData:Data?
         var mimeType:String?
-        if self.imageHasAlpha(image: image) {
-            imageData = UIImagePNGRepresentation(image)
+        if self.imageHasAlpha(image: self) {
+            imageData = UIImagePNGRepresentation(self)
             mimeType = "image/png"
         }else{
-            imageData = UIImageJPEGRepresentation(image, 1.0)
+            imageData = UIImageJPEGRepresentation(self, 1.0)
             mimeType = "image/jpeg"
         }
         QSLog(mimeType)

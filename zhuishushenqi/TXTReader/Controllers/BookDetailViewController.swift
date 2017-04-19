@@ -13,7 +13,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
 
     var id:String = ""
     
-    fileprivate var tagColor = [UIColor(red: 0.56, green: 0.77, blue: 0.94, alpha: 1.0),
+    var tagColor = [UIColor(red: 0.56, green: 0.77, blue: 0.94, alpha: 1.0),
         UIColor(red: 0.75, green: 0.41, blue: 0.82, alpha: 1.0),
         UIColor(red: 0.96, green: 0.74, blue: 0.49, alpha: 1.0),
         UIColor(red: 0.57, green: 0.81, blue: 0.84, alpha: 1.0),
@@ -24,7 +24,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
     fileprivate var sectionTwoY:CGFloat = 0
     fileprivate var bookModel:BookDetail?
     fileprivate var hotComment:[QSHotComment]?
-    fileprivate let CONTENT_TAG = 11223
+    let CONTENT_TAG = 11223
     fileprivate var contentShow:Bool = false
     
     fileprivate lazy var tableView:UITableView = {
@@ -40,43 +40,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         super.viewDidLoad()
 
         initSubview()
-        requestData()
-    }
-    
-    fileprivate func requestData(){
-        let url = "\(BASEURL)/book/\(id)"
-        QSNetwork.request(url, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
-            do{
-                if let json = response.json as? [AnyHashable : Any]{
-                    self.bookModel = BookDetail.model(with: json)
-                }
-                DispatchQueue.main.async {
-                    if let _ = self.tableView.superview {
-                        self.tableView.removeFromSuperview()
-                    }
-                    self.view.addSubview(self.tableView)
-                    self.tableView.reloadData()
-                }
-            }
-        }
-        
-        let hotUrl = "\(BASEURL)/post/review/best-by-book?book=\(self.id)"
-        QSNetwork.request(hotUrl) { (response) in
-            do{
-                if let json = response.json?["reviews"] as? [Any] {
-                    self.hotComment = try XYCBaseModel.model(withModleClass: QSHotComment.self, withJsArray: json) as? [QSHotComment]
-                    DispatchQueue.main.async {
-                        if let _ = self.tableView.superview {
-                            self.tableView.removeFromSuperview()
-                        }
-                        self.view.addSubview(self.tableView)
-                        self.tableView.reloadData()
-                    }
-                }
-            }catch{
-                
-            }
-        }
+//        requestData()
     }
     
     fileprivate func initSubview(){
@@ -153,21 +117,13 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             let headerview = (UINib(nibName: "BookDetailHeader", bundle: nil).instantiate(withOwner: self, options: nil) as NSArray).object(at: 0) as? BookDetailHeader
             headerview?.model = bookModel
             headerview?.addBtnAction = { (isSelected:Bool,model:BookDetail) in
-                let mArr = NSMutableArray(array: BookShelfInfo.books.bookShelf)
                 //需要遍历删除
                 if isSelected == true {
-                    mArr.add(model)
+                    updateBookShelf(bookDetail: model, type: .add)
                 }else{
-                    mArr.remove(model)
-                    for item in mArr {
-                        if (item as! BookDetail)._id == model._id {
-                            mArr.remove(item)
-                        }
-                    }
+                    updateBookShelf(bookDetail: model, type: .delete)
                 }
                 QSLog(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
-                    BookShelfInfo.books.bookShelf = mArr
-                NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
             }
             headerview?.startReading = {(isSelected:Bool,model:BookDetail) in
                 let allChapterUrl = "\(BASEURL)/toc"
@@ -349,16 +305,10 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             }
             
             if let json:NSDictionary = (response.json as? NSArray)?.object(at: 1) as? NSDictionary {
-                DispatchQueue.main.async {
-                    let txtVC = TXTReaderViewController()
-                    txtVC.id = json["_id"] as? String ?? ""
-                    txtVC.resources = res!
-                    self.present(txtVC, animated: true, completion: nil)
-                }
+                self.present(QSTextRouter.createModule(bookDetail:self.bookModel!), animated: true, completion: nil)
             }
         }
     }
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

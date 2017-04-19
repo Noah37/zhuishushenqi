@@ -9,7 +9,7 @@
 import UIKit
 import QSNetwork
 
-typealias SelectAction = (_ index:Int)->Void
+typealias SelectAction = (_ index:Int,_ resources:[ResourceModel]?)->Void
 
 class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITableViewDelegate{
 
@@ -112,7 +112,7 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let action = selectAction {
-            action(indexPath.row)
+            action(indexPath.row,self.sources)
         }
         dismiss(animated: true, completion: nil)
     }

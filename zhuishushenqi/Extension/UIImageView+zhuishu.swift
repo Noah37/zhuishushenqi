@@ -40,3 +40,4 @@ extension UIImageView{
         self.kf.setImage(with: resource, placeholder: UIImage(named: "default_avatar_light"), options: nil, progressBlock: nil, completionHandler: nil)
     }
 }
+

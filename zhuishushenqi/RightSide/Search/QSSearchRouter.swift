@@ -32,7 +32,8 @@ class QSSearchRouter: QSSearchWireframeProtocol {
         let bookDetailVC = BookDetailViewController()
         let book:Book? = novel
         bookDetailVC.id = book?._id ?? ""
-        viewController?.navigationController?.pushViewController(bookDetailVC, animated: true)
+        
+        viewController?.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: novel._id ?? ""), animated: true)
     }
     
 }

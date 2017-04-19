@@ -18,20 +18,29 @@ class BookShelfInfo: NSObject {
     
     let bookShelfInfo = "bookShelfInfo"
     //Local store BookDetail models array when you add persue update
-    var bookShelf:NSArray {
+    var bookShelf:[BookDetail] {
         get{
-//            XYCBaseModel.model(withModleClass: BookShelf.self, withJsArray: BOOKSHELF as [AnyObject]) as? [BookShelf]
-            var data:NSArray? = []
-            if let dict:Data = UserDefaults.standard.value(forKey: bookShelfInfo) as? Data {
-                let unarchiver = NSKeyedUnarchiver.unarchiveObject(with: dict)
-                data =  (unarchiver as AnyObject).object(forKey: bookShelfInfo) as? NSArray
+            var data:[BookDetail]? = []
+            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last?.appending("/\(bookShelfInfo.md5())")
+            if let filePath = path {
+                let file:NSDictionary? = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? NSDictionary
+                data = file?[bookShelfInfo] as? [BookDetail]
             }
             return data ?? []
         }
         set{
             let dict = [bookShelfInfo:newValue]
-            let archiverData = NSKeyedArchiver.archivedData(withRootObject: dict)
-            UserDefaults.standard.set(archiverData, forKey: bookShelfInfo)
+            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last?.appending("/\(bookShelfInfo.md5())")
+            
+            if let filePath = path {
+                do {
+                    let url = URL(string: filePath)
+                    try  FileManager.default.removeItem(at: url!)
+                } catch  {
+                    
+                }
+                NSKeyedArchiver.archiveRootObject(dict, toFile: filePath)
+            }
         }
     }
     

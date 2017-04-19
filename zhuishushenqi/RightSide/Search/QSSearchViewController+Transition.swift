@@ -26,17 +26,24 @@ extension QSSearchViewController{
     }
     
     func showSearching(){
-        UIView.animate(withDuration: 0.35) {
-            self.tableView.frame = self.getFrame(type: .searching)
-        }
         self.tableView.removeFromSuperview()
-        self.searchController.view.addSubview(self.tableView)
+        KeyWindow?.addSubview(self.tableView)
+        UIView.animate(withDuration: 0.35, animations: {
+            self.tableView.frame = self.getFrame(type: .searching)
+        }) { (finish) in
+        }
     }
     
     func showAssociate(){
         self.tableView.removeFromSuperview()
         self.tableView.frame = self.getFrame(type: .associate)
         self.searchController.view.addSubview(self.tableView)
+    }
+    
+    func showAutoComplete(){
+        self.autoCompleteTable.frame = getFrame(type: .searching)
+        self.tableView.removeFromSuperview()
+        self.searchController.view.addSubview(self.autoCompleteTable)
     }
     
     func showResultTable(key:String){
@@ -53,7 +60,7 @@ extension QSSearchViewController{
             searchFrame = CGRect(x: 0, y: 114, width: ScreenWidth, height: ScreenHeight - 114)
             break
         case .searching:
-            searchFrame = CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64)
+            searchFrame = CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64 - 216)
             break
         case .associate:
             searchFrame = CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64)

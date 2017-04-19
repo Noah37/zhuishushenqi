@@ -48,7 +48,7 @@ class QSCategoryViewController: BaseViewController ,UITableViewDataSource,UITabl
                 self.books?.add(self.female ?? femaleTypes)
 
             }
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 self.view.addSubview(self.tableView)
                 self.tableView.reloadData()
             }

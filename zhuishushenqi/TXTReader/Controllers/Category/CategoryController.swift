@@ -14,7 +14,7 @@ protocol CategoryDelegate {
     func categoryDidSelectAtIndex(index:Int)
 }
 
-class CategoryController: UIViewController,UITableViewDataSource,UITableViewDelegate,CategoryCellDelegate {
+class CategoryController: BaseViewController,UITableViewDataSource,UITableViewDelegate,CategoryCellDelegate {
     
     var categoryDelegate:CategoryDelegate?
     var titles = [NSDictionary]()
@@ -22,7 +22,7 @@ class CategoryController: UIViewController,UITableViewDataSource,UITableViewDele
     var id:String = ""
     var resource:ResourceModel?
     lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: UIScreen.main.bounds, style: .plain)
+        let tableView = UITableView(frame: CGRect(x:0,y:64,width:self.view.bounds.width,height:self.view.bounds.height - 64), style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -39,7 +39,6 @@ class CategoryController: UIViewController,UITableViewDataSource,UITableViewDele
         
         let leftItem = UIBarButtonItem(image: UIImage(named: "bg_back_white"), style: .plain, target: self, action: #selector(dismiss(sender:)))
         navigationItem.leftBarButtonItem = leftItem
-        navigationController?.setNavigationBarHidden(true, animated: false)
         let statusView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 30))
         statusView.backgroundColor = UIColor.gray
         //添加阴影也能达到相同的目的
@@ -50,16 +49,23 @@ class CategoryController: UIViewController,UITableViewDataSource,UITableViewDele
         //            layer.shadowOffset = CGSize.zero
         //            layer.shadowOpacity = 1.0
         //            layer.shadowRadius = 10
-        self.view.addSubview(statusView)
-        setmask(statusBarBackgroundView: statusView)
-        self.tableView.backgroundView = UIImageView(image: UIImage(named: "space"))
+//        self.view.addSubview(statusView)
+//        setmask(statusBarBackgroundView: statusView)
+//        self.tableView.backgroundView = UIImageView(image: UIImage(named: "space"))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let indexPATH = IndexPath(row: selectedIndex, section: 0)
-        self.tableView.scrollToRow(at: indexPATH , at: .middle, animated: false)
-        setNeedsStatusBarAppearanceUpdate()
+        if titles.count > indexPATH.row {
+            self.tableView.scrollToRow(at: indexPATH , at: .middle, animated: false)
+        }
+//        setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
     }
     
     func setmask(statusBarBackgroundView:UIView){
@@ -88,8 +94,8 @@ class CategoryController: UIViewController,UITableViewDataSource,UITableViewDele
             cell.tittle.text = titles[indexPath.row].object(forKey: "title") as? String
         }
         
-        let localKey:String = "\(indexPath.row)\(self.id)"
-        if let _  = ChapterInfo.localModelWithKey(key: localKey)  {
+        let localKey:String = "\(indexPath.row)\(self.resource?.link ?? "")"
+        if let _  = QSChapter.localModelWithKey(key: localKey)  {
             cell.downloadBtn.isHidden = true
         }else{
             cell.downloadBtn.isHidden = false
@@ -106,6 +112,10 @@ class CategoryController: UIViewController,UITableViewDataSource,UITableViewDele
     
     @objc private func dismiss(sender:AnyObject){
         dismiss(animated: true, completion: nil)
+    }
+    
+    override var prefersStatusBarHidden: Bool{
+        return false
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -130,8 +140,8 @@ class CategoryController: UIViewController,UITableViewDataSource,UITableViewDele
         if index >= titles.count {
             return;
         }
-        let localKey:String = "\(index)\(self.id)"
-        if let _ = ChapterInfo.localModelWithKey(key: localKey) {
+        let localKey:String = "\(index)\(self.resource?.link ?? "")"
+        if let _ = QSChapter.localModelWithKey(key: localKey) {
             return
         }
 
@@ -140,11 +150,16 @@ class CategoryController: UIViewController,UITableViewDataSource,UITableViewDele
             if let json = response.result.value as? Dictionary<String, Any> {
                 QSLog("JSON:\(json)")
                 if let chapter = json["chapter"] as?  Dictionary<String, Any> {
-                    let chapterInfo = ChapterInfo(JSON: chapter)
-                    QSLog(chapterInfo?.body)
-                    chapterInfo?.currentIndex = index
-                    chapterInfo?.resource = self.resource
-                    ChapterInfo.updateLocalModel(localModel: chapterInfo!,id:self.id)
+//                    let chapterInfo = ChapterInfo(JSON: chapter)
+//                    QSLog(chapterInfo?.body)
+//                    chapterInfo?.currentIndex = index
+//                    chapterInfo?.resource = self.resource
+                    let chapterInfo = QSChapter(JSON: chapter)
+                    chapterInfo?.link = self.titles[index]["link"] as? String ?? ""
+                    chapterInfo?.title = self.titles[index]["title"] as? String ?? ""
+                    chapterInfo?.content = chapter["body"] as? String ?? ""
+                    chapterInfo?.curChapter = index
+                    QSChapter.updateLocalModel(localModel: chapterInfo!, link: self.resource?.link ?? "")
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
@@ -153,10 +168,9 @@ class CategoryController: UIViewController,UITableViewDataSource,UITableViewDele
         }
     }
     
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 }
+

@@ -26,6 +26,7 @@ class QSSearchPresenter: QSSearchPresenterProtocol {
             
         }
     }
+    var keywords:[String] = []
     
     var books:[Book] = []
 
@@ -60,9 +61,15 @@ class QSSearchPresenter: QSSearchPresenterProtocol {
     func didSelectHistoryRow(indexPath:IndexPath){
         interactor.fetchBooks(key: history[indexPath.row])
     }
+    
+    func didSelectAutoCompleteRow(indexPath: IndexPath) {
+        interactor.updateHistoryList(history: keywords[indexPath.row])
+        interactor.fetchBooks(key: keywords[indexPath.row])
+    }
 }
 
 extension QSSearchPresenter:QSSearchInteractorOutputProtocol{
+
     func fetchHotwordsSuccess(hotwords:[String]){
         self.hotwords = hotwords
         view?.showHotwordsData(hotwords: hotwords)
@@ -70,6 +77,11 @@ extension QSSearchPresenter:QSSearchInteractorOutputProtocol{
     
     func fetchHotwordsFailed(){
         
+    }
+    
+    func fetchAutoComplete(keys: [String]) {
+        self.keywords = keys
+        view?.showAutoComplete(keywords: keys)
     }
     
     func searchListFetch(list:[[String]]){

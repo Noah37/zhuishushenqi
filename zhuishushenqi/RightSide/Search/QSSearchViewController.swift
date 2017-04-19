@@ -25,6 +25,7 @@ class QSSearchViewController: BaseViewController{
     var headerView:QSSearchHeaderView!
     var historyHeader:QSHistoryHeaderView!
     var resultTableView:QSSearchResultTable!
+    var autoCompleteTable:QSSearchAutoCompleteTable!
 
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: 114, width: ScreenWidth, height: ScreenHeight - 114), style: .grouped)
@@ -41,7 +42,7 @@ class QSSearchViewController: BaseViewController{
     
     lazy var searchController:UISearchController = {
         let searchVC:UISearchController = UISearchController(searchResultsController: nil)
-        searchVC.searchBar.placeholder = "输入书名或作者名111"
+        searchVC.searchBar.placeholder = "输入书名或作者名"
         searchVC.searchResultsUpdater = self
         searchVC.delegate = self
         searchVC.searchBar.delegate = self
@@ -82,6 +83,10 @@ class QSSearchViewController: BaseViewController{
         resultTableView = QSSearchResultTable(frame: getFrame(type: .history))
         resultTableView.selectRow = { (indexPath) in
             self.presenter?.didSelectResultRow(indexPath: indexPath)
+        }
+        autoCompleteTable = QSSearchAutoCompleteTable(frame: getFrame(type: .searching))
+        autoCompleteTable.selectRow = { (indexPath) in
+            self.presenter?.didSelectAutoCompleteRow(indexPath: indexPath)
         }
     }
 }
@@ -143,5 +148,10 @@ extension QSSearchViewController:QSSearchViewProtocol{
         self.books = books
         self.resultTableView.books = self.books
         showResultTable(key:key)
+    }
+    
+    func showAutoComplete(keywords: [String]) {
+        self.autoCompleteTable.books = keywords
+        showAutoComplete()
     }
 }

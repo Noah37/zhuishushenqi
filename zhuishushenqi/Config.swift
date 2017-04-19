@@ -68,6 +68,10 @@ let APP_DELEGATEKeyWindow = UIApplication.shared.delegate?.window
 let USER_DEFAULTS =  UserDefaults.standard
 let KeyWindow = UIApplication.shared.keyWindow
 let SideVC = SideViewController.shared
+let ReaderBg = "ReaderBg"
+let FontSize = "FontSize"
+let Brightness = "Brightness"
+let ReadingProgress = "ReadingProgress"
 
 func widthOfString(_ str:String, font:UIFont,height:CGFloat) ->CGFloat
 {
@@ -96,6 +100,169 @@ func timeBetween(_ beginDate:Date?,endDate:Date?)->TimeInterval{
     let resultTime = endTime! - beginTime!
     return resultTime
 }
+
+enum ReadeeBgType:Int{
+    case white = 0
+    case yellow = 1
+    case green = 2
+}
+
+func getReaderBgColor()->UIImage?{
+    var image:UIImage? = UIImage(named: "yellow_mode_bg")
+    let bg:Int? = UserDefaults.standard.value(forKey: ReaderBg) as? Int
+    if let bgEnum = bg {
+        let type = ReadeeBgType(rawValue: bgEnum)
+        if let typeee = type{
+            switch typeee {
+            case ReadeeBgType.white:
+                image = UIImage(named: "common_button_white")
+                break
+            case .yellow:
+                image = UIImage(named: "yellow_mode_bg")
+                break
+            case .green:
+                image = UIImage(named: "green_mode_bg")
+                break
+            }
+        }
+    }
+    return image
+}
+
+func getReaderBg()->ReadeeBgType{
+    let bg:Int? = UserDefaults.standard.value(forKey: ReaderBg) as? Int
+    if let bgEnum = bg {
+        let type = ReadeeBgType(rawValue: bgEnum)
+        if let typeee = type{
+            return typeee
+        }
+    }
+    return .white
+}
+
+func setReaderBg(type:ReadeeBgType){
+    UserDefaults.standard.set(type.rawValue, forKey: ReaderBg)
+}
+
+func getFontSize()->Int{
+    let size = UserDefaults.standard.value(forKey: FontSize) as? Int
+    return size ?? 20
+}
+
+func setFontSize(size:Int){
+    UserDefaults.standard.set(size, forKey: FontSize)
+}
+
+func setBrightness(value:CGFloat){
+    UserDefaults.standard.set(value, forKey: Brightness)
+}
+
+func getBrightness()->CGFloat{
+    let value = UserDefaults.standard.value(forKey: Brightness) as? CGFloat
+    return value ?? 0.5
+}
+
+func getProgress(id:String)->NSDictionary{
+    let arr:[NSDictionary]? = USER_DEFAULTS.value(forKey: ReadingProgress) as? [NSDictionary]
+    guard var opArr = arr else {
+        return ["":""]
+    }
+    for item in 0..<opArr.count {
+        if id == (opArr[item]["id"] as? String  ?? "") {
+            return opArr[item]
+        }
+    }
+    return ["":""]
+}
+
+func updateProgress(dict:NSDictionary){
+    let arr:[NSDictionary]? = USER_DEFAULTS.value(forKey: ReadingProgress) as? [NSDictionary]
+    guard var opArr = arr else {
+        return
+    }
+    for item in 0..<opArr.count {
+        if dict["id"] as? String == opArr[item]["id"] as? String {
+            opArr[item] = dict
+        }
+    }
+    USER_DEFAULTS.set(opArr, forKey: ReadingProgress)
+}
+
+func isExistShelf(bookDetail:BookDetail?)->Bool{
+    let mArr:[BookDetail] = BookShelfInfo.books.bookShelf
+    var exist = false
+    for item in mArr {
+        if item._id == (bookDetail?._id ?? "") {
+            exist = true
+        }
+    }
+    return exist
+}
+
+enum BookShelfUpdateType {
+    case add
+    case delete
+}
+
+@discardableResult
+func isExistBookShelf(bookDetail:BookDetail?)->Bool{
+    let mArr:[BookDetail] = BookShelfInfo.books.bookShelf
+    var exist = false
+    for item in mArr {
+        if item._id == (bookDetail?._id ?? "") {
+            exist = true
+        }
+    }
+    return exist
+}
+
+func updateReadingInfo(bookDetail:BookDetail?){
+    var mArr:[BookDetail] = BookShelfInfo.books.bookShelf
+    var index = 0
+    for item in mArr {
+        let model = item
+        if item._id == (bookDetail?._id ?? "") {
+            model.chapter = bookDetail?.chapter ?? 0
+            model.page = bookDetail?.page ?? 0
+            model.sourceIndex = bookDetail?.sourceIndex ?? 0
+            model.chapters = bookDetail?.chapters
+            model.resources = bookDetail?.resources
+            mArr[index] = model
+            BookShelfInfo.books.bookShelf = mArr
+            NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
+        }
+        index += 1
+    }
+}
+
+@discardableResult
+func updateBookShelf(bookDetail:BookDetail?,type:BookShelfUpdateType)->Bool{
+    var mArr:[BookDetail] = BookShelfInfo.books.bookShelf
+    var exist = false
+    var index = 0
+    for item in mArr {
+        if item._id == (bookDetail?._id ?? "") {
+            exist = true
+        }
+        index += 1
+    }
+    if !exist {
+        if let model = bookDetail{
+            if type == .add {
+                mArr.append(model)
+                BookShelfInfo.books.bookShelf = mArr
+                NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
+            }else if type == .delete {
+                mArr.remove(at: index - 1)
+                BookShelfInfo.books.bookShelf = mArr
+                NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
+            }
+        }
+    }
+    return exist
+}
+
+
 
 func QSLog<T>(_ message:T,fileName:String = #file,lineName:Int = #line,funcName:String = #function){
     #if DEBUG
