@@ -2,7 +2,7 @@
 //  BookDetail.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/10/4.
+//  Created by Nory Cao on 16/10/4.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -27,7 +27,9 @@ class BookDetail: NSObject,NSCoding {
     var wordCount:String = ""
     var updated:String = ""//更新时间
     var tags:NSArray?
-    var sourceIndex:Int = 0 //当前选择的源
+    var postCount:Int = 0
+    var copyright:String = ""
+    var sourceIndex:Int = 1 //当前选择的源
     var chapter:Int = 0 //最后阅读的章节
     var page:Int = 0 //最后阅读的页数
     var resources:[ResourceModel]?
@@ -59,12 +61,13 @@ class BookDetail: NSObject,NSCoding {
         self.updated = aDecoder.decodeObject(forKey: "updated") as? String ?? ""
         self.tags = aDecoder.decodeObject(forKey: "tags") as? NSArray
         self.updateInfo = aDecoder.decodeObject(forKey: "updateInfo") as? UpdateInfo
-        QSLog(aDecoder.decodeInteger(forKey:"chapter"))
         self.chapter = aDecoder.decodeInteger(forKey:"chapter")
         self.page = aDecoder.decodeInteger(forKey:"page")
         self.sourceIndex = aDecoder.decodeInteger(forKey:"sourceIndex")
         self.resources = aDecoder.decodeObject(forKey: "resources") as? [ResourceModel]
         self.chapters = aDecoder.decodeObject(forKey: "chapters") as? [NSDictionary]
+        self.copyright = aDecoder.decodeObject(forKey: "copyright") as? String ?? ""
+        self.postCount = aDecoder.decodeInteger(forKey: "postCount")
     }
     
     override init() {
@@ -94,5 +97,7 @@ class BookDetail: NSObject,NSCoding {
         aCoder.encode(self.sourceIndex, forKey: "sourceIndex")
         aCoder.encode(self.resources, forKey: "resources")
         aCoder.encode(self.chapters, forKey: "chapters")
+        aCoder.encode(self.copyright, forKey: "copyright")
+        aCoder.encode(self.postCount, forKey: "postCount")
     }
 }

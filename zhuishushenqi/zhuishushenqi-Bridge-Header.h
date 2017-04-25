@@ -2,7 +2,7 @@
 //  zhuishushenqi-Bridge-Header.h
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/9/16.
+//  Created by Nory Cao on 16/9/16.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -15,5 +15,7 @@
 #import "YTKKeyValueStore.h"
 #import "NSDate+Date.h"
 #import "NSDate+Extension.h"
+#import "M80AttributedLabel.h"
+#import "YYLabel.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */

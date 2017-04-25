@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -64,7 +64,7 @@
                             <constraint firstAttribute="height" constant="21" id="Vr2-wt-pdO"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="44.31% 读者留存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5J-Xn-Gjo">
@@ -135,6 +135,7 @@
                 <outlet property="name" destination="XM7-aj-9gh" id="rnO-XK-sQP"/>
                 <outlet property="profile" destination="TSP-WA-6Ga" id="OYc-aN-h77"/>
                 <outlet property="reading" destination="shS-RO-G8p" id="PhI-Cf-sg8"/>
+                <outlet property="readingWidth" destination="GRf-Ez-dQN" id="tHa-pU-hcc"/>
                 <outlet property="remain" destination="k5J-Xn-Gjo" id="Aif-Ud-LaB"/>
                 <outlet property="type" destination="H8g-4O-Wi4" id="vKR-Jj-ytt"/>
             </connections>

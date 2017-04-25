@@ -3,7 +3,7 @@
 //  FilterThemeViewController.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/13.
+//  Created by Nory Cao on 2017/3/13.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -31,9 +31,7 @@ class FilterThemeViewController: BaseViewController,UITableViewDataSource,UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         title = "筛选书单"
-        // Do any additional setup after loading the view.
         requestDetail(index: 0)
     }
     
@@ -48,11 +46,8 @@ class FilterThemeViewController: BaseViewController,UITableViewDataSource,UITabl
                 mutAttay.insert(["name":"all","tags":["全部书单"]], at: 0)
                 self.data = mutAttay
             }
-            DispatchQueue.main.async {
-                
-                self.view.addSubview(self.tableView)
-                self.tableView.reloadData()
-            }
+            self.view.addSubview(self.tableView)
+            self.tableView.reloadData()
         }
     }
     
@@ -92,7 +87,6 @@ class FilterThemeViewController: BaseViewController,UITableViewDataSource,UITabl
             click(index,title,name)
         }
     }
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

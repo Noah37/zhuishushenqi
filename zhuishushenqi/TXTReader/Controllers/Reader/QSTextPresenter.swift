@@ -2,7 +2,7 @@
 //  QSTextPresenter.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/4/14.
+//  Created by Nory Cao on 2017/4/14.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -23,8 +23,12 @@ class QSTextPresenter: QSTextPresenterProtocol {
     }
     
     func viewDidLoad(bookDetail:BookDetail){
-        interactor.requestAllResource(bookDetail:bookDetail)
-        view?.showActivityView()
+        if (bookDetail.chapters?.count ?? 0) == 0{
+            interactor.requestAllResource(bookDetail:bookDetail)
+        }else{
+            interactor.commonInit(model: bookDetail)
+        }
+//        view?.showActivityView()
     }
     
     func didClickContent(){
@@ -42,6 +46,16 @@ class QSTextPresenter: QSTextPresenterProtocol {
     func didClickBack(){
         
     }
+    
+    func requestChapter(index:Int){
+        view?.showActivityView()
+        interactor.requestChapter(atIndex: index)
+    }
+    
+    func requestAllChapter(index:Int){
+        view?.showActivityView()
+        interactor.requestAllChapters(selectedIndex: index)
+    }
 }
 
 extension QSTextPresenter:QSTextInteractorOutputProtocol{
@@ -53,6 +67,10 @@ extension QSTextPresenter:QSTextInteractorOutputProtocol{
     func fetchAllChaptersFailed() {
         view?.hideActivityView()
         view?.showLocalChapter()
+    }
+    
+    func showBook(book:QSBook){
+        view?.showBook(book: book)
     }
     
     func fetchChapterSuccess(chapter:Dictionary<String, Any>,index:Int){
@@ -73,5 +91,9 @@ extension QSTextPresenter:QSTextInteractorOutputProtocol{
     func fetchAllResourceFailed() {
         view?.hideActivityView()
         view?.showLocalChapter()
+    }
+    
+    func showActivity() {
+        view?.showActivityView()
     }
 }

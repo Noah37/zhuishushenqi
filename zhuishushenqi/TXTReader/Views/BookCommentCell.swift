@@ -2,7 +2,7 @@
 //  BookCommentCell.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/13.
+//  Created by Nory Cao on 2017/3/13.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ class BookCommentCell: UITableViewCell {
     @IBOutlet weak var readerName: UILabel!
     @IBOutlet weak var createTime: UILabel!
     @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var content: UILabel!
+//    @IBOutlet weak var content: UILabel!
     @IBOutlet weak var bookCover: UIImageView!
     @IBOutlet weak var bookName: UILabel!
     @IBOutlet weak var readerRate: UILabel!
@@ -30,37 +30,39 @@ class BookCommentCell: UITableViewCell {
         }
     }
     
-    @discardableResult
-    func modelSetAction(model:BookComment?)->CGFloat{
+    var approveBtn:QSToolButton!
+    var shareBtn:QSToolButton!
+    var moreBtn:QSToolButton!
+    var rateView:RateView!
+    var content: M80AttributedLabel!
+
+    func modelSetAction(model:BookComment?){
         let created = model?.created ?? "2014-02-23T16:48:18.179Z"
         self.createTime.qs_setCreateTime(createTime: created,append: "")
         readerName.text = "\(model?.author.nickname ?? "") lv.\(model?.author.lv ?? 0)"
         title.text = "\(model?.title ?? "")"
-        var height = heightOfString(title.text ?? "", font: UIFont.systemFont(ofSize: 13), width: self.bounds.width - 30)
-        titleHeight.constant = height
+        titleHeight.constant = model?.titleHeight ?? 0
         
         content.text = "\(model?.content ?? "")"
-        height = heightOfString(content.text ?? "", font: UIFont.systemFont(ofSize: 13), width: self.bounds.width - 30)
-        contentHeight.constant = height
+        contentHeight.constant = model?.contentHeight ?? 0
 
         bookName.text = "\(model?.book.title ?? "")"
-        
-        let totalHeight = titleHeight.constant + contentHeight.constant + title.frame.minY + 19 + bgView.bounds.height
-        toolBar(height:totalHeight)
-        makeStarView()
-        self.totalCellHeight = totalHeight + 80
+    
+        let totalHeight = (model?.titleHeight ?? 0) + (model?.contentHeight ?? 0) + title.frame.minY + 19 + bgView.bounds.height
+        rateView.rate = model?.rating ?? 0
+
+        resetframe(height: totalHeight)
+
         if model?.book.cover == "" {
-            return totalHeight + 80
+            return
         }
         let cover = "\(model?.book.cover ?? "qqqqqqqq")"
         self.bookCover.qs_setBookCoverWithURLString(urlString: cover)
         if self.model?.author.avatar == "" {
-            return totalHeight + 80
+            return
         }
         let urlString = "\(model?.author.avatar ?? "qqqqqqqq")"
         self.readerIcon.qs_setAvatarWithURLString(urlString: urlString)
-        setNeedsDisplay()
-        return totalHeight + 80
     }
     
     @IBAction func rightAction(_ sender: Any) {
@@ -68,16 +70,29 @@ class BookCommentCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        toolBar(height: 0)
+        makeStarView()
+        content = M80AttributedLabel(frame: CGRect(x: 8, y: 78, width: 304, height: 21))
+        content.font = UIFont.systemFont(ofSize: 13)
+        contentView.addSubview(content)
     }
     
     static func height(model:BookComment?)->CGFloat{
-        let cell:BookCommentCell? = UINib(nibName: "BookCommentCell", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? BookCommentCell
-        return cell?.modelSetAction(model: model)  ?? 300
+        let height = (model?.titleHeight ?? 0) + (model?.contentHeight ?? 0) + 130 + 80
+        return height
+    }
+    
+    func resetframe(height:CGFloat){
+        approveBtn.frame = CGRect(x: 0, y: height, width: self.bounds.width/3, height: 80)
+        shareBtn.frame = CGRect(x: self.bounds.width/3 , y: height, width: self.bounds.width/3, height: 80)
+        moreBtn.frame = CGRect(x: self.bounds.width*2/3, y: height, width: self.bounds.width/3, height: 80)
+        let lightRect = CGRect(x: readerRate.frame.maxX , y: readerRate.frame.minY + readerRate.frame.height/2 - 10/2, width: 60, height: 10)
+        rateView.frame = lightRect
+        content.frame = CGRect(x: 8, y: 78, width: 304, height: model?.contentHeight ?? 0)
     }
     
     func toolBar(height:CGFloat){
-        let approveBtn = QSToolButton(type: .custom)
+        approveBtn = QSToolButton(type: .custom)
         approveBtn.frame = CGRect(x: 0, y: height, width: self.bounds.width/3, height: 80)
         approveBtn.setTitle("同感", for: .normal)
         approveBtn.setTitleColor(UIColor.darkGray, for: .normal)
@@ -85,7 +100,7 @@ class BookCommentCell: UITableViewCell {
         approveBtn.setImage(UIImage(named: "forum_like_icon"), for: .normal)
         contentView.addSubview(approveBtn)
         
-        let shareBtn = QSToolButton(type: .custom)
+        shareBtn = QSToolButton(type: .custom)
         shareBtn.frame = CGRect(x: self.bounds.width/3 , y: height, width: self.bounds.width/3, height: 80)
         shareBtn.setTitle("分享", for: .normal)
         shareBtn.setTitleColor(UIColor.darkGray, for: .normal)
@@ -94,7 +109,7 @@ class BookCommentCell: UITableViewCell {
         contentView.addSubview(shareBtn)
         
         
-        let moreBtn = QSToolButton(type: .custom)
+        moreBtn = QSToolButton(type: .custom)
         moreBtn.frame = CGRect(x: self.bounds.width*2/3, y: height, width: self.bounds.width/3, height: 80)
         moreBtn.setTitle("更多", for: .normal)
         moreBtn.setTitleColor(UIColor.darkGray, for: .normal)
@@ -105,7 +120,7 @@ class BookCommentCell: UITableViewCell {
     
     func makeStarView(){
         let lightRect = CGRect(x: readerRate.frame.maxX , y: readerRate.frame.minY + readerRate.frame.height/2 - 10/2, width: 60, height: 10)
-        let rateView = RateView(frame: lightRect, darkImage: UIImage(named: "forum_gray_star"), lightImage: UIImage(named: "forum_red_star"))
+        rateView = RateView(frame: lightRect, darkImage: UIImage(named: "forum_gray_star"), lightImage: UIImage(named: "forum_red_star"))
         rateView.rate = model?.rating ?? 0
         bgView.addSubview(rateView)
     }
@@ -114,6 +129,10 @@ class BookCommentCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
 }
 

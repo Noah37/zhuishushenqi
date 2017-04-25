@@ -2,7 +2,7 @@
 //  RootViewController.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/9/16.
+//  Created by Nory Cao on 16/9/16.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -34,7 +34,7 @@ class RootViewController: UIViewController {
         tableView.estimatedSectionHeaderHeight = self.kHeaderViewHeight
         tableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         tableView.qs_registerCellClass(SwipableCell.self)
-        let refresh = PullToRefresh(height: 20, position: .top, tip: "正在刷新")
+        let refresh = PullToRefresh(height: 50, position: .top, tip: "正在刷新")
         tableView.addPullToRefresh(refresh, action: { 
             self.requetShelfMsg()
             self.requestBookShelf()
@@ -47,23 +47,25 @@ class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        NotificationCenter.default.addObserver(self, selector: #selector(requestBookShelf), name: Notification.Name(rawValue: "BookShelfRefresh"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(bookShelfUpdate), name: Notification.Name(rawValue: "BookShelfRefresh"), object: nil)
         self.setupSubviews()
         self.requetShelfMsg()
         self.requestBookShelf()
         self.updateInfo()
     }
     
-    func testRequest(){
-        QSNetwork.request("http://api.zhuishushenqi.com/toc/58082f522b7dd74f37d9dfa3?view=chapters") { (response) in
-            QSLog(response.json)
+    func bookShelfUpdate(){
+        //先重新加载数据，然后再请求
+        self.requestBookShelf()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.updateInfo()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.backgroundColor = UIColor.cyan
-
         self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
         UIApplication.shared.isStatusBarHidden = false
     }
@@ -142,13 +144,12 @@ extension RootViewController:ComnunityDelegate{
 
 extension RootViewController:SwipableCellDelegate{
     func delete(model:BookDetail){
-        for index in 0..<(self.bookShelfArr?.count ?? 0){
-            let bookDetail:BookDetail = self.bookShelfArr![index]
-            if bookDetail._id == model._id {
-                self.bookShelfArr?.remove(at: index)
-                self.tableView.reloadData()
-            }
+        //时间过长，先刷新table，再持久化
+        if let models = self.bookShelfArr {
+            self.bookShelfArr = bookShelfRefresh(model: model, arr: models)
+            self.tableView.reloadData()
         }
+        updateBookShelf(bookDetail: model, type: .delete,refresh:false)
     }
 }
 

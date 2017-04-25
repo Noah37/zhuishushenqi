@@ -2,7 +2,7 @@
 //  SegMenu.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/9/17.
+//  Created by Nory Cao on 16/9/17.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -17,20 +17,20 @@ class SegMenu: UIView {
     var menuDelegate:SegMenuDelegate?
     var titles:[String]?
 
-    init(frame:CGRect, WithTitles _titles:NSArray){
+    init(frame:CGRect, WithTitles _titles:[String]){
         super.init(frame: frame)
-        titles = _titles as? [String]
+        titles = _titles
         initSubview(frame,titles: _titles)
     }
     
-    fileprivate func initSubview(_ frame:CGRect,titles:NSArray){
+    fileprivate func initSubview(_ frame:CGRect,titles:[String]){
         var index:Int = 0
         let ScreenBounds = UIScreen.main.bounds
         let width = ScreenBounds.width/CGFloat(titles.count)
         let height = frame.size.height
         for title in titles {
             let btn = UIButton(type: .custom)
-            btn.setTitle(title as? String, for: UIControlState())
+            btn.setTitle(title, for: UIControlState())
             btn.setTitleColor(UIColor.gray, for: UIControlState())
             btn.tag = index
             btn.frame = CGRect(x: width*CGFloat(index), y: 0, width: width, height: height)

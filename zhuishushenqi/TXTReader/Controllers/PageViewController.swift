@@ -2,7 +2,7 @@
 //  PageViewController.swift
 //  PageViewController
 //
-//  Created by Nory Chao on 16/10/9.
+//  Created by Nory Cao on 16/10/9.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  QSTextInteractor.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/4/14.
+//  Created by Nory Cao on 2017/4/14.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -17,6 +17,21 @@ class QSTextInteractor: QSTextInteractorProtocol {
     var chapters:[NSDictionary]?
     var bookDetail:BookDetail!
     var selectedIndex:Int = 1 //当前选择的源
+    
+    func commonInit(model:BookDetail){
+        self.bookDetail = model
+        self.resources  = self.bookDetail.resources
+        self.chapters = self.bookDetail.chapters
+        self.selectedIndex = self.bookDetail.sourceIndex
+        self.book = book(bookDetail: self.bookDetail, chapters: self.chapters, resources: self.resources)
+        
+        if let book = self.book {
+            self.output.showBook(book: book)
+        }
+        if let chapter = bookDetail.chapters?.count {
+            requestChapter(atIndex: chapter)
+        }
+    }
     
     func requestAllResource(bookDetail:BookDetail){
         self.bookDetail = bookDetail
@@ -71,6 +86,7 @@ class QSTextInteractor: QSTextInteractorProtocol {
     //网络请求某一章节的信息
     func requestChapter(atIndex chapterIndex:Int){
         if chapterIndex >= (self.chapters?.count ?? 0) {
+            self.output.fetchChapterFailed()
             return;
         }
         let url = "\(CHAPTERURL)/\(chapters?[chapterIndex].object(forKey: "link") ?? "")?k=22870c026d978c75&t=1489933049"
@@ -98,6 +114,7 @@ class QSTextInteractor: QSTextInteractorProtocol {
             page = model
             return page
         }
+        self.output.showActivity()
         requestChapter(atIndex: chapter)
         return page
     }

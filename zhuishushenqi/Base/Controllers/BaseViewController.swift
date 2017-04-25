@@ -2,7 +2,7 @@
 //  BaseViewController.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/9/20.
+//  Created by Nory Cao on 16/9/20.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 

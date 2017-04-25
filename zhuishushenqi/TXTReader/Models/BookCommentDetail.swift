@@ -2,7 +2,7 @@
 //  BookCommentDetail.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/14.
+//  Created by Nory Cao on 2017/3/14.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -12,14 +12,41 @@ import UIKit
 class BookCommentDetail: NSObject {
     
     var _id:String = ""
-    var content:String = ""
+    var content:String = "" {
+        didSet{
+            let attri = NSMutableAttributedString(string: "")
+            let scale:CGFloat = 1.149
+            var font:CGFloat = 12
+            let version = Double(UIDevice.current.systemVersion) ?? 10.0
+            if  version >= 10.0 {
+                if content.characters.count < 60{
+                    font = font*scale
+                }else{
+                    font = font*1.05
+                }
+            }
+            attri.append(NSMutableAttributedString(string: content,attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: font)]))
+            
+            let textContainer = YYTextContainer(size: CGSize(width: ScreenWidth - 65, height: 9999))
+            self.textLayout = YYTextLayout(container: textContainer, text: attri)
+        }
+    }
     var author:BookCommentAuthor = BookCommentAuthor()
     var floor:Int = 0
     var replyAuthor:String = ""
     var likeCount:Int = 0
     var created:String = ""
-    var replyTo:ReplyTo = ReplyTo()
-    
+    var replyTo:ReplyTo? {
+        didSet{
+            if let _ = replyTo {
+                replyHeight = 21
+            }
+        }
+    }
+    var height:CGFloat = 0
+    var replyHeight:CGFloat = 0
+    var textLayout:YYTextLayout?
+
     
     class func modelCustomPropertyMapper() ->NSDictionary{
         return ["_id":"_id","content":"content","author":"author","floor":"floor","replyAuthor":"replyAuthor","likeCount":"likeCount","created":"created","replyTo":"replyTo"]

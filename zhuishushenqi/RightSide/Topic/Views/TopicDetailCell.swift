@@ -2,7 +2,7 @@
 //  TopicDetailCell.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/9.
+//  Created by Nory Cao on 2017/3/9.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -46,6 +46,18 @@ class TopicDetailCell: UITableViewCell {
             self.icon.qs_setBookCoverWithURLString(urlString: urlString)
         }
     }
+    
+    static func height(models:[TopicDetailModel],indexPath:IndexPath)->CGFloat{
+        let baseCellHeight:CGFloat = 108
+        let baseCellTextHeight:CGFloat = 25
+        let model:TopicDetailModel = models[indexPath.section - 1]
+        if model.commentHeight > baseCellTextHeight {
+            let height = model.commentHeight - baseCellTextHeight + baseCellHeight
+            return height
+        }
+        return baseCellHeight
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

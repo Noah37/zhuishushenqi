@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/9/16.
+//  Created by Nory Cao on 16/9/16.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 

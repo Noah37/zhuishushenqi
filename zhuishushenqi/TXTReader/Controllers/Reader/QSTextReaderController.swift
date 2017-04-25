@@ -2,7 +2,7 @@
 //  QSTextReaderController.swift
 //  TXTReader
 //
-//  Created by Nory Chao on 16/11/24.
+//  Created by Nory Cao on 16/11/24.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -44,10 +44,10 @@ class QSTextReaderController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setSubviews()
+        setRoot()
         if let book = bookDetail {
             presenter?.viewDidLoad(bookDetail:book)
         }
-        setRoot()
     }
     
     func setSubviews() -> Void {
@@ -103,6 +103,11 @@ class QSTextReaderController: UIViewController {
         let tmpPage = tempPage
         tempPage = (tempPage == -1 ? ((self.book?.chapters?[tempChapter].pages.count ?? 0) - 1) : tempPage)
         if tempPage < 0 {
+            tempPage = 0
+        }
+        //换源之后的越界问题
+        if tempChapter > (self.book?.totalChapters ?? 0)  {
+            tempChapter = (self.book?.totalChapters ?? 1) - 1
             tempPage = 0
         }
         if tmpPage < (self.book?.chapters?[tempChapter].pages.count ?? 0 - 1) && tmpPage >= 0 {
@@ -194,6 +199,11 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         QSLog("page:\(currentPage) \n chapter:\(currentChapter)")
         tempPage = currentPage
         tempChapter = currentChapter
+        //换源之后的越界问题
+        if tempChapter > (self.book?.totalChapters ?? 0)  {
+            tempChapter = (self.book?.totalChapters ?? 1) - 1
+            tempPage = 0
+        }
         if tempPage < ((self.book?.chapters?[self.currentChapter].pages.count ?? 0) - 1) {
             tempPage += 1
         }else {
@@ -235,7 +245,7 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         let exist = isExistShelf(bookDetail: bookDetail)
         if !exist {
             self.alert(with: "追书提示", message: "是否将本书加入我的收藏", okTitle: "好的", cancelTitle: "不了", okAction: { (action) in
-                updateBookShelf(bookDetail: self.bookDetail, type: .add)
+                updateBookShelf(bookDetail: self.bookDetail, type: .add,refresh:true)
                 self.toolBarDismiss()
             }, cancelAction: { (action) in
                 self.toolBarDismiss()
@@ -296,7 +306,9 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         sourceVC.selectAction = { (index:Int,sources:[ResourceModel]?) in
             self.selectedIndex = index
             self.resources = sources
-            self.presenter?.interactor.requestAllChapters(selectedIndex: self.selectedIndex)
+            self.bookDetail?.sourceIndex = self.selectedIndex
+            updateBookShelf(bookDetail: self.bookDetail, type: .update, refresh: false)
+            self.presenter?.requestAllChapter(index: self.selectedIndex)
         }
         let nav = UINavigationController(rootViewController: sourceVC)
         present(nav, animated: true) {
@@ -342,6 +354,20 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
 }
 
 extension QSTextReaderController:QSTextViewProtocol{
+    
+    func showBook(book:QSBook){
+        self.book = book
+        let chapterModel = presenter?.interactor.getPage(chapter: tempChapter, pageIndex: tempPage)
+        if let model = chapterModel {
+            self.book?.chapters?[tempChapter] = model
+        }
+        if (chapterModel?.pages.count ?? 0) > tempPage {
+            pageViewController?.page = chapterModel?.pages[self.tempPage]
+        }else {
+            presenter?.requestChapter(index: tempChapter)
+        }
+    }
+    
     func showChapter(chapter:Dictionary<String,Any>,index:Int){
         self.book?.chapters = presenter?.interactor.setChapters(chapterParam: chapter as NSDictionary?,index:index,chapters: self.book?.chapters ?? [])
 //        self.tempPage = 0
@@ -355,13 +381,17 @@ extension QSTextReaderController:QSTextViewProtocol{
         self.chapters = chapters
         self.tempChapter = self.currentChapter
         self.tempPage = self.currentPage
-        self.presenter?.interactor.requestChapter(atIndex: self.tempChapter)
-        
+        //换源引起的数组越界
+        if self.tempChapter > self.chapters.count - 1 {
+            self.tempChapter = self.chapters.count - 1
+            self.currentChapter = self.tempChapter
+        }
+        self.presenter?.requestChapter(index: self.tempChapter)
     }
     
     func showResources(resources: [ResourceModel]) {
         self.resources = resources
-        presenter?.interactor.requestAllChapters(selectedIndex: selectedIndex)
+        presenter?.requestAllChapter(index: selectedIndex)
     }
     
     func showLocalChapter() {

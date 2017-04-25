@@ -2,7 +2,7 @@
 //  FilterThemeCell.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/13.
+//  Created by Nory Cao on 2017/3/13.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -98,6 +98,7 @@ class FilterThemeCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        type = .list
         let subviews = self.subviews
         for index in 0..<subviews.count {
             subviews[index].removeFromSuperview()

@@ -2,7 +2,7 @@
 //  BookComment.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/13.
+//  Created by Nory Cao on 2017/3/13.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -12,9 +12,17 @@ import UIKit
 class BookComment: NSObject {
     
     var _id:String = ""
-    var content:String = ""
+    var content:String = ""{
+        didSet{
+            calContentHeight()
+        }
+    }
     var rating:Int = 1
-    var title:String = ""
+    var title:String = "" {
+        didSet{
+            calTitleHeight()
+        }
+    }
     var type:String = ""
     var likeCount:Int = 0
     var state:String = ""
@@ -24,6 +32,9 @@ class BookComment: NSObject {
     var shareLink:String = ""
     var id:String = ""
     
+    var titleHeight:CGFloat = 0
+    var contentHeight:CGFloat = 0
+    
     var author:BookCommentAuthor = BookCommentAuthor()
     var helpful:Helpful = Helpful()
     
@@ -31,6 +42,20 @@ class BookComment: NSObject {
     
     class func modelCustomPropertyMapper() ->NSDictionary{
         return ["_id":"_id","content":"content","rating":"rating","title":"title","likeCount":"likeCount","state":"state","updated":"updated","created":"created","commentCount":"commentCount","author":"author","helpful":"helpful"]
+    }
+    
+    func calTitleHeight(){
+        DispatchQueue.global().async {
+            let height = heightOfString(self.title, font: UIFont.systemFont(ofSize: 13), width: UIScreen.main.bounds.width - 30)
+            self.titleHeight = height
+        }
+    }
+    
+    func calContentHeight(){
+        DispatchQueue.global().async {            
+            let height = heightOfString(self.content, font: UIFont.systemFont(ofSize: 13), width: UIScreen.main.bounds.width - 30)
+            self.contentHeight = height
+        }
     }
 }
 

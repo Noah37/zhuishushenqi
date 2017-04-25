@@ -2,7 +2,7 @@
 //  RightViewController.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/9/16.
+//  Created by Nory Cao on 16/9/16.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -69,12 +69,11 @@ class RightViewController: UITableViewController {
         }else if indexPath.row == 2 {//主题书单
             let themeVC = ThemeTopicViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-            SideVC.navigationController?.pushViewController(themeVC, animated: true)
+            SideVC.navigationController?.pushViewController(QSThemeTopicRouter.createModule(), animated: true)
 
         }else if indexPath.row == 3 {
-            let categoryVC = QSCategoryViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-            SideVC.navigationController?.pushViewController(categoryVC, animated: true)
+            SideVC.navigationController?.pushViewController(QSCatalogRouter.createModule(), animated: true)
         }
     }
 }

@@ -2,7 +2,7 @@
 //  HotCommentCell.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/9.
+//  Created by Nory Cao on 2017/3/9.
 //  Copyright © 2017 QS. All rights reserved.
 //
 
@@ -20,12 +20,17 @@ class HotCommentCell: UITableViewCell {
     var darkView:DarkView?
     var lightView:LightView?
     
-    var model:QSHotComment?{
+    var model:BookComment?{
         didSet{
             self.iconView.qs_setAvatarWithURLString(urlString: model?.author.avatar ?? "")
             self.userNameLabel.text = "\(model?.author.nickname ?? "")"
             self.titleLabel.text = "\(model?.title ?? "")"
-            self.contentLabel.text = "\(model?.content ?? "")"
+            //文本过长会有卡顿现象
+            if (model?.content.characters.count ?? 0) > 40 {
+                self.contentLabel.text = "\(model?.content.qs_subStr(to: 40) ?? "")"
+            }else{
+                self.contentLabel.text = "\(model?.content ?? "")"
+            }
             self.userfulBtn.setTitle("\(model?.likeCount ?? 0)", for: .normal)
             let width = (1 + 10*(model?.rating ?? 60) + ((model?.rating ?? 60) - 1)*2)
             self.lightView?.frame = CGRect(x: 65 , y: 53, width: width, height: 10)
@@ -39,7 +44,6 @@ class HotCommentCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         initSubview()
-        
     }
     
     func initSubview(){
@@ -52,8 +56,6 @@ class HotCommentCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-
     }
     
 }

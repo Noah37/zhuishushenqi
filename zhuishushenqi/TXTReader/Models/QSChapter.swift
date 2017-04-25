@@ -2,7 +2,7 @@
 //  QSChapter.swift
 //  TXTReader
 //
-//  Created by caonongyun on 2017/4/14.
+//  Created by Nory Cao on 2017/4/14.
 //  Copyright © 2017年 masterY. All rights reserved.
 //
 
@@ -105,13 +105,13 @@ class QSChapter: Mappable ,NSCoding{
     class func updateLocalModel(localModel:QSChapter,link:String) -> Void {
         let key = "QSTXTReaderKeyAt\(localModel.curChapter)\(link)".md5()
         let jsonString = localModel.toJSON()
-        let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(key ?? "QSSSSSS")")
+        let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(key )")
         NSKeyedArchiver.archiveRootObject(jsonString, toFile: filePath!)
     }
     
     class func localModelWithKey(key:String) ->QSChapter?{
         let localKey = "QSTXTReaderKeyAt\(key)".md5()
-        let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(localKey ?? "")")
+        let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(localKey)")
         var model:QSChapter?
         var file:[String:Any]?
         file = NSKeyedUnarchiver.unarchiveObject(withFile: filePath!) as? [String : Any]

@@ -2,7 +2,7 @@
 //  XYCBaseRequest.swift
 //  QSNetworking
 //
-//  Created by Nory Chao on 16/7/14.
+//  Created by Nory Cao on 16/7/14.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 

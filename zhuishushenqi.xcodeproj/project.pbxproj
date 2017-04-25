@@ -31,6 +31,19 @@
 		B22269D61EA0C70A008FD314 /* QSBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22269D31EA0C70A008FD314 /* QSBook.swift */; };
 		B22269D71EA0C70A008FD314 /* QSChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22269D41EA0C70A008FD314 /* QSChapter.swift */; };
 		B22269D81EA0C70A008FD314 /* QSPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22269D51EA0C70A008FD314 /* QSPage.swift */; };
+		B22A8D3C1EAD949C00C7E978 /* QSCommunityInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D361EAD949C00C7E978 /* QSCommunityInteractor.swift */; };
+		B22A8D3D1EAD949C00C7E978 /* QSCommunityPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D371EAD949C00C7E978 /* QSCommunityPresenter.swift */; };
+		B22A8D3E1EAD949C00C7E978 /* QSCommunityProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D381EAD949C00C7E978 /* QSCommunityProtocols.swift */; };
+		B22A8D3F1EAD949C00C7E978 /* QSCommunityRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D391EAD949C00C7E978 /* QSCommunityRouter.swift */; };
+		B22A8D401EAD949D00C7E978 /* QSCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D3A1EAD949C00C7E978 /* QSCommunityViewController.swift */; };
+		B22A8D441EAD976000C7E978 /* QSDiscussCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D421EAD976000C7E978 /* QSDiscussCell.swift */; };
+		B22A8D451EAD976000C7E978 /* QSDiscussCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22A8D431EAD976000C7E978 /* QSDiscussCell.xib */; };
+		B22A8D4A1EADE08100C7E978 /* BookCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D491EADE08100C7E978 /* BookCommentViewController.swift */; };
+		B22A8D551EADE0E900C7E978 /* QSBookCommentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D4F1EADE0E900C7E978 /* QSBookCommentInteractor.swift */; };
+		B22A8D561EADE0E900C7E978 /* QSBookCommentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D501EADE0E900C7E978 /* QSBookCommentPresenter.swift */; };
+		B22A8D571EADE0E900C7E978 /* QSBookCommentProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D511EADE0E900C7E978 /* QSBookCommentProtocols.swift */; };
+		B22A8D581EADE0E900C7E978 /* QSBookCommentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D521EADE0E900C7E978 /* QSBookCommentRouter.swift */; };
+		B22A8D591EADE0E900C7E978 /* QSBookCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22A8D531EADE0E900C7E978 /* QSBookCommentViewController.swift */; };
 		B22AC43A1E9E6626008625E6 /* QSSearchResultTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4391E9E6626008625E6 /* QSSearchResultTable.swift */; };
 		B22AC44B1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44A1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift */; };
 		B22AC44D1E9F1C62008625E6 /* QSRankProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44C1E9F1C62008625E6 /* QSRankProtocols.swift */; };
@@ -54,6 +67,14 @@
 		B2580E231E9B284900455AFE /* QSHotwords.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2580E221E9B284900455AFE /* QSHotwords.swift */; };
 		B2580E251E9B6AF500455AFE /* QSSearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2580E241E9B6AF500455AFE /* QSSearchHeaderView.swift */; };
 		B2583CA11EA74A37004178F3 /* QSBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CA01EA74A37004178F3 /* QSBatteryView.swift */; };
+		B2583CB21EA78280004178F3 /* FilterThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CAD1EA78280004178F3 /* FilterThemeViewController.swift */; };
+		B2583CB31EA78280004178F3 /* ThemeTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CAF1EA78280004178F3 /* ThemeTopicViewController.swift */; };
+		B2583CB41EA78280004178F3 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB11EA78280004178F3 /* TopicDetailViewController.swift */; };
+		B2583CBA1EA782C2004178F3 /* QSThemeTopicInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB51EA782C2004178F3 /* QSThemeTopicInteractor.swift */; };
+		B2583CBB1EA782C2004178F3 /* QSThemeTopicPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB61EA782C2004178F3 /* QSThemeTopicPresenter.swift */; };
+		B2583CBC1EA782C2004178F3 /* QSThemeTopicProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB71EA782C2004178F3 /* QSThemeTopicProtocols.swift */; };
+		B2583CBD1EA782C2004178F3 /* QSThemeTopicRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB81EA782C2004178F3 /* QSThemeTopicRouter.swift */; };
+		B2583CBE1EA782C2004178F3 /* QSThemeTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB91EA782C2004178F3 /* QSThemeTopicViewController.swift */; };
 		B258BAF81EA44BD0006E5802 /* QSTextInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BAF31EA44BD0006E5802 /* QSTextInteractor.swift */; };
 		B258BAF91EA44BD0006E5802 /* QSTextPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BAF41EA44BD0006E5802 /* QSTextPresenter.swift */; };
 		B258BAFA1EA44BD0006E5802 /* QSTextProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BAF51EA44BD0006E5802 /* QSTextProtocols.swift */; };
@@ -68,15 +89,38 @@
 		B258BB0B1EA45B4C006E5802 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BB0A1EA45B4C006E5802 /* CategoryButton.swift */; };
 		B258BB0D1EA4A1AC006E5802 /* QSReaderBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BB0C1EA4A1AC006E5802 /* QSReaderBackgroundViewController.swift */; };
 		B258BB241EA4B201006E5802 /* UIView+ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BB231EA4B201006E5802 /* UIView+ScreenShot.swift */; };
+		B2795BE71EAE49B200D210A8 /* TXTReader.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2795BE61EAE49B200D210A8 /* TXTReader.storyboard */; };
 		B288D1C81E9FC66F0024F1A5 /* QSBookDetailRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B288D1C71E9FC66F0024F1A5 /* QSBookDetailRateView.swift */; };
 		B288D1D41E9FC86C0024F1A5 /* QSBookDetailTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B288D1D31E9FC86C0024F1A5 /* QSBookDetailTagsView.swift */; };
 		B288D1D61E9FCBB50024F1A5 /* QSBookDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B288D1D51E9FCBB50024F1A5 /* QSBookDetailContentView.swift */; };
-		B29B4F9A1E8218ED008852E3 /* BookCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B4F981E8218ED008852E3 /* BookCommentViewController.swift */; };
 		B29B4F9B1E8218ED008852E3 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B4F991E8218ED008852E3 /* BookDetailViewController.swift */; };
 		B29B4F9D1E821E61008852E3 /* UIImage+QSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B4F9C1E821E61008852E3 /* UIImage+QSData.swift */; };
 		B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B4F9E1E822992008852E3 /* QSHotModel.swift */; };
 		B29B4FA21E8257BC008852E3 /* DynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B4FA01E8257BC008852E3 /* DynamicCell.swift */; };
 		B29B4FA31E8257BC008852E3 /* DynamicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B29B4FA11E8257BC008852E3 /* DynamicCell.xib */; };
+		B2B02E2B1EA8505200A6880A /* QSTopicDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E251EA8505200A6880A /* QSTopicDetailInteractor.swift */; };
+		B2B02E2C1EA8505200A6880A /* QSTopicDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E261EA8505200A6880A /* QSTopicDetailPresenter.swift */; };
+		B2B02E2D1EA8505200A6880A /* QSTopicDetailProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E271EA8505200A6880A /* QSTopicDetailProtocols.swift */; };
+		B2B02E2E1EA8505200A6880A /* QSTopicDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E281EA8505200A6880A /* QSTopicDetailRouter.swift */; };
+		B2B02E2F1EA8505200A6880A /* QSTopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E291EA8505200A6880A /* QSTopicDetailViewController.swift */; };
+		B2B02E3D1EA891E700A6880A /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E3C1EA891E700A6880A /* CategoryDetailViewController.swift */; };
+		B2B02E441EA8920F00A6880A /* QSCategoryDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E3E1EA8920F00A6880A /* QSCategoryDetailInteractor.swift */; };
+		B2B02E451EA8920F00A6880A /* QSCategoryDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E3F1EA8920F00A6880A /* QSCategoryDetailPresenter.swift */; };
+		B2B02E461EA8920F00A6880A /* QSCategoryDetailProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E401EA8920F00A6880A /* QSCategoryDetailProtocols.swift */; };
+		B2B02E471EA8920F00A6880A /* QSCategoryDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E411EA8920F00A6880A /* QSCategoryDetailRouter.swift */; };
+		B2B02E481EA8920F00A6880A /* QSCategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E421EA8920F00A6880A /* QSCategoryDetailViewController.swift */; };
+		B2B02E4C1EA9A9CA00A6880A /* QSCategoryyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4B1EA9A9CA00A6880A /* QSCategoryyViewController.swift */; };
+		B2B02E531EA9A9F000A6880A /* QSCatalogInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4D1EA9A9F000A6880A /* QSCatalogInteractor.swift */; };
+		B2B02E541EA9A9F000A6880A /* QSCatalogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4E1EA9A9F000A6880A /* QSCatalogPresenter.swift */; };
+		B2B02E551EA9A9F000A6880A /* QSCatalogProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4F1EA9A9F000A6880A /* QSCatalogProtocols.swift */; };
+		B2B02E561EA9A9F000A6880A /* QSCatalogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E501EA9A9F000A6880A /* QSCatalogRouter.swift */; };
+		B2B02E571EA9A9F000A6880A /* QSCatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E511EA9A9F000A6880A /* QSCatalogViewController.swift */; };
+		B2B02E5A1EA9DFF200A6880A /* QSRecomment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E591EA9DFF200A6880A /* QSRecomment.swift */; };
+		B2B02E5D1EA9E4A300A6880A /* QSRecommendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E5B1EA9E4A300A6880A /* QSRecommendCell.swift */; };
+		B2B02E5E1EA9E4A300A6880A /* QSRecommendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B02E5C1EA9E4A300A6880A /* QSRecommendCell.xib */; };
+		B2B02E611EA9F54700A6880A /* QSBookListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E5F1EA9F54700A6880A /* QSBookListViewCell.swift */; };
+		B2B02E621EA9F54700A6880A /* QSBookListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B02E601EA9F54700A6880A /* QSBookListViewCell.xib */; };
+		B2B02E641EA9F84300A6880A /* QSBookList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E631EA9F84300A6880A /* QSBookList.swift */; };
 		B2B4BBDE1E7EA4AB000CC201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4B9F71E7EA4A8000CC201 /* AppDelegate.swift */; };
 		B2B4BBDF1E7EA4AB000CC201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2B4B9F81E7EA4A8000CC201 /* Assets.xcassets */; };
 		B2B4BBE01E7EA4AB000CC201 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4B9FB1E7EA4A8000CC201 /* BaseViewController.swift */; };
@@ -106,8 +150,6 @@
 		B2B4BBFA1E7EA4AB000CC201 /* UINavigationItem+BackItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA1E1E7EA4A8000CC201 /* UINavigationItem+BackItem.m */; };
 		B2B4BBFB1E7EA4AB000CC201 /* UITableView+QSGeneric.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA1F1E7EA4A8000CC201 /* UITableView+QSGeneric.swift */; };
 		B2B4BBFC1E7EA4AB000CC201 /* UITableView+swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA201E7EA4A8000CC201 /* UITableView+swizzling.swift */; };
-		B2B4BBFE1E7EA4AB000CC201 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA251E7EA4A8000CC201 /* CategoryDetailViewController.swift */; };
-		B2B4BBFF1E7EA4AB000CC201 /* QSCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA261E7EA4A8000CC201 /* QSCategoryViewController.swift */; };
 		B2B4BC001E7EA4AB000CC201 /* AddBookAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA281E7EA4A8000CC201 /* AddBookAPI.swift */; };
 		B2B4BC011E7EA4AB000CC201 /* AllChapterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA291E7EA4A8000CC201 /* AllChapterAPI.swift */; };
 		B2B4BC021E7EA4AB000CC201 /* BookDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA2A1E7EA4A8000CC201 /* BookDetailAPI.swift */; };
@@ -126,9 +168,6 @@
 		B2B4BC111E7EA4AB000CC201 /* TopDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B4BA3E1E7EA4A8000CC201 /* TopDetailCell.xib */; };
 		B2B4BC121E7EA4AB000CC201 /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA411E7EA4A8000CC201 /* SearchDetailViewController.swift */; };
 		B2B4BC141E7EA4AB000CC201 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA451E7EA4A8000CC201 /* SearchView.swift */; };
-		B2B4BC151E7EA4AB000CC201 /* FilterThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA481E7EA4A8000CC201 /* FilterThemeViewController.swift */; };
-		B2B4BC161E7EA4AB000CC201 /* ThemeTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA491E7EA4A8000CC201 /* ThemeTopicViewController.swift */; };
-		B2B4BC171E7EA4AB000CC201 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA4A1E7EA4A8000CC201 /* TopicDetailViewController.swift */; };
 		B2B4BC181E7EA4AB000CC201 /* ThemeTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA4C1E7EA4A8000CC201 /* ThemeTopicModel.swift */; };
 		B2B4BC191E7EA4AB000CC201 /* TopicDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA4D1E7EA4A8000CC201 /* TopicDetailHeader.swift */; };
 		B2B4BC1A1E7EA4AB000CC201 /* TopicDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA4E1E7EA4A8000CC201 /* TopicDetailModel.swift */; };
@@ -288,6 +327,45 @@
 		B2B4BD7A1E7EE2B1000CC201 /* QSNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BD791E7EE2B1000CC201 /* QSNetworkManager.swift */; };
 		B2BB5BAF1D8BDF8E00379217 /* zhuishushenqiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5BAE1D8BDF8E00379217 /* zhuishushenqiTests.swift */; };
 		B2BB5BBA1D8BDF8E00379217 /* zhuishushenqiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5BB91D8BDF8E00379217 /* zhuishushenqiUITests.swift */; };
+		B2F778AD1EAEEDD4004B4362 /* M80AttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F778A51EAEEDD4004B4362 /* M80AttributedLabel.m */; };
+		B2F778AE1EAEEDD4004B4362 /* M80AttributedLabelAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F778A71EAEEDD4004B4362 /* M80AttributedLabelAttachment.m */; };
+		B2F778AF1EAEEDD4004B4362 /* M80AttributedLabelURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F778AA1EAEEDD4004B4362 /* M80AttributedLabelURL.m */; };
+		B2F778B01EAEEDD4004B4362 /* NSMutableAttributedString+M80.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F778AC1EAEEDD4004B4362 /* NSMutableAttributedString+M80.m */; };
+		B2F778BC1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778BB1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift */; };
+		B2F778E01EAF36D1004B4362 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778BE1EAF36D1004B4362 /* Constraint.swift */; };
+		B2F778E11EAF36D1004B4362 /* ConstraintAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778BF1EAF36D1004B4362 /* ConstraintAttributes.swift */; };
+		B2F778E21EAF36D1004B4362 /* ConstraintConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778C01EAF36D1004B4362 /* ConstraintConfig.swift */; };
+		B2F778E31EAF36D1004B4362 /* ConstraintConstantTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778C11EAF36D1004B4362 /* ConstraintConstantTarget.swift */; };
+		B2F778E41EAF36D1004B4362 /* ConstraintDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778C21EAF36D1004B4362 /* ConstraintDescription.swift */; };
+		B2F778E51EAF36D1004B4362 /* ConstraintDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778C31EAF36D1004B4362 /* ConstraintDSL.swift */; };
+		B2F778E61EAF36D1004B4362 /* ConstraintInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778C41EAF36D1004B4362 /* ConstraintInsets.swift */; };
+		B2F778E71EAF36D1004B4362 /* ConstraintInsetTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778C51EAF36D1004B4362 /* ConstraintInsetTarget.swift */; };
+		B2F778E81EAF36D1004B4362 /* ConstraintItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778C61EAF36D1004B4362 /* ConstraintItem.swift */; };
+		B2F778E91EAF36D1004B4362 /* ConstraintLayoutGuide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778C71EAF36D1004B4362 /* ConstraintLayoutGuide+Extensions.swift */; };
+		B2F778EA1EAF36D1004B4362 /* ConstraintLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778C81EAF36D1004B4362 /* ConstraintLayoutGuide.swift */; };
+		B2F778EB1EAF36D1004B4362 /* ConstraintLayoutGuideDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778C91EAF36D1004B4362 /* ConstraintLayoutGuideDSL.swift */; };
+		B2F778EC1EAF36D1004B4362 /* ConstraintLayoutSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778CA1EAF36D1004B4362 /* ConstraintLayoutSupport.swift */; };
+		B2F778ED1EAF36D1004B4362 /* ConstraintLayoutSupportDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778CB1EAF36D1004B4362 /* ConstraintLayoutSupportDSL.swift */; };
+		B2F778EE1EAF36D1004B4362 /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778CC1EAF36D1004B4362 /* ConstraintMaker.swift */; };
+		B2F778EF1EAF36D1004B4362 /* ConstraintMakerEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778CD1EAF36D1004B4362 /* ConstraintMakerEditable.swift */; };
+		B2F778F01EAF36D1004B4362 /* ConstraintMakerExtendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778CE1EAF36D1004B4362 /* ConstraintMakerExtendable.swift */; };
+		B2F778F11EAF36D1004B4362 /* ConstraintMakerFinalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778CF1EAF36D1004B4362 /* ConstraintMakerFinalizable.swift */; };
+		B2F778F21EAF36D1004B4362 /* ConstraintMakerPriortizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778D01EAF36D1004B4362 /* ConstraintMakerPriortizable.swift */; };
+		B2F778F31EAF36D1004B4362 /* ConstraintMakerRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778D11EAF36D1004B4362 /* ConstraintMakerRelatable.swift */; };
+		B2F778F41EAF36D1004B4362 /* ConstraintMultiplierTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778D21EAF36D1004B4362 /* ConstraintMultiplierTarget.swift */; };
+		B2F778F51EAF36D1004B4362 /* ConstraintOffsetTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778D31EAF36D1004B4362 /* ConstraintOffsetTarget.swift */; };
+		B2F778F61EAF36D1004B4362 /* ConstraintPriorityTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778D41EAF36D1004B4362 /* ConstraintPriorityTarget.swift */; };
+		B2F778F71EAF36D1004B4362 /* ConstraintRelatableTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778D51EAF36D1004B4362 /* ConstraintRelatableTarget.swift */; };
+		B2F778F81EAF36D1004B4362 /* ConstraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778D61EAF36D1004B4362 /* ConstraintRelation.swift */; };
+		B2F778F91EAF36D1004B4362 /* ConstraintView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778D71EAF36D1004B4362 /* ConstraintView+Extensions.swift */; };
+		B2F778FA1EAF36D1004B4362 /* ConstraintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778D81EAF36D1004B4362 /* ConstraintView.swift */; };
+		B2F778FB1EAF36D1004B4362 /* ConstraintViewDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778D91EAF36D1004B4362 /* ConstraintViewDSL.swift */; };
+		B2F778FC1EAF36D1004B4362 /* Debugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778DA1EAF36D1004B4362 /* Debugging.swift */; };
+		B2F778FD1EAF36D1004B4362 /* LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778DB1EAF36D1004B4362 /* LayoutConstraint.swift */; };
+		B2F778FE1EAF36D1004B4362 /* LayoutConstraintItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778DC1EAF36D1004B4362 /* LayoutConstraintItem.swift */; };
+		B2F778FF1EAF36D1004B4362 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B2F778DD1EAF36D1004B4362 /* LICENSE */; };
+		B2F779001EAF36D1004B4362 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B2F778DE1EAF36D1004B4362 /* README.md */; };
+		B2F779011EAF36D1004B4362 /* UILayoutSupport+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778DF1EAF36D1004B4362 /* UILayoutSupport+Extensions.swift */; };
 		B2FCAA8B1E9C82CE0064837C /* QSSearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FCAA8A1E9C82CE0064837C /* QSSearchItem.swift */; };
 		B2FCAA8D1E9C85600064837C /* QSHistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FCAA8C1E9C85600064837C /* QSHistoryHeaderView.swift */; };
 /* End PBXBuildFile section */
@@ -422,6 +500,19 @@
 		B22269D31EA0C70A008FD314 /* QSBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBook.swift; sourceTree = "<group>"; };
 		B22269D41EA0C70A008FD314 /* QSChapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSChapter.swift; sourceTree = "<group>"; };
 		B22269D51EA0C70A008FD314 /* QSPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSPage.swift; sourceTree = "<group>"; };
+		B22A8D361EAD949C00C7E978 /* QSCommunityInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCommunityInteractor.swift; sourceTree = "<group>"; };
+		B22A8D371EAD949C00C7E978 /* QSCommunityPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCommunityPresenter.swift; sourceTree = "<group>"; };
+		B22A8D381EAD949C00C7E978 /* QSCommunityProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCommunityProtocols.swift; sourceTree = "<group>"; };
+		B22A8D391EAD949C00C7E978 /* QSCommunityRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCommunityRouter.swift; sourceTree = "<group>"; };
+		B22A8D3A1EAD949C00C7E978 /* QSCommunityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCommunityViewController.swift; sourceTree = "<group>"; };
+		B22A8D421EAD976000C7E978 /* QSDiscussCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSDiscussCell.swift; sourceTree = "<group>"; };
+		B22A8D431EAD976000C7E978 /* QSDiscussCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSDiscussCell.xib; sourceTree = "<group>"; };
+		B22A8D491EADE08100C7E978 /* BookCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCommentViewController.swift; sourceTree = "<group>"; };
+		B22A8D4F1EADE0E900C7E978 /* QSBookCommentInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookCommentInteractor.swift; sourceTree = "<group>"; };
+		B22A8D501EADE0E900C7E978 /* QSBookCommentPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookCommentPresenter.swift; sourceTree = "<group>"; };
+		B22A8D511EADE0E900C7E978 /* QSBookCommentProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookCommentProtocols.swift; sourceTree = "<group>"; };
+		B22A8D521EADE0E900C7E978 /* QSBookCommentRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookCommentRouter.swift; sourceTree = "<group>"; };
+		B22A8D531EADE0E900C7E978 /* QSBookCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookCommentViewController.swift; sourceTree = "<group>"; };
 		B22AC4391E9E6626008625E6 /* QSSearchResultTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchResultTable.swift; sourceTree = "<group>"; };
 		B22AC44A1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchAutoCompleteTable.swift; sourceTree = "<group>"; };
 		B22AC44C1E9F1C62008625E6 /* QSRankProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankProtocols.swift; sourceTree = "<group>"; };
@@ -445,6 +536,14 @@
 		B2580E221E9B284900455AFE /* QSHotwords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHotwords.swift; sourceTree = "<group>"; };
 		B2580E241E9B6AF500455AFE /* QSSearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchHeaderView.swift; sourceTree = "<group>"; };
 		B2583CA01EA74A37004178F3 /* QSBatteryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBatteryView.swift; sourceTree = "<group>"; };
+		B2583CAD1EA78280004178F3 /* FilterThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterThemeViewController.swift; sourceTree = "<group>"; };
+		B2583CAF1EA78280004178F3 /* ThemeTopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTopicViewController.swift; sourceTree = "<group>"; };
+		B2583CB11EA78280004178F3 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
+		B2583CB51EA782C2004178F3 /* QSThemeTopicInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSThemeTopicInteractor.swift; sourceTree = "<group>"; };
+		B2583CB61EA782C2004178F3 /* QSThemeTopicPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSThemeTopicPresenter.swift; sourceTree = "<group>"; };
+		B2583CB71EA782C2004178F3 /* QSThemeTopicProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSThemeTopicProtocols.swift; sourceTree = "<group>"; };
+		B2583CB81EA782C2004178F3 /* QSThemeTopicRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSThemeTopicRouter.swift; sourceTree = "<group>"; };
+		B2583CB91EA782C2004178F3 /* QSThemeTopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSThemeTopicViewController.swift; sourceTree = "<group>"; };
 		B258BAF31EA44BD0006E5802 /* QSTextInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTextInteractor.swift; sourceTree = "<group>"; };
 		B258BAF41EA44BD0006E5802 /* QSTextPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTextPresenter.swift; sourceTree = "<group>"; };
 		B258BAF51EA44BD0006E5802 /* QSTextProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTextProtocols.swift; sourceTree = "<group>"; };
@@ -459,15 +558,38 @@
 		B258BB0A1EA45B4C006E5802 /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		B258BB0C1EA4A1AC006E5802 /* QSReaderBackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSReaderBackgroundViewController.swift; sourceTree = "<group>"; };
 		B258BB231EA4B201006E5802 /* UIView+ScreenShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ScreenShot.swift"; sourceTree = "<group>"; };
+		B2795BE61EAE49B200D210A8 /* TXTReader.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TXTReader.storyboard; sourceTree = "<group>"; };
 		B288D1C71E9FC66F0024F1A5 /* QSBookDetailRateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookDetailRateView.swift; sourceTree = "<group>"; };
 		B288D1D31E9FC86C0024F1A5 /* QSBookDetailTagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookDetailTagsView.swift; sourceTree = "<group>"; };
 		B288D1D51E9FCBB50024F1A5 /* QSBookDetailContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookDetailContentView.swift; sourceTree = "<group>"; };
-		B29B4F981E8218ED008852E3 /* BookCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCommentViewController.swift; sourceTree = "<group>"; };
 		B29B4F991E8218ED008852E3 /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookDetailViewController.swift; path = zhuishushenqi/TXTReader/Controllers/BookDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		B29B4F9C1E821E61008852E3 /* UIImage+QSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+QSData.swift"; sourceTree = "<group>"; };
 		B29B4F9E1E822992008852E3 /* QSHotModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHotModel.swift; sourceTree = "<group>"; };
 		B29B4FA01E8257BC008852E3 /* DynamicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCell.swift; sourceTree = "<group>"; };
 		B29B4FA11E8257BC008852E3 /* DynamicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DynamicCell.xib; sourceTree = "<group>"; };
+		B2B02E251EA8505200A6880A /* QSTopicDetailInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTopicDetailInteractor.swift; sourceTree = "<group>"; };
+		B2B02E261EA8505200A6880A /* QSTopicDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTopicDetailPresenter.swift; sourceTree = "<group>"; };
+		B2B02E271EA8505200A6880A /* QSTopicDetailProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTopicDetailProtocols.swift; sourceTree = "<group>"; };
+		B2B02E281EA8505200A6880A /* QSTopicDetailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTopicDetailRouter.swift; sourceTree = "<group>"; };
+		B2B02E291EA8505200A6880A /* QSTopicDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTopicDetailViewController.swift; sourceTree = "<group>"; };
+		B2B02E3C1EA891E700A6880A /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
+		B2B02E3E1EA8920F00A6880A /* QSCategoryDetailInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCategoryDetailInteractor.swift; sourceTree = "<group>"; };
+		B2B02E3F1EA8920F00A6880A /* QSCategoryDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCategoryDetailPresenter.swift; sourceTree = "<group>"; };
+		B2B02E401EA8920F00A6880A /* QSCategoryDetailProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCategoryDetailProtocols.swift; sourceTree = "<group>"; };
+		B2B02E411EA8920F00A6880A /* QSCategoryDetailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCategoryDetailRouter.swift; sourceTree = "<group>"; };
+		B2B02E421EA8920F00A6880A /* QSCategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCategoryDetailViewController.swift; sourceTree = "<group>"; };
+		B2B02E4B1EA9A9CA00A6880A /* QSCategoryyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCategoryyViewController.swift; sourceTree = "<group>"; };
+		B2B02E4D1EA9A9F000A6880A /* QSCatalogInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogInteractor.swift; sourceTree = "<group>"; };
+		B2B02E4E1EA9A9F000A6880A /* QSCatalogPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogPresenter.swift; sourceTree = "<group>"; };
+		B2B02E4F1EA9A9F000A6880A /* QSCatalogProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogProtocols.swift; sourceTree = "<group>"; };
+		B2B02E501EA9A9F000A6880A /* QSCatalogRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogRouter.swift; sourceTree = "<group>"; };
+		B2B02E511EA9A9F000A6880A /* QSCatalogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogViewController.swift; sourceTree = "<group>"; };
+		B2B02E591EA9DFF200A6880A /* QSRecomment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRecomment.swift; sourceTree = "<group>"; };
+		B2B02E5B1EA9E4A300A6880A /* QSRecommendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRecommendCell.swift; sourceTree = "<group>"; };
+		B2B02E5C1EA9E4A300A6880A /* QSRecommendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSRecommendCell.xib; sourceTree = "<group>"; };
+		B2B02E5F1EA9F54700A6880A /* QSBookListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookListViewCell.swift; sourceTree = "<group>"; };
+		B2B02E601EA9F54700A6880A /* QSBookListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSBookListViewCell.xib; sourceTree = "<group>"; };
+		B2B02E631EA9F84300A6880A /* QSBookList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookList.swift; sourceTree = "<group>"; };
 		B2B4B9F71E7EA4A8000CC201 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2B4B9F81E7EA4A8000CC201 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2B4B9FB1E7EA4A8000CC201 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -502,8 +624,6 @@
 		B2B4BA1F1E7EA4A8000CC201 /* UITableView+QSGeneric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+QSGeneric.swift"; sourceTree = "<group>"; };
 		B2B4BA201E7EA4A8000CC201 /* UITableView+swizzling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+swizzling.swift"; sourceTree = "<group>"; };
 		B2B4BA211E7EA4A8000CC201 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B2B4BA251E7EA4A8000CC201 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
-		B2B4BA261E7EA4A8000CC201 /* QSCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCategoryViewController.swift; sourceTree = "<group>"; };
 		B2B4BA281E7EA4A8000CC201 /* AddBookAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBookAPI.swift; sourceTree = "<group>"; };
 		B2B4BA291E7EA4A8000CC201 /* AllChapterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AllChapterAPI.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B2B4BA2A1E7EA4A8000CC201 /* BookDetailAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailAPI.swift; sourceTree = "<group>"; };
@@ -522,9 +642,6 @@
 		B2B4BA3E1E7EA4A8000CC201 /* TopDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopDetailCell.xib; sourceTree = "<group>"; };
 		B2B4BA411E7EA4A8000CC201 /* SearchDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		B2B4BA451E7EA4A8000CC201 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		B2B4BA481E7EA4A8000CC201 /* FilterThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterThemeViewController.swift; sourceTree = "<group>"; };
-		B2B4BA491E7EA4A8000CC201 /* ThemeTopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTopicViewController.swift; sourceTree = "<group>"; };
-		B2B4BA4A1E7EA4A8000CC201 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
 		B2B4BA4C1E7EA4A8000CC201 /* ThemeTopicModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTopicModel.swift; sourceTree = "<group>"; };
 		B2B4BA4D1E7EA4A8000CC201 /* TopicDetailHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailHeader.swift; sourceTree = "<group>"; };
 		B2B4BA4E1E7EA4A8000CC201 /* TopicDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailModel.swift; sourceTree = "<group>"; };
@@ -780,6 +897,50 @@
 		B2BB5BB51D8BDF8E00379217 /* zhuishushenqiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = zhuishushenqiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2BB5BB91D8BDF8E00379217 /* zhuishushenqiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zhuishushenqiUITests.swift; sourceTree = "<group>"; };
 		B2BB5BBB1D8BDF8E00379217 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2F778A41EAEEDD4004B4362 /* M80AttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabel.h; sourceTree = "<group>"; };
+		B2F778A51EAEEDD4004B4362 /* M80AttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabel.m; sourceTree = "<group>"; };
+		B2F778A61EAEEDD4004B4362 /* M80AttributedLabelAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabelAttachment.h; sourceTree = "<group>"; };
+		B2F778A71EAEEDD4004B4362 /* M80AttributedLabelAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabelAttachment.m; sourceTree = "<group>"; };
+		B2F778A81EAEEDD4004B4362 /* M80AttributedLabelDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabelDefines.h; sourceTree = "<group>"; };
+		B2F778A91EAEEDD4004B4362 /* M80AttributedLabelURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabelURL.h; sourceTree = "<group>"; };
+		B2F778AA1EAEEDD4004B4362 /* M80AttributedLabelURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabelURL.m; sourceTree = "<group>"; };
+		B2F778AB1EAEEDD4004B4362 /* NSMutableAttributedString+M80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+M80.h"; sourceTree = "<group>"; };
+		B2F778AC1EAEEDD4004B4362 /* NSMutableAttributedString+M80.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+M80.m"; sourceTree = "<group>"; };
+		B2F778BB1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+FINAutomaticHeightCell.swift"; sourceTree = "<group>"; };
+		B2F778BE1EAF36D1004B4362 /* Constraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
+		B2F778BF1EAF36D1004B4362 /* ConstraintAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintAttributes.swift; sourceTree = "<group>"; };
+		B2F778C01EAF36D1004B4362 /* ConstraintConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintConfig.swift; sourceTree = "<group>"; };
+		B2F778C11EAF36D1004B4362 /* ConstraintConstantTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintConstantTarget.swift; sourceTree = "<group>"; };
+		B2F778C21EAF36D1004B4362 /* ConstraintDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintDescription.swift; sourceTree = "<group>"; };
+		B2F778C31EAF36D1004B4362 /* ConstraintDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintDSL.swift; sourceTree = "<group>"; };
+		B2F778C41EAF36D1004B4362 /* ConstraintInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintInsets.swift; sourceTree = "<group>"; };
+		B2F778C51EAF36D1004B4362 /* ConstraintInsetTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintInsetTarget.swift; sourceTree = "<group>"; };
+		B2F778C61EAF36D1004B4362 /* ConstraintItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintItem.swift; sourceTree = "<group>"; };
+		B2F778C71EAF36D1004B4362 /* ConstraintLayoutGuide+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConstraintLayoutGuide+Extensions.swift"; sourceTree = "<group>"; };
+		B2F778C81EAF36D1004B4362 /* ConstraintLayoutGuide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintLayoutGuide.swift; sourceTree = "<group>"; };
+		B2F778C91EAF36D1004B4362 /* ConstraintLayoutGuideDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintLayoutGuideDSL.swift; sourceTree = "<group>"; };
+		B2F778CA1EAF36D1004B4362 /* ConstraintLayoutSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintLayoutSupport.swift; sourceTree = "<group>"; };
+		B2F778CB1EAF36D1004B4362 /* ConstraintLayoutSupportDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintLayoutSupportDSL.swift; sourceTree = "<group>"; };
+		B2F778CC1EAF36D1004B4362 /* ConstraintMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMaker.swift; sourceTree = "<group>"; };
+		B2F778CD1EAF36D1004B4362 /* ConstraintMakerEditable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerEditable.swift; sourceTree = "<group>"; };
+		B2F778CE1EAF36D1004B4362 /* ConstraintMakerExtendable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerExtendable.swift; sourceTree = "<group>"; };
+		B2F778CF1EAF36D1004B4362 /* ConstraintMakerFinalizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerFinalizable.swift; sourceTree = "<group>"; };
+		B2F778D01EAF36D1004B4362 /* ConstraintMakerPriortizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerPriortizable.swift; sourceTree = "<group>"; };
+		B2F778D11EAF36D1004B4362 /* ConstraintMakerRelatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerRelatable.swift; sourceTree = "<group>"; };
+		B2F778D21EAF36D1004B4362 /* ConstraintMultiplierTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMultiplierTarget.swift; sourceTree = "<group>"; };
+		B2F778D31EAF36D1004B4362 /* ConstraintOffsetTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintOffsetTarget.swift; sourceTree = "<group>"; };
+		B2F778D41EAF36D1004B4362 /* ConstraintPriorityTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintPriorityTarget.swift; sourceTree = "<group>"; };
+		B2F778D51EAF36D1004B4362 /* ConstraintRelatableTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintRelatableTarget.swift; sourceTree = "<group>"; };
+		B2F778D61EAF36D1004B4362 /* ConstraintRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintRelation.swift; sourceTree = "<group>"; };
+		B2F778D71EAF36D1004B4362 /* ConstraintView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConstraintView+Extensions.swift"; sourceTree = "<group>"; };
+		B2F778D81EAF36D1004B4362 /* ConstraintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintView.swift; sourceTree = "<group>"; };
+		B2F778D91EAF36D1004B4362 /* ConstraintViewDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintViewDSL.swift; sourceTree = "<group>"; };
+		B2F778DA1EAF36D1004B4362 /* Debugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debugging.swift; sourceTree = "<group>"; };
+		B2F778DB1EAF36D1004B4362 /* LayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraint.swift; sourceTree = "<group>"; };
+		B2F778DC1EAF36D1004B4362 /* LayoutConstraintItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraintItem.swift; sourceTree = "<group>"; };
+		B2F778DD1EAF36D1004B4362 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		B2F778DE1EAF36D1004B4362 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B2F778DF1EAF36D1004B4362 /* UILayoutSupport+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILayoutSupport+Extensions.swift"; sourceTree = "<group>"; };
 		B2FCAA8A1E9C82CE0064837C /* QSSearchItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchItem.swift; sourceTree = "<group>"; };
 		B2FCAA8C1E9C85600064837C /* QSHistoryHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHistoryHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -856,12 +1017,72 @@
 			path = BookDetail;
 			sourceTree = "<group>";
 		};
+		B22A8D2B1EAD948B00C7E978 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				B22A8D361EAD949C00C7E978 /* QSCommunityInteractor.swift */,
+				B22A8D371EAD949C00C7E978 /* QSCommunityPresenter.swift */,
+				B22A8D381EAD949C00C7E978 /* QSCommunityProtocols.swift */,
+				B22A8D391EAD949C00C7E978 /* QSCommunityRouter.swift */,
+				B22A8D3A1EAD949C00C7E978 /* QSCommunityViewController.swift */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
+		B22A8D481EADE08100C7E978 /* BookComment */ = {
+			isa = PBXGroup;
+			children = (
+				B22A8D491EADE08100C7E978 /* BookCommentViewController.swift */,
+				B22A8D4F1EADE0E900C7E978 /* QSBookCommentInteractor.swift */,
+				B22A8D501EADE0E900C7E978 /* QSBookCommentPresenter.swift */,
+				B22A8D511EADE0E900C7E978 /* QSBookCommentProtocols.swift */,
+				B22A8D521EADE0E900C7E978 /* QSBookCommentRouter.swift */,
+				B22A8D531EADE0E900C7E978 /* QSBookCommentViewController.swift */,
+				B2795BE61EAE49B200D210A8 /* TXTReader.storyboard */,
+			);
+			path = BookComment;
+			sourceTree = "<group>";
+		};
 		B2580E211E9B279A00455AFE /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				B2580E221E9B284900455AFE /* QSHotwords.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		B2583CAC1EA78280004178F3 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				B2583CAD1EA78280004178F3 /* FilterThemeViewController.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		B2583CAE1EA78280004178F3 /* ThemeTopic */ = {
+			isa = PBXGroup;
+			children = (
+				B2583CAF1EA78280004178F3 /* ThemeTopicViewController.swift */,
+				B2583CB51EA782C2004178F3 /* QSThemeTopicInteractor.swift */,
+				B2583CB61EA782C2004178F3 /* QSThemeTopicPresenter.swift */,
+				B2583CB71EA782C2004178F3 /* QSThemeTopicProtocols.swift */,
+				B2583CB81EA782C2004178F3 /* QSThemeTopicRouter.swift */,
+				B2583CB91EA782C2004178F3 /* QSThemeTopicViewController.swift */,
+			);
+			path = ThemeTopic;
+			sourceTree = "<group>";
+		};
+		B2583CB01EA78280004178F3 /* TopicDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B2583CB11EA78280004178F3 /* TopicDetailViewController.swift */,
+				B2B02E251EA8505200A6880A /* QSTopicDetailInteractor.swift */,
+				B2B02E261EA8505200A6880A /* QSTopicDetailPresenter.swift */,
+				B2B02E271EA8505200A6880A /* QSTopicDetailProtocols.swift */,
+				B2B02E281EA8505200A6880A /* QSTopicDetailRouter.swift */,
+				B2B02E291EA8505200A6880A /* QSTopicDetailViewController.swift */,
+			);
+			path = TopicDetail;
 			sourceTree = "<group>";
 		};
 		B258BAF21EA44BD0006E5802 /* Reader */ = {
@@ -890,6 +1111,32 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		B2B02E3B1EA891E700A6880A /* CategoryDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B2B02E3C1EA891E700A6880A /* CategoryDetailViewController.swift */,
+				B2B02E3E1EA8920F00A6880A /* QSCategoryDetailInteractor.swift */,
+				B2B02E3F1EA8920F00A6880A /* QSCategoryDetailPresenter.swift */,
+				B2B02E401EA8920F00A6880A /* QSCategoryDetailProtocols.swift */,
+				B2B02E411EA8920F00A6880A /* QSCategoryDetailRouter.swift */,
+				B2B02E421EA8920F00A6880A /* QSCategoryDetailViewController.swift */,
+			);
+			path = CategoryDetail;
+			sourceTree = "<group>";
+		};
+		B2B02E4A1EA9A9CA00A6880A /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				B2B02E4B1EA9A9CA00A6880A /* QSCategoryyViewController.swift */,
+				B2B02E4D1EA9A9F000A6880A /* QSCatalogInteractor.swift */,
+				B2B02E4E1EA9A9F000A6880A /* QSCatalogPresenter.swift */,
+				B2B02E4F1EA9A9F000A6880A /* QSCatalogProtocols.swift */,
+				B2B02E501EA9A9F000A6880A /* QSCatalogRouter.swift */,
+				B2B02E511EA9A9F000A6880A /* QSCatalogViewController.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		B2B4B9F61E7EA4A8000CC201 /* zhuishushenqi */ = {
 			isa = PBXGroup;
 			children = (
@@ -900,6 +1147,7 @@
 				B2B4BA571E7EA4A8000CC201 /* Root */,
 				B2B4BA651E7EA4A8000CC201 /* TXTReader */,
 				B2B4BA8E1E7EA4A8000CC201 /* Vender */,
+				B2F778A31EAEEDD4004B4362 /* M80AttributedLabel */,
 				B2B4B9F71E7EA4A8000CC201 /* AppDelegate.swift */,
 				B2B4BBDC1E7EA4AB000CC201 /* ViewController.swift */,
 				B2B4BA121E7EA4A8000CC201 /* Config.swift */,
@@ -962,6 +1210,7 @@
 		B2B4BA131E7EA4A8000CC201 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				B2F778BB1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift */,
 				B2B4BA141E7EA4A8000CC201 /* Date+Extension.swift */,
 				B2B4BA151E7EA4A8000CC201 /* DateIntervalFormatter+formatter.swift */,
 				B2B4BA161E7EA4A8000CC201 /* NSDate+Date.h */,
@@ -1007,8 +1256,8 @@
 		B2B4BA241E7EA4A8000CC201 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B2B4BA251E7EA4A8000CC201 /* CategoryDetailViewController.swift */,
-				B2B4BA261E7EA4A8000CC201 /* QSCategoryViewController.swift */,
+				B2B02E4A1EA9A9CA00A6880A /* Category */,
+				B2B02E3B1EA891E700A6880A /* CategoryDetail */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1144,9 +1393,9 @@
 		B2B4BA471E7EA4A8000CC201 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B2B4BA481E7EA4A8000CC201 /* FilterThemeViewController.swift */,
-				B2B4BA491E7EA4A8000CC201 /* ThemeTopicViewController.swift */,
-				B2B4BA4A1E7EA4A8000CC201 /* TopicDetailViewController.swift */,
+				B2583CAC1EA78280004178F3 /* Filter */,
+				B2583CAE1EA78280004178F3 /* ThemeTopic */,
+				B2583CB01EA78280004178F3 /* TopicDetail */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1233,10 +1482,11 @@
 		B2B4BA661E7EA4A8000CC201 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B22A8D481EADE08100C7E978 /* BookComment */,
+				B22A8D2B1EAD948B00C7E978 /* Community */,
 				B258BAFD1EA44C02006E5802 /* Category */,
 				B258BAF21EA44BD0006E5802 /* Reader */,
 				B20D46D71E9FBAA300EC466A /* BookDetail */,
-				B29B4F981E8218ED008852E3 /* BookCommentViewController.swift */,
 				B2B4BD601E7EABD3000CC201 /* ChangeSourceViewController.swift */,
 				B2B4BA681E7EA4A8000CC201 /* CategoryViewController.swift */,
 				B2B4BA691E7EA4A8000CC201 /* PageViewController.swift */,
@@ -1264,6 +1514,8 @@
 				B2B4BA771E7EA4A8000CC201 /* ResourceModel.swift */,
 				B2B4BA781E7EA4A8000CC201 /* UpdateInfo.swift */,
 				B2B4BA791E7EA4A8000CC201 /* User.swift */,
+				B2B02E591EA9DFF200A6880A /* QSRecomment.swift */,
+				B2B02E631EA9F84300A6880A /* QSBookList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1292,6 +1544,12 @@
 				B288D1D31E9FC86C0024F1A5 /* QSBookDetailTagsView.swift */,
 				B288D1D51E9FCBB50024F1A5 /* QSBookDetailContentView.swift */,
 				B2583CA01EA74A37004178F3 /* QSBatteryView.swift */,
+				B2B02E5B1EA9E4A300A6880A /* QSRecommendCell.swift */,
+				B2B02E5C1EA9E4A300A6880A /* QSRecommendCell.xib */,
+				B2B02E5F1EA9F54700A6880A /* QSBookListViewCell.swift */,
+				B2B02E601EA9F54700A6880A /* QSBookListViewCell.xib */,
+				B22A8D421EAD976000C7E978 /* QSDiscussCell.swift */,
+				B22A8D431EAD976000C7E978 /* QSDiscussCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1299,6 +1557,7 @@
 		B2B4BA8E1E7EA4A8000CC201 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B2F778BD1EAF36D1004B4362 /* SnapKit */,
 				B2B4BD4C1E7EA62A000CC201 /* QSNetwork.xcodeproj */,
 				B2B4BD431E7EA622000CC201 /* QSKingfisher.xcodeproj */,
 				B2B4BD3A1E7EA616000CC201 /* QSPullToRefresh.xcodeproj */,
@@ -1730,6 +1989,63 @@
 			path = zhuishushenqiUITests;
 			sourceTree = "<group>";
 		};
+		B2F778A31EAEEDD4004B4362 /* M80AttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				B2F778A41EAEEDD4004B4362 /* M80AttributedLabel.h */,
+				B2F778A51EAEEDD4004B4362 /* M80AttributedLabel.m */,
+				B2F778A61EAEEDD4004B4362 /* M80AttributedLabelAttachment.h */,
+				B2F778A71EAEEDD4004B4362 /* M80AttributedLabelAttachment.m */,
+				B2F778A81EAEEDD4004B4362 /* M80AttributedLabelDefines.h */,
+				B2F778A91EAEEDD4004B4362 /* M80AttributedLabelURL.h */,
+				B2F778AA1EAEEDD4004B4362 /* M80AttributedLabelURL.m */,
+				B2F778AB1EAEEDD4004B4362 /* NSMutableAttributedString+M80.h */,
+				B2F778AC1EAEEDD4004B4362 /* NSMutableAttributedString+M80.m */,
+			);
+			path = M80AttributedLabel;
+			sourceTree = "<group>";
+		};
+		B2F778BD1EAF36D1004B4362 /* SnapKit */ = {
+			isa = PBXGroup;
+			children = (
+				B2F778BE1EAF36D1004B4362 /* Constraint.swift */,
+				B2F778BF1EAF36D1004B4362 /* ConstraintAttributes.swift */,
+				B2F778C01EAF36D1004B4362 /* ConstraintConfig.swift */,
+				B2F778C11EAF36D1004B4362 /* ConstraintConstantTarget.swift */,
+				B2F778C21EAF36D1004B4362 /* ConstraintDescription.swift */,
+				B2F778C31EAF36D1004B4362 /* ConstraintDSL.swift */,
+				B2F778C41EAF36D1004B4362 /* ConstraintInsets.swift */,
+				B2F778C51EAF36D1004B4362 /* ConstraintInsetTarget.swift */,
+				B2F778C61EAF36D1004B4362 /* ConstraintItem.swift */,
+				B2F778C71EAF36D1004B4362 /* ConstraintLayoutGuide+Extensions.swift */,
+				B2F778C81EAF36D1004B4362 /* ConstraintLayoutGuide.swift */,
+				B2F778C91EAF36D1004B4362 /* ConstraintLayoutGuideDSL.swift */,
+				B2F778CA1EAF36D1004B4362 /* ConstraintLayoutSupport.swift */,
+				B2F778CB1EAF36D1004B4362 /* ConstraintLayoutSupportDSL.swift */,
+				B2F778CC1EAF36D1004B4362 /* ConstraintMaker.swift */,
+				B2F778CD1EAF36D1004B4362 /* ConstraintMakerEditable.swift */,
+				B2F778CE1EAF36D1004B4362 /* ConstraintMakerExtendable.swift */,
+				B2F778CF1EAF36D1004B4362 /* ConstraintMakerFinalizable.swift */,
+				B2F778D01EAF36D1004B4362 /* ConstraintMakerPriortizable.swift */,
+				B2F778D11EAF36D1004B4362 /* ConstraintMakerRelatable.swift */,
+				B2F778D21EAF36D1004B4362 /* ConstraintMultiplierTarget.swift */,
+				B2F778D31EAF36D1004B4362 /* ConstraintOffsetTarget.swift */,
+				B2F778D41EAF36D1004B4362 /* ConstraintPriorityTarget.swift */,
+				B2F778D51EAF36D1004B4362 /* ConstraintRelatableTarget.swift */,
+				B2F778D61EAF36D1004B4362 /* ConstraintRelation.swift */,
+				B2F778D71EAF36D1004B4362 /* ConstraintView+Extensions.swift */,
+				B2F778D81EAF36D1004B4362 /* ConstraintView.swift */,
+				B2F778D91EAF36D1004B4362 /* ConstraintViewDSL.swift */,
+				B2F778DA1EAF36D1004B4362 /* Debugging.swift */,
+				B2F778DB1EAF36D1004B4362 /* LayoutConstraint.swift */,
+				B2F778DC1EAF36D1004B4362 /* LayoutConstraintItem.swift */,
+				B2F778DD1EAF36D1004B4362 /* LICENSE */,
+				B2F778DE1EAF36D1004B4362 /* README.md */,
+				B2F778DF1EAF36D1004B4362 /* UILayoutSupport+Extensions.swift */,
+			);
+			path = SnapKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1942,8 +2258,12 @@
 			files = (
 				B2B4BC1F1E7EA4AB000CC201 /* TopicDetailCell.xib in Resources */,
 				B2B4BC111E7EA4AB000CC201 /* TopDetailCell.xib in Resources */,
+				B2F778FF1EAF36D1004B4362 /* LICENSE in Resources */,
+				B2795BE71EAE49B200D210A8 /* TXTReader.storyboard in Resources */,
 				B2B4BBDF1E7EA4AB000CC201 /* Assets.xcassets in Resources */,
 				B2B4BC0B1E7EA4AB000CC201 /* CategoryCell.xib in Resources */,
+				B22A8D451EAD976000C7E978 /* QSDiscussCell.xib in Resources */,
+				B2B02E621EA9F54700A6880A /* QSBookListViewCell.xib in Resources */,
 				B2B4BBF11E7EA4AB000CC201 /* Main.storyboard in Resources */,
 				B2B4BC501E7EA4AB000CC201 /* UserfulCell.xib in Resources */,
 				B2B4BBF01E7EA4AB000CC201 /* LaunchScreen.storyboard in Resources */,
@@ -1954,6 +2274,7 @@
 				B2B4BC3F1E7EA4AB000CC201 /* BookCommentCell.xib in Resources */,
 				B2B4BBEA1E7EA4AB000CC201 /* EmptyView.xib in Resources */,
 				B2B4BC441E7EA4AB000CC201 /* BookDetailHeader.xib in Resources */,
+				B2B02E5E1EA9E4A300A6880A /* QSRecommendCell.xib in Resources */,
 				B2B4BC4C1E7EA4AB000CC201 /* HotCommentCell.xib in Resources */,
 				B2B4BD5E1E7EA931000CC201 /* LICENSE in Resources */,
 				B2B4BC471E7EA4AB000CC201 /* CategoryTableViewCell.xib in Resources */,
@@ -2042,23 +2363,32 @@
 				B2B4BD021E7EA4AC000CC201 /* YYReachability.m in Sources */,
 				B2B4BC2E1E7EA4AB000CC201 /* PageViewController.swift in Sources */,
 				B2B4BCD51E7EA4AB000CC201 /* UIView+YYAdd.m in Sources */,
+				B2F778F51EAF36D1004B4362 /* ConstraintOffsetTarget.swift in Sources */,
 				B2B4BCFC1E7EA4AC000CC201 /* YYTextView.m in Sources */,
 				B2B4BC1C1E7EA4AB000CC201 /* ThemeTopicCell.swift in Sources */,
 				B2B4BCD01E7EA4AB000CC201 /* UIImage+YYAdd.m in Sources */,
 				B2B4BBDE1E7EA4AB000CC201 /* AppDelegate.swift in Sources */,
 				B2B4BCC51E7EA4AB000CC201 /* NSTimer+YYAdd.m in Sources */,
+				B2F778E61EAF36D1004B4362 /* ConstraintInsets.swift in Sources */,
 				B2B4BBEC1E7EA4AB000CC201 /* LightView.swift in Sources */,
+				B2B02E2C1EA8505200A6880A /* QSTopicDetailPresenter.swift in Sources */,
+				B2F778EA1EAF36D1004B4362 /* ConstraintLayoutGuide.swift in Sources */,
+				B2583CBC1EA782C2004178F3 /* QSThemeTopicProtocols.swift in Sources */,
 				B2B4BCD11E7EA4AB000CC201 /* UIScreen+YYAdd.m in Sources */,
-				B2B4BBFE1E7EA4AB000CC201 /* CategoryDetailViewController.swift in Sources */,
 				B2B4BC031E7EA4AB000CC201 /* BookShelfAPI.swift in Sources */,
 				B22AC4591E9F6767008625E6 /* QSRankDetailProtoocol.swift in Sources */,
 				B2B4BCC31E7EA4AB000CC201 /* NSString+YYAdd.m in Sources */,
 				B2B4BCB81E7EA4AB000CC201 /* NSArray+YYAdd.m in Sources */,
+				B2F778FA1EAF36D1004B4362 /* ConstraintView.swift in Sources */,
 				B22AC45B1E9F6774008625E6 /* QSRankDetailInteractor.swift in Sources */,
+				B22A8D551EADE0E900C7E978 /* QSBookCommentInteractor.swift in Sources */,
 				B258BB041EA44C52006E5802 /* QSCategoryInteractor.swift in Sources */,
 				B2B4BCC91E7EA4AB000CC201 /* UIBarButtonItem+YYAdd.m in Sources */,
 				B2B4BCEF1E7EA4AC000CC201 /* YYTextLine.m in Sources */,
+				B2B02E2B1EA8505200A6880A /* QSTopicDetailInteractor.swift in Sources */,
 				B2B4BCC21E7EA4AB000CC201 /* NSObject+YYAddForKVO.m in Sources */,
+				B2B02E541EA9A9F000A6880A /* QSCatalogPresenter.swift in Sources */,
+				B2B02E4C1EA9A9CA00A6880A /* QSCategoryyViewController.swift in Sources */,
 				B2B4BBFC1E7EA4AB000CC201 /* UITableView+swizzling.swift in Sources */,
 				B2B4BCE41E7EA4AB000CC201 /* YYSpriteSheetImage.m in Sources */,
 				B258BAF91EA44BD0006E5802 /* QSTextPresenter.swift in Sources */,
@@ -2066,11 +2396,16 @@
 				B2580E1C1E9B236000455AFE /* QSSearchPresenter.swift in Sources */,
 				B2B4BCB31E7EA4AB000CC201 /* XYCUrlArgumentFilter.swift in Sources */,
 				B2B4BC231E7EA4AB000CC201 /* LeftViewController.swift in Sources */,
+				B2F778F61EAF36D1004B4362 /* ConstraintPriorityTarget.swift in Sources */,
 				B2B4BC311E7EA4AB000CC201 /* BookComment.swift in Sources */,
 				B2B4BCE71E7EA4AB000CC201 /* NSObject+YYModel.m in Sources */,
 				B2B4BCD21E7EA4AB000CC201 /* UIScrollView+YYAdd.m in Sources */,
 				B2B4BCBE1E7EA4AB000CC201 /* NSNotificationCenter+YYAdd.m in Sources */,
+				B22A8D3E1EAD949C00C7E978 /* QSCommunityProtocols.swift in Sources */,
 				B2B4BCDA1E7EA4AB000CC201 /* _YYWebImageSetter.m in Sources */,
+				B2F778E31EAF36D1004B4362 /* ConstraintConstantTarget.swift in Sources */,
+				B2F779001EAF36D1004B4362 /* README.md in Sources */,
+				B2F778FD1EAF36D1004B4362 /* LayoutConstraint.swift in Sources */,
 				B2B4BD5F1E7EA931000CC201 /* README.md in Sources */,
 				B2B4BC681E7EA4AB000CC201 /* FMDatabaseQueue.m in Sources */,
 				B2FCAA8D1E9C85600064837C /* QSHistoryHeaderView.swift in Sources */,
@@ -2088,27 +2423,39 @@
 				B2B4BC0E1E7EA4AB000CC201 /* QSRankModel.swift in Sources */,
 				B2B4BC051E7EA4AB000CC201 /* DynamicAPI.swift in Sources */,
 				B2B4BBE01E7EA4AB000CC201 /* BaseViewController.swift in Sources */,
+				B2B02E611EA9F54700A6880A /* QSBookListViewCell.swift in Sources */,
 				B2414D9C1EA602ED005A5758 /* UIViewController+Alert.swift in Sources */,
 				B20D46DF1E9FBABD00EC466A /* QSBookDetailPresenter.swift in Sources */,
 				B2B4BBE41E7EA4AB000CC201 /* CommunityView.swift in Sources */,
 				B2580E1D1E9B236000455AFE /* QSSearchProtocols.swift in Sources */,
+				B2F778E41EAF36D1004B4362 /* ConstraintDescription.swift in Sources */,
 				B22AC4511E9F1C8C008625E6 /* QSRankPresenter.swift in Sources */,
 				B2B4BCE31E7EA4AB000CC201 /* YYImageCoder.m in Sources */,
 				B2B4BC241E7EA4AB000CC201 /* RightViewController.swift in Sources */,
 				B2B4BCF61E7EA4AC000CC201 /* YYTextAttribute.m in Sources */,
 				B22AC4611E9F695D008625E6 /* QSRankDetailViewController.swift in Sources */,
+				B2F778AE1EAEEDD4004B4362 /* M80AttributedLabelAttachment.m in Sources */,
 				B2B4BC011E7EA4AB000CC201 /* AllChapterAPI.swift in Sources */,
 				B2B4BCF91E7EA4AC000CC201 /* YYTextRunDelegate.m in Sources */,
 				B2B4BCE51E7EA4AB000CC201 /* YYWebImageManager.m in Sources */,
 				B22AC45D1E9F678D008625E6 /* QSRankDetailPresenter.swift in Sources */,
+				B22A8D3D1EAD949C00C7E978 /* QSCommunityPresenter.swift in Sources */,
 				B2B4BC121E7EA4AB000CC201 /* SearchDetailViewController.swift in Sources */,
 				B2B4BC431E7EA4AB000CC201 /* BookDetailHeader.swift in Sources */,
 				B2B4BC261E7EA4AB000CC201 /* RootViewController.swift in Sources */,
 				B2580E231E9B284900455AFE /* QSHotwords.swift in Sources */,
 				B2B4BCCD1E7EA4AB000CC201 /* UIDevice+YYAdd.m in Sources */,
 				B2B4BCDC1E7EA4AB000CC201 /* MKAnnotationView+YYWebImage.m in Sources */,
+				B2B02E461EA8920F00A6880A /* QSCategoryDetailProtocols.swift in Sources */,
+				B2B02E5D1EA9E4A300A6880A /* QSRecommendCell.swift in Sources */,
+				B22A8D581EADE0E900C7E978 /* QSBookCommentRouter.swift in Sources */,
+				B2B02E531EA9A9F000A6880A /* QSCatalogInteractor.swift in Sources */,
+				B2F779011EAF36D1004B4362 /* UILayoutSupport+Extensions.swift in Sources */,
 				B2B4BCD91E7EA4AB000CC201 /* YYMemoryCache.m in Sources */,
+				B2F778F41EAF36D1004B4362 /* ConstraintMultiplierTarget.swift in Sources */,
+				B2F778F11EAF36D1004B4362 /* ConstraintMakerFinalizable.swift in Sources */,
 				B2B4BC671E7EA4AB000CC201 /* FMDatabasePool.m in Sources */,
+				B2B02E2E1EA8505200A6880A /* QSTopicDetailRouter.swift in Sources */,
 				B2B4BCB91E7EA4AB000CC201 /* NSBundle+YYAdd.m in Sources */,
 				B20D46E11E9FBABD00EC466A /* QSBookDetailRouter.swift in Sources */,
 				B2B4BD611E7EABD3000CC201 /* ChangeSourceViewController.swift in Sources */,
@@ -2116,6 +2463,7 @@
 				B2B4BCF01E7EA4AC000CC201 /* YYTextMagnifier.m in Sources */,
 				B2B4BC3B1E7EA4AB000CC201 /* ResourceModel.swift in Sources */,
 				B2B4BCEC1E7EA4AC000CC201 /* YYTextInput.m in Sources */,
+				B2F778E71EAF36D1004B4362 /* ConstraintInsetTarget.swift in Sources */,
 				B2B4BBF51E7EA4AB000CC201 /* NSDate+Date.m in Sources */,
 				B2B4BC401E7EA4AB000CC201 /* BookCommentViewCell.swift in Sources */,
 				B2B4BC651E7EA4AB000CC201 /* FMDatabase.m in Sources */,
@@ -2126,7 +2474,12 @@
 				B2B4BBED1E7EA4AB000CC201 /* RateView.swift in Sources */,
 				B22AC4571E9F5520008625E6 /* QSLoadingView.swift in Sources */,
 				B2B4BC191E7EA4AB000CC201 /* TopicDetailHeader.swift in Sources */,
+				B2B02E641EA9F84300A6880A /* QSBookList.swift in Sources */,
+				B22A8D571EADE0E900C7E978 /* QSBookCommentProtocols.swift in Sources */,
+				B2583CBB1EA782C2004178F3 /* QSThemeTopicPresenter.swift in Sources */,
+				B2583CB41EA78280004178F3 /* TopicDetailViewController.swift in Sources */,
 				B2B4BCC41E7EA4AB000CC201 /* NSThread+YYAdd.m in Sources */,
+				B2583CBD1EA782C2004178F3 /* QSThemeTopicRouter.swift in Sources */,
 				B2B4BC3A1E7EA4AB000CC201 /* QSHotComment.swift in Sources */,
 				B2B4BC3D1E7EA4AB000CC201 /* User.swift in Sources */,
 				B2B4BBE31E7EA4AB000CC201 /* XYCBaseModel.m in Sources */,
@@ -2143,6 +2496,7 @@
 				B2B4BCF11E7EA4AC000CC201 /* YYTextSelectionView.m in Sources */,
 				B2B4BC0F1E7EA4AB000CC201 /* RankingViewCell.swift in Sources */,
 				B22AC45F1E9F6799008625E6 /* QSRankDetailRouter.swift in Sources */,
+				B2F778EB1EAF36D1004B4362 /* ConstraintLayoutGuideDSL.swift in Sources */,
 				B20D46DE1E9FBABD00EC466A /* QSBookDetailInteractor.swift in Sources */,
 				B2B4BBE11E7EA4AB000CC201 /* SideViewController.swift in Sources */,
 				B2B4BCBD1E7EA4AB000CC201 /* NSKeyedUnarchiver+YYAdd.m in Sources */,
@@ -2154,22 +2508,31 @@
 				B258BB071EA44C52006E5802 /* QSCategoryRouter.swift in Sources */,
 				B258BB241EA4B201006E5802 /* UIView+ScreenShot.swift in Sources */,
 				B2B4BCFD1E7EA4AC000CC201 /* YYAsyncLayer.m in Sources */,
+				B2F778E91EAF36D1004B4362 /* ConstraintLayoutGuide+Extensions.swift in Sources */,
 				B2B4BC1B1E7EA4AB000CC201 /* FilterThemeCell.swift in Sources */,
 				B258BB061EA44C52006E5802 /* QSCategoryProtocols.swift in Sources */,
 				B258BAF81EA44BD0006E5802 /* QSTextInteractor.swift in Sources */,
+				B2B02E5A1EA9DFF200A6880A /* QSRecomment.swift in Sources */,
+				B2F778F71EAF36D1004B4362 /* ConstraintRelatableTarget.swift in Sources */,
 				B2B4BCAF1E7EA4AB000CC201 /* XYCNetworkAgent.swift in Sources */,
 				B2B4BCE81E7EA4AC000CC201 /* YYClassInfo.m in Sources */,
 				B258BB091EA44D42006E5802 /* QSCategoryReaderViewController.swift in Sources */,
 				B288D1C81E9FC66F0024F1A5 /* QSBookDetailRateView.swift in Sources */,
+				B22A8D401EAD949D00C7E978 /* QSCommunityViewController.swift in Sources */,
+				B2B02E471EA8920F00A6880A /* QSCategoryDetailRouter.swift in Sources */,
 				B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */,
+				B2F778E11EAF36D1004B4362 /* ConstraintAttributes.swift in Sources */,
 				B2B4BC2A1E7EA4AB000CC201 /* SegMenu.swift in Sources */,
+				B2B02E2F1EA8505200A6880A /* QSTopicDetailViewController.swift in Sources */,
 				B203BB591E9E0F4400F9C052 /* QSSearchViewController+SearchBar.swift in Sources */,
+				B22A8D3F1EAD949C00C7E978 /* QSCommunityRouter.swift in Sources */,
 				B2B4BC4D1E7EA4AB000CC201 /* PageView.swift in Sources */,
 				B2B4BCC11E7EA4AB000CC201 /* NSObject+YYAddForARC.m in Sources */,
 				B2B4BCFE1E7EA4AC000CC201 /* YYDispatchQueuePool.m in Sources */,
 				B2B4BC4B1E7EA4AB000CC201 /* HotCommentCell.swift in Sources */,
 				B2B4BBF81E7EA4AB000CC201 /* UIImageView+zhuishu.swift in Sources */,
 				B2B4BBFB1E7EA4AB000CC201 /* UITableView+QSGeneric.swift in Sources */,
+				B2F778F81EAF36D1004B4362 /* ConstraintRelation.swift in Sources */,
 				B2B4BCFA1E7EA4AC000CC201 /* YYTextUtilities.m in Sources */,
 				B2B4BBF71E7EA4AB000CC201 /* String+crypto.swift in Sources */,
 				B2B4BC271E7EA4AB000CC201 /* BarButton.swift in Sources */,
@@ -2187,36 +2550,53 @@
 				B2B4BBE91E7EA4AB000CC201 /* EmptyView.swift in Sources */,
 				B2B4BBE21E7EA4AB000CC201 /* SwiftyJSON.swift in Sources */,
 				B2B4BCE61E7EA4AB000CC201 /* YYWebImageOperation.m in Sources */,
+				B22A8D591EADE0E900C7E978 /* QSBookCommentViewController.swift in Sources */,
+				B2F778E51EAF36D1004B4362 /* ConstraintDSL.swift in Sources */,
 				B2B4BC371E7EA4AB000CC201 /* ChapterInfo.swift in Sources */,
 				B2B4BCF51E7EA4AC000CC201 /* YYTextArchiver.m in Sources */,
-				B2B4BC171E7EA4AB000CC201 /* TopicDetailViewController.swift in Sources */,
+				B2B02E481EA8920F00A6880A /* QSCategoryDetailViewController.swift in Sources */,
+				B2F778EE1EAF36D1004B4362 /* ConstraintMaker.swift in Sources */,
 				B2B4BCEE1E7EA4AC000CC201 /* YYTextLayout.m in Sources */,
 				B2B4BCC71E7EA4AB000CC201 /* YYCGUtilities.m in Sources */,
+				B2F778BC1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift in Sources */,
 				B2B4BCAE1E7EA4AB000CC201 /* XYCBaseRequest.swift in Sources */,
+				B22A8D561EADE0E900C7E978 /* QSBookCommentPresenter.swift in Sources */,
+				B22A8D4A1EADE08100C7E978 /* BookCommentViewController.swift in Sources */,
 				B2B4BCFB1E7EA4AC000CC201 /* YYLabel.m in Sources */,
 				B2B4BC0A1E7EA4AB000CC201 /* CategoryCell.swift in Sources */,
+				B22A8D3C1EAD949C00C7E978 /* QSCommunityInteractor.swift in Sources */,
 				B2B4BCB41E7EA4AB000CC201 /* YTKKeyValueStore.m in Sources */,
-				B2B4BC151E7EA4AB000CC201 /* FilterThemeViewController.swift in Sources */,
 				B2B4BD091E7EA4AC000CC201 /* ViewController.swift in Sources */,
+				B2F778E21EAF36D1004B4362 /* ConstraintConfig.swift in Sources */,
 				B258BB0D1EA4A1AC006E5802 /* QSReaderBackgroundViewController.swift in Sources */,
 				B2B4BCF41E7EA4AC000CC201 /* UIPasteboard+YYText.m in Sources */,
+				B2B02E561EA9A9F000A6880A /* QSCatalogRouter.swift in Sources */,
 				B2B4BD051E7EA4AC000CC201 /* YYThreadSafeDictionary.m in Sources */,
+				B2F778F31EAF36D1004B4362 /* ConstraintMakerRelatable.swift in Sources */,
 				B2B4BCCC1E7EA4AB000CC201 /* UIControl+YYAdd.m in Sources */,
+				B2583CBA1EA782C2004178F3 /* QSThemeTopicInteractor.swift in Sources */,
 				B2B4BBE61E7EA4AB000CC201 /* DarkView.swift in Sources */,
 				B2B4BBEB1E7EA4AB000CC201 /* LightStarView.swift in Sources */,
-				B2B4BBFF1E7EA4AB000CC201 /* QSCategoryViewController.swift in Sources */,
 				B2B4BCE21E7EA4AB000CC201 /* YYImageCache.m in Sources */,
 				B2B4BCF31E7EA4AC000CC201 /* NSParagraphStyle+YYText.m in Sources */,
 				B2B4BC661E7EA4AB000CC201 /* FMDatabaseAdditions.m in Sources */,
+				B2F778F91EAF36D1004B4362 /* ConstraintView+Extensions.swift in Sources */,
 				B2B4BCED1E7EA4AC000CC201 /* YYTextKeyboardManager.m in Sources */,
 				B2B4BC461E7EA4AB000CC201 /* CategoryTableViewCell.swift in Sources */,
+				B2B02E2D1EA8505200A6880A /* QSTopicDetailProtocols.swift in Sources */,
+				B2F778EF1EAF36D1004B4362 /* ConstraintMakerEditable.swift in Sources */,
 				B2B4BCB01E7EA4AB000CC201 /* XYCNetworkConfig.swift in Sources */,
 				B2B4BC691E7EA4AB000CC201 /* FMResultSet.m in Sources */,
+				B2583CBE1EA782C2004178F3 /* QSThemeTopicViewController.swift in Sources */,
+				B2B02E571EA9A9F000A6880A /* QSCatalogViewController.swift in Sources */,
+				B2F778AF1EAEEDD4004B4362 /* M80AttributedLabelURL.m in Sources */,
 				B258BB0B1EA45B4C006E5802 /* CategoryButton.swift in Sources */,
+				B2F778F21EAF36D1004B4362 /* ConstraintMakerPriortizable.swift in Sources */,
 				B2B4BCDF1E7EA4AB000CC201 /* YYAnimatedImageView.m in Sources */,
 				B2B4BC391E7EA4AB000CC201 /* PageInfo.swift in Sources */,
 				B2B4BC091E7EA4AB000CC201 /* ShelfMessageAPI.swift in Sources */,
 				B29B4F9D1E821E61008852E3 /* UIImage+QSData.swift in Sources */,
+				B2F778F01EAF36D1004B4362 /* ConstraintMakerExtendable.swift in Sources */,
 				B2B4BD071E7EA4AC000CC201 /* YYTransaction.m in Sources */,
 				B22269D61EA0C70A008FD314 /* QSBook.swift in Sources */,
 				B2B4BD011E7EA4AC000CC201 /* YYKeychain.m in Sources */,
@@ -2233,49 +2613,63 @@
 				B2B4BC4E1E7EA4AB000CC201 /* ToolBar.swift in Sources */,
 				B2B4BC081E7EA4AB000CC201 /* RankingDetailAPI.swift in Sources */,
 				B2B4BC351E7EA4AB000CC201 /* BookShelfInfo.swift in Sources */,
+				B2B02E551EA9A9F000A6880A /* QSCatalogProtocols.swift in Sources */,
 				B2B4BBF61E7EA4AB000CC201 /* NSDate+Extension.m in Sources */,
 				B2B4BCEA1E7EA4AC000CC201 /* YYTextDebugOption.m in Sources */,
+				B2F778FB1EAF36D1004B4362 /* ConstraintViewDSL.swift in Sources */,
+				B2F778EC1EAF36D1004B4362 /* ConstraintLayoutSupport.swift in Sources */,
 				B2B4BCCA1E7EA4AB000CC201 /* UIBezierPath+YYAdd.m in Sources */,
 				B2B4BCC01E7EA4AB000CC201 /* NSObject+YYAdd.m in Sources */,
 				B2FCAA8B1E9C82CE0064837C /* QSSearchItem.swift in Sources */,
 				B2B4BCDD1E7EA4AB000CC201 /* UIButton+YYWebImage.m in Sources */,
+				B2F778ED1EAF36D1004B4362 /* ConstraintLayoutSupportDSL.swift in Sources */,
 				B2B4BCE01E7EA4AB000CC201 /* YYFrameImage.m in Sources */,
 				B2B4BCBB1E7EA4AB000CC201 /* NSDate+YYAdd.m in Sources */,
+				B2F778E01EAF36D1004B4362 /* Constraint.swift in Sources */,
 				B2B4BC1A1E7EA4AB000CC201 /* TopicDetailModel.swift in Sources */,
 				B2B4BCE91E7EA4AC000CC201 /* YYTextContainerView.m in Sources */,
 				B2B4BC021E7EA4AB000CC201 /* BookDetailAPI.swift in Sources */,
 				B2B4BCDE1E7EA4AB000CC201 /* UIImageView+YYWebImage.m in Sources */,
 				B2B4BC251E7EA4AB000CC201 /* RootViewController+FetchData.swift in Sources */,
+				B2F778B01EAEEDD4004B4362 /* NSMutableAttributedString+M80.m in Sources */,
 				B2B4BCB21E7EA4AB000CC201 /* XYCRequest.swift in Sources */,
+				B2F778AD1EAEEDD4004B4362 /* M80AttributedLabel.m in Sources */,
 				B2B4BBF21E7EA4AB000CC201 /* Config.swift in Sources */,
-				B29B4F9A1E8218ED008852E3 /* BookCommentViewController.swift in Sources */,
 				B2583CA11EA74A37004178F3 /* QSBatteryView.swift in Sources */,
 				B2B4BD031E7EA4AC000CC201 /* YYSentinel.m in Sources */,
 				B2B4BBEF1E7EA4AB000CC201 /* XYCActionSheet.swift in Sources */,
 				B2B4BD041E7EA4AC000CC201 /* YYThreadSafeArray.m in Sources */,
 				B2B4BCC61E7EA4AB000CC201 /* CALayer+YYAdd.m in Sources */,
 				B2B4BCB11E7EA4AB000CC201 /* XYCNetworkPrivate.swift in Sources */,
+				B2583CB31EA78280004178F3 /* ThemeTopicViewController.swift in Sources */,
 				B2B4BBFA1E7EA4AB000CC201 /* UINavigationItem+BackItem.m in Sources */,
+				B2B02E451EA8920F00A6880A /* QSCategoryDetailPresenter.swift in Sources */,
 				B2B4BC2B1E7EA4AB000CC201 /* SwipableCell.swift in Sources */,
-				B2B4BC161E7EA4AB000CC201 /* ThemeTopicViewController.swift in Sources */,
+				B2F778FE1EAF36D1004B4362 /* LayoutConstraintItem.swift in Sources */,
 				B2B4BCEB1E7EA4AC000CC201 /* YYTextEffectWindow.m in Sources */,
 				B288D1D61E9FCBB50024F1A5 /* QSBookDetailContentView.swift in Sources */,
 				B2B4BCD71E7EA4AB000CC201 /* YYDiskCache.m in Sources */,
+				B2B02E441EA8920F00A6880A /* QSCategoryDetailInteractor.swift in Sources */,
 				B2B4BCD81E7EA4AB000CC201 /* YYKVStorage.m in Sources */,
 				B2B4BD7A1E7EE2B1000CC201 /* QSNetworkManager.swift in Sources */,
+				B2B02E3D1EA891E700A6880A /* CategoryDetailViewController.swift in Sources */,
 				B203BB651E9E119400F9C052 /* QSSearchViewController+Transition.swift in Sources */,
 				B258BB051EA44C52006E5802 /* QSCategoryPresenter.swift in Sources */,
 				B22AC44F1E9F1C7D008625E6 /* QSRankInteractor.swift in Sources */,
 				B20D46E01E9FBABD00EC466A /* QSBookDetailProtocols.swift in Sources */,
 				B2B4BBE51E7EA4AB000CC201 /* DarkStarView.swift in Sources */,
+				B2583CB21EA78280004178F3 /* FilterThemeViewController.swift in Sources */,
 				B2B4BC071E7EA4AB000CC201 /* RankingAPI.swift in Sources */,
 				B22AC43A1E9E6626008625E6 /* QSSearchResultTable.swift in Sources */,
 				B2B4BC3E1E7EA4AB000CC201 /* BookCommentCell.swift in Sources */,
+				B2F778FC1EAF36D1004B4362 /* Debugging.swift in Sources */,
 				B22AC4551E9F1E8F008625E6 /* QSRankViewController.swift in Sources */,
 				B2580E1F1E9B236000455AFE /* QSSearchViewController.swift in Sources */,
 				B288D1D41E9FC86C0024F1A5 /* QSBookDetailTagsView.swift in Sources */,
+				B22A8D441EAD976000C7E978 /* QSDiscussCell.swift in Sources */,
 				B2B4BCF71E7EA4AC000CC201 /* YYTextParser.m in Sources */,
 				B2B4BC321E7EA4AB000CC201 /* BookCommentDetail.swift in Sources */,
+				B2F778E81EAF36D1004B4362 /* ConstraintItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2442,7 +2836,7 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cibdev.zhuishushenqi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cibdev.zhuishushenqic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "35b8e6e5-6fbb-41f1-8975-cf44d63d8b27";
 				PROVISIONING_PROFILE_SPECIFIER = cibemobile_develop;
@@ -2474,7 +2868,7 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cibdev.zhuishushenqi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cibdev.zhuishushenqic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "35b8e6e5-6fbb-41f1-8975-cf44d63d8b27";
 				PROVISIONING_PROFILE_SPECIFIER = cibemobile_develop;

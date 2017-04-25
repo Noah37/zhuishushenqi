@@ -2,7 +2,7 @@
 //  ObjectMapper.h
 //  ObjectMapper
 //
-//  Created by Nory Chao on 16/11/24.
+//  Created by Nory Cao on 16/11/24.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  QSHotModel.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/3/22.
+//  Created by Nory Cao on 2017/3/22.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

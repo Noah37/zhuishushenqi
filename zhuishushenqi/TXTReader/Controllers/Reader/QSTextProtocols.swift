@@ -2,7 +2,7 @@
 //  QSTextProtocols.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/4/14.
+//  Created by Nory Cao on 2017/4/14.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -27,6 +27,8 @@ protocol QSTextPresenterProtocol: class {
     func didClickChangeSource()
     func didClickCategory()
     func didClickBack()
+    func requestChapter(index:Int)
+    func requestAllChapter(index:Int)
 }
 
 //MARK: Output -
@@ -37,11 +39,14 @@ protocol QSTextInteractorOutputProtocol: class {
     func fetchChapterFailed()
     func fetchAllResourceSuccess(resource:[ResourceModel])
     func fetchAllResourceFailed()
+    func showActivity()
+    func showBook(book:QSBook)
 }
 
 //MARK: Interactor -
 protocol QSTextInteractorProtocol: class {
     var output: QSTextInteractorOutputProtocol! { get set }
+    func commonInit(model:BookDetail)
     func requestAllResource(bookDetail:BookDetail)
     func requestAllChapters(selectedIndex:Int)
     func requestChapter(atIndex chapterIndex:Int)
@@ -54,6 +59,7 @@ protocol QSTextInteractorProtocol: class {
 //MARK: View -
 protocol QSTextViewProtocol: IndicatableView {
     var presenter: QSTextPresenterProtocol?  { get set }
+    func showBook(book:QSBook)
     func showResources(resources:[ResourceModel])
     func showAllChapter(chapters:[NSDictionary])
     func showChapter(chapter:Dictionary<String, Any>,index:Int)

@@ -2,7 +2,7 @@
 //  TopicDetailHeaderCell.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/10.
+//  Created by Nory Cao on 2017/3/10.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -21,6 +21,7 @@ class TopicDetailHeaderCell: UITableViewCell {
     
     var model:TopicDetailHeader? {
         didSet{
+            self.isHidden = false
             self.name.text  = "\(model?.author.nickname ?? "") lv.\(model?.author.lv ?? 0)"
 //            self.updateTime.text = ""
             self.title.text = "\(model?.title ?? "")"
@@ -42,10 +43,26 @@ class TopicDetailHeaderCell: UITableViewCell {
             }
         }
     }
+    
+    static func height(model:TopicDetailHeader?)->CGFloat{
+        if let header = model {
+            let baseHeaderHeight:CGFloat = 176
+            let baseHeaderTextHeight:CGFloat = 45
+            let headerCell = UINib(nibName: "TopicDetailHeaderCell", bundle: nil).instantiate(withOwner: nil, options: nil).last as? TopicDetailHeaderCell
+            headerCell?.model = header
+            if header.descHeight > baseHeaderTextHeight {
+                return header.descHeight - baseHeaderTextHeight + baseHeaderHeight
+            }else{
+                return baseHeaderHeight - (baseHeaderTextHeight - header.descHeight)
+            }
+        }
+        return 0.0001
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

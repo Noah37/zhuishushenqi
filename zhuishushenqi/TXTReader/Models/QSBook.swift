@@ -2,7 +2,7 @@
 //  QSBook.swift
 //  TXTReader
 //
-//  Created by caonongyun on 2017/4/14.
+//  Created by Nory Cao on 2017/4/14.
 //  Copyright © 2017年 masterY. All rights reserved.
 //
 
@@ -32,14 +32,16 @@ class QSBook: NSObject {
     }
     
     private func setAttribute(chapters:[QSChapter]){
+        let font:UIFont = attribute[NSFontAttributeName] as! UIFont
+        let attributes = getAttributes(with: 10, font: font)
         for item in 0..<chapters.count {
             let chapter = chapters[item]
-            chapter.attribute = self.attribute
+            chapter.attribute = attributes
             if  chapter.content == ""{
                 continue
             }
             let size = CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40)
-            chapter.ranges = self.pageWithAttributes(attrubutes: self.attribute, constrainedToSize: size, string: chapter.content) as? [String]
+            chapter.ranges = self.pageWithAttributes(attrubutes: attributes, constrainedToSize: size, string: chapter.content) as? [String]
         }
     }
     

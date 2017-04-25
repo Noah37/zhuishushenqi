@@ -2,7 +2,7 @@
 //  Config.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/9/17.
+//  Created by Nory Cao on 16/9/17.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -202,6 +202,7 @@ func isExistShelf(bookDetail:BookDetail?)->Bool{
 enum BookShelfUpdateType {
     case add
     case delete
+    case update
 }
 
 @discardableResult
@@ -217,50 +218,145 @@ func isExistBookShelf(bookDetail:BookDetail?)->Bool{
 }
 
 func updateReadingInfo(bookDetail:BookDetail?){
-    var mArr:[BookDetail] = BookShelfInfo.books.bookShelf
-    var index = 0
-    for item in mArr {
-        let model = item
-        if item._id == (bookDetail?._id ?? "") {
-            model.chapter = bookDetail?.chapter ?? 0
-            model.page = bookDetail?.page ?? 0
-            model.sourceIndex = bookDetail?.sourceIndex ?? 0
-            model.chapters = bookDetail?.chapters
-            model.resources = bookDetail?.resources
-            mArr[index] = model
-            BookShelfInfo.books.bookShelf = mArr
-            NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
-        }
-        index += 1
-    }
-}
-
-@discardableResult
-func updateBookShelf(bookDetail:BookDetail?,type:BookShelfUpdateType)->Bool{
-    var mArr:[BookDetail] = BookShelfInfo.books.bookShelf
-    var exist = false
-    var index = 0
-    for item in mArr {
-        if item._id == (bookDetail?._id ?? "") {
-            exist = true
-        }
-        index += 1
-    }
-    if !exist {
-        if let model = bookDetail{
-            if type == .add {
-                mArr.append(model)
-                BookShelfInfo.books.bookShelf = mArr
-                NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
-            }else if type == .delete {
-                mArr.remove(at: index - 1)
+    DispatchQueue.global().async {
+        var mArr:[BookDetail] = BookShelfInfo.books.bookShelf
+        var index = 0
+        for item in mArr {
+            let model = item
+            if item._id == (bookDetail?._id ?? "") {
+                model.chapter = bookDetail?.chapter ?? 0
+                model.page = bookDetail?.page ?? 0
+                model.sourceIndex = bookDetail?.sourceIndex ?? 0
+                model.chapters = bookDetail?.chapters
+                model.resources = bookDetail?.resources
+                mArr[index] = model
                 BookShelfInfo.books.bookShelf = mArr
                 NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
             }
+            index += 1
         }
     }
-    return exist
 }
+
+func bookShelfRefresh(model:BookDetail,arr:[BookDetail])->[BookDetail]{
+    var models = arr
+    var index = 0
+    for item in arr {
+        if item._id == model._id {
+            models.remove(at: index)
+        }
+        index += 1
+    }
+    return models
+}
+
+//发通知删除时需要重新请求数据，反应慢，书架删除时应该直接删除而不重新请求
+@discardableResult
+func updateBookShelf(bookDetail:BookDetail?,type:BookShelfUpdateType,refresh:Bool){
+    DispatchQueue.global().async {
+        
+        var mArr:[BookDetail] = BookShelfInfo.books.bookShelf
+        var index = 0
+        var existIndex = -1
+        for item in mArr {
+            if item._id == (bookDetail?._id ?? "") {
+                existIndex = index
+            }
+            index += 1
+        }
+        if let model = bookDetail{
+            if type == .add {
+                if existIndex == -1 {
+                    mArr.append(model)
+                    BookShelfInfo.books.bookShelf = mArr
+                    if refresh {
+                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
+                    }
+                }
+            }else if type == .delete {
+                if  existIndex != -1 {
+                    mArr.remove(at: existIndex)
+                    BookShelfInfo.books.bookShelf = mArr
+                    if refresh {
+                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
+                    }
+                }
+            }else if type == .update {
+                if existIndex != -1 {
+                    mArr[existIndex] = model
+                    BookShelfInfo.books.bookShelf = mArr
+                    if refresh {
+                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
+                    }
+                }
+            }
+        }
+    }
+}
+
+func getAttributes(with lineSpave:CGFloat,font:UIFont)->NSDictionary{
+    let paraStyle = NSMutableParagraphStyle()
+    paraStyle.lineBreakMode = .byCharWrapping
+    paraStyle.alignment = .left
+    paraStyle.lineSpacing = lineSpave
+    paraStyle.hyphenationFactor = 1.0
+    paraStyle.firstLineHeadIndent = 0.0
+    paraStyle.paragraphSpacingBefore = 0.0
+    paraStyle.headIndent = 0
+    paraStyle.tailIndent = 0
+    let dict = [NSFontAttributeName:font,NSKernAttributeName:1.5,NSParagraphStyleAttributeName:paraStyle] as [String : Any]
+    return dict as NSDictionary
+}
+
+func attributeText(with lineSpace:CGFloat,text:String,font:UIFont)->NSAttributedString{
+    let paraStyle = NSMutableParagraphStyle()
+    paraStyle.lineBreakMode = .byCharWrapping
+    paraStyle.alignment = .left
+    paraStyle.hyphenationFactor = 1.0
+    paraStyle.firstLineHeadIndent = 0.0
+    paraStyle.paragraphSpacingBefore = 0.0
+    paraStyle.headIndent = 0
+    paraStyle.tailIndent = 0
+    let dict = [NSFontAttributeName:font,NSKernAttributeName:1.5,NSParagraphStyleAttributeName:paraStyle] as [String : Any]
+    let attributeStr = NSAttributedString(string: text, attributes: dict)
+    return attributeStr
+}
+
+//-(void)setLabelSpace:(UILabel*)label withValue:(NSString*)str withFont:(UIFont*)font {
+//    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+//    paraStyle.lineBreakMode = NSLineBreakByCharWrapping;
+//    paraStyle.alignment = NSTextAlignmentLeft;
+//    paraStyle.lineSpacing = UILABEL_LINE_SPACE; //设置行间距
+//    paraStyle.hyphenationFactor = 1.0;
+//    paraStyle.firstLineHeadIndent = 0.0;
+//    paraStyle.paragraphSpacingBefore = 0.0;
+//    paraStyle.headIndent = 0;
+//    paraStyle.tailIndent = 0;
+//    //设置字间距 NSKernAttributeName:@1.5f
+//    NSDictionary *dic = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@1.5f
+//    };
+//    
+//    NSAttributedString *attributeStr = [[NSAttributedString alloc] initWithString:str attributes:dic];
+//    label.attributedText = attributeStr;
+//}
+//
+////计算UILabel的高度(带有行间距的情况)
+//-(CGFloat)getSpaceLabelHeight:(NSString*)str withFont:(UIFont*)font withWidth:(CGFloat)width {
+//    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+//    paraStyle.lineBreakMode = NSLineBreakByCharWrapping;
+//    paraStyle.alignment = NSTextAlignmentLeft;
+//    paraStyle.lineSpacing = UILABEL_LINE_SPACE;
+//    paraStyle.hyphenationFactor = 1.0;
+//    paraStyle.firstLineHeadIndent = 0.0;
+//    paraStyle.paragraphSpacingBefore = 0.0;
+//    paraStyle.headIndent = 0;
+//    paraStyle.tailIndent = 0;
+//    NSDictionary *dic = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@1.5f
+//    };
+//    
+//    CGSize size = [str boundingRectWithSize:CGSizeMake(width, HEIGHT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
+//    return size.height;
+//}
 
 
 

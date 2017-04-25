@@ -2,7 +2,7 @@
 //  BookDetailViewController.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/10/4.
+//  Created by Nory Cao on 16/10/4.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -105,7 +105,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             }
         }else if indexPath.section == 1{
             let hotCell:HotCommentCell = tableView.dequeueReusableCell(withIdentifier: "HotCommentCell", for: indexPath) as! HotCommentCell
-            hotCell.model = self.hotComment?[indexPath.row]
+//            hotCell.model = self.hotComment?[indexPath.row]
             return hotCell
         }
         return cell!
@@ -119,9 +119,9 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             headerview?.addBtnAction = { (isSelected:Bool,model:BookDetail) in
                 //需要遍历删除
                 if isSelected == true {
-                    updateBookShelf(bookDetail: model, type: .add)
+                    updateBookShelf(bookDetail: model, type: .add,refresh:true)
                 }else{
-                    updateBookShelf(bookDetail: model, type: .delete)
+                    updateBookShelf(bookDetail: model, type: .delete,refresh:true)
                 }
                 QSLog(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
             }

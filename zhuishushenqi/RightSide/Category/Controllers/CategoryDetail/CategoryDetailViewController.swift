@@ -2,7 +2,7 @@
 //  CategoryDetailViewController.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/10.
+//  Created by Nory Cao on 2017/3/10.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -16,12 +16,11 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
     
     var param = ["":""]
     
+    private var booksModel = [Book]()
     
-    fileprivate var booksModel = [Book]()
+    private var headerModel:TopicDetailHeader?
     
-    fileprivate var headerModel:TopicDetailHeader?
-    
-    fileprivate lazy var tableView:UITableView = {
+    private lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
@@ -44,14 +43,14 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
         
     }
     
-    fileprivate func initSubview(){
+    func initSubview(){
         let segView = SegMenu(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: 40), WithTitles: ["新书","热度","口碑","完结"])
         segView.menuDelegate = self
         view.addSubview(segView)
     }
 
     
-    fileprivate func requestDetail(){
+    func requestDetail(){
         //        http://api.zhuishushenqi.com/book/by-categories?gender=male&type=new&major=都市&minor=&start=0&limit=50
         let urlString = "\(BASEURL)/book/by-categories"
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
@@ -63,11 +62,8 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
             }catch{
                 
             }
-            DispatchQueue.main.async {
-                
-                self.view.addSubview(self.tableView)
-                self.tableView.reloadData()
-            }
+            self.view.addSubview(self.tableView)
+            self.tableView.reloadData()
         }
     }
     
@@ -82,18 +78,15 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
         
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: params , headers: nil) { (response) in
             QSLog(response.json)
-            do{
-                if let books = response.json?.object(forKey: "books"){
+            if let books = response.json?.object(forKey: "books"){
+                do{
                     self.booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject])  as! [Book]
+                }catch{
+                    
                 }
-            }catch{
-                
             }
-            DispatchQueue.main.async {
-                
-                self.view.addSubview(self.tableView)
-                self.tableView.reloadData()
-            }
+            self.view.addSubview(self.tableView)
+            self.tableView.reloadData()
         }
     }
     

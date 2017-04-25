@@ -2,7 +2,7 @@
 //  QSSearchViewController+SearchBar.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/4/12.
+//  Created by Nory Cao on 2017/4/12.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -13,8 +13,9 @@ extension QSSearchViewController:UISearchResultsUpdating,UISearchControllerDeleg
     //MARK: - UISearchBarDelegate
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchController.dismiss(animated: true, completion: nil)
+        showResultTable(key: searchBar.text ?? "")
         self.presenter?.interactor.updateHistoryList(history: searchBar.text ?? "")
-        self.presenter?.interactor.fetchBooks(key: searchBar.text ?? "")
+        self.presenter?.fetchBooks(key: searchBar.text ?? "")
     }// called when keyboard search button pressed
     
     
@@ -47,6 +48,10 @@ extension QSSearchViewController:UISearchResultsUpdating,UISearchControllerDeleg
     //MARK: - UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController){
         let text = searchController.searchBar.text ?? ""
+        if searchWords == text {
+            return
+        }
+        searchWords = text
         if !text.isEmpty {
             presenter?.interactor.autoComplete(key: text)
         }

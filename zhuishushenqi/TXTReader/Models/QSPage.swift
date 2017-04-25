@@ -2,7 +2,7 @@
 //  QSPage.swift
 //  TXTReader
 //
-//  Created by caonongyun on 2017/4/14.
+//  Created by Nory Cao on 2017/4/14.
 //  Copyright © 2017年 masterY. All rights reserved.
 //
 

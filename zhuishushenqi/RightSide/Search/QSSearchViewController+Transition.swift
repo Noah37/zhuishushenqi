@@ -2,7 +2,7 @@
 //  QSSearchViewController+Transition.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/4/12.
+//  Created by Nory Cao on 2017/4/12.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -27,6 +27,7 @@ extension QSSearchViewController{
     
     func showSearching(){
         self.tableView.removeFromSuperview()
+        self.autoCompleteTable.removeFromSuperview()
         KeyWindow?.addSubview(self.tableView)
         UIView.animate(withDuration: 0.35, animations: {
             self.tableView.frame = self.getFrame(type: .searching)

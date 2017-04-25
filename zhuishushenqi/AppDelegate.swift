@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/9/16.
+//  Created by Nory Cao on 16/9/16.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -27,11 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = sideNavVC
         window?.makeKeyAndVisible()
         UIApplication.shared.setStatusBarHidden(false, with: .fade)
-        #if DEBUG
+//        #if DEBUG
             let fpsLabel = V2FPSLabel(frame: CGRect(x:15, y:ScreenHeight-40, width:55,height: 20));
             self.window?.addSubview(fpsLabel);
-        #else
-        #endif
+//        #else
+//        #endif
 
         configureDataBase()
 //        [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];

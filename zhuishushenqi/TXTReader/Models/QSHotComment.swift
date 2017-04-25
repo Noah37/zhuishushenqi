@@ -2,7 +2,7 @@
 //  QSHotComment.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/9.
+//  Created by Nory Cao on 2017/3/9.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -23,6 +23,7 @@ class QSHotComment: NSObject {
     
     var author:Author = Author()
     var helpful:Helpful = Helpful()
+    var book:QSHotBook = QSHotBook()
     
     class func modelCustomPropertyMapper() ->NSDictionary{
         return ["_id":"_id","content":"content","rating":"rating","title":"title","likeCount":"likeCount","state":"state","updated":"updated","created":"created","commentCount":"commentCount","author":"author","helpful":"helpful"]
@@ -51,5 +52,25 @@ class Helpful: NSObject {
     var yes:Int = 0
     class func modelCustomPropertyMapper() ->NSDictionary{
         return ["no":"no","total":"total","yes":"yes"]
+    }
+}
+
+//"book": {
+//    "_id": "51d11e782de6405c45000068",
+//    "cover": "/agent/http://image.cmfu.com/books/2750457/2750457.jpg",
+//    "title": "大主宰",
+//    "id": "51d11e782de6405c45000068",
+//    "latelyFollower": null,
+//    "retentionRatio": null
+//},
+@objc(QSHotBook)
+class QSHotBook: NSObject {
+    var id:String = ""
+    var cover:String = ""
+    var title:String = ""
+    var latelyFollower = ""
+    var retentionRatio = "'"
+    class func modelCustomPropertyMapper() ->NSDictionary{
+        return ["id":"id","cover":"cover","title":"title","latelyFollower":"latelyFollower","retentionRatio":"retentionRatio"]
     }
 }

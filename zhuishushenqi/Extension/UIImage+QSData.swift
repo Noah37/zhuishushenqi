@@ -2,7 +2,7 @@
 //  UIImage+QSData.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/3/22.
+//  Created by Nory Cao on 2017/3/22.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -53,6 +53,22 @@ extension UIImage{
         }
         QSLog(mimeType)
         return imageData?.base64EncodedString(options: .endLineWithCarriageReturn)
+    }
+    
+    func qs_drawRectWithRoundedCorner(radius: CGFloat, _ sizetoFit: CGSize) -> UIImage {
+        let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: sizetoFit)
+        
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, UIScreen.main.scale)
+        UIGraphicsGetCurrentContext()?.addPath(UIBezierPath(roundedRect: rect, byRoundingCorners: UIRectCorner.allCorners,
+                                      cornerRadii: CGSize(width: radius, height: radius)).cgPath)
+        UIGraphicsGetCurrentContext()?.clip()
+        
+        self.draw(in: rect)
+        UIGraphicsGetCurrentContext()?.drawPath(using: .fillStroke)
+        let output = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return output!
     }
 
 }

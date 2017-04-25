@@ -2,7 +2,7 @@
 //  TopDetailCell.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/10/4.
+//  Created by Nory Cao on 16/10/4.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -20,18 +20,26 @@ class TopDetailCell: UITableViewCell {
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var icon: UIImageView!
     
+    @IBOutlet weak var readingWidth: NSLayoutConstraint!
     var model:Book?{
         didSet{
-            self.remain.text = "\(self.model?.retentionRatio ?? "0")% 读者留存"
-            self.reading.text = "\(self.model?.latelyFollower ?? "0") 人在追"
+            
+            self.remain.text = String(format: "%.2f %%读者留存", self.model?.retentionRatio ?? 0)
+            self.reading.text = String(format: "%.0f 人在追", self.model?.latelyFollower ?? 0)
             self.profile.text = "\(self.model?.shortIntro ?? "")"
             self.type.text = "\(self.model?.cat ?? "")"
             self.name.text = "\(self.model?.title ?? "")"
             self.author.text = "\(self.model?.author ?? "")"
             let width = widthOfString(self.author.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
             self.authorWidth.constant = width + 5
+            let readWidth = widthOfString(self.reading.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
+            readingWidth.constant = readWidth + 5
+            
             let urlString = "\((self.model?.cover ?? "qqqqqqqq"))"
             self.icon.qs_setBookCoverWithURLString(urlString: urlString)
+            if type.text == "" {
+                type.text = model?.majorCate ?? ""
+            }
         }
     }
     

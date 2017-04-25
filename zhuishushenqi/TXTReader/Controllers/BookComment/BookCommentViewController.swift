@@ -2,7 +2,7 @@
 //  BookCommentViewController.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 2017/3/13.
+//  Created by Nory Cao on 2017/3/13.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 
@@ -213,12 +213,12 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
             var height:CGFloat = 0
             if (magicComments?.count ?? 0) > 0 {
                 if indexPath.section == 2 {
-                    height = BookCommentViewCell.cellHeight(model: magicComments?[indexPath.row])
+//                    height = BookCommentViewCell.cellHeight(model: magicComments?[indexPath.row])
                 }else{
-                    height = BookCommentViewCell.cellHeight(model: normalComments?[indexPath.row])
+//                    height = BookCommentViewCell.cellHeight(model: normalComments?[indexPath.row])
                 }
             }else {
-                height = BookCommentViewCell.cellHeight(model: normalComments?[indexPath.row])
+//                height = BookCommentViewCell.cellHeight(model: normalComments?[indexPath.row])
 
             }
             return height

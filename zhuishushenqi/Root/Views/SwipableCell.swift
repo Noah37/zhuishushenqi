@@ -2,7 +2,7 @@
 //  SwipableCell.swift
 //  zhuishushenqi
 //
-//  Created by Nory Chao on 16/9/18.
+//  Created by Nory Cao on 16/9/18.
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
@@ -31,6 +31,7 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
     
     var detailTitle:UILabel?
 
+    private var scrollView:UIScrollView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,15 +48,15 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
     }
     
     fileprivate func initSubview(){
-        let scrollView = UIScrollView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: 64))
+        scrollView = UIScrollView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: 64))
         scrollView.contentSize = CGSize(width: (ScreenWidth - 74)*2, height: 64)
         scrollView.isPagingEnabled = true
         scrollView.delegate = self
         scrollView.showsHorizontalScrollIndicator = false
-        addSubview(scrollView)
-        //此处解决 UIScrollView屏蔽 UITableViewCell的点击事件，将 scrollView的手势识别交给他的父视图，苹果官方推荐的做法
-        scrollView.isUserInteractionEnabled = false
-        contentView.addGestureRecognizer(scrollView.panGestureRecognizer)
+        contentView.addSubview(scrollView)
+        //此处解决 UIScrollView屏蔽 UITableViewCell的点击事件，将 scrollView的手势识别交给他的父视图，苹果官方推荐的做法,但是这样回造成UIScrollView上的button无法点击，本次使用第二种方式，传递事件
+//        scrollView.isUserInteractionEnabled = false
+//        contentView.addGestureRecognizer(scrollView.panGestureRecognizer)
         
         let imgView = UIImageView(frame: CGRect(x: 15, y: 10, width: 34, height: 44))
         imgView.backgroundColor = UIColor.orange
@@ -77,7 +78,7 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
         scrollView.addSubview(self.detailTitle!)
         
         let delete:UIButton = UIButton(type: .custom)
-        delete.frame = CGRect(x: scrollView.contentSize.width - 45, y: 17, width: 30, height: 30)
+        delete.frame = CGRect(x: scrollView.contentSize.width - 65, y: 17, width: 50, height: 30)
         delete.setTitle("删除", for: .normal)
         delete.setTitleColor(UIColor.red, for: .normal)
         delete.addTarget(self, action: #selector(deleteAction(btn:)), for: .touchUpInside)
@@ -107,6 +108,24 @@ class SwipableCell: UITableViewCell,UIScrollViewDelegate {
         // Configure the view for the selected state
     }
     
-    
+    override func prepareForReuse() {
+        scrollView.contentOffset = CGPoint(x: 0, y: 0)
+    }
+}
 
+extension UIScrollView{
+    //2.解决UIScrollView屏蔽UITableViewCell的点击事件
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let next = touches.first?.view?.next?.next
+        if next?.isKind(of: UITableViewCell.self) == true {
+            next?.touchesBegan(touches, with: event)
+        }
+    }
+    
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let next = touches.first?.view?.next?.next
+        if next?.isKind(of: UITableViewCell.self) == true {
+            next?.touchesEnded(touches, with: event)
+        }
+    }
 }
