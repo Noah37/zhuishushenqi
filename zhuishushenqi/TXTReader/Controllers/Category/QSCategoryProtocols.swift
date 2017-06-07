@@ -16,17 +16,19 @@ protocol QSCategoryWireframeProtocol: class {
 }
 //MARK: Presenter -
 protocol QSCategoryPresenterProtocol: class {
-    func viewDidLoad(id:String)
+    func viewDidLoad()
 }
 
 //MARK: Interactor -
 protocol QSCategoryInteractorProtocol: class {
-
+    func show()
+    func showDetail()
 }
 
 //MARK: Output -
 protocol QSCategoryInteractorOutputProtocol: class {
-  
+    func show(titles:[String])
+    func showDetail(book:BookDetail)
 }
 
 
@@ -34,5 +36,6 @@ protocol QSCategoryInteractorOutputProtocol: class {
 protocol QSCategoryViewProtocol: IndicatableView {
 
   var presenter: QSCategoryPresenterProtocol?  { get set }
-
+    func show(titles:[String])
+    func showDetail(book:BookDetail)
 }

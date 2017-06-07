@@ -85,7 +85,8 @@ class QSRankDetailViewController: BaseViewController ,SegMenuDelegate,UITableVie
     }
     
     func showEmpty(){
-        
+        self.books = [[],[],[]]
+        self.tableView.reloadData()
     }
 }
 

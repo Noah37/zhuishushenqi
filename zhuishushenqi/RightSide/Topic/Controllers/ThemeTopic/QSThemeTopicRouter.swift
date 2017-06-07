@@ -34,6 +34,8 @@ class QSThemeTopicRouter: QSThemeTopicWireframeProtocol {
     }
     
     func presentReading(model:[ResourceModel],booDetail:BookDetail){
-        viewController?.present(QSTextRouter.createModule(bookDetail:booDetail), animated: true, completion: nil)
+        viewController?.present(QSTextRouter.createModule(bookDetail:booDetail,callback: {(book:BookDetail) in
+            
+        }), animated: true, completion: nil)
     }
 }

@@ -30,6 +30,8 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.qs_registerCellNib(BookCommentCell.self)
         tableView.qs_registerCellNib(UserfulCell.self)
+
+//        tableView.qs_registerCellNib(BookCommentViewCell.self)
         tableView.qs_registerCellClass(BookCommentViewCell.self)
         let refresh = PullToRefresh(height: 30, position: .bottom, tip: "正在加载更多")
         tableView.addPullToRefresh(refresh, action: {
@@ -99,6 +101,24 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
         }else if indexPath.section == 1 {
             return 91
         }else {
+            return UITableViewAutomaticDimension
+//            var height:CGFloat = 130
+//            if (hotComments?.count ?? 0) > 0 {
+//                if indexPath.section == 2 {
+//                    if let model = self.hotComments?[indexPath.row] {
+//                        height = BookCommentViewCell.cellHeight(model: model)
+//                    }
+//                }else{
+//                    if let model = self.normalComments?[indexPath.row] {
+//                        height = BookCommentViewCell.cellHeight(model: model)
+//                    }
+//                }
+//            }else {
+//                if let model = self.normalComments?[indexPath.row]{
+//                    height = BookCommentViewCell.cellHeight(model: model)
+//                }
+//            }
+//            return height
             var height:CGFloat = 130
             if (hotComments?.count ?? 0) > 0 {
                 if indexPath.section == 2 {
@@ -169,6 +189,7 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
             cell?.model = detail
             return cell!
         }else {
+//            let cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
             var cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
             
             cell?.backgroundColor = UIColor.white

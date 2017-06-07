@@ -305,7 +305,9 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             }
             
             if let json:NSDictionary = (response.json as? NSArray)?.object(at: 1) as? NSDictionary {
-                self.present(QSTextRouter.createModule(bookDetail:self.bookModel!), animated: true, completion: nil)
+                self.present(QSTextRouter.createModule(bookDetail:self.bookModel!,callback: {(book:BookDetail) in
+                    
+                }), animated: true, completion: nil)
             }
         }
     }

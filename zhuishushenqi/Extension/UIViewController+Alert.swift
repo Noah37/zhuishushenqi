@@ -29,4 +29,27 @@ extension UIViewController{
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func hudAddTo(view:UIView,text:String,animated:Bool){
+        let hud = MBProgressHUD.showAdded(to: view, animated: animated)
+        hud?.mode = MBProgressHUDMode.text
+        hud?.labelText = text
+        hud?.yOffset = Float(ScreenHeight/4)
+        hud?.hide(animated, afterDelay: 3.0)
+        
+    }
+    
+    func hudAddedTo(view:UIView,text:String,timeInterVal:TimeInterval,animated:Bool){
+        let hud = MBProgressHUD.showAdded(to: view, animated: animated)
+        hud?.mode = MBProgressHUDMode.indeterminate
+        hud?.labelText = text
+        hud?.yOffset = Float(ScreenHeight/4)
+        hud?.hide(animated, afterDelay:timeInterVal)
+    }
+    
+    func pregressHUDTo(view:UIView,animated:Bool) ->Void {
+        let hud = MBProgressHUD.showAdded(to: view, animated: animated)
+        hud?.mode = MBProgressHUDMode.indeterminate
+    }
+
 }

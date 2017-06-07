@@ -20,14 +20,32 @@ class CategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var tittle: UILabel!
     @IBOutlet weak var downloadBtn: UIButton!
     
+    
     @IBAction func downloadAction(_ sender: Any) {
         cellDelegate?.downloadBtnClicked(sender: sender)
     }
 
+    var chapter:QSChapter?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    func bind(model:QSChapter,index:Int){
+        if model.content == "" {
+            downloadBtn.isHidden = false
+        }else{
+            downloadBtn.isHidden = true
+        }
+        if model.curChapter == index {
+            tittle.textColor = UIColor.red
+        }
+        count.text = "\(model.curChapter)"
+    }
+    
+    override func prepareForReuse() {
+        tittle.textColor = UIColor.black
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

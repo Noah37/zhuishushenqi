@@ -56,7 +56,7 @@ class RankingViewCell: UITableViewCell {
     public lazy var accessoryImageView:UIButton = {
        let imageView = UIButton()
         imageView.frame = CGRect(x: self.bounds.width - 29, y: self.bounds.height/2 - 3.5, width: 14, height: 7)
-        imageView.setImage(UIImage(named: "IQButtonBarArrowDown"), for: .normal)
+        imageView.setImage(UIImage(named: "ranking_arrow_down"), for: .normal)
         imageView.setImage(UIImage(named: "IQButtonBarArrowUp"), for: .selected)
         imageView.isSelected = false
         imageView.addTarget(self, action: #selector(accessoryTouch(sender:)), for: .touchUpInside)

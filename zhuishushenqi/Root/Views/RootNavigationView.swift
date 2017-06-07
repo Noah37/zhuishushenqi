@@ -37,6 +37,9 @@ class RootNavigationView: UIView {
         delegate.navigationItem.rightBarButtonItem = rightBar
         let titleImg = UIImageView(image: UIImage(named: "zssq_image"))
         delegate.navigationItem.titleView = titleImg
+        
+        let base64String = UIImage(named:"nav_back_red")?.base64()
+        QSLog(base64String)
 
     }
 }

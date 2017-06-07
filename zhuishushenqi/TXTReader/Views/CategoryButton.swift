@@ -17,5 +17,4 @@ class CategoryButton: UIButton {
         self.titleLabel?.frame = CGRect(x: 0, y: 24, width: 30, height: 10)
         self.titleLabel?.textAlignment = .center
     }
-
 }

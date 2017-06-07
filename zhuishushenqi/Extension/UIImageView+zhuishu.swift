@@ -63,7 +63,6 @@ extension UIButton{
     func qs_setBookCoverWithUrlString(urlString:String){
         self.setImage(UIImage(named: "default_book_cover"), for: .normal)
         DispatchQueue.global().async {
-            
             var urlStr = urlString
             if urlStr.qs_subStr(to: 4) != "http"{
                 urlStr = urlStr.qs_subStr(from: 7)

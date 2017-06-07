@@ -72,6 +72,9 @@ extension Date{
             case 2:
                 days =  isLeapYear() ? 29:28
                 break
+            case 4,6,9,11:
+                days = 30
+                break
             default: break
         }
         return days

@@ -94,12 +94,6 @@ class CategoryController: BaseViewController,UITableViewDataSource,UITableViewDe
             cell.tittle.text = titles[indexPath.row].object(forKey: "title") as? String
         }
         
-        let localKey:String = "\(indexPath.row)\(self.resource?.link ?? "")"
-        if let _  = QSChapter.localModelWithKey(key: localKey)  {
-            cell.downloadBtn.isHidden = true
-        }else{
-            cell.downloadBtn.isHidden = false
-        }
         cell.tittle.textColor =  (selectedIndex == indexPath.row ? UIColor.green:UIColor.black)
         return cell
     }
@@ -141,9 +135,6 @@ class CategoryController: BaseViewController,UITableViewDataSource,UITableViewDe
             return;
         }
         let localKey:String = "\(index)\(self.resource?.link ?? "")"
-        if let _ = QSChapter.localModelWithKey(key: localKey) {
-            return
-        }
 
         let url = "\(CHAPTERURL)/\(titles[index].object(forKey: "link") ?? "")?k=19ec78553ec3a169&t=1476188085"
         Alamofire.request(url).responseJSON { (response) in
@@ -154,15 +145,15 @@ class CategoryController: BaseViewController,UITableViewDataSource,UITableViewDe
 //                    QSLog(chapterInfo?.body)
 //                    chapterInfo?.currentIndex = index
 //                    chapterInfo?.resource = self.resource
-                    let chapterInfo = QSChapter(JSON: chapter)
-                    chapterInfo?.link = self.titles[index]["link"] as? String ?? ""
-                    chapterInfo?.title = self.titles[index]["title"] as? String ?? ""
-                    chapterInfo?.content = chapter["body"] as? String ?? ""
-                    chapterInfo?.curChapter = index
-                    QSChapter.updateLocalModel(localModel: chapterInfo!, link: self.resource?.link ?? "")
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+//                    let chapterInfo = QSChapter(JSON: chapter)
+//                    chapterInfo?.link = self.titles[index]["link"] as? String ?? ""
+//                    chapterInfo?.title = self.titles[index]["title"] as? String ?? ""
+//                    chapterInfo?.content = chapter["body"] as? String ?? ""
+//                    chapterInfo?.curChapter = index
+//                    QSChapter.updateLocalModel(localModel: chapterInfo!, link: self.resource?.link ?? "")
+//                    DispatchQueue.main.async {
+//                        self.tableView.reloadData()
+//                    }
                 }
             }
         }

@@ -36,6 +36,7 @@ class QSThemeTopicPresenter: QSThemeTopicPresenterProtocol {
     
     func didSelectSeg(index: Int){
         view?.showActivityView()
+        view?.showThemeTopic(models: [])
         interactor.requestDetail(index: index)
     }
     

@@ -41,6 +41,10 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
     /// 是否左侧边栏处于关闭状态
     var isCloseLeftSide:Bool = true
     
+    /// 全屏手势密码开启
+    var fullScreenPanGestureEnable:Bool = false
+    var panGestureToleranceX:CGFloat = 10
+    
 
     var leftViewController:UIViewController?
     var rightViewController:UIViewController?
@@ -57,6 +61,8 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
     fileprivate var bounchesX:CGFloat = 20
     /// 最小open宽度
     fileprivate var minimumSwipeX:CGFloat = 20
+    
+    fileprivate var showSideMenu:Bool = true
 
     fileprivate lazy var panGes:UIPanGestureRecognizer =  {
         let pan:UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.panAction(_:)))
@@ -98,8 +104,18 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
     @objc fileprivate func panAction(_ pan:UIPanGestureRecognizer){
         let translation:CGPoint = pan.translation(in: self.contentView)
         let velocity:CGPoint = pan.velocity(in: self.contentView)
-
+        let location = pan.location(in: self.contentView)
+        
         if pan.state == UIGestureRecognizerState.began {
+            // 是否开启全屏手势识别，默认关闭
+            if !fullScreenPanGestureEnable {
+                if location.x > panGestureToleranceX && location.x < (ScreenWidth - panGestureToleranceX) {
+                    showSideMenu = false
+                }else {
+                    showSideMenu = true
+                }
+            }
+
             if velocity.x > 0  && isCloseLeftSide{
                 horizonalXSide = .left
             }else if velocity.x < 0 && isCloseRightSide {
@@ -112,6 +128,10 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
             }
             
             updateContentViewShadow()
+        }
+        
+        if !showSideMenu {
+            return
         }
         
         if pan.state == UIGestureRecognizerState.ended {

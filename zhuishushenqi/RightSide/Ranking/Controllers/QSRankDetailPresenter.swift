@@ -34,6 +34,7 @@ class QSRankDetailPresenter: QSRankDetailPresenterProtocol {
         }
         selectedIndex = index
         view?.showActivityView()
+        view?.showEmpty()
         interactor.fetchRanks(novel: self.rank, index: selectedIndex)
     }
     

@@ -14,48 +14,15 @@ enum CommentType {
 }
 
 class BookCommentViewCell: UITableViewCell {
-//    @IBOutlet weak var readerIcon: UIImageView!
-//    @IBOutlet weak var floor: UILabel!
-//    @IBOutlet weak var readerName: UILabel!
-//    @IBOutlet weak var createTime: UILabel!
-//    @IBOutlet weak var content: UILabel!
-//    @IBOutlet weak var reply: UILabel!
-//    @IBOutlet weak var floorWidth: NSLayoutConstraint!
-//    @IBOutlet weak var contentHeight: NSLayoutConstraint!
-    
-    var readerIcon: UIImageView = {
-        let readerIcon = UIImageView()
-        return readerIcon
-    }()
-    var floor: UILabel = {
-        let floor = UILabel()
-        floor.font = UIFont.systemFont(ofSize: 12)
-        return floor
-    }()
-    var readerName: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(red: 0.78, green: 0.55, blue: 0.19, alpha: 1.0)
-        return label
-    }()
-    var createTime: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 11)
-        label.textAlignment = .right
-        return label
-    }()
-    var content: YYLabel = {
-        let label = YYLabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.numberOfLines = 0
-        return label
-    }()
-    var reply: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        return label
-    }()
-    
+//<<<<<<< HEAD
+    @IBOutlet weak var readerIcon: UIImageView!
+    @IBOutlet weak var floor: UILabel!
+    @IBOutlet weak var readerName: UILabel!
+    @IBOutlet weak var createTime: UILabel!
+    @IBOutlet weak var content: UILabel!
+    @IBOutlet weak var reply: UILabel!
+    @IBOutlet weak var floorWidth: NSLayoutConstraint!
+
     var contentPane:UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
@@ -98,6 +65,7 @@ class BookCommentViewCell: UITableViewCell {
         self.createTime.snp.makeConstraints { (make) in
             make.right.equalTo(self.contentView).offset(-15)
             make.top.equalTo(self.floor.snp.top)
+            make.width.equalTo(60)
         }
         self.floor.snp.makeConstraints { (make) in
             make.top.equalTo(self.readerIcon)
@@ -106,8 +74,7 @@ class BookCommentViewCell: UITableViewCell {
         self.readerName.snp.makeConstraints { (make) in
             make.left.equalTo(self.floor.snp.right).offset(10)
             make.top.equalTo(self.floor.snp.top)
-            make.height.equalTo(self.floor.snp.height)
-            make.right.equalTo(self.createTime.snp.left).offset(-10)
+            make.right.equalTo(self.createTime.snp.left)
         }
         
         self.reply.snp.makeConstraints { (make) in
@@ -150,21 +117,13 @@ class BookCommentViewCell: UITableViewCell {
             reply.isHidden = false
             reply.text = "回复\(model.replyTo?.author.nickname ?? "") (\(model.replyTo?.floor ?? 0)楼)"
         }else{
-            reply.isHidden = true
+            reply.text = ""
         }
+        floorWidth.constant = model.floorWidth
         content.text = "\(model.content)"
         let urlString = "\(IMAGE_BASEURL)\(self.model?.author.avatar ?? "qqqqqqqq")"
         self.readerIcon.qs_setAvatarWithURLString(urlString: urlString)
         
-    }
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupSubviews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func awakeFromNib() {

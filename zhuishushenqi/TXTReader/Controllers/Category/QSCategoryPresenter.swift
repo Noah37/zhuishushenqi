@@ -25,15 +25,23 @@ class QSCategoryPresenter: QSCategoryPresenterProtocol {
         self.router = router
     }
     
-    func viewDidLoad(id: String) {
+    func viewDidLoad() {
+        interactor.showDetail()
+        interactor.show()
         view?.showActivityView()
     }
     
 }
 
 extension QSCategoryPresenter:QSCategoryInteractorOutputProtocol{
-    func fetchBookSuccess(bookDetail:BookDetail,ranks:[QSHotComment]){
-        self.ranks = ranks
+    func show(titles:[String]){
+        view?.show(titles: titles)
+    }
+    
+    func showDetail(book: BookDetail) {
+        view?.showDetail(book: book)
+//    func fetchBookSuccess(bookDetail:BookDetail,ranks:[QSHotComment]){
+//        self.ranks = ranks
         
         view?.hideActivityView()
     }

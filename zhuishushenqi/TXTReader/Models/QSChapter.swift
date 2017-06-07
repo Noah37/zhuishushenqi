@@ -9,38 +9,49 @@
 import UIKit
 import ObjectMapper
 
-
-class QSChapter: Mappable ,NSCoding{
+class QSChapter: NSObject ,NSCoding{
+//=======
+//class QSChapter: Mappable ,NSCoding{
+//>>>>>>> 876a9ee6afa162f4fb71eff5fa02f2e0dbe52ae2
     
     var id:String = "" //章节id,用于查询章节信息，vip来源才有，此处忽略
     var link:String = "" //非vip来源没有id，只有link
     var title:String = ""// 章节标题
     var attribute:NSDictionary = [NSFontAttributeName:UIFont.systemFont(ofSize: 20)] {
         didSet{
-            
+            //设置约束，清空pages跟ranges信息
+            self.pages = []
+            self.ranges = []
         }
     }
 
-    //章节主要内容
-    var content:String = "" {
-        didSet{
-            if let rangesTmp = ranges {
-                self.setPage(ranges: rangesTmp)
-            }
-        }
-    }
-    var pages:[QSPage] = []//所有页面信息
+    //章节主要内容,下载多章节时，内存会爆掉，所以只在获取章节显示时才去计算
+    var content:String = ""
+    //所有页面信息
+    var pages:[QSPage]?
+//        {
+//        get{
+//            let size = CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40)
+//            self.ranges = self.pageWithAttributes(attrubutes: attribute, constrainedToSize: size, string: self.content) 
+//            return getPage(ranges: ranges)
+//        }
+//        set{
+//            self.pages = newValue
+//        }
+//    }
     //章节划分，根据attribute划分为很多页，每页的范围只在QSBook中使用
-    var ranges:[String]? = [] {
-        didSet{
-            if let rangesTmp = ranges {
-                self.setPage(ranges: rangesTmp)
-            }
-        }
-    }
+    var ranges:[String] = []
+
     var curChapter:Int = 0
     
-    private func setPage(ranges:[String]){
+    func getPages()->[QSPage]{
+        if let pages = self.pages {
+            if pages.count > 0{
+                return pages
+            }
+        }
+        let size = CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40)
+        self.ranges = self.pageWithAttributes(attrubutes: attribute, constrainedToSize: size, string: self.content)
         var pages:[QSPage] = []
         for item in 0..<ranges.count {
             let range:NSRange =  NSRangeFromString(ranges[item])
@@ -53,6 +64,7 @@ class QSChapter: Mappable ,NSCoding{
             pages.append(page)
         }
         self.pages = pages
+        return pages
     }
     
     /// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
@@ -70,15 +82,15 @@ class QSChapter: Mappable ,NSCoding{
 
     
     required init?(coder aDecoder: NSCoder) {
+        super.init()
         self.id = aDecoder.decodeObject(forKey: "id") as! String
         self.link = aDecoder.decodeObject(forKey: "link") as! String
         self.title = aDecoder.decodeObject(forKey: "title") as! String
         self.attribute = aDecoder.decodeObject(forKey: "attribute") as! NSDictionary
         self.content = aDecoder.decodeObject(forKey: "content") as! String
-        self.pages = aDecoder.decodeObject(forKey: "pages") as! [QSPage]
-        self.ranges = aDecoder.decodeObject(forKey: "ranges") as! [String]?
-        self.curChapter = aDecoder.decodeObject(forKey: "curChapter") as! Int
-
+        self.pages = aDecoder.decodeObject(forKey: "pages") as? [QSPage]
+        self.ranges = aDecoder.decodeObject(forKey: "ranges") as! [String]
+        self.curChapter = aDecoder.decodeInteger(forKey: "curChapter")
     }
     
     func encode(with aCoder: NSCoder) {
@@ -93,33 +105,11 @@ class QSChapter: Mappable ,NSCoding{
 
     }
     
-    init() {
-        
+    override init() {
     }
     
     required init?(map: Map) {
         
-    }
-    
-    //数据持久化，存储到document目录,以章节序号 + id的md5为key
-    class func updateLocalModel(localModel:QSChapter,link:String) -> Void {
-        let key = "QSTXTReaderKeyAt\(localModel.curChapter)\(link)".md5()
-        let jsonString = localModel.toJSON()
-        let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(key )")
-        NSKeyedArchiver.archiveRootObject(jsonString, toFile: filePath!)
-    }
-    
-    class func localModelWithKey(key:String) ->QSChapter?{
-        let localKey = "QSTXTReaderKeyAt\(key)".md5()
-        let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(localKey)")
-        var model:QSChapter?
-        var file:[String:Any]?
-        file = NSKeyedUnarchiver.unarchiveObject(withFile: filePath!) as? [String : Any]
-        if file != nil {
-            model = QSChapter(JSON: file!)
-            QSLog(model?.content)
-        }
-        return model
     }
     
     //去掉章节开头跟结尾的多余的空格，防止产生空白页
@@ -127,5 +117,32 @@ class QSChapter: Mappable ,NSCoding{
         var spaceStr:String = str
         spaceStr = spaceStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         return spaceStr
+    }
+    
+    //耗时操作，只在显示章节时才去计算,计算完成将会缓存，在改变约束，或者换源时重置
+    private func pageWithAttributes(attrubutes:NSDictionary,constrainedToSize size:CGSize,string:String)->[String]{
+        var resultRange:[String] = []
+        let rect = CGRect(x:0,y: 0,width: size.width,height: size.height)
+        let attributedString = NSAttributedString(string:string , attributes: attrubutes as? [String : AnyObject])
+        let date = NSDate()
+        var rangeIndex = 0
+        repeat{
+            let length = min(750, attributedString.length - rangeIndex)
+            let childString = attributedString.attributedSubstring(from: NSMakeRange(rangeIndex, length))
+            let childFramesetter = CTFramesetterCreateWithAttributedString(childString)
+            let bezierPath = UIBezierPath(rect: rect)
+            let frame = CTFramesetterCreateFrame(childFramesetter, CFRangeMake(0, 0), bezierPath.cgPath, nil)
+            let range = CTFrameGetVisibleStringRange(frame)
+            let r:NSRange = NSMakeRange(rangeIndex, range.length)
+            if r.length > 0 {
+                resultRange.append(NSStringFromRange(r))
+            }
+            rangeIndex += r.length
+            
+        }while (rangeIndex < attributedString.length  && Int(attributedString.length) > 0 )
+        let millionSecond = NSDate().timeIntervalSince(date as Date)
+        QSLog("耗时：\(millionSecond)")
+        
+        return resultRange
     }
 }

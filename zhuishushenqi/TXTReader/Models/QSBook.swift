@@ -8,13 +8,10 @@
 
 import UIKit
 
-class QSBook: NSObject {
-    //可选，下载过则存在，未下载过置空
-    var chapters:[QSChapter]?{
+class QSBook: NSObject,NSCoding {
+    var chapters:[QSChapter]? {
         didSet{
-            if let chaptersTmp = chapters {
-                self.setAttribute(chapters: chaptersTmp)
-            }
+            //do nothing
         }
     }
     var totalChapters:Int = 0
@@ -25,50 +22,56 @@ class QSBook: NSObject {
     //约束，这个约束是全局的，只要设置有变化，所有的书籍都随之变化
     var attribute:NSDictionary = [NSFontAttributeName:UIFont.systemFont(ofSize: 20)] {
         didSet{
-            if let chaptersTmp = self.chapters {
-                self.setAttribute(chapters: chaptersTmp)
+            if let chapterssss = self.chapters {
+                self.clear(chapters: chapterssss)
             }
         }
     }
     
-    private func setAttribute(chapters:[QSChapter]){
-        let font:UIFont = attribute[NSFontAttributeName] as! UIFont
-        let attributes = getAttributes(with: 10, font: font)
-        for item in 0..<chapters.count {
-            let chapter = chapters[item]
-            chapter.attribute = attributes
-            if  chapter.content == ""{
-                continue
-            }
-            let size = CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40)
-            chapter.ranges = self.pageWithAttributes(attrubutes: attributes, constrainedToSize: size, string: chapter.content) as? [String]
+    func clear(chapters:[QSChapter]){
+        for item in chapters {
+            item.pages = []
+            item.attribute = self.attribute
+            item.ranges = []
         }
     }
     
-    private func pageWithAttributes(attrubutes:NSDictionary,constrainedToSize size:CGSize,string:String)->NSArray{
-        let resultRange = NSMutableArray(capacity: 5)
-        let rect = CGRect(x:0,y: 0,width: size.width,height: size.height)
-        let attributedString = NSAttributedString(string:string , attributes: attrubutes as? [String : AnyObject])
-        let date = NSDate()
-        var rangeIndex = 0
-        repeat{
-            let length = min(750, attributedString.length - rangeIndex)
-            let childString = attributedString.attributedSubstring(from: NSMakeRange(rangeIndex, length))
-            let childFramesetter = CTFramesetterCreateWithAttributedString(childString)
-            let bezierPath = UIBezierPath(rect: rect)
-            let frame = CTFramesetterCreateFrame(childFramesetter, CFRangeMake(0, 0), bezierPath.cgPath, nil)
-            let range = CTFrameGetVisibleStringRange(frame)
-            let r:NSRange = NSMakeRange(rangeIndex, range.length)
-            if r.length > 0 {
-                resultRange.add(NSStringFromRange(r))
-            }
-            rangeIndex += r.length
-            
-        }while (rangeIndex < attributedString.length  && Int(attributedString.length) > 0 )
-        let millionSecond = NSDate().timeIntervalSince(date as Date)
-        QSLog("耗时：\(millionSecond)")
+    required init?(coder aDecoder: NSCoder) {
+        self.chapters = aDecoder.decodeObject(forKey: "chapters") as? [QSChapter]
+        self.totalChapters = aDecoder.decodeInteger(forKey: "totalChapters")
+        self.bookID = aDecoder.decodeObject(forKey: "bookID") as? String ?? ""
+        self.bookName = aDecoder.decodeObject(forKey: "bookName") as? String ?? ""
+        self.resources = aDecoder.decodeObject(forKey: "resources") as? [ResourceModel]
+        self.curRes = aDecoder.decodeInteger(forKey: "curRes")
+        self.attribute = aDecoder.decodeObject(forKey: "attribute") as? NSDictionary ?? [NSFontAttributeName:UIFont.systemFont(ofSize: 20)]
+    }
+    
+    override init() {
         
-        return resultRange
     }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(chapters, forKey: "chapters")
+        aCoder.encode(totalChapters, forKey: "totalChapters")
+        aCoder.encode(bookID, forKey: "bookID")
+        aCoder.encode(bookName, forKey: "bookName")
+        aCoder.encode(resources, forKey: "resources")
+        aCoder.encode(curRes, forKey: "curRes")
+        aCoder.encode(attribute, forKey: "attribute")
+    }
+    
+//    private func setChapter(chapters:[QSChapter]){
+//        let font:UIFont = self.attribute[NSFontAttributeName] as! UIFont
+//        let attributes = getAttributes(with: 10, font: font)
+//        for item in 0..<chapters.count {
+//            let chapter = chapters[item]
+//            chapter.attribute = attributes
+//            if  chapter.content == ""{
+//                continue
+//            }
+//            let size = CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40)
+//            chapter.ranges = self.pageWithAttributes(attrubutes: attributes, constrainedToSize: size, string: chapter.content) as? [String]
+//        }
+//    }
     
 }

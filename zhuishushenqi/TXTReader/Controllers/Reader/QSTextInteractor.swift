@@ -17,19 +17,25 @@ class QSTextInteractor: QSTextInteractorProtocol {
     var chapters:[NSDictionary]?
     var bookDetail:BookDetail!
     var selectedIndex:Int = 1 //当前选择的源
+    var queue:OperationQueue?
+    var semaphore:DispatchSemaphore!
+    var now:Int = 0
+    var total = 0
+
     
     func commonInit(model:BookDetail){
         self.bookDetail = model
         self.resources  = self.bookDetail.resources
         self.chapters = self.bookDetail.chapters
         self.selectedIndex = self.bookDetail.sourceIndex
-        self.book = book(bookDetail: self.bookDetail, chapters: self.chapters, resources: self.resources)
+        if let book = model.book {
+            self.book = book
+        }else{
+            self.book = book(bookDetail: self.bookDetail, chapters: self.chapters, resources: self.resources)
+        }
         
         if let book = self.book {
             self.output.showBook(book: book)
-        }
-        if let chapter = bookDetail.chapters?.count {
-            requestChapter(atIndex: chapter)
         }
     }
     
@@ -89,7 +95,9 @@ class QSTextInteractor: QSTextInteractorProtocol {
             self.output.fetchChapterFailed()
             return;
         }
-        let url = "\(CHAPTERURL)/\(chapters?[chapterIndex].object(forKey: "link") ?? "")?k=22870c026d978c75&t=1489933049"
+        var link:NSString = "\(chapters?[chapterIndex].object(forKey: "link") ?? "")" as NSString
+        link = link.urlEncode() as NSString
+        let url = "\(CHAPTERURL)/\(link)?k=22870c026d978c75&t=1489933049"
         QSNetwork.request(url) { (response) in
             if let json = response.json as? Dictionary<String, Any> {
                 QSLog("JSON:\(json)")
@@ -105,29 +113,18 @@ class QSTextInteractor: QSTextInteractorProtocol {
     }
     
     //获取新的页面信息
-    func getPage(chapter:Int,pageIndex:Int) -> QSChapter?{
-        var page:QSChapter?
-        //获取本地 model，存在即返回,使用本章节序号 + 小说id的md5
-        let localKey:String = "\(chapter)\(self.book?.resources?[selectedIndex].link ?? "")"
-        if let model = QSChapter.localModelWithKey(key: localKey) {
-            //判断向前翻页还是向后翻页
-            page = model
-            return page
+    func getChapter(chapterIndex:Int,pageIndex:Int) -> QSChapter?{
+        var chapter:QSChapter?
+        if (self.book?.chapters?.count ?? 0) > chapterIndex {
+            let chaModel = self.book?.chapters?[chapterIndex]
+            if chaModel?.content != "" {
+                chapter = chaModel
+                return chapter
+            }
         }
         self.output.showActivity()
-        requestChapter(atIndex: chapter)
-        return page
-    }
-    
-    func getLocalPage(chapter:Int,pageIndex:Int)->QSChapter?{
-        var page:QSChapter?
-        //获取本地 model，存在即返回,使用本章节序号 + 小说id的md5
-        let localKey:String = "\(chapter)\(self.book?.resources?[selectedIndex].link ?? "")"
-        if let model = QSChapter.localModelWithKey(key: localKey) {
-            //判断向前翻页还是向后翻页
-            page = model
-        }
-        return page
+        requestChapter(atIndex: chapterIndex)
+        return chapter
     }
     
     func book(bookDetail:BookDetail?,chapters:[NSDictionary]?,resources:[ResourceModel]?)->QSBook{//更换书籍来源则需要更新book.chapters信息,请求某一章节成功后也需要刷新chapters的content及其他信息
@@ -156,7 +153,8 @@ class QSTextInteractor: QSTextInteractorProtocol {
         self.book = book
         return book
     }
-    
+
+    @discardableResult
     func setChapters(chapterParam:NSDictionary?,index:Int,chapters:[QSChapter])->[QSChapter]{
         var chaptersTmp:[QSChapter] = []
         for item in 0..<chapters.count {
@@ -164,17 +162,98 @@ class QSTextInteractor: QSTextInteractorProtocol {
             if item == index {
                 if let chap = chapterParam {
                     chapter.content = chap["body"] as? String ?? ""
-                    updateLocal(model:chapter)
+                    self.book?.chapters?[index] = chapter
+                    update()
                 }
             }
             chaptersTmp.append(chapter)
         }
         return chapters
     }
-    
-    func updateLocal(model:QSChapter){
-        QSChapter.updateLocalModel(localModel: model, link:self.resources?[selectedIndex].link ?? "")
-    }
 
+    func update(){
+        self.bookDetail.book = self.book
+//        updateBookShelf(bookDetail: self.bookDetail, type: .update, refresh: false)
+    }
+    
+    func cacheAllChapter(){
+        semaphore = DispatchSemaphore(value: 0)
+        if let chapters = bookDetail.book?.chapters {
+            total = chapters.count
+            DispatchQueue.global().async {
+                var index = 0
+                var count = 0
+                var exist:Bool = false
+                self.output.showProgress(dict: ["desc":"正在缓存...","total":self.total,"now":"0"])
+                for chapter in chapters {
+                    if chapter.content == "" {
+                        exist = true
+                        count += 1
+                        self.fetchChapter(index: index)
+                        if count >= 5{
+                            let timeout:Double? = 30.00
+                            let timeouts = timeout.flatMap { DispatchTime.now() + $0 }
+                                ?? DispatchTime.distantFuture
+                            _ = self.semaphore.wait(timeout: timeouts)
+                            count -= 1
+                        }
+                    }else{
+                        self.total -= 1
+                    }
+                    index += 1
+                }
+                if !exist {
+                    self.output.showProgress(dict: ["desc":"缓存完成"])
+                }
+            }
+        }
+    }
+    
+    func fetchChapter(index:Int){
+        if index >= (chapters?.count ?? 0) {
+            return
+        }
+        var link:NSString = "\(chapters?[index].object(forKey: "link") ?? "")" as NSString
+        link = link.urlEncode() as NSString
+        let url = "\(CHAPTERURL)/\(link)?k=22870c026d978c75&t=1489933049"
+        QSNetwork.request(url) { (response) in
+            DispatchQueue.global().async {
+                if let json = response.json as? Dictionary<String, Any> {
+                    QSLog("JSON:\(json)")
+                    if let chapter = json["chapter"] as?  Dictionary<String, Any> {
+                        QSLog("下载完成第\(index)章节")
+                        if let chapters = self.bookDetail.book?.chapters {
+                            self.updateChapter(chapterParam: chapter as NSDictionary?, index: index, chapters: chapters)
+                            self.now += 1
+                            self.output.showProgress(dict: ["desc":"正在缓存...","total":self.total,"now":self.now])
+                            self.semaphore.signal()
+                        }
+                        if let book = self.book {
+                            self.output.downloadFinish(book: book)
+                        }
+                    } else {
+                        QSLog("下载失败第\(index)章节")
+                        self.semaphore.signal()
+                        self.output.fetchChapterFailed()
+                    }
+                }else{
+                    QSLog("下载失败第\(index)章节")
+                    self.semaphore.signal()
+                    self.output.fetchChapterFailed()
+                }
+            }
+        }
+    }
+    
+    func updateChapter(chapterParam:NSDictionary?,index:Int,chapters:[QSChapter]){
+        DispatchQueue.global().async {
+            let chapter = chapters[index]
+            if let chap = chapterParam {
+                chapter.content = chap["body"] as? String ?? ""
+                self.book?.chapters?[index] = chapter
+            }
+            self.bookDetail.book = self.book
+        }
+    }
 }
 

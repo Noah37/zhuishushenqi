@@ -34,6 +34,8 @@ class BookDetail: NSObject,NSCoding {
     var page:Int = 0 //最后阅读的页数
     var resources:[ResourceModel]?
     var chapters:[NSDictionary]?
+    var isUpdated:Bool = false //是否存在更新
+    var book:QSBook?
     
     
     //更新信息
@@ -68,6 +70,8 @@ class BookDetail: NSObject,NSCoding {
         self.chapters = aDecoder.decodeObject(forKey: "chapters") as? [NSDictionary]
         self.copyright = aDecoder.decodeObject(forKey: "copyright") as? String ?? ""
         self.postCount = aDecoder.decodeInteger(forKey: "postCount")
+        self.isUpdated = aDecoder.decodeBool(forKey: "isUpdated")
+        self.book = aDecoder.decodeObject(forKey: "book") as? QSBook
     }
     
     override init() {
@@ -99,5 +103,7 @@ class BookDetail: NSObject,NSCoding {
         aCoder.encode(self.chapters, forKey: "chapters")
         aCoder.encode(self.copyright, forKey: "copyright")
         aCoder.encode(self.postCount, forKey: "postCount")
+        aCoder.encode(self.isUpdated, forKey: "isUpdated")
+        aCoder.encode(self.book, forKey: "book")
     }
 }

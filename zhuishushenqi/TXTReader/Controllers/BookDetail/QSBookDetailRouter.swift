@@ -30,16 +30,13 @@ class QSBookDetailRouter: QSBookDetailWireframeProtocol {
     }
     
     func presentReading(model:[ResourceModel],booDetail:BookDetail){
-//        let txtVC = TXTReaderViewController()
-//        txtVC.id = id
-//        txtVC.resources = model
-        viewController?.present(QSTextRouter.createModule(bookDetail:booDetail), animated: true, completion: nil)
+        viewController?.present(QSTextRouter.createModule(bookDetail:booDetail,callback: {(book:BookDetail) in
+        
+        }), animated: true, completion: nil)
     }
     
-    func presentComment(id:String){
-        let bookCommentVC = BookCommentViewController()
-        bookCommentVC.id = id
-        viewController?.navigationController?.pushViewController(bookCommentVC, animated: true)
+    func presentComment(model:BookComment){
+        viewController?.navigationController?.pushViewController(QSBookCommentRouter.createModule(model: model), animated: true)
     }
     
     func presentTopic(model:QSBookList){

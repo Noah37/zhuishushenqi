@@ -14,10 +14,19 @@ import QSNetwork
 class QSCategoryInteractor: QSCategoryInteractorProtocol {
 
     var output: QSCategoryInteractorOutputProtocol!
-    
     var bookDetail:BookDetail!
-    var hotComment:[QSHotComment] = []
     
+    func show(){
+        if let chapters = bookDetail.book?.chapters {
+            var titles:[String] = []
+            for item in chapters {
+                titles.append(item.title)
+            }
+            self.output.show(titles: titles)
+        }
+    }
     
-
+    func showDetail() {
+        self.output.showDetail(book: bookDetail)
+    }
 }

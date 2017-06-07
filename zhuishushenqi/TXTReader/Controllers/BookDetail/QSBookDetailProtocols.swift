@@ -14,7 +14,8 @@ import UIKit
 //MARK: Wireframe -
 protocol QSBookDetailWireframeProtocol: class {
     func presentReading(model:[ResourceModel],booDetail:BookDetail)
-    func presentComment(id:String)
+    func presentComment(model:BookComment)
+//    func presentComment(id:String)
     func presentTopic(model:QSBookList)
     func presentSelf(model:QSRecomment)
     func presentCommunity(model:BookDetail)

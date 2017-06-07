@@ -30,6 +30,7 @@ class QSCategoryDetailPresenter: QSCategoryDetailPresenterProtocol {
     
     func didSelectAt(index: Int) {
         view?.showActivityView()
+        view?.showData(books: [])
         interactor.request(index: index)
     }
     

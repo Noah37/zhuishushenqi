@@ -14,10 +14,9 @@ class QSCategoryRouter: QSCategoryWireframeProtocol {
     
     weak var viewController: UIViewController?
     
-    static func createModule(id:String) -> UIViewController {
+    static func createModule(book:BookDetail) -> UIViewController {
         // Change to get view from storyboard if not using progammatic UI
         let view = QSCategoryReaderViewController(nibName: nil, bundle: nil)
-        view.id = id
         let interactor = QSCategoryInteractor()
         let router = QSCategoryRouter()
         let presenter = QSCategoryPresenter(interface: view, interactor: interactor, router: router)
@@ -25,15 +24,15 @@ class QSCategoryRouter: QSCategoryWireframeProtocol {
         view.presenter = presenter
         interactor.output = presenter
         router.viewController = view
+        interactor.bookDetail = book
         
         return view
     }
     
     func presentReading(model:[ResourceModel],booDetail:BookDetail){
-//        let txtVC = TXTReaderViewController()
-//        txtVC.id = id
-//        txtVC.resources = model
-        viewController?.present(QSTextRouter.createModule(bookDetail:booDetail), animated: true, completion: nil)
+        viewController?.present(QSTextRouter.createModule(bookDetail:booDetail,callback: {(book:BookDetail) in
+            
+        }), animated: true, completion: nil)
     }
     
     func presentComment(id:String){

@@ -7,6 +7,11 @@
 
 **采用Swift语言，仿追书神器做的，主要是练习阅读器的一些技术，包括仿真阅读等。不断更新中......**
 
+<<<<<<< HEAD
+**20170607：本次功能变更：增加书架删除，缓存，修复一些缺陷**
+----
+=======
+>>>>>>> 876a9ee6afa162f4fb71eff5fa02f2e0dbe52ae2
 **仅供学习交流，请勿用于商业用途**
 
 ## Requirements
@@ -24,7 +29,16 @@ Main development of TXTReader olny support Swift 3.0+.
 
 ###效果图如下：
 
+<<<<<<< HEAD
+![zhuishushenqi](zhuishushenqi.png)
+![zhuishenqiing](qs_bookshelf.png)
+![zhuishenqiimg](qs_reader.png)
+![zhuishenqiimg](qs_readerMain.png)
+![zhuishenqiimg](qs_changeSource.png)
+
+=======
 <img src="qs_reader.png" width="20%" height="20%" /><img src="qs_readerMain.png" width="20%" height="20%" /><img src="qs_changeSource.png" width="20%" height="20%" />
+>>>>>>> 876a9ee6afa162f4fb71eff5fa02f2e0dbe52ae2
 
 
 ## Contact

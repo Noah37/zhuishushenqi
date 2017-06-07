@@ -17,5 +17,7 @@
 #import "NSDate+Extension.h"
 #import "M80AttributedLabel.h"
 #import "YYLabel.h"
+#import "NSString+Encode.h"
+#import "MBProgressHUD.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */

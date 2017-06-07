@@ -13,8 +13,7 @@ import UIKit
 protocol QSTextWireframeProtocol: class {
     weak var viewController: UIViewController? { get set }
     func presentDetails(_ novel:QSRankModel)
-    
-    static func createModule(bookDetail:BookDetail) -> UIViewController
+    func presentCategory(book:BookDetail)
 }
 
 //MARK: Presenter -
@@ -25,8 +24,9 @@ protocol QSTextPresenterProtocol: class {
     func viewDidLoad(bookDetail:BookDetail)
     func didClickContent()
     func didClickChangeSource()
-    func didClickCategory()
+    func didClickCategory(book:BookDetail)
     func didClickBack()
+    func didClickCache()
     func requestChapter(index:Int)
     func requestAllChapter(index:Int)
 }
@@ -41,6 +41,9 @@ protocol QSTextInteractorOutputProtocol: class {
     func fetchAllResourceFailed()
     func showActivity()
     func showBook(book:QSBook)
+    func downloadFinish(book:QSBook)
+    func showProgress(dict:[String:Any])
+
 }
 
 //MARK: Interactor -
@@ -50,10 +53,10 @@ protocol QSTextInteractorProtocol: class {
     func requestAllResource(bookDetail:BookDetail)
     func requestAllChapters(selectedIndex:Int)
     func requestChapter(atIndex chapterIndex:Int)
-    func getPage(chapter:Int,pageIndex:Int) -> QSChapter?
-    func getLocalPage(chapter:Int,pageIndex:Int)->QSChapter?
+    func getChapter(chapterIndex:Int,pageIndex:Int) -> QSChapter?
     func book(bookDetail:BookDetail?,chapters:[NSDictionary]?,resources:[ResourceModel]?)->QSBook//更换书籍来源则需要更新book.chapters信息,请求某一章节成功后也需要刷新chapters的content及其他信息
     func setChapters(chapterParam:NSDictionary?,index:Int,chapters:[QSChapter])->[QSChapter]
+    func cacheAllChapter()
 }
 
 //MARK: View -
@@ -63,7 +66,8 @@ protocol QSTextViewProtocol: IndicatableView {
     func showResources(resources:[ResourceModel])
     func showAllChapter(chapters:[NSDictionary])
     func showChapter(chapter:Dictionary<String, Any>,index:Int)
-    func showLocalChapter()
     func showEmpty()
+    func downloadFinish(book:QSBook)
+    func showProgress(dict:[String:Any])
 }
 

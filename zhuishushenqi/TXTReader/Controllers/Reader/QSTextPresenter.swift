@@ -23,12 +23,13 @@ class QSTextPresenter: QSTextPresenterProtocol {
     }
     
     func viewDidLoad(bookDetail:BookDetail){
-        if (bookDetail.chapters?.count ?? 0) == 0{
+        if (bookDetail.chapters?.count ?? 0) == 0 || bookDetail.isUpdated{
+//            bookDetail.isUpdated = false
+            view?.showActivityView()
             interactor.requestAllResource(bookDetail:bookDetail)
         }else{
             interactor.commonInit(model: bookDetail)
         }
-//        view?.showActivityView()
     }
     
     func didClickContent(){
@@ -38,9 +39,13 @@ class QSTextPresenter: QSTextPresenterProtocol {
     func didClickChangeSource(){
         
     }
+
+    func didClickCache(){
+        interactor.cacheAllChapter()
+    }
     
-    func didClickCategory(){
-        
+    func didClickCategory(book:BookDetail){
+        router.presentCategory(book: book)
     }
     
     func didClickBack(){
@@ -66,7 +71,6 @@ extension QSTextPresenter:QSTextInteractorOutputProtocol{
     
     func fetchAllChaptersFailed() {
         view?.hideActivityView()
-        view?.showLocalChapter()
     }
     
     func showBook(book:QSBook){
@@ -80,7 +84,6 @@ extension QSTextPresenter:QSTextInteractorOutputProtocol{
     
     func fetchChapterFailed(){
         view?.hideActivityView()
-        view?.showLocalChapter()
     }
     
     func fetchAllResourceSuccess(resource: [ResourceModel]) {
@@ -90,10 +93,17 @@ extension QSTextPresenter:QSTextInteractorOutputProtocol{
     
     func fetchAllResourceFailed() {
         view?.hideActivityView()
-        view?.showLocalChapter()
     }
     
     func showActivity() {
         view?.showActivityView()
+    }
+    
+    func downloadFinish(book: QSBook) {
+        view?.downloadFinish(book: book)
+    }
+    
+    func showProgress(dict: [String : Any]) {
+        view?.showProgress(dict: dict)
     }
 }

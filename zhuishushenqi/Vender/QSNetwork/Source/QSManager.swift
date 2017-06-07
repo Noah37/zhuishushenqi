@@ -228,6 +228,9 @@ public class QSManager:NSObject{
             if let complete = completionHandler {
                 DispatchQueue.main.async {
                     complete(result)
+                    self.session?.invalidateAndCancel()
+                    self.session = nil
+                    self.operationQueue = nil
                 }
             }
             if isSyn {
@@ -237,7 +240,7 @@ public class QSManager:NSObject{
         }
         configurations[task.taskIdentifier] = config
         task.resume()
-        
+
         if isSyn {
             let timeout:Double? = 30.00
             let timeouts = timeout.flatMap { DispatchTime.now() + $0 }
@@ -307,6 +310,10 @@ public class QSManager:NSObject{
             urlString.removeSubrange(rangeTail)
         }
         return urlString
+    }
+    
+    deinit {
+        self.operationQueue = nil
     }
     
 }

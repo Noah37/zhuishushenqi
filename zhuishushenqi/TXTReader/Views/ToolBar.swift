@@ -17,6 +17,7 @@ protocol ToolBarDelegate{
     func readBg(type:ReadeeBgType)
     func fontChange(size:Int)
     func brightnessChange(value:CGFloat)
+    func cacheAll()
 }
 
 class ToolBar: UIView {
@@ -40,6 +41,7 @@ class ToolBar: UIView {
             titleLabel.text = self.title
         }
     }
+    var progressView:ProgressView!
     override init(frame: CGRect) {
         super.init(frame: frame)
         fontSize = getFontSize()
@@ -107,6 +109,12 @@ class ToolBar: UIView {
         let green = button(with: UIImage(named:"background_green"), selectedImage: UIImage(named:"background_green_selected"), title: nil, frame: CGRect(x: 150, y: 115, width: 60, height: 60), selector: #selector(greenAction(btn:)), font: nil)
         greenBtn = green
         let senior = button(with: UIImage(named:"reading_more_setting"), selectedImage: nil, title: "高级设置", frame: CGRect(x: 205, y: 130, width: 115, height: 30), selector: #selector(seniorSettingAction(btn:)), font: UIFont.systemFont(ofSize: 15))
+        progressView = ProgressView(frame: CGRect(x: 0, y: self.bounds.height - 49 - 20, width: self.bounds.width, height: 20))
+        progressView.backgroundColor = UIColor.black
+        progressView.isHidden  = true
+        progressView.alpha = 0.7
+        
+        addSubview(progressView)
         midBar?.addSubview(leftImg)
         midBar?.addSubview(rightImg)
         midBar?.addSubview(progressBar)
@@ -165,6 +173,7 @@ class ToolBar: UIView {
         UIView.animate(withDuration: 0.35, animations: {
             self.topBar?.frame = CGRect(x:0, y:0,width: self.bounds.size.width,height: self.TopBarHeight)
             self.bottomBar?.frame = CGRect(x:0,y: self.bounds.size.height - self.BottomBarHeight,width: self.bounds.size.width,height: self.BottomBarHeight)
+            self.progressView.frame = CGRect(x: 0, y: self.bounds.height - 49 - 20, width: self.bounds.width, height: 20)
         }) { (finished) in
         
         }
@@ -176,7 +185,9 @@ class ToolBar: UIView {
         showMid = false
         UIView.animate(withDuration: 0.35, animations: {
             self.topBar?.frame = CGRect(x:0,y: -self.TopBarHeight,width: self.bounds.size.width,height: self.TopBarHeight)
-            self.bottomBar?.frame = CGRect(x:0, y:self.bounds.size.height, width:self.bounds.size.width, height:self.BottomBarHeight)
+            self.bottomBar?.frame = CGRect(x:0, y:self.bounds.size.height + 20, width:self.bounds.size.width, height:self.BottomBarHeight)
+            self.progressView.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 20)
+
             }) { (finished) in
                 self.removeFromSuperview()
         }
@@ -267,7 +278,7 @@ class ToolBar: UIView {
     }
     
     @objc private func cache(btn:UIButton){
-        
+        toolBarDelegate?.cacheAll()
     }
     
     @objc private func setting(btn:UIButton){

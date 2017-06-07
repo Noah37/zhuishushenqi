@@ -58,7 +58,7 @@ class QSBookDetailPresenter: QSBookDetailPresenterProtocol {
             }
         }
         if indexPath.section == 1 {
-            router.presentComment(id: ranks[indexPath.row]._id)
+            router.presentComment(model: ranks[indexPath.row])
         }else if indexPath.section == 2 {
             interactor.showCommunity()
         }else if indexPath.section == 4{

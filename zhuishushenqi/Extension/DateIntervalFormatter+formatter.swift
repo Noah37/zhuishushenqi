@@ -41,28 +41,33 @@ extension DateIntervalFormatter{
             return String(format: "%.0f小时前",retTime)
         }else if abs(year) == 0 && abs(month) <= 1 || abs(year) == 1 && to.month() == 1 && from.month() == 12{
             // 第一个条件是同年，且相隔时间在一个月内
-            // 第二个条件是隔年，对于隔年，只能是去年12月与今年1月这种情况
+            // 第二个条件是隔年，且相隔时间在一个月内,对于隔年，只能是去年12月与今年1月这种情况
             var retDay = 0
             if year == 0 {//同年
                 if month == 0 {//同月
                     retDay = day
                 }
             }
+            //跨月
             if retDay <= 0{
                 // 获取发布日期中，该月有多少天
                 let totalDays =  from.days(month: from.month())
                 // 当前天数 + （发布日期月中的总天数-发布日期月中发布日，即等于距离今天的天数）
                 retDay = to.day() + totalDays - from.day()
-                
             }
             return String(format: "%d天前",abs(retDay))
-        }else {
+        }else {//间隔时间大于一个月
             if abs(year) <= 1 {
                 if year == 0 {//同年
                     return String(format: "%d个月前",
                                   (month))
                 } else {//跨年计算月份
-                    return String(format: "%d个月前",12 - from.month() + to.month())
+                    //跨年可能月份大于12个月，按一年来算
+                    let monthCount = 12 - from.month() + to.month()
+                    if monthCount > 12 {
+                        return String(format: "%d年前",monthCount/12)
+                    }
+                    return String(format: "%d个月前",monthCount)
                 }
             }
             if month < 0 { //未满一年不计算
