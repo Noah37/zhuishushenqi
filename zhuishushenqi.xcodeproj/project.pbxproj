@@ -28,6 +28,7 @@
 		B22182CB1DA40588002458D2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B22182CA1DA40588002458D2 /* SystemConfiguration.framework */; };
 		B22182CD1DA4058E002458D2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B22182CC1DA4058E002458D2 /* libsqlite3.tbd */; };
 		B22182CF1DA40594002458D2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B22182CE1DA40594002458D2 /* libz.tbd */; };
+		B22204901EE859E9008E1902 /* BookCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B222048F1EE859E9008E1902 /* BookCommentViewCell.xib */; };
 		B22269D61EA0C70A008FD314 /* QSBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22269D31EA0C70A008FD314 /* QSBook.swift */; };
 		B22269D71EA0C70A008FD314 /* QSChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22269D41EA0C70A008FD314 /* QSChapter.swift */; };
 		B22269D81EA0C70A008FD314 /* QSPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22269D51EA0C70A008FD314 /* QSPage.swift */; };
@@ -211,7 +212,6 @@
 		B2B4BC3E1E7EA4AB000CC201 /* BookCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA7B1E7EA4A8000CC201 /* BookCommentCell.swift */; };
 		B2B4BC3F1E7EA4AB000CC201 /* BookCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B4BA7C1E7EA4A8000CC201 /* BookCommentCell.xib */; };
 		B2B4BC401E7EA4AB000CC201 /* BookCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA7D1E7EA4A8000CC201 /* BookCommentViewCell.swift */; };
-		B2B4BC411E7EA4AB000CC201 /* BookCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B4BA7E1E7EA4A8000CC201 /* BookCommentViewCell.xib */; };
 		B2B4BC431E7EA4AB000CC201 /* BookDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA801E7EA4A8000CC201 /* BookDetailHeader.swift */; };
 		B2B4BC441E7EA4AB000CC201 /* BookDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B4BA811E7EA4A8000CC201 /* BookDetailHeader.xib */; };
 		B2B4BC461E7EA4AB000CC201 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA831E7EA4A8000CC201 /* CategoryTableViewCell.swift */; };
@@ -508,6 +508,7 @@
 		B22182CA1DA40588002458D2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B22182CC1DA4058E002458D2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B22182CE1DA40594002458D2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		B222048F1EE859E9008E1902 /* BookCommentViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookCommentViewCell.xib; sourceTree = "<group>"; };
 		B22269D31EA0C70A008FD314 /* QSBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBook.swift; sourceTree = "<group>"; };
 		B22269D41EA0C70A008FD314 /* QSChapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSChapter.swift; sourceTree = "<group>"; };
 		B22269D51EA0C70A008FD314 /* QSPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSPage.swift; sourceTree = "<group>"; };
@@ -697,7 +698,6 @@
 		B2B4BA7B1E7EA4A8000CC201 /* BookCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCommentCell.swift; sourceTree = "<group>"; };
 		B2B4BA7C1E7EA4A8000CC201 /* BookCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookCommentCell.xib; sourceTree = "<group>"; };
 		B2B4BA7D1E7EA4A8000CC201 /* BookCommentViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCommentViewCell.swift; sourceTree = "<group>"; };
-		B2B4BA7E1E7EA4A8000CC201 /* BookCommentViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookCommentViewCell.xib; sourceTree = "<group>"; };
 		B2B4BA801E7EA4A8000CC201 /* BookDetailHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailHeader.swift; sourceTree = "<group>"; };
 		B2B4BA811E7EA4A8000CC201 /* BookDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookDetailHeader.xib; sourceTree = "<group>"; };
 		B2B4BA831E7EA4A8000CC201 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -1559,7 +1559,7 @@
 				B2B4BA7B1E7EA4A8000CC201 /* BookCommentCell.swift */,
 				B2B4BA7C1E7EA4A8000CC201 /* BookCommentCell.xib */,
 				B2B4BA7D1E7EA4A8000CC201 /* BookCommentViewCell.swift */,
-				B2B4BA7E1E7EA4A8000CC201 /* BookCommentViewCell.xib */,
+				B222048F1EE859E9008E1902 /* BookCommentViewCell.xib */,
 				B2B4BA801E7EA4A8000CC201 /* BookDetailHeader.swift */,
 				B2B4BA811E7EA4A8000CC201 /* BookDetailHeader.xib */,
 				B2B4BA831E7EA4A8000CC201 /* CategoryTableViewCell.swift */,
@@ -1638,15 +1638,6 @@
 			sourceTree = "<group>";
 		};
 		B2B4BB231E7EA4AA000CC201 /* YTK */ = {
-			isa = PBXGroup;
-			children = (
-				B2B4BB241E7EA4AA000CC201 /* YTKKeyValueStore.h */,
-				B2B4BB251E7EA4AA000CC201 /* YTKKeyValueStore.m */,
-			);
-			path = YTK;
-			sourceTree = "<group>";
-		};
-		B2B4BB261E7EA4AA000CC201 /* YYKit */ = {
 			isa = PBXGroup;
 			children = (
 				B2B4BB241E7EA4AA000CC201 /* YTKKeyValueStore.h */,
@@ -2325,6 +2316,7 @@
 				B2B4BC381E7EA4AB000CC201 /* Chapters.json in Resources */,
 				B2B4BC361E7EA4AB000CC201 /* ChapterInfo.json in Resources */,
 				B29B4FA31E8257BC008852E3 /* DynamicCell.xib in Resources */,
+				B22204901EE859E9008E1902 /* BookCommentViewCell.xib in Resources */,
 				B2B4BC211E7EA4AB000CC201 /* TopicDetailHeaderCell.xib in Resources */,
 				B2FB920D1EB1EEDF000C990A /* LICENSE in Resources */,
 				B2B4BC3F1E7EA4AB000CC201 /* BookCommentCell.xib in Resources */,
@@ -2336,7 +2328,6 @@
 				B2B4BC4C1E7EA4AB000CC201 /* HotCommentCell.xib in Resources */,
 				B2B4BD5E1E7EA931000CC201 /* LICENSE in Resources */,
 				B2B4BC471E7EA4AB000CC201 /* CategoryTableViewCell.xib in Resources */,
-				B2B4BC411E7EA4AB000CC201 /* BookCommentViewCell.xib in Resources */,
 				B2B4BC491E7EA4AB000CC201 /* ChangeSourceCell.xib in Resources */,
 				B2B4BC1D1E7EA4AB000CC201 /* ThemeTopicCell.xib in Resources */,
 				B203BB691E9E142C00F9C052 /* QSHistoryCell.xib in Resources */,

@@ -14,7 +14,6 @@ enum CommentType {
 }
 
 class BookCommentViewCell: UITableViewCell {
-//<<<<<<< HEAD
     @IBOutlet weak var readerIcon: UIImageView!
     @IBOutlet weak var floor: UILabel!
     @IBOutlet weak var readerName: UILabel!
