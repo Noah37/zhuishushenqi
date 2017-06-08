@@ -29,6 +29,7 @@
 		B22182CD1DA4058E002458D2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B22182CC1DA4058E002458D2 /* libsqlite3.tbd */; };
 		B22182CF1DA40594002458D2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B22182CE1DA40594002458D2 /* libz.tbd */; };
 		B22204901EE859E9008E1902 /* BookCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B222048F1EE859E9008E1902 /* BookCommentViewCell.xib */; };
+		B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22204A11EE9284F008E1902 /* QSSplashScreen.swift */; };
 		B22269D61EA0C70A008FD314 /* QSBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22269D31EA0C70A008FD314 /* QSBook.swift */; };
 		B22269D71EA0C70A008FD314 /* QSChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22269D41EA0C70A008FD314 /* QSChapter.swift */; };
 		B22269D81EA0C70A008FD314 /* QSPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22269D51EA0C70A008FD314 /* QSPage.swift */; };
@@ -509,6 +510,7 @@
 		B22182CC1DA4058E002458D2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B22182CE1DA40594002458D2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B222048F1EE859E9008E1902 /* BookCommentViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookCommentViewCell.xib; sourceTree = "<group>"; };
+		B22204A11EE9284F008E1902 /* QSSplashScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSplashScreen.swift; sourceTree = "<group>"; };
 		B22269D31EA0C70A008FD314 /* QSBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBook.swift; sourceTree = "<group>"; };
 		B22269D41EA0C70A008FD314 /* QSChapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSChapter.swift; sourceTree = "<group>"; };
 		B22269D51EA0C70A008FD314 /* QSPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSPage.swift; sourceTree = "<group>"; };
@@ -1043,6 +1045,14 @@
 			path = BookDetail;
 			sourceTree = "<group>";
 		};
+		B22204961EE8FC45008E1902 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				B22204A11EE9284F008E1902 /* QSSplashScreen.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		B22A8D2B1EAD948B00C7E978 /* Community */ = {
 			isa = PBXGroup;
 			children = (
@@ -1171,6 +1181,7 @@
 				B2B4BA131E7EA4A8000CC201 /* Extension */,
 				B2B4BA221E7EA4A8000CC201 /* RightSide */,
 				B2B4BA571E7EA4A8000CC201 /* Root */,
+				B22204961EE8FC45008E1902 /* Splash */,
 				B2B4BA651E7EA4A8000CC201 /* TXTReader */,
 				B2B4BA8E1E7EA4A8000CC201 /* Vender */,
 				B2F778A31EAEEDD4004B4362 /* M80AttributedLabel */,
@@ -2647,6 +2658,7 @@
 				B2B02E571EA9A9F000A6880A /* QSCatalogViewController.swift in Sources */,
 				B2F778AF1EAEEDD4004B4362 /* M80AttributedLabelURL.m in Sources */,
 				B258BB0B1EA45B4C006E5802 /* CategoryButton.swift in Sources */,
+				B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */,
 				B2F778F21EAF36D1004B4362 /* ConstraintMakerPriortizable.swift in Sources */,
 				B2B4BCDF1E7EA4AB000CC201 /* YYAnimatedImageView.m in Sources */,
 				B2B4BC391E7EA4AB000CC201 /* PageInfo.swift in Sources */,

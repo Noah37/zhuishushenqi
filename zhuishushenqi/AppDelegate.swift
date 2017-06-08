@@ -43,6 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let navbarTitleTextAttributes = [NSForegroundColorAttributeName:UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )]
 //        UINavigationBar.appearance().titleTextAttributes = navbarTitleTextAttributes
         UIApplication.shared.statusBarStyle = .lightContent
+        
+        let splash = QSSplashScreen()
+        splash.show()
 
         return true
     }
