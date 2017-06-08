@@ -34,11 +34,7 @@ Main development of TXTReader olny support Swift 3.0+.
 ![zhuishenqiimg](qs_readerMain.png)
 ![zhuishenqiimg](qs_changeSource.png)-->
 
-
-<img src="qs_reader.png" width="20%" height="20%" />
-<img src="qs_readerMain.png" width="20%" height="20%" />
-<img src="qs_changeSource.png" width="20%" height="20%" />
-<img src="qs_bookshelf.png" width="20%" height="20%" />
+<img src="qs_bookshelf.png" width="20%" height="20%" /><img src="qs_reader.png" width="20%" height="20%" /><img src="qs_readerMain.png" width="20%" height="20%" /><img src="qs_changeSource.png" width="20%" height="20%" />
 
 
 ## Contact
