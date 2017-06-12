@@ -23,8 +23,8 @@ class RightTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView?.frame = CGRect(x: ScreenWidth*CGFloat(rightScaleX) + 10, y: 6.0, width: 30, height: 30)
-        textLabel?.frame = CGRect(x: imageView!.frame.maxX + 15, y: 0, width: 150, height: 43.5)
+        imageView?.frame = CGRect(x: ScreenWidth*CGFloat(rightScaleX) + 10, y: 15, width: 30, height: 30)
+        textLabel?.frame = CGRect(x: imageView!.frame.maxX + 15, y: 0, width: 150, height: 60)
         textLabel?.textColor = UIColor.white
         textLabel?.font = UIFont.systemFont(ofSize: 14)
     }

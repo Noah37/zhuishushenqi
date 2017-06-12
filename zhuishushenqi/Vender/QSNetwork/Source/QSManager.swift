@@ -208,6 +208,7 @@ public class QSManager:NSObject{
             }
         }
         print(encodedURLRequest)
+        
         return request(urlRequest: encodedURLRequest ,completionHandler: completionHandler)
     }
     
@@ -221,7 +222,6 @@ public class QSManager:NSObject{
         }
         let semaphore = DispatchSemaphore(value: 0)
         var requestResult = QSResponse(data: nil, response: nil, error: nil, task: nil)
-//        session = URLSession(configuration: URLSession.shared.configuration, delegate: self, delegateQueue: URLSession.shared.delegateQueue)
         
         let task:URLSessionDataTask = session.dataTask(with: request)
         let config = SessionConfiguration(data: NSMutableData()) { (result) in

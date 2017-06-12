@@ -129,6 +129,11 @@ extension RootViewController{
             let endContainRange = qsLink.range(of: "]]]")
             let post = qsLink.range(of: "post:")
             if startRange.location == NSNotFound {
+                if qsLink.length > 32 {
+                    // 过滤方式变更
+                    title = link.qs_subStr(from: 32)
+                    id = link.qs_subStr(start: 7, length: 24)
+                }
                 return (id,title)
             }
             title = link.qs_subStr(start: startRange.location, end: endRange.location)

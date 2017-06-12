@@ -45,7 +45,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         
         let splash = QSSplashScreen()
-        splash.show()
+        splash.show {
+            // 新版本特性
+            let firstRun = USER_DEFAULTS.object(forKey: "FIRSTRUN") as? Bool
+            if firstRun == nil {
+                USER_DEFAULTS.set(false, forKey: "FIRSTRUN")
+                let introduce = QSIntroducePage()
+                introduce.show(completion: {
+                    // 根据性别推荐书籍(第一次安装才会出现) 由home页面自己发起
+                    NotificationCenter.default.post(Notification(name: Notification.Name(rawValue:SHOW_RECOMMEND)))
+                })
+            }else{
+                let mainWindow:UIWindow? = (UIApplication.shared.delegate?.window)!
+                mainWindow?.makeKeyAndVisible()
+            }
+        }
 
         return true
     }

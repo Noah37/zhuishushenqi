@@ -78,7 +78,7 @@ public class QSNetwork{
         
     }
     
-    @discardableResult
+    
     public static func test(_ url:String,method:HTTPMethodType){
 //        QSManager.default.setDefaultURL(url: url)
     }
@@ -99,7 +99,7 @@ public class QSNetwork{
 }
 
 extension QSNetwork{
-    @discardableResult
+    
     public static func testinstancemethod(_ url:String,method:HTTP = HTTP(type: .get),parameters:Parameters? = nil,headers:HTTPHeaders? = nil,completionHandler: completionHandler?){
         
     }

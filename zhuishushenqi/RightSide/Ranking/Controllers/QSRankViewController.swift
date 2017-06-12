@@ -16,6 +16,7 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
     var tableView:UITableView!
     var ranks:[[QSRankModel]]?
     var show:[Bool] = [false,false]
+    let kCellHeaderHeight:CGFloat = 60
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,9 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
         tableView = UITableView(frame: CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorInset = UIEdgeInsetsMake(0, 44, 0, 0)
+        tableView.rowHeight = kCellHeaderHeight
+        tableView.sectionFooterHeight = 0.001
+        tableView.separatorInset = UIEdgeInsetsMake(0, kCellHeaderHeight, 0, 0)
         tableView.qs_registerCellClass(RankingViewCell.self)
         self.view.addSubview(self.tableView)
     }
@@ -60,7 +63,7 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0,y: 0,width: ScreenWidth,height: 60))
-        let label = UILabel(frame: CGRect(x: 15,y: 15,width: 100,height: 15))
+        let label = UILabel(frame: CGRect(x: 15,y: 0,width: 100,height: 60))
         label.textColor = UIColor.gray
         label.font = UIFont.systemFont(ofSize: 11)
         if section == 0 {
@@ -73,7 +76,7 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return kCellHeaderHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

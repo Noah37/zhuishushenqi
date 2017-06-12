@@ -39,6 +39,7 @@ let CHAPTERURL = "http://chapter2.zhuishushenqi.com/chapter"
 let BOOKSHELF =  "user/bookshelf"
 let RANKING = "ranking/gender"
 
+// db
 let searchHistory = "searchHistory"
 let dbName = "QS.zhuishushenqi.searchHistory"
 
@@ -72,6 +73,10 @@ let ReaderBg = "ReaderBg"
 let FontSize = "FontSize"
 let Brightness = "Brightness"
 let ReadingProgress = "ReadingProgress"
+
+// notification
+let SHOW_RECOMMEND = "ShowRecomend"
+let BOOKSHELF_REFRESH = "BookShelfRefresh"
 
 func widthOfString(_ str:String, font:UIFont,height:CGFloat) ->CGFloat
 {
@@ -231,7 +236,7 @@ func updateReadingInfo(bookDetail:BookDetail?){
                 model.resources = bookDetail?.resources
                 mArr[index] = model
                 BookShelfInfo.books.bookShelf = mArr
-                NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
+                NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: BOOKSHELF_REFRESH)))
             }
             index += 1
         }
@@ -270,7 +275,7 @@ func updateBookShelf(bookDetail:BookDetail?,type:BookShelfUpdateType,refresh:Boo
                     mArr.append(model)
                     BookShelfInfo.books.bookShelf = mArr
                     if refresh {
-                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
+                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: BOOKSHELF_REFRESH)))
                     }
                 }
             }else if type == .delete {
@@ -278,7 +283,7 @@ func updateBookShelf(bookDetail:BookDetail?,type:BookShelfUpdateType,refresh:Boo
                     mArr.remove(at: existIndex)
                     BookShelfInfo.books.bookShelf = mArr
                     if refresh {
-                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
+                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: BOOKSHELF_REFRESH)))
                     }
                 }
             }else if type == .update {
@@ -286,7 +291,7 @@ func updateBookShelf(bookDetail:BookDetail?,type:BookShelfUpdateType,refresh:Boo
                     mArr[existIndex] = model
                     BookShelfInfo.books.bookShelf = mArr
                     if refresh {
-                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "BookShelfRefresh")))
+                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: BOOKSHELF_REFRESH)))
                     }
                 }
             }

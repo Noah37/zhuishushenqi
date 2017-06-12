@@ -31,6 +31,8 @@ class RootViewController: UIViewController {
     
     var totalCacheChapter:Int = 0
     var curCacheChapter:Int = 0
+    private var tipImageView:UIImageView!
+    private var recView:QSLaunchRecView!
     
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
@@ -57,7 +59,9 @@ class RootViewController: UIViewController {
         // Do any additional setup after loading the view.
         setupReachability(IMAGE_BASEURL, useClosures: false)
         self.startNotifier()
-        NotificationCenter.default.addObserver(self, selector: #selector(bookShelfUpdate), name: Notification.Name(rawValue: "BookShelfRefresh"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(bookShelfUpdate), name: Notification.Name(rawValue: BOOKSHELF_REFRESH), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showRecommend), name: Notification.Name(rawValue:SHOW_RECOMMEND), object: nil)
         self.setupSubviews()
         self.requetShelfMsg()
         self.requestBookShelf()
@@ -90,6 +94,72 @@ class RootViewController: UIViewController {
         self.view.backgroundColor = UIColor.cyan
         self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
         UIApplication.shared.isStatusBarHidden = false
+    }
+    
+    @objc private func showRecommend(){
+        // animate
+        let nib = UINib(nibName: "QSLaunchRecView", bundle: nil)
+        recView = nib.instantiate(withOwner: nil, options: nil).first as? QSLaunchRecView
+        recView.frame = self.view.bounds
+        recView.alpha = 0.0
+        recView.closeCallback = { (btn) in
+            self.dismissRecView()
+        }
+        recView.boyTipCallback = { (btn) in
+            self.fetchRecList(index: 0)
+            self.perform(#selector(self.dismissRecView), with: nil, afterDelay: 1)
+        }
+        
+        recView?.girlTipCallback = { (btn) in
+            self.fetchRecList(index: 1)
+            self.perform(#selector(self.dismissRecView), with: nil, afterDelay: 1)
+        }
+        KeyWindow?.addSubview(recView)
+        UIView.animate(withDuration: 0.35, animations: { 
+            self.recView.alpha = 1.0
+        }) { (finished) in
+            
+        }
+    }
+    
+    func fetchRecList(index:Int){
+        let gender = ["male","female"]
+//        http://api.zhuishushenqi.com/book/recommend?gender=female
+        let recURL = "\(BASEURL)/book/recommend?gender=\(gender[index])"
+        QSNetwork.request(recURL) { (response) in
+            if let books = response.json?["books"] {
+                do{
+                    let models = try XYCBaseModel.model(withModleClass: BookDetail.self, withJsArray: books as! [Any]) as? [BookDetail]
+                    self.bookShelfArr = models
+                    self.tableView.reloadData()
+                    self.updateInfo()
+                }catch{
+                    
+                }
+            }
+        }
+    }
+    
+    func showUserTipView(){
+        tipImageView = UIImageView(frame: self.view.bounds)
+        tipImageView.image = UIImage(named: "add_book_hint")
+        tipImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissTipView(sender:)))
+        tipImageView.addGestureRecognizer(tap)
+        KeyWindow?.addSubview(tipImageView)
+    }
+    
+    @objc func dismissTipView(sender:Any){
+        tipImageView.removeFromSuperview()
+    }
+    
+    @objc func dismissRecView(){
+        UIView.animate(withDuration: 0.35, animations: {
+            self.recView.alpha = 0.0
+        }) { (finished) in
+            self.recView.removeFromSuperview()
+            self.showUserTipView()
+        }
     }
     
     @objc func leftAction(_ btn:UIButton){

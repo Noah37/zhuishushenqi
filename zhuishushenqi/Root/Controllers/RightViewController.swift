@@ -18,6 +18,7 @@ class RightViewController: UITableViewController {
         super.init(style: style)
         let scale = SideVC.leftOffSetXScale
         self.tableView.frame = CGRect(x: ScreenWidth*scale + 20, y: 0, width: ScreenWidth*(1-scale) - 20, height: ScreenHeight)
+        self.tableView.rowHeight = 60
         self.tableView.qs_registerCellClass(RightTableViewCell.self)
     }
     
@@ -39,7 +40,7 @@ class RightViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return titles?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
