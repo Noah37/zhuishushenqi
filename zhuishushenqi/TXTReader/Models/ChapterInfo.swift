@@ -119,13 +119,13 @@ class ChapterInfo: Mappable ,NSCoding{
     class func updateLocalModel(localModel:ChapterInfo,id:String) -> Void {
         let key = "QSTXTReaderKeyAt\(localModel.currentIndex)\(id)".md5()
         let jsonString = localModel.toJSON()
-        let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(key ?? "QSSSSSS")")
+        let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(key )")
         NSKeyedArchiver.archiveRootObject(jsonString, toFile: filePath!)
     }
     
     class func localModelWithKey(key:String) ->ChapterInfo?{
         let localKey = "QSTXTReaderKeyAt\(key)".md5()
-        let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(localKey ?? "")")
+        let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(localKey )")
         var model:ChapterInfo?
         var file:[String:Any]?
         file = NSKeyedUnarchiver.unarchiveObject(withFile: filePath!) as? [String : Any]

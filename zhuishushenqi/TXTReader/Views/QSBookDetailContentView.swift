@@ -36,7 +36,7 @@ class QSBookDetailContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @discardableResult
+    
     func setupSubviews(longIntro:String){
         let height = contentHeight(longIntro: self.longIntro ?? "")
         self.backgroundColor = UIColor.white

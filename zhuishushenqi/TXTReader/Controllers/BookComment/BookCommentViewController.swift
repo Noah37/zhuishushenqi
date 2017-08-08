@@ -204,7 +204,7 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
         }else if indexPath.section == 1 {
             return 91
         }else {
-            var height:CGFloat = 0
+            let height:CGFloat = 0
             if (magicComments?.count ?? 0) > 0 {
                 if indexPath.section == 2 {
 //                    height = BookCommentViewCell.cellHeight(model: magicComments?[indexPath.row])

@@ -119,23 +119,23 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
 //                }
 //            }
 //            return height
-            var height:CGFloat = 130
-            if (hotComments?.count ?? 0) > 0 {
-                if indexPath.section == 2 {
-                    if let model = self.hotComments?[indexPath.row] {
-                        height = BookCommentViewCell.cellHeight(model: model)
-                    }
-                }else{
-                    if let model = self.normalComments?[indexPath.row] {
-                        height = BookCommentViewCell.cellHeight(model: model)
-                    }
-                }
-            }else {
-                if let model = self.normalComments?[indexPath.row]{
-                    height = BookCommentViewCell.cellHeight(model: model)
-                }
-            }
-            return height
+//            var height:CGFloat = 130
+//            if (hotComments?.count ?? 0) > 0 {
+//                if indexPath.section == 2 {
+//                    if let model = self.hotComments?[indexPath.row] {
+//                        height = BookCommentViewCell.cellHeight(model: model)
+//                    }
+//                }else{
+//                    if let model = self.normalComments?[indexPath.row] {
+//                        height = BookCommentViewCell.cellHeight(model: model)
+//                    }
+//                }
+//            }else {
+//                if let model = self.normalComments?[indexPath.row]{
+//                    height = BookCommentViewCell.cellHeight(model: model)
+//                }
+//            }
+//            return height
         }
     }
     

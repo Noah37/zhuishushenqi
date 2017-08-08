@@ -154,6 +154,7 @@ class SwipableCell: UITableViewCell {
             imageName = ""
             break
         }
+        QSLog(cacheBtnSelected)
         stateImage.image = UIImage(named: imageName)
     }
     

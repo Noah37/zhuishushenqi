@@ -156,9 +156,6 @@ extension QSAPI:TargetType{
         case let .recommend(key):
             pathComponent = "/book-list/\(key)/recommend?limit=3"
             break
-        default:
-            pathComponent = ""
-            
         }
         return "\(baseURLString)\(pathComponent)"
     }

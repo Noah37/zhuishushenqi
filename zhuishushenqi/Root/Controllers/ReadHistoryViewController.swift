@@ -64,7 +64,7 @@ class ReadHistoryViewController: BaseViewController,UITableViewDataSource,UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = models[indexPath.row]
-        self.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: model._id ?? ""), animated: true)
+        self.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: model._id ), animated: true)
         
     }
 

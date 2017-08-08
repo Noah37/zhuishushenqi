@@ -29,7 +29,7 @@ open class QSResponse: NSObject {
     func jsonT() -> Void {
         do{
             if let jsonData = self.data {
-                let jsonDict:AnyObject? =  try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? AnyObject
+                let jsonDict:AnyObject? =  try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as AnyObject
                 if let jsonD = jsonDict {
                     self.json = jsonD
                 }

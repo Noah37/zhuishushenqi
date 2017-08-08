@@ -98,7 +98,7 @@ public class QSResource:Resource{
     }
     
     public var cacheKey: String{
-        return "\(self.imageURL)"
+        return "\(String(describing: self.imageURL))"
     }
     
     init(url:URL) {

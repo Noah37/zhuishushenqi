@@ -79,7 +79,7 @@ class QSTextInteractor: QSTextInteractorProtocol {
             }
         }
         QSNetwork.request(url, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            QSLog("JSON:\(response.json)")
+            QSLog("JSON:\(String(describing: response.json))")
             if let chapters = response.json?["chapters"] as? [NSDictionary] {
                 QSLog("Chapters:\(chapters)")
                 self.chapters = chapters

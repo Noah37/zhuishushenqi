@@ -113,6 +113,11 @@
 		B278AA981F396073000A0D55 /* ReadHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA961F396073000A0D55 /* ReadHistoryCell.swift */; };
 		B278AA991F396074000A0D55 /* ReadHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B278AA971F396073000A0D55 /* ReadHistoryCell.xib */; };
 		B278AAD71F396773000A0D55 /* YTKKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B278AAC11F396773000A0D55 /* YTKKeyValueStore.m */; };
+		B278AAEA1F396B2D000A0D55 /* BookCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B4BA7C1E7EA4A8000CC201 /* BookCommentCell.xib */; };
+		B278AB051F398926000A0D55 /* M80AttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B278AAFD1F398926000A0D55 /* M80AttributedLabel.m */; };
+		B278AB061F398926000A0D55 /* M80AttributedLabelAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = B278AAFF1F398926000A0D55 /* M80AttributedLabelAttachment.m */; };
+		B278AB071F398926000A0D55 /* M80AttributedLabelURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B278AB021F398926000A0D55 /* M80AttributedLabelURL.m */; };
+		B278AB081F398926000A0D55 /* NSMutableAttributedString+M80.m in Sources */ = {isa = PBXBuildFile; fileRef = B278AB041F398926000A0D55 /* NSMutableAttributedString+M80.m */; };
 		B2795BE71EAE49B200D210A8 /* TXTReader.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2795BE61EAE49B200D210A8 /* TXTReader.storyboard */; };
 		B288D1C81E9FC66F0024F1A5 /* QSBookDetailRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B288D1C71E9FC66F0024F1A5 /* QSBookDetailRateView.swift */; };
 		B288D1D41E9FC86C0024F1A5 /* QSBookDetailTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B288D1D31E9FC86C0024F1A5 /* QSBookDetailTagsView.swift */; };
@@ -170,7 +175,7 @@
 		B2B4BBF41E7EA4AB000CC201 /* DateIntervalFormatter+formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA151E7EA4A8000CC201 /* DateIntervalFormatter+formatter.swift */; };
 		B2B4BBF51E7EA4AB000CC201 /* NSDate+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA171E7EA4A8000CC201 /* NSDate+Date.m */; };
 		B2B4BBF61E7EA4AB000CC201 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA191E7EA4A8000CC201 /* NSDate+Extension.m */; };
-		B2B4BBF71E7EA4AB000CC201 /* String+crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA1A1E7EA4A8000CC201 /* String+crypto.swift */; };
+		B2B4BBF71E7EA4AB000CC201 /* String+QSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA1A1E7EA4A8000CC201 /* String+QSExtension.swift */; };
 		B2B4BBF81E7EA4AB000CC201 /* UIImageView+zhuishu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA1B1E7EA4A8000CC201 /* UIImageView+zhuishu.swift */; };
 		B2B4BBF91E7EA4AB000CC201 /* UILabel+zhuishu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA1C1E7EA4A8000CC201 /* UILabel+zhuishu.swift */; };
 		B2B4BBFA1E7EA4AB000CC201 /* UINavigationItem+BackItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA1E1E7EA4A8000CC201 /* UINavigationItem+BackItem.m */; };
@@ -221,7 +226,6 @@
 		B2B4BC3C1E7EA4AB000CC201 /* UpdateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA781E7EA4A8000CC201 /* UpdateInfo.swift */; };
 		B2B4BC3D1E7EA4AB000CC201 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA791E7EA4A8000CC201 /* User.swift */; };
 		B2B4BC3E1E7EA4AB000CC201 /* BookCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA7B1E7EA4A8000CC201 /* BookCommentCell.swift */; };
-		B2B4BC3F1E7EA4AB000CC201 /* BookCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B4BA7C1E7EA4A8000CC201 /* BookCommentCell.xib */; };
 		B2B4BC401E7EA4AB000CC201 /* BookCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA7D1E7EA4A8000CC201 /* BookCommentViewCell.swift */; };
 		B2B4BC431E7EA4AB000CC201 /* BookDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA801E7EA4A8000CC201 /* BookDetailHeader.swift */; };
 		B2B4BC441E7EA4AB000CC201 /* BookDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B4BA811E7EA4A8000CC201 /* BookDetailHeader.xib */; };
@@ -243,10 +247,6 @@
 		B2BB5BBA1D8BDF8E00379217 /* zhuishushenqiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5BB91D8BDF8E00379217 /* zhuishushenqiUITests.swift */; };
 		B2CA941F1EB31D5600D60BF2 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA941E1EB31D5600D60BF2 /* ProgressView.swift */; };
 		B2CA942B1EB331DC00D60BF2 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */; };
-		B2F778AD1EAEEDD4004B4362 /* M80AttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F778A51EAEEDD4004B4362 /* M80AttributedLabel.m */; };
-		B2F778AE1EAEEDD4004B4362 /* M80AttributedLabelAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F778A71EAEEDD4004B4362 /* M80AttributedLabelAttachment.m */; };
-		B2F778AF1EAEEDD4004B4362 /* M80AttributedLabelURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F778AA1EAEEDD4004B4362 /* M80AttributedLabelURL.m */; };
-		B2F778B01EAEEDD4004B4362 /* NSMutableAttributedString+M80.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F778AC1EAEEDD4004B4362 /* NSMutableAttributedString+M80.m */; };
 		B2F778BC1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778BB1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift */; };
 		B2FB91FD1EB1EEDF000C990A /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FB91FC1EB1EEDF000C990A /* Reachability.swift */; };
 		B2FB92111EB1EEDF000C990A /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2FB92101EB1EEDF000C990A /* CoreTelephony.framework */; };
@@ -407,6 +407,15 @@
 		B278AAC01F396773000A0D55 /* YTKKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKKeyValueStore.h; sourceTree = "<group>"; };
 		B278AAC11F396773000A0D55 /* YTKKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKKeyValueStore.m; sourceTree = "<group>"; };
 		B278AADE1F3967A4000A0D55 /* QSPullToRefresh.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSPullToRefresh.xcodeproj; path = PullToRefresh/QSPullToRefresh/QSPullToRefresh.xcodeproj; sourceTree = "<group>"; };
+		B278AAFC1F398926000A0D55 /* M80AttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabel.h; sourceTree = "<group>"; };
+		B278AAFD1F398926000A0D55 /* M80AttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabel.m; sourceTree = "<group>"; };
+		B278AAFE1F398926000A0D55 /* M80AttributedLabelAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabelAttachment.h; sourceTree = "<group>"; };
+		B278AAFF1F398926000A0D55 /* M80AttributedLabelAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabelAttachment.m; sourceTree = "<group>"; };
+		B278AB001F398926000A0D55 /* M80AttributedLabelDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabelDefines.h; sourceTree = "<group>"; };
+		B278AB011F398926000A0D55 /* M80AttributedLabelURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabelURL.h; sourceTree = "<group>"; };
+		B278AB021F398926000A0D55 /* M80AttributedLabelURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabelURL.m; sourceTree = "<group>"; };
+		B278AB031F398926000A0D55 /* NSMutableAttributedString+M80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+M80.h"; sourceTree = "<group>"; };
+		B278AB041F398926000A0D55 /* NSMutableAttributedString+M80.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+M80.m"; sourceTree = "<group>"; };
 		B2795BE61EAE49B200D210A8 /* TXTReader.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TXTReader.storyboard; sourceTree = "<group>"; };
 		B288D1C71E9FC66F0024F1A5 /* QSBookDetailRateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookDetailRateView.swift; sourceTree = "<group>"; };
 		B288D1D31E9FC86C0024F1A5 /* QSBookDetailTagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookDetailTagsView.swift; sourceTree = "<group>"; };
@@ -468,7 +477,7 @@
 		B2B4BA171E7EA4A8000CC201 /* NSDate+Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Date.m"; sourceTree = "<group>"; };
 		B2B4BA181E7EA4A8000CC201 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		B2B4BA191E7EA4A8000CC201 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
-		B2B4BA1A1E7EA4A8000CC201 /* String+crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "String+crypto.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		B2B4BA1A1E7EA4A8000CC201 /* String+QSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "String+QSExtension.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B2B4BA1B1E7EA4A8000CC201 /* UIImageView+zhuishu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+zhuishu.swift"; sourceTree = "<group>"; };
 		B2B4BA1C1E7EA4A8000CC201 /* UILabel+zhuishu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+zhuishu.swift"; sourceTree = "<group>"; };
 		B2B4BA1D1E7EA4A8000CC201 /* UINavigationItem+BackItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+BackItem.h"; sourceTree = "<group>"; };
@@ -549,15 +558,6 @@
 		B2BB5BBB1D8BDF8E00379217 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2CA941E1EB31D5600D60BF2 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
-		B2F778A41EAEEDD4004B4362 /* M80AttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabel.h; sourceTree = "<group>"; };
-		B2F778A51EAEEDD4004B4362 /* M80AttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabel.m; sourceTree = "<group>"; };
-		B2F778A61EAEEDD4004B4362 /* M80AttributedLabelAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabelAttachment.h; sourceTree = "<group>"; };
-		B2F778A71EAEEDD4004B4362 /* M80AttributedLabelAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabelAttachment.m; sourceTree = "<group>"; };
-		B2F778A81EAEEDD4004B4362 /* M80AttributedLabelDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabelDefines.h; sourceTree = "<group>"; };
-		B2F778A91EAEEDD4004B4362 /* M80AttributedLabelURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabelURL.h; sourceTree = "<group>"; };
-		B2F778AA1EAEEDD4004B4362 /* M80AttributedLabelURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabelURL.m; sourceTree = "<group>"; };
-		B2F778AB1EAEEDD4004B4362 /* NSMutableAttributedString+M80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+M80.h"; sourceTree = "<group>"; };
-		B2F778AC1EAEEDD4004B4362 /* NSMutableAttributedString+M80.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+M80.m"; sourceTree = "<group>"; };
 		B2F778BB1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+FINAutomaticHeightCell.swift"; sourceTree = "<group>"; };
 		B2FB91FC1EB1EEDF000C990A /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		B2FB92101EB1EEDF000C990A /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -762,6 +762,7 @@
 		B278AA9F1F396773000A0D55 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				B278AAFB1F398926000A0D55 /* M80AttributedLabel */,
 				B278AADE1F3967A4000A0D55 /* QSPullToRefresh.xcodeproj */,
 				B278AABF1F396773000A0D55 /* YTK */,
 			);
@@ -785,6 +786,22 @@
 				B278AAE61F3967A4000A0D55 /* QSPullToRefreshTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B278AAFB1F398926000A0D55 /* M80AttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				B278AAFC1F398926000A0D55 /* M80AttributedLabel.h */,
+				B278AAFD1F398926000A0D55 /* M80AttributedLabel.m */,
+				B278AAFE1F398926000A0D55 /* M80AttributedLabelAttachment.h */,
+				B278AAFF1F398926000A0D55 /* M80AttributedLabelAttachment.m */,
+				B278AB001F398926000A0D55 /* M80AttributedLabelDefines.h */,
+				B278AB011F398926000A0D55 /* M80AttributedLabelURL.h */,
+				B278AB021F398926000A0D55 /* M80AttributedLabelURL.m */,
+				B278AB031F398926000A0D55 /* NSMutableAttributedString+M80.h */,
+				B278AB041F398926000A0D55 /* NSMutableAttributedString+M80.m */,
+			);
+			path = M80AttributedLabel;
 			sourceTree = "<group>";
 		};
 		B2B02E3B1EA891E700A6880A /* CategoryDetail */ = {
@@ -824,7 +841,6 @@
 				B22204961EE8FC45008E1902 /* Splash */,
 				B26286BE1EEA46C7005A1A8A /* IntroducePage */,
 				B2B4BA651E7EA4A8000CC201 /* TXTReader */,
-				B2F778A31EAEEDD4004B4362 /* M80AttributedLabel */,
 				B278AA9F1F396773000A0D55 /* Vendor */,
 				B2B4B9F71E7EA4A8000CC201 /* AppDelegate.swift */,
 				B2B4BBDC1E7EA4AB000CC201 /* ViewController.swift */,
@@ -896,7 +912,7 @@
 				B2B4BA171E7EA4A8000CC201 /* NSDate+Date.m */,
 				B2B4BA181E7EA4A8000CC201 /* NSDate+Extension.h */,
 				B2B4BA191E7EA4A8000CC201 /* NSDate+Extension.m */,
-				B2B4BA1A1E7EA4A8000CC201 /* String+crypto.swift */,
+				B2B4BA1A1E7EA4A8000CC201 /* String+QSExtension.swift */,
 				B2B4BA1B1E7EA4A8000CC201 /* UIImageView+zhuishu.swift */,
 				B2B4BA1C1E7EA4A8000CC201 /* UILabel+zhuishu.swift */,
 				B2B4BA1D1E7EA4A8000CC201 /* UINavigationItem+BackItem.h */,
@@ -1288,22 +1304,6 @@
 			path = zhuishushenqiUITests;
 			sourceTree = "<group>";
 		};
-		B2F778A31EAEEDD4004B4362 /* M80AttributedLabel */ = {
-			isa = PBXGroup;
-			children = (
-				B2F778A41EAEEDD4004B4362 /* M80AttributedLabel.h */,
-				B2F778A51EAEEDD4004B4362 /* M80AttributedLabel.m */,
-				B2F778A61EAEEDD4004B4362 /* M80AttributedLabelAttachment.h */,
-				B2F778A71EAEEDD4004B4362 /* M80AttributedLabelAttachment.m */,
-				B2F778A81EAEEDD4004B4362 /* M80AttributedLabelDefines.h */,
-				B2F778A91EAEEDD4004B4362 /* M80AttributedLabelURL.h */,
-				B2F778AA1EAEEDD4004B4362 /* M80AttributedLabelURL.m */,
-				B2F778AB1EAEEDD4004B4362 /* NSMutableAttributedString+M80.h */,
-				B2F778AC1EAEEDD4004B4362 /* NSMutableAttributedString+M80.m */,
-			);
-			path = M80AttributedLabel;
-			sourceTree = "<group>";
-		};
 		C1E1DE6D9D769BBDE25682F9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1380,7 +1380,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = QS;
 				TargetAttributes = {
 					B2BB5B951D8BDF8E00379217 = {
@@ -1470,9 +1470,8 @@
 				B22204901EE859E9008E1902 /* BookCommentViewCell.xib in Resources */,
 				B2B4BC211E7EA4AB000CC201 /* TopicDetailHeaderCell.xib in Resources */,
 				B278AA991F396074000A0D55 /* ReadHistoryCell.xib in Resources */,
-				B2B4BC3F1E7EA4AB000CC201 /* BookCommentCell.xib in Resources */,
+				B278AAEA1F396B2D000A0D55 /* BookCommentCell.xib in Resources */,
 				B263ACE01EE679830096CE80 /* HomeListViewCell.xib in Resources */,
-				B2B4BC3F1E7EA4AB000CC201 /* BookCommentCell.xib in Resources */,
 				B200D2001EEDB1FE003A42E3 /* QSIntroduceReadCell.xib in Resources */,
 				B2B4BBEA1E7EA4AB000CC201 /* EmptyView.xib in Resources */,
 				B2B4BC441E7EA4AB000CC201 /* BookDetailHeader.xib in Resources */,
@@ -1585,6 +1584,7 @@
 				B258BAFC1EA44BD0006E5802 /* QSTextRouter.swift in Sources */,
 				B203BB681E9E142C00F9C052 /* QSHistoryCell.swift in Sources */,
 				B2B4BBF41E7EA4AB000CC201 /* DateIntervalFormatter+formatter.swift in Sources */,
+				B278AB081F398926000A0D55 /* NSMutableAttributedString+M80.m in Sources */,
 				B22269D71EA0C70A008FD314 /* QSChapter.swift in Sources */,
 				B2580E1E1E9B236000455AFE /* QSSearchRouter.swift in Sources */,
 				B2B4BC4F1E7EA4AB000CC201 /* UserfulCell.swift in Sources */,
@@ -1599,7 +1599,6 @@
 				B22AC4511E9F1C8C008625E6 /* QSRankPresenter.swift in Sources */,
 				B2B4BC241E7EA4AB000CC201 /* RightViewController.swift in Sources */,
 				B22AC4611E9F695D008625E6 /* QSRankDetailViewController.swift in Sources */,
-				B2F778AE1EAEEDD4004B4362 /* M80AttributedLabelAttachment.m in Sources */,
 				B22AC45D1E9F678D008625E6 /* QSRankDetailPresenter.swift in Sources */,
 				B278AA951F395FA4000A0D55 /* QSSegmentDropView.swift in Sources */,
 				B22A8D3D1EAD949C00C7E978 /* QSCommunityPresenter.swift in Sources */,
@@ -1646,6 +1645,7 @@
 				B2B4BC0F1E7EA4AB000CC201 /* RankingViewCell.swift in Sources */,
 				B22AC45F1E9F6799008625E6 /* QSRankDetailRouter.swift in Sources */,
 				B20D46DE1E9FBABD00EC466A /* QSBookDetailInteractor.swift in Sources */,
+				B278AB071F398926000A0D55 /* M80AttributedLabelURL.m in Sources */,
 				B2B4BBE11E7EA4AB000CC201 /* SideViewController.swift in Sources */,
 				B2580E251E9B6AF500455AFE /* QSSearchHeaderView.swift in Sources */,
 				B2B4BC221E7EA4AB000CC201 /* DynamicViewController.swift in Sources */,
@@ -1672,7 +1672,7 @@
 				B2B4BC4B1E7EA4AB000CC201 /* HotCommentCell.swift in Sources */,
 				B2B4BBF81E7EA4AB000CC201 /* UIImageView+zhuishu.swift in Sources */,
 				B2B4BBFB1E7EA4AB000CC201 /* UITableView+QSGeneric.swift in Sources */,
-				B2B4BBF71E7EA4AB000CC201 /* String+crypto.swift in Sources */,
+				B2B4BBF71E7EA4AB000CC201 /* String+QSExtension.swift in Sources */,
 				B2B4BC271E7EA4AB000CC201 /* BarButton.swift in Sources */,
 				B22AC44D1E9F1C62008625E6 /* QSRankProtocols.swift in Sources */,
 				B2B4BBF91E7EA4AB000CC201 /* UILabel+zhuishu.swift in Sources */,
@@ -1704,7 +1704,6 @@
 				B2B02E2D1EA8505200A6880A /* QSTopicDetailProtocols.swift in Sources */,
 				B2583CBE1EA782C2004178F3 /* QSThemeTopicViewController.swift in Sources */,
 				B2B02E571EA9A9F000A6880A /* QSCatalogViewController.swift in Sources */,
-				B2F778AF1EAEEDD4004B4362 /* M80AttributedLabelURL.m in Sources */,
 				B258BB0B1EA45B4C006E5802 /* CategoryButton.swift in Sources */,
 				B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */,
 				B2B4BC391E7EA4AB000CC201 /* PageInfo.swift in Sources */,
@@ -1723,8 +1722,6 @@
 				B2FCAA8B1E9C82CE0064837C /* QSSearchItem.swift in Sources */,
 				B2B4BC1A1E7EA4AB000CC201 /* TopicDetailModel.swift in Sources */,
 				B2B4BC251E7EA4AB000CC201 /* RootViewController+FetchData.swift in Sources */,
-				B2F778B01EAEEDD4004B4362 /* NSMutableAttributedString+M80.m in Sources */,
-				B2F778AD1EAEEDD4004B4362 /* M80AttributedLabel.m in Sources */,
 				B2B4BBF21E7EA4AB000CC201 /* Config.swift in Sources */,
 				B2583CA11EA74A37004178F3 /* QSBatteryView.swift in Sources */,
 				B20D74081EED7D250034516F /* QSIntroduceCell.swift in Sources */,
@@ -1746,11 +1743,13 @@
 				B2583CB21EA78280004178F3 /* FilterThemeViewController.swift in Sources */,
 				B278AA8D1F395F30000A0D55 /* ReadHistoryViewController.swift in Sources */,
 				B22AC43A1E9E6626008625E6 /* QSSearchResultTable.swift in Sources */,
+				B278AB061F398926000A0D55 /* M80AttributedLabelAttachment.m in Sources */,
 				B2B4BC3E1E7EA4AB000CC201 /* BookCommentCell.swift in Sources */,
 				B22AC4551E9F1E8F008625E6 /* QSRankViewController.swift in Sources */,
 				B2580E1F1E9B236000455AFE /* QSSearchViewController.swift in Sources */,
 				B288D1D41E9FC86C0024F1A5 /* QSBookDetailTagsView.swift in Sources */,
 				B22A8D441EAD976000C7E978 /* QSDiscussCell.swift in Sources */,
+				B278AB051F398926000A0D55 /* M80AttributedLabel.m in Sources */,
 				B2B4BC321E7EA4AB000CC201 /* BookCommentDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1820,8 +1819,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1866,8 +1867,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1886,6 +1889,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
