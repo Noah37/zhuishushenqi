@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "QSNetwork.h"
 
 FOUNDATION_EXPORT double QSNetworkVersionNumber;
 FOUNDATION_EXPORT const unsigned char QSNetworkVersionString[];
