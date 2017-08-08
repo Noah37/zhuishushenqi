@@ -32,7 +32,7 @@ class QSBookDetailViewController: BaseViewController,UITableViewDataSource,UITab
     fileprivate var sectionTwoY:CGFloat = 0
     fileprivate var bookModel:BookDetail?
     fileprivate var hotComment:[BookComment]?
-    fileprivate var reBooks:[QSRecomment]?
+    fileprivate var reBooks:[Book]?
     fileprivate var recList:[QSBookList]?
     fileprivate let CONTENT_TAG = 11223
     fileprivate var contentShow:Bool = false
@@ -83,7 +83,7 @@ class QSBookDetailViewController: BaseViewController,UITableViewDataSource,UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let counts = [3,self.hotComment?.count ?? 0,1,1,3]
+        let counts = [3,self.hotComment?.count ?? 0,1,1,recList?.count ?? 3]
         return counts[section]
     }
     
@@ -231,7 +231,7 @@ class QSBookDetailViewController: BaseViewController,UITableViewDataSource,UITab
         self.reloadData()
     }
     
-    func showRecommend(list: [QSRecomment]) {
+    func showRecommend(list: [Book]) {
         self.reBooks = list
         self.tableView.reloadData()
     }

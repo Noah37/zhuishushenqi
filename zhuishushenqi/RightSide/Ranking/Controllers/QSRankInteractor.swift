@@ -14,7 +14,8 @@ class QSRankInteractor: QSRankInteractorProtocol {
     
     var ranks:[[QSRankModel]] = []
     func fetchRanks(){
-        QSNetwork.request("\(BASEURL)/\(RANKING)") { (response) in
+        let api = QSAPI.ranking()
+        QSNetwork.request(api.path) { (response) in
             if let dict = response.json as? NSDictionary {
                 do{
                     if let male:[Any] = dict["male"] as? [Any] {

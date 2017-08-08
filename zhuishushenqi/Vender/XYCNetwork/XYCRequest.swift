@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 typealias Callback = (_ data:AnyObject) -> Void
 typealias Warn = (_ data:AnyObject) -> Void

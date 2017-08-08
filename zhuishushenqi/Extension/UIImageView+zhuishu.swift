@@ -15,7 +15,8 @@ extension UIImageView{
         DispatchQueue.global().async {
             var urlStr = urlString
             if urlStr.qs_subStr(to: 4) != "http"{
-                urlStr = urlStr.qs_subStr(from: 7)
+//                urlStr = urlStr.qs_subStr(from: 7)
+                urlStr = "\(IMAGE_BASEURL)\(urlStr)-coverl"
             }
             if urlStr.contains("http") == false {
                 urlStr = "\(IMAGE_BASEURL)\(urlString)"

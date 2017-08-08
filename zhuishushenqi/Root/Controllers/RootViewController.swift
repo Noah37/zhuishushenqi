@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import QSNetwork
 import QSPullToRefresh
 
@@ -67,17 +66,17 @@ class RootViewController: UIViewController {
         self.requestBookShelf()
         self.updateInfo()
         
-        //        let queue = DispatchQueue.global()
-        //        let semaphore = DispatchSemaphore(value: 1)
-        //        var arr:[Int] = []
-        //        for index in 0..<100 {
-        //            queue.async {
-        //                _ = semaphore.wait(timeout:DispatchTime.distantFuture)
-        //                QSLog(index)
-        //                arr.append(index)
-        //                semaphore.signal()
-        //            }
-        //        }
+//        let queue = DispatchQueue.global()
+//        let semaphore = DispatchSemaphore(value: 1)
+//        var arr:[Int] = []
+//        for index in 0..<100 {
+//            queue.async {
+//                _ = semaphore.wait(timeout:DispatchTime.distantFuture)
+//                QSLog(index)
+//                arr.append(index)
+//                semaphore.signal()
+//            }
+//        }
     }
     
     func bookShelfUpdate(){
@@ -124,18 +123,13 @@ class RootViewController: UIViewController {
     
     func fetchRecList(index:Int){
         let gender = ["male","female"]
-//        http://api.zhuishushenqi.com/book/recommend?gender=female
         let recURL = "\(BASEURL)/book/recommend?gender=\(gender[index])"
         QSNetwork.request(recURL) { (response) in
             if let books = response.json?["books"] {
-                do{
-                    let models = try XYCBaseModel.model(withModleClass: BookDetail.self, withJsArray: books as! [Any]) as? [BookDetail]
-                    self.bookShelfArr = models
-                    self.tableView.reloadData()
-                    self.updateInfo()
-                }catch{
-                    
-                }
+                let models = try? XYCBaseModel.model(withModleClass: BookDetail.self, withJsArray: books as! [Any]) as? [BookDetail]
+                self.bookShelfArr = models ?? []
+                self.tableView.reloadData()
+                self.updateInfo()
             }
         }
     }
@@ -251,8 +245,18 @@ extension RootViewController:UITableViewDataSource,UITableViewDelegate{
 extension RootViewController:ComnunityDelegate{
     //MARK: - CommunityDelegate
     func didSelectCellAtIndex(_ index:Int){
-        let dynamicVC = DynamicViewController()
-        SideVC.navigationController?.pushViewController(dynamicVC, animated: true)
+        if index == 3{
+            let lookVC = LookBookViewController()
+            SideVC.navigationController?.pushViewController(lookVC, animated: true)
+
+        }else
+        if index == 5 {
+            let historyVC = ReadHistoryViewController()
+            SideVC.navigationController?.pushViewController(historyVC, animated: true)
+        }else{
+            let dynamicVC = DynamicViewController()
+            SideVC.navigationController?.pushViewController(dynamicVC, animated: true)
+        }
     }
 }
 
@@ -296,22 +300,19 @@ extension RootViewController:SwipableCellDelegate{
         let cell:SwipableCell = tableView.cellForRow(at: indexPath ?? IndexPath(row: 0, section: 0)) as! SwipableCell
         cell.state = .prepare
         // 使用信号量控制，避免创建过多线程浪费性能
-        semaphore = DispatchSemaphore(value: 0)
+        semaphore = DispatchSemaphore(value: 5)
         if let chapters = book.book?.chapters {
             self.totalCacheChapter = chapters.count
-            DispatchQueue.global().async {
-                var count = 0
-                for index in startChapter..<chapters.count {
+            let group = DispatchGroup()
+            let global = DispatchQueue.global(qos: .userInitiated)
+            for index in startChapter..<chapters.count {
+                global.async(group: group){
                     if chapters[index].content == "" {
-                        count += 1
                         self.fetchChapter(index: index,bookDetail: book,indexPath: indexPath)
-                        if count >= 5{
-                            let timeout:Double? = 30.00
-                            let timeouts = timeout.flatMap { DispatchTime.now() + $0 }
-                                ?? DispatchTime.distantFuture
-                            _ = self.semaphore.wait(timeout: timeouts)
-                            count -= 1
-                        }
+                        let timeout:Double? = 30.00
+                        let timeouts = timeout.flatMap { DispatchTime.now() + $0 }
+                            ?? DispatchTime.distantFuture
+                        _ = self.semaphore.wait(timeout: timeouts)
                     }else {
                         self.totalCacheChapter -= 1
                         let cell:SwipableCell = self.tableView.cellForRow(at: indexPath ?? IndexPath(row: 0, section: 0)) as! SwipableCell
@@ -355,12 +356,14 @@ extension RootViewController:SwipableCellDelegate{
 extension RootViewController:SegMenuDelegate{
     func didSelectAtIndex(_ index: Int) {
         QSLog("选择了第\(index)个")
+        if index == 1{
+            communityView.models = self.bookShelfArr ?? []
+        }
         communityView.isHidden = (index == 0 ? true:false)
     }
     
     func cacheSuccessHandler(chapterIndex:Int,chapter: Dictionary<String, Any>,bookDetail:BookDetail,indexPath:IndexPath?){
-        QSLog("下载完成第\(chapterIndex)章节")
-        self.curCacheChapter += 1
+    
         let cell:SwipableCell = tableView.cellForRow(at: indexPath ?? IndexPath(row: 0, section: 0)) as! SwipableCell
         cell.state = .download
         if curCacheChapter == totalCacheChapter - 1 {

@@ -22,7 +22,7 @@ class QSSearchAutoCompleteTable: UIView,UITableViewDataSource,UITableViewDelegat
         tableView.dataSource = self
         tableView.delegate = self
         tableView.sectionHeaderHeight = CGFloat.leastNonzeroMagnitude
-        tableView.rowHeight = 30
+        tableView.rowHeight = 44
         tableView.qs_registerCellClass(UITableViewCell.self)
         return tableView
     }()

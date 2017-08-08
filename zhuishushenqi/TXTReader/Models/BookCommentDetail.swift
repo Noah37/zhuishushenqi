@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YYKit
 
 @objc(BookCommentDetail)
 class BookCommentDetail: NSObject {

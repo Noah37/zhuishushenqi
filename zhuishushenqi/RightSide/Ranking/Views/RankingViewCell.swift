@@ -72,9 +72,16 @@ class RankingViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.imageView?.frame = CGRect(x: 15, y: 10, width: self.bounds.height - 20, height: self.bounds.height - 20)
-        self.textLabel?.frame = CGRect(x: (self.imageView?.bounds.maxX ?? 0) + 20, y: 5, width: self.bounds.width - (self.imageView?.bounds.maxX ?? 0) - 20 - 30, height: self.bounds.height - 10)
+        let imageViewHeight = self.bounds.height - 20
+        let imageViewWidth = self.bounds.height - 20
+        self.imageView?.frame = CGRect(x: 15, y: 10, width: imageViewWidth, height: imageViewHeight)
+        let textLabelX = (self.imageView?.bounds.maxX ?? 0) + 20
+        let textLabelWidth = self.bounds.width - (self.imageView?.bounds.maxX ?? 0) - 50
+        let textLabelHeight = self.bounds.height - 10
+        self.textLabel?.frame = CGRect(x: textLabelX , y: 5, width: textLabelWidth, height: textLabelHeight)
         self.textLabel?.font = UIFont.systemFont(ofSize: 13)
-        self.accessoryImageView.frame = CGRect(x: self.bounds.width - 29, y: self.bounds.height/2 - 3.5, width: 14, height: 7)
+        let accessoryX = self.bounds.width - 29
+        let accessoryY = self.bounds.height/2 - 3.5
+        self.accessoryImageView.frame = CGRect(x: accessoryX, y: accessoryY, width: 14, height: 7)
     }
 }

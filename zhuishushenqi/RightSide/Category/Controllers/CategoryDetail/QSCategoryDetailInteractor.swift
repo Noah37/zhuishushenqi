@@ -30,13 +30,12 @@ class QSCategoryDetailInteractor: QSCategoryDetailInteractorProtocol {
             self.output?.fetchDataSuccess(models: models[index])
             return
         }
-        let urlString = "\(BASEURL)/book/by-categories"
         let types = ["new","hot","reputation","over"]
-        let major = param["major"] ?? ""
-        let gender = param["gender"] ?? ""
-        let type = types[index]
-        let params = ["gender":gender,"type":type,"major":"\(major)","minor":"","start":"0","limit":"50"]
-        QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: params, headers: nil) { (response) in
+        let major:String = param["major"] as? String ?? ""
+        let gender:String = param["gender"] as? String ?? ""
+        let type:String = types[index]
+        let api = QSAPI.categoryList(gender: gender, type: type, major:  major, minor: "", start: "0", limit: "50")
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "books"){
                 do{

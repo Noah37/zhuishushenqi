@@ -12,14 +12,16 @@ import QSNetwork
 extension RootViewController{
     
     func requetShelfMsg(){
-//        http://api.zhuishushenqi.com/notification/shelfMessage?platform=ios
-        let shelfUrl = "\(BASEURL)/notification/shelfMessage"
-        QSNetwork.request(shelfUrl, method: HTTPMethodType.get, parameters: ["platform":"ios"], headers: nil) { (response) in
-            if let _ = response.json {
-                let message = response.json?["message"] as? NSDictionary
+        self.bookShelfLB.text = USER_DEFAULTS.object(forKey: PostLink) as? String ?? ""
+        let shelfApi = QSAPI.shelfMSG()
+        QSNetwork.request(shelfApi.path, method: HTTPMethodType.get, parameters: shelfApi.parameters, headers: nil) { (response) in
+            if let json = response.json {
+                let message = json["message"] as? NSDictionary
                 if let msg = message{
                     let postLink = msg.object(forKey: "postLink") as? String
-                    self.bookShelfLB.text = "\(self.getPost(postLink).1)"
+                    let post = self.getPost(postLink)
+                    USER_DEFAULTS.set(post.1, forKey: PostLink)
+                    self.bookShelfLB.text = "\(post.1)"
                 }
             }
         }
@@ -44,14 +46,12 @@ extension RootViewController{
     
     //匹配当前书籍的更新信息
     func updateInfo(){
-    //        http://api.zhuishushenqi.com/book?view=updated&id=5816b415b06d1d32157790b1,51d11e782de6405c45000068
         guard let update  = self.bookShelfArr else {
             return
         }
-        let url = "\(BASEURL)/book"
         let ids = self.param(bookArr: update)
-        let param = ["view":"updated","id":"\(ids)"]
-        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
+        let api = QSAPI.update(id: ids)
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             if let json:[Any] = response.json as? [Any] {
                 do{
                     self.updateInfoArr = try XYCBaseModel.model(withModleClass: UpdateInfo.self, withJsArray: json as [Any]!) as? [UpdateInfo]
@@ -59,25 +59,25 @@ extension RootViewController{
                         return
                     }
                     self.updateToModel(updateModels: updateModels, bookShelfModels: update)
-                }catch{
-                    
-                }
+                }catch _{}
             }
         }
     }
     
     //需要将对应的update信息赋给model
     func updateToModel(updateModels:[UpdateInfo],bookShelfModels:[BookDetail]){
-        DispatchQueue.global().async {
-            for index in 0..<updateModels.count {
-                let updateInfo = updateModels[index]
-                for y in 0..<bookShelfModels.count {
+        let group = DispatchGroup()
+        let global = DispatchQueue.global(qos: .userInitiated)
+        for index in 0..<updateModels.count {
+            let updateInfo = updateModels[index]
+            for y in 0..<bookShelfModels.count {
+                global.async(group: group){
                     let bookShelf = bookShelfModels[y]
                     if updateInfo._id == bookShelf._id {
                         bookShelf.updateInfo = updateInfo
-//                        if(self.isUpdated(update: updateInfo, book: bookShelf)){
-                            bookShelf.isUpdated = self.isUpdated(update: updateInfo, book: bookShelf)
-//                        }
+                        //                        if(self.isUpdated(update: updateInfo, book: bookShelf)){
+                        bookShelf.isUpdated = self.isUpdated(update: updateInfo, book: bookShelf)
+                        //                        }
                         var bookShelfs = bookShelfModels
                         bookShelfs[y] = bookShelf
                         self.bookShelfArr = bookShelfs
@@ -85,10 +85,10 @@ extension RootViewController{
                     }
                 }
             }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.tableView.endAllRefreshing()
-            }
+        }
+        group.notify(queue: DispatchQueue.main) { 
+            self.tableView.reloadData()
+            self.tableView.endAllRefreshing()
         }
     }
     
@@ -138,7 +138,7 @@ extension RootViewController{
             }
             title = link.qs_subStr(start: startRange.location, end: endRange.location)
             if endContainRange.location != NSNotFound {
-                title = link.qs_subStr(start: startRange.location, end: endContainRange.location + 1)
+                title = link.qs_subStr(start: startRange.location, end: endContainRange.location - 1)
             }
             if post.location == NSNotFound {
                 return (id,title)
@@ -205,8 +205,8 @@ extension RootViewController{
         do {
             try reachability?.startNotifier()
         } catch {
-//            networkStatus.textColor = .red
-//            networkStatus.text = "Unable to start\nnotifier"
+            //            networkStatus.textColor = .red
+            //            networkStatus.text = "Unable to start\nnotifier"
             return
         }
     }

@@ -98,17 +98,13 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
 //http://api.zhuishushenqi.com/post/530a26522852d5280e04c19c/comment/best
         let best = "\(BASEURL)/post/\(self.id)/comment/best"
         QSNetwork.request(best) { (response) in
-            do{
-                if let books = response.json?.object(forKey: "comments")  {
-                    self.magicComments =  try XYCBaseModel.model(withModleClass: BookCommentDetail.self, withJsArray:books as! [AnyObject]) as? [BookCommentDetail]
-                }
-                DispatchQueue.main.async {
-                    self.tableView.removeFromSuperview()
-                    self.view.addSubview(self.tableView)
-                    self.tableView.reloadData()
-                }
-            }catch{
-                
+            if let books = response.json?.object(forKey: "comments")  {
+                self.magicComments =  try? XYCBaseModel.model(withModleClass: BookCommentDetail.self, withJsArray:books as! [AnyObject]) as? [BookCommentDetail] ?? []
+            }
+            DispatchQueue.main.async {
+                self.tableView.removeFromSuperview()
+                self.view.addSubview(self.tableView)
+                self.tableView.reloadData()
             }
         }
     }
@@ -132,9 +128,7 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
                     self.tableView.reloadData()
                     self.tableView.endRefreshing(at: .bottom)
                 }
-            }catch{
-                
-            }
+            }catch _ {}
         }
     }
     

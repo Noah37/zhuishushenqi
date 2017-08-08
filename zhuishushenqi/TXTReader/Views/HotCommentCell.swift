@@ -32,7 +32,8 @@ class HotCommentCell: UITableViewCell {
                 self.contentLabel.text = "\(model?.content ?? "")"
             }
             self.userfulBtn.setTitle("\(model?.likeCount ?? 0)", for: .normal)
-            let width = (1 + 10*(model?.rating ?? 60) + ((model?.rating ?? 60) - 1)*2)
+            let ratingValue = model?.rating ?? 60
+            let width = (1 + 10*ratingValue + (ratingValue - 1)*2)
             self.lightView?.frame = CGRect(x: 65 , y: 53, width: width, height: 10)
             self.publishTimeLabel.text = ""
             let created = model?.created ?? "2014-02-23T16:48:18.179Z"

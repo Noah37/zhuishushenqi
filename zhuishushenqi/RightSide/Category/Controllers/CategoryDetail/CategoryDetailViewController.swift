@@ -59,9 +59,7 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
                 if let books = response.json?.object(forKey: "books"){
                     self.booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject])  as! [Book]
                 }
-            }catch{
-                
-            }
+            }catch _ {}
             self.view.addSubview(self.tableView)
             self.tableView.reloadData()
         }
@@ -81,9 +79,7 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
             if let books = response.json?.object(forKey: "books"){
                 do{
                     self.booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject])  as! [Book]
-                }catch{
-                    
-                }
+                }catch _{}
             }
             self.view.addSubview(self.tableView)
             self.tableView.reloadData()

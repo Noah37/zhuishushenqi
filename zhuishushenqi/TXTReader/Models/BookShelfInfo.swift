@@ -17,6 +17,7 @@ class BookShelfInfo: NSObject {
     }
     
     let bookShelfInfo = "bookShelfInfo"
+    let readHistoryKey = "readHistoryKey"
     //Local store BookDetail models array when you add persue update
     var bookShelf:[BookDetail] {
         get{
@@ -36,9 +37,31 @@ class BookShelfInfo: NSObject {
                 do {
                     let url = URL(string: filePath)
                     try  FileManager.default.removeItem(at: url!)
-                } catch  {
-                    
-                }
+                } catch  _{}
+                NSKeyedArchiver.archiveRootObject(dict, toFile: filePath)
+            }
+        }
+    }
+    
+    var readHistory:[BookDetail]{
+        get{
+            var data:[BookDetail]? = []
+            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last?.appending("/\(readHistoryKey.md5())")
+            if let filePath = path {
+                let file:NSDictionary? = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? NSDictionary
+                data = file?[readHistoryKey] as? [BookDetail]
+            }
+            return data ?? []
+        }
+        set{
+            let dict = [readHistoryKey:newValue]
+            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last?.appending("/\(readHistoryKey.md5())")
+            
+            if let filePath = path {
+                do {
+                    let url = URL(string: filePath)
+                    try  FileManager.default.removeItem(at: url!)
+                } catch  _{}
                 NSKeyedArchiver.archiveRootObject(dict, toFile: filePath)
             }
         }

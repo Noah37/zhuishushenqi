@@ -20,6 +20,9 @@ import QSNetwork
 
 class QSTextReaderController: UIViewController {
     
+    // save read history,default true,bookshelf are false
+    var saveRecord:Bool = true
+    
     var presenter: QSTextPresenterProtocol?
 
     var bookDetail:BookDetail?
@@ -41,24 +44,37 @@ class QSTextReaderController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         setSubviews()
         setRoot()
         if let book = bookDetail {
             presenter?.viewDidLoad(bookDetail:book)
         }
+        bookDetail?.isUpdated = false
+        if let book = bookDetail {
+            updateBookShelf(bookDetail: book, type: .update, refresh: true)
+        }
     }
     
-    func setSubviews() -> Void {
-        view.backgroundColor = UIColor.white
+    func setSubviews() {
+//        view.backgroundColor = UIColor.black
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
-        bookDetail?.isUpdated = false
-        if let book = bookDetail {
-            updateBookShelf(bookDetail: book, type: .update, refresh: true)
+        
+        DispatchQueue.global().async {
+            if self.saveRecord {
+                var historyList:[BookDetail] = BookShelfInfo.books.readHistory
+                if let book  = self.bookDetail {
+                    if !isExist(bookDetail: book, at: historyList) {
+                        historyList.append(book)
+                    }
+                }
+                BookShelfInfo.books.readHistory = historyList
+            }
         }
     }
     
@@ -372,7 +388,6 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     }
 }
 
-//<<<<<<< HEAD
 extension QSTextReaderController:QSTextViewProtocol,QSCategoryDelegate{
     
     func showBook(book:QSBook){

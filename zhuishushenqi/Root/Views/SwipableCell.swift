@@ -125,7 +125,6 @@ class SwipableCell: UITableViewCell {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapGestureAction(tap:)))
         touchOverlay.addGestureRecognizer(tap)
         
-//<<<<<<< HEAD
         self.contentView.addSubview(container)
         container.addSubview(rightView)
         container.addSubview(centerView)
@@ -236,7 +235,7 @@ class SwipableCell: UITableViewCell {
         self.detailTitle?.qs_setCreateTime(createTime: created, append: "更新：\(model.updateInfo?.lastChapter ?? "")")
         let urlString = "\(model.cover)"
         self.imgView?.qs_setBookCoverWithURLString(urlString: urlString)
-        updatedLabel.isHidden = (model.isUpdated)
+        updatedLabel.isHidden = !(model.isUpdated)
         let width = widthOfString(title?.text ?? "", font: UIFont.systemFont(ofSize: 13), height: 20)
         let x = (title?.frame.minX ?? 0) + width + 5
         updatedLabel.frame = CGRect(x:  x, y: 14.5, width: 22, height: 11)

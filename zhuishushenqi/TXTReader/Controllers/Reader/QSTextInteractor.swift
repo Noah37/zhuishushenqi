@@ -42,9 +42,8 @@ class QSTextInteractor: QSTextInteractorProtocol {
     func requestAllResource(bookDetail:BookDetail){
         self.bookDetail = bookDetail
         //先查询书籍来源，根据来源返回的id再查询所有章节
-        let url = "\(BASEURL)/toc"
-        let param = ["view":"summary","book":bookDetail._id]
-        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
+        let api = QSAPI.allResource(key: bookDetail._id)
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             if let resource = response.json {
                 do{
                     var resources:[ResourceModel]?
@@ -71,13 +70,15 @@ class QSTextInteractor: QSTextInteractorProtocol {
         self.selectedIndex = selectedIndex
         //两种情况,1.resources为空，说明第一次打开，直接通过book.id来请求
         //       2.resource不为空，按照resources来请求
-        var url:String = "\(BASEURL)/toc/\(bookDetail._id)?view=chapters"
+        var api = QSAPI.allChapters(key: bookDetail._id)
+        var url:String = api.path
         if let res = self.resources {
             if res.count > self.selectedIndex {
-                url = "\(BASEURL)/toc/\(self.resources?[self.selectedIndex]._id ?? "")?view=chapters"
+                api = QSAPI.allChapters(key: self.resources?[self.selectedIndex]._id ?? "")
+                url = api.path
             }
         }
-        QSNetwork.request(url) { (response) in
+        QSNetwork.request(url, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             QSLog("JSON:\(response.json)")
             if let chapters = response.json?["chapters"] as? [NSDictionary] {
                 QSLog("Chapters:\(chapters)")
@@ -86,6 +87,7 @@ class QSTextInteractor: QSTextInteractorProtocol {
             }else{
                 self.output.fetchAllChaptersFailed()
             }
+            
         }
     }
     
@@ -97,8 +99,8 @@ class QSTextInteractor: QSTextInteractorProtocol {
         }
         var link:NSString = "\(chapters?[chapterIndex].object(forKey: "link") ?? "")" as NSString
         link = link.urlEncode() as NSString
-        let url = "\(CHAPTERURL)/\(link)?k=22870c026d978c75&t=1489933049"
-        QSNetwork.request(url) { (response) in
+        let api = QSAPI.chapter(key: link as String, type: .chapter)
+        QSNetwork.request(api.path) { (response) in
             if let json = response.json as? Dictionary<String, Any> {
                 QSLog("JSON:\(json)")
                 if let chapter = json["chapter"] as?  Dictionary<String, Any> {
@@ -215,8 +217,8 @@ class QSTextInteractor: QSTextInteractorProtocol {
         }
         var link:NSString = "\(chapters?[index].object(forKey: "link") ?? "")" as NSString
         link = link.urlEncode() as NSString
-        let url = "\(CHAPTERURL)/\(link)?k=22870c026d978c75&t=1489933049"
-        QSNetwork.request(url) { (response) in
+        let api = QSAPI.chapter(key: link as String, type: .chapter)
+        QSNetwork.request(api.path) { (response) in
             DispatchQueue.global().async {
                 if let json = response.json as? Dictionary<String, Any> {
                     QSLog("JSON:\(json)")

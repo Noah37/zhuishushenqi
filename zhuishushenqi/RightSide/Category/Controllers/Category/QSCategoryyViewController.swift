@@ -78,7 +78,13 @@ class QSCategoryyViewController: BaseViewController ,UITableViewDataSource,UITab
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let types =  self.books?[indexPath.section] as? NSArray
-        let count = ((types?.count ?? 0)%3 == 0 ? (types?.count ?? 0)/3:(types?.count ?? 0)/3 + 1)
+        var count = 0
+        if (types?.count ?? 0)%3 == 0 {
+            count = (types?.count ?? 0)/3
+        }else{
+            count = (types?.count ?? 0)/3
+        }
+        
         let height = count * 60
         return CGFloat(height)
     }

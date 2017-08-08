@@ -18,8 +18,7 @@ class QSSplashScreen: NSObject {
     private var remainDelay:Int = 3
     private var shouldHidden:Bool = true
     private let splashInfoKey = "splashInfoKey"
-    private let splashImagePathKey = "splashImagePathKey"
-    private let splashImageName = "splashImageName"
+    private let splashImageNameKey = "splashImageNameKey"
     var completion:SplashCallback?
     
     private let splashURL = "http://api.zhuishushenqi.com/splashes/ios"
@@ -43,22 +42,19 @@ class QSSplashScreen: NSObject {
     
     func getSplashInfo(){
         QSLog("info:\(String(describing: USER_DEFAULTS.object(forKey: splashInfoKey)))")
-        // first check network,not reachable
+        // first check network, load image from disk,if not reachable
         if Reachability(hostname: IMAGE_BASEURL)?.isReachable == false {
-            // load image from disk
             let splashInfo = USER_DEFAULTS.object(forKey: splashInfoKey) as? NSDictionary
-            let imagePath = splashInfo?.object(forKey: splashImagePathKey) as? String ?? ""
             // image not exist,skip
-            if FileManager.default.fileExists(atPath: imagePath) {
-                hide()
+            // searchPah exchange everytime you run your app
+            let imageName = splashInfo?[splashImageNameKey] as? String ?? ""
+            let imagePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(imageName)") ?? ""
+            let image = UIImage(contentsOfFile: imagePath)
+            if let splashImage = image{
+                self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
+                self.splashRootVC?.setSplashImage(image: splashImage)
             }else{
-                let image = UIImage(contentsOfFile: imagePath)
-                if let splashImage = image{
-                    self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
-                    self.splashRootVC?.setSplashImage(image: splashImage)
-                }else{
-                    hide()
-                }
+                  hide()
             }
             return
         }
@@ -66,11 +62,15 @@ class QSSplashScreen: NSObject {
         // request splash image
         QSNetwork.request(splashURL) { (response) in
             let splash =  response.json?["splash"] as? [NSDictionary]
-            if let splashInfo = splash?[0] {
-                // save splash info,download image and save it
-                self.splashInfo = splashInfo
-                self.downloadSplashImage()
-            }else{
+            if (splash?.count ?? 0) > 0{
+                if let splashInfo = splash?[0] {
+                    // save splash info,download image and save it
+                    self.splashInfo = splashInfo
+                    self.downloadSplashImage()
+                }else{
+                    self.hide()
+                }
+            }else {
                 self.hide()
             }
         }
@@ -78,29 +78,16 @@ class QSSplashScreen: NSObject {
     
     func downloadSplashImage(){
         let urlString = getSplashURLString()
-        QSNetwork.request(urlString) { (response) in
-            QSLog(response.data)
-            if let imageData = response.data {
-                let image = UIImage(data: imageData)
-                if let splashImage = image{
-                    let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
-                    let url = URL(fileURLWithPath: path!.appending("/\(self.splashImageName)"))
-                    do{
-                        try UIImagePNGRepresentation(splashImage)?.write(to: url)
-                    }catch{
-                        
-                    }
-                    let mutableInfo:NSMutableDictionary = NSMutableDictionary(dictionary: self.splashInfo!)
-                    mutableInfo.setValue(path, forKey: self.splashImagePathKey)
-                    self.splashInfo = mutableInfo
-                    USER_DEFAULTS.set(self.splashInfo, forKey: self.splashInfoKey)
-                    self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
-                    self.splashRootVC?.setSplashImage(image: splashImage)
-                }else{
-                    self.hide()
-                }
-            }else{
-                self.hide()
+        QSNetwork.download(urlString) { (fileURL, response, error) in
+            QSLog("\(fileURL?.path ?? "")")
+            let splashImage = UIImage(contentsOfFile: fileURL?.path ?? "")
+            let mutableInfo:NSMutableDictionary = NSMutableDictionary(dictionary: self.splashInfo!)
+            mutableInfo.setValue(fileURL?.lastPathComponent ?? "", forKey: self.splashImageNameKey)
+            self.splashInfo = mutableInfo
+            USER_DEFAULTS.set(self.splashInfo, forKey: self.splashInfoKey)
+            self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
+            if let image  = splashImage {
+                self.splashRootVC?.setSplashImage(image: image)
             }
         }
     }
@@ -123,6 +110,7 @@ class QSSplashScreen: NSObject {
         if shouldHidden {
             shouldHidden = false
             attachRootViewController()
+            splashWindow = nil
             if let completion = self.completion {
                 completion()
             }
@@ -174,7 +162,7 @@ class QSSplashViewController: UIViewController {
         
         skipBtn = UIButton(type: .custom)
         skipBtn.frame = CGRect(x: UIScreen.main.bounds.width - 80, y:UIScreen.main.bounds.height -  65, width: 60, height: 30)
-
+        
         skipBtn.setTitle("跳过", for: .normal)
         skipBtn.setTitleColor(UIColor.gray, for: .normal)
         skipBtn.backgroundColor = UIColor(white: 0.0, alpha: 0.1)
@@ -195,6 +183,10 @@ class QSSplashViewController: UIViewController {
             imageName = "Default-1242x2208"
         }
         return imageName
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
     }
     
     @objc private func skipAction(btn:UIButton){

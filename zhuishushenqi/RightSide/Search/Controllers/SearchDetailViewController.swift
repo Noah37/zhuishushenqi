@@ -8,6 +8,7 @@
 
 import UIKit
 import QSNetwork
+//import YTKKeyValueStore
 
 class SearchDetailViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate,UISearchResultsUpdating,UISearchControllerDelegate,UISearchBarDelegate,SearchViewDelegate {
 

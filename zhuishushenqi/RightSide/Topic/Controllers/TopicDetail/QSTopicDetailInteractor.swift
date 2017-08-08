@@ -19,9 +19,9 @@ class QSTopicDetailInteractor: QSTopicDetailInteractorProtocol {
 
     func requestDetail(){
         //        http://api.zhuishushenqi.com/book-list/58b782f5a7674a5f67618731
-        let urlString = "\(BASEURL)/book-list/\(id)"
+        let api = QSAPI.themeDetail(key: id)
         //        QSNetwork.setDefaultURL(url: BASEURL)
-        QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let bookList = response.json?.object(forKey: "bookList") as? [AnyHashable : Any], let books = (response.json?.object(forKey: "bookList") as AnyObject).object(forKey:"books"){
                 do{

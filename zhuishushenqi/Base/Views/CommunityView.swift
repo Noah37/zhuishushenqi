@@ -15,14 +15,19 @@ protocol ComnunityDelegate {
 class CommunityView: UIView,UITableViewDataSource,UITableViewDelegate {
 
     var delegate:ComnunityDelegate?
+    var models:[BookDetail] = [] {
+        didSet{
+            self.tableView.reloadData()
+        }
+    }
     fileprivate lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight), style: .grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - 104), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .singleLine
         return tableView
     }()
-    var titles:NSArray = [["title":"动态","image":"d_icon"],["title":"综合讨论区","image":"f_ramble_icon"],["title":"书评区[找书必看]","image":"forum_public_review_icon"],["title":"书荒互助区","image":"forum_public_help_icon"],["title":"女生区","image":"f_girl_icon"]]
+    var titles:NSArray = [["title":"动态","image":"d_icon"],["title":"综合讨论区","image":"f_ramble_icon"],["title":"书评区[找书必看]","image":"forum_public_review_icon"],["title":"书荒互助区","image":"forum_public_help_icon"],["title":"女生区","image":"f_girl_icon"],["title":"浏览记录","image":"f_invent_icon"]]
     override init(frame: CGRect) {
         super.init(frame: frame)
         tableView.dataSource = self
@@ -40,7 +45,7 @@ class CommunityView: UIView,UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles.count
+        return titles.count + models.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,10 +55,16 @@ class CommunityView: UIView,UITableViewDataSource,UITableViewDelegate {
             cell = UITableViewCell(style: .default, reuseIdentifier: iden)
             cell?.selectionStyle = .none
         }
-        cell?.textLabel?.text = (titles[indexPath.row] as! NSDictionary).object(forKey: "title") as? String
-        cell?.imageView?.image = UIImage(named:(titles[indexPath.row] as! NSDictionary).object(forKey: "image") as? String ?? "")
+        let name = indexPath.row < titles.count ? (titles[indexPath.row] as! NSDictionary).object(forKey: "image") as? String ?? "" : ""
+        let title = indexPath.row < titles.count ? (titles[indexPath.row] as! NSDictionary).object(forKey: "title") as? String : ""
+        cell?.textLabel?.text = title
+        cell?.imageView?.image = UIImage(named:name)
         cell?.textLabel?.font = UIFont.systemFont(ofSize: 15)
         cell?.accessoryType = .disclosureIndicator
+        if indexPath.row >= titles.count {
+            cell?.imageView?.qs_setBookCoverWithURLString(urlString: models[indexPath.row - titles.count].cover)
+            cell?.textLabel?.text = models[indexPath.row - titles.count].title
+        }
         return cell!
     }
     

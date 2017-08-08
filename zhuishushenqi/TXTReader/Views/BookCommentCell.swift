@@ -48,7 +48,9 @@ class BookCommentCell: UITableViewCell {
 
         bookName.text = "\(model?.book.title ?? "")"
     
-        let totalHeight = (model?.titleHeight ?? 0) + (model?.contentHeight ?? 0) + title.frame.minY + 19 + bgView.bounds.height
+        let titleHeighttt = model?.titleHeight ?? 0
+        let contentHeightttt = model?.contentHeight ?? 0
+        let totalHeight = titleHeighttt + contentHeightttt  + title.frame.minY + 19 + bgView.bounds.height
         rateView.rate = model?.rating ?? 0
 
         resetframe(height: totalHeight)
@@ -78,7 +80,9 @@ class BookCommentCell: UITableViewCell {
     }
     
     static func height(model:BookComment?)->CGFloat{
-        let height = (model?.titleHeight ?? 0) + (model?.contentHeight ?? 0) + 130 + 80
+        let titleHeight = model?.titleHeight ?? 0
+        let contentHeight = model?.contentHeight ?? 0
+        let height = titleHeight + contentHeight + 210
         return height
     }
     

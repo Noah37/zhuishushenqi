@@ -17,8 +17,9 @@ protocol QSBookDetailWireframeProtocol: class {
     func presentComment(model:BookComment)
 //    func presentComment(id:String)
     func presentTopic(model:QSBookList)
-    func presentSelf(model:QSRecomment)
+    func presentSelf(model:Book)
     func presentCommunity(model:BookDetail)
+    func presentInterestedView(recList:[Book])
 }
 //MARK: Presenter -
 protocol QSBookDetailPresenterProtocol: class {
@@ -48,13 +49,14 @@ protocol QSBookDetailInteractorOutputProtocol: class {
     func fetchContent(show:Bool)
     func fetchAllChapterSuccess(bookDetail:BookDetail,res:[ResourceModel])
     func fetchAllChapterFailed()
-    func fetchRecommendSuccess(books:[QSRecomment])
+    func fetchRecommendSuccess(books:[Book])
     func fetchRecommendFailed()
     func fetchRecBookSuccess(books:[QSBookList])
     func fetchRecBookFailed()
     func showTopic(model:QSBookList)
-    func showBookDetail(model:QSRecomment)
+    func showBookDetail(model:Book)
     func showCommunity(model:BookDetail)
+    func showInterestedView(recList:[Book])
 //    func fetchMayIntrestedSuccess()
 }
 
@@ -65,6 +67,6 @@ protocol QSBookDetailViewProtocol: IndicatableView {
   var presenter: QSBookDetailPresenterProtocol?  { get set }
     func showContent(show:Bool)
     func showResult(bookDetail:BookDetail,comment:[BookComment])
-    func showRecommend(list:[QSRecomment])
+    func showRecommend(list:[Book])
     func showRecBookList(list:[QSBookList])
 }

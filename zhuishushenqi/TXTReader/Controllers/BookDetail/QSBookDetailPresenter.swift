@@ -31,9 +31,9 @@ class QSBookDetailPresenter: QSBookDetailPresenterProtocol {
     }
     
     func didClickReadingBtn(model:BookDetail,select:Bool){
+        view?.showActivityView()
         let allChapterUrl = "\(BASEURL)/toc"
         interactor.requestAllChapters(withUrl: allChapterUrl,param:["view":"summary","book":model._id ])
-        view?.showActivityView()
     }
     
     func didClickPersueBtn(model:BookDetail,select:Bool){
@@ -90,15 +90,15 @@ extension QSBookDetailPresenter:QSBookDetailInteractorOutputProtocol{
     }
     
     func fetchAllChapterSuccess(bookDetail:BookDetail,res:[ResourceModel]){
-        router.presentReading(model: res, booDetail: bookDetail)
         view?.hideActivityView()
+        router.presentReading(model: res, booDetail: bookDetail)
     }
     
     func fetchAllChapterFailed(){
         view?.hideActivityView()
     }
     
-    func fetchRecommendSuccess(books: [QSRecomment]) {
+    func fetchRecommendSuccess(books: [Book]) {
         view?.hideActivityView()
         view?.showRecommend(list: books)
     }
@@ -120,11 +120,16 @@ extension QSBookDetailPresenter:QSBookDetailInteractorOutputProtocol{
         router.presentTopic(model: model)
     }
     
-    func showBookDetail(model: QSRecomment) {
+    func showBookDetail(model: Book) {
         router.presentSelf(model: model)
     }
     
     func showCommunity(model: BookDetail) {
         router.presentCommunity(model: model)
     }
+    
+    func showInterestedView(recList:[Book]){
+        router.presentInterestedView(recList: recList)
+    }
+
 }

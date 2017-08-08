@@ -20,4 +20,16 @@ extension UIView {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    func nextController()->UIViewController?{
+        var nextResponder:UIResponder? = self.next
+        while (nextResponder != nil) {
+            if nextResponder?.isKind(of: UIViewController.self) == true {
+                return nextResponder as? UIViewController
+            }
+            nextResponder = nextResponder?.next
+        }
+        return nil
+    }
+    
 }

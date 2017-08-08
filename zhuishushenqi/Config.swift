@@ -73,6 +73,7 @@ let ReaderBg = "ReaderBg"
 let FontSize = "FontSize"
 let Brightness = "Brightness"
 let ReadingProgress = "ReadingProgress"
+let PostLink = "PostLink"
 
 // notification
 let SHOW_RECOMMEND = "ShowRecomend"
@@ -204,6 +205,16 @@ func isExistShelf(bookDetail:BookDetail?)->Bool{
     return exist
 }
 
+func isExist(bookDetail:BookDetail?,at books:[BookDetail])->Bool{
+    var exist = false
+    for item in books {
+        if item._id == (bookDetail?._id ?? "") {
+            exist = true
+        }
+    }
+    return exist
+}
+
 enum BookShelfUpdateType {
     case add
     case delete
@@ -256,7 +267,6 @@ func bookShelfRefresh(model:BookDetail,arr:[BookDetail])->[BookDetail]{
 }
 
 //发通知删除时需要重新请求数据，反应慢，书架删除时应该直接删除而不重新请求
-@discardableResult
 func updateBookShelf(bookDetail:BookDetail?,type:BookShelfUpdateType,refresh:Bool){
     DispatchQueue.global().async {
         
@@ -266,6 +276,7 @@ func updateBookShelf(bookDetail:BookDetail?,type:BookShelfUpdateType,refresh:Boo
         for item in mArr {
             if item._id == (bookDetail?._id ?? "") {
                 existIndex = index
+                break
             }
             index += 1
         }

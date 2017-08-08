@@ -30,6 +30,9 @@ class QSBookDetailRouter: QSBookDetailWireframeProtocol {
     }
     
     func presentReading(model:[ResourceModel],booDetail:BookDetail){
+//        viewController?.navigationController?.pushViewController(QSTextRouter.createModule(bookDetail:booDetail,callback: {(book:BookDetail) in
+//            
+//        }), animated: true)
         viewController?.present(QSTextRouter.createModule(bookDetail:booDetail,callback: {(book:BookDetail) in
         
         }), animated: true, completion: nil)
@@ -43,11 +46,18 @@ class QSBookDetailRouter: QSBookDetailWireframeProtocol {
         viewController?.navigationController?.pushViewController(QSTopicDetailRouter.createModule(id: model.id), animated: true)
     }
     
-    func presentSelf(model:QSRecomment){
-        viewController?.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: model.id), animated: true)
+    func presentSelf(model:Book){
+        let id = model._id ?? ""
+        viewController?.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: id), animated: true)
     }
     
     func presentCommunity(model: BookDetail) {
         viewController?.navigationController?.pushViewController(QSCommunityRouter.createModule(model: model), animated: true)
+    }
+    
+    func presentInterestedView(recList:[Book]){
+        let interestedVC = QSInterestedViewController()
+        interestedVC.books = recList
+        viewController?.navigationController?.pushViewController(interestedVC, animated: true)
     }
 }

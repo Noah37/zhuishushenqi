@@ -32,7 +32,7 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
         tableView.qs_registerCellNib(UserfulCell.self)
 
 //        tableView.qs_registerCellNib(BookCommentViewCell.self)
-        tableView.qs_registerCellClass(BookCommentViewCell.self)
+        tableView.qs_registerCellNib(BookCommentViewCell.self)
         let refresh = PullToRefresh(height: 30, position: .bottom, tip: "正在加载更多")
         tableView.addPullToRefresh(refresh, action: {
             self.presenter?.requestMore()
@@ -190,7 +190,7 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
             return cell!
         }else {
 //            let cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
-            var cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
+            let cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
             
             cell?.backgroundColor = UIColor.white
             cell?.selectionStyle = .none

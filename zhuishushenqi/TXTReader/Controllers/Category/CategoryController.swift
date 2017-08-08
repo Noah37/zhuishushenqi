@@ -8,7 +8,7 @@
 //
 
 import UIKit
-import Alamofire
+//import Alamofire
 
 protocol CategoryDelegate {
     func categoryDidSelectAtIndex(index:Int)
@@ -137,10 +137,10 @@ class CategoryController: BaseViewController,UITableViewDataSource,UITableViewDe
         let localKey:String = "\(index)\(self.resource?.link ?? "")"
 
         let url = "\(CHAPTERURL)/\(titles[index].object(forKey: "link") ?? "")?k=19ec78553ec3a169&t=1476188085"
-        Alamofire.request(url).responseJSON { (response) in
-            if let json = response.result.value as? Dictionary<String, Any> {
-                QSLog("JSON:\(json)")
-                if let chapter = json["chapter"] as?  Dictionary<String, Any> {
+//        Alamofire.request(url).responseJSON { (response) in
+//            if let json = response.result.value as? Dictionary<String, Any> {
+//                QSLog("JSON:\(json)")
+//                if let chapter = json["chapter"] as?  Dictionary<String, Any> {
 //                    let chapterInfo = ChapterInfo(JSON: chapter)
 //                    QSLog(chapterInfo?.body)
 //                    chapterInfo?.currentIndex = index
@@ -154,9 +154,9 @@ class CategoryController: BaseViewController,UITableViewDataSource,UITableViewDe
 //                    DispatchQueue.main.async {
 //                        self.tableView.reloadData()
 //                    }
-                }
-            }
-        }
+//                }
+//            }
+//        }
     }
     
     override func didReceiveMemoryWarning() {

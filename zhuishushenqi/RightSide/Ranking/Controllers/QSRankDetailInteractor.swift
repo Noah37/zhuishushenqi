@@ -19,8 +19,8 @@ class QSRankDetailInteractor: QSRankDetailInteractorProtocol {
             self.output.fetchRankSuccess(ranks: self.ranks)
             return
         }
-        let urlString = "\(BASEURL)/ranking/\(ID(novel: novel, index: index))"
-        QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
+        let api = QSAPI.rankList(id: ID(novel: novel, index: index))
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let json = response.json {
                 if let books = (json.object(forKey: "ranking") as AnyObject).object(forKey: "books") {

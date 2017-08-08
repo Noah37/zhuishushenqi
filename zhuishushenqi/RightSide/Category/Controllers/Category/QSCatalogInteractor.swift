@@ -18,8 +18,8 @@ class QSCatalogInteractor: QSCatalogInteractorProtocol {
     var books:[[NSDictionary]] = [[],[]]
     
     func requestDetail(){
-        let urlString = "\(BASEURL)/cats/lv2/statistics"
-        QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
+        let api = QSAPI.category()
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "male") as? [NSDictionary] {
                 self.books[0] = books

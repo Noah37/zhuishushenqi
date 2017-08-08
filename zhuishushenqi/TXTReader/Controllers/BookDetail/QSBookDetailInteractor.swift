@@ -18,11 +18,11 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     var bookDetail:BookDetail!
     var hotComment:[BookComment] = []
     var bookList:[QSBookList] = []
-    var recList:[QSRecomment] = []
+    var recList:[Book] = []
     
     func requestData(id:String){
-        let url = "\(BASEURL)/book/\(id)"
-        QSNetwork.request(url, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
+        let api = QSAPI.book(key: id)
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             if let json = response.json as? [AnyHashable : Any]{
                 self.bookDetail = BookDetail.model(with: json)
                 self.requestHot(id: id)
@@ -33,8 +33,8 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     }
     
     func requestHot(id:String){
-        let hotUrl = "\(BASEURL)/post/review/best-by-book?book=\(id)"
-        QSNetwork.request(hotUrl) { (response) in
+        let api = QSAPI.bookHot(key: id)
+        QSNetwork.request(api.path) { (response) in
             do{
                 if let json = response.json?["reviews"] as? [Any] {
                     let hot = try XYCBaseModel.model(withModleClass: BookComment.self, withJsArray: json) as? [BookComment]
@@ -79,7 +79,7 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
             let books = response.json?["books"] as? NSArray
             if let bookList = books {
                 do{
-                    let bookList = try XYCBaseModel.model(withModleClass: QSRecomment.self, withJsArray: bookList as! [Any]) as? [QSRecomment]
+                    let bookList = try XYCBaseModel.model(withModleClass: Book.self, withJsArray: bookList as! [Any]) as? [Book]
                     if let booksList = bookList {
                         self.recList = booksList
                         self.output.fetchRecommendSuccess(books: booksList)
@@ -127,6 +127,11 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     }
     
     func showBookDetail(tag:Int){
+        if tag >= 4 {
+            // 可能感兴趣
+            self.output.showInterestedView(recList: self.recList)
+            return
+        }
         if self.recList.count > tag{
             self.output.showBookDetail(model: self.recList[tag])
         }

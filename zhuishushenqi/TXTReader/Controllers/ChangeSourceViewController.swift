@@ -59,9 +59,7 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
             if let resources:[Any] = response.json as? [Any]  {
                 do{
                     self.sources = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources ) as? [ResourceModel]
-                }catch{
-                    QSLog(error)
-                }
+                }catch _{}
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

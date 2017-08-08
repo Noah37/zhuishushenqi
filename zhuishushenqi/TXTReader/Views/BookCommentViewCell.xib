@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -84,13 +84,13 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="content" destination="MLz-On-Qo3" id="Enh-kW-REm"/>
-                <outlet property="createTime" destination="UFf-29-ohD" id="AWO-q8-Rp5"/>
-                <outlet property="floor" destination="H2a-Vl-38G" id="ekr-YO-KEj"/>
-                <outlet property="floorWidth" destination="C0Z-WK-TAs" id="wcT-2B-qcY"/>
-                <outlet property="readerIcon" destination="QeB-yE-rZN" id="xhz-sK-FlE"/>
-                <outlet property="readerName" destination="BHe-4c-yne" id="6rE-dm-TQm"/>
-                <outlet property="reply" destination="lSA-U6-ijw" id="HaQ-ye-2lH"/>
+                <outlet property="content" destination="MLz-On-Qo3" id="azx-ms-lDi"/>
+                <outlet property="createTime" destination="UFf-29-ohD" id="dZJ-Yk-UeO"/>
+                <outlet property="floor" destination="H2a-Vl-38G" id="ZuB-tm-Zi5"/>
+                <outlet property="floorWidth" destination="C0Z-WK-TAs" id="Tn6-0j-af1"/>
+                <outlet property="readerIcon" destination="QeB-yE-rZN" id="MUy-YT-BAt"/>
+                <outlet property="readerName" destination="BHe-4c-yne" id="9fC-Wu-MYL"/>
+                <outlet property="reply" destination="lSA-U6-ijw" id="jed-Z3-4PC"/>
             </connections>
             <point key="canvasLocation" x="105" y="159"/>
         </tableViewCell>

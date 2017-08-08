@@ -37,7 +37,7 @@ extension RootViewController{
     
     fileprivate func setupBookSheldLB(){
         bookShelfLB = UILabel()
-        bookShelfLB.frame = CGRect(x: 20,y: 0,width: ScreenWidth - 40,height: 44)
+        bookShelfLB.frame = CGRect(x: 5,y: 0,width: ScreenWidth - 10,height: 44)
         bookShelfLB.textColor = UIColor.gray
         bookShelfLB.font = UIFont.systemFont(ofSize: 13)
         bookShelfLB.textAlignment = .center

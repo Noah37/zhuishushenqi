@@ -10,6 +10,7 @@
 
 import UIKit
 import QSNetwork
+//import YTKKeyValueStore
 
 class QSSearchInteractor: QSSearchInteractorProtocol {
 
@@ -20,7 +21,8 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
     private let SearchStoreKey = "SearchHistory"
 
     func fetchHotwords(){
-        QSNetwork.request(QSHotwords.QSSearchWords.fetch(id: "").staURL) { (response) in
+        let api = QSAPI.hotwords()
+        QSNetwork.request(api.path) { (response) in
             QSLog(response.json)
             if let hotwords:[String] = response.json?["hotWords"] as? [String] {
                 self.hotwords = hotwords
@@ -50,10 +52,8 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
     }
     
     func autoComplete(key:String){
-//        http://api.zhuishushenqi.com/book/auto-complete?query=%E6%9F%AF%E5%8D%97
-        let url = "\(BASEURL)/book/auto-complete"
-        let param = ["query":"\(key)"]
-        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
+        let api = QSAPI.autoComplete(query: key)
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             guard let keywords = response.json?["keywords"] as? [String] else {
                 return
             }
@@ -76,9 +76,8 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
     }
     
     func fetchBooks(key:String){
-        let url = "\(BASEURL)/book/fuzzy-search"
-        let param = ["query":"\(key)","start":"0","limit":"100"]
-        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
+        let api = QSAPI.searchBook(id: key, start: "0", limit: "100")
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             do{
                 if let books = response.json?.object(forKey: "books") {
                     let booksModel:[Book] = try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject]) as! [Book]

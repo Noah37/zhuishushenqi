@@ -26,15 +26,16 @@ class QSCategoryPresenter: QSCategoryPresenterProtocol {
     }
     
     func viewDidLoad() {
+        view?.showActivityView()
         interactor.showDetail()
         interactor.show()
-        view?.showActivityView()
     }
     
 }
 
 extension QSCategoryPresenter:QSCategoryInteractorOutputProtocol{
     func show(titles:[String]){
+        view?.hideActivityView()
         view?.show(titles: titles)
     }
     

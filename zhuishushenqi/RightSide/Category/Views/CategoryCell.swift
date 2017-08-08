@@ -61,7 +61,7 @@ class CategoryCell: UITableViewCell {
             
         }
     }
-    var height:CGFloat = 0
+//    var height:CGFloat = 0
     
     @objc func tapAction(ges:UITapGestureRecognizer){
         if ges.state == .ended {

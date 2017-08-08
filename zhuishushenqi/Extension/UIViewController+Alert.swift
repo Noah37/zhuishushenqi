@@ -8,10 +8,19 @@
 
 import Foundation
 import UIKit
+import MBProgressHUD
 
 typealias AlertCallback = (_ action:UIAlertAction)->Void
 
 extension UIViewController{
+    
+    func alert(with title:String?,message:String?,okTitle:String?){
+        self.alert(with: title, message: message, okTitle: okTitle, cancelTitle: nil, okAction: nil, cancelAction: nil)
+    }
+    
+    func alert(with title:String?,message:String?,okTitle:String?,okAction:AlertCallback?){
+        self.alert(with: title, message: message, okTitle: okTitle, cancelTitle: nil, okAction: okAction, cancelAction: nil)
+    }
     
     func alert(with title:String?,message:String?,okTitle:String?,cancelTitle:String?,okAction:AlertCallback?,cancelAction:AlertCallback?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -32,24 +41,24 @@ extension UIViewController{
     
     func hudAddTo(view:UIView,text:String,animated:Bool){
         let hud = MBProgressHUD.showAdded(to: view, animated: animated)
-        hud?.mode = MBProgressHUDMode.text
-        hud?.labelText = text
-        hud?.yOffset = Float(ScreenHeight/4)
-        hud?.hide(animated, afterDelay: 3.0)
+        hud.mode = .text
+        hud.label.text = NSLocalizedString("Message here!", tableName: "HUD message title", comment: text)
+        hud.offset.y = ScreenHeight/4
+        hud.hide(animated: animated, afterDelay: 3.0)
         
     }
     
     func hudAddedTo(view:UIView,text:String,timeInterVal:TimeInterval,animated:Bool){
         let hud = MBProgressHUD.showAdded(to: view, animated: animated)
-        hud?.mode = MBProgressHUDMode.indeterminate
-        hud?.labelText = text
-        hud?.yOffset = Float(ScreenHeight/4)
-        hud?.hide(animated, afterDelay:timeInterVal)
+        hud.mode = MBProgressHUDMode.indeterminate
+        hud.label.text = text
+        hud.offset.y = ScreenHeight/4
+        hud.hide(animated:animated, afterDelay:timeInterVal)
     }
     
     func pregressHUDTo(view:UIView,animated:Bool) ->Void {
         let hud = MBProgressHUD.showAdded(to: view, animated: animated)
-        hud?.mode = MBProgressHUDMode.indeterminate
+        hud.mode = MBProgressHUDMode.indeterminate
     }
 
 }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import QSKingfisher
+import Kingfisher
 
 class QSRankDetailViewController: BaseViewController ,SegMenuDelegate,UITableViewDataSource,UITableViewDelegate,QSRankDetailViewProtocol{
     

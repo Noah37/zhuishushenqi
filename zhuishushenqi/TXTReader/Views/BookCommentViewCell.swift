@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 enum CommentType {
     case normal
