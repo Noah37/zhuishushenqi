@@ -18,13 +18,13 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.0.0)
   - ObjectMapper (= 2.2.5)
   - PullToRefresh (= 0.0.1)
-  - QSNetwork (from `zhuishushenqi/Vender/QSNetwork`)
+  - QSNetwork (from `zhuishushenqi/Vendor/QSNetwork`)
   - SnapKit (= 3.2.0)
   - YYKit (= 1.0.9)
 
 EXTERNAL SOURCES:
   QSNetwork:
-    :path: zhuishushenqi/Vender/QSNetwork
+    :path: zhuishushenqi/Vendor/QSNetwork
 
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
@@ -36,6 +36,6 @@ SPEC CHECKSUMS:
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 856c977ad1303aab629184afa153fd101208e409
+PODFILE CHECKSUM: 5e213ccfc76306fb9ad69881849adb3215318834
 
 COCOAPODS: 1.2.0

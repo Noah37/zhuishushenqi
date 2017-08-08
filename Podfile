@@ -16,6 +16,6 @@ pod 'YYKit','1.0.9'
 #pod 'YTKKeyValueStore','0.1.2'
 pod 'SnapKit','3.2.0'
 pod 'MBProgressHUD','~> 1.0.0'
-pod 'QSNetwork', :path => 'zhuishushenqi/Vender/QSNetwork'
+pod 'QSNetwork', :path => 'zhuishushenqi/Vendor/QSNetwork'
 
 end
