@@ -25,7 +25,7 @@ extension String{
         return String(format: hash as String)
     }
     
-    //Half open
+    //MARK: - Sub string Half open
     func qs_subStr(start:Int,end:Int)->String{
         if self == "" {
             return self
@@ -92,4 +92,37 @@ extension String{
         let end = range.location + range.length
         return self.qs_subStr(start: start, end: end)
     }
+    
+    //MARK:- count
+    func qs_width(_ font:UIFont,height:CGFloat) ->CGFloat
+    {
+        let dict = [NSFontAttributeName:font]
+        let sttt:NSString = self as NSString
+        let rect:CGRect = sttt.boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: CGFloat(height)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
+        return rect.size.width
+    }
+    
+    func qs_height(_ font:UIFont,width:CGFloat) ->CGFloat
+    {
+        let dict = [NSFontAttributeName:font]
+        let sttt:NSString = self as NSString
+        let rect:CGRect = sttt.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
+        return rect.size.height
+    }
+    
+    func qs_width(_ fontSize:CGFloat,height:CGFloat) -> CGFloat{
+        let dict = [NSFontAttributeName:UIFont.systemFont(ofSize: fontSize)]
+        let sttt:NSString = self as NSString
+        let rect:CGRect = sttt.boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: CGFloat(height)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
+        return rect.size.width
+    }
+    
+    func qs_height(_ fontSize:CGFloat,width:CGFloat) ->CGFloat
+    {
+        let dict = [NSFontAttributeName:UIFont.systemFont(ofSize: fontSize)]
+        let sttt:NSString = self as NSString
+        let rect:CGRect = sttt.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
+        return rect.size.height
+    }
+
 }

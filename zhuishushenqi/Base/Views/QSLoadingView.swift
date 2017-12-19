@@ -90,4 +90,12 @@ extension IndicatableView where Self:UIViewController{
             }
         }
     }
+    
+    func showLoadingPageView(){
+        
+    }
+    
+    func hideLoadingPageView(){
+        
+    }
 }

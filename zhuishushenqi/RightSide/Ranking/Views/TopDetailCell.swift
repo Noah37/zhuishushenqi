@@ -30,9 +30,9 @@ class TopDetailCell: UITableViewCell {
             self.type.text = "\(self.model?.cat ?? "")"
             self.name.text = "\(self.model?.title ?? "")"
             self.author.text = "\(self.model?.author ?? "")"
-            let width = widthOfString(self.author.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
+            let width = (self.author.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
             self.authorWidth.constant = width + 5
-            let readWidth = widthOfString(self.reading.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
+            let readWidth = (self.reading.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
             readingWidth.constant = readWidth + 5
             
             let urlString = "\((self.model?.cover ?? "qqqqqqqq"))"
@@ -41,6 +41,27 @@ class TopDetailCell: UITableViewCell {
                 type.text = model?.majorCate ?? ""
             }
         }
+    }
+    
+    override func bindData(model: AnyObject?) {
+        self.model = model as! Book
+        self.remain.text = String(format: "%.2f %%读者留存", self.model?.retentionRatio ?? 0)
+        self.reading.text = String(format: "%.0f 人在追", self.model?.latelyFollower ?? 0)
+        self.profile.text = "\(self.model?.shortIntro ?? "")"
+        self.type.text = "\(self.model?.cat ?? "")"
+        self.name.text = "\(self.model?.title ?? "")"
+        self.author.text = "\(self.model?.author ?? "")"
+        let width = (self.author.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
+        self.authorWidth.constant = width + 5
+        let readWidth = (self.reading.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
+        readingWidth.constant = readWidth + 5
+        
+        let urlString = "\((self.model?.cover ?? "qqqqqqqq"))"
+        self.icon.qs_setBookCoverWithURLString(urlString: urlString)
+        if type.text == "" {
+            type.text = model?.majorCate ?? ""
+        }
+
     }
     
     override func awakeFromNib() {

@@ -18,50 +18,14 @@ class QSCategoryDetailInteractor: QSCategoryDetailInteractorProtocol {
     
     var param:[String:Any] = [:]
     
-    var models:[[Book]] = [[],[],[],[]]
     
-    var selectedIndex = 0
-    
-    var segTitles = ["新书","热度","口碑","完结"]
-    
-    func request(index:Int){
-        selectedIndex = index
-        if models[index].count > 0 {
-            self.output?.fetchDataSuccess(models: models[index])
-            return
+    func setupSegview()->[UIViewController]{
+        var subviews:[UIViewController] = []
+        for index in 0..<4 {
+            let newBookVC = QSSegmentRouter.createModule(index: index,param: self.param)
+            subviews.append(newBookVC)
         }
-        let types = ["new","hot","reputation","over"]
-        let major:String = param["major"] as? String ?? ""
-        let gender:String = param["gender"] as? String ?? ""
-        let type:String = types[index]
-        let api = QSAPI.categoryList(gender: gender, type: type, major:  major, minor: "", start: "0", limit: "50")
-        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            QSLog(response.json)
-            if let books = response.json?.object(forKey: "books"){
-                do{
-                    let booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject])  as? [Book]
-                    if let books = booksModel {
-                        self.models[index] = books
-                        self.output?.fetchDataSuccess(models: books)
-                    }else{
-                        self.output?.fetchDataFailed()
-                    }
-                }catch{
-                    self.output?.fetchDataFailed()
-                }
-            }else{
-                self.output?.fetchDataFailed()
-            }
-        }
-    }
-    
-    func showSeg(){
-        self.output?.showSeg(titles: segTitles)
-    }
-    
-    func showDetail(indexPath: IndexPath) {
-        let book = self.models[selectedIndex][indexPath.row]
-        self.output?.showDetail(book: book)
+        return subviews
     }
 }
 

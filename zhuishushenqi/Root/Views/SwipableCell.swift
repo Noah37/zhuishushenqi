@@ -237,7 +237,7 @@ class SwipableCell: UITableViewCell {
         let urlString = "\(model.cover)"
         self.imgView?.qs_setBookCoverWithURLString(urlString: urlString)
         updatedLabel.isHidden = !(model.isUpdated)
-        let width = widthOfString(title?.text ?? "", font: UIFont.systemFont(ofSize: 13), height: 20)
+        let width = (title?.text ?? "").qs_width(UIFont.systemFont(ofSize: 13), height: 20)
         let x = (title?.frame.minX ?? 0) + width + 5
         updatedLabel.frame = CGRect(x:  x, y: 14.5, width: 22, height: 11)
     }

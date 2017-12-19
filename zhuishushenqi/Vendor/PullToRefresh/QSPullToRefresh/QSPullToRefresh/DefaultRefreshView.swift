@@ -58,6 +58,7 @@ private extension DefaultRefreshView {
     }
     
      func centerActivityIndicator() {
+        
         let width = widthOfString(tipLabel.text ?? "", font: UIFont.systemFont(ofSize: 13), height: 21)
         let qsCenter = CGPoint(x: self.center.x - width, y: self.center.y)
         tipLabel.frame = CGRect(x: 0, y: self.bounds.height/2 - 21/2, width: self.bounds.width, height: 21)

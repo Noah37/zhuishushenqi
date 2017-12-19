@@ -44,7 +44,7 @@ class QSBookDetailTagsView: UIView {
         let spacey:CGFloat = 10
         let height:CGFloat = 30
         for index in 0..<tags.count {
-            let width = widthOfString(tags[index], font: UIFont.systemFont(ofSize: 15), height: 21) + 20
+            let width = (tags[index]).qs_width(UIFont.systemFont(ofSize: 15), height: 21)  + 20
             if x + width + 20 > ScreenWidth {
                 x = 20
                 y = y + spacey + height

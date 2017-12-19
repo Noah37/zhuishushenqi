@@ -10,7 +10,12 @@
 **20170607：本次功能变更：增加书架删除，缓存，修复一些缺陷**
 
 **20170612: 本次功能变更：增加开屏广告，增加首次安装新特性，推荐书籍等**
-**20180808：本次功能变更：充分利用Swift语言特性，整合API，引入CocoaPods管理三方库**
+
+**20170808：本次功能变更：充分利用Swift语言特性，整合API，引入CocoaPods管理三方库**
+
+**20171219: 本次功能变更: 适配iPhone X**
+
+
 ----
 
 **仅供学习交流，请勿用于商业用途**
@@ -32,12 +37,12 @@ Main development of TXTReader olny support Swift 3.0+.
 
 
 <!--![zhuishushenqi](zhuishushenqi.png)
-![zhuishenqiing](qs_bookshelf.png)
-![zhuishenqiimg](qs_reader.png)
-![zhuishenqiimg](qs_readerMain.png)
-![zhuishenqiimg](qs_changeSource.png)-->
+![zhuishenqiing](images/qs_bookshelf.png)
+![zhuishenqiimg](images/qs_reader.png)
+![zhuishenqiimg](images/qs_readerMain.png)
+![zhuishenqiimg](images/qs_changeSource.png)-->
 
-<img src="qs_bookshelf.png" width="20%" height="20%" /><img src="qs_reader.png" width="20%" height="20%" /><img src="qs_readerMain.png" width="20%" height="20%" /><img src="qs_changeSource.png" width="20%" height="20%" />
+<img src="images/qs_bookshelf.png" width="20%" height="20%" /><img src="images/qs_reader.png" width="20%" height="20%" /><img src="images/qs_readerMain.png" width="20%" height="20%" /><img src="images/qs_changeSource.png" width="20%" height="20%" />
 
 
 ## Contact

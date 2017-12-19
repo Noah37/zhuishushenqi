@@ -39,9 +39,9 @@ class QSBookDetailPresenter: QSBookDetailPresenterProtocol {
     func didClickPersueBtn(model:BookDetail,select:Bool){
         //需要遍历删除
         if select == true {
-            updateBookShelf(bookDetail: model, type: .add,refresh:true)
+            BookManager.updateShelf(with: model, type: .add,refresh:true)
         }else{
-            updateBookShelf(bookDetail: model, type: .delete,refresh:true)
+            BookManager.updateShelf(with: model, type: .delete,refresh:true)
         }
         QSLog(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
     }

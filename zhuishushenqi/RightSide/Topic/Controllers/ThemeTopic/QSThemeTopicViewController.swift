@@ -41,7 +41,7 @@ class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableVie
     func titleView(title:String) -> Void {
         if let _ = self.titleView {
             self.titleView?.setTitle(title, for: .normal)
-            let width = widthOfString(self.titleView?.currentTitle ?? "", font: UIFont.systemFont(ofSize: 17), height: 21)*1.3
+            let width = (self.titleView?.currentTitle ?? "").qs_width(UIFont.systemFont(ofSize: 17), height: 21)*1.3
             self.titleView?.imageEdgeInsets = UIEdgeInsetsMake(0, width, 0, -width)
             return
         }
@@ -49,7 +49,7 @@ class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableVie
         titleView.frame = CGRect(x: 0, y: 0, width: 200, height: 21)
         titleView.setImage(UIImage(named: "c_arrow_down"), for: .normal)
         titleView.setTitle(title, for: .normal)
-        let width = widthOfString(titleView.currentTitle ?? "", font: UIFont.systemFont(ofSize: 17), height: 21)*1.3
+        let width = (titleView.currentTitle ?? "").qs_width(UIFont.systemFont(ofSize: 17), height: 21)*1.3
         titleView.imageEdgeInsets = UIEdgeInsetsMake(0, width, 0, -width)
         titleView.setTitleColor(UIColor.black, for: .normal)
         titleView.addTarget(self, action: #selector(titleViewAction(btn:)), for: .touchUpInside)

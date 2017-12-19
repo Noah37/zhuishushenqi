@@ -14,7 +14,7 @@ protocol ToolBarDelegate{
     func changeSourceClicked()
     func toolBarDidShow()
     func toolBarDidHidden()
-    func readBg(type:ReadeeBgType)
+    func readBg(type:Reader)
     func fontChange(size:Int)
     func brightnessChange(value:CGFloat)
     func cacheAll()
@@ -44,7 +44,7 @@ class ToolBar: UIView {
     var progressView:ProgressView!
     override init(frame: CGRect) {
         super.init(frame: frame)
-        fontSize = getFontSize()
+        fontSize = AppStyle.shared.readFontSize
         initSubview()
     }
     
@@ -127,7 +127,7 @@ class ToolBar: UIView {
         midBar?.addSubview(greenBtn)
         midBar?.addSubview(senior)
         
-        let type = getReaderBg()
+        let type = AppStyle.shared.reader
         if type == .white {
             whiteBtn.isSelected = true
         }else if type == .yellow {

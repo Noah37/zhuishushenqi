@@ -15,7 +15,7 @@ class TopicDetailModel: NSObject {
     var comment:String = "" {
         didSet{
             let width = UIScreen.main.bounds.width - 46
-            let height = heightOfString(comment, font: UIFont.systemFont(ofSize: 11), width: width)
+            let height = comment.qs_height(11, width: width)
             self.commentHeight = height + 15
         }
     }

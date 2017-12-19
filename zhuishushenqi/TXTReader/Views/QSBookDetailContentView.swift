@@ -56,7 +56,7 @@ class QSBookDetailContentView: UIView {
     
     private func contentHeight(longIntro:String)->CGFloat{
         if contentShow {
-            var height:CGFloat = heightOfString(longIntro, font: UIFont.systemFont(ofSize: 15), width: ScreenWidth - 40)
+            var height:CGFloat = longIntro.qs_height(15, width: ScreenWidth - 40)
             if height == 0 {
                 height = defaultHeight
             }else{

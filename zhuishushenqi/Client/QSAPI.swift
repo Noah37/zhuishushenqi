@@ -20,6 +20,8 @@ enum BaseType {
 }
 
 enum QSAPI {
+    ///首次进入根据性别推荐书籍
+    case genderRecommend(gender:String)
     ///追书书架信息
     case shelfMSG()
     ///书架更新信息
@@ -78,6 +80,9 @@ extension QSAPI:TargetType{
     var path: String {
         var pathComponent = ""
         switch self {
+        case .genderRecommend(_):
+            pathComponent = "/book/recommend"
+            break
         case .shelfMSG():
             pathComponent = "/notification/shelfMessage"
             break
@@ -178,6 +183,8 @@ extension QSAPI:TargetType{
     
     var parameters: [String : Any]?{
         switch self {
+        case let .genderRecommend(gender):
+            return ["gender":gender]
         case let .update(id):
             return ["view":"updated","id":id]
         case let .autoComplete(query):

@@ -108,7 +108,7 @@ class QSSearchHeaderView: UIView {
         let height:CGFloat = 20
         
         for index in 0..<hotwords.count {
-            let width = widthOfString(hotwords[index], font: UIFont.systemFont(ofSize: 11), height: 21) + 20
+            let width = hotwords[index].qs_width(UIFont.systemFont(ofSize: 11), height: 21) + 20
             if x + width + 20 > ScreenWidth {
                 x = 20
                 y = y + spacey + height

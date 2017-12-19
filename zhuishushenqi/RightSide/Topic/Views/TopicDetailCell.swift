@@ -26,12 +26,12 @@ class TopicDetailCell: UITableViewCell {
             self.name.text = "\(model?.book.title ?? "")"
             self.author.text = "\(model?.book.author ?? "")"
             
-            let authorWidthS = widthOfString(self.author.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
+            let authorWidthS = (self.author.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
             authorWidth.constant = authorWidthS + 5
             
             self.type.text = "\(model?.book.majorCate ?? "")"
             
-            let typeWidthS = widthOfString(self.type.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
+            let typeWidthS = (self.type.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
             typeWidth.constant = typeWidthS + 5
 
             self.reading.text = "\(model?.book.latelyFollower ?? 0)人在追"

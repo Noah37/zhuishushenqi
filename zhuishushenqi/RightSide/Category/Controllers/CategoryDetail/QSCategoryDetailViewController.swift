@@ -9,80 +9,91 @@
 //
 
 import UIKit
+import QSPullToRefresh
 
-class QSCategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableViewDataSource,UITableViewDelegate, QSCategoryDetailViewProtocol {
+class QSCategoryDetailViewController: BaseViewController ,SegMenuDelegate, QSCategoryDetailViewProtocol,UIScrollViewDelegate {
 
 	var presenter: QSCategoryDetailPresenterProtocol?
     
-    private var booksModel = [Book]()
+    var subviews:[UIViewController] = []
+    var selectedIndex:Int = 0
     
-    private lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104), style: .grouped)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
-        tableView.sectionFooterHeight = 10
-        tableView.rowHeight = 93
-        tableView.qs_registerCellNib(TopDetailCell.self)
-        return tableView
+    private lazy var collectionView:UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: ScreenWidth, height: ScreenHeight - 104)
+        layout.minimumLineSpacing = 0.01
+        layout.minimumInteritemSpacing = 0.01
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104), collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = UIColor.clear
+        collectionView.isPagingEnabled = true
+        collectionView.qs_registerCellClass(UICollectionViewCell.self)
+        return collectionView
     }()
+    
+    var segmentView:SegMenu!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "主题书单"
-        presenter?.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
+        self.setupSubview(titles: ["新书","热度","口碑","完结"])
     }
+    
     
     func setupSubview(titles:[String]){
         let segView = SegMenu(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: 40), WithTitles: titles)
         segView.menuDelegate = self
+        self.segmentView = segView
         view.addSubview(segView)
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
+        subviews = self.presenter?.setupSegview() ?? []
+        /* 延迟加载
+        subviews.forEach { (subVC) in
+            self.addChildViewController(subVC)
+            subVC.didMove(toParentViewController: self)
+            subVC.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - 104)
+        }
+        */
     }
     
     func didSelectAtIndex(_ index:Int){
-        presenter?.didSelectAt(index: index)
+        selectedIndex = index
+        self.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.booksModel.count
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:TopDetailCell? = tableView.qs_dequeueReusableCell(TopDetailCell.self)
-        cell?.backgroundColor = UIColor.white
-        cell?.selectionStyle = .none
-        cell!.model = booksModel.count  > indexPath.row ? booksModel[indexPath.row ]:nil
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return tableView.sectionHeaderHeight
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return tableView.sectionFooterHeight
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.didSelectRowAt(indexPath: indexPath)
+    func removeSubviews(parentView:UIView){
+        for subview in parentView.subviews{
+            subview.removeFromSuperview()
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
 
-    func showData(books: [Book]) {
-        booksModel = books
-        self.tableView.reloadData()
+extension QSCategoryDetailViewController:UICollectionViewDataSource,UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+        return subviews.count
     }
     
-    func showSeg(titles: [String]) {
-        setupSubview(titles: titles)
+    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
+        let cell = collectionView.qs_dequeueReusableCell(UICollectionViewCell.self, for: indexPath)
+        self.removeSubviews(parentView: cell.contentView)
+        let subVC = subviews[indexPath.item]
+        self.addChildViewController(subVC)
+        subVC.didMove(toParentViewController: self)
+        subVC.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - 104)
+        cell.contentView.addSubview(subVC.view)
+        return cell
     }
 }

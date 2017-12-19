@@ -12,7 +12,7 @@ import UIKit
 extension UIImageView{
     func qs_setBookCoverWithURLString(urlString:String){
         self.image = UIImage(named: "default_book_cover")
-        DispatchQueue.global().async {
+//        DispatchQueue.global().async {
             var urlStr = urlString
             if urlStr.qs_subStr(to: 4) != "http"{
 //                urlStr = urlStr.qs_subStr(from: 7)
@@ -28,7 +28,7 @@ extension UIImageView{
             }
             let resource:QSResource = QSResource(url: imageURL)
             self.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
-        }
+//        }
     }
     
     func qs_setAvatarWithURLString(urlString:String){

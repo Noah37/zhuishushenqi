@@ -52,7 +52,7 @@ class QSTextReaderController: UIViewController {
         }
         bookDetail?.isUpdated = false
         if let book = bookDetail {
-            updateBookShelf(bookDetail: book, type: .update, refresh: true)
+            BookManager.updateShelf(with: book, type: .update, refresh: true)
         }
     }
     
@@ -69,7 +69,8 @@ class QSTextReaderController: UIViewController {
             if self.saveRecord {
                 var historyList:[BookDetail] = BookShelfInfo.books.readHistory
                 if let book  = self.bookDetail {
-                    if !isExist(bookDetail: book, at: historyList) {
+                    
+                    if !BookManager.book(book, existAt: historyList) {
                         historyList.append(book)
                     }
                 }
@@ -262,16 +263,16 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         if chapters.count > 0 {
             bookDetail?.chapters = chapters
         }
-        let exist = isExistShelf(bookDetail: bookDetail)
+        let exist = BookManager.bookExistAtShelf(bookDetail)
         if !exist {
             self.alert(with: "追书提示", message: "是否将本书加入我的收藏", okTitle: "好的", cancelTitle: "不了", okAction: { (action) in
-                updateBookShelf(bookDetail: self.bookDetail, type: .add,refresh:true)
+                BookManager.updateShelf(with: self.bookDetail, type: .add,refresh:true)
                 self.toolBarDismiss()
             }, cancelAction: { (action) in
                 self.toolBarDismiss()
             })
         }else{
-            updateBookShelf(bookDetail: self.bookDetail, type: .update, refresh: false)
+            BookManager.updateShelf(with: self.bookDetail, type: .update, refresh: false)
             toolBarDismiss()
         }
         if let back = callback {
@@ -292,13 +293,13 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         }
     }
     
-    func readBg(type: ReadeeBgType) {
-        setReaderBg(type: type)
-        self.pageViewController?.bgView.image = getReaderBgColor()
+    func readBg(type: Reader) {
+        AppStyle.shared.reader = type
+        self.pageViewController?.bgView.image = AppStyle.shared.reader.backgroundImage
     }
     
     func fontChange(size: Int) {
-        setFontSize(size: size)
+        AppStyle.shared.readFontSize = size
         bookDetail?.book?.attribute = [NSFontAttributeName:UIFont.systemFont(ofSize: CGFloat(size))]
         //字体变小，页数变少
         if tempPage > ((bookDetail?.book?.chapters?[tempChapter].getPages().count ?? 0) - 1) {
@@ -328,8 +329,7 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     
     func brightnessChange(value: CGFloat) {
         //此处亮度调节是对于手机的，退出app后应还原
-        UIScreen.main.brightness = value
-        setBrightness(value: value)
+        
     }
     
     func changeSourceClicked() {

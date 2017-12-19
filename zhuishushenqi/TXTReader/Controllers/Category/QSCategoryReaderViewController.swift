@@ -120,7 +120,7 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
         if index >= titles.count {
             return;
         }
-        if !isExistShelf(bookDetail: self.bookDetail) {
+        if !BookManager.bookExistAtShelf( self.bookDetail) {
             return
         }
         let chapter = bookDetail?.chapters?[index]
@@ -136,7 +136,7 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
                     if let model = chapterModel {
                         self.bookDetail?.book?.chapters?[index] = model
                     }
-                    updateBookShelf(bookDetail: self.bookDetail, type: .update, refresh: false)
+                    BookManager.updateShelf(with: self.bookDetail, type: .update, refresh: false)
                     self.tableView.reloadData()
                 }
             }

@@ -23,7 +23,7 @@ class ChangeSourceCell: UITableViewCell {
     var model:ResourceModel? {
         didSet{
             self.website.text = "\(model?.source ?? "")"
-            let width = widthOfString(website.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
+            let width = (website.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
             self.sourceWidth.constant = width + 10
             let created = model?.updated ?? ""
             self.updated.qs_setCreateTime(createTime: created, append: "")

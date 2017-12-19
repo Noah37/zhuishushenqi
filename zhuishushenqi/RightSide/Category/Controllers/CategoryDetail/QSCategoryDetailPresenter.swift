@@ -22,39 +22,12 @@ class QSCategoryDetailPresenter: QSCategoryDetailPresenterProtocol {
         self.router = router
     }
     
-    func viewDidLoad() {
-        interactor.showSeg()
-        interactor.request(index: 0)
-        view?.showActivityView()
-    }
-    
-    func didSelectAt(index: Int) {
-        view?.showActivityView()
-        view?.showData(books: [])
-        interactor.request(index: index)
-    }
-    
-    func didSelectRowAt(indexPath:IndexPath){
-        interactor.showDetail(indexPath: indexPath)
+    func setupSegview()->[UIViewController]{
+        return interactor.setupSegview()
     }
 }
 
 extension QSCategoryDetailPresenter:QSCategoryDetailInteractorOutputProtocol{
-    func fetchDataSuccess(models: [Book]) {
-        view?.hideActivityView()
-        view?.showData(books: models)
-    }
     
-    func fetchDataFailed() {
-        view?.hideActivityView()
-    }
-    
-    func showSeg(titles: [String]) {
-        view?.showSeg(titles: titles)
-    }
-    
-    func showDetail(book: Book) {
-        router.presentDetail(book: book)
-    }
 }
 

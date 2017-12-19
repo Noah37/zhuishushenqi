@@ -26,7 +26,7 @@ class QSBookListViewCell: UITableViewCell {
             contentLabel.text = book?.desc
             totalLabel.text = "共\(book?.bookCount ?? 0)本书"
             collectLabel.text = "\(book?.collectorCount ?? 0)人收藏"
-            let widht =  widthOfString(totalLabel.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
+            let widht =  (totalLabel.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
             totalWidth.constant = widht
         }
     }

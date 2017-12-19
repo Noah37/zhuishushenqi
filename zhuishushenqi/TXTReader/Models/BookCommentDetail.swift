@@ -35,7 +35,7 @@ class BookCommentDetail: NSObject {
     var author:BookCommentAuthor = BookCommentAuthor()
     var floor:Int = 0 {
         didSet{
-            let width = widthOfString("\(floor)楼", font: UIFont.systemFont(ofSize: 12), height: 21)
+            let width = "\(floor)楼".qs_width(UIFont.systemFont(ofSize: 12), height: 21)
             floorWidth = width + 5
         }
     }

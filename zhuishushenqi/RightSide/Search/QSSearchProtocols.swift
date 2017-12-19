@@ -70,4 +70,7 @@ protocol QSSearchViewProtocol: IndicatableView {
 protocol IndicatableView: class {
     func showActivityView()
     func hideActivityView()
+    //非遮罩
+    func showLoadingPageView()
+    func hideLoadingPageView()
 }

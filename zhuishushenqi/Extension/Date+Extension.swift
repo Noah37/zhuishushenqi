@@ -87,6 +87,18 @@ extension Date{
         }
         return false
     }
+    
+    static func timeInterval(from formDate:Date?,to toDate:Date?)->TimeInterval{
+        if formDate == nil || toDate == nil {
+            return 0
+        }
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyy-MM-dd hh-mm-ss"
+        let beginTime = formDate?.timeIntervalSince1970
+        let endTime = toDate?.timeIntervalSince1970
+        let resultTime = endTime! - beginTime!
+        return resultTime
+    }
 
     
 //    + (NSUInteger)daysInMonth:(NSDate *)date month:(NSUInteger)month {

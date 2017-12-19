@@ -60,11 +60,9 @@ class RightViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {//搜索
-//            let rankVC = QSSearchViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
             SideVC.navigationController?.pushViewController(QSSearchRouter.createModule(), animated: true)
         }else if indexPath.row == 1 {//排行榜
-//            let rankVC = RankingViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
             SideVC.navigationController?.pushViewController(QSRankRouter.createModule(), animated: true)
         }else if indexPath.row == 2 {//主题书单

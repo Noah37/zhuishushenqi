@@ -17,16 +17,16 @@ class BookDetailHeader: UIView {
     var model:BookDetail?{
         didSet{
             name.text = model?.title
-            let exist = isExistShelf(bookDetail: model)
+            let exist = BookManager.bookExistAtShelf(model)
             if exist{
                 addButton.isSelected = true
             }
             authorWidth.text = model?.author
-            let widthttt = widthOfString(authorWidth.text ?? "", font: UIFont.boldSystemFont(ofSize: 13), height: 21)
+            let widthttt = (authorWidth.text ?? "").qs_width(UIFont.boldSystemFont(ofSize: 13), height: 21)
             authorWidthh.constant = widthttt
             
             typeWidth.text = model?.minorCate == "" ? model?.majorCate : model?.minorCate
-            let typeConst = widthOfString(typeWidth.text ?? "", font: UIFont.systemFont(ofSize: 13), height: 21)
+            let typeConst = (typeWidth.text ?? "").qs_width(UIFont.systemFont(ofSize: 13), height: 21)
             typeWidthConst.constant = typeConst + 5
             
             words.text = "\(Int(model?.wordCount ?? "0")!/10000)万字"

@@ -41,7 +41,7 @@ class CategoryCell: UITableViewCell {
                     index += 1
                 }
                 let types = models?.count ?? 0
-                let row = (types%3 == 0 ? types/3:types/3 + 1)
+                var row = (types%3 == 0 ? types/3:types/3 + 1)
 
                 let width = self.bounds.width/3
                 let height:CGFloat = 60.00
@@ -50,6 +50,9 @@ class CategoryCell: UITableViewCell {
                     verticalLine.frame = CGRect(x: width*CGFloat(index + 1), y: 0, width: CGFloat(0.5), height: CGFloat(row*60))
                     verticalLine.backgroundColor = UIColor(red: 0.78, green: 0.78, blue: 0.80, alpha: 1.0)
                     self.addSubview(verticalLine)
+                }
+                if row == 0 {
+                    row = 1
                 }
                 for index in 0..<row - 1 {
                     let verticalLine = UILabel()

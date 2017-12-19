@@ -29,7 +29,7 @@ class ThemeTopicCell: UITableViewCell {
             self.author.text = "\(self.model?.author ?? "")"
             
             self.author.text = "\(self.model?.author ?? "")"
-            let width = widthOfString(self.reading.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
+            let width = (self.reading.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
             self.persueWidth.constant = width + 5
             
             let urlString = "\(IMAGE_BASEURL)\(self.model?.cover ?? "qqqqqqqq")"

@@ -16,30 +16,21 @@ protocol QSCategoryDetailWireframeProtocol: class {
 }
 //MARK: Presenter -
 protocol QSCategoryDetailPresenterProtocol: class {
-    func viewDidLoad()
-    func didSelectAt(index:Int)
-    func didSelectRowAt(indexPath:IndexPath)
+    func setupSegview()->[UIViewController]
 }
 
 //MARK: Interactor -
 protocol QSCategoryDetailInteractorProtocol: class {
-    func request(index:Int)
-    func showSeg()
-    func showDetail(indexPath:IndexPath)
+    func setupSegview()->[UIViewController]
 }
 
 //MARK: Output - 
 protocol QSCategoryDetailInteractorOutputProtocol: class {
-    func fetchDataSuccess(models:[Book])
-    func fetchDataFailed()
-    func showSeg(titles:[String])
-    func showDetail(book:Book)
+
 }
 
 //MARK: View -
 protocol QSCategoryDetailViewProtocol: IndicatableView {
 
   var presenter: QSCategoryDetailPresenterProtocol?  { get set }
-    func showData(books:[Book])
-    func showSeg(titles:[String])
 }

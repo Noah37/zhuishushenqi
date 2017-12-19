@@ -46,14 +46,14 @@ class BookComment: NSObject {
     
     func calTitleHeight(){
         DispatchQueue.global().async {
-            let height = heightOfString(self.title, font: UIFont.systemFont(ofSize: 13), width: UIScreen.main.bounds.width - 30)
+            let height = self.title.qs_height(13, width: UIScreen.main.bounds.width - 30)
             self.titleHeight = height
         }
     }
     
     func calContentHeight(){
         DispatchQueue.global().async {            
-            let height = heightOfString(self.content, font: UIFont.systemFont(ofSize: 13), width: UIScreen.main.bounds.width - 30)
+            let height = self.content.qs_height(13, width: UIScreen.main.bounds.width - 30)
             self.contentHeight = height
         }
     }

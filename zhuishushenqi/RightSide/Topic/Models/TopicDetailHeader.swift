@@ -36,7 +36,7 @@ class TopicDetailHeader: NSObject {
     var desc:String = ""{
         didSet{
             let width = UIScreen.main.bounds.width
-            let height = heightOfString(desc, font: UIFont.systemFont(ofSize: 13), width: width - 22)
+            let height =  desc.qs_height(13, width: width - 22)
             descHeight = height
         }
     }

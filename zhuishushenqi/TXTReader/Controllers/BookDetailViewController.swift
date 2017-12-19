@@ -119,9 +119,9 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             headerview?.addBtnAction = { (isSelected:Bool,model:BookDetail) in
                 //需要遍历删除
                 if isSelected == true {
-                    updateBookShelf(bookDetail: model, type: .add,refresh:true)
+                    BookManager.updateShelf(with: model, type: .add,refresh:true)
                 }else{
-                    updateBookShelf(bookDetail: model, type: .delete,refresh:true)
+                    BookManager.updateShelf(with: model, type: .delete,refresh:true)
                 }
                 QSLog(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
             }
@@ -178,7 +178,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             }else{
                 
                 if contentShow {
-                    let height:CGFloat = heightOfString(self.bookModel?.longIntro ?? "", font: UIFont.systemFont(ofSize: 15), width: ScreenWidth - 40) + 50
+                    let height:CGFloat = (self.bookModel?.longIntro ?? "").qs_height(15, width: ScreenWidth - 40) + 50
                     return height
                 }
                 return 89
@@ -253,7 +253,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         let spacey:CGFloat = 10
         let height:CGFloat = 30
         for index in 0..<(bookModel?.tags?.count ?? 0) {
-            let width = widthOfString(bookModel!.tags![index] as! String, font: UIFont.systemFont(ofSize: 15), height: 21) + 20
+            let width =  (bookModel!.tags![index] as! String).qs_width(UIFont.systemFont(ofSize: 15), height: 21) + 20
             if x + width + 20 > ScreenWidth {
                 x = 20
                 y = y + spacey + height

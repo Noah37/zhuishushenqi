@@ -106,7 +106,8 @@ class SearchView: UIView,UITableViewDataSource,UITableViewDelegate {
             if count >= hotWords.count {
                 count = count - hotWords.count
             }
-            let width = widthOfString(hotWords[count], font: UIFont.systemFont(ofSize: 11), height: 21) + 20
+            
+            let width = hotWords[count].qs_width(UIFont.systemFont(ofSize: 11), height: 21) + 20
             if x + width + 20 > ScreenWidth {
                 x = 20
                 y = y + spacey + height

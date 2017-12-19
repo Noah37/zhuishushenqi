@@ -31,9 +31,9 @@ class ReadHistoryCell: UITableViewCell {
         self.type.text = "\(self.model?.cat ?? "")"
         self.name.text = "\(self.model?.title ?? "")"
         self.author.text = "\(self.model?.author ?? "")"
-        let width = widthOfString(self.author.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
+        let width = (self.author.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
         self.authorWidth.constant = width + 5
-        let readWidth = widthOfString(self.reading.text ?? "", font: UIFont.systemFont(ofSize: 11), height: 21)
+        let readWidth = (self.reading.text ?? "").qs_width(UIFont.systemFont(ofSize: 11), height: 21)
         readingWidth.constant = readWidth + 5
         
         let urlString = "\((self.model?.cover ?? "qqqqqqqq"))"

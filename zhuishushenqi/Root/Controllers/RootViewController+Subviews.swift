@@ -8,6 +8,9 @@
 
 import Foundation
 import UIKit
+import SnapKit
+
+let kTootSegmentViewHeight = 40
 
 extension RootViewController{
     func setupSubviews(){
@@ -18,18 +21,37 @@ extension RootViewController{
         self.setupHeaderView()
         self.setupTableView()
         self.setupCommunityView()
+        self.layoutAllViews()
     }
     
     fileprivate func setupSegMenu(){
-        segMenu = SegMenu(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: 40), WithTitles: ["追书架","追书社区"])
+        segMenu = SegMenu(frame: CGRect.zero, WithTitles: ["追书架","追书社区"])
         segMenu.menuDelegate = self
         self.view.addSubview(segMenu)
+    }
+    
+    fileprivate func layoutAllViews(){
+        segMenu.snp.makeConstraints { (make) in
+            make.top.equalTo(kNavgationBarHeight)
+            make.left.right.equalTo(self.view)
+            make.height.equalTo(kTootSegmentViewHeight)
+        }
+        
+        communityView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalTo(self.view)
+            make.top.equalTo(segMenu.snp.bottom)
+        }
+        
+        tableView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalTo(self.view)
+            make.top.equalTo(segMenu.snp.bottom)
+        }
     }
     
     fileprivate func setupCommunityView() -> Void {
         communityView = CommunityView()
         
-        communityView.frame = CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104)
+        communityView.frame = CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: ScreenHeight - 104)
         communityView.delegate = self
         communityView.isHidden = true
         self.view.addSubview(communityView)
@@ -44,7 +66,7 @@ extension RootViewController{
     }
     
     fileprivate func setupTableView(){
-        self.tableView.frame = CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104)
+        self.tableView.frame = CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 40)
         self.view.addSubview(self.tableView)
     }
     
@@ -83,5 +105,7 @@ extension RootViewController{
 //        }
         headerView.addSubview(bookShelfLB)
     }
+    
+    
     
 }

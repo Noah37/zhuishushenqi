@@ -132,7 +132,8 @@ class QSTextInteractor: QSTextInteractorProtocol {
     func book(bookDetail:BookDetail?,chapters:[NSDictionary]?,resources:[ResourceModel]?)->QSBook{//更换书籍来源则需要更新book.chapters信息,请求某一章节成功后也需要刷新chapters的content及其他信息
         self.chapters = chapters
         self.resources = resources
-        let size:Int = getFontSize()
+        
+        let size:Int = AppStyle.shared.readFontSize
         let book:QSBook = QSBook()
         book.bookName = bookDetail?.title ?? ""
         book.bookID = bookDetail?._id ?? ""

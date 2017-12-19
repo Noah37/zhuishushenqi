@@ -12,7 +12,6 @@ import QSPullToRefresh
 
 let AllChapterUrl = "http://api.zhuishushenqi.com/ctoc/57df797cb061df9e19b8b030"
 
-
 class RootViewController: UIViewController {
     let kHeaderViewHeight:CGFloat = 5
     fileprivate let kHeaderBigHeight:CGFloat = 44
@@ -43,7 +42,6 @@ class RootViewController: UIViewController {
         tableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         tableView.qs_registerCellClass(SwipableCell.self)
         let refresh = PullToRefresh(height: 50, position: .top, tip: "正在刷新")
-
         tableView.addPullToRefresh(refresh, action: {
             self.requetShelfMsg()
             self.requestBookShelf()
@@ -217,29 +215,9 @@ extension RootViewController:UITableViewDataSource,UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         
         self.present(QSTextRouter.createModule(bookDetail:self.bookShelfArr![indexPath.row],callback: { (book:BookDetail) in
-            self.updateShelfArr(book: book)
+            self.bookShelfArr = BookManager.replaceBook(with: book, at: self.bookShelfArr)
         }), animated: true, completion: nil)
-    }
-    
-    func updateShelfArr(book:BookDetail){
-        if var arr = self.bookShelfArr {
-            var index = 0
-            for item in arr {
-                if item._id == book._id {
-                    arr[index] = book
-                    self.bookShelfArr = arr
-                    break
-                }
-                index += 1
-            }
-        }
-    }
-//        //来源
-//        //        http://api.zhuishushenqi.com/btoc?view=summary&book=51d11e782de6405c45000068
-//        let cell:SwipableCell? = self.tableView.cellForRow(at: indexPath) as? SwipableCell
-//        let allChapterUrl = "\(BASEURL)/toc"
-//        requestAllChapters(withUrl: allChapterUrl,param:["view":"summary","book":cell?.model?._id ?? ""],index: indexPath.row)
-//    }
+    }    
 }
 
 extension RootViewController:ComnunityDelegate{
@@ -289,10 +267,10 @@ extension RootViewController:SwipableCellDelegate{
         else if clickAt == 3 {
             //时间过长，先刷新table，再持久化
             if let models = self.bookShelfArr {
-                self.bookShelfArr = bookShelfRefresh(model: model, arr: models)
+                self.bookShelfArr = BookManager.removeBookAtShelf(model: model, arr: models)
                 self.tableView.reloadData()
             }
-            updateBookShelf(bookDetail: model, type: .delete,refresh:false)
+            BookManager.updateShelf(with: model, type: .delete,refresh:false)
         }
     }
     
@@ -387,7 +365,7 @@ extension RootViewController:SegMenuDelegate{
                 qsChapter.content = chapter["body"] as? String ?? ""
                 bookDetail.book?.chapters?[chapterIndex] = qsChapter
                 self.bookShelfArr?[indexPath?.row ?? 0] = bookDetail
-                updateBookShelf(bookDetail: bookDetail, type: .update, refresh: false)
+                BookManager.updateShelf(with: bookDetail, type: .update, refresh: false)
             }
         }
     }
