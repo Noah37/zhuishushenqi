@@ -19,11 +19,11 @@ extension Reader {
     var backgroundImage:UIImage {
         switch self {
         case .yellow:
-            return #imageLiteral(resourceName: "background_yellow")
+            return #imageLiteral(resourceName: "yellow_mode_bg")
         case .white:
-            return #imageLiteral(resourceName: "background_white")
+            return #imageLiteral(resourceName: "white_mode_bg")
         case .green:
-            return #imageLiteral(resourceName: "background_green")
+            return #imageLiteral(resourceName: "green_mode_bg")
         }
     }
     
