@@ -260,6 +260,14 @@
 		B2BB5BBA1D8BDF8E00379217 /* zhuishushenqiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5BB91D8BDF8E00379217 /* zhuishushenqiUITests.swift */; };
 		B2CA941F1EB31D5600D60BF2 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA941E1EB31D5600D60BF2 /* ProgressView.swift */; };
 		B2CA942B1EB331DC00D60BF2 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */; };
+		B2D8689620050C2900B9AF01 /* CoreTextData.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8688720050C2800B9AF01 /* CoreTextData.m */; };
+		B2D8689720050C2900B9AF01 /* CoreTextImageData.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8688920050C2800B9AF01 /* CoreTextImageData.m */; };
+		B2D8689820050C2900B9AF01 /* CoreTextLinkData.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8688B20050C2800B9AF01 /* CoreTextLinkData.m */; };
+		B2D8689920050C2900B9AF01 /* CoreTextUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8688D20050C2800B9AF01 /* CoreTextUtils.m */; };
+		B2D8689A20050C2900B9AF01 /* CTDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8688F20050C2800B9AF01 /* CTDisplayView.m */; };
+		B2D8689B20050C2900B9AF01 /* CTFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8689120050C2800B9AF01 /* CTFrameParser.m */; };
+		B2D8689C20050C2900B9AF01 /* CTFrameParserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8689320050C2800B9AF01 /* CTFrameParserConfig.m */; };
+		B2D8689D20050C2900B9AF01 /* UIView+frameAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8689520050C2800B9AF01 /* UIView+frameAdjust.m */; };
 		B2E072781F3AD99500C63347 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E072771F3AD99500C63347 /* Reader.swift */; };
 		B2EE7CF41F3BFC7B00BE997C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B2EE7CF61F3BFC7B00BE997C /* Localizable.strings */; };
 		B2EE7CFA1F3C00FB00BE997C /* LocalizedUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EE7CF91F3C00FB00BE997C /* LocalizedUtils.swift */; };
@@ -594,6 +602,23 @@
 		B2BB5BBB1D8BDF8E00379217 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2CA941E1EB31D5600D60BF2 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
+		B2D8688620050C2800B9AF01 /* CoreTextData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextData.h; sourceTree = "<group>"; };
+		B2D8688720050C2800B9AF01 /* CoreTextData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextData.m; sourceTree = "<group>"; };
+		B2D8688820050C2800B9AF01 /* CoreTextImageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextImageData.h; sourceTree = "<group>"; };
+		B2D8688920050C2800B9AF01 /* CoreTextImageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextImageData.m; sourceTree = "<group>"; };
+		B2D8688A20050C2800B9AF01 /* CoreTextLinkData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextLinkData.h; sourceTree = "<group>"; };
+		B2D8688B20050C2800B9AF01 /* CoreTextLinkData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextLinkData.m; sourceTree = "<group>"; };
+		B2D8688C20050C2800B9AF01 /* CoreTextUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextUtils.h; sourceTree = "<group>"; };
+		B2D8688D20050C2800B9AF01 /* CoreTextUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextUtils.m; sourceTree = "<group>"; };
+		B2D8688E20050C2800B9AF01 /* CTDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTDisplayView.h; sourceTree = "<group>"; };
+		B2D8688F20050C2800B9AF01 /* CTDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTDisplayView.m; sourceTree = "<group>"; };
+		B2D8689020050C2800B9AF01 /* CTFrameParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTFrameParser.h; sourceTree = "<group>"; };
+		B2D8689120050C2800B9AF01 /* CTFrameParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTFrameParser.m; sourceTree = "<group>"; };
+		B2D8689220050C2800B9AF01 /* CTFrameParserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTFrameParserConfig.h; sourceTree = "<group>"; };
+		B2D8689320050C2800B9AF01 /* CTFrameParserConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTFrameParserConfig.m; sourceTree = "<group>"; };
+		B2D8689420050C2800B9AF01 /* UIView+frameAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+frameAdjust.h"; sourceTree = "<group>"; };
+		B2D8689520050C2800B9AF01 /* UIView+frameAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+frameAdjust.m"; sourceTree = "<group>"; };
+		B2D8689E20050E4A00B9AF01 /* CTDisplayText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTDisplayText.h; sourceTree = "<group>"; };
 		B2E072771F3AD99500C63347 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
 		B2EE7CF51F3BFC7B00BE997C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B2EE7CF91F3C00FB00BE997C /* LocalizedUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedUtils.swift; sourceTree = "<group>"; };
@@ -818,6 +843,7 @@
 		B278AA9F1F396773000A0D55 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				B2D8688520050C2800B9AF01 /* CTDisplayText */,
 				B278AAFB1F398926000A0D55 /* M80AttributedLabel */,
 				B278AADE1F3967A4000A0D55 /* QSPullToRefresh.xcodeproj */,
 				B278AABF1F396773000A0D55 /* YTK */,
@@ -1371,6 +1397,30 @@
 			path = zhuishushenqiUITests;
 			sourceTree = "<group>";
 		};
+		B2D8688520050C2800B9AF01 /* CTDisplayText */ = {
+			isa = PBXGroup;
+			children = (
+				B2D8688620050C2800B9AF01 /* CoreTextData.h */,
+				B2D8688720050C2800B9AF01 /* CoreTextData.m */,
+				B2D8688820050C2800B9AF01 /* CoreTextImageData.h */,
+				B2D8688920050C2800B9AF01 /* CoreTextImageData.m */,
+				B2D8688A20050C2800B9AF01 /* CoreTextLinkData.h */,
+				B2D8688B20050C2800B9AF01 /* CoreTextLinkData.m */,
+				B2D8688C20050C2800B9AF01 /* CoreTextUtils.h */,
+				B2D8688D20050C2800B9AF01 /* CoreTextUtils.m */,
+				B2D8688E20050C2800B9AF01 /* CTDisplayView.h */,
+				B2D8688F20050C2800B9AF01 /* CTDisplayView.m */,
+				B2D8689020050C2800B9AF01 /* CTFrameParser.h */,
+				B2D8689120050C2800B9AF01 /* CTFrameParser.m */,
+				B2D8689220050C2800B9AF01 /* CTFrameParserConfig.h */,
+				B2D8689320050C2800B9AF01 /* CTFrameParserConfig.m */,
+				B2D8689420050C2800B9AF01 /* UIView+frameAdjust.h */,
+				B2D8689520050C2800B9AF01 /* UIView+frameAdjust.m */,
+				B2D8689E20050E4A00B9AF01 /* CTDisplayText.h */,
+			);
+			path = CTDisplayText;
+			sourceTree = "<group>";
+		};
 		C1E1DE6D9D769BBDE25682F9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1454,9 +1504,9 @@
 				TargetAttributes = {
 					B2BB5B951D8BDF8E00379217 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = ZYDXKQKHVY;
+						DevelopmentTeam = 8K684WSCKB;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					B2BB5BA91D8BDF8E00379217 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1656,9 +1706,11 @@
 				B22A8D551EADE0E900C7E978 /* QSBookCommentInteractor.swift in Sources */,
 				B258BB041EA44C52006E5802 /* QSCategoryInteractor.swift in Sources */,
 				B2B02E2B1EA8505200A6880A /* QSTopicDetailInteractor.swift in Sources */,
+				B2D8689720050C2900B9AF01 /* CoreTextImageData.m in Sources */,
 				B255707F1F3A075600C35A34 /* Config.swift in Sources */,
 				B2B02E541EA9A9F000A6880A /* QSCatalogPresenter.swift in Sources */,
 				B2B02E4C1EA9A9CA00A6880A /* QSCategoryyViewController.swift in Sources */,
+				B2D8689920050C2900B9AF01 /* CoreTextUtils.m in Sources */,
 				B2B4BBFC1E7EA4AB000CC201 /* UITableView+swizzling.swift in Sources */,
 				B258BAF91EA44BD0006E5802 /* QSTextPresenter.swift in Sources */,
 				B2580E1C1E9B236000455AFE /* QSSearchPresenter.swift in Sources */,
@@ -1703,6 +1755,7 @@
 				B20D46E11E9FBABD00EC466A /* QSBookDetailRouter.swift in Sources */,
 				B2B4BD611E7EABD3000CC201 /* ChangeSourceViewController.swift in Sources */,
 				B255707E1F3A075600C35A34 /* AppDelegate.swift in Sources */,
+				B2D8689A20050C2900B9AF01 /* CTDisplayView.m in Sources */,
 				B2B4BD771E7ECEE0000CC201 /* RootViewController+Subviews.swift in Sources */,
 				B2B4BC3B1E7EA4AB000CC201 /* ResourceModel.swift in Sources */,
 				B263ACDF1EE679830096CE80 /* HomeListViewCell.swift in Sources */,
@@ -1719,6 +1772,7 @@
 				B22A8D571EADE0E900C7E978 /* QSBookCommentProtocols.swift in Sources */,
 				B2583CBB1EA782C2004178F3 /* QSThemeTopicPresenter.swift in Sources */,
 				B2583CB41EA78280004178F3 /* TopicDetailViewController.swift in Sources */,
+				B2D8689D20050C2900B9AF01 /* UIView+frameAdjust.m in Sources */,
 				B2583CBD1EA782C2004178F3 /* QSThemeTopicRouter.swift in Sources */,
 				B2B4BC3A1E7EA4AB000CC201 /* QSHotComment.swift in Sources */,
 				B2B4BC3D1E7EA4AB000CC201 /* User.swift in Sources */,
@@ -1760,6 +1814,7 @@
 				B2B02E2F1EA8505200A6880A /* QSTopicDetailViewController.swift in Sources */,
 				B203BB591E9E0F4400F9C052 /* QSSearchViewController+SearchBar.swift in Sources */,
 				B22A8D3F1EAD949C00C7E978 /* QSCommunityRouter.swift in Sources */,
+				B2D8689C20050C2900B9AF01 /* CTFrameParserConfig.m in Sources */,
 				B2B4BC4D1E7EA4AB000CC201 /* PageView.swift in Sources */,
 				B2B4BC4B1E7EA4AB000CC201 /* HotCommentCell.swift in Sources */,
 				B2B4BBF81E7EA4AB000CC201 /* UIImageView+zhuishu.swift in Sources */,
@@ -1797,6 +1852,7 @@
 				B2B02E2D1EA8505200A6880A /* QSTopicDetailProtocols.swift in Sources */,
 				B2583CBE1EA782C2004178F3 /* QSThemeTopicViewController.swift in Sources */,
 				B2B02E571EA9A9F000A6880A /* QSCatalogViewController.swift in Sources */,
+				B2D8689B20050C2900B9AF01 /* CTFrameParser.m in Sources */,
 				B258BB0B1EA45B4C006E5802 /* CategoryButton.swift in Sources */,
 				B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */,
 				B2B4BC391E7EA4AB000CC201 /* PageInfo.swift in Sources */,
@@ -1838,11 +1894,13 @@
 				B2B4BBE51E7EA4AB000CC201 /* DarkStarView.swift in Sources */,
 				B2583CB21EA78280004178F3 /* FilterThemeViewController.swift in Sources */,
 				B27D7E841F4BDF8D00866341 /* QSCategoryDetailCell.swift in Sources */,
+				B2D8689820050C2900B9AF01 /* CoreTextLinkData.m in Sources */,
 				B278AA8D1F395F30000A0D55 /* ReadHistoryViewController.swift in Sources */,
 				B22AC43A1E9E6626008625E6 /* QSSearchResultTable.swift in Sources */,
 				B278AB061F398926000A0D55 /* M80AttributedLabelAttachment.m in Sources */,
 				B2B4BC3E1E7EA4AB000CC201 /* BookCommentCell.swift in Sources */,
 				B22AC4551E9F1E8F008625E6 /* QSRankViewController.swift in Sources */,
+				B2D8689620050C2900B9AF01 /* CoreTextData.m in Sources */,
 				B2580E1F1E9B236000455AFE /* QSSearchViewController.swift in Sources */,
 				B288D1D41E9FC86C0024F1A5 /* QSBookDetailTagsView.swift in Sources */,
 				B22A8D441EAD976000C7E978 /* QSDiscussCell.swift in Sources */,
@@ -2019,8 +2077,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Guo Shaoqing (CYXM98D895)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guo Shaoqing (CYXM98D895)";
-				DEVELOPMENT_TEAM = ZYDXKQKHVY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8K684WSCKB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YYKit/Vendor",
@@ -2039,10 +2098,10 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cibdev.zhuishushenqic;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cib.zhuishushenqi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "35b8e6e5-6fbb-41f1-8975-cf44d63d8b27";
-				PROVISIONING_PROFILE_SPECIFIER = cibemobile_develop;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/zhuishushenqi/zhuishushenqi-Bridge-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2056,8 +2115,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Guo Shaoqing (CYXM98D895)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guo Shaoqing (CYXM98D895)";
-				DEVELOPMENT_TEAM = ZYDXKQKHVY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8K684WSCKB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YYKit/Vendor",
@@ -2072,10 +2132,10 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cibdev.zhuishushenqic;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cib.zhuishushenqi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "35b8e6e5-6fbb-41f1-8975-cf44d63d8b27";
-				PROVISIONING_PROFILE_SPECIFIER = cibemobile_develop;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/zhuishushenqi/zhuishushenqi-Bridge-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

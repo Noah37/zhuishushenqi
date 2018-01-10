@@ -15,9 +15,16 @@ struct AppStyle {
     
     static var shared = AppStyle()
     
-    var readFontSize:Int = UserDefaults.standard.integer(forKey: fontSizeKey){
-        didSet{
-            UserDefaults.standard.set(readFontSize, forKey: nightKey)
+    var readFontSize:Int {
+        set {
+            UserDefaults.standard.set(newValue, forKey: fontSizeKey)
+        }
+        get {
+            let size = UserDefaults.standard.integer(forKey: fontSizeKey)
+            if size == 0 {
+                return 20;
+            }
+            return size
         }
     }
     

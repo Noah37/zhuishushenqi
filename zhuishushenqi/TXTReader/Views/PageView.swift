@@ -8,40 +8,43 @@
 
 import UIKit
 
-class PageView: UIView {
+class PageView: CTDisplayView {
 
-    var attribute:NSDictionary?{
-        didSet{
-            if let attri = attribute {
-                attributedText.addAttributes(attri as! [String : Any], range: NSMakeRange(0,attributedText.length))
-            }
-            setNeedsDisplay()
+    // size color
+    var attribute:NSDictionary {
+        get {
+            let config = CTFrameParserConfig()
+            config.fontSize = CGFloat(fontSize)
+            config.textColor = color
+            let attributes = CTFrameParser.attributes(with: config)
+            return attributes!
         }
-    }
-    var attributedText:NSMutableAttributedString = NSMutableAttributedString(string: ""){
-        didSet{
-            if attribute != nil {
-                
-                attributedText.addAttributes(attribute as! [String : Any], range: NSMakeRange(0,attributedText.length))
-            }
-            setNeedsDisplay()
+        set {
+            
         }
     }
     
-    override func draw(_ rect: CGRect) {
-        let context = UIGraphicsGetCurrentContext()
-        context?.textMatrix = CGAffineTransform.identity
-        //x，y轴方向移动
-        context!.translateBy(x: 0, y: bounds.size.height)
-        //缩放x，y轴方向缩放，－1.0为反向1.0倍,坐标系转换,沿x轴翻转180度
-        context!.scaleBy(x: 1.0, y: -1.0)
-        let childFramesetter = CTFramesetterCreateWithAttributedString(attributedText)
-        let bezierPath = UIBezierPath(rect: rect)
-        let frame = CTFramesetterCreateFrame(childFramesetter, CFRangeMake(0, 0), bezierPath.cgPath, nil)
-        CTFrameDraw(frame, context!)
-//        CFRelease(frame) //auto release
-//        CFRelease(childFramesetter)
+    var fontSize:Int {
+        get {
+            return AppStyle.shared.readFontSize
+        }
+        set {
+            
+        }
     }
     
+    var color:UIColor = UIColor.black
     
+    var attributedText:String = "" {
+        didSet{
+            let config = CTFrameParserConfig()
+            config.fontSize = CGFloat(fontSize)
+            config.textColor = color
+            config.width = self.bounds.size.width
+            attribute = CTFrameParser.attributes(with: config)
+            let data:CoreTextData = CTFrameParser.parseContent(attributedText, config: config)
+            self.data = data
+            setNeedsDisplay()
+        }
+    }
 }

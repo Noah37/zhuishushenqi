@@ -139,7 +139,7 @@ class QSTextInteractor: QSTextInteractorProtocol {
         book.bookID = bookDetail?._id ?? ""
         book.totalChapters = self.chapters?.count ?? 0
         book.resources = self.resources
-        book.attribute = [NSFontAttributeName:UIFont.systemFont(ofSize: CGFloat(size))]
+        book.attribute = Attribute(fontSize: size, color: UIColor.black, lineSpace: 5)
         book.curRes = 1
         var chapters:[QSChapter] = []
         for item in 0..<(self.chapters?.count ?? 0) {

@@ -26,8 +26,10 @@ class PageViewController: UIViewController {
     }()
     var page:QSPage? {
         didSet{
-            pageView.attributedText = NSMutableAttributedString(string: self.page?.content ?? "")
-            pageView.attribute = page?.attribute
+            pageView.attributedText =  self.page?.content ?? ""
+            pageView.fontSize = (page?.attribute.fontSize) ?? 20
+            pageView.color = (page?.attribute.color) ?? UIColor.black
+//            pageView.attribute = page?.attribute
             pageLabel.text = "第\(((self.page?.curPage ?? 0) + 1))/\(self.page?.totalPages ?? 1)页"
             titleLabel.text = self.page?.title ?? ""
         }
@@ -88,6 +90,7 @@ class PageViewController: UIViewController {
         super.viewWillAppear(animated)
         view.backgroundColor = UIColor.clear
 //        view.addSubview(bgView)
+        
         view.addSubview(pageView)
     }
     

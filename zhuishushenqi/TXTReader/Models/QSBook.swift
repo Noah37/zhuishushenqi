@@ -20,7 +20,7 @@ class QSBook: NSObject,NSCoding {
     var resources:[ResourceModel]?//书籍来源，这里面有所有的来源id
     var curRes:Int = 0 //dhqm选择来源
     //约束，这个约束是全局的，只要设置有变化，所有的书籍都随之变化
-    var attribute:NSDictionary = [NSFontAttributeName:UIFont.systemFont(ofSize: 20)] {
+    var attribute:Attribute = Attribute(fontSize: AppStyle.shared.readFontSize, color: UIColor.black, lineSpace: 5) {
         didSet{
             if let chapterssss = self.chapters {
                 self.clear(chapters: chapterssss)
@@ -43,7 +43,7 @@ class QSBook: NSObject,NSCoding {
         self.bookName = aDecoder.decodeObject(forKey: "bookName") as? String ?? ""
         self.resources = aDecoder.decodeObject(forKey: "resources") as? [ResourceModel]
         self.curRes = aDecoder.decodeInteger(forKey: "curRes")
-        self.attribute = aDecoder.decodeObject(forKey: "attribute") as? NSDictionary ?? [NSFontAttributeName:UIFont.systemFont(ofSize: 20)]
+        self.attribute = (aDecoder.decodeObject(forKey: "attribute") as? Attribute)!
     }
     
     override init() {

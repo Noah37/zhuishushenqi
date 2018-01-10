@@ -17,7 +17,7 @@ class QSChapter: NSObject ,NSCoding{
     var id:String = "" //章节id,用于查询章节信息，vip来源才有，此处忽略
     var link:String = "" //非vip来源没有id，只有link
     var title:String = ""// 章节标题
-    var attribute:NSDictionary = [NSFontAttributeName:UIFont.systemFont(ofSize: 20)] {
+    var attribute:Attribute = Attribute(fontSize: AppStyle.shared.readFontSize, color: UIColor.black, lineSpace: 5)  {
         didSet{
             //设置约束，清空pages跟ranges信息
             self.pages = []
@@ -29,16 +29,7 @@ class QSChapter: NSObject ,NSCoding{
     var content:String = ""
     //所有页面信息
     var pages:[QSPage]?
-//        {
-//        get{
-//            let size = CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40)
-//            self.ranges = self.pageWithAttributes(attrubutes: attribute, constrainedToSize: size, string: self.content) 
-//            return getPage(ranges: ranges)
-//        }
-//        set{
-//            self.pages = newValue
-//        }
-//    }
+
     //章节划分，根据attribute划分为很多页，每页的范围只在QSBook中使用
     var ranges:[String] = []
 
@@ -51,7 +42,12 @@ class QSChapter: NSObject ,NSCoding{
             }
         }
         let size = CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40)
-        self.ranges = self.pageWithAttributes(attrubutes: attribute, constrainedToSize: size, string: self.content)
+        let paraStyle = NSMutableParagraphStyle()
+        paraStyle.lineBreakMode = .byCharWrapping
+        paraStyle.alignment = .left
+        paraStyle.lineSpacing = CGFloat(attribute.lineSpace)
+        let attributes:NSDictionary = [NSFontAttributeName:UIFont(name: "ArialMT", size: CGFloat(attribute.fontSize)),NSForegroundColorAttributeName:attribute.color,NSParagraphStyleAttributeName:paraStyle]
+        self.ranges = self.pageWithAttributes(attrubutes: attributes, constrainedToSize: size, string: self.content)
         var pages:[QSPage] = []
         for item in 0..<ranges.count {
             let range:NSRange =  NSRangeFromString(ranges[item])
@@ -86,7 +82,7 @@ class QSChapter: NSObject ,NSCoding{
         self.id = aDecoder.decodeObject(forKey: "id") as! String
         self.link = aDecoder.decodeObject(forKey: "link") as! String
         self.title = aDecoder.decodeObject(forKey: "title") as! String
-        self.attribute = aDecoder.decodeObject(forKey: "attribute") as! NSDictionary
+        self.attribute = aDecoder.decodeObject(forKey: "attribute") as! Attribute
         self.content = aDecoder.decodeObject(forKey: "content") as! String
         self.pages = aDecoder.decodeObject(forKey: "pages") as? [QSPage]
         self.ranges = aDecoder.decodeObject(forKey: "ranges") as! [String]

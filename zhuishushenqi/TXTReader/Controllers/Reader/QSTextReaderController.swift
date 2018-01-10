@@ -300,7 +300,7 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     
     func fontChange(size: Int) {
         AppStyle.shared.readFontSize = size
-        bookDetail?.book?.attribute = [NSFontAttributeName:UIFont.systemFont(ofSize: CGFloat(size))]
+        bookDetail?.book?.attribute = Attribute(fontSize: size, color: UIColor.black, lineSpace: 5)
         //字体变小，页数变少
         if tempPage > ((bookDetail?.book?.chapters?[tempChapter].getPages().count ?? 0) - 1) {
             tempPage = (bookDetail?.book?.chapters?[tempChapter].getPages().count ?? 0) - 1

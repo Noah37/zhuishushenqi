@@ -45,7 +45,7 @@ class ChapterInfo: Mappable ,NSCoding{
     //当前章节的划分的范围，即每一页的范围
     var ranges:[String]? = ["{0,0}"]
     //文字约束
-    var attribute:NSDictionary? = [NSFontAttributeName:UIFont.systemFont(ofSize: 20)] {
+    var attribute:NSDictionary? = ["size": 20] {
         didSet{
             //如果设置约束，则重新计算
             self.ranges = self.pageWithAttributes(attrubutes: [NSFontAttributeName:UIFont.systemFont(ofSize: 20)], constrainedToSize: CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40), string: cpContent!) as? [String]
