@@ -9,14 +9,14 @@ branch = ENV['sha']
 target ‘zhuishushenqi’ do
 project ‘./zhuishushenqi.xcodeproj'
 
-pod 'ObjectMapper','2.2.5'
-pod 'Kingfisher','3.5.1'
+pod 'ObjectMapper', '3.1.0'
+pod 'Kingfisher','4.6.1'
 pod 'PullToRefresh','0.0.1'
-pod 'FMDB','2.6.2'
-pod 'YYKit','1.0.9'
+pod 'FMDB'
+pod 'YYKit'
 #pod 'YTKKeyValueStore','0.1.2'
-pod 'SnapKit','3.2.0'
-pod 'MBProgressHUD','~> 1.0.0'
+pod 'SnapKit','4.0.0'
+pod 'MBProgressHUD'
 pod 'QSNetwork', '~>0.0.1'
 
 #pod 'Realm', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true

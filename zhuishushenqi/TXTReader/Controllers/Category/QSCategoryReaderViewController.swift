@@ -77,8 +77,8 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
         if titles.count > indexPath.row {
             cell.tittle.text = titles[indexPath.row]
         }
-        if (bookDetail?.book?.chapters?.count ?? 0) > indexPath.row{
-            let chapter = bookDetail?.book?.chapters?[indexPath.row]
+        if (bookDetail?.book.chapters.count)! > indexPath.row{
+            let chapter = bookDetail?.book.chapters[indexPath.row]
             if let model = chapter {
                 cell.bind(model: model,index:selectedIndex)
             }
@@ -120,7 +120,7 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
         if index >= titles.count {
             return;
         }
-        if !BookManager.bookExistAtShelf( self.bookDetail) {
+        if !BookManager.shared.bookExist(book:self.bookDetail) {
             return
         }
         let chapter = bookDetail?.chapters?[index]
@@ -131,12 +131,14 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
             if let json = response.json as? Dictionary<String, Any> {
                 QSLog("JSON:\(json)")
                 if let chapter = json["chapter"] as?  Dictionary<String, Any> {
-                    let chapterModel = self.bookDetail?.book?.chapters?[index]
+                    let chapterModel = self.bookDetail?.book.chapters[index]
                     chapterModel?.content = chapter["body"] as? String ?? ""
                     if let model = chapterModel {
-                        self.bookDetail?.book?.chapters?[index] = model
+                        self.bookDetail?.book.chapters[index] = model
                     }
-                    BookManager.updateShelf(with: self.bookDetail, type: .update, refresh: false)
+                    if let book = self.bookDetail {
+                        BookManager.shared.modifyBookshelf(book: book)
+                    }
                     self.tableView.reloadData()
                 }
             }

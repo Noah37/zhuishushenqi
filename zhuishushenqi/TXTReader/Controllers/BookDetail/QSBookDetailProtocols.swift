@@ -28,7 +28,7 @@ protocol QSBookDetailPresenterProtocol: class {
     func didClickPersueBtn(model:BookDetail,select:Bool)
     func didClickCacheAll()
     func didSelectRow(indexPath:IndexPath)
-    func didClickRecBtn(btn:UIButton)
+    func didClickRecBtn(btn:UIView)
 }
 
 //MARK: Interactor -

@@ -96,7 +96,7 @@ extension String{
     //MARK:- count
     func qs_width(_ font:UIFont,height:CGFloat) ->CGFloat
     {
-        let dict = [NSFontAttributeName:font]
+        let dict = [NSAttributedStringKey.font:font]
         let sttt:NSString = self as NSString
         let rect:CGRect = sttt.boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: CGFloat(height)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
         return rect.size.width
@@ -104,14 +104,14 @@ extension String{
     
     func qs_height(_ font:UIFont,width:CGFloat) ->CGFloat
     {
-        let dict = [NSFontAttributeName:font]
+        let dict = [NSAttributedStringKey.font:font]
         let sttt:NSString = self as NSString
         let rect:CGRect = sttt.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
         return rect.size.height
     }
     
     func qs_width(_ fontSize:CGFloat,height:CGFloat) -> CGFloat{
-        let dict = [NSFontAttributeName:UIFont.systemFont(ofSize: fontSize)]
+        let dict = [NSAttributedStringKey.font:UIFont.systemFont(ofSize: fontSize)]
         let sttt:NSString = self as NSString
         let rect:CGRect = sttt.boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: CGFloat(height)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
         return rect.size.width
@@ -119,7 +119,7 @@ extension String{
     
     func qs_height(_ fontSize:CGFloat,width:CGFloat) ->CGFloat
     {
-        let dict = [NSFontAttributeName:UIFont.systemFont(ofSize: fontSize)]
+        let dict = [NSAttributedStringKey.font:UIFont.systemFont(ofSize: fontSize)]
         let sttt:NSString = self as NSString
         let rect:CGRect = sttt.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
         return rect.size.height

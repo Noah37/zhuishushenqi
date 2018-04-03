@@ -121,7 +121,7 @@ class BookCommentViewCell: UITableViewCell {
         }
         floorWidth.constant = model.floorWidth
         content.text = "\(model.content)"
-        let urlString = "\(IMAGE_BASEURL)\(self.model?.author.avatar ?? "qqqqqqqq")"
+        let urlString = "\(model.author.avatar)"
         self.readerIcon.qs_setAvatarWithURLString(urlString: urlString)
         
     }

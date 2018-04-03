@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc(UpdateInfo)
+@objcMembers
 class UpdateInfo: NSObject,NSCoding {
 //    [{
 //    "_id": "51d11e782de6405c45000068",

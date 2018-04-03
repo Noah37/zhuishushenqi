@@ -48,7 +48,7 @@ class ChapterInfo: Mappable ,NSCoding{
     var attribute:NSDictionary? = ["size": 20] {
         didSet{
             //如果设置约束，则重新计算
-            self.ranges = self.pageWithAttributes(attrubutes: [NSFontAttributeName:UIFont.systemFont(ofSize: 20)], constrainedToSize: CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40), string: cpContent!) as? [String]
+            self.ranges = self.pageWithAttributes(attrubutes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20)], constrainedToSize: CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40), string: cpContent!) as? [String]
         }
     }
     
@@ -92,7 +92,7 @@ class ChapterInfo: Mappable ,NSCoding{
     private func pageWithAttributes(attrubutes:NSDictionary,constrainedToSize size:CGSize,string:String)->NSArray{
         let resultRange = NSMutableArray(capacity: 5)
         let rect = CGRect(x:0,y: 0,width: size.width,height: size.height)
-        let attributedString = NSAttributedString(string:string , attributes: attrubutes as? [String : AnyObject])
+        let attributedString = NSAttributedString(string:string , attributes: attrubutes as? [NSAttributedStringKey: AnyObject])
         let date = NSDate()
         var rangeIndex = 0
         repeat{

@@ -14,7 +14,7 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
 
     var timeline:[QSHotModel]?
     fileprivate var segment:UISegmentedControl = {
-       let seg = UISegmentedControl(frame: CGRect(x: 15,y: 69,width: ScreenWidth - 30,height: 30))
+       let seg = UISegmentedControl(frame: CGRect(x: 15,y: kNavgationBarHeight + 5,width: ScreenWidth - 30,height: 30))
         seg.insertSegment(withTitle: "动态", at: 0, animated: false)
         seg.insertSegment(withTitle: "热门", at: 1, animated: false)
         seg.insertSegment(withTitle: "我的", at: 2, animated: false)
@@ -25,7 +25,7 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
     }()
     
     fileprivate lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104), style: .grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 40), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .singleLine

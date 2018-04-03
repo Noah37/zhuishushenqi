@@ -220,8 +220,8 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = UIStoryboard(name: "TXTReader", bundle: nil).instantiateInitialViewController()
-        present(vc!, animated: true, completion: nil)
+//        let vc = UIStoryboard(name: "TXTReader", bundle: nil).instantiateInitialViewController()
+//        present(vc!, animated: true, completion: nil)
     }
     
     func showDetail(detail: BookComment) {

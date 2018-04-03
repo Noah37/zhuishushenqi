@@ -8,15 +8,23 @@
 
 /*
  *
- * 换源需要做的事情，重新请求所有章节信息，成功后，刷新QSBook的信息
- * 请求到某一章节的信息后，需要刷新QSBook中的QSChapter信息
- * 保存当前阅读进度
+ * 换源需要做的事情，重新请求所有章节信息，成功后，刷新BookDetail的信息
+ * 请求到某一章节的信息后，需要刷新NSDictionary中的QSChapter信息
+ * 保存当前阅读进度,只保存阅读记录，其它的不做保存
  * 退出阅读器时，若尚未加入书架，则提示用户是否需要加入书架，选择是，加入书架，同时刷新书架中书籍的阅读信息，选择否，则不记录信息
  * 记录信息包括，当前阅读的章节，页面，上次更新时间
  */
+/*
+    pageViewController需要复用，否则快速切换的时候内存增加过快，内存占用过高
+ */
+
+enum QSTextCurlPageStyle {
+    case none  //表示跳转到的章节，没有动画产生
+    case forwards //前 ,下一页
+    case backwards
+}
 
 import UIKit
-import QSNetwork
 
 class QSTextReaderController: UIViewController {
     
@@ -25,123 +33,144 @@ class QSTextReaderController: UIViewController {
     
     var presenter: QSTextPresenterProtocol?
 
-    var bookDetail:BookDetail?
+    var bookDetail:BookDetail!
+    
+    // key为章节的link，value为QSChapter模型
+    var chapterDict:[String:Any]! = [:]
+    
     //all chapters
-    var chapters = [NSDictionary](){
-        didSet{
-            self.setBookInfo()
-        }
-    }
+    var chapters = [NSDictionary]()
+    
+    var reusePages:[PageViewController] = []
+
     var isToolBarHidden:Bool = true
     var isAnimatedFinished:Bool = false
     var currentPage:Int = 0
     var currentChapter:Int = 0
-    var tempPage:Int = 0
-    var tempChapter:Int = 0
-    var pageViewController:PageViewController?
+    
+    var curlPageStyle:QSTextCurlPageStyle = .forwards
+
+    // 拟真阅读
+    var pageController:UIPageViewController?
+    // 简洁阅读与滑动
+    var readerViewController:QSReaderViewController?
+    
+    // 当前阅读视图控制器，处于动画中时，则表示要切换到的控制器，非动画中则表示当前的阅读控制器
+    var currentReaderVC:PageViewController!
+
     var window:UIWindow?
     var callback:QSTextCallBack?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        setSubviews()
-        setRoot()
-        if let book = bookDetail {
-            presenter?.viewDidLoad(bookDetail:book)
-        }
-        bookDetail?.isUpdated = false
-        if let book = bookDetail {
-            BookManager.updateShelf(with: book, type: .update, refresh: true)
-        }
-    }
-    
-    func setSubviews() {
-//        view.backgroundColor = UIColor.black
         
+        // 初始化根控制器
+        createRootController()
+        
+        presenter?.viewDidLoad(bookDetail:bookDetail)
+        
+        bookDetail.isUpdated = false
+        if let book = bookDetail {
+            BookManager.shared.modifyBookshelf(book: book)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
-        
-        DispatchQueue.global().async {
-            if self.saveRecord {
-                var historyList:[BookDetail] = BookShelfInfo.books.readHistory
-                if let book  = self.bookDetail {
-                    
-                    if !BookManager.book(book, existAt: historyList) {
-                        historyList.append(book)
-                    }
-                }
-                BookShelfInfo.books.readHistory = historyList
-            }
-        }
+        // 保存浏览记录
+        BookManager.shared.addReadHistory(book: bookDetail)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         if touch?.tapCount == 1 {
             if isToolBarHidden {
-                toolBar.showWithAnimations(animation: true)
+                toolBar.showWithAnimations(animation: true,inView: currentReaderVC.view)
             }
             isToolBarHidden = !isToolBarHidden
         }
     }
     
     //MARK: - custom action
-    private func setRoot(){
-        currentChapter = bookDetail?.chapter ?? 0
-        currentPage = bookDetail?.page ?? 0
-        tempChapter = currentChapter
-        tempPage = currentPage
-//        self.chapters = bookDetail?.chapters ?? []
-        let rootController = PageViewController()
-        var chapter:QSChapter?
-        var page:QSPage?
-        if (bookDetail?.book?.chapters?.count ?? 0) > self.currentChapter {
-            chapter = bookDetail?.book?.chapters?[self.currentChapter]
-            if (chapter?.getPages().count ?? 0) > self.currentPage {
-                page = chapter?.getPages()[self.currentPage]
+    private func createRootController(){
+        let pageStyle = QSReaderSetting.shared.pageStyle
+        switch pageStyle {
+        case .curlPage:
+            guard let _ = pageController else {
+                setupPageController()
+                return
             }
+            view.addSubview(pageController!.view)
+            addChildViewController(pageController!)
+            pageController?.setViewControllers([currentReaderVC], direction: .forward, animated: true, completion: nil)
+            break
+        case .simple:
+            setupReaderViewController()
+            break
+        case .scroll:
+            break
         }
-        rootController.page = page
-        pageViewController = rootController
-        pageController.setViewControllers([rootController], direction: .forward, animated: true, completion: nil)
-        addChildViewController(pageController)
-//        pageController.view.frame = CGRect(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height - 40)
-        view.addSubview(pageController.view)
     }
     
-    //获取 pageViewController
-    func getPageViewController()->PageViewController{
+    private func setupPageController(){
+        pageController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
+        pageController?.dataSource = self
+        pageController?.delegate = self
+        pageController?.isDoubleSided = true
+        view.addSubview(pageController!.view)
+        addChildViewController(pageController!)
+        pageController?.setViewControllers([initialPageViewController()], direction: .forward, animated: true, completion: nil)
+    }
+    
+    private func setupReaderViewController(){
+        if readerViewController != nil {
+            readerViewController?.view.removeFromSuperview()
+            readerViewController?.removeFromParentViewController()
+            readerViewController = nil
+        }
+        if pageController != nil {
+            pageController?.view.removeFromSuperview()
+            pageController?.removeFromParentViewController()
+        }
+        let layout = QSReaderViewFlowLayout()
+        readerViewController = QSReaderViewController(collectionViewLayout: layout)
+        view.addSubview(readerViewController!.view)
+        addChildViewController(readerViewController!)
+    }
+    
+    func initialPageViewController()->PageViewController{
+        if let record = bookDetail.record {
+            currentChapter = record.chapter
+            currentPage = record.page
+        }
         let pageVC = PageViewController()
-        QSLog("\(NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true))")
-        let tmpPage = tempPage
-        tempPage = (tempPage == -1 ? ((bookDetail?.book?.chapters?[tempChapter].getPages().count ?? 0) - 1) : tempPage)
-
-        if tempPage < 0 {
-            tempPage = 0
+        let page = getPage(chapter: currentChapter, page: currentPage)
+        pageVC.page = page
+        currentReaderVC = pageVC
+        return pageVC
+    }
+    
+    func getLastPage(chapter:Int,page:Int)->PageViewController?{
+        let pageVC = PageViewController()
+        let pageModel = getPage(chapter: chapter, page: page)
+        pageVC.page = pageModel
+        if pageModel.content == "" {
+            // 重新请求数据
+            presenter?.interactor.getChapter(chapterIndex: currentChapter, pageIndex: currentPage)
         }
-        //换源之后的越界问题
-        if tempChapter > (bookDetail?.book?.totalChapters ?? 0)  {
-            tempChapter = (bookDetail?.book?.totalChapters ?? 1) - 1
-            tempPage = 0
+        return pageVC
+    }
+    
+    func getNextPage(chapter:Int,page:Int)->PageViewController{
+        let pageVC = PageViewController()
+        let pageModel = getPage(chapter: chapter, page: page)
+        pageVC.page = pageModel
+        if pageModel.content == "" {
+            // 如果没网，可以先展示章节名与页码
+            presenter?.interactor.getChapter(chapterIndex: currentChapter, pageIndex: currentPage)
         }
-        if tmpPage < (bookDetail?.book?.chapters?[tempChapter].getPages().count ?? 0 - 1) && tmpPage >= 0 {
-            //说明是当前章节，不需要请求新的数据
-            pageVC.page = bookDetail?.book?.chapters?[tempChapter].getPages()[tempPage]
-        } else {
-            //新的章节，重新请求数据
-            let chapterModel = presenter?.interactor.getChapter(chapterIndex: tempChapter, pageIndex: tempPage)
-            if let model = chapterModel {
-                bookDetail?.book?.chapters?[tempChapter] = model
-            }
-            if (chapterModel?.getPages().count ?? 0) > tempPage {
-                pageVC.page = chapterModel?.getPages()[tempPage]
-            }
-        }
-        pageViewController = pageVC
         return pageVC
     }
     
@@ -158,24 +187,12 @@ class QSTextReaderController: UIViewController {
         return .slide
     }
     
-    func setBookInfo(){//更换书籍来源则需要更新book.chapters信息,请求某一章节成功后也需要刷新chapters的content及其他信息
-        bookDetail?.book = presenter?.interactor.book(bookDetail: bookDetail,chapters:self.chapters,resources:bookDetail?.resources)
-    }
-    
     //MARK:  - lazy variable
-    lazy var pageController:UIPageViewController = {
-        let pageController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
-        pageController.dataSource = self
-        pageController.delegate = self
-        pageController.isDoubleSided = true
-        return pageController
-    }()
-    
     lazy var toolBar:ToolBar = {
         let toolBar:ToolBar = ToolBar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
         //        toolBar.isHidden = true
         toolBar.toolBarDelegate = self
-        toolBar.title = self.bookDetail?.book?.bookName ?? ""
+        toolBar.title = self.bookDetail.title
         return toolBar;
     }()
 }
@@ -188,92 +205,141 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         //将正面的view截屏，然后反向显示在back
         if viewController.isKind(of: PageViewController.self) {
             let backgroundVC = QSReaderBackgroundViewController()
-            backgroundVC.setBackground(viewController: self.pageViewController!)
+            backgroundVC.setBackground(viewController: self.currentReaderVC!)
             return backgroundVC
         }
-        QSLog("page:\(currentPage) \n chapter:\(currentChapter)")
-        tempChapter = currentChapter
-        tempPage = currentPage
-        if tempPage == 0 {
-            if tempChapter == 0 {
+        // 防止计算错误
+        if currentChapter < 0 {
+            currentChapter = 0
+        }
+        if currentPage < 0 {
+            currentPage = 0
+        }
+        
+        let pages  = getPages(chapter: currentChapter)
+        if currentPage == 0 || pages.count == 0 {
+            currentChapter -= 1
+            if currentChapter < 0 {
+                currentChapter = 0
                 return nil
             }
-            tempChapter -= 1
-            tempPage -= 1 //用于判断是向前翻页
+            // 计算上一章的页数
+            let pages = getPages(chapter: currentChapter)
+            if pages.count > 0 {
+                currentPage = pages.count - 1
+            } else {
+                currentPage = 0
+            }
         } else {
-            tempPage -= 1
+            currentPage -= 1
         }
-        let pageVC = getPageViewController()
-        
+        if currentChapter < 0 {
+            currentPage = 0
+            currentChapter = 0
+            return nil
+        }
+        curlPageStyle = .backwards
+        QSLog("chapter:\(currentChapter)\npage:\(currentPage)")
+        let pageVC = getLastPage(chapter: currentChapter, page: currentPage)
+
         return pageVC
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?{
         if viewController.isKind(of: PageViewController.self) {
             let backgroundVC = QSReaderBackgroundViewController()
-            backgroundVC.setBackground(viewController: self.pageViewController!)
+            backgroundVC.setBackground(viewController: self.currentReaderVC!)
             return backgroundVC
         }
-        QSLog("page:\(currentPage) \n chapter:\(currentChapter)")
-        tempPage = currentPage
-        tempChapter = currentChapter
-        //换源之后的越界问题
-        if tempChapter > (bookDetail?.book?.totalChapters ?? 0)  {
-            tempChapter = (bookDetail?.book?.totalChapters ?? 1) - 1
-            tempPage = 0
+        // 防止计算错误
+        if currentChapter < 0 {
+            currentChapter = 0
         }
-        if tempPage < ((bookDetail?.book?.chapters?[self.currentChapter].getPages().count ?? 0) - 1) {
-            tempPage += 1
-        }else {
-            if tempChapter < (bookDetail?.book?.chapters?.count ?? 0) - 1 {
-                tempChapter += 1
-                tempPage = 0
-            }else{
-                return nil
-            }
+        if currentPage < 0 {
+            currentPage = 0
         }
-        let pageVC = getPageViewController()
+        //换源之后chapter的越界问题
+        // 如果chapter存在，则使用chapter，若不存在，则认为当前章节没有数据，直接进入下一章节
+        let pages = getPages(chapter: currentChapter)
+        if currentPage < pages.count - 1{
+            currentPage += 1
+        } else {
+            currentChapter += 1
+            currentPage = 0
+        }
+        if currentChapter > self.bookDetail.chapters!.count - 1 {
+            currentChapter = self.bookDetail.chapters!.count - 1
+        }
+        curlPageStyle = .forwards
+        QSLog("chapter:\(currentChapter)\npage:\(currentPage)")
+        let pageVC = getNextPage(chapter: currentChapter, page: currentPage)
         return pageVC
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]){
-        QSLog(pendingViewControllers)
+        QSLog("viewControllers:\(pendingViewControllers)")
+        // viewControllers控制器可能会取消，因此这里要记住这个控制器，获取到数据后，刷新的是这个控制器
+        currentReaderVC = pendingViewControllers.first as! PageViewController
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
-        //如果翻页成功，则completed=true，否则为false
-        QSLog(previousViewControllers)
+        //如果翻页完成，则completed=true，否则为false
         isAnimatedFinished = completed//请求数据时根据此字段更新当前页
+        currentReaderVC = pageViewController.viewControllers?.first as! PageViewController
         if  completed == true {
-            currentChapter = tempChapter
-            currentPage = tempPage
+
         }else{
-            tempPage = currentPage
-            tempChapter = currentChapter
+            // 翻页未完成，回到原来的页面,原来的页面是肯定存在的
+            // 分为两种情况，1.前（下一页） 2.后（上一页）
+            if curlPageStyle == .backwards {
+                // 向前的话，计算当前页面的下一页就行
+                let pages = getPages(chapter: currentChapter)
+                if currentPage < pages.count - 1{
+                    currentPage += 1
+                } else {
+                    currentChapter += 1
+                    currentPage = 0
+                }
+                
+            } else if curlPageStyle == .forwards {
+                let pages  = getPages(chapter: currentChapter)
+                if pages.count == 0 {
+                    currentChapter -= 1
+                    currentPage = 0 // -1表示往前翻，0表示往后翻
+                } else if currentPage == 0 {
+                    currentChapter -= 1
+                    // 计算上一章的页数
+                    let pages = getPages(chapter: currentChapter)
+                    if pages.count > 0 {
+                        currentPage = pages.count - 1
+                    } else {
+                        currentPage = 0
+                    }
+                } else {
+                    currentPage -= 1
+                }
+            }
         }
     }
     
     //MARK: - ToolBarDelegate
     func backButtonDidClicked(){
-        bookDetail?.chapter = tempChapter
-        bookDetail?.page = tempPage
-        //如果有更新，退出时设置为已观看
-        bookDetail?.isUpdated = false
-        //一般新进入或者换源，才会有变化
-        if chapters.count > 0 {
-            bookDetail?.chapters = chapters
-        }
-        let exist = BookManager.bookExistAtShelf(bookDetail)
+        // 退出时，通常保存阅读记录就行，其它的不需要保存
+        let exist = BookManager.shared.bookExist(book:bookDetail)
         if !exist {
             self.alert(with: "追书提示", message: "是否将本书加入我的收藏", okTitle: "好的", cancelTitle: "不了", okAction: { (action) in
-                BookManager.updateShelf(with: self.bookDetail, type: .add,refresh:true)
-                self.toolBarDismiss()
+                if let book = self.bookDetail {
+                    BookManager.shared.modifyBookshelf(book: book)
+                }
+                self.dismiss(animated: true, completion: nil)
             }, cancelAction: { (action) in
-                self.toolBarDismiss()
+                self.dismiss(animated: true, completion: nil)
             })
         }else{
-            BookManager.updateShelf(with: self.bookDetail, type: .update, refresh: false)
-            toolBarDismiss()
+            if let book = self.bookDetail {
+                BookManager.shared.modifyRecord(book, currentChapter, currentPage)
+            }
+            self.dismiss(animated: true, completion: nil)
         }
         if let back = callback {
             if let book = self.bookDetail {
@@ -283,31 +349,45 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     }
     
     func toolBarDismiss(){
-        self.toolBar.hideWithAnimations(animation: true)
         self.dismiss(animated: true, completion: nil)
+        self.toolBar.hideWithAnimations(animation: true)
     }
     
     func catagoryClicked(){
         if let book = self.bookDetail {
+            self.toolBar.hideWithAnimations(animation: true)
             presenter?.didClickCategory(book:book)
         }
     }
     
     func readBg(type: Reader) {
         AppStyle.shared.reader = type
-        self.pageViewController?.bgView.image = AppStyle.shared.reader.backgroundImage
+        self.currentReaderVC?.bgView.image = AppStyle.shared.reader.backgroundImage
     }
     
-    func fontChange(size: Int) {
-        AppStyle.shared.readFontSize = size
-        bookDetail?.book?.attribute = Attribute(fontSize: size, color: UIColor.black, lineSpace: 5)
+    func fontChange(action:ToolBarFontChangeAction){
+        var size = QSReaderSetting.shared.fontSize
+        if action == .plus {
+            size += 1
+        } else {
+            size -= 1
+        }
+        if size > QSReaderFontSizeMax {
+            QSLog("fontSize:\(size)\n 超出了限制")
+            return
+        }
+        if size < QSReaderFontSizeMin {
+            QSLog("fontSize:\(size)\n 超出了限制")
+            return
+        }
+        QSReaderSetting.shared.fontSize = size
         //字体变小，页数变少
-        if tempPage > ((bookDetail?.book?.chapters?[tempChapter].getPages().count ?? 0) - 1) {
-            tempPage = (bookDetail?.book?.chapters?[tempChapter].getPages().count ?? 0) - 1
+        let pages = getPages(chapter: currentChapter)
+        if currentPage > pages.count - 1 && pages.count != 0 {
+            currentPage = pages.count - 1
         }
         //字体变大，页数变多，根据追书的设计保持当前页不变
-        currentPage = tempPage
-        self.pageViewController?.page = bookDetail?.book?.chapters?[tempChapter].getPages()[tempPage]
+        currentReaderVC?.page = pages[currentPage]
     }
     
     func cacheAll() {
@@ -332,6 +412,12 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         
     }
     
+    func toolbar(toolbar:ToolBar, clickMoreSetting:UIView) {
+        let moreSettingVC = QSMoreSettingController()
+        let nav = UINavigationController(rootViewController: moreSettingVC)
+        present(nav, animated: true, completion: nil)
+    }
+    
     func changeSourceClicked() {
         let sourceVC = ChangeSourceViewController()
         sourceVC.id = "\(self.bookDetail?._id ?? "")"
@@ -341,7 +427,6 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
             self.bookDetail?.sourceIndex = index
             self.bookDetail?.resources = sources
             self.bookDetail?.sourceIndex = index
-//            updateBookShelf(bookDetail: self.bookDetail, type: .update, refresh: false)
             self.presenter?.requestAllChapter(index: self.bookDetail?.sourceIndex ?? 0)
         }
         let nav = UINavigationController(rootViewController: sourceVC)
@@ -374,15 +459,17 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     
     //MARK: - CategoryDelegate
     func categoryDidSelectAtIndex(index:Int){
-        tempChapter = index
-        tempPage = 0
-        currentPage = tempPage
-        self.bookDetail?.chapter = tempChapter
-        let pageVC = getPageViewController()
+        curlPageStyle = .none
+        currentChapter = index
+        currentPage = 0
+        let pageVC = getNextPage(chapter: currentChapter, page: currentPage)
+        let page = getPage(chapter: currentChapter, page: currentPage)
+        pageVC.page = page
+        currentReaderVC = pageVC
+        
         let backgroundVC = QSReaderBackgroundViewController()
-        backgroundVC.setBackground(viewController: self.pageViewController!)
-        pageController.setViewControllers([pageVC,backgroundVC], direction: .forward, animated: true) { (finished) in
-            self.currentChapter = self.tempChapter
+        backgroundVC.setBackground(viewController: pageVC)
+        pageController?.setViewControllers([pageVC,backgroundVC], direction: .forward, animated: true) { (finished) in
             self.toolBar.hideWithAnimations(animation: true)
         }
     }
@@ -392,11 +479,7 @@ extension QSTextReaderController:QSTextViewProtocol,QSCategoryDelegate{
     
     func showBook(book:QSBook){
         bookDetail?.book = book
-        let chapterModel = presenter?.interactor.getChapter(chapterIndex: tempChapter, pageIndex: tempPage)
-        if (chapterModel?.getPages().count ?? 0) > tempPage {
-            let pages = chapterModel?.getPages()
-            pageViewController?.page = pages?[self.tempPage]
-        }
+        presenter?.interactor.getChapter(chapterIndex: currentChapter, pageIndex: currentPage)
     }
     
     func downloadFinish(book: QSBook) {
@@ -407,25 +490,79 @@ extension QSTextReaderController:QSTextViewProtocol,QSCategoryDelegate{
         toolBar.progressView.dict = dict
     }
     
+    func getPages(chapter:Int)->[QSPage]{
+        let chapterModel = self.bookDetail.chapters?[chapter]
+        if let link = chapterModel?["link"] as? String{
+            if let chapterInfo = chapterDict[link] as? QSChapter{
+                let pages = chapterInfo.getPages()
+                return pages
+            }
+        }
+        return []
+    }
+    
+    func getPage(chapter:Int,page:Int)->QSPage{
+        let pages = getPages(chapter: chapter)
+        if page <  pages.count {
+            return pages[page]
+        }
+        // 内存中不存在
+        let pageModel = QSPage()
+        if let title = bookDetail.chapters?[chapter]["title"] as? String {
+            pageModel.title = title
+        }
+        return pageModel
+    }
+    
     func showChapter(chapter:Dictionary<String,Any>,index:Int){
-        bookDetail?.book?.chapters = presenter?.interactor.setChapters(chapterParam: chapter as NSDictionary?,index:index,chapters: bookDetail?.book?.chapters ?? [])
-        let chapterInfo = bookDetail?.book?.chapters?[self.tempChapter]
-        
-        if (chapterInfo?.getPages().count ?? 0) > tempPage {
-            pageViewController?.page = chapterInfo?.getPages()[self.tempPage]
+        getChapterDict(chapter: chapter, index: index)
+        let pages = getPages(chapter: index)
+        if curlPageStyle == .backwards { // 往前翻
+            if pages.count > 0 {
+                currentPage = pages.count - 1
+            } else {
+                currentPage = 0
+            }
+        }
+        let page = getPage(chapter: index, page: currentPage)
+        if page.content != "" {
+            // 动画还未完成
+            currentReaderVC.page = page
+        }
+    }
+    
+    // 将新获取的章节信息存入chapterDict中
+    func getChapterDict(chapter:[String:Any],index:Int){
+        let chapterModel = self.bookDetail?.chapters?[index]
+        let qsChapter = QSChapter()
+        if let link = chapterModel?["link"] as? String{
+            qsChapter.link = link
+            // 如果使用追书正版书源，取的字段应该是cpContent，需要根据当前选择的源进行判断
+            if let _ = chapter["order"] as? Int {
+                if let content = chapter["cpContent"] as? String  {
+                    qsChapter.content = content
+                }
+            } else {
+                if let content = chapter["body"] as? String  {
+                    qsChapter.content = content
+                }
+            }
+            if let title = chapterModel?["title"] as? String {
+                qsChapter.title = title
+            }
+            qsChapter.curChapter = index
+            chapterDict[link] = qsChapter
         }
     }
     
     func showAllChapter(chapters: [NSDictionary]) {
         self.chapters = chapters
-        self.tempChapter = self.currentChapter
-        self.tempPage = self.currentPage
+        self.bookDetail.chapters = chapters
         //换源引起的数组越界
-        if self.tempChapter > self.chapters.count - 1 {
-            self.tempChapter = self.chapters.count - 1
-            self.currentChapter = self.tempChapter
+        if self.currentChapter > self.chapters.count - 1 {
+            self.currentChapter = self.chapters.count - 1
         }
-        self.presenter?.requestChapter(index: self.tempChapter)
+        self.presenter?.requestChapter(index: self.currentChapter)
     }
     
     func showResources(resources: [ResourceModel]) {

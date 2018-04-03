@@ -28,7 +28,7 @@ class QSSearchViewController: BaseViewController{
     var autoCompleteTable:QSSearchAutoCompleteTable!
 
     lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 114, width: ScreenWidth, height: ScreenHeight - 114), style: .grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 50, width: ScreenWidth, height: ScreenHeight - (kNavgationBarHeight + 50)), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.estimatedSectionHeaderHeight = 80
@@ -62,7 +62,7 @@ class QSSearchViewController: BaseViewController{
     func initSubview(){
         let bgView = UIView()
         bgView.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.96, alpha: 1.0)
-        bgView.frame = CGRect(x: 0, y: 64, width: self.view.bounds.width, height: 44)
+        bgView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: 44)
         bgView.addSubview(self.searchController.searchBar)
         view.addSubview(bgView)
         

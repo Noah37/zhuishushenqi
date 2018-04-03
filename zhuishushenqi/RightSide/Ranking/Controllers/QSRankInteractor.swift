@@ -19,17 +19,21 @@ class QSRankInteractor: QSRankInteractorProtocol {
             if let dict = response.json as? NSDictionary {
                 do{
                     if let male:[Any] = dict["male"] as? [Any] {
-                        var maleRank:[QSRankModel]? = try XYCBaseModel.model(withModleClass: QSRankModel.self, withJsArray: male) as? [QSRankModel]
+                        let maleRank:[QSRankModel]? = try XYCBaseModel.model(withModleClass: QSRankModel.self, withJsArray: male) as? [QSRankModel]
                         //添加别人家的榜单
                         let otherRank = self.rankModel(title: "别人家的榜单", image: "ranking_other")
-                        maleRank?.insert(otherRank, at: 5)
-                        self.ranks.append(maleRank ?? [])
+                        if var models = maleRank {
+                            models.insert(otherRank, at: self.collapse(maleRank: maleRank))
+                            self.ranks.append(models)
+                        }
                     }
                     if let female:[Any] = dict["female"] as? [Any] {
-                        var femaleRank:[QSRankModel]? = try XYCBaseModel.model(withModleClass: QSRankModel.self, withJsArray: female ) as? [QSRankModel]
+                        let femaleRank:[QSRankModel]? = try XYCBaseModel.model(withModleClass: QSRankModel.self, withJsArray: female ) as? [QSRankModel]
                         let otherRank = self.rankModel(title: "别人家的榜单", image: "ranking_other")
-                        femaleRank?.insert(otherRank, at: 5)
-                        self.ranks.append(femaleRank ?? [])
+                        if var models = femaleRank {
+                            models.insert(otherRank, at: self.collapse(maleRank: models))
+                            self.ranks.append(models)
+                        }
                     }
                     self.output.fetchRankSuccess(ranks: self.ranks)
                 }catch{
@@ -46,5 +50,18 @@ class QSRankInteractor: QSRankInteractorProtocol {
         otherRank.title = title
         otherRank.image = image
         return otherRank
+    }
+    
+    func collapse(maleRank:[QSRankModel]?)->Int{
+        var collapseIndex = 0
+        if let models = maleRank {
+            for model in models {
+                if model.collapse == 1 {
+                    break
+                }
+                collapseIndex += 1
+            }
+        }
+        return collapseIndex
     }
 }

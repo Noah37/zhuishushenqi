@@ -9,7 +9,7 @@
 import UIKit
 
 
-class TopDetailCell: UITableViewCell {
+class TopDetailCell: UITableViewCell,QSSegmentCellProtocol {
  
     @IBOutlet weak var authorWidth: NSLayoutConstraint!
     @IBOutlet weak var remain: UILabel!
@@ -43,8 +43,9 @@ class TopDetailCell: UITableViewCell {
         }
     }
     
-    override func bindData(model: AnyObject?) {
-        self.model = model as! Book
+    func bindData(model: AnyObject?) {
+
+        self.model = model as? Book
         self.remain.text = String(format: "%.2f %%读者留存", self.model?.retentionRatio ?? 0)
         self.reading.text = String(format: "%.0f 人在追", self.model?.latelyFollower ?? 0)
         self.profile.text = "\(self.model?.shortIntro ?? "")"
@@ -59,7 +60,7 @@ class TopDetailCell: UITableViewCell {
         let urlString = "\((self.model?.cover ?? "qqqqqqqq"))"
         self.icon.qs_setBookCoverWithURLString(urlString: urlString)
         if type.text == "" {
-            type.text = model?.majorCate ?? ""
+            type.text = self.model?.majorCate ?? ""
         }
 
     }

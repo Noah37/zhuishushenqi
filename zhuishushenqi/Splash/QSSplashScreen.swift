@@ -92,7 +92,7 @@ class QSSplashScreen: NSObject {
         }
     }
     
-    func showSplash(){
+    @objc func showSplash(){
         remainDelay -= 1
         if remainDelay == 0 {
             hide()

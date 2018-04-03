@@ -34,12 +34,25 @@ class QSRankPresenter: QSRankPresenterProtocol {
     }
     
     func didSelectResultRow(indexPath: IndexPath) {
-        if indexPath.row == 5{
+        if indexPath.row == (collapse(maleRank: self.ranks[indexPath.section]) - 1){
             show[indexPath.section] = !show[indexPath.section]
             fetchWithShow(show: self.show)
             return
         }
         router.presentDetails(ranks[indexPath.section][indexPath.row])
+    }
+    
+    func collapse(maleRank:[QSRankModel]?)->Int{
+        var collapseIndex = 0
+        if let models = maleRank {
+            for model in models {
+                if model.collapse == 1 {
+                    break
+                }
+                collapseIndex += 1
+            }
+        }
+        return collapseIndex
     }
 }
 

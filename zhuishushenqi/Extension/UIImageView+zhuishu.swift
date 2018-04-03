@@ -13,13 +13,14 @@ extension UIImageView{
     func qs_setBookCoverWithURLString(urlString:String){
         self.image = UIImage(named: "default_book_cover")
 //        DispatchQueue.global().async {
-            var urlStr = urlString
+        let noPercentStr:String = urlString.removingPercentEncoding ?? ""
+            var urlStr = noPercentStr
             if urlStr.qs_subStr(to: 4) != "http"{
 //                urlStr = urlStr.qs_subStr(from: 7)
                 urlStr = "\(IMAGE_BASEURL)\(urlStr)-coverl"
             }
             if urlStr.contains("http") == false {
-                urlStr = "\(IMAGE_BASEURL)\(urlString)"
+                urlStr = "\(IMAGE_BASEURL)\(noPercentStr)"
             }
             let url = URL(string: urlStr)
             guard let imageURL = url else {
@@ -62,9 +63,11 @@ extension UIImageView{
 
 extension UIButton{
     func qs_setBookCoverWithUrlString(urlString:String){
+        
+        let noPercentStr:String = urlString.removingPercentEncoding ?? ""
         self.setImage(UIImage(named: "default_book_cover"), for: .normal)
         DispatchQueue.global().async {
-            var urlStr = urlString
+            var urlStr = noPercentStr
             if urlStr.qs_subStr(to: 4) != "http"{
                 urlStr = urlStr.qs_subStr(from: 7)
             }

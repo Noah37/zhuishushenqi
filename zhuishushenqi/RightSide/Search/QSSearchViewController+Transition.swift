@@ -58,13 +58,13 @@ extension QSSearchViewController{
         var searchFrame = CGRect.zero
         switch type {
         case .history:
-            searchFrame = CGRect(x: 0, y: 114, width: ScreenWidth, height: ScreenHeight - 114)
+            searchFrame = CGRect(x: 0, y: kNavgationBarHeight + 50, width: ScreenWidth, height: ScreenHeight - 114)
             break
         case .searching:
-            searchFrame = CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64 - 216)
+            searchFrame = CGRect(x: 0, y: kNavgationBarHeight, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 216)
             break
         case .associate:
-            searchFrame = CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64)
+            searchFrame = CGRect(x: 0, y: kNavgationBarHeight, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight)
             break
         }
         return searchFrame

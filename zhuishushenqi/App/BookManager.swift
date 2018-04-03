@@ -8,125 +8,271 @@
 
 import Foundation
 
-enum BookManager {
-    case add
-    case delete
-    case update
-}
+// 由于采用数组时，每次遍历的时间会很长，无法快速保存，因此采用NSDictionary来保存书架中的书籍，key为对应的书籍的_id
+// 书架信息只保存_id 数组，这样可以对书籍进行排序
+// 根据_id从本地保存的数据中取出NSDictionary
+// 每 一本书籍单独保存，避免读取时影响速度
+// 该类为书架书籍管理类，管理书架上的书籍的信息，缓存等
+public class BookManager:NSObject {
+    let bookshelfSaveKey = "bookshelfSaveKey"
+    let readHistorySaveKey = "readHistorySaveKey"
 
-extension BookManager {
-    
-    static func bookExistAtShelf(_ bookDetail:BookDetail?)->Bool{
-        let mArr:[BookDetail] = BookShelfInfo.books.bookShelf
-        var exist = false
-        for item in mArr {
-            if item._id == (bookDetail?._id ?? "") {
-                exist = true
-            }
+    var _diskQueue:DispatchQueue!
+    static let shared = BookManager()
+    private override init() {
+        super.init()
+        let startTime = CFAbsoluteTimeGetCurrent()
+        
+        //在这写入要计算时间的代码
+        booksID = bookshelf()
+        
+        books = [String:Any]()
+        for bookId in booksID {
+           let bookInfo = self.bookInfo(id: bookId)
+            books[bookId] = bookInfo
         }
-        return exist
+        let linkTime = (CFAbsoluteTimeGetCurrent() - startTime)
+        
+        QSLog("Linked in \(linkTime * 1000.0) ms")
     }
     
-    static func book(_ bookDetail:BookDetail?, existAt books:[BookDetail])->Bool{
-        var exist = false
-        for item in books {
-            if item._id == (bookDetail?._id ?? "") {
-                exist = true
-            }
+    // key为_id,value 为BookDetail
+    var books:[String:Any]!
+    
+    // booksID 为所有的书籍的id
+    var booksID:[String]!
+    
+    func bookExist(book:BookDetail?) ->Bool {
+        if books[book?._id ?? ""] != nil {
+            return true
         }
-        return exist
+        return false
     }
     
-    static func updateShelfWithBook(_ bookDetail:BookDetail?){
-        DispatchQueue.global().async {
-            var mArr:[BookDetail] = BookShelfInfo.books.bookShelf
+    //需要将对应的update信息赋给model
+    func updateToModel(updateModels:[UpdateInfo]){
+        for updateModel in updateModels {
+            let id = updateModel._id ?? ""
+            let book:BookDetail? = books[id] as? BookDetail
+            if let model = book  {
+                // 如果updateInfo已存在，则比较是否有更新
+                if anyUpdate(bookInfo: model.updateInfo, updateInfo: updateModel) {
+                    model.isUpdated = true
+                }
+                model.updateInfo = updateModel
+                books[model._id] = model
+            }
+        }
+    }
+    
+    func anyUpdate(bookInfo:UpdateInfo?,updateInfo:UpdateInfo)->Bool{
+        if let updatedString = bookInfo?.updated {
+            if updatedString != updateInfo.updated {
+                return true
+            }
+        }
+        return false
+    }
+    
+    // 删除书籍时，只删除记录，缓存的书籍信息保留
+    func deleteBook(book:BookDetail){
+        removeBook(book: book)
+        saveBooksID()
+    }
+    
+    func removeBook(book:BookDetail){
+        if let books:[String] = self.booksID {
             var index = 0
-            for item in mArr {
-                let model = item
-                if item._id == (bookDetail?._id ?? "") {
-                    model.chapter = bookDetail?.chapter ?? 0
-                    model.page = bookDetail?.page ?? 0
-                    model.sourceIndex = bookDetail?.sourceIndex ?? 0
-                    model.chapters = bookDetail?.chapters
-                    model.resources = bookDetail?.resources
-                    mArr[index] = model
-                    BookShelfInfo.books.bookShelf = mArr
-                    NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: BOOKSHELF_REFRESH)))
+            for bookid in books {
+                if book._id == bookid {
+                    self.booksID?.remove(at: index)
+                    self.books?.removeValue(forKey: bookid)
                 }
                 index += 1
             }
         }
     }
     
-    static func replaceBook(with book:BookDetail,at books:[BookDetail]?)->[BookDetail]?{
-        var index = 0
-        if var mutaBooks = books {
-            for item in mutaBooks {
-                if item._id == book._id {
-                    mutaBooks[index] = book
-                    break
-                }
-                index += 1
-            }
-            return mutaBooks
+    // 更新书架中保存的书籍信息，从内存更新
+    @discardableResult
+    func modifyBookshelf(book:BookDetail)->[String:Any]{
+        var tmpBook = books["\(book._id)"]
+        if let _ = tmpBook{
+            tmpBook = book
+            books["\(book._id)"] = tmpBook!
+        } else {
+            // 书籍不存在，则添加
+            books["\(book._id)"] = book
+        }
+        DispatchQueue.global().async {
+            // 持久化时，章节内容置为空
+            book.book.chapters = [QSChapter()]
+            self.addBookInfo(info: book)
         }
         return books
     }
     
-    static func removeBookAtShelf(model:BookDetail,arr:[BookDetail])->[BookDetail]{
-        var models = arr
-        var index = 0
-        for item in arr {
-            if item._id == model._id {
-                models.remove(at: index)
+    // 更新书架中保存的书籍信息,当用户同意添加到书架时才会调用这个方法
+    // 首次安装推荐时获取的书籍列表
+    func modifyBookshelf(books:[BookDetail]?){
+        if let models = books {
+            for model in models {
+                modifyBookshelf(book: model)
             }
-            index += 1
         }
-        return models
     }
     
-    static func updateShelf(with bookDetail:BookDetail?,type:BookManager,refresh:Bool){
+    // 更新书籍的记录
+    func modifyRecord(_ book:BookDetail,_ chapter:Int?,_ page:Int?) {
+        modifyRecord(book, chapter, page, nil)
+    }
+    
+    func modifyRecord(_ book:BookDetail,_ chapter:Int?,_ page:Int?,_ bookId:String?) {
+        let record:QSRecord = book.record ?? QSRecord()
+        if let opChapter = chapter {
+            record.chapter = opChapter
+        }
+        if let opPage = page {
+            record.page = opPage
+        }
+        if let opBookID = bookId {
+            record.bookId = opBookID
+        }
+        record.bookId = book._id
+        let chapters = book.book.chapters
+        if  let chapterIndex = chapter,chapters.count > chapterIndex  {
+            record.chapterModel = chapters[chapterIndex]
+        }
+        book.record = record
+        books[book._id] = book
         DispatchQueue.global().async {
-            
-            var mArr:[BookDetail] = BookShelfInfo.books.bookShelf
-            var index = 0
-            var existIndex = -1
-            for item in mArr {
-                if item._id == (bookDetail?._id ?? "") {
-                    existIndex = index
-                    break
-                }
-                index += 1
+            // 持久化时，章节内容置为空,避免内容过大
+            book.book.chapters = [QSChapter()]
+            self.saveBookInfo(info: book)
+        }
+    }
+    
+    // 数据持久化
+    func saveBookshelf(shelf:BookDetail){
+        self.booksID.append(shelf._id)
+        let data = NSKeyedArchiver.archivedData(withRootObject: shelf)
+        setData(data: data, forKey: bookshelfSaveKey)
+    }
+    
+    public func bookshelf()->[String]{
+        let data = qs_data(forKey: bookshelfSaveKey)
+        if let bookData = data {
+            let obj = NSKeyedUnarchiver.unarchiveObject(with: bookData) as? [String]
+            return obj ?? []
+        }
+        return []
+    }
+    
+    // 从本地根据id获取书籍的信息
+    func bookInfo(id:String) ->BookDetail?{
+        let data = qs_data(forKey: id)
+        if let bookData = data {
+            let obj = NSKeyedUnarchiver.unarchiveObject(with: bookData) as? BookDetail
+            books[id] = obj
+            return obj
+        }
+        return nil
+    }
+    
+    //MARK: - 浏览记录
+    func readHistory()->[BookDetail]{
+        if let data = qs_data(forKey: readHistorySaveKey) {
+            if let books = NSKeyedUnarchiver.unarchiveObject(with: data) as? [BookDetail] {
+                return books
             }
-            if let model = bookDetail{
-                if type == .add {
-                    if existIndex == -1 {
-                        mArr.append(model)
-                        BookShelfInfo.books.bookShelf = mArr
-                        if refresh {
-                            NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: BOOKSHELF_REFRESH)))
-                        }
-                    }
-                }else if type == .delete {
-                    if  existIndex != -1 {
-                        mArr.remove(at: existIndex)
-                        BookShelfInfo.books.bookShelf = mArr
-                        if refresh {
-                            NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: BOOKSHELF_REFRESH)))
-                        }
-                    }
-                }else if type == .update {
-                    if existIndex != -1 {
-                        mArr[existIndex] = model
-                        BookShelfInfo.books.bookShelf = mArr
-                        if refresh {
-                            NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: BOOKSHELF_REFRESH)))
-                        }
-                    }
-                }
+        }
+        return []
+    }
+    
+    // 数组中是否存在当前书籍，以id作为标志
+    func bookExist(book:BookDetail,at:[BookDetail])->Bool{
+        var exist = false
+        for model in at {
+            if model._id == book._id {
+                exist = true
+            }
+        }
+        return exist
+    }
+    
+    func addReadHistory(book:BookDetail){
+        // 先匹配
+        var history = readHistory()
+        if !bookExist(book: book, at: history) {
+            history.insert(book, at: 0)
+            let data = NSKeyedArchiver.archivedData(withRootObject: history)
+            setData(data: data, forKey: readHistorySaveKey)
+        }
+    }
+    
+    //MARK: - 添加书籍保存
+    func addBook(book:BookDetail){
+        addBookID(book: book)
+        addBookInfo(info: book)
+    }
+    
+    func addBookID(book:BookDetail){
+        if book._id != ""{
+            self.booksID.append(book._id)
+            saveBooksID()
+        }
+    }
+    
+    // 将书籍对应的BookDetail 模型存储到沙盒
+    func addBookInfo(info:BookDetail){
+        if info._id != ""{
+            self.books[info._id] = info
+            saveBookInfo(info: info)
+        }
+    }
+    
+    func saveBookInfo(info:BookDetail) {
+        let data = NSKeyedArchiver.archivedData(withRootObject: info)
+        setData(data: data, forKey: info._id)
+    }
+    
+    func saveBooksID(){
+        let booksData = NSKeyedArchiver.archivedData(withRootObject: self.booksID)
+        setData(data: booksData, forKey: bookshelfSaveKey)
+    }
+    
+    //MARK: -  数据持久化方法
+    func qs_data(forKey:String) ->Data?{
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last?.appending("/\(forKey.md5())")
+        let url = URL(fileURLWithPath: path ?? "www.baidu.com")
+        let data = try? Data(contentsOf: url, options: Data.ReadingOptions.mappedIfSafe)
+        return data
+    }
+    
+    func setData(data:Data,forKey:String){
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last?.appending("/\(forKey.md5())")
+        if _diskQueue == nil {
+            let label = "com.norycao.zhuishushenqi.disk"
+            let qos =  DispatchQoS.default
+            let attributes = DispatchQueue.Attributes.concurrent
+            let autoreleaseFrequency:DispatchQueue.AutoreleaseFrequency!
+            if #available(iOS 10.0, *) {
+                autoreleaseFrequency = DispatchQueue.AutoreleaseFrequency.never
+            } else {
+                // Fallback on earlier versions
+                autoreleaseFrequency = DispatchQueue.AutoreleaseFrequency.inherit
+            }
+            _diskQueue = DispatchQueue(label: label, qos: qos, attributes: attributes, autoreleaseFrequency: autoreleaseFrequency, target: nil)
+        }
+
+        _diskQueue.async {
+            let url = URL(fileURLWithPath: path ?? "www.baidu.com")
+            do{
+                try data.write(to: url)
+            }catch let error {
+                QSLog(error)
             }
         }
     }
-
     
 }

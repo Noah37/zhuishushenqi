@@ -20,7 +20,7 @@ class QSCommunityViewController: UIViewController, QSCommunityViewProtocol,UITab
     var selectedIndex = 0
 
     lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104), style: .grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 40), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .singleLine
@@ -53,7 +53,7 @@ class QSCommunityViewController: UIViewController, QSCommunityViewProtocol,UITab
     }
     
     func setupSubviews(){
-        let segment = UISegmentedControl(frame: CGRect(x: self.view.bounds.width/4, y: 69, width: self.view.bounds.width/2, height: 30))
+        let segment = UISegmentedControl(frame: CGRect(x: self.view.bounds.width/4, y: kNavgationBarHeight + 5, width: self.view.bounds.width/2, height: 30))
         
         segment.insertSegment(withTitle: "讨论", at: 0, animated: false)
         segment.insertSegment(withTitle: "书评", at: 1, animated: false)

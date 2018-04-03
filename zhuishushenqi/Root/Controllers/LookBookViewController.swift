@@ -14,7 +14,7 @@ class LookBookViewController: BaseViewController,UITableViewDataSource,UITableVi
     var models:[BookComment] = []
     var selectIndexs:[Int] = []
     lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104), style: .grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 40), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
@@ -36,7 +36,7 @@ class LookBookViewController: BaseViewController,UITableViewDataSource,UITableVi
         selectIndexs = [0,0]
         fetchHelp(self.selectIndexs)
         view.addSubview(self.tableView)
-        let dropView = QSSegmentDropView(frame: CGRect(x: 0, y: 64, width: ScreenWidth, height: 40), WithTitles: titles,parentView:self.view)
+        let dropView = QSSegmentDropView(frame: CGRect(x: 0, y: kNavgationBarHeight, width: ScreenWidth, height: 40), WithTitles: titles,parentView:self.view)
         dropView.menuDelegate = self
         view.addSubview(dropView)
     }

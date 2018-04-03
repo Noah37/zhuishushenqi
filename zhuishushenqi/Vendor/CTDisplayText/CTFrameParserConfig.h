@@ -14,6 +14,7 @@
 @property (nonatomic, assign) CGFloat width;
 @property (nonatomic, assign) CGFloat fontSize;
 @property (nonatomic, assign) CGFloat lineSpace;
+@property (nonatomic, assign) CGFloat paragraphSpace;
 @property (nonatomic, strong) UIColor *textColor;
 
 @end

@@ -35,7 +35,7 @@ class ReadHistoryViewController: BaseViewController,UITableViewDataSource,UITabl
     
     func fetchHistoryList(){
         // local list
-        models = BookShelfInfo.books.readHistory
+        models = BookManager.shared.readHistory()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,8 +65,5 @@ class ReadHistoryViewController: BaseViewController,UITableViewDataSource,UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = models[indexPath.row]
         self.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: model._id ), animated: true)
-        
     }
-
-
 }

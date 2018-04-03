@@ -100,9 +100,9 @@ public class QSNetwork{
 
 extension QSNetwork{
     
-    public static func testinstancemethod(_ url:String,method:HTTP = HTTP(type: .get),parameters:Parameters? = nil,headers:HTTPHeaders? = nil,completionHandler: completionHandler?){
-        
-    }
+//    public static func testinstancemethod(_ url:String,method:HTTP = HTTP(type: .get),parameters:Parameters? = nil,headers:HTTPHeaders? = nil,completionHandler: completionHandler?){
+//        
+//    }
 
 //    @discardableResult
 //    public static func request(_ url:String,method:HTTPMethodType = .get,parameters:Parameters? = nil,headers:HTTPHeaders? = nil,completionHandler: completionHandler?)->Response{

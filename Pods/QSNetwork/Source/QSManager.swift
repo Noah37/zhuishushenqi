@@ -175,13 +175,13 @@ public class QSManager:NSObject{
                 
                 return "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(alamofireVersion)"
             }
-            return "YouShaQi/2.24.10 (iPhone; iOS 10.1.1; Scale/2.00)"
+            return "YouShaQi/2.27.2 (iPhone; iOS 10.1.1; Scale/2.00)"
         }()
         
         return [
             "Accept-Encoding": acceptEncoding,
             "Accept-Language": acceptLanguage,
-            "User-Agent": "YouShaQi/2.24.10 (iPhone; iOS 10.1.1; Scale/2.00)"
+            "User-Agent": "YouShaQi/2.27.2 (iPhone; iOS 10.1.1; Scale/2.00)"
         ]
     }()
     

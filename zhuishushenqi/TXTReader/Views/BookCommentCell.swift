@@ -34,7 +34,7 @@ class BookCommentCell: UITableViewCell {
     var shareBtn:QSToolButton!
     var moreBtn:QSToolButton!
     var rateView:RateView!
-    var content: M80AttributedLabel!
+    var content: UILabel!
 
     func modelSetAction(model:BookComment?){
         let created = model?.created ?? "2014-02-23T16:48:18.179Z"
@@ -44,7 +44,7 @@ class BookCommentCell: UITableViewCell {
         titleHeight.constant = model?.titleHeight ?? 0
         
         content.text = "\(model?.content ?? "")"
-        contentHeight.constant = model?.contentHeight ?? 0
+        contentHeight.constant = model?.contentHeight ?? 0 + 20
 
         bookName.text = "\(model?.book.title ?? "")"
     
@@ -74,7 +74,8 @@ class BookCommentCell: UITableViewCell {
         super.awakeFromNib()
         toolBar(height: 0)
         makeStarView()
-        content = M80AttributedLabel(frame: CGRect(x: 8, y: 78, width: 304, height: 21))
+        content = UILabel(frame: CGRect(x: 8, y: 78, width: ScreenWidth - 16, height: 21))
+        content.numberOfLines = 0;
         content.font = UIFont.systemFont(ofSize: 13)
         contentView.addSubview(content)
     }
@@ -92,7 +93,7 @@ class BookCommentCell: UITableViewCell {
         moreBtn.frame = CGRect(x: self.bounds.width*2/3, y: height, width: self.bounds.width/3, height: 80)
         let lightRect = CGRect(x: readerRate.frame.maxX , y: readerRate.frame.minY + readerRate.frame.height/2 - 10/2, width: 60, height: 10)
         rateView.frame = lightRect
-        content.frame = CGRect(x: 8, y: 78, width: 304, height: model?.contentHeight ?? 0)
+        content.frame = CGRect(x: 8, y: 78, width: ScreenWidth - 16, height: model?.contentHeight ?? 0)
     }
     
     func toolBar(height:CGFloat){

@@ -24,7 +24,6 @@ class QSTextPresenter: QSTextPresenterProtocol {
     
     func viewDidLoad(bookDetail:BookDetail){
         if (bookDetail.chapters?.count ?? 0) == 0 || bookDetail.isUpdated{
-//            bookDetail.isUpdated = false
             view?.showActivityView()
             interactor.requestAllResource(bookDetail:bookDetail)
         }else{
@@ -45,6 +44,7 @@ class QSTextPresenter: QSTextPresenterProtocol {
     }
     
     func didClickCategory(book:BookDetail){
+        
         router.presentCategory(book: book)
     }
     

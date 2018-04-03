@@ -46,7 +46,7 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
         requestData(id: self.id)
     }
     
-    func close(btn:UIButton){
+    @objc func close(btn:UIButton){
         dismiss(animated: true, completion: nil)
     }
     

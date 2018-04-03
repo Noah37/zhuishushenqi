@@ -15,8 +15,9 @@ class QSTextInteractor: QSTextInteractorProtocol {
     var book:QSBook?
     var resources:[ResourceModel]?
     var chapters:[NSDictionary]?
+    var chapterDict:[String:Any] = [:]
     var bookDetail:BookDetail!
-    var selectedIndex:Int = 1 //当前选择的源
+    var selectedIndex:Int = 0 //当前选择的源
     var queue:OperationQueue?
     var semaphore:DispatchSemaphore!
     var now:Int = 0
@@ -31,7 +32,6 @@ class QSTextInteractor: QSTextInteractorProtocol {
         if let book = model.book {
             self.book = book
         }else{
-            self.book = book(bookDetail: self.bookDetail, chapters: self.chapters, resources: self.resources)
         }
         
         if let book = self.book {
@@ -104,6 +104,7 @@ class QSTextInteractor: QSTextInteractorProtocol {
             if let json = response.json as? Dictionary<String, Any> {
                 QSLog("JSON:\(json)")
                 if let chapter = json["chapter"] as?  Dictionary<String, Any> {
+                    
                     self.output.fetchChapterSuccess(chapter: chapter,index:chapterIndex)
                 } else {
                     self.output.fetchChapterFailed()
@@ -115,46 +116,9 @@ class QSTextInteractor: QSTextInteractorProtocol {
     }
     
     //获取新的页面信息
-    func getChapter(chapterIndex:Int,pageIndex:Int) -> QSChapter?{
-        var chapter:QSChapter?
-        if (self.book?.chapters?.count ?? 0) > chapterIndex {
-            let chaModel = self.book?.chapters?[chapterIndex]
-            if chaModel?.content != "" {
-                chapter = chaModel
-                return chapter
-            }
-        }
+    func getChapter(chapterIndex:Int,pageIndex:Int) {
         self.output.showActivity()
         requestChapter(atIndex: chapterIndex)
-        return chapter
-    }
-    
-    func book(bookDetail:BookDetail?,chapters:[NSDictionary]?,resources:[ResourceModel]?)->QSBook{//更换书籍来源则需要更新book.chapters信息,请求某一章节成功后也需要刷新chapters的content及其他信息
-        self.chapters = chapters
-        self.resources = resources
-        
-        let size:Int = AppStyle.shared.readFontSize
-        let book:QSBook = QSBook()
-        book.bookName = bookDetail?.title ?? ""
-        book.bookID = bookDetail?._id ?? ""
-        book.totalChapters = self.chapters?.count ?? 0
-        book.resources = self.resources
-        book.attribute = Attribute(fontSize: size, color: UIColor.black, lineSpace: 5)
-        book.curRes = 1
-        var chapters:[QSChapter] = []
-        for item in 0..<(self.chapters?.count ?? 0) {
-            let chapter = self.chapters?[item]
-            let chapterInfo = QSChapter()
-            chapterInfo.link = chapter?["link"] as? String ?? ""
-            chapterInfo.title = chapter?["title"] as? String ?? ""
-            chapterInfo.id = chapter?["id"] as? String ?? ""
-            chapterInfo.curChapter = item
-            chapterInfo.attribute = book.attribute
-            chapters.append(chapterInfo)
-        }
-        book.chapters = chapters
-        self.book = book
-        return book
     }
 
     @discardableResult
@@ -165,7 +129,7 @@ class QSTextInteractor: QSTextInteractorProtocol {
             if item == index {
                 if let chap = chapterParam {
                     chapter.content = chap["body"] as? String ?? ""
-                    self.book?.chapters?[index] = chapter
+                    self.book?.chapters[index] = chapter
                     update()
                 }
             }
@@ -253,7 +217,7 @@ class QSTextInteractor: QSTextInteractorProtocol {
             let chapter = chapters[index]
             if let chap = chapterParam {
                 chapter.content = chap["body"] as? String ?? ""
-                self.book?.chapters?[index] = chapter
+                self.book?.chapters[index] = chapter
             }
             self.bookDetail.book = self.book
         }

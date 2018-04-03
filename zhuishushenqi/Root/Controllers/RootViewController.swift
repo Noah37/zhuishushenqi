@@ -17,6 +17,12 @@ class RootViewController: UIViewController {
     fileprivate let kHeaderBigHeight:CGFloat = 44
     fileprivate let kCellHeight:CGFloat = 60
 
+    // 采用dict保存书架中的书籍
+    var bookshelf:[String:Any]?
+    
+    // 保存所有书籍的id
+    var books:[String]?
+    
     var bookShelfArr:[BookDetail]?
     var updateInfoArr:[UpdateInfo]?
     var segMenu:SegMenu!
@@ -57,33 +63,44 @@ class RootViewController: UIViewController {
         setupReachability(IMAGE_BASEURL, useClosures: false)
         self.startNotifier()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(bookShelfUpdate), name: Notification.Name(rawValue: BOOKSHELF_REFRESH), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(bookShelfUpdate(noti:)), name: Notification.Name(rawValue: BOOKSHELF_ADD), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(bookShelfUpdate(noti:)), name: Notification.Name(rawValue: BOOKSHELF_DELETE), object: nil)
+
         NotificationCenter.default.addObserver(self, selector: #selector(showRecommend), name: Notification.Name(rawValue:SHOW_RECOMMEND), object: nil)
         self.setupSubviews()
         self.requetShelfMsg()
         self.requestBookShelf()
         self.updateInfo()
-        
-//        let queue = DispatchQueue.global()
-//        let semaphore = DispatchSemaphore(value: 1)
-//        var arr:[Int] = []
-//        for index in 0..<100 {
-//            queue.async {
-//                _ = semaphore.wait(timeout:DispatchTime.distantFuture)
-//                QSLog(index)
-//                arr.append(index)
-//                semaphore.signal()
-//            }
-//        }
     }
     
-    func bookShelfUpdate(){
-        //先重新加载数据，然后再请求
-        self.requestBookShelf()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.updateInfo()
+    func removeBook(book:BookDetail){
+        if let books = self.books {
+            var index = 0
+            for bookid in books {
+                if book._id == bookid {
+                    self.books?.remove(at: index)
+                    self.bookshelf?.removeValue(forKey: bookid)
+                    BookManager.shared.deleteBook(book: book)
+                }
+                index += 1
+            }
         }
+    }
+    
+    @objc func bookShelfUpdate(noti:Notification){
+        let name = noti.name.rawValue
+            if let book = noti.object as? BookDetail {
+                if name == BOOKSHELF_ADD {
+                    self.bookshelf?[book._id] = book
+                    self.books?.append(book._id)
+                    BookManager.shared.addBook(book: book)
+                } else {
+                    removeBook(book: book)
+                }
+            }
+        //先刷新书架，然后再请求
+        self.tableView.reloadData()
+        self.updateInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,6 +108,8 @@ class RootViewController: UIViewController {
         self.view.backgroundColor = UIColor.cyan
         self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
         UIApplication.shared.isStatusBarHidden = false
+        // 刷新书架
+        self.bookshelf = BookManager.shared.books
     }
     
     @objc private func showRecommend(){
@@ -124,9 +143,12 @@ class RootViewController: UIViewController {
         let recURL = "\(BASEURL)/book/recommend?gender=\(gender[index])"
         QSNetwork.request(recURL) { (response) in
             if let books = response.json?["books"] {
+
                 let models = try? XYCBaseModel.model(withModleClass: BookDetail.self, withJsArray: books as! [Any]) as? [BookDetail]
-                self.bookShelfArr = models ?? []
-                self.tableView.reloadData()
+                if let books = models {
+                    BookManager.shared.modifyBookshelf(books: books)
+                    self.tableView.reloadData()
+                }
                 self.updateInfo()
             }
         }
@@ -179,8 +201,9 @@ extension RootViewController:UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let bookShelf = bookShelfArr {
-            return bookShelf.count
+        if let keys = books?.count {
+            
+            return keys
         }
         return 0
     }
@@ -190,8 +213,10 @@ extension RootViewController:UITableViewDataSource,UITableViewDelegate{
         
         let cell:SwipableCell? = tableView.qs_dequeueReusableCell(SwipableCell.self)
         cell?.delegate = self
-        if let models = bookShelfArr {
-            cell?.configureCell(model: models[indexPath.row])
+        if let id =  books?[indexPath.row] {
+            if let value = bookshelf?.valueForKey(key: id) as? BookDetail {
+                cell?.configureCell(model: value)
+            }
         }
         return cell!
     }
@@ -213,10 +238,26 @@ extension RootViewController:UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        self.present(QSTextRouter.createModule(bookDetail:self.bookShelfArr![indexPath.row],callback: { (book:BookDetail) in
-            self.bookShelfArr = BookManager.replaceBook(with: book, at: self.bookShelfArr)
-        }), animated: true, completion: nil)
+        if let id = self.books?[indexPath.row] {
+            if let value = bookshelf?.valueForKey(key: id) as? BookDetail {
+                let viewController = QSTextRouter.createModule(bookDetail:value,callback: { (book:BookDetail) in
+                    let beginDate = Date()
+                    self.bookshelf = BookManager.shared.modifyBookshelf(book:book)
+                    tableView.reloadRow(at: indexPath, with: .automatic)
+                    let endDate = Date()
+                    let time = endDate.timeIntervalSince(beginDate as Date)
+                    QSLog("用时\(time)")
+                })
+                self.present(viewController, animated: true, completion: nil)
+            }
+            // 进入阅读，当前书籍移到最前面
+            self.books?.remove(at: indexPath.row)
+            self.books?.insert(id, at: 0)
+            let deadline = DispatchTime.now() + 1
+            DispatchQueue.main.asyncAfter(deadline:deadline , execute: {
+                self.tableView.reloadData()
+            })
+        }
     }    
 }
 
@@ -265,12 +306,8 @@ extension RootViewController:SwipableCellDelegate{
             present(alert, animated: true, completion: nil)
         }
         else if clickAt == 3 {
-            //时间过长，先刷新table，再持久化
-            if let models = self.bookShelfArr {
-                self.bookShelfArr = BookManager.removeBookAtShelf(model: model, arr: models)
-                self.tableView.reloadData()
-            }
-            BookManager.updateShelf(with: model, type: .delete,refresh:false)
+            self.removeBook(book: model)
+            self.tableView.reloadData()
         }
     }
     
@@ -363,9 +400,8 @@ extension RootViewController:SegMenuDelegate{
             if chapterIndex < chapters.count {
                 let qsChapter = chapters[chapterIndex]
                 qsChapter.content = chapter["body"] as? String ?? ""
-                bookDetail.book?.chapters?[chapterIndex] = qsChapter
-                self.bookShelfArr?[indexPath?.row ?? 0] = bookDetail
-                BookManager.updateShelf(with: bookDetail, type: .update, refresh: false)
+                bookDetail.book.chapters[chapterIndex] = qsChapter
+                BookManager.shared.modifyBookshelf(book: bookDetail)
             }
         }
     }

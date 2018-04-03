@@ -97,7 +97,7 @@ extension QSSegmentViewController:UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.qs_dequeueReusableCell(cellClass as! UITableViewCell.Type)
+        let cell = tableView.qs_dequeueReusableCell(cellClass as! TopDetailCell.Type)
         cell?.backgroundColor = UIColor.white
         cell?.selectionStyle = .none
         cell?.bindData(model: booksModel[indexPath.row ])
@@ -121,8 +121,9 @@ protocol QSSegmentCellProtocol {
     func bindData(model:AnyObject?)
 }
 
-extension UITableViewCell:QSSegmentCellProtocol{
-    func bindData(model: AnyObject?) {
-        
-    }
-}
+//extension UITableViewCell:QSSegmentCellProtocol{
+//    func bindData(model: AnyObject?) {
+//
+//    }
+//}
+

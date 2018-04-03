@@ -53,6 +53,7 @@ let FOOT_BAR_Height = 49
 let STATEBARHEIGHT = UIApplication.shared.statusBarFrame.height
 let kNavgationBarHeight:CGFloat = (IPHONEX ? 88:64)
 let kTabbarBlankHeight  = (IPHONEX ? 34:0)
+let kQSReaderTopMargin = (IPHONEX ? 44:0)
 
 //区分屏幕
 let IPHONE4 = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 640, height: 960).equalTo((UIScreen.main.currentMode?.size)!) : false
@@ -82,6 +83,8 @@ let PostLink = "PostLink"
 // notification
 let SHOW_RECOMMEND = "ShowRecomend"
 let BOOKSHELF_REFRESH = "BookShelfRefresh"
+let BOOKSHELF_ADD = "BOOKSHELF_ADD"
+let BOOKSHELF_DELETE = "BOOKSHELF_DELETE"
 
 
 func getAttributes(with lineSpave:CGFloat,font:UIFont)->NSDictionary{
@@ -94,7 +97,7 @@ func getAttributes(with lineSpave:CGFloat,font:UIFont)->NSDictionary{
     paraStyle.paragraphSpacingBefore = 0.0
     paraStyle.headIndent = 0
     paraStyle.tailIndent = 0
-    let dict = [NSFontAttributeName:font,NSKernAttributeName:1.5,NSParagraphStyleAttributeName:paraStyle] as [String : Any]
+    let dict = [NSAttributedStringKey.font:font,NSAttributedStringKey.kern:1.5,NSAttributedStringKey.paragraphStyle:paraStyle] as [NSAttributedStringKey : Any]
     return dict as NSDictionary
 }
 
@@ -107,7 +110,7 @@ func attributeText(with lineSpace:CGFloat,text:String,font:UIFont)->NSAttributed
     paraStyle.paragraphSpacingBefore = 0.0
     paraStyle.headIndent = 0
     paraStyle.tailIndent = 0
-    let dict = [NSFontAttributeName:font,NSKernAttributeName:1.5,NSParagraphStyleAttributeName:paraStyle] as [String : Any]
+    let dict = [NSAttributedStringKey.font:font,NSAttributedStringKey.kern:1.5,NSAttributedStringKey.paragraphStyle:paraStyle] as [NSAttributedStringKey : Any]
     let attributeStr = NSAttributedString(string: text, attributes: dict)
     return attributeStr
 }

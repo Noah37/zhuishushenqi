@@ -9,7 +9,6 @@
 //
 
 import UIKit
-import QSNetwork
 
 class QSCategoryInteractor: QSCategoryInteractorProtocol {
 
@@ -17,10 +16,12 @@ class QSCategoryInteractor: QSCategoryInteractorProtocol {
     var bookDetail:BookDetail!
     
     func show(){
-        if let chapters = bookDetail.book?.chapters {
+        if let chapters = bookDetail.chapters {
             var titles:[String] = []
             for item in chapters {
-                titles.append(item.title)
+                if let title = item["title"] as? String {
+                    titles.append(title)
+                }
             }
             self.output.show(titles: titles)
         }

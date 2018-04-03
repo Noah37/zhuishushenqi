@@ -17,7 +17,7 @@ class BookDetailHeader: UIView {
     var model:BookDetail?{
         didSet{
             name.text = model?.title
-            let exist = BookManager.bookExistAtShelf(model)
+            let exist = BookManager.shared.bookExist(book: model)
             if exist{
                 addButton.isSelected = true
             }

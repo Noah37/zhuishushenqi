@@ -182,12 +182,12 @@ class SwipableCell: UITableViewCell {
         }
     }
     
-    func tapGestureAction(tap:UITapGestureRecognizer){
+    @objc func tapGestureAction(tap:UITapGestureRecognizer){
         self.curOffset = 0
         translation(direction: .right, offset: self.curOffset, animation: true)
     }
     
-    func panGestureAction(pan:UIPanGestureRecognizer){
+    @objc func panGestureAction(pan:UIPanGestureRecognizer){
         let translation = pan.translation(in: container)
         let velocity = pan.velocity(in: container)
         var offset:CGFloat = 0
@@ -248,9 +248,10 @@ class SwipableCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+            self.container.frame = self.bounds
             self.centerView.frame = CGRect(x: curOffset, y: 0, width: self.bounds.width, height: self.bounds.height)
             self.rightView.frame = CGRect(x: self.bounds.width + curOffset, y: 0, width: CGFloat(self.titles.count) * self.bounds.height, height: self.bounds.height)
+        self.touchOverlay.frame = CGRect(x: 0, y: 0, width: self.bounds.width - curOffset, height: self.bounds.height)
         
     }
 }
@@ -309,6 +310,7 @@ class QSSwipeButtonsView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         for index in 0..<titles.count {
             let btn = self.viewWithTag(index + btnTag)
             let height = self.bounds.height

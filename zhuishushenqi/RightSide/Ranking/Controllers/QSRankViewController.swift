@@ -39,7 +39,8 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return show[section] ? (ranks?[section].count ?? 0):6
+
+        return show[section] ? (ranks?[section].count ?? 0):collapse(maleRank: ranks?[section])
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -99,5 +100,18 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
     func show(show:[Bool]){
         self.show = show
         self.tableView.reloadData()
+    }
+    
+    func collapse(maleRank:[QSRankModel]?)->Int{
+        var collapseIndex = 0
+        if let models = maleRank {
+            for model in models {
+                if model.collapse == 1 {
+                    break
+                }
+                collapseIndex += 1
+            }
+        }
+        return collapseIndex
     }
 }

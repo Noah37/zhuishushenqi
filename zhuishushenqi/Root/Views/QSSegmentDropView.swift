@@ -30,14 +30,14 @@ class QSSegmentDropView: UIView {
     var selectIndexs:[Int] = []
     fileprivate let btnTag = 1234
     private lazy var bgView:UIView = {
-        let bgView = UIView(frame: CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104))
+        let bgView = UIView(frame: CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 40))
         bgView.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
         bgView.isUserInteractionEnabled = true
         return bgView
     }()
     
     private lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 104, width: ScreenWidth, height: 0), style: .grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: 0), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 44
@@ -52,6 +52,9 @@ class QSSegmentDropView: UIView {
         self.parentView = parentView
         titles = _titles
         initSubview(frame,titles: _titles)
+        if #available(iOS 11, *) {
+            self.tableView.contentInsetAdjustmentBehavior = .never
+        }
     }
     
     fileprivate func initSubview(_ frame:CGRect,titles:[[String]]){
@@ -128,19 +131,19 @@ class QSSegmentDropView: UIView {
         parentView?.addSubview(self.tableView)
         let tableHeight:CGFloat = CGFloat(44*self.titles[self.selectedSegment].count)
         UIView.animate(withDuration: 0.3) {
-            self.tableView.frame = CGRect(x: 0, y: 104, width: ScreenWidth, height: tableHeight)
-            self.bgView.frame = CGRect(x: 0, y: 104 + tableHeight, width: ScreenWidth, height: ScreenHeight - 104)
+            self.tableView.frame = CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: tableHeight)
+            self.bgView.frame = CGRect(x: 0, y: kNavgationBarHeight + 40 + tableHeight, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 40)
             self.parentView?.addSubview(self.bgView)
         }
         tableView.reloadData()
     }
     
-    func dismissDrop(sender:Any){
+    @objc func dismissDrop(sender:Any){
         let btn:UIButton? = viewWithTag(selectedSegment + btnTag) as? UIButton
         btn?.isSelected = false
         UIView.animate(withDuration: 0.3, animations: {
-            self.bgView.frame = CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104)
-            self.tableView.frame = CGRect(x: 0, y: 104, width: Int(ScreenWidth), height: 0)
+            self.bgView.frame = CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 40)
+            self.tableView.frame = CGRect(x: 0, y: Int(kNavgationBarHeight + 40), width: Int(ScreenWidth), height: 0)
         }) { (finish) in
             self.bgView.removeFromSuperview()
         }
@@ -178,6 +181,14 @@ extension QSSegmentDropView:UITableViewDataSource,UITableViewDelegate{
         tableView.reloadData()
         dismissDrop(sender: tableView)
         menuDelegate?.didSelectAtIndexs(selectIndexs)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

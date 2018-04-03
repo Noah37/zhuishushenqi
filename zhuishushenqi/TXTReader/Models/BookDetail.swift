@@ -30,14 +30,20 @@ class BookDetail: NSObject,NSCoding {
     var postCount:Int = 0
     var copyright:String = ""
     var sourceIndex:Int = 1 //当前选择的源
+    
+    // 阅读记录,
+    var record:QSRecord?
+    
+    // 废弃
     var chapter:Int = 0 //最后阅读的章节
     var page:Int = 0 //最后阅读的页数
+    
     var resources:[ResourceModel]?
     var chapters:[NSDictionary]?
-    var isUpdated:Bool = false //是否存在更新
-    var book:QSBook?
-    
-    
+    var isUpdated:Bool = false //是否存在更新,如果存在更新，进入书籍后修改状态
+    // book 一直存在，默认初始化，不保存任何章节
+    var book:QSBook!
+
     //更新信息
     var updateInfo:UpdateInfo?
     
@@ -47,6 +53,7 @@ class BookDetail: NSObject,NSCoding {
     
     
     required init?(coder aDecoder: NSCoder) {
+        super.init()
         self._id = aDecoder.decodeObject(forKey: "_id") as? String ?? ""
         self.author = aDecoder.decodeObject(forKey: "author") as? String ?? ""
         self.cover = aDecoder.decodeObject(forKey: "cover") as? String ?? ""
@@ -72,10 +79,19 @@ class BookDetail: NSObject,NSCoding {
         self.postCount = aDecoder.decodeInteger(forKey: "postCount")
         self.isUpdated = aDecoder.decodeBool(forKey: "isUpdated")
         self.book = aDecoder.decodeObject(forKey: "book") as? QSBook
+        self.record = aDecoder.decodeObject(forKey: "record") as? QSRecord
+        setupBook()
+    }
+    
+    private func setupBook(){
+        if book == nil {
+            book = QSBook()
+        }
     }
     
     override init() {
-        
+        super.init()
+        setupBook()
     }
     
     
@@ -105,5 +121,6 @@ class BookDetail: NSObject,NSCoding {
         aCoder.encode(self.postCount, forKey: "postCount")
         aCoder.encode(self.isUpdated, forKey: "isUpdated")
         aCoder.encode(self.book, forKey: "book")
+        aCoder.encode(self.record, forKey: "record")
     }
 }

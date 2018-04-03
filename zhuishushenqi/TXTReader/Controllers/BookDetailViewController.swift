@@ -49,7 +49,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         titleLabel.textAlignment = .center
         titleLabel.text = "书籍详情"
         let titleShare = UIImageView(image: UIImage(named: "bd_share"))
-        let width = (titleLabel.text! as NSString).boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 13)], context: nil)
+        let width = (titleLabel.text! as NSString).boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 13)], context: nil)
         titleShare.frame = CGRect(x: width.size.width/2 + 120/2, y: 5, width: 20, height: 20)
         let ges = UITapGestureRecognizer(target: self, action: #selector(shareAction(_:)))
         titleShare.addGestureRecognizer(ges)
@@ -119,9 +119,9 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             headerview?.addBtnAction = { (isSelected:Bool,model:BookDetail) in
                 //需要遍历删除
                 if isSelected == true {
-                    BookManager.updateShelf(with: model, type: .add,refresh:true)
+                    BookManager.shared.modifyBookshelf(book: model)
                 }else{
-                    BookManager.updateShelf(with: model, type: .delete,refresh:true)
+                    BookManager.shared.deleteBook(book: model)
                 }
                 QSLog(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
             }

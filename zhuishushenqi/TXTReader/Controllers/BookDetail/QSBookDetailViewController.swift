@@ -62,7 +62,7 @@ class QSBookDetailViewController: BaseViewController,UITableViewDataSource,UITab
         titleLabel.textAlignment = .center
         titleLabel.text = "书籍详情"
         let titleShare = UIImageView(image: UIImage(named: "bd_share"))
-        let width = (titleLabel.text! as NSString).boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 13)], context: nil)
+        let width = (titleLabel.text! as NSString).boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 13)], context: nil)
         titleShare.frame = CGRect(x: width.size.width/2 + 120/2, y: 5, width: 20, height: 20)
         let ges = UITapGestureRecognizer(target: self, action: #selector(shareAction(_:)))
         titleShare.addGestureRecognizer(ges)
@@ -119,8 +119,8 @@ class QSBookDetailViewController: BaseViewController,UITableViewDataSource,UITab
             return cell!
         }else if indexPath.section == 3 {
             let reCell = tableView.qs_dequeueReusableCell(QSRecommendCell.self)
-            reCell?.clickAction = { (btn:UIButton) in
-                self.presenter?.didClickRecBtn(btn:btn)
+            reCell?.clickAction = { (btn:Any) in
+                self.presenter?.didClickRecBtn(btn:btn as! UIView)
             }
             reCell?.books = reBooks
             return reCell!
@@ -154,7 +154,7 @@ class QSBookDetailViewController: BaseViewController,UITableViewDataSource,UITab
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let heights:[CGFloat] = [127,60,170,100]
+        let heights:[CGFloat] = [127,60,180,100]
         if indexPath.section == 0 {
             let height = QSBookDetailContentView.height(intro: self.bookModel?.longIntro ?? "",show:self.contentShow)
             contentView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: height)

@@ -32,7 +32,7 @@ class QSLastIntroduceCell: UITableViewCell {
     @IBOutlet weak var qqLoginBtn: UIButton!
     @IBOutlet weak var sinaLoginBtn: UIButton!
     
-    func noAccountAction(_ sender: Any) {
+    @objc func noAccountAction(_ sender: Any) {
         if let noAcc = noAccountCompletion {
             noAcc()
         }
@@ -43,7 +43,8 @@ class QSLastIntroduceCell: UITableViewCell {
 //        QSLog(noAccount.frame)
 //        (102.0, 451.0, 118.0, 30.0)
         noAccount = UIButton(frame: CGRect(x: 102, y: self.qqLoginBtn.frame.maxY + 44, width: 118, height: 30))
-        let dict = [NSUnderlineStyleAttributeName:1,NSFontAttributeName:UIFont.systemFont(ofSize: 15)] as [String : Any]
+        
+        let dict = [NSAttributedStringKey.underlineStyle:1,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15)] as [NSAttributedStringKey : Any]
         let attr = NSMutableAttributedString(string: "没有帐号怎么办?", attributes: dict)
         noAccount?.setAttributedTitle(attr, for: .normal)
         noAccount?.titleLabel?.textAlignment = .center

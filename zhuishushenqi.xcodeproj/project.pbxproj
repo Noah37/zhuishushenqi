@@ -70,6 +70,10 @@
 		B22AC4611E9F695D008625E6 /* QSRankDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4601E9F695D008625E6 /* QSRankDetailViewController.swift */; };
 		B2414D9C1EA602ED005A5758 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2414D9B1EA602ED005A5758 /* UIViewController+Alert.swift */; };
 		B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228C1DB3291A0040CAD3 /* CFNetwork.framework */; };
+		B251F895202FE77E004AAF95 /* QSReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B251F894202FE77E004AAF95 /* QSReaderViewController.swift */; };
+		B251F898202FEA65004AAF95 /* QSRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B251F897202FEA65004AAF95 /* QSRecord.swift */; };
+		B251F89A202FF4D9004AAF95 /* QSReaderViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B251F899202FF4D9004AAF95 /* QSReaderViewFlowLayout.swift */; };
+		B251F89C2030350E004AAF95 /* Dictionary+QSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B251F89B2030350E004AAF95 /* Dictionary+QSExtension.swift */; };
 		B255707E1F3A075600C35A34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B255707C1F3A075600C35A34 /* AppDelegate.swift */; };
 		B255707F1F3A075600C35A34 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B255707D1F3A075600C35A34 /* Config.swift */; };
 		B25570811F3A07BB00C35A34 /* AppStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25570801F3A07BB00C35A34 /* AppStyle.swift */; };
@@ -107,6 +111,10 @@
 		B258BB0B1EA45B4C006E5802 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BB0A1EA45B4C006E5802 /* CategoryButton.swift */; };
 		B258BB0D1EA4A1AC006E5802 /* QSReaderBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BB0C1EA4A1AC006E5802 /* QSReaderBackgroundViewController.swift */; };
 		B258BB241EA4B201006E5802 /* UIView+ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BB231EA4B201006E5802 /* UIView+ScreenShot.swift */; };
+		B25E90062052202100A85EE8 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B25E90042052202000A85EE8 /* Realm.framework */; };
+		B25E90072052202100A85EE8 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B25E90042052202000A85EE8 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B25E90082052202100A85EE8 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B25E90052052202100A85EE8 /* RealmSwift.framework */; };
+		B25E90092052202100A85EE8 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B25E90052052202100A85EE8 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B26286CA1EEA46DD005A1A8A /* QSIntroducePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26286C91EEA46DD005A1A8A /* QSIntroducePage.swift */; };
 		B263ACDF1EE679830096CE80 /* HomeListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263ACDD1EE679830096CE80 /* HomeListViewCell.swift */; };
 		B263ACE01EE679830096CE80 /* HomeListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B263ACDE1EE679830096CE80 /* HomeListViewCell.xib */; };
@@ -134,11 +142,16 @@
 		B27D7E9D1F4D320400866341 /* QSSegmentProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27D7E991F4D320400866341 /* QSSegmentProtocols.swift */; };
 		B27D7E9E1F4D320400866341 /* QSSegmentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27D7E9A1F4D320400866341 /* QSSegmentRouter.swift */; };
 		B27D7EA11F4D593D00866341 /* UIScrollView+StateView.m in Sources */ = {isa = PBXBuildFile; fileRef = B27D7EA01F4D593D00866341 /* UIScrollView+StateView.m */; };
+		B286F017202953D80069565B /* QSReaderSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B286F016202953D80069565B /* QSReaderSetting.swift */; };
+		B286F01A202981DD0069565B /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B286F019202981DD0069565B /* NSObject+Extension.swift */; };
+		B286F0292029C3530069565B /* QSReaderParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B286F0282029C3530069565B /* QSReaderParse.swift */; };
 		B288D1C81E9FC66F0024F1A5 /* QSBookDetailRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B288D1C71E9FC66F0024F1A5 /* QSBookDetailRateView.swift */; };
 		B288D1D41E9FC86C0024F1A5 /* QSBookDetailTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B288D1D31E9FC86C0024F1A5 /* QSBookDetailTagsView.swift */; };
 		B288D1D61E9FCBB50024F1A5 /* QSBookDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B288D1D51E9FCBB50024F1A5 /* QSBookDetailContentView.swift */; };
 		B28FFC861EAFAED600C27FF9 /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = B28FFC851EAFAED600C27FF9 /* NSString+Encode.m */; };
 		B28FFC921EB03EA300C27FF9 /* QSHomeDeleteBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28FFC911EB03EA300C27FF9 /* QSHomeDeleteBtn.swift */; };
+		B29A6D032029C5B400AC4C73 /* NotificationCenter+QSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29A6D022029C5B400AC4C73 /* NotificationCenter+QSExtension.swift */; };
+		B29A6D0E202C424F00AC4C73 /* QSMoreSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29A6D0D202C424F00AC4C73 /* QSMoreSettingController.swift */; };
 		B29B4F9B1E8218ED008852E3 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B4F991E8218ED008852E3 /* BookDetailViewController.swift */; };
 		B29B4F9D1E821E61008852E3 /* UIImage+QSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B4F9C1E821E61008852E3 /* UIImage+QSData.swift */; };
 		B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B4F9E1E822992008852E3 /* QSHotModel.swift */; };
@@ -258,6 +271,7 @@
 		B2B4BD7A1E7EE2B1000CC201 /* QSNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BD791E7EE2B1000CC201 /* QSNetworkManager.swift */; };
 		B2BB5BAF1D8BDF8E00379217 /* zhuishushenqiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5BAE1D8BDF8E00379217 /* zhuishushenqiTests.swift */; };
 		B2BB5BBA1D8BDF8E00379217 /* zhuishushenqiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5BB91D8BDF8E00379217 /* zhuishushenqiUITests.swift */; };
+		B2C98F512007892200E31169 /* QSInterestedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2C98F502007892200E31169 /* QSInterestedView.xib */; };
 		B2CA941F1EB31D5600D60BF2 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA941E1EB31D5600D60BF2 /* ProgressView.swift */; };
 		B2CA942B1EB331DC00D60BF2 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */; };
 		B2D8689620050C2900B9AF01 /* CoreTextData.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D8688720050C2800B9AF01 /* CoreTextData.m */; };
@@ -323,7 +337,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B25E90072052202100A85EE8 /* Realm.framework in Embed Frameworks */,
 				B25570831F3A0D8000C35A34 /* QSPullToRefresh.framework in Embed Frameworks */,
+				B25E90092052202100A85EE8 /* RealmSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +410,10 @@
 		B22AC4601E9F695D008625E6 /* QSRankDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankDetailViewController.swift; sourceTree = "<group>"; };
 		B2414D9B1EA602ED005A5758 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		B251228C1DB3291A0040CAD3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		B251F894202FE77E004AAF95 /* QSReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSReaderViewController.swift; sourceTree = "<group>"; };
+		B251F897202FEA65004AAF95 /* QSRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSRecord.swift; sourceTree = "<group>"; };
+		B251F899202FF4D9004AAF95 /* QSReaderViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSReaderViewFlowLayout.swift; sourceTree = "<group>"; };
+		B251F89B2030350E004AAF95 /* Dictionary+QSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+QSExtension.swift"; sourceTree = "<group>"; };
 		B255707C1F3A075600C35A34 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B255707D1F3A075600C35A34 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		B25570801F3A07BB00C35A34 /* AppStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStyle.swift; sourceTree = "<group>"; };
@@ -429,6 +449,8 @@
 		B258BB0A1EA45B4C006E5802 /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		B258BB0C1EA4A1AC006E5802 /* QSReaderBackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSReaderBackgroundViewController.swift; sourceTree = "<group>"; };
 		B258BB231EA4B201006E5802 /* UIView+ScreenShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ScreenShot.swift"; sourceTree = "<group>"; };
+		B25E90042052202000A85EE8 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		B25E90052052202100A85EE8 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		B26286C91EEA46DD005A1A8A /* QSIntroducePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroducePage.swift; sourceTree = "<group>"; };
 		B263ACDD1EE679830096CE80 /* HomeListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeListViewCell.swift; sourceTree = "<group>"; };
 		B263ACDE1EE679830096CE80 /* HomeListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListViewCell.xib; sourceTree = "<group>"; };
@@ -463,12 +485,17 @@
 		B27D7E9A1F4D320400866341 /* QSSegmentRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSegmentRouter.swift; sourceTree = "<group>"; };
 		B27D7E9F1F4D593D00866341 /* UIScrollView+StateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+StateView.h"; sourceTree = "<group>"; };
 		B27D7EA01F4D593D00866341 /* UIScrollView+StateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+StateView.m"; sourceTree = "<group>"; };
+		B286F016202953D80069565B /* QSReaderSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSReaderSetting.swift; sourceTree = "<group>"; };
+		B286F019202981DD0069565B /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		B286F0282029C3530069565B /* QSReaderParse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSReaderParse.swift; sourceTree = "<group>"; };
 		B288D1C71E9FC66F0024F1A5 /* QSBookDetailRateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookDetailRateView.swift; sourceTree = "<group>"; };
 		B288D1D31E9FC86C0024F1A5 /* QSBookDetailTagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookDetailTagsView.swift; sourceTree = "<group>"; };
 		B288D1D51E9FCBB50024F1A5 /* QSBookDetailContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookDetailContentView.swift; sourceTree = "<group>"; };
 		B28FFC841EAFAED600C27FF9 /* NSString+Encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encode.h"; sourceTree = "<group>"; };
 		B28FFC851EAFAED600C27FF9 /* NSString+Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encode.m"; sourceTree = "<group>"; };
 		B28FFC911EB03EA300C27FF9 /* QSHomeDeleteBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHomeDeleteBtn.swift; sourceTree = "<group>"; };
+		B29A6D022029C5B400AC4C73 /* NotificationCenter+QSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+QSExtension.swift"; sourceTree = "<group>"; };
+		B29A6D0D202C424F00AC4C73 /* QSMoreSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSMoreSettingController.swift; sourceTree = "<group>"; };
 		B29B4F991E8218ED008852E3 /* BookDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookDetailViewController.swift; path = zhuishushenqi/TXTReader/Controllers/BookDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		B29B4F9C1E821E61008852E3 /* UIImage+QSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+QSData.swift"; sourceTree = "<group>"; };
 		B29B4F9E1E822992008852E3 /* QSHotModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHotModel.swift; sourceTree = "<group>"; };
@@ -600,6 +627,7 @@
 		B2BB5BB51D8BDF8E00379217 /* zhuishushenqiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = zhuishushenqiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2BB5BB91D8BDF8E00379217 /* zhuishushenqiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zhuishushenqiUITests.swift; sourceTree = "<group>"; };
 		B2BB5BBB1D8BDF8E00379217 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2C98F502007892200E31169 /* QSInterestedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSInterestedView.xib; sourceTree = "<group>"; };
 		B2CA941E1EB31D5600D60BF2 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
 		B2D8688620050C2800B9AF01 /* CoreTextData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextData.h; sourceTree = "<group>"; };
@@ -641,6 +669,7 @@
 			files = (
 				B2FB92111EB1EEDF000C990A /* CoreTelephony.framework in Frameworks */,
 				B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */,
+				B25E90082052202100A85EE8 /* RealmSwift.framework in Frameworks */,
 				B22182CF1DA40594002458D2 /* libz.tbd in Frameworks */,
 				B22182CD1DA4058E002458D2 /* libsqlite3.tbd in Frameworks */,
 				B22182CB1DA40588002458D2 /* SystemConfiguration.framework in Frameworks */,
@@ -654,6 +683,7 @@
 				B22182BD1DA40550002458D2 /* CoreGraphics.framework in Frameworks */,
 				B22182BB1DA40548002458D2 /* CoreFoundation.framework in Frameworks */,
 				B22182B91DA40540002458D2 /* CoreText.framework in Frameworks */,
+				B25E90062052202100A85EE8 /* Realm.framework in Frameworks */,
 				48103378801B43EB177B7D8A /* Pods_zhuishushenqi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -809,6 +839,8 @@
 				B258BAF71EA44BD0006E5802 /* QSTextRouter.swift */,
 				B258BAF61EA44BD0006E5802 /* QSTextReaderController.swift */,
 				B258BB0C1EA4A1AC006E5802 /* QSReaderBackgroundViewController.swift */,
+				B29A6D0D202C424F00AC4C73 /* QSMoreSettingController.swift */,
+				B251F894202FE77E004AAF95 /* QSReaderViewController.swift */,
 			);
 			path = Reader;
 			sourceTree = "<group>";
@@ -1003,6 +1035,7 @@
 				B2B4BA181E7EA4A8000CC201 /* NSDate+Extension.h */,
 				B2B4BA191E7EA4A8000CC201 /* NSDate+Extension.m */,
 				B2B4BA1A1E7EA4A8000CC201 /* String+QSExtension.swift */,
+				B251F89B2030350E004AAF95 /* Dictionary+QSExtension.swift */,
 				B2B4BA1B1E7EA4A8000CC201 /* UIImageView+zhuishu.swift */,
 				B2B4BA1C1E7EA4A8000CC201 /* UILabel+zhuishu.swift */,
 				B2B4BA1D1E7EA4A8000CC201 /* UINavigationItem+BackItem.h */,
@@ -1016,6 +1049,8 @@
 				B28FFC841EAFAED600C27FF9 /* NSString+Encode.h */,
 				B28FFC851EAFAED600C27FF9 /* NSString+Encode.m */,
 				B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */,
+				B286F019202981DD0069565B /* NSObject+Extension.swift */,
+				B29A6D022029C5B400AC4C73 /* NotificationCenter+QSExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1292,6 +1327,7 @@
 				B22269D31EA0C70A008FD314 /* QSBook.swift */,
 				B22269D41EA0C70A008FD314 /* QSChapter.swift */,
 				B22269D51EA0C70A008FD314 /* QSPage.swift */,
+				B251F897202FEA65004AAF95 /* QSRecord.swift */,
 				B2B4BA6C1E7EA4A8000CC201 /* Book.swift */,
 				B2B4BA6D1E7EA4A8000CC201 /* BookComment.swift */,
 				B2B4BA6E1E7EA4A8000CC201 /* BookCommentDetail.swift */,
@@ -1308,6 +1344,9 @@
 				B2B4BA791E7EA4A8000CC201 /* User.swift */,
 				B2B02E591EA9DFF200A6880A /* QSRecomment.swift */,
 				B2B02E631EA9F84300A6880A /* QSBookList.swift */,
+				B286F016202953D80069565B /* QSReaderSetting.swift */,
+				B286F0282029C3530069565B /* QSReaderParse.swift */,
+				B251F899202FF4D9004AAF95 /* QSReaderViewFlowLayout.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1339,6 +1378,7 @@
 				B2583CA01EA74A37004178F3 /* QSBatteryView.swift */,
 				B2B02E5B1EA9E4A300A6880A /* QSRecommendCell.swift */,
 				B2B02E5C1EA9E4A300A6880A /* QSRecommendCell.xib */,
+				B2C98F502007892200E31169 /* QSInterestedView.xib */,
 				B2B02E5F1EA9F54700A6880A /* QSBookListViewCell.swift */,
 				B2B02E601EA9F54700A6880A /* QSBookListViewCell.xib */,
 				B22A8D421EAD976000C7E978 /* QSDiscussCell.swift */,
@@ -1359,6 +1399,8 @@
 		B2BB5B8D1D8BDF8E00379217 = {
 			isa = PBXGroup;
 			children = (
+				B25E90042052202000A85EE8 /* Realm.framework */,
+				B25E90052052202100A85EE8 /* RealmSwift.framework */,
 				B2EE7CFD1F3C0C3400BE997C /* Script.sh */,
 				B2B4B9F61E7EA4A8000CC201 /* zhuishushenqi */,
 				B2BB5BAD1D8BDF8E00379217 /* zhuishushenqiTests */,
@@ -1504,9 +1546,9 @@
 				TargetAttributes = {
 					B2BB5B951D8BDF8E00379217 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 8K684WSCKB;
+						DevelopmentTeam = ZYDXKQKHVY;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					B2BB5BA91D8BDF8E00379217 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1582,6 +1624,7 @@
 				B2B02E621EA9F54700A6880A /* QSBookListViewCell.xib in Resources */,
 				B278AA941F395FA4000A0D55 /* QSHelpViewCell.xib in Resources */,
 				B2B4BBF11E7EA4AB000CC201 /* Main.storyboard in Resources */,
+				B2C98F512007892200E31169 /* QSInterestedView.xib in Resources */,
 				B2B4BC501E7EA4AB000CC201 /* UserfulCell.xib in Resources */,
 				B2B4BBF01E7EA4AB000CC201 /* LaunchScreen.storyboard in Resources */,
 				B2B4BC381E7EA4AB000CC201 /* Chapters.json in Resources */,
@@ -1675,12 +1718,13 @@
 			files = (
 			);
 			inputPaths = (
+				"",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Localizable.strings文件路径\nlocalizableFile=\"${SRCROOT}/en.lproj/Localizable.strings\"\n# 生成的swift文件路径（根据个人习惯修改）\nlocalizedFile=\"${SRCROOT}/${PROJECT_NAME}/Extension/LocalizedUtils.swift\"\n# 将localizable.strings中的文本转为swift格式的常量，存入一个临时文件\nsed \"s/^\\\"/  static var localized_/g\" \"${localizableFile}\" | sed \"s/\\\" = \\\"/: String { return \\\"/g\" | sed \"s/;$/.localized }/g\" > \"${localizedFile}.tmp\"\n# 先将localized作为计算属性输出到目标文件\necho -e \"import Foundation\\n\\nextension String {\\n  var localized: String { return NSLocalizedString(self, comment: self) }\" > \"${localizedFile}\"\n# 再将临时文件中的常量增量输出到目标文件\ncat \"${localizedFile}.tmp\" >> \"${localizedFile}\"\n# 最后增量输出一个\"}\"到目标文件，完成输出\necho -e \"\\n}\" >> \"${localizedFile}\"\n# 删除临时文件\nrm \"${localizedFile}.tmp\"";
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n# Localizable.strings文件路径\nlocalizableFile=\"${SRCROOT}/en.lproj/Localizable.strings\"\n# 生成的swift文件路径（根据个人习惯修改）\nlocalizedFile=\"${SRCROOT}/${PROJECT_NAME}/Extension/LocalizedUtils.swift\"\n# 将localizable.strings中的文本转为swift格式的常量，存入一个临时文件\nsed \"s/^\\\"/  static var localized_/g\" \"${localizableFile}\" | sed \"s/\\\" = \\\"/: String { return \\\"/g\" | sed \"s/;$/.localized }/g\" > \"${localizedFile}.tmp\"\n# 先将localized作为计算属性输出到目标文件\necho -e \"import Foundation\\n\\nextension String {\\n  var localized: String { return NSLocalizedString(self, comment: self) }\" > \"${localizedFile}\"\n# 再将临时文件中的常量增量输出到目标文件\ncat \"${localizedFile}.tmp\" >> \"${localizedFile}\"\n# 最后增量输出一个\"}\"到目标文件，完成输出\necho -e \"\\n}\" >> \"${localizedFile}\"\n# 删除临时文件\nrm \"${localizedFile}.tmp\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1702,7 +1746,9 @@
 				B278AA8F1F395F4F000A0D55 /* QSInterestedViewController.swift in Sources */,
 				B26286CA1EEA46DD005A1A8A /* QSIntroducePage.swift in Sources */,
 				B22AC4591E9F6767008625E6 /* QSRankDetailProtoocol.swift in Sources */,
+				B286F017202953D80069565B /* QSReaderSetting.swift in Sources */,
 				B22AC45B1E9F6774008625E6 /* QSRankDetailInteractor.swift in Sources */,
+				B286F01A202981DD0069565B /* NSObject+Extension.swift in Sources */,
 				B22A8D551EADE0E900C7E978 /* QSBookCommentInteractor.swift in Sources */,
 				B258BB041EA44C52006E5802 /* QSCategoryInteractor.swift in Sources */,
 				B2B02E2B1EA8505200A6880A /* QSTopicDetailInteractor.swift in Sources */,
@@ -1720,6 +1766,7 @@
 				B2FCAA8D1E9C85600064837C /* QSHistoryHeaderView.swift in Sources */,
 				B27D7E861F4BE04300866341 /* UICollectionView+QSExtension.swift in Sources */,
 				B258BAFF1EA44C02006E5802 /* CategoryController.swift in Sources */,
+				B286F0292029C3530069565B /* QSReaderParse.swift in Sources */,
 				B258BAFC1EA44BD0006E5802 /* QSTextRouter.swift in Sources */,
 				B203BB681E9E142C00F9C052 /* QSHistoryCell.swift in Sources */,
 				B2B4BBF41E7EA4AB000CC201 /* DateIntervalFormatter+formatter.swift in Sources */,
@@ -1731,6 +1778,7 @@
 				B2B4BBE01E7EA4AB000CC201 /* BaseViewController.swift in Sources */,
 				B2B02E611EA9F54700A6880A /* QSBookListViewCell.swift in Sources */,
 				B2414D9C1EA602ED005A5758 /* UIViewController+Alert.swift in Sources */,
+				B251F895202FE77E004AAF95 /* QSReaderViewController.swift in Sources */,
 				B20D46DF1E9FBABD00EC466A /* QSBookDetailPresenter.swift in Sources */,
 				B2B4BBE41E7EA4AB000CC201 /* CommunityView.swift in Sources */,
 				B2580E1D1E9B236000455AFE /* QSSearchProtocols.swift in Sources */,
@@ -1739,6 +1787,7 @@
 				B2B4BC241E7EA4AB000CC201 /* RightViewController.swift in Sources */,
 				B22AC4611E9F695D008625E6 /* QSRankDetailViewController.swift in Sources */,
 				B22AC45D1E9F678D008625E6 /* QSRankDetailPresenter.swift in Sources */,
+				B251F898202FEA65004AAF95 /* QSRecord.swift in Sources */,
 				B278AA951F395FA4000A0D55 /* QSSegmentDropView.swift in Sources */,
 				B22A8D3D1EAD949C00C7E978 /* QSCommunityPresenter.swift in Sources */,
 				B2B4BC121E7EA4AB000CC201 /* SearchDetailViewController.swift in Sources */,
@@ -1778,6 +1827,7 @@
 				B2B4BC3D1E7EA4AB000CC201 /* User.swift in Sources */,
 				B2B4BBE31E7EA4AB000CC201 /* XYCBaseModel.m in Sources */,
 				B258BAFA1EA44BD0006E5802 /* QSTextProtocols.swift in Sources */,
+				B251F89C2030350E004AAF95 /* Dictionary+QSExtension.swift in Sources */,
 				B22AC4531E9F1CA8008625E6 /* QSRankRouter.swift in Sources */,
 				B2B4BC101E7EA4AB000CC201 /* TopDetailCell.swift in Sources */,
 				B2B4BC301E7EA4AB000CC201 /* Book.swift in Sources */,
@@ -1817,6 +1867,7 @@
 				B2D8689C20050C2900B9AF01 /* CTFrameParserConfig.m in Sources */,
 				B2B4BC4D1E7EA4AB000CC201 /* PageView.swift in Sources */,
 				B2B4BC4B1E7EA4AB000CC201 /* HotCommentCell.swift in Sources */,
+				B251F89A202FF4D9004AAF95 /* QSReaderViewFlowLayout.swift in Sources */,
 				B2B4BBF81E7EA4AB000CC201 /* UIImageView+zhuishu.swift in Sources */,
 				B2B4BBFB1E7EA4AB000CC201 /* UITableView+QSGeneric.swift in Sources */,
 				B2B4BBF71E7EA4AB000CC201 /* String+QSExtension.swift in Sources */,
@@ -1824,6 +1875,7 @@
 				B22AC44D1E9F1C62008625E6 /* QSRankProtocols.swift in Sources */,
 				B2B4BBF91E7EA4AB000CC201 /* UILabel+zhuishu.swift in Sources */,
 				B258BAFB1EA44BD0006E5802 /* QSTextReaderController.swift in Sources */,
+				B29A6D032029C5B400AC4C73 /* NotificationCenter+QSExtension.swift in Sources */,
 				B2B4BBF31E7EA4AB000CC201 /* Date+Extension.swift in Sources */,
 				B29B4FA21E8257BC008852E3 /* DynamicCell.swift in Sources */,
 				B22AC44B1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift in Sources */,
@@ -1897,6 +1949,7 @@
 				B2D8689820050C2900B9AF01 /* CoreTextLinkData.m in Sources */,
 				B278AA8D1F395F30000A0D55 /* ReadHistoryViewController.swift in Sources */,
 				B22AC43A1E9E6626008625E6 /* QSSearchResultTable.swift in Sources */,
+				B29A6D0E202C424F00AC4C73 /* QSMoreSettingController.swift in Sources */,
 				B278AB061F398926000A0D55 /* M80AttributedLabelAttachment.m in Sources */,
 				B2B4BC3E1E7EA4AB000CC201 /* BookCommentCell.swift in Sources */,
 				B22AC4551E9F1E8F008625E6 /* QSRankViewController.swift in Sources */,
@@ -2077,9 +2130,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Guo Shaoqing (CYXM98D895)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8K684WSCKB;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guo Shaoqing (CYXM98D895)";
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = ZYDXKQKHVY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YYKit/Vendor",
@@ -2093,17 +2147,19 @@
 				INFOPLIST_FILE = zhuishushenqi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cib.zhuishushenqi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cibdev.zhuishushenqi1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9caec98e-a67d-4519-b060-3869cfcf8bb7";
+				PROVISIONING_PROFILE_SPECIFIER = cibemobile_develop;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/zhuishushenqi/zhuishushenqi-Bridge-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -2115,9 +2171,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Guo Shaoqing (CYXM98D895)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8K684WSCKB;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Guo Shaoqing (CYXM98D895)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = ZYDXKQKHVY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YYKit/Vendor",
@@ -2127,17 +2183,19 @@
 				INFOPLIST_FILE = zhuishushenqi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cib.zhuishushenqi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cibdev.zhuishushenqi1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9caec98e-a67d-4519-b060-3869cfcf8bb7";
+				PROVISIONING_PROFILE_SPECIFIER = cibemobile_develop;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/zhuishushenqi/zhuishushenqi-Bridge-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

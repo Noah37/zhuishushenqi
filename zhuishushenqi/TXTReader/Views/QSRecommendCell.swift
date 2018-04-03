@@ -8,19 +8,25 @@
 
 import UIKit
 
-typealias BtnClickAction = (_ btn:UIButton)->Void
+typealias BtnClickAction = (_ btn:Any)->Void
 
 let RecBtnTag = 12345
 //146
-class QSRecommendCell: UITableViewCell {
+class QSRecommendCell: UITableViewCell,InterestdViewDelegate {
 
     var books:[Book]? {
         didSet{
-            if (books?.count ?? 0) > 0{
-                setupSubviews()
+            if let bookss = books {
+                cacheImage(books: bookss)
             }
         }
     }
+    
+    let QSRecommendCellItemCount = 4
+    let QSRecommendCellSpaceX:CGFloat = 15
+    let QSRecommendCellSpaceY:CGFloat = 43
+    let QSRecommendCellInterestdWidth:CGFloat = 69
+    let QSRecommendCellInterestdHeight:CGFloat = 137
     
     var clickAction:BtnClickAction?
     
@@ -28,12 +34,12 @@ class QSRecommendCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        setupSubviews()
     }
 
-    @IBAction func moreAct(_ sender: Any) {
-        let btn:UIButton? = sender as? UIButton
-        btn?.tag = RecBtnTag + 4
-        touchAction(btn: btn!)
+    @IBAction func moreAct(_ sender: UIView) {
+        sender.tag = RecBtnTag + 4
+        touchAction(btn: sender)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -42,57 +48,80 @@ class QSRecommendCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setupSubviews(){
-        for item in contentView.subviews {
-            if item.tag == 123 || item.tag == 124{
-                continue
+    func cacheImage(books:[Book]){
+        var index = 0
+        for item in books {
+            let title = item.title
+            let cover = item.cover
+
+            if let interView:QSInterestdView = self.viewWithTag(RecBtnTag + index) as? QSInterestdView {
+                interView.imageView.qs_setBookCoverWithURLString(urlString: cover ?? "")
+                interView.titleLabel.text = title
             }
-            item.removeFromSuperview()
-        }
-        let spaceX:CGFloat = 15
-        let spaceY:CGFloat = 43
-        for item in 0..<4 {
-            let witdh = (self.bounds.width - 15*5)/4
-            let height:CGFloat = 86
-            let x:CGFloat = spaceX*CGFloat(item + 1) + CGFloat(item)*witdh
-            let btn = QSInterestdButton(type: .custom)
-            btn.frame = CGRect(x: x, y: spaceY, width: witdh, height: height)
-            btn.tag = RecBtnTag + item
-            btn.addTarget(self, action: #selector(touchAction(btn:)), for: .touchUpInside)
-            
-            let label = UILabel(frame: CGRect(x: x, y: spaceY + height, width: witdh, height: 40))
-            label.textAlignment = .center
-            label.font = UIFont.systemFont(ofSize: 11)
-            label.textColor = UIColor.darkGray
-            label.numberOfLines = 0
-            
-            if (self.books?.count ?? 0) > item {
-                label.text = self.books?[item].title
-                if let url = self.books?[item].cover{
-                    btn.qs_setBookCoverWithUrlString(urlString: url)
-                }
-            }
-            
-            self.contentView.addSubview(btn)
-            self.contentView.addSubview(label)
+            index = index + 1
         }
     }
     
-    @objc func touchAction(btn:UIButton){
+    func didClick(_ interestdView: QSInterestdView) {
+        self.touchAction(btn: interestdView)
+    }
+    
+    func setupSubviews(){
+        for item in 0..<QSRecommendCellItemCount {
+            let btn:QSInterestdView? = UINib(nibName: "QSInterestedView", bundle: nil).instantiate(withOwner: self, options: nil).first as? QSInterestdView
+            btn?.contentMode = .scaleAspectFit
+            btn?.tag = RecBtnTag + item
+            btn?.interestdViewDelegate = self
+            if let interView = btn {
+                self.contentView.addSubview(interView)
+            }
+        }
+    }
+    
+    @objc func touchAction(btn:Any){
         if let action = clickAction {
             action(btn)
         }
     }
     
+    func layoutUI(){
+        var index = 0
+        let spaceCenter:CGFloat = (ScreenWidth - QSRecommendCellInterestdWidth*CGFloat(QSRecommendCellItemCount) - QSRecommendCellSpaceX*2)/(CGFloat(QSRecommendCellItemCount) - 1)
+        for item in 0..<QSRecommendCellItemCount {
+            if let interView:QSInterestdView = self.viewWithTag(RecBtnTag + index) as? QSInterestdView {
+                let x:CGFloat = QSRecommendCellSpaceX + CGFloat(item)*(QSRecommendCellInterestdWidth + spaceCenter)
+                interView.frame = CGRect(x: x, y: QSRecommendCellSpaceY, width: QSRecommendCellInterestdWidth, height: QSRecommendCellInterestdHeight)
+            }
+            index = index + 1
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
+        layoutUI()
     }
 }
 
-class QSInterestdButton: UIButton {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.imageView?.contentMode = .scaleToFill
+protocol InterestdViewDelegate {
+    func didClick(_ interestdView:QSInterestdView) -> Void
+}
+
+public class QSInterestdView : UIView {
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    var interestdViewDelegate:InterestdViewDelegate?
+    
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        self.imageView.contentMode = .scaleToFill
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(sender:)))
+        self.addGestureRecognizer(tap)
+    }
+    
+    @objc public func tapAction(sender:UITapGestureRecognizer){
+        interestdViewDelegate?.didClick(self)
     }
 }

@@ -2,36 +2,36 @@ PODS:
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
-  - Kingfisher (3.5.1)
+  - Kingfisher (4.6.1)
   - MBProgressHUD (1.0.0)
-  - ObjectMapper (2.2.5)
+  - ObjectMapper (3.1.0)
   - PullToRefresh (0.0.1)
   - QSNetwork (0.0.1)
-  - SnapKit (3.2.0)
+  - SnapKit (4.0.0)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
-  - FMDB (= 2.6.2)
-  - Kingfisher (= 3.5.1)
-  - MBProgressHUD (~> 1.0.0)
-  - ObjectMapper (= 2.2.5)
+  - FMDB
+  - Kingfisher (= 4.6.1)
+  - MBProgressHUD
+  - ObjectMapper (= 3.1.0)
   - PullToRefresh (= 0.0.1)
   - QSNetwork (~> 0.0.1)
-  - SnapKit (= 3.2.0)
-  - YYKit (= 1.0.9)
+  - SnapKit (= 4.0.0)
+  - YYKit
 
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
-  Kingfisher: 12eeffeef42ea45b68c5e5acfe8ba9005b713ab4
+  Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
+  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   QSNetwork: 4d357f4dd7df262892fc2b0b6900f2c0e99f5237
-  SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: dc5d0c04a44b800b531c511f7afb9a8b79baf032
+PODFILE CHECKSUM: 67af278bb3be076ff6734593ca6e399e501a9939
 
 COCOAPODS: 1.2.0

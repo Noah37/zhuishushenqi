@@ -118,6 +118,10 @@ class QSHorizonalTableViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView = UITableView()

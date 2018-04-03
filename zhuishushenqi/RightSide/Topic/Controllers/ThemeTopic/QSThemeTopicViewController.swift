@@ -17,7 +17,7 @@ class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableVie
     fileprivate var booksModel:[ThemeTopicModel]?
     fileprivate var titleView:UIButton?
     fileprivate lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 104, width: ScreenWidth, height: ScreenHeight - 104), style: .grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 40), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
@@ -33,7 +33,7 @@ class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableVie
     }
     
     func setupSegView(titles:[String]){
-        let segView = SegMenu(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: 40), WithTitles: titles)
+        let segView = SegMenu(frame: CGRect(x: 0, y: kNavgationBarHeight, width: UIScreen.main.bounds.size.width, height: 40), WithTitles: titles)
         segView.menuDelegate = self
         view.addSubview(segView)
     }

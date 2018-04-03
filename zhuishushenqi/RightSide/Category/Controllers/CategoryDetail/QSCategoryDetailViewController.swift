@@ -92,8 +92,12 @@ extension QSCategoryDetailViewController:UICollectionViewDataSource,UICollection
         let subVC = subviews[indexPath.item]
         self.addChildViewController(subVC)
         subVC.didMove(toParentViewController: self)
-        subVC.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - 104)
+        subVC.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight)
         cell.contentView.addSubview(subVC.view)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }

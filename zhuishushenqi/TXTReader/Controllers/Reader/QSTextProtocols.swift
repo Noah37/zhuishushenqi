@@ -53,8 +53,8 @@ protocol QSTextInteractorProtocol: class {
     func requestAllResource(bookDetail:BookDetail)
     func requestAllChapters(selectedIndex:Int)
     func requestChapter(atIndex chapterIndex:Int)
-    func getChapter(chapterIndex:Int,pageIndex:Int) -> QSChapter?
-    func book(bookDetail:BookDetail?,chapters:[NSDictionary]?,resources:[ResourceModel]?)->QSBook//更换书籍来源则需要更新book.chapters信息,请求某一章节成功后也需要刷新chapters的content及其他信息
+    func getChapter(chapterIndex:Int,pageIndex:Int)
+//    func book(bookDetail:BookDetail?,chapters:[NSDictionary]?,resources:[ResourceModel]?)->QSBook//更换书籍来源则需要更新book.chapters信息,请求某一章节成功后也需要刷新chapters的content及其他信息
     func setChapters(chapterParam:NSDictionary?,index:Int,chapters:[QSChapter])->[QSChapter]
     func cacheAllChapter()
 }

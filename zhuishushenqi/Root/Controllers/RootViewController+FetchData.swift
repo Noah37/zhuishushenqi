@@ -19,9 +19,16 @@ extension RootViewController{
                 let message = json["message"] as? NSDictionary
                 if let msg = message{
                     let postLink = msg.object(forKey: "postLink") as? String
+                    if let highlight = msg.object(forKey: "highlight") as? Bool {
+                        if highlight {
+                            self.bookShelfLB.textColor = UIColor.red
+                        } else {
+                            self.bookShelfLB.textColor = UIColor.gray
+                        }
+                    }
                     let post = self.getPost(postLink)
                     USER_DEFAULTS.set(post.1, forKey: PostLink)
-                    self.bookShelfLB.text = "\(post.1)"
+                    self.bookShelfLB.attributedText = NSAttributedString(string: "\(post.1)")
                 }
             }
         }
@@ -32,7 +39,8 @@ extension RootViewController{
         
         //未登录中状态下，图书的信息保存在userdefault中
         if !User.user.isLogin {
-            self.bookShelfArr = BookShelfInfo.books.bookShelf
+            self.bookshelf = BookManager.shared.books
+            self.books = BookManager.shared.bookshelf()
             let url:NSString = "http://www.luoqiu.com/read/175859"
             QSLog(url.lastPathComponent)
             QSLog(url.deletingLastPathComponent)
@@ -46,49 +54,29 @@ extension RootViewController{
     
     //匹配当前书籍的更新信息
     func updateInfo(){
-        guard let update  = self.bookShelfArr else {
+        guard self.bookshelf != nil else {
             return
         }
-        let ids = self.param(bookArr: update)
+        let ids = self.booksID(books: self.bookshelf)
+        
         let api = QSAPI.update(id: ids)
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            if let json:[Any] = response.json as? [Any] {
-                do{
-                    self.updateInfoArr = try XYCBaseModel.model(withModleClass: UpdateInfo.self, withJsArray: json as [Any]!) as? [UpdateInfo]
-                    guard let updateModels = self.updateInfoArr else {
-                        return
-                    }
-                    self.updateToModel(updateModels: updateModels, bookShelfModels: update)
-                }catch _{}
-            }
-        }
-    }
-    
-    //需要将对应的update信息赋给model
-    func updateToModel(updateModels:[UpdateInfo],bookShelfModels:[BookDetail]){
-        let group = DispatchGroup()
-        let global = DispatchQueue.global(qos: .userInitiated)
-        for index in 0..<updateModels.count {
-            let updateInfo = updateModels[index]
-            for y in 0..<bookShelfModels.count {
-                global.async(group: group){
-                    let bookShelf = bookShelfModels[y]
-                    if updateInfo._id == bookShelf._id {
-                        bookShelf.updateInfo = updateInfo
-                        //                        if(self.isUpdated(update: updateInfo, book: bookShelf)){
-                        bookShelf.isUpdated = self.isUpdated(update: updateInfo, book: bookShelf)
-                        //                        }
-                        var bookShelfs = bookShelfModels
-                        bookShelfs[y] = bookShelf
-                        self.bookShelfArr = bookShelfs
-                        BookShelfInfo.books.bookShelf = bookShelfs
-                    }
+            self.tableView.endAllRefreshing()
+            // 防止返回时卡顿，采用子线程
+            DispatchQueue.global().async {
+                if let json:[Any] = response.json as? [Any] {
+                    do{
+                        self.updateInfoArr = try XYCBaseModel.model(withModleClass: UpdateInfo.self, withJsArray: json as [Any]!) as? [UpdateInfo]
+                        guard let updateModels = self.updateInfoArr else {
+                            return
+                        }
+                        BookManager.shared.updateToModel(updateModels: updateModels)
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                    }catch _{}
                 }
             }
-        }
-        group.notify(queue: DispatchQueue.main) { 
-            self.tableView.reloadData()
-            self.tableView.endAllRefreshing()
         }
     }
     
@@ -103,6 +91,21 @@ extension RootViewController{
         self.present(QSTextRouter.createModule(bookDetail:self.bookShelfArr![index],callback: {(book:BookDetail) in
             
         }), animated: true, completion: nil)
+    }
+    
+    func booksID(books:[String:Any]?)->String{
+        if let keys = books{
+            var ids = ""
+            for book in keys.keys {
+                if ids != "" {
+                    ids.append(",")
+                }
+                ids.append(book)
+            }
+            
+            return ids
+        }
+        return ""
     }
     
     func param(bookArr:[BookDetail])->String{
@@ -129,10 +132,12 @@ extension RootViewController{
             let endContainRange = qsLink.range(of: "]]]")
             let post = qsLink.range(of: "post:")
             if startRange.location == NSNotFound {
-                if qsLink.length > 32 {
-                    // 过滤方式变更
-                    title = link.qs_subStr(from: 32)
-                    id = link.qs_subStr(start: 7, length: 24)
+                if endRange.location != NSNotFound {
+                    if qsLink.length > 32 {
+                        // 过滤方式变更
+                        title = link.qs_subStr(start: 32, end: endRange.location)
+                        id = link.qs_subStr(start: 7, length: 24)
+                    }
                 }
                 return (id,title)
             }
@@ -170,7 +175,7 @@ extension RootViewController{
         }
     }
     
-    func reachabilityChanged(_ no:Notification){
+    @objc func reachabilityChanged(_ no:Notification){
         let reachability = no.object as! Reachability
         DispatchQueue.main.async {
             self.typeOfNetwork(type: reachability.networkType)

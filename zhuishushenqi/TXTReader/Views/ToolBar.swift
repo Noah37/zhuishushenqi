@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum ToolBarFontChangeAction {
+    case plus
+    case minimus
+}
+
 protocol ToolBarDelegate{
     func backButtonDidClicked()
     func catagoryClicked()
@@ -15,16 +20,17 @@ protocol ToolBarDelegate{
     func toolBarDidShow()
     func toolBarDidHidden()
     func readBg(type:Reader)
-    func fontChange(size:Int)
+    func fontChange(action:ToolBarFontChangeAction)
     func brightnessChange(value:CGFloat)
     func cacheAll()
+    func toolbar(toolbar:ToolBar, clickMoreSetting:UIView)
 }
 
 class ToolBar: UIView {
 
     private let kBottomBtnTag = 12345
-    private let TopBarHeight:CGFloat = 64
-    private let BottomBarHeight:CGFloat = 49
+    private let TopBarHeight:CGFloat = kNavgationBarHeight
+    private let BottomBarHeight:CGFloat = 49 + CGFloat(kTabbarBlankHeight)
     var toolBarDelegate:ToolBarDelegate?
     var topBar:UIView?
     var bottomBar:UIView?
@@ -34,7 +40,7 @@ class ToolBar: UIView {
     var whiteBtn:UIButton!
     var yellowBtn:UIButton!
     var greenBtn:UIButton!
-    var fontSize:Int = 20
+    var fontSize:Int = QSReaderSetting.shared.fontSize
     var titleLabel:UILabel!
     var title:String  = "" {
         didSet{
@@ -44,7 +50,7 @@ class ToolBar: UIView {
     var progressView:ProgressView!
     override init(frame: CGRect) {
         super.init(frame: frame)
-        fontSize = AppStyle.shared.readFontSize
+        fontSize = QSReaderSetting.shared.fontSize
         initSubview()
     }
     
@@ -53,11 +59,11 @@ class ToolBar: UIView {
         topBar?.backgroundColor = UIColor(white: 0.0, alpha: 1.0)
         addSubview(topBar!)
         
-        bottomBar = UIView(frame: CGRect(x:0,y:UIScreen.main.bounds.size.height,width:UIScreen.main.bounds.size.width,height:49))
+        bottomBar = UIView(frame: CGRect(x:0,y:UIScreen.main.bounds.size.height,width:UIScreen.main.bounds.size.width,height:BottomBarHeight))
         bottomBar?.backgroundColor = UIColor(white: 0.0, alpha: 1.0)
         addSubview(bottomBar!)
         
-        midBar = UIView(frame: CGRect(x:0,y:UIScreen.main.bounds.size.height - 180 - 49,width:UIScreen.main.bounds.size.width,height:180))
+        midBar = UIView(frame: CGRect(x:0,y:UIScreen.main.bounds.size.height - 180 - BottomBarHeight,width:UIScreen.main.bounds.size.width,height:180))
         midBar?.backgroundColor = UIColor(white: 0.0, alpha: 0.7)
 
         midBarSubviews()
@@ -67,7 +73,7 @@ class ToolBar: UIView {
         let backBtn = UIButton(type: .custom)
         backBtn.setImage(UIImage(named: "sm_exit"), for: .normal)
         backBtn.addTarget(self, action: #selector(backAction(btn:)), for: .touchUpInside)
-        backBtn.frame = CGRect(x:self.bounds.width - 55, y: 20,width: 49,height: 49)
+        backBtn.frame = CGRect(x:self.bounds.width - 55, y: STATEBARHEIGHT,width: 49,height: 49)
         topBar?.addSubview(backBtn)
         
         let changeSourceBtn = UIButton(type: .custom)
@@ -75,10 +81,10 @@ class ToolBar: UIView {
         changeSourceBtn.setTitleColor(UIColor.white, for: .normal)
         changeSourceBtn.addTarget(self, action: #selector(changeSourceAction(btn:)), for: .touchUpInside)
         changeSourceBtn.frame = CGRect(x:self.bounds.width - 65, y: 27,width: 50,height: 30)
-        changeSourceBtn.frame = CGRect(x:10, y:27,width: 50,height: 30)
+        changeSourceBtn.frame = CGRect(x:10, y:STATEBARHEIGHT + 7,width: 50,height: 30)
         topBar?.addSubview(changeSourceBtn)
         
-        titleLabel = UILabel(frame: CGRect(x: self.bounds.width/2 - 100, y: 27, width: 200, height: 30))
+        titleLabel = UILabel(frame: CGRect(x: self.bounds.width/2 - 100, y: STATEBARHEIGHT+7, width: 200, height: 30))
         titleLabel.textColor = UIColor.white
         titleLabel.textAlignment = .center
         topBar?.addSubview(titleLabel)
@@ -167,9 +173,8 @@ class ToolBar: UIView {
         return button
     }
     
-    func showWithAnimations(animation:Bool){
-        let keyWindow = UIApplication.shared.keyWindow
-        keyWindow?.addSubview(self)
+    func showWithAnimations(animation:Bool,inView:UIView){
+        inView.addSubview(self)
         UIView.animate(withDuration: 0.35, animations: {
             self.topBar?.frame = CGRect(x:0, y:0,width: self.bounds.size.width,height: self.TopBarHeight)
             self.bottomBar?.frame = CGRect(x:0,y: self.bounds.size.height - self.BottomBarHeight,width: self.bounds.size.width,height: self.BottomBarHeight)
@@ -180,7 +185,7 @@ class ToolBar: UIView {
         toolBarDelegate?.toolBarDidShow()
     }
     
-    func hideWithAnimations(animation:Bool){
+    @objc func hideWithAnimations(animation:Bool){
         midBar?.removeFromSuperview()
         showMid = false
         UIView.animate(withDuration: 0.35, animations: {
@@ -200,13 +205,11 @@ class ToolBar: UIView {
     }
     
     @objc private func fontMinusAction(btn:UIButton){
-        fontSize -= 1
-        self.toolBarDelegate?.fontChange(size: fontSize)
+        self.toolBarDelegate?.fontChange(action: .minimus)
     }
     
     @objc private func fontPlusAction(btn:UIButton){
-        fontSize += 1
-        self.toolBarDelegate?.fontChange(size: fontSize)
+        self.toolBarDelegate?.fontChange(action: .plus)
     }
     
     @objc private func landscape(btn:UIButton){
@@ -239,7 +242,7 @@ class ToolBar: UIView {
     }
     
     @objc private func seniorSettingAction(btn:UIButton){
-        
+        self.toolBarDelegate?.toolbar(toolbar: self, clickMoreSetting: btn)
     }
     
     @objc private func bottomBtnAction(btn:UIButton){

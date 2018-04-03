@@ -34,34 +34,23 @@ class Attribute: NSObject,NSCoding {
 }
 
 class QSPage: NSObject ,NSCoding{
-    var content:String? //当前页显示的文字
-//    var range:NSRange? //当前页所处范围
+    var content:String = "" //当前页显示的文字
     var curPage:Int = 0 //当前页数
 
-    var attribute:Attribute {
-        get {
-            return Attribute(fontSize: AppStyle.shared.readFontSize, color: UIColor.black, lineSpace: 5)
-        }
-        set {
-            
-        }
-    }
-    var totalPages:Int = 0
-    var title:String?
+    var totalPages:Int = 1
+    var title:String = ""
     
     required init?(coder aDecoder: NSCoder) {
         super.init()
-        self.content = aDecoder.decodeObject(forKey: "content") as? String
+        self.content = aDecoder.decodeObject(forKey: "content") as! String
         self.curPage = aDecoder.decodeInteger(forKey: "curPage")
-        self.attribute = aDecoder.decodeObject(forKey: "attribute") as! Attribute
         self.totalPages = aDecoder.decodeInteger(forKey: "totalPages")
-        self.title = aDecoder.decodeObject(forKey: "title") as? String
+        self.title = aDecoder.decodeObject(forKey: "title") as! String
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.content, forKey: "content")
         aCoder.encode(self.curPage, forKey: "curPage")
-        aCoder.encode(self.attribute, forKey: "attribute")
         aCoder.encode(self.totalPages, forKey: "totalPages")
         aCoder.encode(self.title, forKey: "title")
 

@@ -37,11 +37,10 @@ class QSBookDetailPresenter: QSBookDetailPresenterProtocol {
     }
     
     func didClickPersueBtn(model:BookDetail,select:Bool){
-        //需要遍历删除
-        if select == true {
-            BookManager.updateShelf(with: model, type: .add,refresh:true)
-        }else{
-            BookManager.updateShelf(with: model, type: .delete,refresh:true)
+        if select {
+            NotificationCenter.qs_postNotification(name: BOOKSHELF_ADD,obj:model)
+        } else {
+            NotificationCenter.qs_postNotification(name: BOOKSHELF_DELETE,obj:model)
         }
         QSLog(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
     }
@@ -66,7 +65,7 @@ class QSBookDetailPresenter: QSBookDetailPresenterProtocol {
         }
     }
     
-    func didClickRecBtn(btn:UIButton){
+    func didClickRecBtn(btn:UIView){
         let tag = btn.tag - RecBtnTag
         interactor.showBookDetail(tag: tag)
     }

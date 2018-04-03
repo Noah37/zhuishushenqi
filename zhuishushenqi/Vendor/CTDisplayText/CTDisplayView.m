@@ -67,13 +67,14 @@
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     [super drawRect:rect];
-    
+//    NSLog(@"familyNames:%@",UIFont.familyNames); 
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetTextMatrix(context, CGAffineTransformIdentity);
-    CGContextTranslateCTM(context, 0, self.bounds.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
     if (self.data) {
+        //
+        CGContextTranslateCTM(context, 0, self.data.height);
+        CGContextScaleCTM(context, 1.0, -1.0);
         CTFrameDraw(self.data.ctFrame, context);
     }
     

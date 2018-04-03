@@ -50,11 +50,13 @@ static CGFloat widthCallback(void* ref){
     CGFloat fontSize = config.fontSize;
     CTFontRef fontRef = CTFontCreateWithName((CFStringRef)@"ArialMT", fontSize, NULL);
     CGFloat lineSpacing = config.lineSpace;
-    const CFIndex kNumberOfSettings = 3;
+    CGFloat paragraphSpacing = config.paragraphSpace;
+    const CFIndex kNumberOfSettings = 4;
     CTParagraphStyleSetting theSettings[kNumberOfSettings] = {
         { kCTParagraphStyleSpecifierLineSpacingAdjustment, sizeof(CGFloat), &lineSpacing },
         { kCTParagraphStyleSpecifierMaximumLineSpacing, sizeof(CGFloat), &lineSpacing },
-        { kCTParagraphStyleSpecifierMinimumLineSpacing, sizeof(CGFloat), &lineSpacing }
+        { kCTParagraphStyleSpecifierMinimumLineSpacing, sizeof(CGFloat), &lineSpacing },
+        { kCTParagraphStyleSpecifierParagraphSpacing, sizeof(CGFloat), &paragraphSpacing}
     };
     CTParagraphStyleRef theParagraphRef = CTParagraphStyleCreate(theSettings, kNumberOfSettings);
     UIColor * textColor = config.textColor;
