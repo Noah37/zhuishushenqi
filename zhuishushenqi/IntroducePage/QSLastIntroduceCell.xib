@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,7 +25,7 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ksR-sH-TZO">
-                        <rect key="frame" x="25" y="365" width="270" height="42"/>
+                        <rect key="frame" x="34" y="365" width="252" height="42"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="42" id="5dF-AF-Dgf"/>
                         </constraints>
@@ -36,7 +36,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cuv-ui-Mgh">
-                        <rect key="frame" x="25" y="298" width="270" height="42"/>
+                        <rect key="frame" x="34" y="298" width="252" height="42"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="42" id="X1A-V7-vvg"/>
                         </constraints>
@@ -51,13 +51,11 @@
                 <constraints>
                     <constraint firstItem="Cuv-ui-Mgh" firstAttribute="top" secondItem="3LJ-Nb-CFo" secondAttribute="bottom" constant="46" id="0TF-hf-EZ8"/>
                     <constraint firstItem="3LJ-Nb-CFo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DVX-Vw-HZV"/>
-                    <constraint firstItem="Cuv-ui-Mgh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="E6u-sW-G1r"/>
-                    <constraint firstItem="ksR-sH-TZO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="IfW-dq-bXc"/>
                     <constraint firstAttribute="trailing" secondItem="3LJ-Nb-CFo" secondAttribute="trailing" id="JXz-ef-wiK"/>
-                    <constraint firstAttribute="trailing" secondItem="ksR-sH-TZO" secondAttribute="trailing" constant="25" id="TMt-db-adB"/>
+                    <constraint firstItem="ksR-sH-TZO" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="RMe-sU-zlF"/>
                     <constraint firstItem="ksR-sH-TZO" firstAttribute="top" secondItem="Cuv-ui-Mgh" secondAttribute="bottom" constant="25" id="VF4-Q4-GoW"/>
                     <constraint firstItem="3LJ-Nb-CFo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lqk-hD-STO"/>
-                    <constraint firstAttribute="trailing" secondItem="Cuv-ui-Mgh" secondAttribute="trailing" constant="25" id="yha-DC-O6Q"/>
+                    <constraint firstItem="Cuv-ui-Mgh" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="t6g-8u-hF9"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

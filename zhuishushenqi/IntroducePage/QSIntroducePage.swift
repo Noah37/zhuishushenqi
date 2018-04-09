@@ -136,6 +136,9 @@ class QSHorizonalTableViewController: UITableViewController {
         self.tableView.qs_registerCellNib(QSLastIntroduceCell.self)
         self.tableView.qs_registerCellNib(QSIntroduceReadCell.self)
         self.automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11,*) {
+            self.tableView.contentInsetAdjustmentBehavior = .never
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

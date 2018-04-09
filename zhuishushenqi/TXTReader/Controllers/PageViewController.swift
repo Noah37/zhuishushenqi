@@ -91,6 +91,12 @@ class PageViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(getTime(time:)), userInfo: nil, repeats: true)
     }
     
+    func qs_removeObserver() -> Void {
+        // 无法释放，将时间与电量的监控放到textreaderVC中，这样pageVC就可以释放了
+         timer.invalidate()
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil)
+    }
+    
     @objc func getTime(time:Timer){
         self.timeLabel.text = self.getCurrentTime()
     }

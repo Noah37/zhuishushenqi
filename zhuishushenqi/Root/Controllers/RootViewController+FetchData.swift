@@ -12,23 +12,25 @@ import QSNetwork
 extension RootViewController{
     
     func requetShelfMsg(){
-        self.bookShelfLB.text = USER_DEFAULTS.object(forKey: PostLink) as? String ?? ""
-        let shelfApi = QSAPI.shelfMSG()
-        QSNetwork.request(shelfApi.path, method: HTTPMethodType.get, parameters: shelfApi.parameters, headers: nil) { (response) in
-            if let json = response.json {
-                let message = json["message"] as? NSDictionary
-                if let msg = message{
-                    let postLink = msg.object(forKey: "postLink") as? String
-                    if let highlight = msg.object(forKey: "highlight") as? Bool {
-                        if highlight {
-                            self.bookShelfLB.textColor = UIColor.red
-                        } else {
-                            self.bookShelfLB.textColor = UIColor.gray
+        autoreleasepool {
+            self.bookShelfLB.text = USER_DEFAULTS.object(forKey: PostLink) as? String ?? ""
+            let shelfApi = QSAPI.shelfMSG()
+            QSNetwork.request(shelfApi.path, method: HTTPMethodType.get, parameters: shelfApi.parameters, headers: nil) { (response) in
+                if let json = response.json {
+                    let message = json["message"] as? NSDictionary
+                    if let msg = message{
+                        let postLink = msg.object(forKey: "postLink") as? String
+                        if let highlight = msg.object(forKey: "highlight") as? Bool {
+                            if highlight {
+                                self.bookShelfLB.textColor = UIColor.red
+                            } else {
+                                self.bookShelfLB.textColor = UIColor.gray
+                            }
                         }
+                        let post = self.getPost(postLink)
+                        USER_DEFAULTS.set(post.1, forKey: PostLink)
+                        self.bookShelfLB.attributedText = NSAttributedString(string: "\(post.1)")
                     }
-                    let post = self.getPost(postLink)
-                    USER_DEFAULTS.set(post.1, forKey: PostLink)
-                    self.bookShelfLB.attributedText = NSAttributedString(string: "\(post.1)")
                 }
             }
         }

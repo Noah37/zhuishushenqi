@@ -42,7 +42,7 @@ class QSLastIntroduceCell: UITableViewCell {
         // Initialization code
 //        QSLog(noAccount.frame)
 //        (102.0, 451.0, 118.0, 30.0)
-        noAccount = UIButton(frame: CGRect(x: 102, y: self.qqLoginBtn.frame.maxY + 44, width: 118, height: 30))
+        noAccount = UIButton(frame: CGRect(x: self.bounds.size.width/2 - 118/2, y: self.qqLoginBtn.frame.maxY + 44, width: 118, height: 30))
         
         let dict = [NSAttributedStringKey.underlineStyle:1,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15)] as [NSAttributedStringKey : Any]
         let attr = NSMutableAttributedString(string: "没有帐号怎么办?", attributes: dict)
@@ -57,6 +57,11 @@ class QSLastIntroduceCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        noAccount?.frame = CGRect(x: self.bounds.size.height/2 - 118/2, y: self.qqLoginBtn.frame.maxY + 44, width: 118, height: 30)
     }
 }
 

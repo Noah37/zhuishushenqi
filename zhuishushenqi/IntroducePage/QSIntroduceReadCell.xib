@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -38,9 +38,8 @@
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="s3q-Yh-qvl" secondAttribute="trailing" constant="40" id="FOV-Sq-2jh"/>
-                    <constraint firstAttribute="trailing" secondItem="PUE-Qi-MTY" secondAttribute="trailing" constant="34" id="Rrs-cs-gt1"/>
-                    <constraint firstItem="PUE-Qi-MTY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="34" id="YKC-O8-ZEJ"/>
                     <constraint firstItem="s3q-Yh-qvl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="68" id="cKu-XG-gGH"/>
+                    <constraint firstItem="PUE-Qi-MTY" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="mmg-Af-w6J"/>
                     <constraint firstAttribute="bottom" secondItem="PUE-Qi-MTY" secondAttribute="bottom" constant="69.5" id="ofH-Ue-MC3"/>
                     <constraint firstItem="s3q-Yh-qvl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="sCw-cx-giy"/>
                 </constraints>

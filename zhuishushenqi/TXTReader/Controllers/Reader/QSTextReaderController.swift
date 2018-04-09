@@ -279,6 +279,7 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]){
         QSLog("viewControllers:\(pendingViewControllers)")
         // viewControllers控制器可能会取消，因此这里要记住这个控制器，获取到数据后，刷新的是这个控制器
+        currentReaderVC.qs_removeObserver()
         currentReaderVC = pendingViewControllers.first as! PageViewController
     }
     
