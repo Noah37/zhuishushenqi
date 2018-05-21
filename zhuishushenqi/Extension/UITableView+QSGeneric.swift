@@ -10,6 +10,21 @@ import Foundation
 import UIKit
 
 extension UITableView{
+    
+    private struct AssociatedKey {
+        static var viewExtension = "viewExtension"
+    }
+    
+    var tableHander: ZSBaseTableViewManger {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKey.viewExtension) as! ZSBaseTableViewManger
+        }
+        set {
+            newValue.handleTableViewDatasourceAndDelegate(table: self)
+            objc_setAssociatedObject(self, &AssociatedKey.viewExtension, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
     func qs_registerCellNib<T:UITableViewCell>(_ aClass:T.Type){
         let name = String(describing: aClass)
         let nib = UINib(nibName: name, bundle: nil)
