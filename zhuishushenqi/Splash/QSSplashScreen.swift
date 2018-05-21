@@ -8,12 +8,15 @@
 
 import UIKit
 import QSNetwork
+import RxSwift
+import RxCocoa
 
 typealias SplashCallback = ()->Void
 
 class QSSplashScreen: NSObject {
     
     var splashInfo:NSDictionary?
+    var subject:PublishSubject<Any>!
     private var splashRootVC:QSSplashViewController?
     private var remainDelay:Int = 3
     private var shouldHidden:Bool = true
@@ -25,12 +28,15 @@ class QSSplashScreen: NSObject {
     
     func show(completion:@escaping SplashCallback){
         self.completion = completion
+        let subject = PublishSubject<Any>()
+        self.subject = subject
         detachRootViewController()
         let splashWindoww = UIWindow(frame: UIScreen.main.bounds)
         splashWindoww.backgroundColor = UIColor.black
         splashRootVC = QSSplashViewController()
         splashRootVC?.finishCallback = {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.showSplash), object: nil)
+            self.subject.onNext(true)
             self.hide()
         }
         splashRootVC?.view.backgroundColor = UIColor.clear

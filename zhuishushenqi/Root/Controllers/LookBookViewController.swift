@@ -10,7 +10,7 @@ import UIKit
 import QSNetwork
 
 class LookBookViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate,QSSegmentDropViewDelegate {
-    
+
     var models:[BookComment] = []
     var selectIndexs:[Int] = []
     lazy var tableView:UITableView = {
@@ -28,6 +28,10 @@ class LookBookViewController: BaseViewController,UITableViewDataSource,UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         initSubview()
+    }
+    
+    func qs_equal<T:Equatable>(x:T,y:T)->Bool{
+        return x == y
     }
     
     func initSubview(){

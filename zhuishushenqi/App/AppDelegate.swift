@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 let rightScaleX:CGFloat = 0.2
 
@@ -45,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         
         let splash = QSSplashScreen()
+        let disposeBag = DisposeBag()
         splash.show {
             // 新版本特性
             let firstRun = USER_DEFAULTS.object(forKey: "FIRSTRUN") as? Bool
@@ -60,6 +63,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 mainWindow?.makeKeyAndVisible()
             }
         }
+        splash.subject.subscribe { (event) in
+            QSLog("显示完成:\(event)")
+        }.disposed(by: disposeBag)
         
         QSLog(String.localized_login)
         return true

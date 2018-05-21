@@ -7,6 +7,14 @@ PODS:
   - ObjectMapper (3.1.0)
   - PullToRefresh (0.0.1)
   - QSNetwork (0.0.1)
+  - ReactiveCocoa (7.2.0):
+    - ReactiveSwift (~> 3.1)
+  - ReactiveSwift (3.1.0):
+    - Result (~> 3.2)
+  - Result (3.2.4)
+  - RxCocoa (4.1.2):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.1.2)
   - SnapKit (4.0.0)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
@@ -19,8 +27,27 @@ DEPENDENCIES:
   - ObjectMapper (= 3.1.0)
   - PullToRefresh (= 0.0.1)
   - QSNetwork (~> 0.0.1)
+  - ReactiveCocoa (~> 7.0)
+  - RxCocoa (~> 4.0)
+  - RxSwift (~> 4.0)
   - SnapKit (= 4.0.0)
   - YYKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FMDB
+    - Kingfisher
+    - MBProgressHUD
+    - ObjectMapper
+    - PullToRefresh
+    - QSNetwork
+    - ReactiveCocoa
+    - ReactiveSwift
+    - Result
+    - RxCocoa
+    - RxSwift
+    - SnapKit
+    - YYKit
 
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
@@ -29,9 +56,14 @@ SPEC CHECKSUMS:
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   QSNetwork: 4d357f4dd7df262892fc2b0b6900f2c0e99f5237
+  ReactiveCocoa: 476dae7ca790f40d30d186a1bd7ebae4290395d5
+  ReactiveSwift: 5b26d2e988fe0eed2daf48c4054d1de74db50184
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
+  RxSwift: e49536837d9901277638493ea537394d4b55f570
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 67af278bb3be076ff6734593ca6e399e501a9939
+PODFILE CHECKSUM: 60d1be211e6d57df46abac0d2b2796220de3535a
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.5.2

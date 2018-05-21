@@ -1,0 +1,15 @@
+PODS:
+  - ObjectMapper (3.1.0)
+  - QSNetwork (0.0.3)
+
+DEPENDENCIES:
+  - ObjectMapper
+  - QSNetwork
+
+SPEC CHECKSUMS:
+  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
+  QSNetwork: a5b174e074386cdf8a3c1d604cbe55b4cbc0d731
+
+PODFILE CHECKSUM: b1a321112dca4d9d896149ec407fc09e27c8cbe8
+
+COCOAPODS: 1.2.0

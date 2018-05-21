@@ -40,14 +40,14 @@ class PageViewController: UIViewController {
         batteryView.batteryLevel = CGFloat(UIDevice.current.batteryLevel)
         return batteryView
     }()
-    lazy var timeLabel:UILabel = {
+    var timeLabel:UILabel {
         let timeLabel = UILabel()
         timeLabel.font = UIFont.systemFont(ofSize: 11)
         timeLabel.textAlignment = .center
         timeLabel.frame  = CGRect(x:self.view.bounds.width - 40 - 15 , y: self.view.bounds.height - 30, width: 40, height: 30)
         timeLabel.text = getCurrentTime()
         return timeLabel
-    }()
+    }
     var timer:Timer!
     
     override func viewDidLoad() {
@@ -89,6 +89,7 @@ class PageViewController: UIViewController {
     
         // Fallback on earlier versions
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(getTime(time:)), userInfo: nil, repeats: true)
+        
     }
     
     func qs_removeObserver() -> Void {
@@ -101,7 +102,7 @@ class PageViewController: UIViewController {
         self.timeLabel.text = self.getCurrentTime()
     }
     
-    func getCurrentTime()->String{
+    @objc func getCurrentTime()->String{
         let calendar = NSCalendar.current as NSCalendar
         let components = calendar.components([NSCalendar.Unit.hour,NSCalendar.Unit.minute], from: Date())
         let hour = components.hour
