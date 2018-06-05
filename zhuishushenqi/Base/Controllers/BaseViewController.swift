@@ -16,6 +16,7 @@ class BaseViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         navigationController?.navigationBar.tintColor = UIColor.red
         navigationController?.navigationBar.barTintColor = UIColor.white
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {

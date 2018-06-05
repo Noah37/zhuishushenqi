@@ -33,15 +33,15 @@ class CategoryTableViewCell: UITableViewCell {
     }
     
     func bind(model:QSChapter,index:Int){
-        if model.content == "" {
-            downloadBtn.isHidden = false
-        }else{
-            downloadBtn.isHidden = true
-        }
-        if model.curChapter == index {
-            tittle.textColor = UIColor.red
-        }
-        count.text = "\(model.curChapter)"
+//        if model.content == "" {
+//            downloadBtn.isHidden = false
+//        }else{
+//            downloadBtn.isHidden = true
+//        }
+//        if model.curChapter == index {
+//            tittle.textColor = UIColor.red
+//        }
+//        count.text = "\(model.curChapter)"
     }
     
     override func prepareForReuse() {

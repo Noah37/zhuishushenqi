@@ -21,7 +21,7 @@ public extension UITableViewCell {
      - parameter identifier: identifier description
      */
     class func registerTable(table: UITableView, nibIdentifier identifier: String) {
-        return table.registerNib(self.nibWithIdentifier(identifier), forCellReuseIdentifier: identifier)
+        return table.register(self.nibWithIdentifier(identifier: identifier), forCellReuseIdentifier: identifier)
     }
     
     /**

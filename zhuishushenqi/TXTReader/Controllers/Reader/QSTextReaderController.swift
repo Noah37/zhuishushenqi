@@ -355,7 +355,10 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     }
     
     func catagoryClicked(){
+        // 更新下book的page与chapter字段
         if let book = self.bookDetail {
+            book.chapter = self.currentChapter
+            book.page = self.currentPage
             self.toolBar.hideWithAnimations(animation: true)
             presenter?.didClickCategory(book:book)
         }
@@ -464,8 +467,8 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         currentChapter = index
         currentPage = 0
         let pageVC = getNextPage(chapter: currentChapter, page: currentPage)
-        let page = getPage(chapter: currentChapter, page: currentPage)
-        pageVC.page = page
+//        let page = getPage(chapter: currentChapter, page: currentPage)
+//        pageVC.page = page
         currentReaderVC = pageVC
         
         let backgroundVC = QSReaderBackgroundViewController()

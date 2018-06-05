@@ -22,7 +22,7 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
     var titles:[String] = []
     var selectedIndex = 0
     lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x:0,y:64,width:self.view.bounds.width,height:self.view.bounds.height - 64), style: .grouped)
+        let tableView = UITableView(frame: CGRect(x:0,y:0,width:0,height:0), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .singleLineEtched
@@ -37,11 +37,17 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
         view.addSubview(self.tableView)
         let leftItem = UIBarButtonItem(image: UIImage(named: "bg_back_white"), style: .plain, target: self, action: #selector(dismiss(sender:)))
         navigationItem.leftBarButtonItem = leftItem
+        self.title = bookDetail?.title
         presenter?.viewDidLoad()
+        
+        if #available(iOS 11.0, *) {
+            self.tableView.contentInsetAdjustmentBehavior = .never
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tableView.frame = CGRect(x: 0, y: 64, width: self.view.bounds.width, height: self.view.bounds.height - 64)
         let indexPATH = IndexPath(row: selectedIndex, section: 0)
         if titles.count > indexPATH.row {
             self.tableView.scrollToRow(at: indexPATH , at: .middle, animated: false)
@@ -76,14 +82,29 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
         cell.cellDelegate = self
         if titles.count > indexPath.row {
             cell.tittle.text = titles[indexPath.row]
-        }
-        if (bookDetail?.book.chapters.count)! > indexPath.row{
-            let chapter = bookDetail?.book.chapters[indexPath.row]
-            if let model = chapter {
-                cell.bind(model: model,index:selectedIndex)
+            cell.count.text = "\(indexPath.row)"
+            if (bookDetail?.chapter == indexPath.row) {
+                cell.tittle.textColor = UIColor.red
+            } else {
+                cell.tittle.textColor = UIColor.black
             }
         }
+        // model 此时不存在,无法获取到,下载时需要的model信息可以发通知,由阅读器类来下载
+//        if (bookDetail?.book.chapters.count)! > indexPath.row{
+//            let chapter = bookDetail?.book.chapters[indexPath.row]
+//            if let model = chapter {
+//                cell.bind(model: model,index:selectedIndex)
+//            }
+//        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.01
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -100,7 +121,7 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
+        return .`default`
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation{
