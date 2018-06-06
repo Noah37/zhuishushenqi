@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
+import Then
 
 protocol SegMenuDelegate {
     func didSelectAtIndex(_ index:Int)
@@ -16,10 +19,15 @@ class SegMenu: UIView {
     
     var menuDelegate:SegMenuDelegate?
     var titles:[String] = []
+    var selectedIndex = 0
     private let lineTag = 1111
-    private let bottomViewTag = 1212
-    private let bottomLineTag = 1313
     private let btnBaseTag = 1414
+    private var lastSelectedBtn:UIButton!
+    private let disposeBag = DisposeBag()
+    private let bottomLine = UILabel().then {
+        $0.frame = CGRect.zero
+        $0.backgroundColor = UIColor.gray
+    }
 
     init(frame:CGRect, WithTitles _titles:[String]){
         super.init(frame: frame)
@@ -49,11 +57,7 @@ class SegMenu: UIView {
                 })
             }
         }
-        let bottomView = self.viewWithTag(bottomViewTag)
-        bottomView?.frame = CGRect(x: 0,y: frame.size.height - 2,width: width,height: 2)
-        
-        let bottomLine = self.viewWithTag(bottomLineTag)
-        bottomLine?.snp.makeConstraints({ (make) in
+        bottomLine.snp.makeConstraints({ (make) in
             make.left.right.equalTo(self)
             make.top.equalTo(height - 0.5)
             make.height.equalTo(0.5)
@@ -63,45 +67,57 @@ class SegMenu: UIView {
     fileprivate func initSubview(_ frame:CGRect,titles:[String]){
         var index:Int = 0
         for title in titles {
-            let btn = UIButton(type: .custom)
-            btn.setTitle(title, for: UIControlState())
-            btn.setTitleColor(UIColor.gray, for: UIControlState())
-            btn.tag = index + btnBaseTag
-            btn.frame = CGRect.zero
-            btn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-            btn.addTarget(self, action: #selector(self.segAction(_:)), for: .touchUpInside)
+            let btn = create(title,index + btnBaseTag)
+            btn.rx.tap.subscribe(onNext: {
+                self.segAction(btn)
+            }).disposed(by: disposeBag)
             addSubview(btn)
+            
             if index > 0 && index <= titles.count - 1 {
-                let line = UILabel(frame: CGRect.zero)
-                line.tag = lineTag + index
-                line.backgroundColor = UIColor.gray
-                line.alpha = 0.6
+                let line = create(lineTag + index)
                 addSubview(line)
+            }
+            if (index == 0) {
+                lastSelectedBtn = btn
+                lastSelectedBtn.isSelected = true
+                lastSelectedBtn.isUserInteractionEnabled = !(lastSelectedBtn.isSelected)
             }
             index += 1
         }
-        let bottomView = UIView(frame: CGRect.zero)
-        bottomView.tag = bottomViewTag
-        bottomView.backgroundColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-        let bottomLine = UILabel(frame: CGRect.zero)
-        bottomLine.backgroundColor = UIColor.gray
-        bottomLine.tag = bottomLineTag
         addSubview(bottomLine)
-        
-        addSubview(bottomView)
-        
         backgroundColor = UIColor.white
     }
     
     @objc fileprivate func segAction(_ btn:UIButton){
-        self.select(at: btn.tag)
+        lastSelectedBtn.isSelected = false
+        lastSelectedBtn.isUserInteractionEnabled = !(lastSelectedBtn.isSelected)
+        btn.isSelected = !btn.isSelected
+        btn.isUserInteractionEnabled = false
+        lastSelectedBtn = btn
+        selectedIndex = btn.tag - btnBaseTag
+        menuDelegate?.didSelectAtIndex(selectedIndex)
     }
     
-    func select(at index:Int){
-        let selectedIndex = index - btnBaseTag
-        let bottomView = self.viewWithTag(bottomViewTag)
-        bottomView?.center = CGPoint(x: frame.size.width/CGFloat(titles.count)/2*CGFloat(selectedIndex*2 + 1), y: frame.size.height - 1)
-        menuDelegate?.didSelectAtIndex(selectedIndex)
+    private func create(_ title:String,_ tag:Int) ->UIButton{
+        let btn = UIButton(type: .custom).then {
+            $0.setTitle(title, for: .normal)
+            $0.setTitleColor(UIColor.gray, for: .normal)
+            $0.setBackgroundImage(UIImage(named: "new_nav_normal"), for: .normal)
+            $0.setBackgroundImage(UIImage(named: "new_nav_selected"), for: .selected)
+            $0.adjustsImageWhenHighlighted = false
+            $0.frame = CGRect.zero
+            $0.tag = tag
+            $0.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        }
+        return btn
+    }
+    
+    private func create(_ tag:Int) -> UILabel {
+        let line = UILabel(frame: CGRect.zero)
+        line.tag = tag
+        line.backgroundColor = UIColor.gray
+        line.alpha = 0.6
+        return line
     }
     
     required init?(coder aDecoder: NSCoder) {

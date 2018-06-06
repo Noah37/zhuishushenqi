@@ -1,4 +1,6 @@
 PODS:
+  - Alamofire (4.7.2)
+  - Differentiator (3.0.2)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
@@ -12,10 +14,27 @@ PODS:
   - ReactiveSwift (3.1.0):
     - Result (~> 3.2)
   - Result (3.2.4)
+  - RxAlamofire (4.2.0):
+    - RxAlamofire/Core (= 4.2.0)
+  - RxAlamofire/Core (4.2.0):
+    - Alamofire (~> 4.5)
+    - RxSwift (~> 4)
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
+  - RxDataSources (3.0.2):
+    - Differentiator (~> 3.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
+  - RxGesture (1.2.1):
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
+  - RxSwiftExt (3.2.0):
+    - RxSwiftExt/Core (= 3.2.0)
+  - RxSwiftExt/Core (3.2.0):
+    - RxSwift (~> 4.0)
   - SnapKit (4.0.0)
+  - Then (2.3.0)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -28,13 +47,20 @@ DEPENDENCIES:
   - PullToRefresh (= 0.0.1)
   - QSNetwork (~> 0.0.1)
   - ReactiveCocoa (~> 7.0)
-  - RxCocoa (~> 4.0)
-  - RxSwift (~> 4.0)
+  - RxAlamofire
+  - RxCocoa
+  - RxDataSources
+  - RxGesture
+  - RxSwift
+  - RxSwiftExt
   - SnapKit (= 4.0.0)
+  - Then
   - YYKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Differentiator
     - FMDB
     - Kingfisher
     - MBProgressHUD
@@ -44,12 +70,19 @@ SPEC REPOS:
     - ReactiveCocoa
     - ReactiveSwift
     - Result
+    - RxAlamofire
     - RxCocoa
+    - RxDataSources
+    - RxGesture
     - RxSwift
+    - RxSwiftExt
     - SnapKit
+    - Then
     - YYKit
 
 SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -59,11 +92,16 @@ SPEC CHECKSUMS:
   ReactiveCocoa: 476dae7ca790f40d30d186a1bd7ebae4290395d5
   ReactiveSwift: 5b26d2e988fe0eed2daf48c4054d1de74db50184
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  RxAlamofire: 87a9c588541210cc3e4a1f843ccc3ecf3eb98b31
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
+  RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
+  RxGesture: c278eb05b187abd47e11e65464ae4de53ab71d95
   RxSwift: e49536837d9901277638493ea537394d4b55f570
+  RxSwiftExt: 64b7140124629a6a084159735f3714f0fb1c61d6
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 60d1be211e6d57df46abac0d2b2796220de3535a
+PODFILE CHECKSUM: 471f287edf930408f6e835d96d453533557ccd0d
 
 COCOAPODS: 1.5.2
