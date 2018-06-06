@@ -7,21 +7,20 @@
 //
 
 import UIKit
+import Then
 
 class ZSRootViewController: UIViewController {
+    
+    static let kCellHeight:CGFloat = 60
 
-    var tableView:UITableView!
-    fileprivate let kCellHeight:CGFloat = 60
+    var tableView = UITableView(frame: CGRect.zero, style: .grouped).then {
+        $0.estimatedRowHeight = kCellHeight
+        $0.rowHeight = UITableViewAutomaticDimension
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
         
-    }
-    
-    private func configureTableView() {
-        tableView.estimatedRowHeight = kCellHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     private func bindViewModel() {

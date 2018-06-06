@@ -34,6 +34,7 @@ PODS:
   - RxSwiftExt/Core (3.2.0):
     - RxSwift (~> 4.0)
   - SnapKit (4.0.0)
+  - Then (2.3.0)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -53,6 +54,7 @@ DEPENDENCIES:
   - RxSwift
   - RxSwiftExt
   - SnapKit (= 4.0.0)
+  - Then
   - YYKit
 
 SPEC REPOS:
@@ -75,6 +77,7 @@ SPEC REPOS:
     - RxSwift
     - RxSwiftExt
     - SnapKit
+    - Then
     - YYKit
 
 SPEC CHECKSUMS:
@@ -96,8 +99,9 @@ SPEC CHECKSUMS:
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   RxSwiftExt: 64b7140124629a6a084159735f3714f0fb1c61d6
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 39ea6e5e99511b1843afc8b2d674b8817dee4787
+PODFILE CHECKSUM: 471f287edf930408f6e835d96d453533557ccd0d
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.2
