@@ -19,6 +19,8 @@
 
 **20180403: 本次功能变更：阅读器内存优化，内存保持稳定**
 
+**20180606: 本次功能变更: Swift语言更新至4.0**
+
 ----
 
 **仅供学习交流，请勿用于商业用途**
@@ -26,10 +28,10 @@
 ## Requirements
 
 - iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 8.1+
-- Swift 3.0+
+- Xcode 9.1+
+- Swift 4.0+
 
-Main development of TXTReader olny support Swift 3.0+.
+Main development of zhuishushenqi olny support Swift 4.0+.
 
 ###Here you can see blow.
 
