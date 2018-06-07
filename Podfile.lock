@@ -6,6 +6,7 @@ PODS:
   - FMDB/standard (2.6.2)
   - Kingfisher (4.6.1)
   - MBProgressHUD (1.0.0)
+  - MJRefresh (3.1.15.3)
   - ObjectMapper (3.1.0)
   - PullToRefresh (0.0.1)
   - QSNetwork (0.0.1)
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - FMDB
   - Kingfisher (= 4.6.1)
   - MBProgressHUD
+  - MJRefresh
   - ObjectMapper (= 3.1.0)
   - PullToRefresh (= 0.0.1)
   - QSNetwork (~> 0.0.1)
@@ -64,6 +66,7 @@ SPEC REPOS:
     - FMDB
     - Kingfisher
     - MBProgressHUD
+    - MJRefresh
     - ObjectMapper
     - PullToRefresh
     - QSNetwork
@@ -86,6 +89,7 @@ SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   QSNetwork: 4d357f4dd7df262892fc2b0b6900f2c0e99f5237
@@ -102,6 +106,6 @@ SPEC CHECKSUMS:
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 471f287edf930408f6e835d96d453533557ccd0d
+PODFILE CHECKSUM: 4116d24268a0ff6df7d468115ebed9a66d120f77
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3

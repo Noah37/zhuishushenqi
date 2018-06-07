@@ -26,6 +26,7 @@ pod 'RxAlamofire'
 pod 'RxSwiftExt'
 pod 'ReactiveCocoa', '~> 7.0'
 pod 'Then'
+pod 'MJRefresh'
 
 #pod 'Realm', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true
 #pod 'RealmSwift', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true

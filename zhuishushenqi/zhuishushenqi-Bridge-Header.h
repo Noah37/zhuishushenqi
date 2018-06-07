@@ -18,5 +18,6 @@
 #import "YTKKeyValueStore.h"
 #import "UIScrollView+StateView.h"
 #import "CTDisplayText.h"
+#import <MJRefresh/MJRefresh.h>
 
 #endif /* zhuishushenqi_Bridge_Header_h */

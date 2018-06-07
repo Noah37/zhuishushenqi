@@ -25,6 +25,18 @@ enum SwipeCellState {
 }
 
 class SwipableCell: UITableViewCell {
+    
+    class var reuseIdentifier: String {
+        get {
+            return "SwipableCell"
+        }
+    }
+    
+    class var nib:UINib {
+        get {
+            return UINib(nibName: "SwipableCell", bundle: Bundle.main)
+        }
+    }
 
     var delegate:SwipableCellDelegate?
     var model:BookDetail?

@@ -264,6 +264,7 @@ extension RootViewController:UITableViewDataSource,UITableViewDelegate{
 extension RootViewController:ComnunityDelegate{
     //MARK: - CommunityDelegate
     func didSelectCellAtIndex(_ index:Int){
+        
         if index == 3{
             let lookVC = LookBookViewController()
             SideVC.navigationController?.pushViewController(lookVC, animated: true)
@@ -272,7 +273,11 @@ extension RootViewController:ComnunityDelegate{
         if index == 5 {
             let historyVC = ReadHistoryViewController()
             SideVC.navigationController?.pushViewController(historyVC, animated: true)
-        }else{
+        } else if (index == 1) {
+            let rootVC = ZSRootViewController()
+            SideVC.navigationController?.pushViewController(rootVC, animated: true)
+        }
+        else{
             let dynamicVC = DynamicViewController()
             SideVC.navigationController?.pushViewController(dynamicVC, animated: true)
         }

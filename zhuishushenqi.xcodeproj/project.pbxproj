@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D5280DD20C8D21B00252D67 /* ZSBookShelvesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */; };
+		3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */; };
 		3D9325E120B2BCFB0049CDBF /* ZSRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */; };
 		3D9325E620B2C44A0049CDBF /* ZSBaseTableViewManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9325E520B2C44A0049CDBF /* ZSBaseTableViewManger.swift */; };
 		3D9325E820B2C66A0049CDBF /* UITableViewCell+ZSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9325E720B2C66A0049CDBF /* UITableViewCell+ZSExtension.swift */; };
 		3D9325EC20B2C9120049CDBF /* ZSHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9325EB20B2C9120049CDBF /* ZSHomeViewModel.swift */; };
 		3D9325EE20B2E07F0049CDBF /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9325ED20B2E07F0049CDBF /* Value.swift */; };
-		3D9325F020B2EB150049CDBF /* ZSHomeViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9325EF20B2EB150049CDBF /* ZSHomeViewManager.swift */; };
+		3DE77D2620C8E99500A86DF0 /* ZSBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */; };
+		3DE77D2A20C90EA300A86DF0 /* ZSRootWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */; };
+		3DE77D2C20C9143C00A86DF0 /* ZSRootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2B20C9143C00A86DF0 /* ZSRootViewModel.swift */; };
 		48103378801B43EB177B7D8A /* Pods_zhuishushenqi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D606ED88FDF674D404EC160E /* Pods_zhuishushenqi.framework */; };
 		B200D1FF1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200D1FD1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift */; };
 		B200D2001EEDB1FE003A42E3 /* QSIntroduceReadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B200D1FE1EEDB1FE003A42E3 /* QSIntroduceReadCell.xib */; };
@@ -347,12 +351,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookShelvesViewController.swift; sourceTree = "<group>"; };
+		3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumViewController.swift; sourceTree = "<group>"; };
 		3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootViewController.swift; sourceTree = "<group>"; };
 		3D9325E520B2C44A0049CDBF /* ZSBaseTableViewManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseTableViewManger.swift; sourceTree = "<group>"; };
 		3D9325E720B2C66A0049CDBF /* UITableViewCell+ZSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ZSExtension.swift"; sourceTree = "<group>"; };
 		3D9325EB20B2C9120049CDBF /* ZSHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHomeViewModel.swift; sourceTree = "<group>"; };
 		3D9325ED20B2E07F0049CDBF /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
-		3D9325EF20B2EB150049CDBF /* ZSHomeViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHomeViewManager.swift; sourceTree = "<group>"; };
+		3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseTableViewController.swift; sourceTree = "<group>"; };
+		3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootWebService.swift; sourceTree = "<group>"; };
+		3DE77D2B20C9143C00A86DF0 /* ZSRootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootViewModel.swift; sourceTree = "<group>"; };
 		B08901F972525F29A370AA86 /* Pods-zhuishushenqi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zhuishushenqi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi.debug.xcconfig"; sourceTree = "<group>"; };
 		B200D1FD1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroduceReadCell.swift; sourceTree = "<group>"; };
 		B200D1FE1EEDB1FE003A42E3 /* QSIntroduceReadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSIntroduceReadCell.xib; sourceTree = "<group>"; };
@@ -722,20 +730,21 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		3D9325E920B2C8C50049CDBF /* ViewManager */ = {
-			isa = PBXGroup;
-			children = (
-				3D9325EF20B2EB150049CDBF /* ZSHomeViewManager.swift */,
-			);
-			path = ViewManager;
-			sourceTree = "<group>";
-		};
 		3D9325EA20B2C8C50049CDBF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				3D9325EB20B2C9120049CDBF /* ZSHomeViewModel.swift */,
+				3DE77D2B20C9143C00A86DF0 /* ZSRootViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3DE77D2820C90E8900A86DF0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		96FE9B86D6BF6F1F079B71F4 /* Frameworks */ = {
@@ -1023,6 +1032,7 @@
 			children = (
 				B2B4B9FB1E7EA4A8000CC201 /* BaseViewController.swift */,
 				B2B4B9FC1E7EA4A8000CC201 /* SideViewController.swift */,
+				3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1281,7 +1291,7 @@
 		B2B4BA571E7EA4A8000CC201 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				3D9325E920B2C8C50049CDBF /* ViewManager */,
+				3DE77D2820C90E8900A86DF0 /* Service */,
 				3D9325EA20B2C8C50049CDBF /* ViewModel */,
 				B2B4BA581E7EA4A8000CC201 /* Controllers */,
 				B2B4BA5E1E7EA4A8000CC201 /* Models */,
@@ -1300,6 +1310,8 @@
 				B2B4BA5B1E7EA4A8000CC201 /* RightViewController.swift */,
 				B2B4BA5D1E7EA4A8000CC201 /* RootViewController.swift */,
 				3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */,
+				3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */,
+				3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */,
 				B2B4BA5C1E7EA4A8000CC201 /* RootViewController+FetchData.swift */,
 				B2B4BD761E7ECEE0000CC201 /* RootViewController+Subviews.swift */,
 			);
@@ -1717,6 +1729,7 @@
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PullToRefresh/PullToRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/QSNetwork/QSNetwork.framework",
@@ -1740,6 +1753,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PullToRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QSNetwork.framework",
@@ -1817,6 +1831,7 @@
 				B22AC45B1E9F6774008625E6 /* QSRankDetailInteractor.swift in Sources */,
 				B286F01A202981DD0069565B /* NSObject+Extension.swift in Sources */,
 				B22A8D551EADE0E900C7E978 /* QSBookCommentInteractor.swift in Sources */,
+				3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */,
 				B258BB041EA44C52006E5802 /* QSCategoryInteractor.swift in Sources */,
 				B2B02E2B1EA8505200A6880A /* QSTopicDetailInteractor.swift in Sources */,
 				B2D8689720050C2900B9AF01 /* CoreTextImageData.m in Sources */,
@@ -1832,9 +1847,11 @@
 				B22A8D3E1EAD949C00C7E978 /* QSCommunityProtocols.swift in Sources */,
 				B2FCAA8D1E9C85600064837C /* QSHistoryHeaderView.swift in Sources */,
 				B27D7E861F4BE04300866341 /* UICollectionView+QSExtension.swift in Sources */,
+				3DE77D2620C8E99500A86DF0 /* ZSBaseTableViewController.swift in Sources */,
 				B258BAFF1EA44C02006E5802 /* CategoryController.swift in Sources */,
 				B286F0292029C3530069565B /* QSReaderParse.swift in Sources */,
 				B258BAFC1EA44BD0006E5802 /* QSTextRouter.swift in Sources */,
+				3DE77D2A20C90EA300A86DF0 /* ZSRootWebService.swift in Sources */,
 				B203BB681E9E142C00F9C052 /* QSHistoryCell.swift in Sources */,
 				B2B4BBF41E7EA4AB000CC201 /* DateIntervalFormatter+formatter.swift in Sources */,
 				B278AB081F398926000A0D55 /* NSMutableAttributedString+M80.m in Sources */,
@@ -1862,6 +1879,7 @@
 				B278AA8C1F395F30000A0D55 /* LookBookViewController.swift in Sources */,
 				B2B4BC431E7EA4AB000CC201 /* BookDetailHeader.swift in Sources */,
 				B2B4BC261E7EA4AB000CC201 /* RootViewController.swift in Sources */,
+				3DE77D2C20C9143C00A86DF0 /* ZSRootViewModel.swift in Sources */,
 				B2580E231E9B284900455AFE /* QSHotwords.swift in Sources */,
 				B2B02E461EA8920F00A6880A /* QSCategoryDetailProtocols.swift in Sources */,
 				B2B02E5D1EA9E4A300A6880A /* QSRecommendCell.swift in Sources */,
@@ -1903,7 +1921,6 @@
 				B22269D81EA0C70A008FD314 /* QSPage.swift in Sources */,
 				B2B4BC2D1E7EA4AB000CC201 /* CategoryViewController.swift in Sources */,
 				B29B4F9B1E8218ED008852E3 /* BookDetailViewController.swift in Sources */,
-				3D9325F020B2EB150049CDBF /* ZSHomeViewManager.swift in Sources */,
 				B2B4BC0F1E7EA4AB000CC201 /* RankingViewCell.swift in Sources */,
 				B22AC45F1E9F6799008625E6 /* QSRankDetailRouter.swift in Sources */,
 				B20D46DE1E9FBABD00EC466A /* QSBookDetailInteractor.swift in Sources */,
@@ -2027,6 +2044,7 @@
 				B2B4BC3E1E7EA4AB000CC201 /* BookCommentCell.swift in Sources */,
 				B22AC4551E9F1E8F008625E6 /* QSRankViewController.swift in Sources */,
 				B2D8689620050C2900B9AF01 /* CoreTextData.m in Sources */,
+				3D5280DD20C8D21B00252D67 /* ZSBookShelvesViewController.swift in Sources */,
 				B2580E1F1E9B236000455AFE /* QSSearchViewController.swift in Sources */,
 				B288D1D41E9FC86C0024F1A5 /* QSBookDetailTagsView.swift in Sources */,
 				B22A8D441EAD976000C7E978 /* QSDiscussCell.swift in Sources */,
