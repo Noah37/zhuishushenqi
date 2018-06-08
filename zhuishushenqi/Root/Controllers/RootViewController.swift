@@ -277,6 +277,10 @@ extension RootViewController:ComnunityDelegate{
             let rootVC = ZSRootViewController()
             SideVC.navigationController?.pushViewController(rootVC, animated: true)
         }
+//        else if (index == 2) {
+//            let rootVC = ZSForumViewController()
+//            SideVC.navigationController?.pushViewController(rootVC, animated: true)
+//        }
         else{
             let dynamicVC = DynamicViewController()
             SideVC.navigationController?.pushViewController(dynamicVC, animated: true)

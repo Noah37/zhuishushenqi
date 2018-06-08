@@ -28,4 +28,10 @@ extension Dictionary {
         let value = values[index] as? BookDetail
         return value
     }
+    
+    public func allKeys()->[String]{
+        let dict = self as NSDictionary
+        let allKeys = dict.allKeys as! [String]
+        return allKeys
+    }
 }

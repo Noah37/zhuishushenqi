@@ -16,23 +16,33 @@ import Foundation
 public class BookManager:NSObject {
     let bookshelfSaveKey = "bookshelfSaveKey"
     let readHistorySaveKey = "readHistorySaveKey"
+    
+    let zsbookshelvesSaveKey = "zsbookshelvesSaveKey"
+    let zshistorysavekey = "zshistorysavekey"
 
     var _diskQueue:DispatchQueue!
+    
     static let shared = BookManager()
+    
     private override init() {
         super.init()
-        let startTime = CFAbsoluteTimeGetCurrent()
         
-        //在这写入要计算时间的代码
-        booksID = bookshelf()
-        
-        books = [String:Any]()
-        for bookId in booksID {
-           let bookInfo = self.bookInfo(id: bookId)
-            books[bookId] = bookInfo
+        BookManager.calTime {
+            //在这写入要计算时间的代码
+            self.booksID = self.bookshelf()
+            
+            self.books = [String:Any]()
+            for bookId in self.booksID {
+                let bookInfo = self.bookInfo(id: bookId)
+                self.books[bookId] = bookInfo
+            }
         }
+    }
+    
+    static func calTime(_ action: @escaping () ->Void){
+        let startTime = CFAbsoluteTimeGetCurrent()
+        action()
         let linkTime = (CFAbsoluteTimeGetCurrent() - startTime)
-        
         QSLog("Linked in \(linkTime * 1000.0) ms")
     }
     
@@ -47,6 +57,23 @@ public class BookManager:NSObject {
             return true
         }
         return false
+    }
+    
+    // 更新bookdetail的信息,bookdetail的数组与updateinfo数组是一一对应的
+    func updateInfoUpdate(updateInfo:[UpdateInfo]){
+        if updateInfo.count != books.allKeys().count {
+            return
+        }
+        for index in 0..<books.allKeys().count {
+            let key = books.allKeys()[index]
+            if let bookDetail = books[key] as? BookDetail {
+                let updateObj = updateInfo[index]
+                if anyUpdate(bookInfo: bookDetail.updateInfo, updateInfo: updateObj) {
+                    bookDetail.isUpdated = true
+                    bookDetail.updateInfo = updateInfo[index]
+                }
+            }
+        }
     }
     
     //需要将对应的update信息赋给model

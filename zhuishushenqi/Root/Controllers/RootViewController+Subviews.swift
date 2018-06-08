@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 import SnapKit
 
-let kTootSegmentViewHeight = 40
+let kTootSegmentViewHeight:CGFloat = 40
 
 extension RootViewController{
     func setupSubviews(){
-        RootNavigationView.make(delegate: self)
+        RootNavigationView.make(delegate: self,leftAction: #selector(leftAction(_:)),rightAction: #selector(rightAction(_:)))
         self.automaticallyAdjustsScrollViewInsets = false
         self.setupSegMenu()
         self.setupBookSheldLB()

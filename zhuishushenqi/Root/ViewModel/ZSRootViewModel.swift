@@ -78,26 +78,52 @@ extension Refreshable where Self : UIScrollView {
 }
 
 
-final class ZSRootViewModel {
+final class ZSRootViewModel:NSObject,ZSRefreshProtocol {
     
 
-    struct ZSRootOut:ZSRefreshProtocol {
-        var refreshStatus: Variable<ZSRefreshStatus>
-    }
+    var refreshStatus: Variable<ZSRefreshStatus> = Variable(.none)
     
-    var books:[BookDetail] = []
+    @objc dynamic var books:[String:Any] = BookManager.shared.books
+    
+    // 保存所有书籍的id,books存在时,他就存在
+    var booksID:[String] = []
+    
+    @objc dynamic var shelfMessage:ZSShelfMessage?
     
     fileprivate let shelvesWebService = ZSRootWebService()
 
     fileprivate let disposeBag = DisposeBag()
+    
+    override init() {
+        super.init()
+        booksID = books.allKeys()
+        refreshStatus.value = .none
+        
+        self.rx.observeWeakly(ZSRootViewModel.self, #keyPath(ZSRootViewModel.books)).subscribe(onNext: { (vm) in
+            // 后续的booksID需要按照书架书籍阅读顺序进行排序
+            self.booksID = self.books.allKeys()
+        })
+        .disposed(by: disposeBag)
+    }
 
     func fetchShelvesBooks(_ completion: (() -> Void)? = nil){
-        shelvesWebService.fetchShelvesUpdate(for: books)
+        refreshStatus.value = .none
+        shelvesWebService.fetchShelvesUpdate(for: books.allKeys())
             .bind(onNext: { (updates) in
                 // 将更新信息放入books
+                self.refreshStatus.value = .headerRefreshEnd
                 completion?()
             })
             .disposed(by: disposeBag)
     }
     
+    func fetchShelfMessage(_ completion: (() -> Void)? = nil){
+        shelvesWebService.fetchShelvesMsg()
+            .bind { (message) in
+                self.shelfMessage = message
+            completion?()
+        }
+        .disposed(by: disposeBag)
+    }
 }
+

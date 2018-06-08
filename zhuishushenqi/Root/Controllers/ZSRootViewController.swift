@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource {
+class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SegMenuDelegate {
     
     static let kCellHeight:CGFloat = 60
 
@@ -22,11 +22,15 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
     }
     
     var collectionView:UICollectionView!
+    var segMenu:SegMenu!
     
     var viewControllers:[UIViewController] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        RootNavigationView.make(delegate: self,leftAction: #selector(leftAction(_:)),rightAction: #selector(rightAction(_:)))
+        setupSegMenu()
         
         let items = Observable.just(
             [1,2,3].map{ $0 }
@@ -36,9 +40,35 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
             cell.textLabel?.text = ""
         }.disposed(by: DisposeBag())
         
-        view.backgroundColor = UIColor.gray
+        view.backgroundColor = UIColor.cyan
         configureChildViewController()
         configureCollectionView()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.navigationBar.barTintColor = UIColor.green
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        segMenu.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().offset(kNavgationBarHeight)
+            make.height.equalTo(kTootSegmentViewHeight)
+        }
+        
+        collectionView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(segMenu.snp.bottom)
+        }
+        
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
+        
+//        self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
     }
     
     func configureChildViewController(){
@@ -52,17 +82,39 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
     
     func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight)
+        layout.itemSize = CGSize(width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - kTootSegmentViewHeight)
         layout.minimumLineSpacing = 0.01
         layout.minimumInteritemSpacing = 0.01
+        layout.scrollDirection = .horizontal
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate  = self
+        collectionView.isPagingEnabled = true
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "UICollectionViewCell")
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = UIColor.white
         view.addSubview(collectionView)
     }
     
+    @objc func leftAction(_ btn:UIButton){
+        SideVC.showLeftViewController()
+    }
+    
+    @objc func rightAction(_ btn:UIButton){
+        SideVC.showRightViewController()
+    }
+    
+    fileprivate func setupSegMenu(){
+        segMenu = SegMenu(frame: CGRect.zero, WithTitles: ["追书架","追书社区"])
+        segMenu.menuDelegate = self
+        self.view.addSubview(segMenu)
+    }
+    
+    func didSelectAtIndex(_ index:Int){
+        
+    }
+    
+    //MARK: -
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return viewControllers.count
     }
@@ -85,9 +137,4 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
         }
         return viewControllers[index]
     }
-    
-    private func bindViewModel() {
-        
-    }
-
 }
