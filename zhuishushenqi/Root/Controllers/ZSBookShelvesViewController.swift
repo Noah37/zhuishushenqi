@@ -13,6 +13,7 @@ import RxSwift
 import QSPullToRefresh
 import MJRefresh
 import SnapKit
+import RxDataSources
 
 class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refreshable{
     
@@ -44,7 +45,13 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
         configureTableDataSource()
         configureNavigateOnRowClick()
         configureShelfMessage()
+        
+       
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(showRecommend), name: Notification.Name(rawValue:SHOW_RECOMMEND), object: nil)
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -63,7 +70,16 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
         
         view.addSubview(tableView)
         
-        let books = Observable.just(viewModel.books.map{ $0 })
+        let books = Observable.just(viewModel.books)
+        
+        viewModel.rx.observe(ZSRootViewModel.self, #keyPath(ZSRootViewModel.books))
+        .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (models) in
+                QSLog(models)
+                self.tableView.reloadData()
+            })
+        .disposed(by: disposeBag)
+
         
         books.bind(to: tableView.rx.items(cellIdentifier: SwipableCell.reuseIdentifier, cellType: SwipableCell.self)) {  (row,element,cell)  in
             cell.configureCell(model: element.value as! BookDetail)
@@ -72,7 +88,10 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
         .disposed(by: disposeBag)
         
         let header = initRefreshHeader(tableView) {
-            self.viewModel.fetchShelvesBooks()
+        
+            self.viewModel.fetchShelvesBooks() {
+                self.tableView.reloadData()
+            }
             self.viewModel.fetchShelfMessage()
         }
         headerRefresh = header
@@ -101,11 +120,17 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
     }
     
     func configureShelfMessage(){
-        viewModel.rx.observeWeakly(ZSRootViewModel.self, #keyPath(ZSRootViewModel.shelfMessage))
+        viewModel.rx.observe(ZSRootViewModel.self, #keyPath(ZSRootViewModel.shelfMessage))
+            .debug()
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (vm) in
-            self.tableView.reloadData()
-        }).disposed(by: disposeBag)
+            .subscribe(onNext: { (model) in
+                self.tableView.reloadData()
+            }, onError: { (error) in
+                QSLog("error:\(error)")
+            }, onCompleted: {
+
+        })
+        .disposed(by: disposeBag)
     }
 
     //MARK: - UITableViewDelegate
