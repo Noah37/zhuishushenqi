@@ -70,8 +70,8 @@ public class BookManager:NSObject {
                 let updateObj = updateInfo[index]
                 if anyUpdate(bookInfo: bookDetail.updateInfo, updateInfo: updateObj) {
                     bookDetail.isUpdated = true
-                    bookDetail.updateInfo = updateInfo[index]
                 }
+                bookDetail.updateInfo = updateInfo[index]
             }
         }
     }
