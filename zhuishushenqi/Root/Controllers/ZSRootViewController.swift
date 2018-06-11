@@ -43,9 +43,6 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
         view.backgroundColor = UIColor.cyan
         configureChildViewController()
         configureCollectionView()
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.navigationBar.barTintColor = UIColor.green
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

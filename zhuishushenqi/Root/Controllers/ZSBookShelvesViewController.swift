@@ -13,6 +13,7 @@ import RxSwift
 import QSPullToRefresh
 import MJRefresh
 import SnapKit
+import RxDataSources
 
 class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refreshable{
     
@@ -57,22 +58,32 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
         } else {
             // Fallback on earlier versions
         }
+        self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
     }
     
     func configureTableDataSource(){
         
         view.addSubview(tableView)
         
-        let books = Observable.just(viewModel.books.map{ $0 })
-        
-        books.bind(to: tableView.rx.items(cellIdentifier: SwipableCell.reuseIdentifier, cellType: SwipableCell.self)) {  (row,element,cell)  in
-            cell.configureCell(model: element.value as! BookDetail)
-            QSLog("")
-        }
+        let dataSource = RxTableViewSectionedReloadDataSource<HomeSection>(configureCell: { dataSource, tableView, indexPath, item in
+            let cell = tableView.dequeueReusableCell(withIdentifier: SwipableCell.reuseIdentifier, for: indexPath) as! SwipableCell
+            cell.configureCell(model: item)
+            return cell
+        })
+        viewModel.section?.drive(tableView.rx.items(dataSource:dataSource))
         .disposed(by: disposeBag)
         
+//        let books = Observable.just(viewModel.books)
+//
+//        books.bind(to: tableView.rx.items(cellIdentifier: SwipableCell.reuseIdentifier, cellType: SwipableCell.self)) {  (row,element,cell)  in
+//            cell.configureCell(model: element.value as! BookDetail)
+//            QSLog("")
+//        }
+//        .disposed(by: disposeBag)
+        
         let header = initRefreshHeader(tableView) {
-            self.viewModel.fetchShelvesBooks()
+            self.viewModel.refreshCommand.onNext([:])
+//            self.viewModel.fetchShelvesBooks()
             self.viewModel.fetchShelfMessage()
         }
         headerRefresh = header

@@ -34,4 +34,10 @@ extension Dictionary {
         let allKeys = dict.allKeys as! [String]
         return allKeys
     }
+    
+    public func allValues()->[Any]{
+        let dict = self as NSDictionary
+        let allValues = dict.allValues as! [Any]
+        return allValues
+    }
 }

@@ -10,80 +10,39 @@ import Foundation
 import RxSwift
 import RxCocoa
 import MJRefresh
+import RxDataSources
 
-enum ZSRefreshStatus {
-    case none
-    case headerRefreshing
-    case headerRefreshEnd
-    case footerRefreshing
-    case footerRefreshEnd
-    case noMoreData
-}
-
-protocol ZSRefreshProtocol {
-    var refreshStatus:Variable<ZSRefreshStatus>{ get }
-}
-
-extension ZSRefreshProtocol {
-    func autoSetRefreshHeaderStatus(header:MJRefreshHeader?,footer:MJRefreshFooter?) -> Disposable{
-        return refreshStatus.asObservable().subscribe(onNext: { (status) in
-            switch status {
-            case .headerRefreshing:
-                header?.beginRefreshing()
-            case .headerRefreshEnd:
-                header?.endRefreshing()
-            case .footerRefreshing:
-                footer?.beginRefreshing()
-            case .footerRefreshEnd:
-                footer?.endRefreshing()
-            case .noMoreData:
-                footer?.endRefreshingWithNoMoreData()
-            default:
-                break
-            }
-        })
-    }
-}
-
-protocol Refreshable {
+struct HomeSection {
     
+    var items: [Item]
 }
 
-extension Refreshable where Self : UIViewController{
-    func initRefreshHeader(_ scrollView: UIScrollView,_ action:@escaping () ->Void) -> MJRefreshHeader{
-        scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: { action() })
-        return scrollView.mj_header
-    }
+extension HomeSection: SectionModelType {
     
-    func initRefreshFooter(_ scrollView: UIScrollView,_ action:@escaping () ->Void) -> MJRefreshFooter{
-        scrollView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {
-            action()
-        })
-        return scrollView.mj_footer
-    }
-}
-
-extension Refreshable where Self : UIScrollView {
-    func initRefreshHeader(_ action:@escaping () ->Void) -> MJRefreshHeader{
-        mj_header = MJRefreshNormalHeader(refreshingBlock: { action() })
-        return mj_header
-    }
+    typealias Item = BookDetail
     
-    func initRefreshFooter(_ action:@escaping () ->Void) -> MJRefreshFooter{
-        mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {
-            action()
-        })
-        return mj_footer
+    init(original: HomeSection, items: [HomeSection.Item]) {
+        self = original
+        self.items = items
     }
 }
-
 
 final class ZSRootViewModel:NSObject,ZSRefreshProtocol {
     
-
+    // new
+    var section:Driver<[HomeSection]>?
+    
+    var bricks:BehaviorRelay<[BookDetail]>?
+    
+    // 首页的刷新命令，入参是当前的分类
+    let refreshCommand = ReplaySubject<Any>.create(bufferSize: 1)
+    
+    // 刷新当前的页面，和下拉操作一起绑定
+    let refreshTrigger = ReplaySubject<Any>.create(bufferSize: 1)
+    
     var refreshStatus: Variable<ZSRefreshStatus> = Variable(.none)
     
-    @objc dynamic var books:[String:Any] = BookManager.shared.books
+    @objc var books:[String:Any] = BookManager.shared.books 
     
     // 保存所有书籍的id,books存在时,他就存在
     var booksID:[String] = []
@@ -96,6 +55,49 @@ final class ZSRootViewModel:NSObject,ZSRefreshProtocol {
     
     override init() {
         super.init()
+        bricks = BehaviorRelay<[BookDetail]>(value: books.allValues() as! [BookDetail])
+        section = bricks?.asObservable().map({ (bricks) ->[HomeSection] in
+            return [HomeSection(items: bricks)]
+        })
+        .asDriver(onErrorJustReturn: [])
+        NotificationCenter.default.rx.notification(Notification.Name(rawValue:BOOKSHELF_ADD))
+        .observeOn(MainScheduler.asyncInstance)
+        .subscribe(onNext: { (noti) in
+            QSLog("noti:\(String(describing: noti.object))")
+            // 更新内存中books的值与archive中的值
+            if let book = noti.object as? BookDetail {
+                self.books[book._id] = book
+                BookManager.shared.addBook(book: book)
+                self.bricks = BehaviorRelay<[BookDetail]>(value: self.books.allValues() as! [BookDetail])
+                self.refreshCommand.onNext([:])
+            }
+        })
+        .disposed(by: disposeBag)
+        
+        refreshCommand
+            .flatMapLatest { query in
+                self.shelvesWebService.fetchShelvesUpdate(for: self.books.allKeys())
+            }
+            .subscribe({ (event) in
+                self.refreshTrigger.onNext(event)
+                switch event {
+                case let .next(response):
+                    self.refreshStatus.value = .headerRefreshEnd
+                    self.bricks?.value
+                    self.bricks?.accept(response.allValues() as! [BookDetail])
+//                    self.refresh()
+                    print(response)
+                    break
+                case let .error(error):
+                    print(error)
+                    break
+                case .completed:
+                    
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+        //==================
         booksID = books.allKeys()
         refreshStatus.value = .none
         
@@ -105,10 +107,21 @@ final class ZSRootViewModel:NSObject,ZSRefreshProtocol {
         })
         .disposed(by: disposeBag)
     }
+    
+    func refresh(){
+        bricks = BehaviorRelay<[BookDetail]>(value: books.allValues() as! [BookDetail])
+        section = bricks?.asObservable().map({ (bricks) ->[HomeSection] in
+            return [HomeSection(items: bricks)]
+        })
+            .asDriver(onErrorJustReturn: [])
+
+    }
 
     func fetchShelvesBooks(_ completion: (() -> Void)? = nil){
         refreshStatus.value = .none
         shelvesWebService.fetchShelvesUpdate(for: books.allKeys())
+            .observeOn(MainScheduler.instance)
+            .catchErrorJustReturn(self.books)
             .bind(onNext: { (updates) in
                 // 将更新信息放入books
                 self.refreshStatus.value = .headerRefreshEnd
@@ -119,11 +132,11 @@ final class ZSRootViewModel:NSObject,ZSRefreshProtocol {
     
     func fetchShelfMessage(_ completion: (() -> Void)? = nil){
         shelvesWebService.fetchShelvesMsg()
-            .bind { (message) in
-                self.shelfMessage = message
-            completion?()
-        }
-        .disposed(by: disposeBag)
+            .bind{ (messsge) in
+                self.shelfMessage = messsge
+                completion?()
+            }
+            .disposed(by: disposeBag)
     }
 }
 

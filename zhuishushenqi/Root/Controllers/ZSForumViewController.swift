@@ -39,6 +39,8 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
         }
         
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
+
     }
     
     func configureTableDataSource(){
