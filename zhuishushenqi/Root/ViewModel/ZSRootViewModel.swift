@@ -10,139 +10,98 @@ import Foundation
 import RxSwift
 import RxCocoa
 import MJRefresh
+//import RxDataSources
+import Differentiator
 
-enum ZSRefreshStatus {
-    case none
-    case headerRefreshing
-    case headerRefreshEnd
-    case footerRefreshing
-    case footerRefreshEnd
-    case noMoreData
-}
-
-protocol ZSRefreshProtocol {
-    var refreshStatus:Variable<ZSRefreshStatus>{ get }
-}
-
-extension ZSRefreshProtocol {
-    func autoSetRefreshHeaderStatus(header:MJRefreshHeader?,footer:MJRefreshFooter?) -> Disposable{
-        return refreshStatus.asObservable().subscribe(onNext: { (status) in
-            switch status {
-            case .headerRefreshing:
-                header?.beginRefreshing()
-            case .headerRefreshEnd:
-                header?.endRefreshing()
-            case .footerRefreshing:
-                footer?.beginRefreshing()
-            case .footerRefreshEnd:
-                footer?.endRefreshing()
-            case .noMoreData:
-                footer?.endRefreshingWithNoMoreData()
-            default:
-                break
-            }
-        })
-    }
-}
-
-protocol Refreshable {
+struct HomeSection {
     
+    var items: [Item]
 }
 
-extension Refreshable where Self : UIViewController{
-    func initRefreshHeader(_ scrollView: UIScrollView,_ action:@escaping () ->Void) -> MJRefreshHeader{
-        scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: { action() })
-        return scrollView.mj_header
-    }
+extension HomeSection: SectionModelType {
     
-    func initRefreshFooter(_ scrollView: UIScrollView,_ action:@escaping () ->Void) -> MJRefreshFooter{
-        scrollView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {
-            action()
-        })
-        return scrollView.mj_footer
-    }
-}
-
-extension Refreshable where Self : UIScrollView {
-    func initRefreshHeader(_ action:@escaping () ->Void) -> MJRefreshHeader{
-        mj_header = MJRefreshNormalHeader(refreshingBlock: { action() })
-        return mj_header
-    }
+    typealias Item = BookDetail
     
-    func initRefreshFooter(_ action:@escaping () ->Void) -> MJRefreshFooter{
-        mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {
-            action()
-        })
-        return mj_footer
+    init(original: HomeSection, items: [HomeSection.Item]) {
+        self = original
+        self.items = items
     }
 }
-
 
 final class ZSRootViewModel:NSObject,ZSRefreshProtocol {
     
-    
-    var refreshStatus: Variable<ZSRefreshStatus> = Variable(.none)
-    
-    @objc dynamic var books:[String:Any] = BookManager.shared.books
-    
+    // dataSource,监听
+    var section:Driver<[HomeSection]>?
+    // 首页的刷新命令，入参是当前的分类
+    let refreshCommand = ReplaySubject<Any>.create(bufferSize: 1)
+    // 书架广告信息
+    @objc var shelfMessage:ZSShelfMessage?
+    fileprivate var bricks:BehaviorSubject<[BookDetail]>?
+    internal var refreshStatus: Variable<ZSRefreshStatus> = Variable(.none)
+    @objc internal var books:[String:Any] = BookManager.shared.books
     // 保存所有书籍的id,books存在时,他就存在
-    var booksID:[String] = []
-    
-    @objc dynamic var shelfMessage:ZSShelfMessage?
-    
+    fileprivate var booksID:[String] = []
     fileprivate let shelvesWebService = ZSRootWebService()
-    
     fileprivate let disposeBag = DisposeBag()
     
     override init() {
         super.init()
+        
+        bricks = BehaviorSubject<[BookDetail]>(value: books.allValues() as! [BookDetail])
+        section = bricks?
+            .asObservable()
+            .map({ (bricks) ->[HomeSection] in
+                // bricks 发送on(.next(response.allValues() as! [BookDetail] ) 会回调到这里
+                return [HomeSection(items: bricks)]
+            })
+            .asDriver(onErrorJustReturn: [])
+        // 详情页添加书籍信息
+        NotificationCenter.default.rx.notification(Notification.Name(rawValue:BOOKSHELF_ADD))
+        .observeOn(MainScheduler.asyncInstance)
+        .subscribe(onNext: { (noti) in
+            // 更新内存中books的值与archive中的值
+            if let book = noti.object as? BookDetail {
+                self.books[book._id] = book
+                self.booksID = self.books.allKeys()
+                BookManager.shared.addBook(book: book)
+                // 添加新的书籍之后需要刷新更新信息
+                self.refreshCommand.onNext([:])
+            }
+        })
+        .disposed(by: disposeBag)
+        
+        refreshCommand
+            .flatMapLatest { query in
+                self.shelvesWebService.fetchShelvesUpdate(for: self.books.allKeys())
+            }
+            .subscribe({ (event) in
+                switch event {
+                case let .next(response):
+                    self.refreshStatus.value = .headerRefreshEnd
+                    self.bricks?.on(.next(response.allValues() as! [BookDetail] ))
+                    break
+                case let .error(error):
+                    self.refreshStatus.value = .headerRefreshEnd
+                    QSLog(error)
+                    break
+                case .completed:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+        //========初始化==========
         booksID = books.allKeys()
         refreshStatus.value = .none
-        
-        self.rx.observeWeakly(ZSRootViewModel.self, #keyPath(ZSRootViewModel.books)).subscribe(onNext: { (vm) in
-            // 后续的booksID需要按照书架书籍阅读顺序进行排序
-            self.booksID = self.books.allKeys()
-        })
-            .disposed(by: disposeBag)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(bookShelfUpdate(noti:)), name: Notification.Name(rawValue: BOOKSHELF_ADD), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(bookShelfUpdate(noti:)), name: Notification.Name(rawValue: BOOKSHELF_DELETE), object: nil)
     }
-    
-    @objc func bookShelfUpdate(noti:Notification){
-        let name = noti.name.rawValue
-        if let book = noti.object as? BookDetail {
-            if name == BOOKSHELF_ADD {
-                self.books[book._id] = book
-                self.booksID.append(book._id)
-                BookManager.shared.addBook(book: book)
-            } else {
-                removeBook(book: book)
-            }
-        }
-        self.books = BookManager.shared.books
-        
-        //先刷新书架，然后再请求
-    }
-    
-    func removeBook(book:BookDetail){
-        var index = 0
-        for bookid in booksID {
-            if book._id == bookid {
-                self.booksID.remove(at: index)
-                self.books.removeValue(forKey: bookid)
-                BookManager.shared.deleteBook(book: book)
-            }
-            index += 1
-        }
-    }
-    
+}
+
+extension ZSRootViewModel{
     func fetchShelvesBooks(_ completion: (() -> Void)? = nil){
         refreshStatus.value = .none
         shelvesWebService.fetchShelvesUpdate(for: books.allKeys())
             .observeOn(MainScheduler.instance)
             .catchErrorJustReturn(self.books)
-            .bind(onNext:{ (book) in
+            .bind(onNext: { (updates) in
                 // 将更新信息放入books
                 self.refreshStatus.value = .headerRefreshEnd
                 completion?()
