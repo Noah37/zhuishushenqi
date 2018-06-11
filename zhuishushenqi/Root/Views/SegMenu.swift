@@ -98,6 +98,16 @@ class SegMenu: UIView {
         menuDelegate?.didSelectAtIndex(selectedIndex)
     }
     
+    func selectIndex(_ index:Int) {
+        for i in 0..<titles.count {
+            if index == i {
+                if let btn = self.viewWithTag(index + btnBaseTag) as? UIButton  {
+                    segAction(btn)
+                }
+            }
+        }
+    }
+    
     private func create(_ title:String,_ tag:Int) ->UIButton{
         let btn = UIButton(type: .custom).then {
             $0.setTitle(title, for: .normal)

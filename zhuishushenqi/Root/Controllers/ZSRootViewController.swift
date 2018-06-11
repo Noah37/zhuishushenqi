@@ -25,6 +25,8 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
     var segMenu:SegMenu!
     
     var viewControllers:[UIViewController] = []
+    let disposeBag = DisposeBag()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,7 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
         view.backgroundColor = UIColor.cyan
         configureChildViewController()
         configureCollectionView()
+        configureCollectionOffset()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,8 +67,6 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
         } else {
             // Fallback on earlier versions
         }
-        
-//        self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
     }
     
     func configureChildViewController(){
@@ -91,6 +92,25 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = UIColor.white
         view.addSubview(collectionView)
+
+    }
+    
+    func configureCollectionOffset() -> Void {
+        collectionView.rx.contentOffset
+            .subscribe{ point in
+//                QSLog(point)
+            }
+            .disposed(by: disposeBag)
+    
+        collectionView.rx.didEndDecelerating
+            .subscribe { _ in
+                let contentOffset = self.collectionView.contentOffset
+                if contentOffset.x.truncatingRemainder(dividingBy: ScreenWidth) == 0 {
+                    let index = contentOffset.x/ScreenWidth
+                    self.segMenu.selectIndex(Int(index))
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     @objc func leftAction(_ btn:UIButton){
@@ -107,8 +127,10 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
         self.view.addSubview(segMenu)
     }
     
+    //MARK: - SegMenuDelegate
     func didSelectAtIndex(_ index:Int){
-        
+        let indexPath = IndexPath(row: index, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
     }
     
     //MARK: -

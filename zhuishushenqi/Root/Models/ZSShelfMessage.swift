@@ -12,13 +12,20 @@ import UIKit
 class ZSShelfMessage: NSObject {
     
     @objc dynamic var postLink:String = ""
-    @objc var highlight:Bool = false
+    @objc var highlight:Bool = false {
+        didSet{
+            if highlight {
+                textColor = UIColor.red
+            }
+        }
+    }
     
     //    class func modelCustomPropertyMapper() ->NSDictionary{
     //        return ["postLink":"postLink","highlight":"highlight"]
     //    }
+    internal var textColor:UIColor = UIColor.gray
     
-    func postMessage() ->(String,String){
+    func postMessage() ->(String,String,UIColor){
         var id:String = ""
         var title:String = ""
         
@@ -36,18 +43,16 @@ class ZSShelfMessage: NSObject {
                     id = postLink.qs_subStr(start: 7, length: 24)
                 }
             }
-            return (id,title)
+            return (id,title,textColor)
         }
         title = postLink.qs_subStr(start: startRange.location, end: endRange.location)
         if endContainRange.location != NSNotFound {
             title = postLink.qs_subStr(start: startRange.location, end: endContainRange.location - 1)
         }
         if post.location == NSNotFound {
-            return (id,title)
+            return (id,title,textColor)
         }
         id = postLink.qs_subStr(start: post.location + post.length, end: startRange.location)
-        return (id,title)
-        
-        return (id,title)
+        return (id,title,textColor)
     }
 }

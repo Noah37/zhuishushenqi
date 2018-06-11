@@ -45,10 +45,6 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
         configureTableDataSource()
         configureNavigateOnRowClick()
         configureShelfMessage()
-        
-       
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(showRecommend), name: Notification.Name(rawValue:SHOW_RECOMMEND), object: nil)
     }
     
     
@@ -80,6 +76,7 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
         viewModel.section?.drive(tableView.rx.items(dataSource:dataSource))
         .disposed(by: disposeBag)
         
+        // 固定行数cell使用
 //        let books = Observable.just(viewModel.books)
 //
 //        books.bind(to: tableView.rx.items(cellIdentifier: SwipableCell.reuseIdentifier, cellType: SwipableCell.self)) {  (row,element,cell)  in
@@ -136,6 +133,7 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
         if let message = viewModel.shelfMessage {
             let title = message.postMessage()
             shelfMsg.setTitle(title.1, for: .normal)
+            shelfMsg.setTitleColor(title.2, for: .normal)
             return shelfMsg
         }
         return UIView()
