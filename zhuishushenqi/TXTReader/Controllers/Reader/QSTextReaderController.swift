@@ -48,6 +48,8 @@ class QSTextReaderController: UIViewController {
     var currentPage:Int = 0
     var currentChapter:Int = 0
     
+    var sideNum = 1
+    
     var curlPageStyle:QSTextCurlPageStyle = .forwards
 
     // 拟真阅读
@@ -202,12 +204,27 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     //MARK: - UIPageViewControllerDataSource，UIPageViewControllerDelegate
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?{
         //UIPageViewController的 isDoubleSided 设置为true后，会调用两次代理方法，第一次为背面的viewcontroller，第二次为正面
-        //将正面的view截屏，然后反向显示在back
-        if viewController.isKind(of: PageViewController.self) {
+        
+        sideNum -= 1
+        
+        if abs(sideNum)%2 == 0 {
             let backgroundVC = QSReaderBackgroundViewController()
             backgroundVC.setBackground(viewController: self.currentReaderVC!)
             return backgroundVC
+        } else {
+            
+            
+            return nil
         }
+        
+        //将正面的view截屏，然后反向显示在back
+//        if viewController.isKind(of: PageViewController.self) {
+//            let backgroundVC = QSReaderBackgroundViewController()
+//            backgroundVC.setBackground(viewController: self.currentReaderVC!)
+//            return backgroundVC
+//        }
+        
+        /*
         // 防止计算错误
         if currentChapter < 0 {
             currentChapter = 0
@@ -243,9 +260,100 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         let pageVC = getLastPage(chapter: currentChapter, page: currentPage)
 
         return pageVC
+         */
+    }
+    
+    //获取当前章节的下一页,不涉及网络请求
+    func nextPageVC()->PageViewController?{
+        if let record = bookDetail.record {
+            if let model = record.chapterModel {
+                // 由于请求的是下一页,pageIndex+1
+                let pageIndex = record.page + 1
+                // 防止越界
+                if model.pages.count > pageIndex {
+                    let pageModel = model.pages[pageIndex]
+                    // 新建控制器
+                    let pageVc = PageViewController()
+                    pageVc.page = pageModel
+                    return pageVc
+                }
+            }
+        }
+        return nil
+    }
+    
+    // 从缓存中获取下章节
+    func localNextChapter(chapterModel:QSChapter)->PageViewController?{
+        //直接获取第一页
+        let page = chapterModel.pages.first
+        let pageVC = PageViewController()
+        pageVC.page = page
+        return pageVC
+    }
+    
+    // 网络获取新的章节,先新建一个控制器,page为空,默认展示空白页,这里有个问题,翻页动画结束时,网络请求可能已经成功,也可能还没返回,需要相应的进行处理.如果翻页动画结束时,网络请求已成功,翻页成功则更新阅读记录,翻页失败不更新,更新内存中的章节信息.如果翻页动画结束时,网络请求还未返回,不处理,等待网络请求返回时才刷新空白的控制器.
+    func networkNextChapter()->PageViewController?{
+        if let chapterIndex = bookDetail.record?.chapter {
+            let pageVC = PageViewController()
+            // 在这里发起网络请求
+            // 调用这个方法之前已经进行了判断,不需要再次判断数组越界
+            presenter?.interactor.getChapter(chapterIndex: chapterIndex + 1, pageIndex: 0)
+            return pageVC
+        }
+        return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?{
+        
+        sideNum += 1
+        if abs(sideNum)%2 == 0 { //背面
+            let backgroundVC = QSReaderBackgroundViewController()
+            backgroundVC.setBackground(viewController: self.currentReaderVC!)
+            return backgroundVC
+        } else {
+            // 1.获取阅读记录,每次翻页成功后都记录阅读进度
+            if let record = bookDetail.record {
+                //2.获取当前阅读的章节与页码,这里由于是网络小说,有几种情况
+                //(1).当前章节信息为空,那么这一章只有一页,翻页直接进入了下一页,章节加一
+                //(2).当前章节信息不为空,说明已经请求成功了,那么计算当前页码是否为该章节的最后一页
+                //这是2(2)
+                if let model = record.chapterModel {
+                    let page = record.page
+                    // 下一页还在当前章节
+                    if page < model.pages.count - 1 {
+                        // 直接获取阅读器控制器
+                        let pageVC = self.nextPageVC()
+                        return pageVC
+                    } else { // 下一页为新的章节
+                        // 判断是否还有新的章节,如果没有,说明已经阅读到最新章节了,可以进行提示或者进行网络查询是否有更新,有更新则更新书籍的章节信息,没有则提示没有更多章节了
+                        //如果有新的章节,新建新的控制器,并请求网络数据
+                        
+                        //如果有新的章节,又有两种请求,一种是本地已经缓存过的章节,二是本地没有缓存的章节
+                        // 为了节省空间,阅读器退出时,只保存阅读进度中的章节,其它不保存
+                        // 网络请求其它章节成功后会放入内存中,下次可以直接从内存中获取
+                        //1.获取新的章节的缓存
+                        let chapter = record.chapter
+                        // 有新的章节
+                        if chapter < (bookDetail.chapters?.count ?? 0) {
+                            // 内存中有缓存,直接获取控制器
+                            if let chapterModel = chapterDict[model.id] as? QSChapter {
+                                let pageVC = self.localNextChapter(chapterModel: chapterModel)
+                                return pageVC
+                            }
+                            // 内存中不存在,需要网络获取
+                            
+                        }
+                        
+                    }
+                } else { // 2(1) 当前章节信息为空,那么下一页必定是新的控制器
+                    //判断是否还有新的章节,如果没有,说明已经阅读到最新章节了,可以进行提示或者进行网络查询是否有更新,有更新则更新书籍的章节信息,没有则提示没有更多章节了
+                    //如果有新的章节,新建新的阅读控制器,并请求网络数据
+                }
+                
+            }
+            return nil
+        }
+        /*
         if viewController.isKind(of: PageViewController.self) {
             let backgroundVC = QSReaderBackgroundViewController()
             backgroundVC.setBackground(viewController: self.currentReaderVC!)
@@ -274,6 +382,7 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         QSLog("chapter:\(currentChapter)\npage:\(currentPage)")
         let pageVC = getNextPage(chapter: currentChapter, page: currentPage)
         return pageVC
+        */
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]){
@@ -286,9 +395,16 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
         //如果翻页完成，则completed=true，否则为false
         isAnimatedFinished = completed//请求数据时根据此字段更新当前页
+        
+        if !completed {
+            currentReaderVC = previousViewControllers.first as! PageViewController
+        } else {
+            currentReaderVC = pageViewController.viewControllers?.first as! PageViewController
+        }
+        /*
         currentReaderVC = pageViewController.viewControllers?.first as! PageViewController
         if  completed == true {
-
+            
         }else{
             // 翻页未完成，回到原来的页面,原来的页面是肯定存在的
             // 分为两种情况，1.前（下一页） 2.后（上一页）
@@ -321,6 +437,7 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
                 }
             }
         }
+         */
     }
     
     //MARK: - ToolBarDelegate
