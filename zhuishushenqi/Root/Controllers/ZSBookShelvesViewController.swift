@@ -47,8 +47,6 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
         configureShelfMessage()
     }
     
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -73,8 +71,10 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
             cell.configureCell(model: item)
             return cell
         })
-        viewModel.section?.drive(tableView.rx.items(dataSource:dataSource))
-        .disposed(by: disposeBag)
+        viewModel
+            .section?
+            .drive(tableView.rx.items(dataSource:dataSource))
+            .disposed(by: disposeBag)
         
         // 固定行数cell使用
 //        let books = Observable.just(viewModel.books)
@@ -91,31 +91,41 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
         }
         headerRefresh = header
         headerRefresh?.beginRefreshing()
-        viewModel.autoSetRefreshHeaderStatus(header: header, footer: nil).disposed(by: disposeBag)
+        viewModel
+            .autoSetRefreshHeaderStatus(header: header, footer: nil)
+            .disposed(by: disposeBag)
         
-        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        tableView
+            .rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
     }
     
     func configureNavigateOnRowClick(){
-        tableView.rx.itemSelected.bind { [unowned self] indexPath in
-            self.tableView.deselectRow(at: indexPath, animated: true)
-            let books = self.viewModel.books
-            if let model =  books[books.allKeys()[indexPath.row]] as? BookDetail {
-                let viewController = QSTextRouter.createModule(bookDetail: model, callback: { (book) in
-                    BookManager.calTime {
-                        // 计算本地数据存储用时
-                        BookManager.shared.modifyBookshelf(book: book)
-                        self.tableView.reloadRow(at: indexPath, with: .automatic)
-                    }
-                })
-                self.present(viewController, animated: true, completion: nil)
+        tableView
+            .rx
+            .itemSelected
+            .bind { [unowned self] indexPath in
+                self.tableView.deselectRow(at: indexPath, animated: true)
+                let books = self.viewModel.books
+                if let model =  books[books.allKeys()[indexPath.row]] as? BookDetail {
+                    let viewController = QSTextRouter.createModule(bookDetail: model, callback: { (book) in
+                        BookManager.calTime {
+                            // 计算本地数据存储用时
+                            BookManager.shared.modifyBookshelf(book: book)
+                            self.tableView.reloadRow(at: indexPath, with: .automatic)
+                        }
+                    })
+                    self.present(viewController, animated: true, completion: nil)
+                }
             }
-        }
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
     }
     
     func configureShelfMessage(){
-        viewModel.rx.observe(ZSRootViewModel.self, #keyPath(ZSRootViewModel.shelfMessage))
+        viewModel
+            .rx
+            .observe(ZSRootViewModel.self, #keyPath(ZSRootViewModel.shelfMessage))
             .debug()
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { (model) in
@@ -124,8 +134,8 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
                 QSLog("error:\(error)")
             }, onCompleted: {
 
-        })
-        .disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
 
     //MARK: - UITableViewDelegate

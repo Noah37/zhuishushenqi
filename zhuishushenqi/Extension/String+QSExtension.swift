@@ -37,8 +37,8 @@ extension String{
         let startIndex = self.index(self.startIndex, offsetBy: start)
         let endIndex = self.index(self.startIndex, offsetBy: ends)
         let range = startIndex..<endIndex
-        let sub = self.substring(with: range)
-        return sub
+        let sub = self[range]
+        return String(sub)
     }
     
     func qs_subStr(start:Int,length:Int)->String{
@@ -48,8 +48,8 @@ extension String{
         let startIndex = self.index(self.startIndex, offsetBy: start)
         let endIndex = self.index(self.startIndex, offsetBy: start + length)
         let range = startIndex..<endIndex
-        let sub = self.substring(with: range)
-        return sub
+        let sub = self[range]
+        return String(sub)
     }
     
     func qs_subStr(from:Int)->String{
@@ -59,8 +59,8 @@ extension String{
         let startIndex = self.index(self.startIndex, offsetBy: from)
         let endIndex = self.endIndex
         let range = startIndex..<endIndex
-        let sub = self.substring(with: range)
-        return sub
+        let sub = self[range]
+        return String(sub)
     }
     
     func qs_subStr(to:Int)->String{
@@ -70,8 +70,8 @@ extension String{
         let startIndex = self.startIndex
         let endIndex = self.index(self.startIndex, offsetBy: to)
         let range = startIndex..<endIndex
-        let sub = self.substring(with: range)
-        return sub
+        let sub = self[range]
+        return String(sub)
     }
     
     func qs_subStr(range:CountableRange<Int>)->String{

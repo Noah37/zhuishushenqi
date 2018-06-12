@@ -38,7 +38,6 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
             make.edges.equalToSuperview()
         }
         
-        tableView.rx.setDelegate(self).disposed(by: disposeBag)
         self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
 
     }
@@ -57,6 +56,9 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
             cell.accessoryType = .disclosureIndicator
         }
         .disposed(by: disposeBag)
+        
+        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+
         
     }
     
