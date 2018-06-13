@@ -76,15 +76,6 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
             .drive(tableView.rx.items(dataSource:dataSource))
             .disposed(by: disposeBag)
         
-        // 固定行数cell使用
-//        let books = Observable.just(viewModel.books)
-//
-//        books.bind(to: tableView.rx.items(cellIdentifier: SwipableCell.reuseIdentifier, cellType: SwipableCell.self)) {  (row,element,cell)  in
-//            cell.configureCell(model: element.value as! BookDetail)
-//            QSLog("")
-//        }
-//        .disposed(by: disposeBag)
-        
         let header = initRefreshHeader(tableView) {
             self.viewModel.refreshCommand.onNext([:])
             self.viewModel.fetchShelfMessage()

@@ -71,7 +71,7 @@ final class ZSRootViewModel:NSObject,ZSRefreshProtocol {
         
         refreshCommand
             .flatMapLatest { query in
-                self.shelvesWebService.fetchShelvesUpdate(for: self.books.allKeys())
+                self.shelvesWebService.fetchShelvesUpdate(for: self.books.allKeys()).asDriver(onErrorJustReturn: [:])
             }
             .subscribe({ (event) in
                 switch event {

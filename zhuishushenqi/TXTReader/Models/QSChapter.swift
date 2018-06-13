@@ -36,6 +36,7 @@ class QSChapter: NSObject ,NSCoding{
 
     var curChapter:Int = 0
     
+    @discardableResult
     func getPages()->[QSPage]{
         
         if self.ranges.count > 0 && self.ranges[0] != NSMakeRange(0, 0){

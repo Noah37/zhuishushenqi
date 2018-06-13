@@ -104,6 +104,7 @@ class QSTextInteractor: QSTextInteractorProtocol {
             if let json = response.json as? Dictionary<String, Any> {
                 QSLog("JSON:\(json)")
                 if let chapter = json["chapter"] as?  Dictionary<String, Any> {
+                    // 章节信息获取成功后model化
                     
                     self.output.fetchChapterSuccess(chapter: chapter,index:chapterIndex)
                 } else {
@@ -117,7 +118,7 @@ class QSTextInteractor: QSTextInteractorProtocol {
     
     //获取新的页面信息
     func getChapter(chapterIndex:Int,pageIndex:Int) {
-        self.output.showActivity()
+//        self.output.showActivity()
         requestChapter(atIndex: chapterIndex)
     }
 

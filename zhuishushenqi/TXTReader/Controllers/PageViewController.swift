@@ -15,7 +15,7 @@ class PageViewController: UIViewController {
         titleLabel.frame = CGRect(x:0,y:CGFloat(kQSReaderTopMargin),width:self.view.bounds.size.width,height:20)
         titleLabel.backgroundColor = UIColor.clear
         titleLabel.font = UIFont.systemFont(ofSize: 11)
-        titleLabel.text = "222"
+        titleLabel.text = ""
         return titleLabel
     }()
     lazy var pageLabel:UILabel = {
@@ -25,7 +25,7 @@ class PageViewController: UIViewController {
         pageLabel.textAlignment = .center
         pageLabel.backgroundColor = UIColor.clear
         pageLabel.textColor = UIColor.black
-        pageLabel.text = "111"
+        pageLabel.text = "1/1"
         return pageLabel
     }()
     var page:QSPage? {
