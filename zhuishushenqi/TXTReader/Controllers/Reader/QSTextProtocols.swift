@@ -13,7 +13,7 @@ import UIKit
 protocol QSTextWireframeProtocol: class {
     weak var viewController: UIViewController? { get set }
     func presentDetails(_ novel:QSRankModel)
-    func presentCategory(book:BookDetail)
+    func presentCategory(book:BookDetail,books:[String:Any])
 }
 
 //MARK: Presenter -
@@ -24,7 +24,7 @@ protocol QSTextPresenterProtocol: class {
     func viewDidLoad(bookDetail:BookDetail)
     func didClickContent()
     func didClickChangeSource()
-    func didClickCategory(book:BookDetail)
+    func didClickCategory(book:BookDetail,books:[String:Any])
     func didClickBack()
     func didClickCache()
     func requestChapter(index:Int)

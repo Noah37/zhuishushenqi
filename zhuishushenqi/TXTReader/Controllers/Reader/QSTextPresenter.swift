@@ -43,9 +43,9 @@ class QSTextPresenter: QSTextPresenterProtocol {
         interactor.cacheAllChapter()
     }
     
-    func didClickCategory(book:BookDetail){
+    func didClickCategory(book:BookDetail,books:[String:Any]){
         
-        router.presentCategory(book: book)
+        router.presentCategory(book: book,books:books)
     }
     
     func didClickBack(){

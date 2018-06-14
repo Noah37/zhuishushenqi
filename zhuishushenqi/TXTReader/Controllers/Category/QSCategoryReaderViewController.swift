@@ -21,6 +21,8 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
     var categoryDelegate:QSCategoryDelegate?
     var titles:[String] = []
     var selectedIndex = 0
+    // key为章节的link，value为QSChapter模型
+    var chapterDict:[String:Any]! = [:]
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect(x:0,y:0,width:0,height:0), style: .grouped)
         tableView.dataSource = self
@@ -80,22 +82,19 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Category",for: indexPath as IndexPath) as! CategoryTableViewCell
         cell.cellDelegate = self
-        if titles.count > indexPath.row {
-            cell.tittle.text = titles[indexPath.row]
-            cell.count.text = "\(indexPath.row)"
-            if (bookDetail?.chapter == indexPath.row) {
-                cell.tittle.textColor = UIColor.red
-            } else {
-                cell.tittle.textColor = UIColor.black
+        if let totalChapter = bookDetail?.chapters {
+            if totalChapter.count > indexPath.row {
+                cell.tittle.text = titles[indexPath.row]
+                cell.count.text = "\(indexPath.row)"
+                if (selectedIndex == indexPath.row) {
+                    cell.tittle.textColor = UIColor.red
+                } else {
+                    cell.tittle.textColor = UIColor.black
+                }
             }
+            cell.bind(model: totalChapter[indexPath.row] as! [String : Any], chapterDict: chapterDict)
         }
         // model 此时不存在,无法获取到,下载时需要的model信息可以发通知,由阅读器类来下载
-//        if (bookDetail?.book.chapters.count)! > indexPath.row{
-//            let chapter = bookDetail?.book.chapters[indexPath.row]
-//            if let model = chapter {
-//                cell.bind(model: model,index:selectedIndex)
-//            }
-//        }
         return cell
     }
     
@@ -178,7 +177,8 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
     
     func showDetail(book: BookDetail) {
         self.bookDetail = book
-        selectedIndex = self.bookDetail?.chapter ?? 0
+        selectedIndex = self.bookDetail?.record?.chapter ?? 0
+        self.tableView.reloadData()
     }
 }
 

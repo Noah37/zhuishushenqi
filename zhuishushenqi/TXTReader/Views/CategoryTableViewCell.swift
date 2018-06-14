@@ -24,24 +24,22 @@ class CategoryTableViewCell: UITableViewCell {
     @IBAction func downloadAction(_ sender: Any) {
         cellDelegate?.downloadBtnClicked(sender: sender)
     }
-
-    var chapter:QSChapter?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-    func bind(model:QSChapter,index:Int){
-//        if model.content == "" {
-//            downloadBtn.isHidden = false
-//        }else{
-//            downloadBtn.isHidden = true
-//        }
-//        if model.curChapter == index {
-//            tittle.textColor = UIColor.red
-//        }
-//        count.text = "\(model.curChapter)"
+    func bind(model:[String:Any],chapterDict:[String:Any]){
+        if let link = model["link"] as? String {
+            if let _ = chapterDict[link] as? QSChapter {
+                downloadBtn.isEnabled = false
+                downloadBtn.setTitle("已缓存", for: .normal)
+            } else {
+                downloadBtn.isEnabled = true
+                downloadBtn.setTitle("下载", for: .normal)
+            }
+        }
     }
     
     override func prepareForReuse() {
