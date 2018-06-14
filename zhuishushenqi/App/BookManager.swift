@@ -155,22 +155,6 @@ public class BookManager:NSObject {
     }
     
     func modifyRecord(_ book:BookDetail,_ chapter:Int?,_ page:Int?,_ bookId:String?) {
-        let record:QSRecord = book.record ?? QSRecord()
-        if let opChapter = chapter {
-            record.chapter = opChapter
-        }
-        if let opPage = page {
-            record.page = opPage
-        }
-        if let opBookID = bookId {
-            record.bookId = opBookID
-        }
-        record.bookId = book._id
-        let chapters = book.book.chapters
-        if  let chapterIndex = chapter,chapters.count > chapterIndex  {
-            record.chapterModel = chapters[chapterIndex]
-        }
-        book.record = record
         books[book._id] = book
         DispatchQueue.global().async {
             // 持久化时，章节内容置为空,避免内容过大

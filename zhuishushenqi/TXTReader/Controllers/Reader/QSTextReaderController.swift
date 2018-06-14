@@ -116,6 +116,13 @@ class QSTextReaderController: UIViewController {
             view.addSubview(pageController!.view)
             addChildViewController(pageController!)
             pageController?.setViewControllers([currentReaderVC], direction: .forward, animated: true, completion: nil)
+            if let model = bookDetail.record?.chapterModel {
+                if let chapterIndex = bookDetail.record?.chapter {
+                    if chapterIndex < model.pages.count {
+                        currentReaderVC.page = model.pages[chapterIndex]
+                    }
+                }
+            }
             break
         case .simple:
             setupReaderViewController()
@@ -152,26 +159,19 @@ class QSTextReaderController: UIViewController {
     }
     
     func initialPageViewController()->PageViewController{
+        let pageVC = PageViewController()
         if let record = bookDetail.record {
-            currentChapter = record.chapter
-            currentPage = record.page
+            let chapterIndex = record.chapter
+            if let chapterModel = record.chapterModel {
+                if chapterIndex < chapterModel.pages.count {
+                    let pageIndex = record.page
+                    if pageIndex < chapterModel.pages.count {
+                        pageVC.page = chapterModel.pages[pageIndex]
+                    }
+                }
+            }
         }
-        let pageVC = PageViewController()
-        let page = getPage(chapter: currentChapter, page: currentPage)
-        pageVC.page = page
         currentReaderVC = pageVC
-        return pageVC
-    }
-    
-    
-    func getNextPage(chapter:Int,page:Int)->PageViewController{
-        let pageVC = PageViewController()
-        let pageModel = getPage(chapter: chapter, page: page)
-        pageVC.page = pageModel
-        if pageModel.content == "" {
-            // 如果没网，可以先展示章节名与页码
-            presenter?.interactor.getChapter(chapterIndex: currentChapter, pageIndex: currentPage)
-        }
         return pageVC
     }
     
@@ -535,7 +535,7 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
             })
         }else{
             if let book = self.bookDetail {
-                BookManager.shared.modifyRecord(book, currentChapter, currentPage)
+                BookManager.shared.modifyRecord(book, book.record?.chapter, book.record?.page)
             }
             self.dismiss(animated: true, completion: nil)
         }
@@ -661,18 +661,27 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     //MARK: - CategoryDelegate
     func categoryDidSelectAtIndex(index:Int){
         curlPageStyle = .none
-        currentChapter = index
-        currentPage = 0
-        let pageVC = getNextPage(chapter: currentChapter, page: currentPage)
-//        let page = getPage(chapter: currentChapter, page: currentPage)
-//        pageVC.page = page
-        currentReaderVC = pageVC
-        
+        bookDetail.record?.chapter = index
+        bookDetail.record?.page = 0
+        bookDetail.record?.chapterModel = nil
+        if let link = bookDetail.chapters?[index]["link"] as? String {
+            if let chapterModel = chapterDict[link] as? QSChapter {
+                bookDetail.record?.chapterModel = chapterModel
+            }
+        }
+        let pageVC = PageViewController()
+        if let model = bookDetail.record?.chapterModel {
+            pageVC.page = model.pages[0]
+        } else {
+            isAnimatedFinished = true
+            presenter?.interactor.getChapter(chapterIndex: index, pageIndex: 0)
+        }
         let backgroundVC = QSReaderBackgroundViewController()
         backgroundVC.setBackground(viewController: pageVC)
         pageController?.setViewControllers([pageVC,backgroundVC], direction: .forward, animated: true) { (finished) in
             self.toolBar.hideWithAnimations(animation: true)
         }
+        currentReaderVC = pageVC
     }
 }
 
