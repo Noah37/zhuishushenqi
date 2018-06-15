@@ -12,6 +12,7 @@ import RxCocoa
 import RxAlamofire
 import Alamofire
 import HandyJSON
+import SwiftyJSON
 
 final class ZSRootWebService {
     func fetchShelvesUpdate(for books:[BookDetail]) ->Observable<[BookDetail]>{
