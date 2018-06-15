@@ -24,9 +24,4 @@ class QSRecomment: NSObject {
     var majorCate:String = ""
     var minorCate:String = ""
     
-    
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["author":"author","site":"site","lastChapter":"lastChapter","cat":"cat","majorCate":"majorCate","minorCate":"minorCate",
-                "title":"title","cat":"cat","shortIntro":"shortIntro","retentionRatio":"retentionRatio","latelyFollower":"latelyFollower","cover":"cover","id":"_id"]
-    }
 }

@@ -49,8 +49,4 @@ class UpdateInfo: NSObject,NSCoding ,HandyJSON{
         aCoder.encode(self.lastChapter, forKey: "lastChapter")
         
     }
-
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","author":"author","referenceSource":"referenceSource","updated":"updated","chaptersCount":"chaptersCount","lastChapter":"lastChapter"]
-    }
 }

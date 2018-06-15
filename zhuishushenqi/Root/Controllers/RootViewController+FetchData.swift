@@ -67,16 +67,12 @@ extension RootViewController{
             // 防止返回时卡顿，采用子线程
             DispatchQueue.global().async {
                 if let json:[Any] = response.json as? [Any] {
-                    do{
-                        self.updateInfoArr = try XYCBaseModel.model(withModleClass: UpdateInfo.self, withJsArray: json as [Any]!) as? [UpdateInfo]
-                        guard let updateModels = self.updateInfoArr else {
-                            return
-                        }
-                        BookManager.shared.updateToModel(updateModels: updateModels)
+                    if let models = [UpdateInfo].deserialize(from: json) as? [UpdateInfo] {
+                        BookManager.shared.updateToModel(updateModels: models)
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
-                    }catch _{}
+                    }
                 }
             }
         }

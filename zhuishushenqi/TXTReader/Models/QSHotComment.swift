@@ -25,9 +25,6 @@ class QSHotComment: NSObject {
     var helpful:Helpful = Helpful()
     var book:QSHotBook = QSHotBook()
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","content":"content","rating":"rating","title":"title","likeCount":"likeCount","state":"state","updated":"updated","created":"created","commentCount":"commentCount","author":"author","helpful":"helpful"]
-    }
 }
 
 @objc(Author)
@@ -40,9 +37,6 @@ class Author: NSObject {
     var lv:Int = 0
     var gender:String = ""
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","avatar":"avatar","nickname":"nickname","activityAvatar":"activityAvatar","type":"type","lv":"lv","gender":"gender"]
-    }
 }
 
 @objc(Helpful)
@@ -50,9 +44,6 @@ class Helpful: NSObject {
     var no:Int = 0
     var total:Int = 0
     var yes:Int = 0
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["no":"no","total":"total","yes":"yes"]
-    }
 }
 
 //"book": {
@@ -70,7 +61,4 @@ class QSHotBook: NSObject {
     var title:String = ""
     var latelyFollower = ""
     var retentionRatio = "'"
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["id":"id","cover":"cover","title":"title","latelyFollower":"latelyFollower","retentionRatio":"retentionRatio"]
-    }
 }

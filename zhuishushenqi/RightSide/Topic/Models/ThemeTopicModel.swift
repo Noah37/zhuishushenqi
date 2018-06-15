@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objc(ThemeTopicModel)
-class ThemeTopicModel: NSObject {
+class ThemeTopicModel: NSObject,HandyJSON {
 
     var _id:String = ""
     var title:String = ""
@@ -20,8 +21,8 @@ class ThemeTopicModel: NSObject {
     var cover:String = ""
     var bookCount:Int = 0
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","title":"title","author":"author","desc":"desc","gender":"gender","collectorCount":"collectorCount","cover":"cover","bookCount":"bookCount"]
+    required override init() {
+        
     }
 
 }

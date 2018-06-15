@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objc(QSBookList)
-class QSBookList: NSObject {
+class QSBookList: NSObject ,HandyJSON{
     
     var id:String = ""
     var title:String = ""
@@ -19,9 +20,7 @@ class QSBookList: NSObject {
     var cover:String = ""
     var collectorCount:Int = 0
     
-    
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["author":"author",
-                "title":"title","desc":"desc","bookCount":"bookCount","collectorCount":"collectorCount","cover":"cover","id":"id"]
+    required override init() {
+        
     }
 }

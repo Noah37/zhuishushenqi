@@ -96,12 +96,10 @@ class ThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableViewD
         let param = ["sort":sorts[index],"duration":durations[index],"start":"0","gender":gender,"tag":tag]
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             QSLog(response.json)
-            do{
-                if let books = response.json?.object(forKey: "bookLists") {
-                    self.booksModel =  try XYCBaseModel.model(withModleClass: ThemeTopicModel.self, withJsArray:books as! [AnyObject]) as NSArray
+            if let books = response.json?.object(forKey: "bookLists") {
+                if let models = [ThemeTopicModel].deserialize(from: books as? [Any]) as NSArray? {
+                    self.booksModel = models
                 }
-            }catch{
-                
             }
             DispatchQueue.main.async {
                 

@@ -54,13 +54,11 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
         let urlString = "\(BASEURL)/user/twitter/hottweets"
         QSNetwork.request(urlString) { (response) in
             if let hottweets = response.json?["tweets"] as? [Any] {
-                do{
-                    self.timeline = try XYCBaseModel.model(withModleClass: QSHotModel.self, withJsArray: hottweets) as? [QSHotModel]
+                if let time = [QSHotModel].deserialize(from: hottweets) as? [QSHotModel] {
+                    self.timeline = time
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-                }catch{
-                   
                 }
             }
         }

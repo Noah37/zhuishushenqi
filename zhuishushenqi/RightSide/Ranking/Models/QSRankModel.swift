@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objc(QSRankModel)
-class QSRankModel: NSObject {
+class QSRankModel: NSObject,HandyJSON {
 
     var totalRank:String = ""
     var _id:String = ""
@@ -19,8 +20,7 @@ class QSRankModel: NSObject {
     var monthRank:String = ""
     var image:String = ""
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["totalRank":"totalRank","_id":"_id","title":"title","collapse":"collapse","cover":"cover","monthRank":"monthRank"]
+    required override init() {
+        super.init()
     }
-
 }

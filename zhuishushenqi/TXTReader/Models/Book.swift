@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objc(Book)
-class Book: NSObject {
+class Book: NSObject,HandyJSON {
 
     var author:String?
     var title:String?
@@ -21,8 +22,7 @@ class Book: NSObject {
     var cover:String?
     var _id:String?
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["author":"author",
-                "title":"title","cat":"cat","shortIntro":"shortIntro","retentionRatio":"retentionRatio","latelyFollower":"latelyFollower","cover":"cover","_id":"_id","majorCate":"majorCate"]
+    required override init() {
+        
     }
 }

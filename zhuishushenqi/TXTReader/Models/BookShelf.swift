@@ -20,7 +20,4 @@ class BookShelf: NSObject {
     var chaptersCount:NSNumber?
     var lastChapter:String?
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","title":"title","author":"author","cover":"cover","allowMonthly":"allowMonthly","allowVoucher":"allowVoucher","updated":"updated","chaptersCount":"chaptersCount","lastChapter":"lastChapter"]
-    }
 }

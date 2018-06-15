@@ -83,13 +83,10 @@ class SearchDetailViewController: BaseViewController,UITableViewDataSource,UITab
         let param = ["query":self.searchWords,"start":"0","limit":"100"]
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             QSLog(response.json)
-            
-            do{
-                if let books = response.json?.object(forKey: "books") {
-                    self.books =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject]) as! [Book]
+            if let books = response.json?.object(forKey: "books") {
+                if let models = [Book].deserialize(from: books as? [Any]) as? [Book] {
+                    self.books = models
                 }
-            }catch{
-                
             }
             DispatchQueue.main.async {
                 self.view.addSubview(self.tableView)

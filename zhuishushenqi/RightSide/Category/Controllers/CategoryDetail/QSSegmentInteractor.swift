@@ -10,6 +10,7 @@
 
 import UIKit
 import QSNetwork
+import HandyJSON
 
 //        http://api.zhuishushenqi.com/book/by-categories?gender=male&type=new&major=都市&minor=&start=0&limit=50
 class QSSegmentInteractor: QSSegmentInteractorProtocol {
@@ -38,17 +39,12 @@ class QSSegmentInteractor: QSSegmentInteractorProtocol {
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "books"){
-                do{
-                    let booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject])  as? [Book]
-                    if let books = booksModel {
-                        var curModels = self.models[index]
-                        curModels += books
-                        self.models[index] = curModels
-                        self.output?.fetchDataSuccess(models: curModels)
-                    }else{
-                        self.output?.fetchDataFailed()
-                    }
-                }catch{
+                if let booksModel = [Book].deserialize(from: books as? [Any]) as? [Book] {
+                    var curModels = self.models[index]
+                    curModels += booksModel
+                    self.models[index] = curModels
+                    self.output?.fetchDataSuccess(models: curModels)
+                } else {
                     self.output?.fetchDataFailed()
                 }
             }else{
@@ -71,15 +67,10 @@ class QSSegmentInteractor: QSSegmentInteractorProtocol {
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "books"){
-                do{
-                    let booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject])  as? [Book]
-                    if let books = booksModel {
-                        self.models[index] = books
-                        self.output?.fetchDataSuccess(models: books)
-                    }else{
-                        self.output?.fetchDataFailed()
-                    }
-                }catch{
+                if let booksModel = [Book].deserialize(from: books as? [Any]) as? [Book] {
+                    self.models[index] = booksModel
+                    self.output?.fetchDataSuccess(models: booksModel)
+                } else {
                     self.output?.fetchDataFailed()
                 }
             }else{

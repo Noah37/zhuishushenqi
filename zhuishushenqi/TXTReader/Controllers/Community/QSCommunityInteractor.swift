@@ -34,19 +34,14 @@ class QSCommunityInteractor: QSCommunityInteractorProtocol {
         let url = "\(BASEURL)/post/by-book?book=\(model._id)&sort=updated&type=normal,vote&start=\(postStart)&limit=20"
         QSNetwork.request(url) { (response) in
             if let json = response.json?["posts"] as? NSArray {
-                do{
-                    let posts = try XYCBaseModel.model(withModleClass: BookComment.self, withJsArray: json as! [Any]) as? [BookComment]
-                    if let models = posts {
-                        if self.postStart == 0{
-                            self.posts = models
-                        }else{
-                            self.posts.append(contentsOf: models)
-                        }
-                        self.output?.fetchPostsSuccess(posts: self.posts)
-                    }else {
-                        self.output?.fetchPostsFailed()
+                if let posts = [BookComment].deserialize(from: json as? [Any]) as? [BookComment] {
+                    if self.postStart == 0{
+                        self.posts = posts
+                    }else{
+                        self.posts.append(contentsOf: posts)
                     }
-                } catch {
+                    self.output?.fetchPostsSuccess(posts: self.posts)
+                }else {
                     self.output?.fetchPostsFailed()
                 }
             }else {
@@ -78,19 +73,16 @@ class QSCommunityInteractor: QSCommunityInteractorProtocol {
         let url = "\(BASEURL)/post/review/by-book?book=\(model._id)&sort=updated&start=\(commentStart)&limit=20"
         QSNetwork.request(url) { (response) in
             if let json = response.json?["reviews"] as? NSArray {
-                do{
-                    let posts = try XYCBaseModel.model(withModleClass: BookComment.self, withJsArray: json as! [Any]) as? [BookComment]
-                    if let models = posts {
-                        if self.commentStart == 0{
-                            self.comments = models
-                        }else{
-                            self.comments.append(contentsOf: models)
-                        }
-                        self.output?.fetchCommentsSuccess(comments: self.comments)
-                    }else {
-                        self.output?.fetchCommentsFailed()
+                
+                if let posts = [BookComment].deserialize(from: json as? [Any]) as? [BookComment] {
+                    if self.commentStart == 0{
+                        self.comments = posts
+                    }else{
+                        self.comments.append(contentsOf: posts)
                     }
-                } catch {
+                    self.output?.fetchCommentsSuccess(comments: self.comments)
+
+                }else {
                     self.output?.fetchCommentsFailed()
                 }
             }else {

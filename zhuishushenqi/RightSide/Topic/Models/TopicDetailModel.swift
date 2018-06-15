@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objc(TopicDetailModel)
-class TopicDetailModel: NSObject {
+class TopicDetailModel: NSObject ,HandyJSON{
 
     var book:TopicDetailBook = TopicDetailBook()
     var comment:String = "" {
@@ -21,15 +22,14 @@ class TopicDetailModel: NSObject {
     }
     var commentHeight:CGFloat = 0.0
 
-    
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["book":"book","comment":"comment"]
+    required override init() {
+        
     }
 
 }
 
 @objc(TopicDetailBook)
-class TopicDetailBook: NSObject {
+class TopicDetailBook: NSObject,HandyJSON {
     var book:String = ""
     var _id:String = ""
     var author:String = ""
@@ -47,8 +47,8 @@ class TopicDetailBook: NSObject {
     var minRetentionRatio:Int = 0
     var retentionRatio:Float = 0.0
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["book":"book","_id":"_id","author":"author","cover":"cover","longIntro":"longIntro","title":"title","site":"site","cat":"cat","majorCate":"majorCate","minorCate":"minorCate","banned":"banned","latelyFollower":"latelyFollower","latelyFollowerBase":"latelyFollowerBase","wordCount":"wordCount","minRetentionRatio":"minRetentionRatio","retentionRatio":"retentionRatio"]
+    required override init() {
+        
     }
 }
 

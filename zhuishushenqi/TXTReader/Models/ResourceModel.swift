@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HandyJSON
 
 enum ResourceType {
     case vip //vip源，需登录购买
@@ -15,7 +16,7 @@ enum ResourceType {
 
 //某一章的源
 @objc(ResourceModel)
-class ResourceModel: NSObject,NSCoding {
+class ResourceModel: NSObject,NSCoding ,HandyJSON{
     
 //    {"_id": "570769fe326011945ee8612d",
 //    "lastChapter": "第1154章 内心的喜悦",
@@ -48,6 +49,10 @@ class ResourceModel: NSObject,NSCoding {
     var starting = false
     var host = ""
     
+    required override init() {
+        
+    }
+    
     required init?(coder aDecoder: NSCoder) {
 //        self.sourceType = aDecoder.decodeObject(forKey: "sourceType") as? ResourceType ?? .free
         self._id = aDecoder.decodeObject(forKey: "id") as? String ?? ""
@@ -75,22 +80,5 @@ class ResourceModel: NSObject,NSCoding {
         aCoder.encode(self.starting, forKey: "starting")
         aCoder.encode(self.host, forKey: "host")
 
-    }
-    
-    override init(){
-        
-    }
-
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id",
-                "lastChapter":"lastChapter",
-                "link":"link",
-                "source":"source",
-                "name":"name",
-                "isCharge":"isCharge",
-                "chaptersCount":"chaptersCount",
-                "updated":"updated",
-                "starting":"starting",
-                "host":"host"]
     }
 }

@@ -45,19 +45,11 @@ class QSTextInteractor: QSTextInteractorProtocol {
         let api = QSAPI.allResource(key: bookDetail._id)
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             if let resource = response.json {
-                do{
-                    var resources:[ResourceModel]?
-                    resources = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resource as! [Any]) as? [ResourceModel]
-                    if let res = resources {
-                        self.resources = res
-                    }
-                    if let resourcessss = self.resources {
-                        self.output.fetchAllResourceSuccess(resource: resourcessss)
-                    }else{
-                        self.output.fetchAllResourceFailed()
-                    }
-                }catch{
-                    QSLog(error)
+                if let resources  = [ResourceModel].deserialize(from: resource as? [Any]) as? [ResourceModel] {
+                    self.resources = resources
+                    self.output.fetchAllResourceSuccess(resource: resources)
+
+                }else{
                     self.output.fetchAllResourceFailed()
                 }
             }else{

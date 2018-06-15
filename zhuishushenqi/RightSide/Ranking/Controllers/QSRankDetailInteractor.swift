@@ -8,6 +8,7 @@
 
 import Foundation
 import QSNetwork
+import HandyJSON
 
 class QSRankDetailInteractor: QSRankDetailInteractorProtocol {
     var output: QSRankDetailInteractorOutputProtocol!
@@ -24,12 +25,9 @@ class QSRankDetailInteractor: QSRankDetailInteractorProtocol {
             QSLog(response.json)
             if let json = response.json {
                 if let books = (json.object(forKey: "ranking") as AnyObject).object(forKey: "books") {
-                    do{
-                        let rank =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject]) as? [Book]
-                        self.ranks[index] = rank ?? []
+                    if let rank  = [Book].deserialize(from: books as? [Any]) as? [Book] {
+                        self.ranks[index] = rank
                         self.output.fetchRankSuccess(ranks: self.ranks)
-                    }catch{
-                        self.output.fetchRankFailed()
                     }
                 }
             }else{

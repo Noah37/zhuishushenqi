@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objc(BookDetail)
-class BookDetail: NSObject,NSCoding {
+class BookDetail: NSObject,NSCoding ,HandyJSON{
 
     
     var _id:String = ""
@@ -46,10 +47,6 @@ class BookDetail: NSObject,NSCoding {
 
     //更新信息
     var updateInfo:UpdateInfo?
-    
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["author":"author","cover":"cover","creater":"creater","longIntro":"longIntro","title":"title","cat":"cat","majorCate":"majorCate","minorCate":"minorCate","latelyFollower":"latelyFollower","retentionRatio":"retentionRatio","serializeWordCount":"serializeWordCount","wordCount":"wordCount","updated":"updated","tags":"tags","_id":"_id","sourceIndex":"sourceIndex","chapter":"chapter","page":"page"]
-    }
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -89,7 +86,7 @@ class BookDetail: NSObject,NSCoding {
         }
     }
     
-    override init() {
+    required override init() {
         super.init()
         setupBook()
     }

@@ -78,15 +78,14 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
     func fetchBooks(key:String){
         let api = QSAPI.searchBook(id: key, start: "0", limit: "100")
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            do{
-                if let books = response.json?.object(forKey: "books") {
-                    let booksModel:[Book] = try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject]) as! [Book]
-                    self.output.fetchBooksSuccess(books: booksModel,key:key)
-                }else{
+            if let books = response.json?.object(forKey: "books") {
+                if let models = [Book].deserialize(from: books as? [Any]) as? [Book] {
+                    self.output.fetchBooksSuccess(books: models,key:key)
+                } else {
                     self.output.fetchBooksFailed(key: key)
                 }
-            }catch{
-                QSLog(error)
+            } else {
+                self.output.fetchBooksFailed(key: key)
             }
         }
     }

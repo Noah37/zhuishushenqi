@@ -29,15 +29,10 @@ class QSBookCommentInteractor: QSBookCommentInteractorProtocol {
         let best = "\(BASEURL)/post/\(model._id)/comment/best"
         QSNetwork.request(best) { (response) in
             if let books = response.json?.object(forKey: "comments")  {
-                do{
-                    let magicComments =  try XYCBaseModel.model(withModleClass: BookCommentDetail.self, withJsArray:books as! [AnyObject]) as? [BookCommentDetail]
-                    if let hot = magicComments{
-                        self.hotComments = hot
-                        self.output?.fetchHotSuccess(hots: self.hotComments)
-                    }else{
-                        self.output?.fetchHotFailed()
-                    }
-                }catch{
+                if let magicComments = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
+                    self.hotComments = magicComments
+                    self.output?.fetchHotSuccess(hots: self.hotComments)
+                } else {
                     self.output?.fetchHotFailed()
                 }
             }else{
@@ -50,15 +45,11 @@ class QSBookCommentInteractor: QSBookCommentInteractorProtocol {
         let comment = getCommentURL(type: .normal)
         QSNetwork.request(comment, method: HTTPMethodType.get, parameters: self.param, headers: nil) { (response) in
             if let books = response.json?.object(forKey: "comments")  {
-                do{
-                    let modes = try XYCBaseModel.model(withModleClass: BookCommentDetail.self, withJsArray:books as! [AnyObject]) as? [BookCommentDetail]
-                    if let normals = modes {
-                        self.normalComments.append(contentsOf: normals)
-                        self.output?.fetchNormalSuccess(normals: self.normalComments)
-                    }else{
-                        self.output?.fetchNormalFailed()
-                    }
-                }catch{
+                
+                if let models = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
+                    self.normalComments.append(contentsOf: models)
+                    self.output?.fetchNormalSuccess(normals: self.normalComments)
+                }else{
                     self.output?.fetchNormalFailed()
                 }
             }else{
@@ -73,9 +64,8 @@ class QSBookCommentInteractor: QSBookCommentInteractorProtocol {
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let reader = response.json?.object(forKey: "review") {
-                let detail:BookComment? = BookComment.model(with: reader as! [AnyHashable : Any])
-                if let model = detail {
-                    self.output?.fetchDetailSuccess(detail: model)
+                if let detail = BookComment.deserialize(from: reader as? NSDictionary) {
+                    self.output?.fetchDetailSuccess(detail: detail)
                 }else{
                     self.output?.fetchDetailFailed()
                 }

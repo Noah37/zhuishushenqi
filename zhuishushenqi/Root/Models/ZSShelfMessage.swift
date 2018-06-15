@@ -25,9 +25,6 @@ class ZSShelfMessage: NSObject,HandyJSON {
         
     }
     
-    //    class func modelCustomPropertyMapper() ->NSDictionary{
-    //        return ["postLink":"postLink","highlight":"highlight"]
-    //    }
     internal var textColor:UIColor = UIColor.gray
     
     func postMessage() ->(String,String,UIColor){

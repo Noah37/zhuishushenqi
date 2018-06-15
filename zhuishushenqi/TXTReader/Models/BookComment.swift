@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objc(BookComment)
-class BookComment: NSObject {
+class BookComment: NSObject,HandyJSON {
     
     var _id:String = ""
     var content:String = ""{
@@ -40,8 +41,8 @@ class BookComment: NSObject {
     
     var book:BookCommentBook = BookCommentBook()
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","content":"content","rating":"rating","title":"title","likeCount":"likeCount","state":"state","updated":"updated","created":"created","commentCount":"commentCount","author":"author","helpful":"helpful"]
+    required override init() {
+        
     }
     
     func calTitleHeight(){
@@ -60,7 +61,7 @@ class BookComment: NSObject {
 }
 
 @objc(BookCommentAuthor)
-class BookCommentAuthor: NSObject {
+class BookCommentAuthor: NSObject,HandyJSON {
     var _id:String = ""
     var avatar:String = ""
     var nickname:String = ""
@@ -72,20 +73,19 @@ class BookCommentAuthor: NSObject {
     var created:String = ""
     var id:String = ""
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","avatar":"avatar","nickname":"nickname","activityAvatar":"activityAvatar","type":"type","lv":"lv","gender":"gender","rank":"rank","created":"created","id":"id"]
+    required override init() {
+        
     }
 }
 
 @objc(BookCommentBook)
-class BookCommentBook: NSObject {
+class BookCommentBook: NSObject,HandyJSON {
     var _id:String = "id"
     var cover:String = ""
     var title:String = ""
     var id:String = ""
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","cover":"cover","title":"title","id":"id"
-        ]
+    required override init() {
+        
     }
 }

@@ -57,9 +57,9 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             QSLog(response.json)
             if let resources:[Any] = response.json as? [Any]  {
-                do{
-                    self.sources = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources ) as? [ResourceModel]
-                }catch _{}
+                if let models = [ResourceModel].deserialize(from: resources) as? [ResourceModel] {
+                    self.sources = models
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

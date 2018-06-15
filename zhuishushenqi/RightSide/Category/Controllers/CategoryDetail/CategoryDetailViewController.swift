@@ -48,18 +48,18 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
         segView.menuDelegate = self
         view.addSubview(segView)
     }
-
+    
     
     func requestDetail(){
         //        http://api.zhuishushenqi.com/book/by-categories?gender=male&type=new&major=都市&minor=&start=0&limit=50
         let urlString = "\(BASEURL)/book/by-categories"
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             QSLog(response.json)
-            do{
-                if let books = response.json?.object(forKey: "books"){
-                    self.booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject])  as! [Book]
+            if let books = response.json?.object(forKey: "books"){
+                if let models = [Book].deserialize(from: books as? [Any]) as? [Book] {
+                    self.booksModel = models
                 }
-            }catch _ {}
+            }
             self.view.addSubview(self.tableView)
             self.tableView.reloadData()
         }
@@ -77,9 +77,9 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: params , headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "books"){
-                do{
-                    self.booksModel =  try XYCBaseModel.model(withModleClass: Book.self, withJsArray:books as! [AnyObject])  as! [Book]
-                }catch _{}
+                if let models = [Book].deserialize(from: books as? [Any]) as? [Book] {
+                    self.booksModel = models
+                }
             }
             self.view.addSubview(self.tableView)
             self.tableView.reloadData()
@@ -112,10 +112,10 @@ class CategoryDetailViewController: BaseViewController ,SegMenuDelegate,UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-            let bookDetailVC = BookDetailViewController()
-            let book:Book? = booksModel[indexPath.row]
-            bookDetailVC.id = book?._id ?? ""
-            self.navigationController?.pushViewController(bookDetailVC, animated: true)
+        let bookDetailVC = BookDetailViewController()
+        let book:Book? = booksModel[indexPath.row]
+        bookDetailVC.id = book?._id ?? ""
+        self.navigationController?.pushViewController(bookDetailVC, animated: true)
         
     }
     

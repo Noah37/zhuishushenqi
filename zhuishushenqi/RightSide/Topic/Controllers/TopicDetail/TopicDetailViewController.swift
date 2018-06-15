@@ -51,12 +51,10 @@ class TopicDetailViewController: BaseViewController ,SegMenuDelegate,UITableView
             if let bookList = response.json?.object(forKey: "bookList") as? [AnyHashable : Any] {
                 self.headerModel = TopicDetailHeader.model(with: bookList)
             }
-            do{
-                if let books = (response.json?.object(forKey: "bookList") as AnyObject).object(forKey:"books") {
-                    self.booksModel =  try XYCBaseModel.model(withModleClass: TopicDetailModel.self, withJsArray:books as! [AnyObject]) as NSArray
+            if let books = (response.json?.object(forKey: "bookList") as AnyObject).object(forKey:"books") {
+                if let models = [TopicDetailModel].deserialize(from: books as? [Any]) as NSArray? {
+                    self.booksModel = models
                 }
-            }catch{
-                
             }
             DispatchQueue.main.async {
                 

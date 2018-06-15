@@ -143,10 +143,8 @@ class RootViewController: UIViewController {
         let recURL = "\(BASEURL)/book/recommend?gender=\(gender[index])"
         QSNetwork.request(recURL) { (response) in
             if let books = response.json?["books"] {
-
-                let models = try? XYCBaseModel.model(withModleClass: BookDetail.self, withJsArray: books as! [Any]) as? [BookDetail]
-                if let books = models {
-                    BookManager.shared.modifyBookshelf(books: books)
+                if let models = [BookDetail].deserialize(from: books as? [Any]) as? [BookDetail] {
+                    BookManager.shared.modifyBookshelf(books: models)
                     self.tableView.reloadData()
                 }
                 self.updateInfo()

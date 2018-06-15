@@ -8,9 +8,10 @@
 
 import UIKit
 import YYKit
+import HandyJSON
 
 @objc(BookCommentDetail)
-class BookCommentDetail: NSObject {
+class BookCommentDetail: NSObject,HandyJSON {
     
     var _id:String = ""
     var content:String = "" {
@@ -48,18 +49,18 @@ class BookCommentDetail: NSObject {
     var floorWidth:CGFloat = 0
     var textLayout:YYTextLayout?
 
-    
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","content":"content","author":"author","floor":"floor","replyAuthor":"replyAuthor","likeCount":"likeCount","created":"created","replyTo":"replyTo"]
+    required override init() {
+        
     }
 }
 
 @objc(ReplyTo)
-class ReplyTo: NSObject {
+class ReplyTo: NSObject,HandyJSON {
     var _id:String = ""
     var floor:Int = 0
     var author:BookCommentAuthor = BookCommentAuthor()
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","floor":"floor","author":"author"]
+    
+    required override init() {
+        
     }
 }

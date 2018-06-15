@@ -24,17 +24,11 @@ class QSTopicDetailInteractor: QSTopicDetailInteractorProtocol {
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let bookList = response.json?.object(forKey: "bookList") as? [AnyHashable : Any], let books = (response.json?.object(forKey: "bookList") as AnyObject).object(forKey:"books"){
-                do{
-                    let headerModel = TopicDetailHeader.model(with: bookList)
-                    let booksModel =  try XYCBaseModel.model(withModleClass: TopicDetailModel.self, withJsArray:books as! [AnyObject]) as? [TopicDetailModel]
-                    if let header = headerModel,let books = booksModel {
-                        self.output?.fetchListSuccess(list: books, header: header)
-                    }else{
-                        self.output?.fetchListFailed()
-                    }
-                }catch{
+                if let headerModel = TopicDetailHeader.deserialize(from: bookList as? [String:Any]) ,let booksModel =  [TopicDetailModel].deserialize(from: books as? [Any]) as? [TopicDetailModel] {
+                    self.output?.fetchListSuccess(list: booksModel, header: headerModel)
+
+                } else {
                     self.output?.fetchListFailed()
-                    QSLog(error)
                 }
             }else{
                 self.output?.fetchListFailed()

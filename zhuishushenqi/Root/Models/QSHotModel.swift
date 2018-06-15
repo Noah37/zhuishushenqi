@@ -7,19 +7,20 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objc(QSHotModel)
-class QSHotModel: NSObject {
+class QSHotModel: NSObject,HandyJSON {
     var user:QSHotUser = QSHotUser()
     var tweet:QSHotTweet = QSHotTweet()
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["user":"user","tweet":"tweet"]
+    required override init() {
+        
     }
 }
 
 @objc(QSHotUser)
-class QSHotUser: NSObject {
+class QSHotUser: NSObject, HandyJSON{
     var _id:String = ""
     var avatar:String = ""
     var nickname:String = ""
@@ -28,12 +29,12 @@ class QSHotUser: NSObject {
     var lv:Int = 0
     var gender:String = ""
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","avatar":"avatar","nickname":"nickname","activityAvatar":"activityAvatar","type":"type","lv":"lv","gender":"gender"]
+    required override init() {
+        
     }
 }
 @objc(QSHotTweet)
-class QSHotTweet: NSObject {
+class QSHotTweet: NSObject ,HandyJSON{
     var _id:String = ""
     var title:String = ""
     var content:String = ""
@@ -49,9 +50,8 @@ class QSHotTweet: NSObject {
     var type:String = ""
     var created:String = ""
     
-    
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","title":"title","content":"content","__v":"__v","hotAt":"hotAt","post":"post","votes":"votes","deleted":"deleted","isHot":"isHot","score":"score","commented":"commented","retweeted":"retweeted","type":"type","created":"created"]
+    required override init() {
+        
     }
 }
 

@@ -9,7 +9,7 @@
 #ifndef zhuishushenqi_Bridge_Header_h
 #define zhuishushenqi_Bridge_Header_h
 
-#import "XYCBaseModel.h"
+//#import "XYCBaseModel.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "NSDate+Date.h"
 #import "NSDate+Extension.h"

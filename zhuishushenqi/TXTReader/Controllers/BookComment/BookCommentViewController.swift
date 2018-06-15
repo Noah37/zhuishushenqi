@@ -17,7 +17,7 @@ enum QSBookCommentType {
 }
 
 class BookCommentViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
-
+    
     var id:String = ""
     var commentType:QSBookCommentType = .normal
     private var start:Int = 0
@@ -27,7 +27,7 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
     fileprivate var normalComments:[BookCommentDetail]? = [BookCommentDetail]()
     fileprivate var readerModel:BookComment?
     fileprivate var hotModel:QSHotModel?
-
+    
     fileprivate lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64), style: .grouped)
         tableView.dataSource = self
@@ -49,11 +49,11 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "书评"
         let rightBtn = UIButton(type: .custom)
         rightBtn.addTarget(self, action: #selector(jump(btn:)), for: .touchUpInside)
-//        rightBtn.setImage(UIImage(named:"actionbar_close"), for: .normal)
+        //        rightBtn.setImage(UIImage(named:"actionbar_close"), for: .normal)
         rightBtn.setTitle("去底部", for: .normal)
         rightBtn.setTitleColor(UIColor.red, for: .normal)
         rightBtn.frame = CGRect(x: self.view.bounds.width - 75, y: 7, width: 60, height: 30)
@@ -79,7 +79,7 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
     }
     
     fileprivate func requestDetail(idString:String){
-
+        
         let urlString = self.getDetailURL(type: commentType)
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
@@ -95,11 +95,13 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
     }
     
     func requestBest(){
-//http://api.zhuishushenqi.com/post/530a26522852d5280e04c19c/comment/best
+        //http://api.zhuishushenqi.com/post/530a26522852d5280e04c19c/comment/best
         let best = "\(BASEURL)/post/\(self.id)/comment/best"
         QSNetwork.request(best) { (response) in
             if let books = response.json?.object(forKey: "comments")  {
-                self.magicComments =  try? XYCBaseModel.model(withModleClass: BookCommentDetail.self, withJsArray:books as! [AnyObject]) as? [BookCommentDetail] ?? []
+                if let models = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
+                    self.magicComments = models
+                }
             }
             DispatchQueue.main.async {
                 self.tableView.removeFromSuperview()
@@ -112,23 +114,23 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
     func requestMore(){
         let comment = getCommentURL(type: self.commentType)
         QSNetwork.request(comment, method: HTTPMethodType.get, parameters: self.param, headers: nil) { (response) in
-            do{
-                if let books = response.json?.object(forKey: "comments")  {
-                    if let normalComment = self.normalComments {
-                        var modes = try XYCBaseModel.model(withModleClass: BookCommentDetail.self, withJsArray:books as! [AnyObject])
-                         modes = normalComment + modes
-                        self.normalComments = modes as? [BookCommentDetail]
-                    }else{
-                        self.normalComments = try XYCBaseModel.model(withModleClass: BookCommentDetail.self, withJsArray:books as! [AnyObject]) as? [BookCommentDetail]
+            if let books = response.json?.object(forKey: "comments")  {
+                if let normalComment = self.normalComments {
+                    if let models = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
+                        self.normalComments = models + normalComment
+                    }
+                }else{
+                    if let models = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
+                        self.normalComments = models
                     }
                 }
-                DispatchQueue.main.async {
-                    self.tableView.removeFromSuperview()
-                    self.view.addSubview(self.tableView)
-                    self.tableView.reloadData()
-                    self.tableView.endRefreshing(at: .bottom)
-                }
-            }catch _ {}
+            }
+            DispatchQueue.main.async {
+                self.tableView.removeFromSuperview()
+                self.view.addSubview(self.tableView)
+                self.tableView.reloadData()
+                self.tableView.endRefreshing(at: .bottom)
+            }
         }
     }
     
@@ -136,17 +138,17 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
         var urlString = ""
         switch type {
         case .normal:
-//        http://api.zhuishushenqi.com/post/review/530a26522852d5280e04c19c/comment?start=0&limit=50
+            //        http://api.zhuishushenqi.com/post/review/530a26522852d5280e04c19c/comment?start=0&limit=50
             urlString = "\(BASEURL)/post/review/\(self.id)/comment"
             param = ["start":"\(start)","limit":"\(self.limit)"]
             break
         case .hotUser:
-//            http://api.zhuishushenqi.com/user/twitter/58d14859d0693ae736034619/comments
+            //            http://api.zhuishushenqi.com/user/twitter/58d14859d0693ae736034619/comments
             urlString = "\(BASEURL)/user/twitter/\(self.id)/comments"
             param = nil
             break
         case .hotPost:
-//            http://api.zhuishushenqi.com/post/58d1d313bd7cc9961f93192d/comment?start=0&limit=50
+            //            http://api.zhuishushenqi.com/post/58d1d313bd7cc9961f93192d/comment?start=0&limit=50
             urlString = "\(BASEURL)/post/\(self.id)/comment"
             param = ["start":"\(start)","limit":"\(self.limit)"]
             break
@@ -161,11 +163,11 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
             urlString = "\(BASEURL)/post/review/\(self.id)"
             break
         case .hotUser:
-           
+            
             urlString = "\(BASEURL)/user/twitter/\(self.id)"
             break
         case .hotPost:
-//            http://api.zhuishushenqi.com/post/58d1d313bd7cc9961f93192d/comment?start=0&limit=50
+            //            http://api.zhuishushenqi.com/post/58d1d313bd7cc9961f93192d/comment?start=0&limit=50
             urlString = "\(BASEURL)/post/\(self.id)"
             break
         }
@@ -207,13 +209,13 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
             let height:CGFloat = 0
             if (magicComments?.count ?? 0) > 0 {
                 if indexPath.section == 2 {
-//                    height = BookCommentViewCell.cellHeight(model: magicComments?[indexPath.row])
+                    //                    height = BookCommentViewCell.cellHeight(model: magicComments?[indexPath.row])
                 }else{
-//                    height = BookCommentViewCell.cellHeight(model: normalComments?[indexPath.row])
+                    //                    height = BookCommentViewCell.cellHeight(model: normalComments?[indexPath.row])
                 }
             }else {
-//                height = BookCommentViewCell.cellHeight(model: normalComments?[indexPath.row])
-
+                //                height = BookCommentViewCell.cellHeight(model: normalComments?[indexPath.row])
+                
             }
             return height
         }
@@ -244,7 +246,7 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
         }
         return nil
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

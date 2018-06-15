@@ -77,21 +77,15 @@ class QSThemeTopicInteractor: QSThemeTopicInteractorProtocol {
         let api = QSAPI.themeTopic(sort: sorts[index], duration: durations[index], start: "0", gender: gender, tag: tag)
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             QSLog(response.json)
-            do{
-                if let books = response.json?.object(forKey: "bookLists") {
-                    let booksModel =  try XYCBaseModel.model(withModleClass: ThemeTopicModel.self, withJsArray:books as! [AnyObject]) as? [ThemeTopicModel]
-                    if let models = booksModel {
-                        self.models[index] = models
-                        self.output.fetchModelSuccess(models: models)
-                    }else {
-                        self.output.fetchModelFailed()
-                    }
-                }else{
+            if let books = response.json?.object(forKey: "bookLists") {
+                if let models = [ThemeTopicModel].deserialize(from: books as? [Any]) as? [ThemeTopicModel] {
+                    self.models[index] = models
+                    self.output.fetchModelSuccess(models: models)
+                } else {
                     self.output.fetchModelFailed()
                 }
-            }catch{
+            } else{
                 self.output.fetchModelFailed()
-                QSLog(error)
             }
         }
     }

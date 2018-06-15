@@ -60,9 +60,8 @@ class LookBookViewController: BaseViewController,UITableViewDataSource,UITableVi
         let urlString = getURLString(selectIndexs: selectIndexs)
         QSNetwork.request(urlString) { (response) in
             let helps = response.json?["helps"] as? [[String:Any]]
-            let comments = try? XYCBaseModel.model(withModleClass: BookComment.self, withJsArray: helps!) as! [BookComment]
-            if let coModels = comments {
-                self.models = coModels
+            if let commnets = [BookComment].deserialize(from: helps as? [Any]) as? [BookComment] {
+                self.models = commnets
                 self.tableView.reloadData()
             }
         }

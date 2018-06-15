@@ -12,7 +12,7 @@ import UIKit
 import QSNetwork
 
 class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
-
+    
     var output: QSBookDetailInteractorOutputProtocol!
     
     var bookDetail:BookDetail!
@@ -24,8 +24,12 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
         let api = QSAPI.book(key: id)
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             if let json = response.json as? [AnyHashable : Any]{
-                self.bookDetail = BookDetail.model(with: json)
-                self.requestHot(id: id)
+                if let book = BookDetail.deserialize(from: json as NSDictionary) {
+                    self.bookDetail = book
+                    self.requestHot(id: id)
+                }else{
+                    self.output.fetchRankFailed()
+                }
             }else{
                 self.output.fetchRankFailed()
             }
@@ -35,15 +39,17 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     func requestHot(id:String){
         let api = QSAPI.bookHot(key: id)
         QSNetwork.request(api.path) { (response) in
-            do{
-                if let json = response.json?["reviews"] as? [Any] {
-                    let hot = try XYCBaseModel.model(withModleClass: BookComment.self, withJsArray: json) as? [BookComment]
-                    self.hotComment = hot ?? []
+            
+            if let json = response.json?["reviews"] as? [Any] {
+                if let hot = [BookComment].deserialize(from: json) as? [BookComment] {
+                    self.hotComment = hot
                     self.output.fetchBookSuccess(bookDetail:self.bookDetail,ranks: self.hotComment)
+                    
                 }else{
                     self.output.fetchRankFailed()
                 }
-            }catch{
+                
+            }else{
                 self.output.fetchRankFailed()
             }
         }
@@ -52,17 +58,12 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     func requestAllChapters(withUrl url:String,param:[String:Any]){
         //先查询书籍来源，根据来源返回的id再查询所有章节
         QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
-            var res:[ResourceModel]? = [ResourceModel]()
             if let resources = response.json  {
-                do{
-                    res = try XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as? [ResourceModel]
-                    if let resource = res {
-                        self.output.fetchAllChapterSuccess(bookDetail: self.bookDetail, res: resource)
-                    }else{
-                        self.output.fetchAllChapterFailed()
-                    }
-                }catch{
-                    QSLog(error)
+                
+                if let res = [ResourceModel].deserialize(from: resources as? [Any]) as? [ResourceModel] {
+                    self.output.fetchAllChapterSuccess(bookDetail: self.bookDetail, res: res)
+
+                }else{
                     self.output.fetchAllChapterFailed()
                 }
             }
@@ -73,21 +74,15 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     }
     
     func requestRecommend(){
-//        http://api.zhuishushenqi.com/book/51d11e782de6405c45000068/recommend
+        //        http://api.zhuishushenqi.com/book/51d11e782de6405c45000068/recommend
         let url = "\(BASEURL)/book/\(bookDetail._id)/recommend"
         QSNetwork.request(url) { (response) in
             let books = response.json?["books"] as? NSArray
             if let bookList = books {
-                do{
-                    let bookList = try XYCBaseModel.model(withModleClass: Book.self, withJsArray: bookList as! [Any]) as? [Book]
-                    if let booksList = bookList {
-                        self.recList = booksList
-                        self.output.fetchRecommendSuccess(books: booksList)
-                    }else{
-                        self.output.fetchRecommendFailed()
-                    }
-                }catch{
-                    QSLog(error)
+                if let booklist = [Book].deserialize(from: bookList as? [Any]) as? [Book] {
+                    self.recList = booklist
+                    self.output.fetchRecommendSuccess(books: booklist)
+                }else{
                     self.output.fetchRecommendFailed()
                 }
             }else{
@@ -97,21 +92,15 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     }
     
     func requestRecList(){
-//        http://api.zhuishushenqi.com/book-list/51d11e782de6405c45000068/recommend?limit=3
+        //        http://api.zhuishushenqi.com/book-list/51d11e782de6405c45000068/recommend?limit=3
         let url = "\(BASEURL)/book-list/\(bookDetail._id)/recommend?limit=3"
         QSNetwork.request(url) { (response) in
             let books = response.json?["booklists"] as? NSArray
             if let bookList = books {
-                do{
-                    let bookList = try XYCBaseModel.model(withModleClass: QSBookList.self, withJsArray: bookList as! [Any]) as? [QSBookList]
-                    if let booksList = bookList {
-                        self.bookList = booksList
-                        self.output.fetchRecBookSuccess(books: booksList)
-                    }else{
-                        self.output.fetchRecBookFailed()
-                    }
-                }catch{
-                    QSLog(error)
+                if let booklist = [QSBookList].deserialize(from: bookList as?  [Any]) as? [QSBookList] {
+                    self.bookList = booklist
+                    self.output.fetchRecBookSuccess(books: booklist)
+                }else{
                     self.output.fetchRecBookFailed()
                 }
             }else{
@@ -140,5 +129,5 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     func showCommunity(){
         self.output.showCommunity(model: bookDetail)
     }
-
+    
 }

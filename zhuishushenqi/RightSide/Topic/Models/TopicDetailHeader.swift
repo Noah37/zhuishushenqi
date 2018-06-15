@@ -26,9 +26,10 @@
 //"isDistillate": true,
 //"collectorCount": 703,
 import UIKit
+import HandyJSON
 
 @objc(TopicDetailHeader)
-class TopicDetailHeader: NSObject {
+class TopicDetailHeader: NSObject ,HandyJSON{
     var _id:String = ""
     var updated:String = ""
     var title:String = ""
@@ -50,20 +51,19 @@ class TopicDetailHeader: NSObject {
     
     var descHeight:CGFloat = 0.0
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","updated":"updated","title":"title","author":"author","desc":"desc","gender":"gender","created":"created","tags":"tags","stickStopTime":"stickStopTime","isDraft":"isDraft","isDistillate":"isDistillate","collectorCount":"collectorCount"]
+    required override init() {
+        
     }
 }
 @objc(TopicDetailAuthor)
-class TopicDetailAuthor: NSObject {
+class TopicDetailAuthor: NSObject ,HandyJSON{
     var _id:String = ""
     var avatar:String = ""
     var nickname:String = ""
     var type:String = ""
     var lv:Int = 0
     
-    class func modelCustomPropertyMapper() ->NSDictionary{
-        return ["_id":"_id","avatar":"avatar","nickname":"nickname","type":"type","lv":"lv"]
+    required override init() {
+        
     }
-    
 }
