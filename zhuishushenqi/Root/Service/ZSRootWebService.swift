@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import RxAlamofire
 import Alamofire
-import SwiftyJSON
+import HandyJSON
 
 final class ZSRootWebService {
     func fetchShelvesUpdate(for books:[BookDetail]) ->Observable<[BookDetail]>{
@@ -33,9 +33,11 @@ final class ZSRootWebService {
             .observeOn(ConcurrentDispatchQueueScheduler(qos:.background))
             .map { (_,responseData) in
                 // json解析
-                if let updateInfoArr:[UpdateInfo] = try XYCBaseModel.model(withModleClass: UpdateInfo.self, withJsArray: responseData as! [Any]) as? [UpdateInfo] {
-                    BookManager.shared.updateInfoUpdate(updateInfo: updateInfoArr)
-                    return BookManager.shared.books
+                if let models = [UpdateInfo].deserialize(from: responseData as? [Any]) {
+                    if let arr = models as? [UpdateInfo]{
+                        BookManager.shared.updateInfoUpdate(updateInfo: arr)
+                        return BookManager.shared.books
+                    }
                 }
                 return [:]
         }
@@ -46,7 +48,7 @@ final class ZSRootWebService {
         return requestJSON(.get, shelfApi.path, parameters: shelfApi.parameters)
             .observeOn(ConcurrentDispatchQueueScheduler(qos:.background))
             .map{ (_,responseData) in
-                if let message = ZSShelfMessage.model(with: (responseData as! [String:Any])["message"] as! [AnyHashable : Any]) {
+                if let message = ZSShelfMessage.deserialize(from: (responseData as! [String:Any])["message"] as? [String:Any]) {
                     return message
                 }
                 return ZSShelfMessage()

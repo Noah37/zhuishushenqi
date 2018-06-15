@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 //@objc(ZSShelfMessage)
-class ZSShelfMessage: NSObject {
+class ZSShelfMessage: NSObject,HandyJSON {
     
     @objc dynamic var postLink:String = ""
     @objc var highlight:Bool = false {
@@ -18,6 +19,10 @@ class ZSShelfMessage: NSObject {
                 textColor = UIColor.red
             }
         }
+    }
+    
+    required override init() {
+        
     }
     
     //    class func modelCustomPropertyMapper() ->NSDictionary{

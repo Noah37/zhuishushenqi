@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objcMembers
-class UpdateInfo: NSObject,NSCoding {
+class UpdateInfo: NSObject,NSCoding ,HandyJSON{
 //    [{
 //    "_id": "51d11e782de6405c45000068",
 //    "author": "天蚕土豆",
@@ -25,7 +26,7 @@ class UpdateInfo: NSObject,NSCoding {
     var chaptersCount:Int?
     var lastChapter:String?
     
-    override init() {
+    required override init() {
         
     }
     
@@ -45,7 +46,9 @@ class UpdateInfo: NSObject,NSCoding {
         aCoder.encode(self.referenceSource, forKey: "referenceSource")
         aCoder.encode(self.updated, forKey: "updated")
         aCoder.encode(self.chaptersCount, forKey: "chaptersCount")
-        aCoder.encode(self.lastChapter, forKey: "lastChapter")    }
+        aCoder.encode(self.lastChapter, forKey: "lastChapter")
+        
+    }
 
     class func modelCustomPropertyMapper() ->NSDictionary{
         return ["_id":"_id","author":"author","referenceSource":"referenceSource","updated":"updated","chaptersCount":"chaptersCount","lastChapter":"lastChapter"]
