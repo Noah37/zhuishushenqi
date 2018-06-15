@@ -9,7 +9,6 @@
 //
 
 import UIKit
-import QSPullToRefresh
 
 class QSCategoryDetailViewController: BaseViewController ,SegMenuDelegate, QSCategoryDetailViewProtocol,UIScrollViewDelegate {
 

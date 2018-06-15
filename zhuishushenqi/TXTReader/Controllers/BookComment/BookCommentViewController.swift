@@ -16,7 +16,7 @@ enum QSBookCommentType {
     case hotPost
 }
 
-class BookCommentViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
+class BookCommentViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate ,Refreshable{
     
     var id:String = ""
     var commentType:QSBookCommentType = .normal
@@ -39,16 +39,16 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
         tableView.qs_registerCellNib(BookCommentCell.self)
         tableView.qs_registerCellNib(UserfulCell.self)
         tableView.qs_registerCellNib(BookCommentViewCell.self)
-        let refresh = PullToRefresh(height: 30, position: .bottom, tip: "正在加载更多")
-        tableView.addPullToRefresh(refresh, action: { 
-            self.start += self.limit
-            self.requestMore()
-        })
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        initRefreshFooter(tableView) {
+            self.start += self.limit
+            self.requestMore()
+        }
         
         title = "书评"
         let rightBtn = UIButton(type: .custom)

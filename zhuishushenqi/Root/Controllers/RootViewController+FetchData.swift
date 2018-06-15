@@ -63,7 +63,8 @@ extension RootViewController{
         
         let api = QSAPI.update(id: ids)
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            self.tableView.endAllRefreshing()
+            self.tableView.mj_header.endRefreshing()
+            self.tableView.mj_footer.endRefreshing()
             // 防止返回时卡顿，采用子线程
             DispatchQueue.global().async {
                 if let json:[Any] = response.json as? [Any] {

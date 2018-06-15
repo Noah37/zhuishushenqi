@@ -11,7 +11,7 @@
 import UIKit
 import QSPullToRefresh
 
-class QSCommunityViewController: UIViewController, QSCommunityViewProtocol,UITableViewDataSource,UITableViewDelegate {
+class QSCommunityViewController: UIViewController, QSCommunityViewProtocol,UITableViewDataSource,UITableViewDelegate ,Refreshable{
 
 	var presenter: QSCommunityPresenterProtocol?
     
@@ -26,28 +26,28 @@ class QSCommunityViewController: UIViewController, QSCommunityViewProtocol,UITab
         tableView.separatorStyle = .singleLine
         tableView.qs_registerCellNib(QSDiscussCell.self)
         tableView.qs_registerCellNib(HotCommentCell.self)
-        let headerRefresh = PullToRefresh(height: 50, position: .top, tip: "正在刷新")
-        tableView.addPullToRefresh(headerRefresh, action: {
-            if self.selectedIndex == 0{
-                self.presenter?.refreshData()
-            }else {
-                self.presenter?.refreshComments()
-            }
-        })
-        let footerRefresh = PullToRefresh(height: 50, position: .bottom, tip: "正在加载更多")
-        tableView.addPullToRefresh(footerRefresh, action: {
-            if self.selectedIndex == 0{
-                self.presenter?.requestMore()
-            }else{
-                self.presenter?.requestMoreComments()
-            }
-        })
         tableView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
         return tableView
     }()
     
 	override func viewDidLoad() {
         super.viewDidLoad()
+        
+        initRefreshHeader(tableView) {
+            if self.selectedIndex == 0{
+                self.presenter?.refreshData()
+            }else {
+                self.presenter?.refreshComments()
+            }
+        }
+        
+        initRefreshFooter(tableView) {
+            if self.selectedIndex == 0{
+                self.presenter?.requestMore()
+            }else{
+                self.presenter?.requestMoreComments()
+            }
+        }
         setupSubviews()
         presenter?.viewDidLoad()
     }
@@ -131,18 +131,21 @@ class QSCommunityViewController: UIViewController, QSCommunityViewProtocol,UITab
 
     func showPosts(posts: [BookComment]) {
         self.discusses = posts
-        self.tableView.endAllRefreshing()
+        self.tableView.mj_header.endRefreshing()
+        self.tableView.mj_footer.endRefreshing()
         self.tableView.reloadData()
     }
     
     func showComments(comments: [BookComment]) {
         self.comments = comments
-        self.tableView.endAllRefreshing()
+        self.tableView.mj_header.endRefreshing()
+        self.tableView.mj_footer.endRefreshing()
         self.tableView.reloadData()
     }
     
     func showEmpty() {
-        self.tableView.endAllRefreshing()
+        self.tableView.mj_header.endRefreshing()
+        self.tableView.mj_footer.endRefreshing()
     }
     
     func showTitle(title: String) {

@@ -89,8 +89,6 @@
 		B255707E1F3A075600C35A34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B255707C1F3A075600C35A34 /* AppDelegate.swift */; };
 		B255707F1F3A075600C35A34 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B255707D1F3A075600C35A34 /* Config.swift */; };
 		B25570811F3A07BB00C35A34 /* AppStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25570801F3A07BB00C35A34 /* AppStyle.swift */; };
-		B25570821F3A0D8000C35A34 /* QSPullToRefresh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B278AAE41F3967A4000A0D55 /* QSPullToRefresh.framework */; };
-		B25570831F3A0D8000C35A34 /* QSPullToRefresh.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B278AAE41F3967A4000A0D55 /* QSPullToRefresh.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B25570871F3A963300C35A34 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25570861F3A963300C35A34 /* Theme.swift */; };
 		B25570891F3A96E500C35A34 /* BookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25570881F3A96E500C35A34 /* BookManager.swift */; };
 		B2580E1B1E9B236000455AFE /* QSSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2580E151E9B236000455AFE /* QSSearchInteractor.swift */; };
@@ -301,27 +299,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B25570841F3A0D8000C35A34 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B278AADE1F3967A4000A0D55 /* QSPullToRefresh.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = B2C64AA41E7BC6AF00AA29F6;
-			remoteInfo = QSPullToRefresh;
-		};
-		B278AAE31F3967A4000A0D55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B278AADE1F3967A4000A0D55 /* QSPullToRefresh.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B2C64AA51E7BC6AF00AA29F6;
-			remoteInfo = QSPullToRefresh;
-		};
-		B278AAE51F3967A4000A0D55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B278AADE1F3967A4000A0D55 /* QSPullToRefresh.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B2C64AAE1E7BC6AF00AA29F6;
-			remoteInfo = QSPullToRefreshTests;
-		};
 		B2BB5BAB1D8BDF8E00379217 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B2BB5B8E1D8BDF8E00379217 /* Project object */;
@@ -345,7 +322,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B25570831F3A0D8000C35A34 /* QSPullToRefresh.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,7 +457,6 @@
 		B278AA971F396073000A0D55 /* ReadHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadHistoryCell.xib; sourceTree = "<group>"; };
 		B278AAC01F396773000A0D55 /* YTKKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKKeyValueStore.h; sourceTree = "<group>"; };
 		B278AAC11F396773000A0D55 /* YTKKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKKeyValueStore.m; sourceTree = "<group>"; };
-		B278AADE1F3967A4000A0D55 /* QSPullToRefresh.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSPullToRefresh.xcodeproj; path = PullToRefresh/QSPullToRefresh/QSPullToRefresh.xcodeproj; sourceTree = "<group>"; };
 		B278AAFC1F398926000A0D55 /* M80AttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabel.h; sourceTree = "<group>"; };
 		B278AAFD1F398926000A0D55 /* M80AttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabel.m; sourceTree = "<group>"; };
 		B278AAFE1F398926000A0D55 /* M80AttributedLabelAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabelAttachment.h; sourceTree = "<group>"; };
@@ -691,7 +666,6 @@
 				B22182C91DA40582002458D2 /* MobileCoreServices.framework in Frameworks */,
 				B22182C71DA4057A002458D2 /* Accelerate.framework in Frameworks */,
 				B22182C51DA40570002458D2 /* AssetsLibrary.framework in Frameworks */,
-				B25570821F3A0D8000C35A34 /* QSPullToRefresh.framework in Frameworks */,
 				B22182C31DA40566002458D2 /* ImageIO.framework in Frameworks */,
 				B22182C11DA4055E002458D2 /* QuartzCore.framework in Frameworks */,
 				B22182BF1DA40558002458D2 /* CoreImage.framework in Frameworks */,
@@ -924,7 +898,6 @@
 			children = (
 				B2D8688520050C2800B9AF01 /* CTDisplayText */,
 				B278AAFB1F398926000A0D55 /* M80AttributedLabel */,
-				B278AADE1F3967A4000A0D55 /* QSPullToRefresh.xcodeproj */,
 				B278AABF1F396773000A0D55 /* YTK */,
 			);
 			name = Vendor;
@@ -938,15 +911,6 @@
 				B278AAC11F396773000A0D55 /* YTKKeyValueStore.m */,
 			);
 			path = YTK;
-			sourceTree = "<group>";
-		};
-		B278AADF1F3967A4000A0D55 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B278AAE41F3967A4000A0D55 /* QSPullToRefresh.framework */,
-				B278AAE61F3967A4000A0D55 /* QSPullToRefreshTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		B278AAFB1F398926000A0D55 /* M80AttributedLabel */ = {
@@ -1546,7 +1510,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				B25570851F3A0D8000C35A34 /* PBXTargetDependency */,
 			);
 			name = zhuishushenqi;
 			productName = zhuishushenqi;
@@ -1633,12 +1596,6 @@
 			mainGroup = B2BB5B8D1D8BDF8E00379217;
 			productRefGroup = B2BB5B971D8BDF8E00379217 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = B278AADF1F3967A4000A0D55 /* Products */;
-					ProjectRef = B278AADE1F3967A4000A0D55 /* QSPullToRefresh.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				B2BB5B951D8BDF8E00379217 /* zhuishushenqi */,
@@ -1647,23 +1604,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		B278AAE41F3967A4000A0D55 /* QSPullToRefresh.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = QSPullToRefresh.framework;
-			remoteRef = B278AAE31F3967A4000A0D55 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B278AAE61F3967A4000A0D55 /* QSPullToRefreshTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = QSPullToRefreshTests.xctest;
-			remoteRef = B278AAE51F3967A4000A0D55 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B2BB5B941D8BDF8E00379217 /* Resources */ = {
@@ -2089,11 +2029,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B25570851F3A0D8000C35A34 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = QSPullToRefresh;
-			targetProxy = B25570841F3A0D8000C35A34 /* PBXContainerItemProxy */;
-		};
 		B2BB5BAC1D8BDF8E00379217 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B2BB5B951D8BDF8E00379217 /* zhuishushenqi */;

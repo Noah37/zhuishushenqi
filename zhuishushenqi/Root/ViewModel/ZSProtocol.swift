@@ -50,11 +50,14 @@ protocol Refreshable {
 }
 
 extension Refreshable where Self : UIViewController{
+    
+    @discardableResult
     func initRefreshHeader(_ scrollView: UIScrollView,_ action:@escaping () ->Void) -> MJRefreshHeader{
         scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: { action() })
         return scrollView.mj_header
     }
     
+    @discardableResult
     func initRefreshFooter(_ scrollView: UIScrollView,_ action:@escaping () ->Void) -> MJRefreshFooter{
         scrollView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {
             action()
@@ -64,11 +67,14 @@ extension Refreshable where Self : UIViewController{
 }
 
 extension Refreshable where Self : UIScrollView {
+    
+    @discardableResult
     func initRefreshHeader(_ action:@escaping () ->Void) -> MJRefreshHeader{
         mj_header = MJRefreshNormalHeader(refreshingBlock: { action() })
         return mj_header
     }
     
+    @discardableResult
     func initRefreshFooter(_ action:@escaping () ->Void) -> MJRefreshFooter{
         mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {
             action()
@@ -77,3 +83,20 @@ extension Refreshable where Self : UIScrollView {
     }
 }
 
+
+extension Refreshable where Self : UIView{
+    
+    @discardableResult
+    func initRefreshHeader(_ scrollView: UIScrollView,_ action:@escaping () ->Void) -> MJRefreshHeader{
+        scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: { action() })
+        return scrollView.mj_header
+    }
+    
+    @discardableResult
+    func initRefreshFooter(_ scrollView: UIScrollView,_ action:@escaping () ->Void) -> MJRefreshFooter{
+        scrollView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: {
+            action()
+        })
+        return scrollView.mj_footer
+    }
+}

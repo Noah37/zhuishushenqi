@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import QSPullToRefresh
 
-class QSSegmentViewController: BaseViewController,QSSegmentViewProtocol {
+class QSSegmentViewController: BaseViewController,QSSegmentViewProtocol,Refreshable {
     
     var presenter: QSSegmentPresenterProtocol?
 
@@ -27,6 +26,14 @@ class QSSegmentViewController: BaseViewController,QSSegmentViewProtocol {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let header = initRefreshHeader(tableView) {
+            self.requestData()
+        }
+        initRefreshFooter(tableView) {
+            self.requestMore()
+        }
+        header.beginRefreshing()
         self.view.addSubview(self.tableView)
         if cellClass == UITableViewCell.self {
             self.tableView.qs_registerCellClass(UITableViewCell.self)
@@ -66,14 +73,6 @@ class QSSegmentViewController: BaseViewController,QSSegmentViewProtocol {
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         tableView.sectionFooterHeight = 10
         tableView.rowHeight = 44
-        let headerRefresh = PullToRefresh(height: 30, position: .top, tip: "")
-        tableView.addPullToRefresh(headerRefresh, action: { 
-            self.requestData()
-        })
-        let refresh = PullToRefresh(height: 30, position: .bottom, tip: "")
-        tableView.addPullToRefresh(refresh, action: {
-            self.requestMore()
-        })
         return tableView
     }()
     

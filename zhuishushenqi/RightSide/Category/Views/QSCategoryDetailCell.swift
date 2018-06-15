@@ -11,7 +11,7 @@ import QSPullToRefresh
 
 typealias QSNetworkHandker = ()->Void
 
-class QSCategoryDetailCell: UICollectionViewCell,UITableViewDataSource,UITableViewDelegate {
+class QSCategoryDetailCell: UICollectionViewCell,UITableViewDataSource,UITableViewDelegate,Refreshable {
     
     var booksModel:[Book] = []
     var handler:QSNetworkHandker?
@@ -24,15 +24,15 @@ class QSCategoryDetailCell: UICollectionViewCell,UITableViewDataSource,UITableVi
         tableView.sectionFooterHeight = 10
         tableView.rowHeight = 93
         tableView.qs_registerCellNib(TopDetailCell.self)
-        let refresh = PullToRefresh(height: 30, position: .bottom, tip: "")
-        tableView.addPullToRefresh(refresh, action: {
-            self.requestMore()
-        })
         return tableView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        initRefreshFooter(tableView) {
+            self.requestMore()
+        }
         self.backgroundColor = UIColor.clear
         self.contentView.backgroundColor = UIColor.clear
         self.contentView.addSubview(tableView)

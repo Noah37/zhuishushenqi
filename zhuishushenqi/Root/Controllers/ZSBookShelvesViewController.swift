@@ -10,7 +10,6 @@ import UIKit
 import Then
 import RxCocoa
 import RxSwift
-import QSPullToRefresh
 import MJRefresh
 import SnapKit
 import RxDataSources

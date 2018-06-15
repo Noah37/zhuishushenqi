@@ -10,7 +10,7 @@ import UIKit
 import QSNetwork
 import QSPullToRefresh
 
-class DynamicViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
+class DynamicViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate ,Refreshable{
 
     var timeline:[QSHotModel]?
     fileprivate var segment:UISegmentedControl = {
@@ -34,16 +34,17 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
         tableView.sectionHeaderHeight = 0.0001
         tableView.sectionFooterHeight = 0.0001
         tableView.backgroundColor = UIColor.clear
-        let refresh  = PullToRefresh(height: 21, position: .top, tip: "")
-        tableView.addPullToRefresh(refresh, action: {
-            self.requestData()
-        })
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "动态"
+        
+        initRefreshHeader(tableView) {
+            self.requestData()
+        }
+        
         tableView.qs_registerCellNib(DynamicCell.self)
         view.addSubview(segment)
         view.addSubview(tableView)

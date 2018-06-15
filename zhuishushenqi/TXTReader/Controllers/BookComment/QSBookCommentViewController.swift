@@ -11,7 +11,7 @@
 import UIKit
 import QSPullToRefresh
 
-class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate, QSBookCommentViewProtocol {
+class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate, QSBookCommentViewProtocol,Refreshable {
 
 	var presenter: QSBookCommentPresenterProtocol?
 
@@ -33,16 +33,15 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
 
 //        tableView.qs_registerCellNib(BookCommentViewCell.self)
         tableView.qs_registerCellNib(BookCommentViewCell.self)
-        let refresh = PullToRefresh(height: 30, position: .bottom, tip: "正在加载更多")
-        tableView.addPullToRefresh(refresh, action: {
-            self.presenter?.requestMore()
-        })
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initRefreshFooter(tableView) {
+            self.presenter?.requestMore()
+        }
         title = "精华书评"
         let rightBtn = UIButton(type: .custom)
         rightBtn.addTarget(self, action: #selector(jump(btn:)), for: .touchUpInside)
