@@ -9,7 +9,6 @@
 //
 
 import UIKit
-import QSPullToRefresh
 
 class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate, QSBookCommentViewProtocol,Refreshable {
 

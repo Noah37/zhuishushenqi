@@ -8,7 +8,7 @@
 
 import UIKit
 import QSNetwork
-import QSPullToRefresh
+//import QSPullToRefresh
 
 class DynamicViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate ,Refreshable{
 

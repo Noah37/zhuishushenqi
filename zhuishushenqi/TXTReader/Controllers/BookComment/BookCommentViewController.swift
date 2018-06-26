@@ -8,7 +8,6 @@
 
 import UIKit
 import QSNetwork
-import QSPullToRefresh
 
 enum QSBookCommentType {
     case normal
@@ -129,7 +128,6 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
                 self.tableView.removeFromSuperview()
                 self.view.addSubview(self.tableView)
                 self.tableView.reloadData()
-                self.tableView.endRefreshing(at: .bottom)
             }
         }
     }

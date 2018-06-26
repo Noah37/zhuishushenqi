@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSPullToRefresh
 
 typealias QSNetworkHandker = ()->Void
 
