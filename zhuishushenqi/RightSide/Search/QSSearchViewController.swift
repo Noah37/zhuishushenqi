@@ -9,6 +9,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class QSSearchViewController: BaseViewController{
 
@@ -28,7 +30,7 @@ class QSSearchViewController: BaseViewController{
     var autoCompleteTable:QSSearchAutoCompleteTable!
 
     lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 50, width: ScreenWidth, height: ScreenHeight - (kNavgationBarHeight + 50)), style: .grouped)
+        let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 56, width: ScreenWidth, height: ScreenHeight - (kNavgationBarHeight + 56)), style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.estimatedSectionHeaderHeight = 80
@@ -46,10 +48,13 @@ class QSSearchViewController: BaseViewController{
         searchVC.searchResultsUpdater = self
         searchVC.delegate = self
         searchVC.searchBar.delegate = self
+//        [UIColor colorWithRed:0.84 green:0.84 blue:0.86 alpha:1.00]
         //        searchVC.obscuresBackgroundDuringPresentation = true
         searchVC.hidesNavigationBarDuringPresentation = true
         searchVC.searchBar.sizeToFit()
-        searchVC.searchBar.backgroundColor = UIColor.darkGray
+        searchVC.searchBar.backgroundColor = UIColor(red: 0.84, green: 0.84, blue: 0.86, alpha: 1.0)
+        searchVC.searchBar.barTintColor = UIColor.white
+        searchVC.searchBar.layer.borderColor = UIColor.white.cgColor
         return searchVC
     }()
 
@@ -57,14 +62,21 @@ class QSSearchViewController: BaseViewController{
         super.viewDidLoad()
         initSubview()
         self.presenter?.viewDidLoad()
+        
+        self.searchController.searchBar.addObserverBlock(forKeyPath: "frame") { (item1, item2, item3) in
+            QSLog("item1:\(item1) \nitem2:\(item2) \nitem3:\(item3)")
+        }
+        
     }
     
     func initSubview(){
         let bgView = UIView()
         bgView.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.96, alpha: 1.0)
-        bgView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: 44)
-        bgView.addSubview(self.searchController.searchBar)
+        bgView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: 56)
+//        bgView.addSubview(self.searchController.searchBar)
         view.addSubview(bgView)
+        
+        self.view.addSubview(self.searchController.view)
         
         self.headerView = QSSearchHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 121))
         self.headerView.change = {

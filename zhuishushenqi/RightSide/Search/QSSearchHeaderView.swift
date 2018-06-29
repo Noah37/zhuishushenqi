@@ -46,7 +46,7 @@ class QSSearchHeaderView: UIView {
     func setHeaderView(){
         self.backgroundColor = UIColor.white
         let label = UILabel()
-        label.frame = CGRect(x: 15, y: 0, width: 200, height: 21)
+        label.frame = CGRect(x: 15, y: 10, width: 200, height: 21)
         label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = UIColor.black
         label.text = "大家都在搜"
@@ -59,7 +59,7 @@ class QSSearchHeaderView: UIView {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         btn.contentHorizontalAlignment = .right
         btn.addTarget(self, action: #selector(changeHotWord(btn:)), for: .touchUpInside)
-        btn.frame = CGRect(x: self.bounds.width - 90, y: 0, width: 70, height: 21)
+        btn.frame = CGRect(x: self.bounds.width - 90, y: 10, width: 70, height: 21)
         self.addSubview(btn)
         animate()
     }
@@ -102,7 +102,7 @@ class QSSearchHeaderView: UIView {
         }
         
         var x:CGFloat = 20
-        var y:CGFloat = 10 + 21
+        var y:CGFloat = 20 + 21
         let spacex:CGFloat = 10
         let spacey:CGFloat = 10
         let height:CGFloat = 20
