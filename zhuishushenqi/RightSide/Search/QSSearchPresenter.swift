@@ -10,6 +10,41 @@
 
 import UIKit
 
+class ZSSearchViewModel {
+    
+    var webService:ZSSearchWebService = ZSSearchWebService()
+    
+    var hotwords:[String] = []
+    
+    // 换一批热词的基准
+    var newIndex = 0
+    
+    //MARK: - 换一批热门词
+    func newHotwords(callback:ZSSearchWebCallback?) {
+        if hotwords.count == 0 {
+            fetchHotwords(callback: callback)
+        }
+        subHotwords(callback: callback)
+    }
+    
+    func subHotwords(callback:ZSSearchWebCallback?){
+        var subWords:[String] = []
+        for item in newIndex..<newIndex+6 {
+            subWords.append(hotwords[item%hotwords.count])
+        }
+        newIndex = newIndex + 6
+        callback?(subWords)
+    }
+    
+    func fetchHotwords(callback:ZSSearchWebCallback?) {
+        webService.fetchHotwords({ (words) in
+            self.newIndex = 0
+            self.subHotwords(callback: callback)
+        })
+    }
+
+}
+
 class QSSearchPresenter: QSSearchPresenterProtocol {
 
     weak var view: QSSearchViewProtocol?

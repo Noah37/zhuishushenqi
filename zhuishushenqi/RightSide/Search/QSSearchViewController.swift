@@ -12,7 +12,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class QSSearchViewController: BaseViewController{
+class QSSearchViewController: ZSBaseTableViewController{
 
 	var presenter: QSSearchPresenterProtocol?
     
@@ -28,19 +28,6 @@ class QSSearchViewController: BaseViewController{
     var historyHeader:QSHistoryHeaderView!
     var resultTableView:QSSearchResultTable!
     var autoCompleteTable:QSSearchAutoCompleteTable!
-
-    lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 56, width: ScreenWidth, height: ScreenHeight - (kNavgationBarHeight + 56)), style: .grouped)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.estimatedSectionHeaderHeight = 80
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-        tableView.sectionFooterHeight = 10
-        tableView.rowHeight = 44
-        tableView.backgroundColor = UIColor.white
-        tableView.qs_registerCellNib(QSHistoryCell.self)
-        return tableView
-    }()
     
     lazy var searchController:UISearchController = {
         let searchVC:UISearchController = UISearchController(searchResultsController: nil)
@@ -70,21 +57,18 @@ class QSSearchViewController: BaseViewController{
     }
     
     func initSubview(){
-        let bgView = UIView()
-        bgView.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.96, alpha: 1.0)
-        bgView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: 56)
-//        bgView.addSubview(self.searchController.searchBar)
-        view.addSubview(bgView)
+    
+        tableView.qs_registerCellNib(QSHistoryCell.self)
         
-        self.view.addSubview(self.searchController.view)
-        
-        self.headerView = QSSearchHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 121))
+        self.headerView = QSSearchHeaderView(frame: CGRect(x: 0, y: 56, width: self.view.bounds.width, height: 121))
         self.headerView.change = {
             self.presenter?.didClickChangeBtn()
         }
         self.headerView.hotwordClick = { (hotword:String) in
             self.presenter?.didSelectHotWord(hotword: hotword)
         }
+        
+        self.headerView.hotwords = self.hotWords
         
         self.historyHeader = QSHistoryHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
         self.historyHeader.clear = {
@@ -103,17 +87,17 @@ class QSSearchViewController: BaseViewController{
     }
 }
 
-extension QSSearchViewController:UITableViewDataSource,UITableViewDelegate{
+extension QSSearchViewController{
     //MARK: - tableView
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchList[section].count
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return searchList.count
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:QSHistoryCell? = tableView.qs_dequeueReusableCell(QSHistoryCell.self)
         cell?.backgroundColor = UIColor.white
         cell?.selectionStyle = .none
@@ -121,18 +105,22 @@ extension QSSearchViewController:UITableViewDataSource,UITableViewDelegate{
         return cell!
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        self.headerView.hotwords = self.hotWords
-        let headers:[UIView] = [self.headerView,self.historyHeader]
-        return headers[section]
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.96, alpha: 1.0)
+        headerView.addSubview(self.searchController.searchBar)
+        headerView.addSubview(self.headerView)
+        headerView.addSubview(self.historyHeader)
+//        self.headerView.hotwords = self.hotWords
+        return headerView
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let height:[CGFloat] = [141,40]
-        return height[section]
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 256
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.presenter?.didSelectHistoryRow(indexPath: indexPath)
     }
 }
