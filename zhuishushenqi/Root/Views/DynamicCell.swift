@@ -21,9 +21,18 @@ class DynamicCell: UITableViewCell {
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var comment: UIButton!
     @IBOutlet weak var publish: UIButton!
+    @IBOutlet weak var follow: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        publish.layer.borderColor = UIColor.gray.cgColor
+        publish.layer.borderWidth = 0.2
+        comment.layer.borderWidth = 0.2
+        comment.layer.borderColor = UIColor.gray.cgColor
+        follow.layer.borderColor = UIColor.gray.cgColor
+        follow.layer.borderWidth = 0.2
+        icon.layer.cornerRadius = 5
+        icon.layer.masksToBounds = true;
     }
     
     func setContent(model:QSHotModel){

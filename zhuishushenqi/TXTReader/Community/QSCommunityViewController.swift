@@ -9,7 +9,6 @@
 //
 
 import UIKit
-import QSPullToRefresh
 
 class QSCommunityViewController: UIViewController, QSCommunityViewProtocol,UITableViewDataSource,UITableViewDelegate ,Refreshable{
 

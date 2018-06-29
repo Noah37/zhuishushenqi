@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DynamicCell" rowHeight="112" id="KGk-i7-Jjw" customClass="DynamicCell" customModule="zhuishushenqi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DynamicCell" rowHeight="140" id="KGk-i7-Jjw" customClass="DynamicCell" customModule="zhuishushenqi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="111.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IcY-3L-qR8">
@@ -62,67 +62,98 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当下最火的作者，我欣赏的作者" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upb-UA-dtn">
-                        <rect key="frame" x="65" y="26" width="247" height="21"/>
+                        <rect key="frame" x="65" y="33" width="247" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="Rca-3Q-CNX"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.兄弟喜欢上一个妹纸又不知咋撩，于是就找上了我求教泡妞手段。为了兄弟的幸福，只好把看过的爱情电影的精髓倾囊相授。 他们两口子每每向别人提起这事都特崇拜我····说我是撩妹界高手！！" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYi-8s-jG3">
-                        <rect key="frame" x="65" y="47" width="247" height="50"/>
+                        <rect key="frame" x="65" y="58" width="247" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="Tbl-S8-Eae"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fB-y8-YAh">
-                        <rect key="frame" x="64" y="97" width="32" height="10"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <rect key="frame" x="64" y="112" width="50" height="19"/>
+                        <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="10" id="9OV-NZ-QaX"/>
-                            <constraint firstAttribute="width" constant="32" id="O0T-cQ-9hY"/>
+                            <constraint firstAttribute="height" constant="19" id="9OV-NZ-QaX"/>
+                            <constraint firstAttribute="width" constant="50" id="O0T-cQ-9hY"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <state key="normal" title="11">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="11" image="d_comment">
+                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9H-4e-1G5">
-                        <rect key="frame" x="104" y="97" width="37" height="10"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <rect key="frame" x="122" y="112" width="50" height="19"/>
+                        <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="37" id="0Cc-sQ-CaG"/>
-                            <constraint firstAttribute="height" constant="10" id="8fm-9C-S3R"/>
+                            <constraint firstAttribute="width" constant="50" id="0Cc-sQ-CaG"/>
+                            <constraint firstAttribute="height" constant="19" id="8fm-9C-S3R"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <state key="normal" title="16"/>
+                        <state key="normal" title="16" image="d_forward">
+                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvc-fq-o5o">
+                        <rect key="frame" x="254" y="112" width="50" height="19"/>
+                        <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="2I3-rd-mZ1"/>
+                            <constraint firstAttribute="height" constant="19" id="s59-x7-Fch"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <state key="normal" title="关注" image="d_follow">
+                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="XYi-8s-jG3" secondAttribute="trailing" constant="8" id="0Az-Ed-uq7"/>
-                    <constraint firstItem="B9H-4e-1G5" firstAttribute="top" secondItem="XYi-8s-jG3" secondAttribute="bottom" id="2jd-8o-r0a"/>
+                    <constraint firstItem="B9H-4e-1G5" firstAttribute="top" secondItem="XYi-8s-jG3" secondAttribute="bottom" constant="4" id="2jd-8o-r0a"/>
                     <constraint firstItem="UIS-qW-TvU" firstAttribute="leading" secondItem="sT4-58-4Yi" secondAttribute="trailing" constant="3" id="AHI-oD-aZh"/>
                     <constraint firstItem="hu6-2S-lFZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="DRx-LK-lkP"/>
                     <constraint firstItem="XYi-8s-jG3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="65" id="Eak-Fc-OZQ"/>
                     <constraint firstItem="upb-UA-dtn" firstAttribute="leading" secondItem="IcY-3L-qR8" secondAttribute="trailing" constant="8" id="EiB-y5-8jO"/>
-                    <constraint firstItem="upb-UA-dtn" firstAttribute="top" secondItem="hu6-2S-lFZ" secondAttribute="bottom" constant="7" id="Fdf-t9-C5g"/>
+                    <constraint firstItem="upb-UA-dtn" firstAttribute="top" secondItem="hu6-2S-lFZ" secondAttribute="bottom" constant="14" id="Fdf-t9-C5g"/>
+                    <constraint firstAttribute="trailing" secondItem="tvc-fq-o5o" secondAttribute="trailing" constant="16" id="HhY-Ov-CiB"/>
                     <constraint firstItem="UIS-qW-TvU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="LnL-jO-54t"/>
                     <constraint firstAttribute="trailing" secondItem="hu6-2S-lFZ" secondAttribute="trailing" id="MK9-D8-GLw"/>
-                    <constraint firstItem="7fB-y8-YAh" firstAttribute="top" secondItem="XYi-8s-jG3" secondAttribute="bottom" id="QvD-uX-3Bf"/>
+                    <constraint firstItem="7fB-y8-YAh" firstAttribute="top" secondItem="XYi-8s-jG3" secondAttribute="bottom" constant="4" id="QvD-uX-3Bf"/>
                     <constraint firstItem="7fB-y8-YAh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="64" id="S1g-MB-Eqg"/>
                     <constraint firstItem="sT4-58-4Yi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="64" id="Wwa-gd-kPW"/>
                     <constraint firstAttribute="trailing" secondItem="upb-UA-dtn" secondAttribute="trailing" constant="8" id="ZZ2-fe-4tV"/>
+                    <constraint firstItem="tvc-fq-o5o" firstAttribute="top" secondItem="XYi-8s-jG3" secondAttribute="bottom" constant="4" id="Zfv-l1-WQK"/>
                     <constraint firstItem="hu6-2S-lFZ" firstAttribute="leading" secondItem="OVl-Si-O1C" secondAttribute="trailing" constant="12" id="iNE-20-1Uh"/>
                     <constraint firstItem="OVl-Si-O1C" firstAttribute="leading" secondItem="IcY-3L-qR8" secondAttribute="trailing" constant="8" id="m7M-nV-0bi"/>
                     <constraint firstItem="B9H-4e-1G5" firstAttribute="leading" secondItem="7fB-y8-YAh" secondAttribute="trailing" constant="8" id="mpa-0z-ZmU"/>
                     <constraint firstItem="sT4-58-4Yi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="uGg-8V-gBZ"/>
                     <constraint firstItem="IcY-3L-qR8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="v7D-1x-n5c"/>
-                    <constraint firstItem="XYi-8s-jG3" firstAttribute="top" secondItem="upb-UA-dtn" secondAttribute="bottom" id="vmd-mC-eZq"/>
+                    <constraint firstItem="XYi-8s-jG3" firstAttribute="top" secondItem="upb-UA-dtn" secondAttribute="bottom" constant="4" id="vmd-mC-eZq"/>
                     <constraint firstItem="OVl-Si-O1C" firstAttribute="top" secondItem="UIS-qW-TvU" secondAttribute="bottom" constant="2" id="ymu-bL-iQ7"/>
                     <constraint firstItem="IcY-3L-qR8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="zi2-AQ-g0A"/>
                 </constraints>
@@ -132,6 +163,7 @@
                 <outlet property="author" destination="OVl-Si-O1C" id="SkC-Es-MUQ"/>
                 <outlet property="comment" destination="7fB-y8-YAh" id="2KM-QJ-ape"/>
                 <outlet property="content" destination="XYi-8s-jG3" id="W0D-fg-Jxa"/>
+                <outlet property="follow" destination="tvc-fq-o5o" id="4wU-EU-2EY"/>
                 <outlet property="forward" destination="sT4-58-4Yi" id="rh7-1l-gUf"/>
                 <outlet property="icon" destination="IcY-3L-qR8" id="13p-7d-yka"/>
                 <outlet property="publish" destination="B9H-4e-1G5" id="i4H-kg-y0g"/>
@@ -139,10 +171,12 @@
                 <outlet property="transfer" destination="UIS-qW-TvU" id="96h-eO-iUb"/>
                 <outlet property="update" destination="hu6-2S-lFZ" id="P5S-aW-xu3"/>
             </connections>
-            <point key="canvasLocation" x="238" y="219"/>
+            <point key="canvasLocation" x="238" y="233"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="d_comment" width="12" height="10"/>
+        <image name="d_follow" width="12" height="10"/>
         <image name="d_forward" width="12" height="10"/>
     </resources>
 </document>

@@ -40,6 +40,7 @@ PODS:
     - RxSwiftExt/Core (= 3.2.0)
   - RxSwiftExt/Core (3.2.0):
     - RxSwift (~> 4.0)
+  - SkeletonView (1.2.1)
   - SnapKit (4.0.0)
   - SwiftyJSON (4.1.0)
   - Then (2.3.0)
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - RxGesture
   - RxSwift
   - RxSwiftExt
+  - SkeletonView
   - SnapKit (= 4.0.0)
   - SwiftyJSON
   - Then
@@ -92,6 +94,7 @@ SPEC REPOS:
     - RxGesture
     - RxSwift
     - RxSwiftExt
+    - SkeletonView
     - SnapKit
     - SwiftyJSON
     - Then
@@ -119,11 +122,12 @@ SPEC CHECKSUMS:
   RxGesture: c278eb05b187abd47e11e65464ae4de53ab71d95
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   RxSwiftExt: 64b7140124629a6a084159735f3714f0fb1c61d6
+  SkeletonView: 98a31213f9282076149e6eb23f46734604f02086
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 48e16824192c5b1702267439cb2bfd362bb7c8fb
+PODFILE CHECKSUM: 0f68e6798fa3372e38e4e8f0c4b506f15b3c86cf
 
 COCOAPODS: 1.5.2
