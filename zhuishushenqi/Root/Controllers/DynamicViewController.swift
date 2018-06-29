@@ -8,7 +8,6 @@
 
 import UIKit
 import QSNetwork
-//import QSPullToRefresh
 
 class DynamicViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate ,Refreshable{
 
@@ -29,8 +28,8 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .singleLine
-        tableView.estimatedRowHeight = 112
-        tableView.rowHeight = 112
+        tableView.estimatedRowHeight = 140
+        tableView.rowHeight = 140
         tableView.sectionHeaderHeight = 0.0001
         tableView.sectionFooterHeight = 0.0001
         tableView.backgroundColor = UIColor.clear
@@ -57,9 +56,8 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
             if let hottweets = response.json?["tweets"] as? [Any] {
                 if let time = [QSHotModel].deserialize(from: hottweets) as? [QSHotModel] {
                     self.timeline = time
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                    self.tableView.reloadData()
+                    self.tableView.mj_header.endRefreshing()
                 }
             }
         }

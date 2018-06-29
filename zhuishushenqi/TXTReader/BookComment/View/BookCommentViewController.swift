@@ -128,6 +128,8 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
                 self.tableView.removeFromSuperview()
                 self.view.addSubview(self.tableView)
                 self.tableView.reloadData()
+//                self.tableView.mj_header.endRefreshing()
+                self.tableView.mj_footer.endRefreshing()
             }
         }
     }

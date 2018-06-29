@@ -13,7 +13,7 @@ import RxAlamofire
 import Alamofire
 import HandyJSON
 
-final class ZSRootWebService {
+final class ZSRootWebService:ZSBaseService {
     func fetchShelvesUpdate(for books:[BookDetail]) ->Observable<[BookDetail]>{
         
         let id =  getIDSOf(books: books)

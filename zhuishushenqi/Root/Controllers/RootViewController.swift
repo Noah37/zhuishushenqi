@@ -8,7 +8,6 @@
 
 import UIKit
 import QSNetwork
-//import QSPullToRefresh
 
 let AllChapterUrl = "http://api.zhuishushenqi.com/ctoc/57df797cb061df9e19b8b030"
 

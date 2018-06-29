@@ -15,6 +15,8 @@ import Differentiator
 struct HomeSection {
     
     var items: [Item]
+    
+    
 }
 
 extension HomeSection: SectionModelType {
