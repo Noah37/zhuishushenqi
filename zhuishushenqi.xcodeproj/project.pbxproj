@@ -59,6 +59,8 @@
 		B22AC45F1E9F6799008625E6 /* QSRankDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC45E1E9F6799008625E6 /* QSRankDetailRouter.swift */; };
 		B22AC4611E9F695D008625E6 /* QSRankDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4601E9F695D008625E6 /* QSRankDetailViewController.swift */; };
 		B2414D9C1EA602ED005A5758 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2414D9B1EA602ED005A5758 /* UIViewController+Alert.swift */; };
+		B24B3F4D20E534390098ACE5 /* ZSSearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24B3F4B20E534390098ACE5 /* ZSSearchViewCell.swift */; };
+		B24B3F4E20E534390098ACE5 /* ZSSearchViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B24B3F4C20E534390098ACE5 /* ZSSearchViewCell.xib */; };
 		B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228C1DB3291A0040CAD3 /* CFNetwork.framework */; };
 		B251F89C2030350E004AAF95 /* Dictionary+QSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B251F89B2030350E004AAF95 /* Dictionary+QSExtension.swift */; };
 		B255707E1F3A075600C35A34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B255707C1F3A075600C35A34 /* AppDelegate.swift */; };
@@ -388,6 +390,8 @@
 		B22AC45E1E9F6799008625E6 /* QSRankDetailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankDetailRouter.swift; sourceTree = "<group>"; };
 		B22AC4601E9F695D008625E6 /* QSRankDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankDetailViewController.swift; sourceTree = "<group>"; };
 		B2414D9B1EA602ED005A5758 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		B24B3F4B20E534390098ACE5 /* ZSSearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSearchViewCell.swift; sourceTree = "<group>"; };
+		B24B3F4C20E534390098ACE5 /* ZSSearchViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZSSearchViewCell.xib; sourceTree = "<group>"; };
 		B251228C1DB3291A0040CAD3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B251F89B2030350E004AAF95 /* Dictionary+QSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+QSExtension.swift"; sourceTree = "<group>"; };
 		B255707C1F3A075600C35A34 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1156,6 +1160,8 @@
 				B2B4BA451E7EA4A8000CC201 /* SearchView.swift */,
 				B203BB661E9E142C00F9C052 /* QSHistoryCell.swift */,
 				B203BB671E9E142C00F9C052 /* QSHistoryCell.xib */,
+				B24B3F4B20E534390098ACE5 /* ZSSearchViewCell.swift */,
+				B24B3F4C20E534390098ACE5 /* ZSSearchViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1794,6 +1800,7 @@
 				B2B4BBDF1E7EA4AB000CC201 /* Assets.xcassets in Resources */,
 				B2B4BC0B1E7EA4AB000CC201 /* CategoryCell.xib in Resources */,
 				B2C0DF5920D4CB350057DC84 /* BookDetailHeader.xib in Resources */,
+				B24B3F4E20E534390098ACE5 /* ZSSearchViewCell.xib in Resources */,
 				B278AA941F395FA4000A0D55 /* QSHelpViewCell.xib in Resources */,
 				B2B4BBF11E7EA4AB000CC201 /* Main.storyboard in Resources */,
 				B2C0DF4C20D4CB350057DC84 /* BookCommentCell.xib in Resources */,
@@ -2039,6 +2046,7 @@
 				B2B4BC291E7EA4AB000CC201 /* RootNavigationView.swift in Sources */,
 				B2C0DF6920D4CB350057DC84 /* CategoryViewController.swift in Sources */,
 				B2B4BBED1E7EA4AB000CC201 /* RateView.swift in Sources */,
+				B24B3F4D20E534390098ACE5 /* ZSSearchViewCell.swift in Sources */,
 				B22AC4571E9F5520008625E6 /* QSLoadingView.swift in Sources */,
 				B2C0DF5220D4CB350057DC84 /* CategoryButton.swift in Sources */,
 				B2B4BC191E7EA4AB000CC201 /* TopicDetailHeader.swift in Sources */,
