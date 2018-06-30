@@ -21,8 +21,8 @@ extension QSSearchViewController{
         UIView.animate(withDuration: 0.35) {
             self.tableView.frame = self.getFrame(type: .history)
         }
-        self.tableView.removeFromSuperview()
-        self.view.addSubview(self.tableView)
+//        self.tableView.removeFromSuperview()
+//        self.view.addSubview(self.tableView)
     }
     
     func showSearching(){
@@ -36,7 +36,7 @@ extension QSSearchViewController{
     }
     
     func showAssociate(){
-        self.tableView.removeFromSuperview()
+//        self.tableView.removeFromSuperview()
         self.tableView.frame = self.getFrame(type: .associate)
         self.searchController.view.addSubview(self.tableView)
     }
@@ -58,7 +58,7 @@ extension QSSearchViewController{
         var searchFrame = CGRect.zero
         switch type {
         case .history:
-            searchFrame = CGRect(x: 0, y: kNavgationBarHeight + 50, width: ScreenWidth, height: ScreenHeight - 114)
+            searchFrame = CGRect(x: 0, y: kNavgationBarHeight + 56, width: ScreenWidth, height: ScreenHeight - 114)
             break
         case .searching:
             searchFrame = CGRect(x: 0, y: kNavgationBarHeight, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 216)

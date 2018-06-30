@@ -12,6 +12,104 @@ import UIKit
 import QSNetwork
 //import YTKKeyValueStore
 
+typealias ZSSearchWebCallback = (_ hotwords:[String]?)->Void
+typealias ZSSearchWebAnyCallback = (_ hotwords:[Any]?)->Void
+
+
+class ZSSearchWebService {
+    
+    private let SearchStoreKey = "SearchHistory"
+
+    //NARK: - webserver data
+    func fetchHotwords (_ callback: ZSSearchWebCallback?){
+        let api = QSAPI.hotwords()
+        QSNetwork.request(api.path) { (response) in
+            QSLog(response.json)
+            if let hotwords:[String] = response.json?["hotWords"] as? [String] {
+                callback?(hotwords)
+            }else{
+                callback?(nil)
+            }
+        }
+    }
+    
+    func fetchAutoComplete(key:String,_ callback:ZSSearchWebCallback?){
+        let api = QSAPI.autoComplete(query: key)
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
+            if let keywords = response.json?["keywords"] as? [String] {
+                callback?(keywords)
+            } else {
+                callback?(nil)
+            }
+        }
+    }
+    
+    func fetchBooks(key:String,_ callback:ZSSearchWebAnyCallback?){
+        let api = QSAPI.searchBook(id: key, start: "0", limit: "100")
+        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
+            if let books = response.json?.object(forKey: "books") {
+                if let models = [Book].deserialize(from: books as? [Any]) as? [Book] {
+                    callback?(models)
+                } else {
+                    callback?(nil)
+                }
+            } else {
+                callback?(nil)
+            }
+        }
+    }
+    
+    //MARK: - local data
+    @discardableResult
+    func fetchHistoryList(_ callback:ZSSearchWebCallback?)-> [String]?{
+        let store = getHistoryStore()
+        let historyList = store?.getObjectById(SearchStoreKey, fromTable: searchHistory) as? [String]
+        callback?(historyList)
+        return historyList
+    }
+    
+    func clearSearchList(){
+        let store = getHistoryStore()
+        store?.clearTable(searchHistory)
+    }
+    
+    func addToHistory(history:String){
+        if history == ""{
+            return
+        }
+        if !searchWordExist(key: history) {
+            let store = getHistoryStore()
+            var list = fetchHistoryList(nil)
+            list?.append(history.trimmingCharacters(in: CharacterSet(charactersIn: " ")))
+            store?.clearTable(searchHistory)
+            store?.put(list, withId: SearchStoreKey, intoTable: searchHistory)
+
+        }
+    }
+    
+    fileprivate func searchWordExist(key:String)->Bool{
+        var isExist = false
+        let list = fetchHistoryList(nil)
+        if let historyList = list {
+            for item in historyList {
+                if item == key {
+                    isExist = true
+                    break;
+                }
+            }
+        }
+        return isExist
+    }
+    
+    fileprivate func getHistoryStore()->YTKKeyValueStore?{
+        let store  = YTKKeyValueStore(dbWithName: dbName)
+        if store?.isTableExists(searchHistory) == false {
+            store?.createTable(withName: searchHistory)
+        }
+        return store
+    }
+}
+
 class QSSearchInteractor: QSSearchInteractorProtocol {
 
     weak var output: QSSearchInteractorOutputProtocol!
