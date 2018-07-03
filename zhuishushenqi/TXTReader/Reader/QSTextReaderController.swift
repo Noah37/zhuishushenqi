@@ -32,6 +32,8 @@ class QSTextReaderController: UIViewController {
 
     var bookDetail:BookDetail!
     
+    var viewModel = ZSReaderViewModel()
+    
     // key为章节的link，value为QSChapter模型
     var chapterDict:[String:Any]! = [:]
 

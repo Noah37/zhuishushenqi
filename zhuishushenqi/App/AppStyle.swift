@@ -10,6 +10,7 @@ import Foundation
 
 let nightKey = "light.key"
 let fontSizeKey = "fontSize.key"
+let animationStyleKey = "animationStyle.key"
 
 struct AppStyle {
     
@@ -37,6 +38,13 @@ struct AppStyle {
     var theme:Theme = UserDefaults.standard.bool(forKey: nightKey) ? .night : .day {
         didSet{
             UserDefaults.standard.set(theme == .night, forKey: nightKey)
+        }
+    }
+    
+    var animationStyle:ZSReaderAnimationStyle = ZSReaderAnimationStyle(rawValue: UserDefaults.standard.integer(forKey: animationStyleKey)) ?? .none {
+        didSet {
+            UserDefaults.standard.set(animationStyle.rawValue, forKey: animationStyleKey)
+            UserDefaults.standard.synchronize()
         }
     }
     

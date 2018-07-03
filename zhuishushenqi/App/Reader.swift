@@ -28,3 +28,14 @@ extension Reader {
     }
     
 }
+
+// 翻页方式属于全局
+enum ZSReaderAnimationStyle:Int {
+    case none = 0 // 无翻页动画
+    case horizonal // 左右覆盖
+    case vertical // 上下覆盖
+    case horMove // 左右平移
+    case verMove //上下平移
+    case verScroll //上下滚屏
+    case curlPage // 仿真翻页
+}
