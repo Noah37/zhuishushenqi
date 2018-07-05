@@ -40,7 +40,8 @@ class BookDetail: NSObject,NSCoding ,HandyJSON{
     var page:Int = 0 //最后阅读的页数
     
     var resources:[ResourceModel]?
-    var chapters:[NSDictionary]?
+    var chapters:[NSDictionary]? // 新的代码完成后去掉
+    var chaptersInfo:[ZSChapterInfo]? // 代替chapters
     var isUpdated:Bool = false //是否存在更新,如果存在更新，进入书籍后修改状态
     // book 一直存在，默认初始化，不保存任何章节
     var book:QSBook!
@@ -77,6 +78,7 @@ class BookDetail: NSObject,NSCoding ,HandyJSON{
         self.isUpdated = aDecoder.decodeBool(forKey: "isUpdated")
         self.book = aDecoder.decodeObject(forKey: "book") as? QSBook
         self.record = aDecoder.decodeObject(forKey: "record") as? QSRecord
+        self.chaptersInfo = aDecoder.decodeObject(forKey: "chaptersInfo") as? [ZSChapterInfo]
         setupBook()
     }
     
@@ -119,5 +121,6 @@ class BookDetail: NSObject,NSCoding ,HandyJSON{
         aCoder.encode(self.isUpdated, forKey: "isUpdated")
         aCoder.encode(self.book, forKey: "book")
         aCoder.encode(self.record, forKey: "record")
+        aCoder.encode(self.chaptersInfo,forKey:"chaptersInfo")
     }
 }

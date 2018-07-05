@@ -8,6 +8,25 @@
 
 import Foundation
 
+class ZSReaderViewModel {
+    
+    var book:BookDetail?
+    
+    fileprivate var webService = ZSReaderWebService()
+    
+    func fetchAllResource(key:String,_ callback:ZSBaseCallback<[ResourceModel]>?){
+        webService.fetchAllResource(key: key, callback)
+    }
+    
+    func fetchAllChapters(key:String,_ callback:ZSBaseCallback<[ZSChapterInfo]>?){
+        webService.fetchAllChapters(key: key, callback)
+    }
+    
+    func fetchChapter(key:String,_ callback:ZSBaseCallback<ZSChapterBody>?){
+        webService.fetchChapter(key: key, callback)
+    }
+}
+
 class QSTextPresenter: QSTextPresenterProtocol {
     weak var view: QSTextViewProtocol?
     var interactor: QSTextInteractorProtocol
