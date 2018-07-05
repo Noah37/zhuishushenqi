@@ -11,11 +11,50 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Then
+
+class ZSSearchViewController: ZSBaseTableViewController {
+    
+    var searchViewModel:ZSSearchViewModel = ZSSearchViewModel()
+    fileprivate var searchHeaderView = ZSSearchHeaderView()
+    fileprivate var historyHeaderView = ZSHistoryHeaderView()
+    fileprivate var resultViewController = ZSSearchResultViewController()
+    fileprivate lazy var searchController:UISearchController = {
+        let searchVC:UISearchController = UISearchController(searchResultsController: self.resultViewController)
+        searchVC.searchBar.placeholder = "输入书名或作者名"
+        searchVC.searchResultsUpdater = self
+        searchVC.delegate = self
+        searchVC.searchBar.delegate = self
+        //        [UIColor colorWithRed:0.84 green:0.84 blue:0.86 alpha:1.00]
+        //        searchVC.obscuresBackgroundDuringPresentation = true
+        searchVC.hidesNavigationBarDuringPresentation = true
+        searchVC.searchBar.sizeToFit()
+        searchVC.searchBar.backgroundColor = UIColor(red: 0.84, green: 0.84, blue: 0.86, alpha: 1.0)
+        searchVC.searchBar.barTintColor = UIColor.white
+        searchVC.searchBar.layer.borderColor = UIColor.white.cgColor
+        return searchVC
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+}
+
+extension ZSSearchViewController:UISearchResultsUpdating,UISearchControllerDelegate,UISearchBarDelegate{
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+    
+    
+    
+}
 
 class QSSearchViewController: ZSBaseTableViewController{
 
-	var presenter: QSSearchPresenterProtocol?
-    
+    var presenter: QSSearchPresenterProtocol?
+
     var hotWords = [String]() {
         didSet{
             tableView.reloadData()
@@ -41,7 +80,7 @@ class QSSearchViewController: ZSBaseTableViewController{
 //        tableView.qs_registerCellNib(QSHistoryCell.self)
 //        return tableView
 //    }()
-    
+
     lazy var searchController:UISearchController = {
         let searchVC:UISearchController = UISearchController(searchResultsController: nil)
         searchVC.searchBar.placeholder = "输入书名或作者名"
@@ -57,30 +96,30 @@ class QSSearchViewController: ZSBaseTableViewController{
         searchVC.searchBar.layer.borderColor = UIColor.white.cgColor
         return searchVC
     }()
-    
+
     override init(style: UITableViewStyle) {
         super.init(style: .grouped)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-	override func viewDidLoad() {
+
+    override func viewDidLoad() {
         super.viewDidLoad()
         initSubview()
         self.presenter?.viewDidLoad()
-        
+
         self.searchController.searchBar.addObserverBlock(forKeyPath: "frame") { (item1, item2, item3) in
             QSLog("item1:\(item1) \nitem2:\(item2) \nitem3:\(item3)")
         }
-        
+
     }
-    
+
     func initSubview(){
-    
+
         tableView.qs_registerCellNib(QSHistoryCell.self)
-        
+
         self.headerView = QSSearchHeaderView(frame: CGRect(x: 0, y: 56, width: self.view.bounds.width, height: 121))
         self.headerView.change = {
             self.presenter?.didClickChangeBtn()
@@ -88,9 +127,9 @@ class QSSearchViewController: ZSBaseTableViewController{
         self.headerView.hotwordClick = { (hotword:String) in
             self.presenter?.didSelectHotWord(hotword: hotword)
         }
-        
+
         self.headerView.hotwords = self.hotWords
-        
+
         self.historyHeader = QSHistoryHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
         self.historyHeader.clear = {
             self.presenter?.didClickClearBtn()
@@ -113,11 +152,11 @@ extension QSSearchViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchList[section].count
     }
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:QSHistoryCell? = tableView.qs_dequeueReusableCell(QSHistoryCell.self)
         cell?.backgroundColor = UIColor.white
@@ -125,7 +164,7 @@ extension QSSearchViewController{
         cell?.titleLabel.text = searchList[indexPath.section][indexPath.row]
         return cell!
     }
-    
+
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
         let headerView = UIView()
@@ -136,11 +175,11 @@ extension QSSearchViewController{
 //        self.headerView.hotwords = self.hotWords
         return headerView
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 256
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.presenter?.didSelectHistoryRow(indexPath: indexPath)
     }
@@ -148,29 +187,29 @@ extension QSSearchViewController{
 
 extension QSSearchViewController:QSSearchViewProtocol{
     func showNoHotwordsView(){
-        
+
     }
-    
+
     func showHotwordsData(hotwords:[String]){
         self.hotWords = hotwords
         self.tableView.reloadData()
     }
-    
+
     func showNoHistoryView(){
-        
+
     }
-    
+
     func showSearchListData(searchList:[[String]]){
         self.searchList = searchList
         self.tableView.reloadData()
     }
-    
+
     func showBooks(books: [Book],key:String) {
         self.books = books
         self.resultTableView.books = self.books
         showResultTable(key:key)
     }
-    
+
     func showAutoComplete(keywords: [String]) {
         self.autoCompleteTable.books = keywords
         showAutoComplete()

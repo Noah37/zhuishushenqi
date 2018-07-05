@@ -41,3 +41,53 @@ extension Dictionary {
         return allValues
     }
 }
+
+extension Dictionary where Value: Any {
+    
+    func decoding<T>(with key: Key) -> T? {
+        guard let any: Any = self[key] else {
+            return nil
+        }
+        if let value: T = any as? T {
+            return value
+        } else {
+            switch T.self {
+            case is String.Type:
+                switch any {
+                case let someInt as Int:
+                    return String(someInt) as? T
+                case let someDouble as Double:
+                    return String(someDouble) as? T
+                case let someBool as Bool:
+                    return String(someBool) as? T
+                default:
+                    return nil
+                }
+            case is Int.Type:
+                if let someString: String = any as? String {
+                    return Int(someString) as? T
+                } else if let someDouble: Double = any as? Double {
+                    return Int(someDouble) as? T
+                } else {
+                    return nil
+                }
+            case is Double.Type:
+                if let someString: String = any as? String {
+                    return Double(someString) as? T
+                } else if let someInt: Int = any as? Int {
+                    return Double(someInt) as? T
+                } else {
+                    return nil
+                }
+            case is Bool.Type:
+                if let someString: String = any as? String {
+                    return Bool(someString) as? T
+                } else {
+                    return nil
+                }
+            default:
+                return nil
+            }
+        }
+    }
+}

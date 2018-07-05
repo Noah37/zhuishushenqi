@@ -12,12 +12,13 @@ import UIKit
 
 class ZSSearchViewModel {
     
-    var webService:ZSSearchWebService = ZSSearchWebService()
     
-    var hotwords:[String] = []
+    fileprivate var hotwords:[String] = []
     
+    fileprivate var webService:ZSSearchWebService = ZSSearchWebService()
     // 换一批热词的基准
-    var newIndex = 0
+    fileprivate var newIndex = 0
+    fileprivate let SearchStoreKey = "SearchHistory"
     
     //MARK: - 换一批热门词
     func newHotwords(callback:ZSSearchWebCallback?) {
@@ -27,7 +28,19 @@ class ZSSearchViewModel {
         subHotwords(callback: callback)
     }
     
-    func subHotwords(callback:ZSSearchWebCallback?){
+    func fetchAutoComplete(key:String,callback:ZSSearchWebCallback?){
+        webService.fetchAutoComplete(key: key) { (list) in
+            callback?(list)
+        }
+    }
+    
+    func fetchBooks(key:String, start:Int, limit:Int, callback:ZSSearchWebAnyCallback<[Book]>?){
+        webService.fetchBooks(key: key, start: start, limit: limit) { (books) in
+            callback?(books)
+        }
+    }
+    
+    fileprivate func subHotwords(callback:ZSSearchWebCallback?){
         var subWords:[String] = []
         for item in newIndex..<newIndex+6 {
             subWords.append(hotwords[item%hotwords.count])
@@ -36,11 +49,61 @@ class ZSSearchViewModel {
         callback?(subWords)
     }
     
-    func fetchHotwords(callback:ZSSearchWebCallback?) {
+    fileprivate func fetchHotwords(callback:ZSSearchWebCallback?) {
         webService.fetchHotwords({ (words) in
             self.newIndex = 0
             self.subHotwords(callback: callback)
         })
+    }
+    
+    //MARK: - local data
+    @discardableResult
+    func fetchHistoryList(_ callback:ZSSearchWebCallback?)-> [String]?{
+        let store = getHistoryStore()
+        let historyList = store?.getObjectById(SearchStoreKey, fromTable: searchHistory) as? [String]
+        callback?(historyList)
+        return historyList
+    }
+    
+    func clearSearchList(){
+        let store = getHistoryStore()
+        store?.clearTable(searchHistory)
+    }
+    
+    func addToHistory(history:String){
+        if history == ""{
+            return
+        }
+        if !searchWordExist(key: history) {
+            let store = getHistoryStore()
+            var list = fetchHistoryList(nil)
+            list?.append(history.trimmingCharacters(in: CharacterSet(charactersIn: " ")))
+            store?.clearTable(searchHistory)
+            store?.put(list, withId: SearchStoreKey, intoTable: searchHistory)
+            
+        }
+    }
+    
+    fileprivate func searchWordExist(key:String)->Bool{
+        var isExist = false
+        let list = fetchHistoryList(nil)
+        if let historyList = list {
+            for item in historyList {
+                if item == key {
+                    isExist = true
+                    break;
+                }
+            }
+        }
+        return isExist
+    }
+    
+    fileprivate func getHistoryStore()->YTKKeyValueStore?{
+        let store  = YTKKeyValueStore(dbWithName: dbName)
+        if store?.isTableExists(searchHistory) == false {
+            store?.createTable(withName: searchHistory)
+        }
+        return store
     }
 
 }

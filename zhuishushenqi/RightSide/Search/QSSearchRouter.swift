@@ -16,7 +16,7 @@ class QSSearchRouter: QSSearchWireframeProtocol {
     
     static func createModule() -> UIViewController {
         // Change to get view from storyboard if not using progammatic UI
-        let view = QSSearchViewController(nibName: nil, bundle: nil)
+        let view = QSSearchViewController(style: .grouped)
         let interactor = QSSearchInteractor()
         let router = QSSearchRouter()
         let presenter = QSSearchPresenter(interface: view, interactor: interactor, router: router)
