@@ -17,6 +17,9 @@ class ZSNoneAnimationViewController: UIViewController {
     var record:QSRecord = QSRecord()
     
     var cachedChapter:[String:QSChapter] = [:]
+    
+    fileprivate var changedPage = false
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,93 +50,36 @@ class ZSNoneAnimationViewController: UIViewController {
     
     @objc func panAction(pan:UIPanGestureRecognizer){
         // x方向滑动超过20就翻页
-        
         let translation:CGPoint = pan.translation(in: self.view)
         
-        if pan.state == .changed {
+        if pan.state == .changed && !changedPage {
             let offsetX = translation.x
             if offsetX > 20 {
-                
+                // 在本次手势结束前都不再响应
+                changedPage = true
+                getNextPage()
+            } else if (offsetX < -20) {
+                // 在本次手势结束前都不再响应
+                changedPage = true
+                getLastPage()
             }
+        } else if pan.state == .ended {
+            changedPage = false
         }
     }
     
     // 获取下一个页面
     func getNextPage(){
-        //2.获取当前阅读的章节与页码,这里由于是网络小说,有几种情况
-        //(1).当前章节信息为空,那么这一章只有一页,翻页直接进入了下一页,章节加一
-        //(2).当前章节信息不为空,说明已经请求成功了,那么计算当前页码是否为该章节的最后一页
-        //这是2(2)
-        if let chapterModel = record.chapterModel {
-            let page = record.page
-            if page < chapterModel.pages.count - 1 {
-                let pageIndex = record.page + 1
-                let pageModel = chapterModel.pages[pageIndex]
-                pageViewController.page = pageModel
-            } else { // 新的章节
-                getNewChapter()
-            }
-        } else {
-            getNewChapter()
+        viewModel.fetchNextPage { (page) in
+            self.pageViewController.page = page
         }
     }
     
     func getLastPage(){
-        if let _ = record.chapterModel {
-            let page = record.page
-            if page > 0 {
-                
-            }
-        }
-        
-    }
-    
-    func getNewChapter(){
-        let chapter = record.chapter + 1
-        if chapter < (viewModel.book?.chaptersInfo?.count ?? 0) {
-            if let chapterInfo = viewModel.book?.chaptersInfo?[chapter] {
-                let link = chapterInfo.link
-                // 内存缓存
-                if let model =  cachedChapter[link] {
-                    pageViewController.page = model.pages.first
-                } else {
-                    viewModel.fetchChapter(key: link, { (body) in
-                        if let bodyInfo = body {
-                            if let network = self.cacheChapter(body: bodyInfo, index: chapter) {
-                                self.pageViewController.page = network.pages.first
-                            }
-                        }
-                    })
-                }
-            }
+        viewModel.fetchLastPage { (page) in
+            self.pageViewController.page = page
         }
     }
-    
-    // 将新获取的章节信息存入chapterDict中
-    @discardableResult
-    func cacheChapter(body:ZSChapterBody,index:Int)->QSChapter?{
-        let chapterModel = viewModel.book?.chaptersInfo?[index]
-        let qsChapter = QSChapter()
-        if let link = chapterModel?.link {
-            qsChapter.link = link
-            // 如果使用追书正版书源，取的字段应该是cpContent，需要根据当前选择的源进行判断
-            if let _ = chapterModel?.order  {
-                qsChapter.content = body.cpContent
-
-            } else {
-                qsChapter.content = body.body
-            }
-            if let title = chapterModel?.title {
-                qsChapter.title = title
-            }
-            qsChapter.curChapter = index
-            qsChapter.getPages() // 直接计算page
-            cachedChapter[link] = qsChapter
-            return qsChapter
-        }
-        return nil
-    }
-    
 }
 
 extension ZSNoneAnimationViewController:ZSReaderTap{
