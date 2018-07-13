@@ -53,7 +53,11 @@ extension ZSHorizonalMoveViewController:UICollectionViewDataSource,UICollectionV
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.qs_dequeueReusableCell(ZSHorizonalMoveCell.self, for: indexPath)
         pageViewController = cell.pageViewController
-        collectionMaxRows%3
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
     }
 }
