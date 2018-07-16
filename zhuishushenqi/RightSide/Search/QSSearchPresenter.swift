@@ -24,8 +24,9 @@ class ZSSearchViewModel {
     func newHotwords(callback:ZSSearchWebCallback?) {
         if hotwords.count == 0 {
             fetchHotwords(callback: callback)
+        } else {
+            subHotwords(callback: callback)
         }
-        subHotwords(callback: callback)
     }
     
     func fetchAutoComplete(key:String,callback:ZSSearchWebCallback?){
@@ -52,6 +53,7 @@ class ZSSearchViewModel {
     fileprivate func fetchHotwords(callback:ZSSearchWebCallback?) {
         webService.fetchHotwords({ (words) in
             self.newIndex = 0
+            self.hotwords = words ?? []
             self.subHotwords(callback: callback)
         })
     }

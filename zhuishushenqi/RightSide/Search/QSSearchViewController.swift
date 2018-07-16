@@ -15,30 +15,52 @@ import Then
 
 class ZSSearchViewController: ZSBaseTableViewController {
     
+    fileprivate let searchBarHeight:CGFloat = 50
     var searchViewModel:ZSSearchViewModel = ZSSearchViewModel()
-    fileprivate var searchHeaderView = ZSSearchHeaderView()
-    fileprivate var historyHeaderView = ZSHistoryHeaderView()
+    fileprivate var searchHeaderView = ZSSearchHeaderView(frame:CGRect.zero).then { (header) in
+    }
+    fileprivate var historyHeaderView = QSHistoryHeaderView()
     fileprivate var resultViewController = ZSSearchResultViewController()
+    fileprivate var searchBackgroundView = UIView().then { (background) in
+        background.isUserInteractionEnabled = true
+    }
     fileprivate lazy var searchController:UISearchController = {
         let searchVC:UISearchController = UISearchController(searchResultsController: self.resultViewController)
         searchVC.searchBar.placeholder = "输入书名或作者名"
         searchVC.searchResultsUpdater = self
         searchVC.delegate = self
         searchVC.searchBar.delegate = self
-        //        [UIColor colorWithRed:0.84 green:0.84 blue:0.86 alpha:1.00]
-        //        searchVC.obscuresBackgroundDuringPresentation = true
         searchVC.hidesNavigationBarDuringPresentation = true
         searchVC.searchBar.sizeToFit()
         searchVC.searchBar.backgroundColor = UIColor(red: 0.84, green: 0.84, blue: 0.86, alpha: 1.0)
-        searchVC.searchBar.barTintColor = UIColor.white
+        searchVC.searchBar.barTintColor = UIColor.lightGray
         searchVC.searchBar.layer.borderColor = UIColor.white.cgColor
         return searchVC
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "搜索"
         
+        searchBackgroundView.addSubview(searchController.searchBar)
+        searchBackgroundView.addSubview(searchHeaderView)
+        searchHeaderView.origin.y = searchBarHeight
+        searchBackgroundView.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: searchHeaderView.totalHeight + searchBarHeight)
+        
+        searchViewModel.newHotwords { (hotwords) in
+            self.searchHeaderView.hotwords = hotwords ?? []
+        }
+        
+        tableView.qs_registerCellNib(QSHistoryCell.self)
+        searchHeaderView.addObserverBlock(forKeyPath: #keyPath(ZSSearchHeaderView.totalHeight)) { (item1, item2, item3) in
+            QSLog("item1:\(item1)\nitem2:\(item2)\nitem3:\(item3)")
+            self.searchHeaderView.origin.y = self.searchBarHeight
+            self.searchBackgroundView.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: self.searchHeaderView.totalHeight + self.searchBarHeight)
+
+        }
     }
+    
+    
     
 }
 
@@ -47,8 +69,38 @@ extension ZSSearchViewController:UISearchResultsUpdating,UISearchControllerDeleg
         
     }
     
+}
+
+extension ZSSearchViewController{
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 0
+        }
+        return searchViewModel.fetchHistoryList(nil)?.count ?? 0
+    }
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return searchBackgroundView
+        }
+        return historyHeaderView
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.qs_dequeueReusableCell(QSHistoryCell.self)
+        return cell!
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return searchBarHeight + searchHeaderView.totalHeight
+        }
+        return 42
+    }
 }
 
 class QSSearchViewController: ZSBaseTableViewController{
@@ -67,19 +119,11 @@ class QSSearchViewController: ZSBaseTableViewController{
     var historyHeader:QSHistoryHeaderView!
     var resultTableView:QSSearchResultTable!
     var autoCompleteTable:QSSearchAutoCompleteTable!
-
-//    lazy var tableView:UITableView = {
-//        let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 50, width: ScreenWidth, height: ScreenHeight - (kNavgationBarHeight + 50)), style: .grouped)
-//        tableView.dataSource = self
-//        tableView.delegate = self
-//        tableView.estimatedSectionHeaderHeight = 80
-//        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-//        tableView.sectionFooterHeight = 10
-//        tableView.rowHeight = 44
-//        tableView.backgroundColor = UIColor.white
-//        tableView.qs_registerCellNib(QSHistoryCell.self)
-//        return tableView
-//    }()
+    
+    // new
+    var searchHeaderView:ZSSearchHeaderView = ZSSearchHeaderView().then {
+        $0
+    }
 
     lazy var searchController:UISearchController = {
         let searchVC:UISearchController = UISearchController(searchResultsController: nil)
@@ -109,41 +153,36 @@ class QSSearchViewController: ZSBaseTableViewController{
         super.viewDidLoad()
         initSubview()
         self.presenter?.viewDidLoad()
-
-        self.searchController.searchBar.addObserverBlock(forKeyPath: "frame") { (item1, item2, item3) in
-            QSLog("item1:\(item1) \nitem2:\(item2) \nitem3:\(item3)")
-        }
-
     }
 
     func initSubview(){
 
         tableView.qs_registerCellNib(QSHistoryCell.self)
 
-        self.headerView = QSSearchHeaderView(frame: CGRect(x: 0, y: 56, width: self.view.bounds.width, height: 121))
-        self.headerView.change = {
-            self.presenter?.didClickChangeBtn()
-        }
-        self.headerView.hotwordClick = { (hotword:String) in
-            self.presenter?.didSelectHotWord(hotword: hotword)
-        }
-
-        self.headerView.hotwords = self.hotWords
-
-        self.historyHeader = QSHistoryHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
-        self.historyHeader.clear = {
-            self.presenter?.didClickClearBtn()
-        }
-        showHistory()
-        self.title = "搜索"
-        resultTableView = QSSearchResultTable(frame: getFrame(type: .history))
-        resultTableView.selectRow = { (indexPath) in
-            self.presenter?.didSelectResultRow(indexPath: indexPath)
-        }
-        autoCompleteTable = QSSearchAutoCompleteTable(frame: getFrame(type: .searching))
-        autoCompleteTable.selectRow = { (indexPath) in
-            self.presenter?.didSelectAutoCompleteRow(indexPath: indexPath)
-        }
+//        self.headerView = QSSearchHeaderView(frame: CGRect(x: 0, y: 56, width: self.view.bounds.width, height: 121))
+//        self.headerView.change = {
+//            self.presenter?.didClickChangeBtn()
+//        }
+//        self.headerView.hotwordClick = { (hotword:String) in
+//            self.presenter?.didSelectHotWord(hotword: hotword)
+//        }
+//
+//        self.headerView.hotwords = self.hotWords
+//
+//        self.historyHeader = QSHistoryHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
+//        self.historyHeader.clear = {
+//            self.presenter?.didClickClearBtn()
+//        }
+////        showHistory()
+//        self.title = "搜索"
+//        resultTableView = QSSearchResultTable(frame: getFrame(type: .history))
+//        resultTableView.selectRow = { (indexPath) in
+//            self.presenter?.didSelectResultRow(indexPath: indexPath)
+//        }
+//        autoCompleteTable = QSSearchAutoCompleteTable(frame: getFrame(type: .searching))
+//        autoCompleteTable.selectRow = { (indexPath) in
+//            self.presenter?.didSelectAutoCompleteRow(indexPath: indexPath)
+//        }
     }
 }
 

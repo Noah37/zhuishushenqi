@@ -34,6 +34,7 @@ class ZSSearchHeaderView: UIView {
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         $0.setImage(UIImage(named:"actionbar_refresh"), for: .normal)
     }
+    
     var hotwords:[String] = [] {
         didSet {
             setupSubviews()
@@ -47,6 +48,15 @@ class ZSSearchHeaderView: UIView {
     fileprivate let hotwordsBaseTag = 121
     
     var totalHeight:CGFloat = 20
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     override func awakeFromNib() {
@@ -66,12 +76,15 @@ class ZSSearchHeaderView: UIView {
         titleLabel.snp.remakeConstraints { (make) in
             make.left.equalTo(self).offset(16)
             make.width.equalTo(200)
-            make.top.equalTo(self).offset(8)
+            make.top.equalTo(self).offset(10)
             make.height.equalTo(21)
         }
         
         refreshButton.snp.remakeConstraints { (make) in
-            
+            make.right.equalTo(self).offset(-16)
+            make.width.equalTo(70)
+            make.height.equalTo(21)
+            make.top.equalTo(self).offset(10)
         }
         
         // 移除之前的button
@@ -108,6 +121,7 @@ class ZSSearchHeaderView: UIView {
             
             x = x + width + spacex
         }
+        self.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: totalHeight)
     }
     
     func animate(){

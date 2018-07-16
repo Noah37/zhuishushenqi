@@ -39,6 +39,7 @@ class QSHistoryHeaderView: UIView {
         btn.addTarget(self, action: #selector(clearHistory(btn:)), for: .touchUpInside)
         btn.frame = CGRect(x: self.bounds.width - 90, y: 10, width: 70, height: 21)
         self.addSubview(btn)
+        frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: 41)
     }
     
     @objc func clearHistory(btn:UIButton){

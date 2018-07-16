@@ -65,7 +65,8 @@ class RightViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {//搜索
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-            SideVC.navigationController?.pushViewController(QSSearchRouter.createModule(), animated: true)
+            let searchVC = ZSSearchViewController(style: .grouped)
+            SideVC.navigationController?.pushViewController(searchVC, animated: true)
         }else if indexPath.row == 1 {//排行榜
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
             SideVC.navigationController?.pushViewController(QSRankRouter.createModule(), animated: true)
