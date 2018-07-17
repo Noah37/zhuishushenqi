@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class ZSSearchHeaderView: UIView {
+@objcMembers class ZSSearchHeaderView: UIView {
 
     fileprivate var tagColor = [UIColor(red: 0.56, green: 0.77, blue: 0.94, alpha: 1.0),
                                 UIColor(red: 0.75, green: 0.41, blue: 0.82, alpha: 1.0),
@@ -47,7 +47,7 @@ class ZSSearchHeaderView: UIView {
     
     fileprivate let hotwordsBaseTag = 121
     
-    var totalHeight:CGFloat = 20
+    dynamic var totalHeight:CGFloat = 20
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -96,7 +96,7 @@ class ZSSearchHeaderView: UIView {
         
         
         var x:CGFloat = 20
-        var y:CGFloat = 10 + 21
+        var y:CGFloat = 10 + 21 + 10
         let spacex:CGFloat = 10
         let spacey:CGFloat = 10
         let height:CGFloat = 20
@@ -106,7 +106,7 @@ class ZSSearchHeaderView: UIView {
             if x + width + 20 > ScreenWidth {
                 x = 20
                 y = y + spacey + height
-                totalHeight = totalHeight + height
+                self.totalHeight = y + height
             }
             let btn = UIButton(type: .custom)
             btn.frame = CGRect(x: x, y: y, width: width, height: height)
@@ -118,10 +118,8 @@ class ZSSearchHeaderView: UIView {
             btn.layer.cornerRadius = 2
             btn.tag   = hotwordsBaseTag + index
             addSubview(btn)
-            
             x = x + width + spacex
         }
-        self.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: totalHeight)
     }
     
     func animate(){

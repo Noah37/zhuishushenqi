@@ -15,21 +15,23 @@ import Then
 
 class ZSSearchViewController: ZSBaseTableViewController {
     
-    fileprivate let searchBarHeight:CGFloat = 50
+    fileprivate let searchBarHeight:CGFloat = 56
     var searchViewModel:ZSSearchViewModel = ZSSearchViewModel()
     fileprivate var searchHeaderView = ZSSearchHeaderView(frame:CGRect.zero).then { (header) in
     }
     fileprivate var historyHeaderView = QSHistoryHeaderView()
     fileprivate var resultViewController = ZSSearchResultViewController()
+    fileprivate var autoCompleteController = ZSSearchAutoCompleteController()
     fileprivate var searchBackgroundView = UIView().then { (background) in
         background.isUserInteractionEnabled = true
     }
     fileprivate lazy var searchController:UISearchController = {
-        let searchVC:UISearchController = UISearchController(searchResultsController: self.resultViewController)
+        let searchVC:UISearchController = UISearchController(searchResultsController: self.autoCompleteController)
         searchVC.searchBar.placeholder = "输入书名或作者名"
-        searchVC.searchResultsUpdater = self
+        searchVC.searchResultsUpdater = self.autoCompleteController
         searchVC.delegate = self
         searchVC.searchBar.delegate = self
+        searchVC.dimsBackgroundDuringPresentation = false
         searchVC.hidesNavigationBarDuringPresentation = true
         searchVC.searchBar.sizeToFit()
         searchVC.searchBar.backgroundColor = UIColor(red: 0.84, green: 0.84, blue: 0.86, alpha: 1.0)
@@ -38,37 +40,75 @@ class ZSSearchViewController: ZSBaseTableViewController {
         return searchVC
     }()
     
+    let dispose = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "搜索"
         
         searchBackgroundView.addSubview(searchController.searchBar)
         searchBackgroundView.addSubview(searchHeaderView)
-        searchHeaderView.origin.y = searchBarHeight
-        searchBackgroundView.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: searchHeaderView.totalHeight + searchBarHeight)
-        
+        searchHeaderView.rx.observe(CGFloat.self, "totalHeight").subscribe(onNext: { (height) in
+            QSLog(height)
+            self.searchHeaderView.snp.remakeConstraints { (make) in
+                make.top.equalToSuperview().offset(self.searchBarHeight)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(height!)
+            }
+            self.tableView.reloadData()
+        }).disposed(by: dispose)
         searchViewModel.newHotwords { (hotwords) in
             self.searchHeaderView.hotwords = hotwords ?? []
         }
         
         tableView.qs_registerCellNib(QSHistoryCell.self)
-        searchHeaderView.addObserverBlock(forKeyPath: #keyPath(ZSSearchHeaderView.totalHeight)) { (item1, item2, item3) in
-            QSLog("item1:\(item1)\nitem2:\(item2)\nitem3:\(item3)")
-            self.searchHeaderView.origin.y = self.searchBarHeight
-            self.searchBackgroundView.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: self.searchHeaderView.totalHeight + self.searchBarHeight)
-
-        }
     }
-    
-    
     
 }
 
 extension ZSSearchViewController:UISearchResultsUpdating,UISearchControllerDelegate,UISearchBarDelegate{
+    
+    //MARK: - UISearchBarDelegate
     func updateSearchResults(for searchController: UISearchController) {
         
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchController.dismiss(animated: true) {
+            // 完成后将搜索结果展示出来
+        }
+    } // called when keyboard search button pressed
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+    } // called when cancel button pressed
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
+    } // called when text ends editing
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchViewModel.fetchAutoComplete(key: searchText) { (books) in
+            self.autoCompleteController.books = books ?? []
+        }
+    }
+    
+    //MARK: - UISearchControllerDelegate
+    func willPresentSearchController(_ searchController: UISearchController) {
+        
+    }
+    
+    func didPresentSearchController(_ searchController: UISearchController) {
+        
+    }
+    
+    func willDismissSearchController(_ searchController: UISearchController) {
+        
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        
+    }
 }
 
 extension ZSSearchViewController{
@@ -90,6 +130,10 @@ extension ZSSearchViewController{
         return historyHeaderView
     }
     
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.qs_dequeueReusableCell(QSHistoryCell.self)
         return cell!
@@ -100,6 +144,10 @@ extension ZSSearchViewController{
             return searchBarHeight + searchHeaderView.totalHeight
         }
         return 42
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
     }
 }
 
@@ -131,8 +179,6 @@ class QSSearchViewController: ZSBaseTableViewController{
         searchVC.searchResultsUpdater = self
         searchVC.delegate = self
         searchVC.searchBar.delegate = self
-//        [UIColor colorWithRed:0.84 green:0.84 blue:0.86 alpha:1.00]
-        //        searchVC.obscuresBackgroundDuringPresentation = true
         searchVC.hidesNavigationBarDuringPresentation = true
         searchVC.searchBar.sizeToFit()
         searchVC.searchBar.backgroundColor = UIColor(red: 0.84, green: 0.84, blue: 0.86, alpha: 1.0)

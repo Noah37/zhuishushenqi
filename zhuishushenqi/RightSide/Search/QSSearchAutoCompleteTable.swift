@@ -8,6 +8,53 @@
 
 import UIKit
 
+class ZSSearchAutoCompleteController: ZSBaseTableViewController ,UISearchResultsUpdating{
+    
+    var books:[String] = [] { didSet{ self.tableView.reloadData() } }
+    
+    var selectRow:DidSelectRow?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor(red: 1.0, green: 0.98, blue: 0.82, alpha: 1.0)
+        tableView.qs_registerCellClass(UITableViewCell.self)
+        if #available(iOS 11.0, *) {
+            self.tableView.contentInsetAdjustmentBehavior = .never
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return books.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell? = tableView.qs_dequeueReusableCell(UITableViewCell.self)
+        cell?.backgroundColor = UIColor.white
+        cell?.selectionStyle = .none
+        cell?.textLabel?.text = self.books.count  > indexPath.row ? books[indexPath.row]:""
+        return cell!
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.0001
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let select = selectRow {
+            select(indexPath)
+        }
+    }
+    
+    //MARK: - UISearchBarDelegate
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+}
+
 class QSSearchAutoCompleteTable: UIView,UITableViewDataSource,UITableViewDelegate {
     
     var books:[String]? {
