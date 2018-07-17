@@ -23,10 +23,20 @@ class ZSNoneAnimationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        initial()
         setupRecord()
         setupSubviews()
         setupGesture()
+    }
+    
+    func initial(){
+        viewModel.fetchAllResource { resources in
+            self.viewModel.fetchAllChapters({ (chapters) in
+                self.viewModel.fetchInitialChapter({ (page) in
+                    self.pageViewController.page = page
+                })
+            })
+        }
     }
     
     func setupRecord(){
@@ -54,11 +64,11 @@ class ZSNoneAnimationViewController: UIViewController {
         
         if pan.state == .changed && !changedPage {
             let offsetX = translation.x
-            if offsetX > 20 {
+            if offsetX < -20 {
                 // 在本次手势结束前都不再响应
                 changedPage = true
                 getNextPage()
-            } else if (offsetX < -20) {
+            } else if (offsetX > 20) {
                 // 在本次手势结束前都不再响应
                 changedPage = true
                 getLastPage()

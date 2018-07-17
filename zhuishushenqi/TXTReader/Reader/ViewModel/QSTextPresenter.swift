@@ -16,13 +16,26 @@ class ZSReaderViewModel {
         
     fileprivate var webService = ZSReaderWebService()
     
+    // 默认选择非追书的源
+    fileprivate var sourceIndex = 2
+    
     //MARK: - fetch network resource
-    func fetchAllResource(key:String,_ callback:ZSBaseCallback<[ResourceModel]>?){
-        webService.fetchAllResource(key: key, callback)
+    func fetchAllResource(_ callback:ZSBaseCallback<[ResourceModel]>?){
+        let key = book?._id ?? ""
+        webService.fetchAllResource(key: key) { (resources) in
+            self.book?.resources = resources
+            callback?(resources)
+        }
     }
     
-    func fetchAllChapters(key:String,_ callback:ZSBaseCallback<[ZSChapterInfo]>?){
-        webService.fetchAllChapters(key: key, callback)
+    func fetchAllChapters(_ callback:ZSBaseCallback<[ZSChapterInfo]>?){
+        if sourceIndex < (self.book?.resources?.count ?? 0) {
+            let key = self.book?.resources?[sourceIndex]._id ?? ""
+            webService.fetchAllChapters(key: key) { (chapters) in
+                self.book?.chaptersInfo = chapters
+                callback?(chapters)
+            }
+        }
     }
     
     func fetchChapter(key:String,_ callback:ZSBaseCallback<ZSChapterBody>?){
@@ -41,6 +54,8 @@ class ZSReaderViewModel {
                 if page < chapterModel.pages.count - 1 {
                     let pageIndex = page + 1
                     let pageModel = chapterModel.pages[pageIndex]
+                    record.page = pageIndex
+                    self.book?.record = record
                     callback?(pageModel)
                 } else { // 新的章节
                     fetchNewChapter(chapterOffset: 1,record: record,chaptersInfo: self.book?.chaptersInfo,callback: callback)
@@ -58,6 +73,8 @@ class ZSReaderViewModel {
                 if page > 0 {
                     // 当前页存在
                     let pageIndex = page - 1
+                    record.page = pageIndex
+                    self.book?.record = record
                     let pageModel = chapterModel.pages[pageIndex]
                     callback?(pageModel)
                 } else {// 当前章节信息不存在,必然是新的章节
@@ -69,18 +86,34 @@ class ZSReaderViewModel {
         }
     }
     
+    func fetchInitialChapter(_ callback:ZSSearchWebAnyCallback<QSPage>?){
+        if let record = book?.record {
+            fetchNewChapter(chapterOffset: 0, record: record, chaptersInfo: book?.chaptersInfo) { (page) in
+                callback?(page)
+            }
+        }
+    }
+    
     fileprivate func fetchNewChapter(chapterOffset:Int,record:QSRecord,chaptersInfo:[ZSChapterInfo]?,callback:ZSSearchWebAnyCallback<QSPage>?){
         let chapter = record.chapter + chapterOffset
-        if chapter > 0 && chapter < (chaptersInfo?.count ?? 0) {
+        if chapter >= 0 && chapter < (chaptersInfo?.count ?? 0) {
             if let chapterInfo = chaptersInfo?[chapter] {
                 let link = chapterInfo.link
                 // 内存缓存
                 if let model =  cachedChapter[link] {
-                    callback?(model.pages.first)
+                    record.chapter = chapter
+                    record.page =  chapterOffset > 0 ? 0: model.pages.count - 1
+                    record.chapterModel  = model
+                    self.book?.record = record
+                    callback?(model.pages[record.page])
                 } else {
                     self.fetchChapter(key: link, { (body) in
                         if let bodyInfo = body {
                             if let network = self.cacheChapter(body: bodyInfo, index: chapter) {
+                                record.chapterModel = network
+                                record.chapter = chapter
+                                record.page = 0
+                                self.book?.record = record
                                 callback?(network.pages.first)
                             }
                         }
@@ -98,7 +131,7 @@ class ZSReaderViewModel {
         if let link = chapterModel?.link {
             qsChapter.link = link
             // 如果使用追书正版书源，取的字段应该是cpContent，需要根据当前选择的源进行判断
-            if let _ = chapterModel?.order  {
+            if chapterModel?.order == 1  {
                 qsChapter.content = body.cpContent
                 
             } else {

@@ -49,3 +49,44 @@ class ZSReaderViewController: UIViewController {
         addChildViewController(noneAnimationViewController)
     }
 }
+
+extension ZSReaderViewController:QSTextViewProtocol{
+    var presenter: QSTextPresenterProtocol? {
+        get {
+            return nil
+        }
+        set {
+            
+        }
+    }
+    
+    func showBook(book: QSBook) {
+        
+    }
+    
+    func showResources(resources: [ResourceModel]) {
+        
+    }
+    
+    func showAllChapter(chapters: [NSDictionary]) {
+        
+    }
+    
+    func showChapter(chapter: Dictionary<String, Any>, index: Int) {
+        
+    }
+    
+    func showEmpty() {
+        
+    }
+    
+    func downloadFinish(book: QSBook) {
+        
+    }
+    
+    func showProgress(dict: [String : Any]) {
+        
+    }
+    
+    
+}
