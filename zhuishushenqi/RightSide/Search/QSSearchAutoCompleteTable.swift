@@ -18,8 +18,9 @@ class ZSSearchAutoCompleteController: ZSBaseTableViewController ,UISearchResults
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 1.0, green: 0.98, blue: 0.82, alpha: 1.0)
         tableView.qs_registerCellClass(UITableViewCell.self)
+//        automaticallyAdjustsScrollViewInsets = false
         if #available(iOS 11.0, *) {
-            self.tableView.contentInsetAdjustmentBehavior = .never
+            self.tableView.contentInsetAdjustmentBehavior = .automatic
         }
     }
     
