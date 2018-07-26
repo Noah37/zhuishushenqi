@@ -36,7 +36,7 @@ class QSMoreSettingController: UIViewController {
     
     private func setupNavigationItem(){
         self.title = "更多设置"
-        let leftItem = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(dismissVC))
+        let leftItem = UIBarButtonItem(image: UIImage(named: "nav_back_white"), style: .plain, target: self, action: #selector(dismissVC))
         navigationItem.leftBarButtonItem = leftItem
     }
     
@@ -117,7 +117,7 @@ extension QSMoreSettingController:UITableViewDataSource,UITableViewDelegate{
                 actionSheet(title: ttip, message: "", list: llist, callback: { (obj) in
                     QSLog("点击了第\(obj)个")
                     if (indexPath.row == 0) {
-                        QSReaderSetting.shared.pageStyle = QSReaderPageStyle(rawValue: obj) ?? .curlPage
+                        QSReaderSetting.shared.pageStyle = ZSReaderAnimationStyle(rawValue: obj) ?? .curlPage
                     } else if indexPath.row == 1 {
                         QSReaderSetting.shared.chineseFontStyle = QSReaderChineseFontStyle(rawValue: obj) ?? .simpleChinese
                     } else if indexPath.row == 2 {

@@ -43,7 +43,7 @@ class ZSReaderViewModel {
             if let link = book?.chaptersInfo?[chapterIndex].link {
                 if let chapter = cachedChapter[link] {
                     chapter.getPages()
-                    if pageIndex > 0 && pageIndex < chapter.pages.count {
+                    if pageIndex >= 0 && pageIndex < chapter.pages.count {
                         callback?(chapter.pages[pageIndex])
                     } else {
                         callback?(chapter.pages.last)
@@ -74,6 +74,158 @@ class ZSReaderViewModel {
     
     func fetchChapter(key:String,_ callback:ZSBaseCallback<ZSChapterBody>?){
         webService.fetchChapter(key: key, callback)
+    }
+    
+    fileprivate func fetchForwardPage(link:String,chapterIndex:Int,callback:ZSSearchWebAnyCallback<QSPage>?){
+        // 内存缓存
+        if let model =  cachedChapter[link] {
+            callback?(model.pages.first)
+        } else {
+            fetchChapter(key: link, { (body) in
+                if let bodyInfo = body {
+                    if let network = self.cacheChapter(body: bodyInfo, index: chapterIndex) {
+                        // 请求新章节成功后不一定是当前的章节
+                        callback?(network.pages.first)
+                    }
+                }
+            })
+        }
+    }
+    
+    fileprivate func fetchBackwardPage(link:String,chapterIndex:Int,callback:ZSSearchWebAnyCallback<QSPage>?){
+        // 内存缓存
+        if let model =  cachedChapter[link] {
+            callback?(model.pages.last)
+        } else {
+            fetchChapter(key: link, { (body) in
+                if let bodyInfo = body {
+                    if let network = self.cacheChapter(body: bodyInfo, index: chapterIndex) {
+                        callback?(network.pages.last)
+                        self.book?.record?.page = network.pages.count - 1
+                    }
+                }
+            })
+        }
+    }
+    
+    func fetchBackwardPage(page:QSPage?,callback:ZSSearchWebAnyCallback<QSPage>?) {
+        if let tmpPage = page {
+            let chapterIndex = tmpPage.curChapter
+            let pageIndex = tmpPage.curPage
+            if pageIndex > 0 {
+                if let link = book?.chaptersInfo?[chapterIndex].link {
+                    if let chapterModel = cachedChapter[link] {
+                        callback?(chapterModel.pages[pageIndex - 1])
+                    }
+                }
+            } else if (pageIndex == 0) {
+                if let chapterInfo = book?.chaptersInfo?[chapterIndex - 1] {
+                    let link = chapterInfo.link
+                    if chapterIndex > 0 {
+                        fetchBackwardPage(link: link, chapterIndex: chapterIndex - 1, callback: callback)
+                    }
+                }
+            }
+        } else {
+            if let chapter = book?.record?.chapter {
+                if chapter > 0  {
+                    if let chapterInfo = book?.chaptersInfo?[chapter - 1] {
+                        let link = chapterInfo.link
+                        fetchBackwardPage(link: link, chapterIndex: chapter - 1, callback: callback)
+                    }
+                }
+            }
+        }
+    }
+    
+    func fetchForwardPage(page:QSPage?,callback:ZSSearchWebAnyCallback<QSPage>?){
+        if let tmpPage = page {
+            // page 存在则根据page的值来获取下一章节
+            let chapterIndex = tmpPage.curChapter
+            let pageIndex = tmpPage.curPage
+            let totalPages = tmpPage.totalPages
+            if pageIndex < totalPages - 1 {
+                // 还在当前章节
+                if let link = book?.chaptersInfo?[chapterIndex].link {
+                    if let chapterModel = cachedChapter[link] {
+                        callback?(chapterModel.pages[pageIndex + 1])
+                    }
+                }
+            } else if pageIndex == totalPages - 1 {
+                // 新的章节
+                if chapterIndex  < (book?.chaptersInfo?.count ?? 0 - 1) {
+                    if let chapterInfo = book?.chaptersInfo?[chapterIndex + 1] {
+                        let link = chapterInfo.link
+                        fetchForwardPage(link: link, chapterIndex: chapterIndex + 1, callback: callback)
+                    }
+                }
+            }
+        } else {
+            // page 不存在说明是新的章节,请求新的章节
+            if let chapter = book?.record?.chapter {
+                if chapter >= 0 && chapter < (book?.chaptersInfo?.count ?? 0 - 1) {
+                    if let chapterInfo = book?.chaptersInfo?[chapter + 1] {
+                        let link = chapterInfo.link
+                        fetchForwardPage(link: link, chapterIndex: chapter + 1, callback: callback)
+                    }
+                }
+            }
+        }
+    }
+    
+    func updateBackwardRecord(page:QSPage?){
+        if let tmpPage = page {
+            let pageIndex = tmpPage.curPage
+            let chapterIndex = tmpPage.curChapter
+            if let link = book?.chaptersInfo?[chapterIndex].link {
+                if let _ = cachedChapter[link] {
+                    if pageIndex > 0 {
+                        book?.record?.page = pageIndex - 1
+                    } else if pageIndex == 0 {
+                        book?.record?.chapter = chapterIndex - 1
+                        book?.record?.page = 0
+                        book?.record?.chapterModel = nil
+                    }
+                } else {
+                    book?.record?.chapter = chapterIndex - 1
+                    book?.record?.page = 0
+                    book?.record?.chapterModel = nil
+                }
+            }
+        } else {
+            book?.record?.chapter -= 1
+            book?.record?.page = 0
+            book?.record?.chapterModel = nil
+        }
+    }
+    
+    func updateForwardRecord(page:QSPage?){
+        if let tmpPage = page {
+            let pageIndex = tmpPage.curPage
+            let totalPages = tmpPage.totalPages
+            let chapterIndex = tmpPage.curChapter
+            if let link = book?.chaptersInfo?[chapterIndex].link {
+                if let _ = cachedChapter[link] {
+                    if pageIndex < totalPages - 1 {
+                        // 当前章节
+                        book?.record?.page = pageIndex + 1
+                    } else if pageIndex == totalPages - 1 {
+                        book?.record?.chapter = chapterIndex + 1
+                        book?.record?.page = 0
+                        book?.record?.chapterModel = nil
+                    }
+                } else {
+                    book?.record?.chapter = chapterIndex + 1
+                    book?.record?.page = 0
+                    book?.record?.chapterModel = nil
+                }
+            }
+        } else {
+            // page不存在,那么下一页依然是新的章节
+            book?.record?.chapter += 1
+            book?.record?.page = 0
+            book?.record?.chapterModel = nil
+        }
     }
     
     // 此方法仅获取page,不改变record
@@ -340,7 +492,7 @@ class ZSReaderViewModel {
         }
     }
     
-    fileprivate func fetchNewChapter(chapterOffset:Int,record:QSRecord,chaptersInfo:[ZSChapterInfo]?,callback:ZSSearchWebAnyCallback<QSPage>?){
+    func fetchNewChapter(chapterOffset:Int,record:QSRecord,chaptersInfo:[ZSChapterInfo]?,callback:ZSSearchWebAnyCallback<QSPage>?){
         let chapter = record.chapter + chapterOffset
         if chapter >= 0 && chapter < (chaptersInfo?.count ?? 0) {
             if let chapterInfo = chaptersInfo?[chapter] {
@@ -365,7 +517,7 @@ class ZSReaderViewModel {
     
     // 将新获取的章节信息存入chapterDict中
     @discardableResult
-    fileprivate func cacheChapter(body:ZSChapterBody,index:Int)->QSChapter? {
+    func cacheChapter(body:ZSChapterBody,index:Int)->QSChapter? {
         let chapterModel = self.book?.chaptersInfo?[index]
         let qsChapter = QSChapter()
         if let link = chapterModel?.link {

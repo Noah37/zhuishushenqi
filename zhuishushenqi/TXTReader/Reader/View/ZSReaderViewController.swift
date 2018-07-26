@@ -13,13 +13,15 @@ let changeAnimationStyle = "changeAnimationStyle"
 
 class ZSReaderViewController: BaseViewController  {
     
-    var animationStyle:ZSReaderAnimationStyle = .curlPage
+    var animationStyle:ZSReaderAnimationStyle = QSReaderSetting.shared.pageStyle
     
     var noneAnimationViewController = ZSNoneAnimationViewController()
     
     var horMoveViewController = ZSHorizonalMoveViewController()
     
     var curlPageViewController = QSTextReaderController()
+    
+    var horMoveController = TXTReaderViewController()
     
     var viewModel:ZSReaderViewModel = ZSReaderViewModel()
     
@@ -78,9 +80,9 @@ class ZSReaderViewController: BaseViewController  {
     }
     
     func setupHorMoveAnimationController(){
-        horMoveViewController.viewModel = viewModel
-        view.addSubview(horMoveViewController.view)
-        addChildViewController(horMoveViewController)
+        horMoveController.viewModel = viewModel
+        view.addSubview(horMoveController.view)
+        addChildViewController(horMoveController)
     }
     
     func setupCurlPageViewController(){
@@ -103,11 +105,11 @@ class ZSReaderViewController: BaseViewController  {
     
     func curViewModel() ->ZSReaderViewModel {
         var viewModel:ZSReaderViewModel!
-        if animationStyle == .none {
+        if QSReaderSetting.shared.pageStyle == .none {
             viewModel = noneAnimationViewController.viewModel
-        } else if animationStyle == .horMove{
-            viewModel = horMoveViewController.viewModel
-        } else if animationStyle == .curlPage {
+        } else if QSReaderSetting.shared.pageStyle == .horMove{
+            viewModel = horMoveController.viewModel
+        } else if QSReaderSetting.shared.pageStyle == .curlPage {
             viewModel = curlPageViewController.viewModel
         }
         return viewModel
@@ -167,8 +169,10 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
     
     func changeSourceClicked() {
         toolBar.hideWithAnimations(animation: false)
-        if animationStyle == .curlPage {
+        if QSReaderSetting.shared.pageStyle == .curlPage {
             curlPageViewController.changeSourceClicked()
+        } else if QSReaderSetting.shared.pageStyle == .horMove {
+            horMoveController.changeSourceClicked()
         }
     }
     
@@ -189,18 +193,20 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
     func readBg(type:Reader) {
         AppStyle.shared.reader = type
         let image = AppStyle.shared.reader.backgroundImage
-        if animationStyle == .none {
+        if QSReaderSetting.shared.pageStyle == .none {
             self.noneAnimationViewController.pageViewController.bgView.image = image
-        } else if animationStyle == .horMove {
-            self.horMoveViewController.pageViewController.bgView.image = image
-        } else if animationStyle == .curlPage {
+        } else if QSReaderSetting.shared.pageStyle == .horMove {
+            self.horMoveController.readBg(type: type)
+        } else if QSReaderSetting.shared.pageStyle == .curlPage {
             self.curlPageViewController.readBg(type: type)
         }
     }
     
     func fontChange(action:ToolBarFontChangeAction) {
-        if animationStyle == .curlPage {
+        if QSReaderSetting.shared.pageStyle == .curlPage {
             self.curlPageViewController.fontChange(action: action)
+        } else if QSReaderSetting.shared.pageStyle == .horMove {
+            self.horMoveController.fontChange(action: action)
         }
     }
     
@@ -213,13 +219,18 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
     }
     
     func toolbar(toolbar:ToolBar, clickMoreSetting:UIView) {
-        
+        let moreVC = QSMoreSettingController()
+        toolbar.hideWithAnimations(animation: true)
+        let nav = UINavigationController(rootViewController: moreVC)
+        present(nav, animated: true, completion: nil)
     }
     
     //MARK: - QSCategoryDelegate
     func categoryDidSelectAtIndex(index:Int) {
-        if animationStyle == .curlPage {
+        if QSReaderSetting.shared.pageStyle == .curlPage {
             curlPageViewController.categoryDidSelectAtIndex(index: index)
+        } else if QSReaderSetting.shared.pageStyle == .horMove {
+            horMoveController.categoryDidSelectAtIndex(index: index)
         }
     }
 }

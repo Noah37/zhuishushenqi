@@ -6,18 +6,6 @@
 //  Copyright © 2016年 QS. All rights reserved.
 //
 
-/*
- *
- * 换源需要做的事情，重新请求所有章节信息，成功后，刷新BookDetail的信息
- * 请求到某一章节的信息后，需要刷新NSDictionary中的QSChapter信息
- * 保存当前阅读进度,只保存阅读记录，其它的不做保存
- * 退出阅读器时，若尚未加入书架，则提示用户是否需要加入书架，选择是，加入书架，同时刷新书架中书籍的阅读信息，选择否，则不记录信息
- * 记录信息包括，当前阅读的章节，页面，上次更新时间
- */
-/*
-    pageViewController需要复用，否则快速切换的时候内存增加过快，内存占用过高
- */
-
 enum QSTextCurlPageStyle {
     case none  //表示跳转到的章节，没有动画产生
     case forwards //前 ,下一页
@@ -44,6 +32,8 @@ class QSTextReaderController: UIViewController {
 
     var window:UIWindow?
     var callback:QSTextCallBack?
+    
+    var style:ZSReaderAnimationStyle = .curlPage
     
     var record:QSRecord = QSRecord()
     
@@ -97,16 +87,22 @@ class QSTextReaderController: UIViewController {
                 }
             }
             break
-        case .simple:
+        case .none:
             
             break
-        case .scroll:
+        case .horMove:
+            break
+        default:
             break
         }
     }
     
     private func setupPageController(){
-        pageController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
+        var transitionStyle:UIPageViewControllerTransitionStyle = .pageCurl
+        if style == .horMove {
+            transitionStyle = .scroll
+        }
+        pageController = UIPageViewController(transitionStyle: transitionStyle, navigationOrientation: .horizontal, options: nil)
         pageController?.dataSource = self
         pageController?.delegate = self
         pageController?.isDoubleSided = true
@@ -124,7 +120,6 @@ class QSTextReaderController: UIViewController {
                     pageVC.page = chapterModel.pages[pageIndex]
                 }
             } else {
-//                presenter?.interactor.getChapter(chapterIndex: record.chapter, pageIndex: record.page)
             }
         }
         currentReaderVC = pageVC
@@ -160,13 +155,15 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         print("before")
         sideNum -= 1
         curlPageStyle = .backwards
-
-        if abs(sideNum)%2 == 0 {
-            let backgroundVC = QSReaderBackgroundViewController()
-            //这里获取的是当前页的背面,实际应该是获取上一页的背面
-            backgroundVC.setBackground(viewController: self.currentReaderVC!)
-            return backgroundVC
+        
+        let curPageViewController = viewController as! PageViewController
+        if let page = curPageViewController.page {
+            // page 存在则根据page的值来获取下一章节
         } else {
+            // page 不存在说明是新的章节
+        }
+
+        func lastPage() ->UIViewController? {
             let existLast = viewModel.existLastPage()
             if existLast {
                 let pageVC = PageViewController()
@@ -178,17 +175,27 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
             }
             return nil
         }
+        if style == .horMove {
+            return lastPage()
+        } else {
+            if abs(sideNum)%2 == 0 {
+                let backgroundVC = QSReaderBackgroundViewController()
+                //这里获取的是当前页的背面,实际应该是获取上一页的背面
+                backgroundVC.setBackground(viewController: self.currentReaderVC!)
+                return backgroundVC
+            } else {
+                return lastPage()
+            }
+        }
+        
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?{
         print("after")
         curlPageStyle = .forwards
         sideNum += 1
-        if abs(sideNum)%2 == 0 { //背面
-            let backgroundVC = QSReaderBackgroundViewController()
-            backgroundVC.setBackground(viewController: self.currentReaderVC!)
-            return backgroundVC
-        } else {
+        
+        func nextPage() ->UIViewController? {
             let existNext = viewModel.existNextPage()
             if existNext {
                 let pageVC = PageViewController()
@@ -199,6 +206,18 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
                 return pageVC
             }
             return nil
+        }
+        
+        if style == .horMove {
+            return nextPage()
+        } else {
+            if abs(sideNum)%2 == 0 { //背面
+                let backgroundVC = QSReaderBackgroundViewController()
+                backgroundVC.setBackground(viewController: self.currentReaderVC!)
+                return backgroundVC
+            } else {
+                return nextPage()
+            }
         }
     }
     

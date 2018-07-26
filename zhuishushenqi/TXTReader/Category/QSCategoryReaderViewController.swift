@@ -50,10 +50,10 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - kNavgationBarHeight)
-        let indexPATH = IndexPath(row: selectedIndex, section: 0)
-        if titles.count > indexPATH.row {
-            self.tableView.scrollToRow(at: indexPATH , at: .middle, animated: false)
-        }
+        let indexPATH = IndexPath(row: bookDetail?.record?.chapter ?? 0, section: 0)
+        
+        self.tableView.scrollToRow(at: indexPATH , at: .middle, animated: false)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

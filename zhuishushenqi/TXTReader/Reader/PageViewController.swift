@@ -60,15 +60,13 @@ class PageViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        timer.invalidate()
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        timer.invalidate()
-
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
     func setSubviews() -> Void {
@@ -97,8 +95,10 @@ class PageViewController: UIViewController {
     
     func qs_removeObserver() -> Void {
         // 无法释放，将时间与电量的监控放到textreaderVC中，这样pageVC就可以释放了
-         timer.invalidate()
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil)
+//        timer = nil
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil)
+//        NotificationCenter.default.removeObserver(self)
+
     }
     
     @objc func getTime(time:Timer){

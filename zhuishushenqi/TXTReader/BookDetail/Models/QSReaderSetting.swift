@@ -41,6 +41,35 @@ let QSReaderParagraphSpace:CGFloat = 5
     }
 }
 
+// 翻页方式属于全局
+@objc enum ZSReaderAnimationStyle:Int {
+    case curlPage = 0// 仿真翻页
+    case none  // 无翻页动画
+    case horMove // 左右平移
+    case horizonal // 左右覆盖
+    case vertical // 上下覆盖
+    case verMove //上下平移
+    case verScroll //上下滚屏
+    func description() ->String {
+        switch self {
+        case .curlPage:
+            return "curlPage"
+        case .none:
+            return "none"
+        case .horizonal:
+            return "horizonal"
+        case .vertical:
+            return "vertical"
+        case .horMove:
+            return "horMove"
+        case .verMove:
+            return "verMove"
+        case .verScroll:
+            return "verScroll"
+        }
+    }
+}
+
 // 简体与繁体
 @objc enum QSReaderChineseFontStyle:Int {
     case simpleChinese = 0
@@ -85,7 +114,7 @@ class QSReaderSetting: NSObject {
 
     var fontSize:NSInteger = QSReaderFontSizeMin { didSet { fontSizeAction() } }
     var fontStyle:QSReaderFontStyle = .system { didSet {  fontStyleAction() } }
-    var pageStyle:QSReaderPageStyle = .curlPage { didSet {  pageStyleAction() } }
+    var pageStyle:ZSReaderAnimationStyle = .none { didSet {  pageStyleAction() } }
     var brightness:Float = 1 { didSet { brightnessAction() } }
     var chineseFontStyle:QSReaderChineseFontStyle = .simpleChinese { didSet { chineseFontStyleAction() } }
     var lineSpace:CGFloat = QSReaderLineSpace
