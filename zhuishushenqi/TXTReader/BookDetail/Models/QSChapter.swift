@@ -54,6 +54,7 @@ class QSChapter: NSObject ,NSCoding{
             let page = QSPage()
             page.content = content.qs_subStr(range: range)
             page.curPage = item
+            page.curChapter = curChapter
             page.totalPages = ranges.count
             page.title = title
             pages.append(page)

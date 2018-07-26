@@ -18,11 +18,8 @@ class QSRecord: NSObject,NSCoding {
     var animatedComplete:Bool?  // 阅读动画完成与否
     var chapterModel:QSChapter? // 当前阅读到的章节模型
     
+    // 暂未使用,后期做提前缓存用
     var nextChapter:QSChapter?
-    
-//    init(chapterModel:QSChapter) {
-//        self.chapterModel = chapterModel
-//    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init()

@@ -40,9 +40,9 @@ class QSTextRouter: QSTextWireframeProtocol {
     func presentCategory(book:BookDetail,books:[String:Any]){
         let vc:QSCategoryReaderViewController = QSCategoryRouter.createModule(book: book) as! QSCategoryReaderViewController
         let txtVC:QSTextReaderController = viewController as! QSTextReaderController
-        vc.categoryDelegate = txtVC
+//        vc.categoryDelegate = txtVC
         vc.bookDetail = book
-        vc.chapterDict = books
+//        vc.chapterDict = 
         let nav = UINavigationController(rootViewController: vc)
         viewController?.present(nav, animated: true, completion: nil)
     }

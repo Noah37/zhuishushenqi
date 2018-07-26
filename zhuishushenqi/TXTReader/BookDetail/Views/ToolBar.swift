@@ -174,13 +174,13 @@ class ToolBar: UIView {
     }
     
     func showWithAnimations(animation:Bool,inView:UIView){
+        self.isShow = true
         inView.addSubview(self)
         UIView.animate(withDuration: 0.35, animations: {
             self.topBar?.frame = CGRect(x:0, y:0,width: self.bounds.size.width,height: self.TopBarHeight)
             self.bottomBar?.frame = CGRect(x:0,y: self.bounds.size.height - self.BottomBarHeight,width: self.bounds.size.width,height: self.BottomBarHeight)
             self.progressView.frame = CGRect(x: 0, y: self.bounds.height - 49 - 20, width: self.bounds.width, height: 20)
         }) { (finished) in
-        
         }
         toolBarDelegate?.toolBarDidShow()
     }
@@ -194,6 +194,7 @@ class ToolBar: UIView {
             self.progressView.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 20)
 
             }) { (finished) in
+                self.isShow = false
                 self.removeFromSuperview()
         }
         toolBarDelegate?.toolBarDidHidden()

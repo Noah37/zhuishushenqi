@@ -30,15 +30,13 @@ class CategoryTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    func bind(model:[String:Any],chapterDict:[String:Any]){
-        if let link = model["link"] as? String {
-            if let _ = chapterDict[link] as? QSChapter {
-                downloadBtn.isEnabled = false
-                downloadBtn.setTitle("已缓存", for: .normal)
-            } else {
-                downloadBtn.isEnabled = true
-                downloadBtn.setTitle("下载", for: .normal)
-            }
+    func bind(model:QSChapter?){
+        if let _ = model {
+            downloadBtn.isEnabled = false
+            downloadBtn.setTitle("已缓存", for: .normal)
+        } else {
+            downloadBtn.isEnabled = true
+            downloadBtn.setTitle("下载", for: .normal)
         }
     }
     

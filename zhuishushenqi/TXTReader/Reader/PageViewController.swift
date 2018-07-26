@@ -8,6 +8,8 @@
 
 import UIKit
 
+let PageViewDidTap = "PageViewDidTap"
+
 class PageViewController: UIViewController {
     lazy var titleLabel:UILabel = {
         let titleLabel = UILabel()
@@ -31,7 +33,8 @@ class PageViewController: UIViewController {
     var page:QSPage? {
         didSet {
             // 为了让控制器先走viewDidLoad的无奈之举
-            QSLog("\(self.view)");
+//            QSLog("\(self.view)");
+            self.view.alpha = 1.0
             refreshView()
         }
     }
@@ -119,9 +122,9 @@ class PageViewController: UIViewController {
     }
     
     public func setPage(tmpPage:QSPage?){
-        QSLog("self.pageView.attributedText:\(self.pageView.attributedText)")
-        QSLog("self.pageLabel.text:\(String(describing: self.pageLabel.text))")
-        QSLog("self.titleLabel.text:\(self.titleLabel.text ?? "")")
+//        QSLog("self.pageView.attributedText:\(self.pageView.attributedText)")
+//        QSLog("self.pageLabel.text:\(String(describing: self.pageLabel.text))")
+//        QSLog("self.titleLabel.text:\(self.titleLabel.text ?? "")")
         if let realPage = tmpPage {
             page = realPage
         } else {
@@ -162,6 +165,13 @@ class PageViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touches.first?.tapCount == 1 {
+            // 发送tap事件给其它的在意者
+            NotificationCenter.qs_postNotification(name: PageViewDidTap, obj: nil)
+        }
     }
 
     deinit {

@@ -26,6 +26,7 @@ class ZSHorizonalMoveCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(pageViewController.view)
+        contentView.backgroundColor = UIColor.white
     }
     
     required init?(coder aDecoder: NSCoder) {

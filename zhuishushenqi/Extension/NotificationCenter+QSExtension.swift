@@ -8,9 +8,18 @@
 
 import Foundation
 
+public typealias NotificationHandler = () ->Void
+
 extension NotificationCenter {
+    static var observerHandler:NotificationHandler?
+    
     public static func qs_addObserver(observer:Any,selector:Selector,name:String,object:Any?) -> Void {
         NotificationCenter.default.addObserver(observer, selector: selector, name: Notification.Name(rawValue: name), object: object)
+    }
+    
+    public static func zs_addObserver(oberver:Any,name:String,_ handler:NotificationHandler?){
+        observerHandler = handler
+        self.qs_addObserver(observer: self, selector: #selector(NotificationCenter.observerHandlerAction), name: name, object: nil)
     }
     
     public static func qs_postNotification(name:String,obj:Any?){
@@ -20,5 +29,9 @@ extension NotificationCenter {
     
     public static func qs_removeObserver(observer:Any,name:String,object:Any?){
         NotificationCenter.default.removeObserver(observer, name: Notification.Name(rawValue: name), object: object)
+    }
+    
+    @objc public static func observerHandlerAction(){
+        NotificationCenter.observerHandler?()
     }
 }

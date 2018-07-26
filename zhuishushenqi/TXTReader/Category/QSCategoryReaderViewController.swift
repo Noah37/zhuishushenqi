@@ -22,7 +22,7 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
     var titles:[String] = []
     var selectedIndex = 0
     // key为章节的link，value为QSChapter模型
-    var chapterDict:[String:Any]! = [:]
+    var chapterDict:[String:QSChapter] = [:]
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect(x:0,y:0,width:0,height:0), style: .grouped)
         tableView.dataSource = self
@@ -40,7 +40,7 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
         let leftItem = UIBarButtonItem(image: UIImage(named: "bg_back_white"), style: .plain, target: self, action: #selector(dismiss(sender:)))
         navigationItem.leftBarButtonItem = leftItem
         self.title = bookDetail?.title
-        presenter?.viewDidLoad()
+        //        presenter?.viewDidLoad()
         
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -76,25 +76,27 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles.count
+        if let chaptersInfo = self.bookDetail?.chaptersInfo {
+            return chaptersInfo.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Category",for: indexPath as IndexPath) as! CategoryTableViewCell
         cell.cellDelegate = self
-        if let totalChapter = bookDetail?.chapters {
-            if totalChapter.count > indexPath.row {
-                cell.tittle.text = titles[indexPath.row]
-                cell.count.text = "\(indexPath.row)"
-                if (selectedIndex == indexPath.row) {
-                    cell.tittle.textColor = UIColor.red
-                } else {
-                    cell.tittle.textColor = UIColor.black
-                }
+        if let chaptersInfo = self.bookDetail?.chaptersInfo {
+            let link = chaptersInfo[indexPath.row].link
+            let model = chapterDict[link]
+            cell.bind(model: model)
+            cell.tittle.text = chaptersInfo[indexPath.row].title
+            cell.count.text = "\(indexPath.row)"
+            if (bookDetail?.record?.chapter == indexPath.row) {
+                cell.tittle.textColor = UIColor.red
+            } else {
+                cell.tittle.textColor = UIColor.black
             }
-            cell.bind(model: totalChapter[indexPath.row] as! [String : Any], chapterDict: chapterDict)
         }
-        // model 此时不存在,无法获取到,下载时需要的model信息可以发通知,由阅读器类来下载
         return cell
     }
     

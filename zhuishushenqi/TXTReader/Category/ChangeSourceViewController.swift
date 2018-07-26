@@ -13,10 +13,10 @@ typealias SelectAction = (_ index:Int,_ resources:[ResourceModel]?)->Void
 
 class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITableViewDelegate{
 
-    var sources:[ResourceModel]?
-    var id:String = ""
-    var selectedIndex:Int = 1
     var selectAction:SelectAction?
+    
+    var viewModel:ZSReaderViewModel!
+    
     fileprivate lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64), style: .grouped)
         tableView.dataSource = self
@@ -43,7 +43,9 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
 
         
         view.addSubview(self.tableView)
-        requestData(id: self.id)
+        if let id = viewModel.book?._id {
+            requestData(id: id)
+        }
     }
     
     @objc func close(btn:UIButton){
@@ -53,12 +55,12 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
     func requestData(id:String){
 //        http://api.zhuishushenqi.com/toc?view=summary&book=57e0dac5de88e4e83c6c5297
         let urlString = "\(BASEURL)/toc"
-        let param = ["view":"summary","book":"\(self.id)"]
+        let param = ["view":"summary","book":"\(id)"]
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
             QSLog(response.json)
             if let resources:[Any] = response.json as? [Any]  {
                 if let models = [ResourceModel].deserialize(from: resources) as? [ResourceModel] {
-                    self.sources = models
+                    self.viewModel.book?.resources = models
                 }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -73,7 +75,9 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
-            return sources?.count ?? 0
+            if let resources = self.viewModel.book?.resources {
+                return resources.count
+            }
         }
         return 1
     }
@@ -81,10 +85,12 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 1 {
             let cell:ChangeSourceCell? = tableView.qs_dequeueReusableCell(ChangeSourceCell.self)
-            if indexPath.row == self.selectedIndex {
+            if indexPath.row == self.viewModel.sourceIndex {
                 cell?.isCurrentSelected = true
             }
-            cell?.model = sources?[indexPath.row]
+            if let resources = self.viewModel.book?.resources {
+                cell?.model = resources[indexPath.row]
+            }
             return cell!
         }else{
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
@@ -99,7 +105,7 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
             let headerView = UIView()
             let headerLabel = UILabel()
             headerLabel.frame = CGRect(x: 15, y: 30, width: self.view.bounds.width - 30, height: 30)
-            headerLabel.text = "共搜索到\(self.sources?.count ?? 0)个网站"
+            headerLabel.text = "共搜索到\(self.viewModel.book?.resources?.count ?? 0)个网站"
             headerLabel.textColor = UIColor.darkGray
             headerLabel.font = UIFont.systemFont(ofSize: 13)
             headerView.addSubview(headerLabel)
@@ -110,7 +116,8 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let action = selectAction {
-            action(indexPath.row,self.sources)
+            self.viewModel.sourceIndex = indexPath.row
+            action(indexPath.row,self.viewModel.book?.resources)
         }
         dismiss(animated: true, completion: nil)
     }

@@ -36,6 +36,8 @@ class Attribute: NSObject,NSCoding {
 class QSPage: NSObject ,NSCoding{
     var content:String = "" //当前页显示的文字
     var curPage:Int = 0 //当前页数
+    
+    var curChapter:Int = 0
 
     var totalPages:Int = 1
     var title:String = ""
@@ -44,6 +46,7 @@ class QSPage: NSObject ,NSCoding{
         super.init()
         self.content = aDecoder.decodeObject(forKey: "content") as! String
         self.curPage = aDecoder.decodeInteger(forKey: "curPage")
+        self.curChapter = aDecoder.decodeInteger(forKey: "curChapter")
         self.totalPages = aDecoder.decodeInteger(forKey: "totalPages")
         self.title = aDecoder.decodeObject(forKey: "title") as! String
     }
@@ -51,6 +54,7 @@ class QSPage: NSObject ,NSCoding{
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.content, forKey: "content")
         aCoder.encode(self.curPage, forKey: "curPage")
+        aCoder.encode(self.curChapter, forKey: "curChapter")
         aCoder.encode(self.totalPages, forKey: "totalPages")
         aCoder.encode(self.title, forKey: "title")
 

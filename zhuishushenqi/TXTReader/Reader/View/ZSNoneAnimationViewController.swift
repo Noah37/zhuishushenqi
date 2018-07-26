@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZSNoneAnimationViewController: UIViewController {
+class ZSNoneAnimationViewController: BaseViewController {
     
     var viewModel:ZSReaderViewModel = ZSReaderViewModel()
     
@@ -27,6 +27,11 @@ class ZSNoneAnimationViewController: UIViewController {
         setupRecord()
         setupSubviews()
         setupGesture()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
     
     func initial(){

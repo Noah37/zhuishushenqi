@@ -9,7 +9,7 @@
 import Foundation
 import HandyJSON
 
-class ZSChapterInfo:HandyJSON,NSCoding {
+class ZSChapterInfo:NSObject,HandyJSON,NSCoding {
     
     var chapterCover:String = ""
     var currency:Int = 0
@@ -21,18 +21,19 @@ class ZSChapterInfo:HandyJSON,NSCoding {
     var totalpage:Int = 0
     var unreadble:Int = 0
     
-    required init() {}
+    required override init() {}
     
     required init?(coder aDecoder: NSCoder) {
-        aDecoder.decodeObject(forKey: "chapterCover")
-        aDecoder.decodeInteger(forKey: "currency")
-        aDecoder.decodeInteger(forKey: "isVip")
-        aDecoder.decodeObject(forKey: "link")
-        aDecoder.decodeInteger(forKey: "order")
-        aDecoder.decodeInteger(forKey: "partsize")
-        aDecoder.decodeObject(forKey: "title")
-        aDecoder.decodeInteger(forKey: "totalpage")
-        aDecoder.decodeInteger(forKey: "unreadble")
+        super.init()
+        self.chapterCover = aDecoder.decodeObject(forKey: "chapterCover") as? String ?? ""
+        self.currency = aDecoder.decodeInteger(forKey: "currency")
+        self.isVip = aDecoder.decodeInteger(forKey: "isVip")
+        self.link = aDecoder.decodeObject(forKey: "link") as? String ?? ""
+        self.order = aDecoder.decodeInteger(forKey: "order")
+        self.partsize = aDecoder.decodeInteger(forKey: "partsize")
+        self.title = aDecoder.decodeObject(forKey: "title") as? String ?? ""
+        self.totalpage = aDecoder.decodeInteger(forKey: "totalpage")
+        self.unreadble = aDecoder.decodeInteger(forKey: "unreadble")
 
     }
     
