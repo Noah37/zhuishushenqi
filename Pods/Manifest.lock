@@ -1,5 +1,12 @@
 PODS:
   - Alamofire (4.7.2)
+  - CocoaAsyncSocket (7.6.3)
+  - CocoaLumberjack (3.4.2):
+    - CocoaLumberjack/Default (= 3.4.2)
+    - CocoaLumberjack/Extensions (= 3.4.2)
+  - CocoaLumberjack/Default (3.4.2)
+  - CocoaLumberjack/Extensions (3.4.2):
+    - CocoaLumberjack/Default
   - Differentiator (3.0.2)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
@@ -49,6 +56,8 @@ PODS:
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
+  - CocoaAsyncSocket
+  - CocoaLumberjack
   - FMDB
   - HandyJSON
   - Kingfisher (= 4.6.1)
@@ -74,6 +83,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - CocoaAsyncSocket
+    - CocoaLumberjack
     - Differentiator
     - FMDB
     - HandyJSON
@@ -102,6 +113,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
+  CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   HandyJSON: 3a3de917c4118767ffe41c29b5acba23409649f4
@@ -128,6 +141,6 @@ SPEC CHECKSUMS:
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 0f68e6798fa3372e38e4e8f0c4b506f15b3c86cf
+PODFILE CHECKSUM: 8184e078164624d142abdf3de3148ff2df0fb2cf
 
 COCOAPODS: 1.5.2

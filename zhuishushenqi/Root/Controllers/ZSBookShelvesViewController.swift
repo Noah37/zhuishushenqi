@@ -74,7 +74,7 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
             .section?
             .drive(tableView.rx.items(dataSource:dataSource))
             .disposed(by: disposeBag)
-        
+
         let header = initRefreshHeader(tableView) {
             self.viewModel.refreshCommand.onNext([:])
             self.viewModel.fetchShelfMessage()
@@ -84,7 +84,7 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
         viewModel
             .autoSetRefreshHeaderStatus(header: header, footer: nil)
             .disposed(by: disposeBag)
-        
+
         tableView
             .rx
             .setDelegate(self)
@@ -127,7 +127,7 @@ class ZSBookShelvesViewController: BaseViewController ,UITableViewDelegate,Refre
             })
             .disposed(by: disposeBag)
     }
-
+    
     //MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let message = viewModel.shelfMessage {

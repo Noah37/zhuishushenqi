@@ -57,13 +57,27 @@ class ZSSearchViewController: ZSBaseTableViewController {
             }
             self.tableView.reloadData()
         }).disposed(by: dispose)
+        searchHeaderView.change = {
+            self.searchViewModel.newHotwords { (hotwords) in
+                self.searchHeaderView.hotwords = hotwords ?? []
+            }
+        }
+        searchHeaderView.hotwordClick = { text in
+            self.searchController.searchBar.text = text
+            self.searchBarSearchButtonClicked(self.searchController.searchBar)
+        }
         searchViewModel.newHotwords { (hotwords) in
             self.searchHeaderView.hotwords = hotwords ?? []
         }
         
         tableView.qs_registerCellNib(QSHistoryCell.self)
+        
+        
+        autoCompleteController.selectRow =  { (indexPath) in
+            self.searchController.searchBar.text = self.autoCompleteController.books[indexPath.row]
+            self.searchBarSearchButtonClicked(self.searchController.searchBar)
+        }
     }
-    
 }
 
 extension ZSSearchViewController:UISearchResultsUpdating,UISearchControllerDelegate,UISearchBarDelegate{
@@ -74,8 +88,17 @@ extension ZSSearchViewController:UISearchResultsUpdating,UISearchControllerDeleg
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        self.resultViewController.view.origin.y = self.searchBarHeight
+        self.resultViewController.view.size.height = ScreenHeight - self.searchBarHeight - kNavgationBarHeight
+        searchViewModel.addToHistory(history: searchBar.text ?? "")
+        self.view.addSubview(self.resultViewController.view)
+        
         searchController.dismiss(animated: true) {
             // 完成后将搜索结果展示出来
+            self.searchViewModel.fetchBooks(key: searchBar.text ?? "", start: 0, limit: 50) { (books) in
+                self.resultViewController.books = books
+            }
         }
     } // called when keyboard search button pressed
     
@@ -95,7 +118,10 @@ extension ZSSearchViewController:UISearchResultsUpdating,UISearchControllerDeleg
     
     //MARK: - UISearchControllerDelegate
     func willPresentSearchController(_ searchController: UISearchController) {
-        
+        resultViewController.view.removeFromSuperview()
+        searchViewModel.fetchAutoComplete(key: searchController.searchBar.text ?? "") { (books) in
+            self.autoCompleteController.books = books ?? []
+        }
     }
     
     func didPresentSearchController(_ searchController: UISearchController) {
@@ -136,6 +162,11 @@ extension ZSSearchViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.qs_dequeueReusableCell(QSHistoryCell.self)
+        if indexPath.section > 0 {
+            if let list = searchViewModel.fetchHistoryList(nil) {
+                cell?.titleLabel?.text = list[indexPath.row]
+            }
+        }
         return cell!
     }
     
@@ -148,6 +179,18 @@ extension ZSSearchViewController{
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let list = searchViewModel.fetchHistoryList(nil) {
+            searchController.searchBar.text = list[indexPath.row]
+            self.searchBarSearchButtonClicked(searchController.searchBar)
+        }
     }
 }
 
@@ -202,33 +245,7 @@ class QSSearchViewController: ZSBaseTableViewController{
     }
 
     func initSubview(){
-
         tableView.qs_registerCellNib(QSHistoryCell.self)
-
-//        self.headerView = QSSearchHeaderView(frame: CGRect(x: 0, y: 56, width: self.view.bounds.width, height: 121))
-//        self.headerView.change = {
-//            self.presenter?.didClickChangeBtn()
-//        }
-//        self.headerView.hotwordClick = { (hotword:String) in
-//            self.presenter?.didSelectHotWord(hotword: hotword)
-//        }
-//
-//        self.headerView.hotwords = self.hotWords
-//
-//        self.historyHeader = QSHistoryHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
-//        self.historyHeader.clear = {
-//            self.presenter?.didClickClearBtn()
-//        }
-////        showHistory()
-//        self.title = "搜索"
-//        resultTableView = QSSearchResultTable(frame: getFrame(type: .history))
-//        resultTableView.selectRow = { (indexPath) in
-//            self.presenter?.didSelectResultRow(indexPath: indexPath)
-//        }
-//        autoCompleteTable = QSSearchAutoCompleteTable(frame: getFrame(type: .searching))
-//        autoCompleteTable.selectRow = { (indexPath) in
-//            self.presenter?.didSelectAutoCompleteRow(indexPath: indexPath)
-//        }
     }
 }
 

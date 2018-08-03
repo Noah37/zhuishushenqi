@@ -24,6 +24,12 @@ class ZSSearchAutoCompleteController: ZSBaseTableViewController ,UISearchResults
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight)
+
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return books.count
     }

@@ -161,7 +161,8 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
         let book = curBook() ?? BookDetail()
         let vc:QSCategoryReaderViewController = QSCategoryRouter.createModule(book: book) as! QSCategoryReaderViewController
         vc.categoryDelegate = self
-        vc.bookDetail = book
+        vc.viewModel = curViewModel()
+//        vc.bookDetail = book
         vc.chapterDict = curViewModel().cachedChapter
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true, completion: nil)

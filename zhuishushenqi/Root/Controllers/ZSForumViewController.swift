@@ -14,7 +14,7 @@ import SnapKit
 
 class ZSForumViewController: BaseViewController,UITableViewDelegate {
     
-    var titles:NSArray = [["title":"动态","image":"d_icon"],["title":"综合讨论区","image":"f_ramble_icon"],["title":"书评区[找书必看]","image":"forum_public_review_icon"],["title":"书荒互助区","image":"forum_public_help_icon"],["title":"女生区","image":"f_girl_icon"],["title":"浏览记录","image":"f_invent_icon"]]
+    var titles:NSArray = [["title":"动态","image":"d_icon"],["title":"综合讨论区","image":"f_ramble_icon"],["title":"书评区[找书必看]","image":"forum_public_review_icon"],["title":"书荒互助区","image":"forum_public_help_icon"],["title":"女生区","image":"f_girl_icon"],["title":"浏览记录","image":"f_invent_icon"],["title":"导入本地书籍","image":"f_invent_icon"]]
     
     var tableView:UITableView = UITableView(frame: CGRect.zero, style: .grouped).then {
         $0.qs_registerCellClass(UITableViewCell.self)
@@ -73,6 +73,9 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
                 if indexPath.row == 5 {
                     let historyVC = ReadHistoryViewController()
                     SideVC.navigationController?.pushViewController(historyVC, animated: true)
+                } else if indexPath.row == 6 {
+                    let importBookVC = ZSImportBookViewController()
+                    SideVC.navigationController?.pushViewController(importBookVC, animated: true)
                 }
                 else{
                     let dynamicVC = DynamicViewController()

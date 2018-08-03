@@ -33,6 +33,7 @@ import SnapKit
         $0.setTitleColor(UIColor.gray, for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         $0.setImage(UIImage(named:"actionbar_refresh"), for: .normal)
+        $0.addTarget(self, action: #selector(changeHotWord(btn:)), for: .touchUpInside)
     }
     
     var hotwords:[String] = [] {
@@ -138,6 +139,12 @@ import SnapKit
     @objc func hotwordClicked(btn:UIButton){
         if let hotword = hotwordClick {
             hotword(btn.titleLabel?.text ?? "");
+        }
+    }
+    
+    @objc func changeHotWord(btn:UIButton){
+        if let changeHot = change {
+            changeHot()
         }
     }
 }

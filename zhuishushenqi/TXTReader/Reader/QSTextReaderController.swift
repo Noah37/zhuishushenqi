@@ -119,7 +119,17 @@ class QSTextReaderController: UIViewController {
                 if pageIndex < chapterModel.pages.count {
                     pageVC.page = chapterModel.pages[pageIndex]
                 }
-            } else {
+            } else if (viewModel.book?.book.localChapters.count)! > 0 {
+                if let chapters =  viewModel.book?.book.localChapters {
+                    let chapterIndex = record.chapter
+                    let pageIndex = record.page
+                    if chapterIndex < chapters.count  {
+                        let chapterModel = chapters[chapterIndex]
+                        if pageIndex < chapterModel.pages.count {
+                            pageVC.page = chapterModel.pages[pageIndex]
+                        }
+                    }
+                }
             }
         }
         currentReaderVC = pageVC
@@ -127,6 +137,10 @@ class QSTextReaderController: UIViewController {
     }
     
     func initial(){
+        //如果是本地书籍,则不清求
+        if viewModel.exsitLocal() {
+            return
+        }
         viewModel.fetchAllResource { resources in
             self.viewModel.fetchAllChapters({ (chapters) in
                 self.viewModel.fetchInitialChapter({ (page) in
@@ -156,11 +170,12 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         sideNum -= 1
         curlPageStyle = .backwards
         
-        let curPageViewController = viewController as! PageViewController
-        if let page = curPageViewController.page {
-            // page 存在则根据page的值来获取下一章节
-        } else {
-            // page 不存在说明是新的章节
+        if let curPageViewController = viewController as? PageViewController {
+            if let page = curPageViewController.page {
+                // page 存在则根据page的值来获取下一章节
+            } else {
+                // page 不存在说明是新的章节
+            }
         }
 
         func lastPage() ->UIViewController? {

@@ -42,7 +42,7 @@ extension UIViewController{
     func hudAddTo(view:UIView,text:String,animated:Bool){
         let hud = MBProgressHUD.showAdded(to: view, animated: animated)
         hud.mode = .text
-        hud.label.text = NSLocalizedString("Message here!", tableName: "HUD message title", comment: text)
+        hud.label.text = text
         hud.offset.y = ScreenHeight/4
         hud.hide(animated: animated, afterDelay: 3.0)
         

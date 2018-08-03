@@ -18,6 +18,7 @@ protocol QSCategoryDelegate {
 class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate,CategoryCellDelegate ,QSCategoryViewProtocol{
     var presenter: QSCategoryPresenterProtocol?
     var bookDetail:BookDetail?
+    var viewModel = ZSReaderViewModel()
     var categoryDelegate:QSCategoryDelegate?
     var titles:[String] = []
     var selectedIndex = 0
@@ -39,8 +40,7 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
         view.addSubview(self.tableView)
         let leftItem = UIBarButtonItem(image: UIImage(named: "bg_back_white"), style: .plain, target: self, action: #selector(dismiss(sender:)))
         navigationItem.leftBarButtonItem = leftItem
-        self.title = bookDetail?.title
-        //        presenter?.viewDidLoad()
+        self.title = viewModel.book?.title
         
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -76,25 +76,42 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let chaptersInfo = self.bookDetail?.chaptersInfo {
-            return chaptersInfo.count
+        if viewModel.exsitLocal() {
+            return viewModel.book?.book.localChapters.count ?? 0
+        } else {
+            if let chaptersInfo = self.bookDetail?.chaptersInfo {
+                return chaptersInfo.count
+            }
+            return 0
         }
-        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Category",for: indexPath as IndexPath) as! CategoryTableViewCell
         cell.cellDelegate = self
-        if let chaptersInfo = self.bookDetail?.chaptersInfo {
-            let link = chaptersInfo[indexPath.row].link
-            let model = chapterDict[link]
-            cell.bind(model: model)
-            cell.tittle.text = chaptersInfo[indexPath.row].title
-            cell.count.text = "\(indexPath.row)"
-            if (bookDetail?.record?.chapter == indexPath.row) {
-                cell.tittle.textColor = UIColor.red
-            } else {
-                cell.tittle.textColor = UIColor.black
+        if viewModel.exsitLocal() {
+            if let model =  viewModel.book?.book.localChapters[indexPath.row] {
+                cell.tittle.text = model.title
+                cell.count.text = "\(indexPath.row)"
+                cell.bind(model: model)
+                if viewModel.book?.record?.chapter == indexPath.row {
+                    cell.tittle.textColor = UIColor.red
+                } else {
+                    cell.tittle.textColor = UIColor.black
+                }
+            }
+        } else {
+            if let chaptersInfo = self.bookDetail?.chaptersInfo {
+                let link = chaptersInfo[indexPath.row].link
+                let model = chapterDict[link]
+                cell.bind(model: model)
+                cell.tittle.text = chaptersInfo[indexPath.row].title
+                cell.count.text = "\(indexPath.row)"
+                if (bookDetail?.record?.chapter == indexPath.row) {
+                    cell.tittle.textColor = UIColor.red
+                } else {
+                    cell.tittle.textColor = UIColor.black
+                }
             }
         }
         return cell

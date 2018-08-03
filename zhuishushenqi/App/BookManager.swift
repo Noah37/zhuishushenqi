@@ -179,6 +179,16 @@ public class BookManager:NSObject {
         return []
     }
     
+    func localBookInfo(key:String)->BookDetail?{
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last?.appending("/\(key)")
+        let url = URL(fileURLWithPath: path ?? "www.baidu.com")
+        if let data = try? Data(contentsOf: url, options: Data.ReadingOptions.mappedIfSafe) {
+            let obj = NSKeyedUnarchiver.unarchiveObject(with: data) as? BookDetail
+            return obj
+        }
+        return nil
+    }
+    
     // 从本地根据id获取书籍的信息
     func bookInfo(id:String) ->BookDetail?{
         let data = qs_data(forKey: id)

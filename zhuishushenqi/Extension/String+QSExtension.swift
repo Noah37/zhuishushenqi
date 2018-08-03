@@ -21,8 +21,38 @@ extension String{
         for i in 0 ..< digestLen {
             hash.appendFormat("%02x", result[i])
         }
-        result.deinitialize()
+        result.deinitialize(count: digestLen)
         return String(format: hash as String)
+    }
+    
+    //由于移动设备的内存有限,以下代码实现是将文件分块读出并且计算md5值的方法
+    func fileMD5()->String? {
+        let handler = FileHandle(forReadingAtPath: self)
+        if handler == nil {
+            return nil
+        }
+        let ctx = UnsafeMutablePointer<CC_MD5_CTX>.allocate(capacity: MemoryLayout<CC_MD5_CTX>.size)
+        CC_MD5_Init(ctx)
+        var done = false
+        while !done {
+            let fileData = handler?.readData(ofLength: 256)
+            fileData?.withUnsafeBytes({ (bytes) -> Void in
+                CC_MD5_Update(ctx, bytes, CC_LONG(fileData!.count))
+            })
+            if fileData?.count == 0 {
+                done = true
+            }
+        }
+        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
+        let digest = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
+        CC_MD5_Final(digest, ctx)
+        var hash = ""
+        for i in 0..<digestLen {
+            hash += String(format:"%02x",(digest[i]))
+        }
+        digest.deinitialize()
+        ctx.deinitialize()
+        return hash
     }
     
     //MARK: - Sub string Half open

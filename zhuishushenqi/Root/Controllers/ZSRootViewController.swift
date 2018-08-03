@@ -34,6 +34,7 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
         RootNavigationView.make(delegate: self,leftAction: #selector(leftAction(_:)),rightAction: #selector(rightAction(_:)))
         setupSegMenu()
         
+        /*
         let items = Observable.just(
             [1,2,3].map{ $0 }
         )
@@ -41,6 +42,7 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
          { (row,element,cell) in
             cell.textLabel?.text = ""
         }.disposed(by: DisposeBag())
+         */
         
         view.backgroundColor = UIColor.cyan
         configureChildViewController()
@@ -70,7 +72,7 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
     }
     
     func configureChildViewController(){
-        let shelvesVC = ZSBookShelvesViewController()
+        let shelvesVC = ZSShelfViewController()
         let forumVC = ZSForumViewController()
         addChildViewController(shelvesVC)
         addChildViewController(forumVC)

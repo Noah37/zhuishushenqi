@@ -19,5 +19,9 @@
 #import "UIScrollView+StateView.h"
 #import "CTDisplayText.h"
 #import <MJRefresh/MJRefresh.h>
+#import "HTTPServer.h"
+#import "ZSHTTPConnection.h"
+#import "ZSHTTPTool.h"
+#import "MonitorFileChangeHelp.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */

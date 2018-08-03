@@ -42,12 +42,16 @@ class ZSSearchViewModel {
     }
     
     fileprivate func subHotwords(callback:ZSSearchWebCallback?){
-        var subWords:[String] = []
-        for item in newIndex..<newIndex+6 {
-            subWords.append(hotwords[item%hotwords.count])
+        if hotwords.count > 0 {
+            var subWords:[String] = []
+            for item in newIndex..<newIndex+6 {
+                subWords.append(hotwords[item%hotwords.count])
+            }
+            newIndex = newIndex + 6
+            callback?(subWords)
+        } else {
+            callback?([])
         }
-        newIndex = newIndex + 6
-        callback?(subWords)
     }
     
     fileprivate func fetchHotwords(callback:ZSSearchWebCallback?) {

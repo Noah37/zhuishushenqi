@@ -31,6 +31,8 @@ pod 'SwiftyJSON'
 pod 'HandyJSON'
 pod 'RealmSwift'
 pod 'SkeletonView'
+pod 'CocoaAsyncSocket'
+pod 'CocoaLumberjack'
 
 #pod 'Realm', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true
 #pod 'RealmSwift', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true

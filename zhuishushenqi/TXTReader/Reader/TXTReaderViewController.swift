@@ -115,7 +115,17 @@ class TXTReaderViewController: UIViewController {
                 if pageIndex < chapterModel.pages.count {
                     pageVC.page = chapterModel.pages[pageIndex]
                 }
-            } else {
+            } else if (viewModel.book?.book.localChapters.count)! > 0 {
+                if let chapters =  viewModel.book?.book.localChapters {
+                    let chapterIndex = record.chapter
+                    let pageIndex = record.page
+                    if chapterIndex < chapters.count  {
+                        let chapterModel = chapters[chapterIndex]
+                        if pageIndex < chapterModel.pages.count {
+                            pageVC.page = chapterModel.pages[pageIndex]
+                        }
+                    }
+                }
             }
         }
         currentReaderVC = pageVC
@@ -123,6 +133,10 @@ class TXTReaderViewController: UIViewController {
     }
     
     func initial(){
+        //如果是本地书籍,则不清求
+        if viewModel.exsitLocal() {
+            return
+        }
         viewModel.fetchAllResource { resources in
             self.viewModel.fetchAllChapters({ (chapters) in
                 self.viewModel.fetchInitialChapter({ (page) in
@@ -162,14 +176,15 @@ extension TXTReaderViewController:UIPageViewControllerDataSource,UIPageViewContr
 //        } else {
             pageVC = PageViewController()
 //        }
-        
-        currentReaderVC = pageVC
-        viewModel.fetchBackwardPage(page: curPageViewController.page) { (page) in
-            pageVC?.page = page
+        let existLast = viewModel.hm_existLast(page: curPageViewController.page)
+        if existLast {
+            currentReaderVC = pageVC
+            viewModel.fetchBackwardPage(page: curPageViewController.page) { (page) in
+                pageVC?.page = page
+            }
+            return pageVC
         }
-        
-        return pageVC
-        
+        return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?{
@@ -187,12 +202,17 @@ extension TXTReaderViewController:UIPageViewControllerDataSource,UIPageViewContr
         } else {
             pageVC = PageViewController()
         }
-        pageVC?.view.alpha = 1.0
-        viewModel.fetchForwardPage(page: curPageViewController.page) { (page) in
-            pageVC?.page = page
+        
+        let existNext = viewModel.hm_existNext(page: curPageViewController.page)
+        if existNext {
+            pageVC?.view.alpha = 1.0
+            viewModel.fetchForwardPage(page: curPageViewController.page) { (page) in
+                pageVC?.page = page
+            }
+            currentReaderVC = pageVC
+            return pageVC
         }
-        currentReaderVC = pageVC
-        return pageVC
+        return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]){

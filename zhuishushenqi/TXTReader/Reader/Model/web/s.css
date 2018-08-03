@@ -1,0 +1,14 @@
+* {padding:0;margin:0;}
+body {margin:0;font: normal 12px Arial, Verdana, Tahoma; color:#333;background: #F0F0F0 url("bg.png") 50% 0 fixed repeat;}
+#main {width:800px;margin:0 auto;}
+#header {background: transparent url(titlebg.png) repeat-x;border-top: 1px solid #dcdcdc;border-bottom: 1px solid #404040;height:50px;}
+form.upload {margin-left:12px;padding-left:48px;padding-top:8px;margin-top:10px;height:32px;}
+table {width:100%;padding:0;border-bottom: 1px solid #fff;}
+thead {margin:0;padding:0;}
+th {height:15px;text-align: left;padding-left:20px;border-left:1px solid #999;border-bottom:1px solid #999;color:#303;font-size:.9em;font-weight: normal;background: transparent url(theadbg.png) repeat-x;}
+td.del, th.del {width:8em;}
+tbody td {padding-left:20px;background-color:#fff;height:20px;border-bottom: 1px solid #ccc;}
+tr.shadow td{background-color:#ecf3fe;}
+a.file {text-decoration:none;color:#333;}
+#footer {height:50px;border-top:1px solid #ccc;margin:0 auto;position:absolute;bottom:0px;width:800px;text-align: center;}
+#footer .content {border-top: 1px solid #fff;}

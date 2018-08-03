@@ -23,8 +23,8 @@ class ZSNoneAnimationViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initial()
         setupRecord()
+        initial()
         setupSubviews()
         setupGesture()
     }
@@ -35,13 +35,20 @@ class ZSNoneAnimationViewController: BaseViewController {
     }
     
     func initial(){
-        viewModel.fetchAllResource { resources in
-            self.viewModel.fetchAllChapters({ (chapters) in
-                self.viewModel.fetchInitialChapter({ (page) in
-                    self.pageViewController.page = page
-                })
-            })
+        viewModel.fetchLocalPage { (page) in
+            if let pageModel = page {
+                self.pageViewController.page = pageModel
+            } else {
+                self.viewModel.fetchAllResource { resources in
+                    self.viewModel.fetchAllChapters({ (chapters) in
+                        self.viewModel.fetchInitialChapter({ (page) in
+                            self.pageViewController.page = page
+                        })
+                    })
+                }
+            }
         }
+        
     }
     
     func setupRecord(){
@@ -85,7 +92,8 @@ class ZSNoneAnimationViewController: BaseViewController {
     
     // 获取下一个页面
     func getNextPage(){
-        viewModel.fetchNextPage { (page) in
+        
+        self.viewModel.fetchNextPage { (page) in
             self.pageViewController.page = page
         }
     }

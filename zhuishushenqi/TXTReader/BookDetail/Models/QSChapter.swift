@@ -52,7 +52,7 @@ class QSChapter: NSObject ,NSCoding{
         for item in 0..<ranges.count {
             let range:NSRange =  ranges[item]
             let page = QSPage()
-            page.content = content.qs_subStr(range: range)
+            page.content = (content as NSString).substring(with: range)
             page.curPage = item
             page.curChapter = curChapter
             page.totalPages = ranges.count
