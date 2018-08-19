@@ -74,6 +74,8 @@ enum QSAPI {
     case interested(key:String)
     ///详情页推荐书单
     case recommend(key:String)
+    //随机看书
+    case mysteryBook()
 }
 
 extension QSAPI:TargetType{
@@ -160,6 +162,9 @@ extension QSAPI:TargetType{
             break
         case let .recommend(key):
             pathComponent = "/book-list/\(key)/recommend?limit=3"
+            break
+        case .mysteryBook():
+            pathComponent = "/book/mystery-box"
             break
         }
         return "\(baseURLString)\(pathComponent)"

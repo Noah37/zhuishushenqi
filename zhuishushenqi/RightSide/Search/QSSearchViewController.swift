@@ -77,6 +77,10 @@ class ZSSearchViewController: ZSBaseTableViewController {
             self.searchController.searchBar.text = self.autoCompleteController.books[indexPath.row]
             self.searchBarSearchButtonClicked(self.searchController.searchBar)
         }
+        
+        resultViewController.didSelectIndexPathAtRow = { (book) in
+            self.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: book?._id ?? ""), animated: true)
+        }
     }
 }
 

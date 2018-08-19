@@ -49,6 +49,9 @@ PODS:
     - RxSwift (~> 4.0)
   - SkeletonView (1.2.1)
   - SnapKit (4.0.0)
+  - SQLite.swift (0.11.5):
+    - SQLite.swift/standard (= 0.11.5)
+  - SQLite.swift/standard (0.11.5)
   - SwiftyJSON (4.1.0)
   - Then (2.3.0)
   - YYKit (1.0.9):
@@ -76,6 +79,7 @@ DEPENDENCIES:
   - RxSwiftExt
   - SkeletonView
   - SnapKit (= 4.0.0)
+  - SQLite.swift (~> 0.11.5)
   - SwiftyJSON
   - Then
   - YYKit
@@ -107,6 +111,7 @@ SPEC REPOS:
     - RxSwiftExt
     - SkeletonView
     - SnapKit
+    - SQLite.swift
     - SwiftyJSON
     - Then
     - YYKit
@@ -137,10 +142,11 @@ SPEC CHECKSUMS:
   RxSwiftExt: 64b7140124629a6a084159735f3714f0fb1c61d6
   SkeletonView: 98a31213f9282076149e6eb23f46734604f02086
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 8184e078164624d142abdf3de3148ff2df0fb2cf
+PODFILE CHECKSUM: f48fa900315fc78678a1ae2fe6f023e596f020cc
 
 COCOAPODS: 1.5.2

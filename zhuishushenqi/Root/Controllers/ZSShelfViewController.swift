@@ -96,6 +96,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SwipableCell.reuseIdentifier, for: indexPath) as! SwipableCell
+        cell.delegate = self
         if viewModel.localBooks.count > 0 {
             if indexPath.section == 0 {
                 cell.title?.text = "本地书架"
@@ -174,16 +175,58 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         }
         let books = self.viewModel.books
         if let model =  books[books.allKeys()[indexPath.row]] as? BookDetail {
-            let viewController = QSTextRouter.createModule(bookDetail: model, callback: { (book) in
-                BookManager.calTime {
-                    // 计算本地数据存储用时
-                    BookManager.shared.modifyBookshelf(book: book)
-                    self.tableView.reloadRow(at: indexPath, with: .automatic)
-                }
-            })
+            let viewController = ZSReaderViewController()
+            viewController.viewModel.book = model
             self.present(viewController, animated: true, completion: nil)
+            self.tableView.reloadRow(at: indexPath, with: .automatic)
         }
         
     }
+}
 
+extension ZSShelfViewController:SwipableCellDelegate {
+    func swipeCell(clickAt: Int,model:BookDetail,cell:SwipableCell,selected:Bool) {
+        if clickAt == 0 {
+            if selected == false {
+                // 取消下载
+                
+                return
+            }
+            let indexPath = tableView.indexPath(for: cell)
+            // 选择一种缓存方式后，缓存按钮变为选中状态，小说图标变为在缓存中
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let firstAcion = UIAlertAction(title: "全本缓存", style: .default, handler: { (action) in
+                self.hudAddTo(view: self.view, text: "暂不支持当前功能,敬请期待...", animated: true)
+            })
+            let secondAction = UIAlertAction(title: "从当前章节缓存", style: .default, handler: { (action) in
+                self.hudAddTo(view: self.view, text: "暂不支持当前功能,敬请期待...", animated: true)
+            })
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (action) in
+                
+            })
+            alert.addAction(firstAcion)
+            alert.addAction(secondAction)
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
+        }
+        else if clickAt == 3 {
+            self.removeBook(book: model)
+            self.tableView.reloadData()
+        } else {
+            self.hudAddTo(view: self.view, text: "暂不支持当前功能,敬请期待...", animated: true)
+        }
+    }
+    
+    func removeBook(book:BookDetail){
+        let books = self.viewModel.booksID
+        var index = 0
+        for bookid in books {
+            if book._id == bookid {
+                self.viewModel.booksID.remove(at: index)
+                self.viewModel.books.removeValue(forKey: bookid)
+                BookManager.shared.deleteBook(book: book)
+            }
+            index += 1
+        }
+    }
 }

@@ -84,6 +84,7 @@ class BookCommentBook: NSObject,HandyJSON {
     var cover:String = ""
     var title:String = ""
     var id:String = ""
+    var type = ""
     
     required override init() {
         

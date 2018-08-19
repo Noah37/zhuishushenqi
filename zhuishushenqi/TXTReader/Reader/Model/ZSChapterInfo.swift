@@ -34,7 +34,6 @@ class ZSChapterInfo:NSObject,HandyJSON,NSCoding {
         self.title = aDecoder.decodeObject(forKey: "title") as? String ?? ""
         self.totalpage = aDecoder.decodeInteger(forKey: "totalpage")
         self.unreadble = aDecoder.decodeInteger(forKey: "unreadble")
-
     }
     
     func encode(with aCoder: NSCoder) {
@@ -47,7 +46,6 @@ class ZSChapterInfo:NSObject,HandyJSON,NSCoding {
         aCoder.encode(self.title, forKey: "title")
         aCoder.encode(self.totalpage, forKey: "totalpage")
         aCoder.encode(self.unreadble, forKey: "unreadble")
-
     }
     
 }

@@ -114,3 +114,8 @@ extension ZSNoneAnimationViewController:ZSReaderTap{
         pageViewController.page = page
     }
 }
+
+extension ZSNoneAnimationViewController:ZSReaderControllerProtocol {
+    typealias Item = Book
+    
+}

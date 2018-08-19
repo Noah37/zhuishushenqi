@@ -18,17 +18,6 @@ class QSTextRouter: QSTextWireframeProtocol {
         // Change to get view from storyboard if not using progammatic UI
         let view = ZSReaderViewController()
 
-        let interactor = QSTextInteractor()
-        let router = QSTextRouter()
-        let presenter = QSTextPresenter(interface: view, interactor: interactor, router: router)
-        
-        view.viewModel.book = bookDetail
-//        view.presenter = presenter
-//        view.callback = callback
-        
-        interactor.output = presenter
-        
-        router.viewController = view
         
         return view
     }

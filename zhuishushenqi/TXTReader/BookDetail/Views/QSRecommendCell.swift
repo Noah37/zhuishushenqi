@@ -13,7 +13,6 @@ typealias BtnClickAction = (_ btn:Any)->Void
 let RecBtnTag = 12345
 //146
 class QSRecommendCell: UITableViewCell,InterestdViewDelegate {
-
     var books:[Book]? {
         didSet{
             if let bookss = books {
@@ -68,7 +67,7 @@ class QSRecommendCell: UITableViewCell,InterestdViewDelegate {
     
     func setupSubviews(){
         for item in 0..<QSRecommendCellItemCount {
-            let btn:QSInterestdView? = UINib(nibName: "QSInterestedView", bundle: nil).instantiate(withOwner: self, options: nil).first as? QSInterestdView
+            let btn:QSInterestdView? = QSInterestdView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
             btn?.contentMode = .scaleAspectFit
             btn?.tag = RecBtnTag + item
             btn?.interestdViewDelegate = self
@@ -107,16 +106,34 @@ protocol InterestdViewDelegate {
     func didClick(_ interestdView:QSInterestdView) -> Void
 }
 
-public class QSInterestdView : UIView {
+class QSInterestdView : UIView {
     
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
+    var imageView: UIImageView!
+    var titleLabel: UILabel!
     
     var interestdViewDelegate:InterestdViewDelegate?
     
-    public override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupSubviews()
         self.imageView.contentMode = .scaleToFill
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(sender:)))
+        self.addGestureRecognizer(tap)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    func setupSubviews(){
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 69, height: 102))
+        titleLabel = UILabel(frame: CGRect(x: 0, y: imageView.size.height, width: imageView.size.width, height: 137 - imageView.size.height))
+        titleLabel.font = UIFont.systemFont(ofSize: 11)
+        titleLabel.textColor = UIColor.gray
+        titleLabel.numberOfLines = 0
+        titleLabel.textAlignment = .center
+        addSubview(imageView)
+        addSubview(titleLabel)
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(sender:)))
         self.addGestureRecognizer(tap)
     }

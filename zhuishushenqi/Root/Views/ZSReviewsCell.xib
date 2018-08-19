@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="99" id="9HF-jI-hpa" customClass="ZSReviewsCell" customModule="zhuishushenqi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="99"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9HF-jI-hpa" id="Ufi-rk-4bI">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="98.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sLJ-7C-KnB">
+                        <rect key="frame" x="20" y="20" width="48" height="59"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="59" id="hPJ-mW-q6h"/>
+                            <constraint firstAttribute="width" constant="48" id="hy3-Nu-1Vj"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="春花厌[其它]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxu-iV-QXU">
+                        <rect key="frame" x="85" y="18" width="243" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="ujA-uF-fT4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.78125" green="0.54537340850000005" blue="0.1869414637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1天前" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7A-Hh-enr">
+                        <rect key="frame" x="336" y="18" width="58" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="Rjm-t5-ydg"/>
+                            <constraint firstAttribute="width" constant="58" id="zfp-8D-236"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15/16 有用" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lq-0z-kk5">
+                        <rect key="frame" x="85" y="76" width="312" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="f_today_topic" translatesAutoresizingMaskIntoConstraints="NO" id="tYW-HX-oR7">
+                        <rect key="frame" x="0.0" y="0.0" width="21" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="23" id="Jjq-JV-uST"/>
+                            <constraint firstAttribute="width" constant="21" id="wBQ-CH-k0A"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="春花开,君不厌." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSt-if-jsJ">
+                        <rect key="frame" x="85" y="40" width="309" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="TtP-2n-Ufc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="RSt-if-jsJ" firstAttribute="top" secondItem="mxu-iV-QXU" secondAttribute="bottom" constant="1" id="5Q6-S7-GsF"/>
+                    <constraint firstItem="mxu-iV-QXU" firstAttribute="leading" secondItem="sLJ-7C-KnB" secondAttribute="trailing" constant="17" id="5SQ-Fv-FQo"/>
+                    <constraint firstItem="9Lq-0z-kk5" firstAttribute="top" secondItem="RSt-if-jsJ" secondAttribute="bottom" constant="2" id="8Zt-0A-bdZ"/>
+                    <constraint firstItem="sLJ-7C-KnB" firstAttribute="leading" secondItem="Ufi-rk-4bI" secondAttribute="leading" constant="20" id="C6P-2G-WQc"/>
+                    <constraint firstItem="RSt-if-jsJ" firstAttribute="leading" secondItem="sLJ-7C-KnB" secondAttribute="trailing" constant="17" id="Q17-cE-Ud9"/>
+                    <constraint firstItem="tYW-HX-oR7" firstAttribute="top" secondItem="Ufi-rk-4bI" secondAttribute="top" id="To2-Uc-bJH"/>
+                    <constraint firstItem="H7A-Hh-enr" firstAttribute="leading" secondItem="mxu-iV-QXU" secondAttribute="trailing" constant="8" id="eLy-KH-zTy"/>
+                    <constraint firstItem="9Lq-0z-kk5" firstAttribute="leading" secondItem="Ufi-rk-4bI" secondAttribute="leading" constant="85" id="elw-y9-dkk"/>
+                    <constraint firstAttribute="trailing" secondItem="RSt-if-jsJ" secondAttribute="trailing" constant="20" id="g8D-u7-N6n"/>
+                    <constraint firstItem="mxu-iV-QXU" firstAttribute="top" secondItem="Ufi-rk-4bI" secondAttribute="top" constant="18" id="gXZ-XZ-N5z"/>
+                    <constraint firstAttribute="bottom" secondItem="9Lq-0z-kk5" secondAttribute="bottom" constant="10.5" id="jZP-aK-IGF"/>
+                    <constraint firstItem="H7A-Hh-enr" firstAttribute="top" secondItem="Ufi-rk-4bI" secondAttribute="top" constant="18" id="lYr-LJ-fCM"/>
+                    <constraint firstAttribute="trailing" secondItem="H7A-Hh-enr" secondAttribute="trailing" constant="20" id="oyo-C9-90V"/>
+                    <constraint firstItem="sLJ-7C-KnB" firstAttribute="top" secondItem="Ufi-rk-4bI" secondAttribute="top" constant="20" id="sbp-ys-eQA"/>
+                    <constraint firstAttribute="trailing" secondItem="9Lq-0z-kk5" secondAttribute="trailing" constant="17" id="uwT-gN-bU3"/>
+                    <constraint firstItem="tYW-HX-oR7" firstAttribute="leading" secondItem="Ufi-rk-4bI" secondAttribute="leading" id="xlV-gA-tlw"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="book" destination="mxu-iV-QXU" id="2gP-lb-chd"/>
+                <outlet property="content" destination="RSt-if-jsJ" id="MZQ-62-1cg"/>
+                <outlet property="date" destination="H7A-Hh-enr" id="41T-3v-8kn"/>
+                <outlet property="flag" destination="tYW-HX-oR7" id="j62-QO-4b7"/>
+                <outlet property="icon" destination="sLJ-7C-KnB" id="7fm-9R-66j"/>
+                <outlet property="useful" destination="9Lq-0z-kk5" id="orW-UG-nhX"/>
+            </connections>
+            <point key="canvasLocation" x="38" y="244.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="f_today_topic" width="25" height="25"/>
+    </resources>
+</document>

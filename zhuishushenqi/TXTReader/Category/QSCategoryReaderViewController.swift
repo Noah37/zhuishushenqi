@@ -51,9 +51,9 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
         super.viewWillAppear(animated)
         self.tableView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - kNavgationBarHeight)
         let indexPATH = IndexPath(row: bookDetail?.record?.chapter ?? 0, section: 0)
-        
-        self.tableView.scrollToRow(at: indexPATH , at: .middle, animated: false)
-        
+        if (viewModel.book?.chaptersInfo?.count ?? 0) > 0 {
+            self.tableView.scrollToRow(at: indexPATH , at: .middle, animated: false)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,7 +79,7 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
         if viewModel.exsitLocal() {
             return viewModel.book?.book.localChapters.count ?? 0
         } else {
-            if let chaptersInfo = self.bookDetail?.chaptersInfo {
+            if let chaptersInfo = self.viewModel.book?.chaptersInfo {
                 return chaptersInfo.count
             }
             return 0
@@ -101,13 +101,13 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
                 }
             }
         } else {
-            if let chaptersInfo = self.bookDetail?.chaptersInfo {
+            if let chaptersInfo = self.viewModel.book?.chaptersInfo {
                 let link = chaptersInfo[indexPath.row].link
                 let model = chapterDict[link]
                 cell.bind(model: model)
                 cell.tittle.text = chaptersInfo[indexPath.row].title
                 cell.count.text = "\(indexPath.row)"
-                if (bookDetail?.record?.chapter == indexPath.row) {
+                if (viewModel.book?.record?.chapter == indexPath.row) {
                     cell.tittle.textColor = UIColor.red
                 } else {
                     cell.tittle.textColor = UIColor.black

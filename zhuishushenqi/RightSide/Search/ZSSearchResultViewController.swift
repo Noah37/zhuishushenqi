@@ -35,6 +35,8 @@ class ZSSearchResultViewController: ZSBaseTableViewController {
     }
     var selectRow:DidSelectRow?
     
+    var didSelectIndexPathAtRow:ZSBaseCallback<Book>?
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return books?.count ?? 0
     }
@@ -54,6 +56,9 @@ class ZSSearchResultViewController: ZSBaseTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let select = selectRow {
             select(indexPath)
+        }
+        if let didSelect = didSelectIndexPathAtRow {
+            didSelect(books?[indexPath.row])
         }
     }
 

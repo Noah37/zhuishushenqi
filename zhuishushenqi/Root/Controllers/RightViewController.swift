@@ -32,8 +32,8 @@ class RightViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titles = ["搜索","排行榜","主题书单","分类","听书专区","随机看书"]
-        images = ["rsm_icon_0","rsm_icon_3","rsm_icon_4","rsm_icon_5","rsm_icon_6","rsm_icon_7"]
+        titles = ["搜索","书城","VIP专区","排行榜","主题书单","分类","免费专区","专属推荐","漫画专区","听书专区","随机看书","WIFI传书"]
+        images = ["rsm_icon_0","rsm_icon_store","rsm_icon_monthly","rsm_icon_3","rsm_icon_4","rsm_icon_5","rsm_icon_exclusive","rsm_icon_recommended","rsm_icon_comic","rsm_icon_6","rsm_icon_7","rsm_icon_wifi"]
         tableView.backgroundColor  = UIColor(red: 0.211, green: 0.211, blue: 0.211, alpha: 1.00)
     }
     
@@ -67,17 +67,67 @@ class RightViewController: UITableViewController {
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
             let searchVC = ZSSearchViewController(style: .grouped)
             SideVC.navigationController?.pushViewController(searchVC, animated: true)
-        }else if indexPath.row == 1 {//排行榜
+        } else if indexPath.row == 1 {
+            let webVC = ZSWebViewController()
+            let timeInterval = Date().timeIntervalSince1970
+            webVC.url = "https://h5.zhuishushenqi.com/explore?timestamp=\(timeInterval)&platform=ios&gender=male&appversion=2.29.5&version=8"
+            webVC.title = "书城"
+            SideVC.navigationController?.pushViewController(webVC, animated: true)
+            
+        } else if indexPath.row == 2 {
+            let webVC = ZSWebViewController()
+            let timeInterval = Date().timeIntervalSince1970
+            webVC.url = "https://h5.zhuishushenqi.com/monthly?platform=ios&gender=male&timeInterval=\(timeInterval*10)&appversion=2.29.5&timestamp=\(timeInterval)&version=8"
+            webVC.title = "VIP专区"
+            SideVC.navigationController?.pushViewController(webVC, animated: true)
+        } else if indexPath.row == 3 {//排行榜
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-            SideVC.navigationController?.pushViewController(QSRankRouter.createModule(), animated: true)
-        }else if indexPath.row == 2 {//主题书单
+            let rankVC = QSRankViewController()
+            SideVC.navigationController?.pushViewController(rankVC, animated: true)
+        } else if indexPath.row == 4 {//主题书单
             _ = ThemeTopicViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
             SideVC.navigationController?.pushViewController(QSThemeTopicRouter.createModule(), animated: true)
 
-        }else if indexPath.row == 3 {
+        } else if indexPath.row == 5 {
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
             SideVC.navigationController?.pushViewController(QSCatalogRouter.createModule(), animated: true)
+        } else if indexPath.row == 6 {
+            let webVC = ZSWebViewController()
+            let timeInterval = Date().timeIntervalSince1970
+            webVC.url = "https://h5.zhuishushenqi.com/original?platform=ios&gender=male&timeInterval=\(timeInterval*10)&appversion=2.29.5&timestamp=\(timeInterval)&version=8"
+            webVC.title = "免费专区"
+            SideVC.navigationController?.pushViewController(webVC, animated: true)
+        } else if indexPath.row == 7 {
+            let webVC = ZSWebViewController()
+            let timeInterval = Date().timeIntervalSince1970
+            webVC.url = "https://h5.zhuishushenqi.com/original?platform=ios&gender=male&timeInterval=\(timeInterval*10)&appversion=2.29.5&timestamp=\(timeInterval)&version=8"
+            webVC.title = "专属推荐"
+            SideVC.navigationController?.pushViewController(webVC, animated: true)
+        } else if indexPath.row == 8 {
+            let webVC = ZSWebViewController()
+            let timeInterval = Date().timeIntervalSince1970
+            webVC.url = "https://h5.zhuishushenqi.com/cartoon?platform=ios&timestamp=\(timeInterval)&gender=male&appversion=2.29.5&version=8"
+            webVC.title = "漫画专区"
+            SideVC.navigationController?.pushViewController(webVC, animated: true)
+        } else if indexPath.row == 9 {
+            
+        } else if indexPath.row == 10 {
+//            https://api.zhuishushenqi.com/book/mystery-box
+            let api = QSAPI.mysteryBook()
+            zs_get(api.path) { (json) in
+                if let books = json?["books"] as? [[String:[String:Any]]] {
+                    if let book = books[0]["book"] {
+                        if let model = BookDetail.deserialize(from: book) {
+                            let viewController = ZSReaderViewController()
+                            viewController.viewModel.book = model
+                            self.present(viewController, animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
+        } else if indexPath.row == 11 {
+            
         }
     }
 }

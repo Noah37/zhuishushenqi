@@ -9,6 +9,12 @@
 import UIKit
 import RxSwift
 
+protocol ZSReaderControllerProtocol {
+    associatedtype Item
+    var viewModel:ZSReaderViewModel { get set }
+    
+}
+
 let changeAnimationStyle = "changeAnimationStyle"
 
 class ZSReaderViewController: BaseViewController  {
@@ -174,6 +180,8 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
             curlPageViewController.changeSourceClicked()
         } else if QSReaderSetting.shared.pageStyle == .horMove {
             horMoveController.changeSourceClicked()
+        } else if QSReaderSetting.shared.pageStyle == .none {
+            
         }
     }
     
@@ -234,6 +242,11 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
             horMoveController.categoryDidSelectAtIndex(index: index)
         }
     }
+}
+
+extension ZSReaderViewController:ZSReaderControllerProtocol {
+    typealias Item = Book
+    
 }
 
 extension ZSReaderViewController:QSTextViewProtocol{

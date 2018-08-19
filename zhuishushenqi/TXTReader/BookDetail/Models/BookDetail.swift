@@ -8,6 +8,117 @@
 
 import UIKit
 import HandyJSON
+import SQLite
+
+//let db = try? Connection("path/to/db.sqlite3")
+//
+//let users = Table("users")
+//let id = Expression<Int64>("id")
+//let name = Expression<String?>("name")
+//let email = Expression<String>("email")
+//
+//try? db?.run(users.create { t in
+//    t.column(id, primaryKey: true)
+//    t.column(name)
+//    t.column(email, unique: true)
+//})
+//// CREATE TABLE "users" (
+////     "id" INTEGER PRIMARY KEY NOT NULL,
+////     "name" TEXT,
+////     "email" TEXT NOT NULL UNIQUE
+//// )
+//
+//let insert = users.insert(name <- "Alice", email <- "alice@mac.com")
+//let rowid = try? db?.run(insert)
+//// INSERT INTO "users" ("name", "email") VALUES ('Alice', 'alice@mac.com')
+//
+//for user in try? db?.prepare(users) {
+//    print("id: \(user[id]), name: \(user[name]), email: \(user[email])")
+//    // id: 1, name: Optional("Alice"), email: alice@mac.com
+//}
+//// SELECT * FROM "users"
+//
+//let alice = users.filter(id == rowid)
+//
+//try? db.run(alice.update(email <- email.replace("mac.com", with: "me.com")))
+//// UPDATE "users" SET "email" = replace("email", 'mac.com', 'me.com')
+//// WHERE ("id" = 1)
+//
+//try? db?.run(alice.delete())
+//// DELETE FROM "users" WHERE ("id" = 1)
+//
+//try? db?.scalar(users.count) // 0
+//// SELECT count(*) FROM "users"
+
+extension BookDetail:DBSaveProtocol {
+    func db_save(){
+        let homePath = NSHomeDirectory()
+        let dbPath = "\(homePath)/db.sqlite3"
+        if let db = try? Connection(dbPath) {
+            let detail = Table("BookDetail")
+            let author = Expression<String>("author")
+            let cover = Expression<String>("cover")
+            let creater = Expression<String>("creater")
+            let longIntro = Expression<String>("longIntro")
+            let title = Expression<String>("title")
+            let cat = Expression<String>("cat")
+            let majorCate = Expression<String>("majorCate")
+            let minorCate = Expression<String>("minorCate")
+            let latelyFollower = Expression<String>("latelyFollower")
+            let retentionRatio = Expression<String>("retentionRatio")
+            let serializeWordCount = Expression<String>("serializeWordCount")
+            let wordCount = Expression<String>("wordCount")
+            let updated = Expression<String>("updated")
+            let tags = Expression<String>("tags")
+            let id = Expression<String>("_id")
+            let postCount = Expression<Int>("postCount")
+            let copyright = Expression<String>("copyright")
+            let sourceIndex = Expression<Int>("sourceIndex")
+            let record = Expression<String>("record")
+            let chapter = Expression<Int>("chapter")
+            let page = Expression<Int>("page")
+            let resources = Expression<String>("resources")
+            let chapters = Expression<String>("chapters")
+            let chaptersInfo = Expression<String>("chaptersInfo")
+            let isUpdated = Expression<Int>("isUpdated")
+            let book = Expression<String>("book")
+            let updateInfo = Expression<String>("updateInfo")
+            
+            
+            
+            _ = try? db.run(detail.create(temporary: false, ifNotExists: true, withoutRowid: true) { (t) in
+                t.column(id, primaryKey: true)
+                t.column(author)
+                t.column(cover)
+                t.column(creater)
+                t.column(longIntro)
+                t.column(title)
+                t.column(cat)
+                t.column(majorCate)
+                t.column(minorCate)
+                t.column(latelyFollower)
+                t.column(retentionRatio)
+                t.column(serializeWordCount)
+                t.column(wordCount)
+                t.column(updated)
+                t.column(tags)
+                t.column(postCount)
+                t.column(copyright)
+                t.column(sourceIndex)
+                t.column(record)
+                t.column(chapter)
+                t.column(page)
+                t.column(resources)
+                t.column(chapters)
+                t.column(chaptersInfo)
+                t.column(isUpdated)
+                t.column(book)
+                t.column(updateInfo)
+            })
+
+        }
+    }
+}
 
 @objc(BookDetail)
 class BookDetail: NSObject,NSCoding ,HandyJSON{

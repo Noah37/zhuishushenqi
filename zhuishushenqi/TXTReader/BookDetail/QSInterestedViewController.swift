@@ -24,7 +24,6 @@ class QSInterestedViewController: BaseViewController,UITableViewDataSource,UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         initSubview()
-        
     }
     
     func initSubview(){

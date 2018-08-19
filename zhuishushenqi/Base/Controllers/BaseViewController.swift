@@ -16,7 +16,8 @@ class BaseViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         navigationController?.navigationBar.tintColor = UIColor.red
         navigationController?.navigationBar.barTintColor = UIColor.white
-    
+        let backItem = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(popAction))
+        self.navigationItem.backBarButtonItem = backItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,5 +36,9 @@ class BaseViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func popAction(){
+        self.navigationController?.popViewController(animated: true)
     }
 }

@@ -179,6 +179,8 @@ class QSBookDetailViewController: BaseViewController,UITableViewDataSource,UITab
     }
     
     @objc func moreCommentAction(btn:UIButton){
+        let indexPath = IndexPath(row: 0, section: 2)
+        presenter?.didSelectRow(indexPath: indexPath)
         
     }
     

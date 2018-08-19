@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sideVC.contentViewController = ZSRootViewController()
         sideVC.rightViewController = RightViewController(style: .grouped)
         sideVC.leftViewController = LeftViewController()
-        let sideNavVC = UINavigationController(rootViewController: sideVC)
+        let sideNavVC = ZSBaseNavigationViewController(rootViewController: sideVC)
         window?.rootViewController = sideNavVC
         window?.makeKeyAndVisible()
         UIApplication.shared.setStatusBarHidden(false, with: .fade)

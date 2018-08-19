@@ -8,6 +8,12 @@
 
 import UIKit
 
+class ZSDiscussCell: UITableViewCell {
+    
+    
+    
+}
+
 class QSHelpViewCell: UITableViewCell {
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var nickName: UILabel!

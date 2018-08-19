@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objc(QSHotComment)
-class QSHotComment: NSObject {
+class QSHotComment: NSObject,HandyJSON {
 
     var _id:String = ""
     var content:String = ""
@@ -25,10 +26,14 @@ class QSHotComment: NSObject {
     var helpful:Helpful = Helpful()
     var book:QSHotBook = QSHotBook()
     
+    required override init() {
+        
+    }
+    
 }
 
 @objc(Author)
-class Author: NSObject {
+class Author: NSObject,HandyJSON {
     var _id:String = ""
     var avatar:String = ""
     var nickname:String = ""
@@ -36,14 +41,20 @@ class Author: NSObject {
     var type:String = ""
     var lv:Int = 0
     var gender:String = ""
-    
+    required override init() {
+        
+    }
 }
 
 @objc(Helpful)
-class Helpful: NSObject {
+class Helpful: NSObject,HandyJSON {
     var no:Int = 0
     var total:Int = 0
     var yes:Int = 0
+    
+    required override init() {
+        
+    }
 }
 
 //"book": {
@@ -55,10 +66,14 @@ class Helpful: NSObject {
 //    "retentionRatio": null
 //},
 @objc(QSHotBook)
-class QSHotBook: NSObject {
+class QSHotBook: NSObject,HandyJSON {
     var id:String = ""
     var cover:String = ""
     var title:String = ""
     var latelyFollower = ""
     var retentionRatio = "'"
+    
+    required override init() {
+        
+    }
 }

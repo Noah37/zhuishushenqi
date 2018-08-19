@@ -353,3 +353,8 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         currentReaderVC = pageVC
     }
 }
+
+extension QSTextReaderController:ZSReaderControllerProtocol {
+    typealias Item = Book
+    
+}

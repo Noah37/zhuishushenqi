@@ -11,5 +11,7 @@
 @interface NSString (Encode)
 
 - (NSString*)urlEncode;
+- (NSString *)urlDecode;
+- (NSString *)zs_urlDecode;
 
 @end

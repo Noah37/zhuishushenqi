@@ -246,3 +246,8 @@ extension ZSHorizonalMoveViewController:UIScrollViewDelegate {
     }
 
 }
+
+extension ZSHorizonalMoveViewController:ZSReaderControllerProtocol {
+    typealias Item = Book
+    
+}

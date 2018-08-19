@@ -20,4 +20,15 @@
     return result;
 }
 
+- (NSString *)urlDecode{
+//    NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,(__bridge CFStringRef)self,CFSTR(":/?#[]@!$&'()*+,;="),kCFStringEncodingUTF8));
+    NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault,(__bridge CFStringRef)self,CFSTR(":/?#[]@!$&'()*+,;=")));
+    return result;
+}
+
+- (NSString *)zs_urlDecode{
+    NSString *result = [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return result;
+}
+
 @end

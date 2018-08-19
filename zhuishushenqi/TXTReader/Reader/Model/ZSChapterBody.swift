@@ -16,5 +16,10 @@ class ZSChapterBody:HandyJSON {
     
     var cpContent:String = ""
     
+    var images:String = ""
+    var created:String = ""
+    var updated:String = ""
+    var id:String = ""
+    
     required init() {}
 }

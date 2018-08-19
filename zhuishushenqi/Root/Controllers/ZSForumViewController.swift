@@ -14,10 +14,23 @@ import SnapKit
 
 class ZSForumViewController: BaseViewController,UITableViewDelegate {
     
-    var titles:NSArray = [["title":"动态","image":"d_icon"],["title":"综合讨论区","image":"f_ramble_icon"],["title":"书评区[找书必看]","image":"forum_public_review_icon"],["title":"书荒互助区","image":"forum_public_help_icon"],["title":"女生区","image":"f_girl_icon"],["title":"浏览记录","image":"f_invent_icon"],["title":"导入本地书籍","image":"f_invent_icon"]]
+    var titles:[[String:String]] = [
+        ["title":"动态","image":"d_icon"],
+        ["title":"综合讨论区","image":"f_ramble_icon"],
+        ["title":"书评区[找书必看]","image":"forum_public_review_icon"],
+        ["title":"书荒互助区","image":"forum_public_help_icon"],
+        ["title":"活动福利","image":"fuliv3"],
+        ["title":"原创写作","image":"yuanchuangv3"],
+        ["title":"女生区","image":"nvshengv3"],
+        ["title":"电子竞技","image":"jinjiv3"],
+        ["title":"二次元","image":"erciyuanv3"],
+        ["title":"网文江湖","image":"wangwenv3"],
+        ["title":"大话历史","image":"lishiv3"],
+        ["title":"浏览记录","image":"f_invent_icon"],
+        ["title":"导入本地书籍","image":"f_invent_icon"]]
     
     var tableView:UITableView = UITableView(frame: CGRect.zero, style: .grouped).then {
-        $0.qs_registerCellClass(UITableViewCell.self)
+        $0.qs_registerCellClass(ZSForumCell.self)
         $0.rowHeight = 50
         $0.estimatedRowHeight = 50
         $0.estimatedSectionHeaderHeight = 0.01
@@ -46,7 +59,7 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
         view.addSubview(tableView)
         let items = Observable.just(titles.map { $0 })
 
-        items.bind(to: tableView.rx.items(cellIdentifier: "UITableViewCell", cellType: UITableViewCell.self)) { (row,element,cell) in
+        items.bind(to: tableView.rx.items(cellIdentifier: "ZSForumCell", cellType: ZSForumCell.self)) { (row,element,cell) in
             cell.selectionStyle = .none
             let name = (element as! NSDictionary)["image"] as? String ?? ""
             let title = (element as! NSDictionary)["title"] as? String
@@ -65,15 +78,71 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
     func configureNavigateOnRowClick(){
         tableView.rx.itemSelected.bind { [unowned self] indexPath in
             self.tableView.deselectRow(at: indexPath, animated: true)
-            if indexPath.row == 3{
+            if indexPath.row == 1 {
+                let discussVC = ZSDiscussViewController()
+                discussVC.title = self.titles[indexPath.row]["title"]
+                discussVC.block = "ramble"
+                SideVC.navigationController?.pushViewController(discussVC, animated: true)
+
+            } else if indexPath.row == 2 {
+                let reviewVC = ZSBookReviewViewController()
+                
+                SideVC.navigationController?.pushViewController(reviewVC, animated: true)
+
+            } else if indexPath.row == 3{
                 let lookVC = LookBookViewController()
                 SideVC.navigationController?.pushViewController(lookVC, animated: true)
                 
-            }else
-                if indexPath.row == 5 {
+            }else if indexPath.row == 4{
+                let lookVC = ZSDiscussViewController()
+                lookVC.block = "fuli"
+                lookVC.title = self.titles[indexPath.row]["title"]
+
+                SideVC.navigationController?.pushViewController(lookVC, animated: true)
+                
+            }else if indexPath.row == 5{
+                let lookVC = ZSDiscussViewController()
+                lookVC.block = "original"
+                lookVC.title = self.titles[indexPath.row]["title"]
+
+                SideVC.navigationController?.pushViewController(lookVC, animated: true)
+            }
+            else if indexPath.row == 6 {
+                let femaleVC = ZSFemaleViewController()
+                SideVC.navigationController?.pushViewController(femaleVC, animated: true)
+
+            }else if indexPath.row == 7 {
+                let femaleVC = ZSDiscussViewController()
+                femaleVC.title = self.titles[indexPath.row]["title"]
+
+                femaleVC.block = "yingxiong"
+                SideVC.navigationController?.pushViewController(femaleVC, animated: true)
+                
+            }else if indexPath.row == 8 {
+                let femaleVC = ZSDiscussViewController()
+                femaleVC.title = self.titles[indexPath.row]["title"]
+
+                femaleVC.block = "erciyuan"
+                SideVC.navigationController?.pushViewController(femaleVC, animated: true)
+                
+            }else if indexPath.row == 9 {
+                let femaleVC = ZSDiscussViewController()
+                femaleVC.title = self.titles[indexPath.row]["title"]
+
+                femaleVC.block = "wangwen"
+                SideVC.navigationController?.pushViewController(femaleVC, animated: true)
+                
+            }else if indexPath.row == 10 {
+                let femaleVC = ZSDiscussViewController()
+                femaleVC.title = self.titles[indexPath.row]["title"]
+                femaleVC.block = "dahua"
+                SideVC.navigationController?.pushViewController(femaleVC, animated: true)
+                
+            }
+            else if indexPath.row == 11 {
                     let historyVC = ReadHistoryViewController()
                     SideVC.navigationController?.pushViewController(historyVC, animated: true)
-                } else if indexPath.row == 6 {
+                } else if indexPath.row == 12 {
                     let importBookVC = ZSImportBookViewController()
                     SideVC.navigationController?.pushViewController(importBookVC, animated: true)
                 }
@@ -91,5 +160,14 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
+    }
+}
+
+class ZSForumCell:UITableViewCell{
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.imageView?.frame = CGRect(x: 20, y: 9, width: 30, height: 30)
+        self.textLabel?.frame = CGRect(x: 65, y: 0, width: ScreenWidth - 65 - 38, height: 49.67)
+        self.separatorInset = UIEdgeInsetsMake(0, 65, 0, 0)
     }
 }

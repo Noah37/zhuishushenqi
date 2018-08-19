@@ -13,6 +13,8 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
     
     var presenter: QSRankPresenterProtocol?
     
+    var viewModel = ZSRankViewModel()
+    
     var tableView:UITableView!
     var ranks:[[QSRankModel]]?
     var show:[Bool] = [false,false]
@@ -24,7 +26,9 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
         // Do any additional setup after loading the view.
         title = "排行榜"
         initSubview()
-        presenter?.viewDidLoad()
+        viewModel.fetchRanking { (_) in
+            self.tableView.reloadData()
+        }
     }
     
     fileprivate func initSubview(){
@@ -39,12 +43,13 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return show[section] ? (ranks?[section].count ?? 0):collapse(maleRank: ranks?[section])
+        let models = viewModel.showRanks[section]
+        return models.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return ranks?.count ?? 0
+        return viewModel.showRanks.count
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,12 +58,9 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
         cell?.backgroundColor = UIColor.white
         cell?.selectionStyle = .none
         
-        var rank:[QSRankModel]? = ranks?[indexPath.section]
-        cell?.model = rank?[indexPath.row]
-        cell?.accessoryImageView.isSelected = self.show[indexPath.section]
-        cell?.accessoryClosure = {
-            self.presenter?.didClickOpenBtn(indexPath:indexPath,show: self.show)
-        }
+        let models = viewModel.showRanks[indexPath.section]
+        cell?.model  = models[indexPath.row]
+        cell?.accessoryImageView.isSelected = (indexPath.section == 0 ? viewModel.showMaleRank:viewModel.showFemaleRank)
         return cell!
     }
     
@@ -81,7 +83,16 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.didSelectResultRow(indexPath: indexPath)
+        viewModel.clickRow(indexPath: indexPath) { (models) in
+            if let _ = models {            
+                self.tableView.reloadData()
+            } else {
+                let detailVC = ZSRankViewController()
+                detailVC.rank = self.viewModel.showRanks[indexPath.section][indexPath.row]
+                detailVC.title = detailVC.rank?.title
+                self.navigationController?.pushViewController(detailVC, animated: true)
+            }
+        }
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {

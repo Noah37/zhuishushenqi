@@ -12,7 +12,11 @@ import HandyJSON
 @objc(QSRankModel)
 class QSRankModel: NSObject,HandyJSON {
 
-    var totalRank:String = ""
+    var totalRank:String = "" {
+        didSet {
+
+        }
+    }
     var _id:String = ""
     var title:String = ""
     var collapse:Int = 0

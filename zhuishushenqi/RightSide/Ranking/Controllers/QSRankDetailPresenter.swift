@@ -7,6 +7,16 @@
 //
 
 import Foundation
+
+class ZSRankDetailViewModel {
+    
+    var webService = ZSRankDetailWebService()
+    
+    func fetchRanking(rank:QSRankModel,index:Int,_ handler:ZSBaseCallback<[Book]>?){
+        webService.fetchRanking(rank: rank, index: index, handler)
+    }
+}
+
 class QSRankDetailPresenter: QSRankDetailPresenterProtocol {
     weak var view: QSRankDetailViewProtocol?
     var interactor: QSRankDetailInteractorProtocol

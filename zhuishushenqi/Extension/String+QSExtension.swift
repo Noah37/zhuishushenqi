@@ -154,5 +154,4 @@ extension String{
         let rect:CGRect = sttt.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
         return rect.size.height
     }
-
 }

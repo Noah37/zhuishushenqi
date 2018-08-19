@@ -126,6 +126,10 @@ class TXTReaderViewController: UIViewController {
                         }
                     }
                 }
+            } else {
+                viewModel.fetchInitialChapter { (page) in
+                    pageVC.page = page
+                }
             }
         }
         currentReaderVC = pageVC
@@ -327,7 +331,7 @@ extension TXTReaderViewController:UIPageViewControllerDataSource,UIPageViewContr
         }
         let backgroundVC = QSReaderBackgroundViewController()
         backgroundVC.setBackground(viewController: pageVC)
-        pageController?.setViewControllers([pageVC,backgroundVC], direction: .forward, animated: true) { (finished) in
+        pageController?.setViewControllers([pageVC], direction: .forward, animated: true) { (finished) in
         }
         currentReaderVC = pageVC
     }
