@@ -10,18 +10,20 @@ import UIKit
 
 extension CALayer {
     @objc func tint(withColors colors: [UIColor]) {
-        recursiveSearch(inArray: skeletonSublayers,
-                        leafBlock: { backgroundColor = colors.first?.cgColor }) {
-                            $0.tint(withColors: colors)
+        skeletonSublayers.recursiveSearch(leafBlock: {
+            backgroundColor = colors.first?.cgColor
+        }) {
+            $0.tint(withColors: colors)
         }
     }
 }
 
 extension CAGradientLayer {
     override func tint(withColors colors: [UIColor]) {
-        recursiveSearch(inArray: skeletonSublayers,
-                        leafBlock: { self.colors = colors.map { $0.cgColor } }) {
-                            $0.tint(withColors: colors)
+        skeletonSublayers.recursiveSearch(leafBlock: {
+            self.colors = colors.map { $0.cgColor }
+        }) {
+            $0.tint(withColors: colors)
         }
     }
 }
@@ -51,7 +53,7 @@ extension CALayer {
     }
     
     private func calculateNumLines(maxLines: Int) -> Int {
-        let spaceRequitedForEachLine = SkeletonDefaultConfig.multilineHeight + SkeletonDefaultConfig.multilineSpacing
+        let spaceRequitedForEachLine = SkeletonAppearance.default.multilineHeight + SkeletonAppearance.default.multilineSpacing
         var numberOfSublayers = Int(round(CGFloat(bounds.height)/CGFloat(spaceRequitedForEachLine)))
         if maxLines != 0,  maxLines <= numberOfSublayers { numberOfSublayers = maxLines }
         return numberOfSublayers
@@ -91,16 +93,18 @@ public extension CALayer {
     }
     
     func playAnimation(_ anim: SkeletonLayerAnimation, key: String) {
-        recursiveSearch(inArray: skeletonSublayers,
-                        leafBlock: { add(anim(self), forKey: key) }) {
-                            $0.playAnimation(anim, key: key)
+        skeletonSublayers.recursiveSearch(leafBlock: {
+            add(anim(self), forKey: key)
+        }) {
+            $0.playAnimation(anim, key: key)
         }
     }
     
     func stopAnimation(forKey key: String) {
-        recursiveSearch(inArray: skeletonSublayers,
-                        leafBlock: { removeAnimation(forKey: key) }) {
-                            $0.stopAnimation(forKey: key)
+        skeletonSublayers.recursiveSearch(leafBlock: {
+            removeAnimation(forKey: key)
+        }) {
+            $0.stopAnimation(forKey: key)
         }
     }
 }

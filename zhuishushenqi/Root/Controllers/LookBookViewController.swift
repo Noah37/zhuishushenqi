@@ -8,12 +8,19 @@
 
 import UIKit
 import QSNetwork
+import MJRefresh
 
 class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableViewDelegate,QSSegmentDropViewDelegate {
     var models:[BookComment] = []
     var selectIndexs:[Int] = []
     
-    var block:String = "girl"
+    var viewModel:ZSDiscussViewModel = ZSDiscussViewModel()
+    
+    var block:String = "girl" {
+        didSet{
+            
+        }
+    }
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 40), style: .grouped)
         tableView.dataSource = self

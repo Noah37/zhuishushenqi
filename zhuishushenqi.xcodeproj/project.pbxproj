@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D08F242212C2DC6007B3D19 /* ZSDiscussViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */; };
+		3D08F244212C2DFC007B3D19 /* ZSDiscussWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */; };
 		3D2B4D0320EB616D008E3E81 /* ZSReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */; };
 		3D2B4D0520EB6552008E3E81 /* ZSNoneAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */; };
 		3D2B4D0720EB68AC008E3E81 /* ZSReaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */; };
@@ -401,6 +403,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussViewModel.swift; sourceTree = "<group>"; };
+		3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussWebService.swift; sourceTree = "<group>"; };
 		3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSNoneAnimationViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderProtocol.swift; sourceTree = "<group>"; };
@@ -889,6 +893,7 @@
 				B2A39C492110453100D6308E /* ZSLocalShelfViewModel.swift */,
 				3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */,
 				B2ACA0622124467F0032305E /* ZSSettingViewModel.swift */,
+				3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */,
 				B2ACA06421244B3D0032305E /* ZSSetting.plist */,
 			);
 			path = ViewModel;
@@ -900,6 +905,7 @@
 				3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */,
 				B2C0DF8020D4CC5A0057DC84 /* ZSBaseService.swift */,
 				B252D4DF211033F20091858E /* ZSShelfWebService.swift */,
+				3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2492,6 +2498,7 @@
 				B2B4BBE91E7EA4AB000CC201 /* EmptyView.swift in Sources */,
 				3DF2D27A20EB5C1C004E73B6 /* ZSChapterBody.swift in Sources */,
 				B2B4BBE21E7EA4AB000CC201 /* SwiftyJSON.swift in Sources */,
+				3D08F242212C2DC6007B3D19 /* ZSDiscussViewModel.swift in Sources */,
 				B2C0DF8320D612F00057DC84 /* ZSBookCommentViewModel.swift in Sources */,
 				B2B02E481EA8920F00A6880A /* QSCategoryDetailViewController.swift in Sources */,
 				B2F778BC1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift in Sources */,
@@ -2555,6 +2562,7 @@
 				B2C0DF3720D4CB350057DC84 /* PageInfo.swift in Sources */,
 				B2B02E3D1EA891E700A6880A /* CategoryDetailViewController.swift in Sources */,
 				B2C0DF3820D4CB350057DC84 /* BookDetail.swift in Sources */,
+				3D08F244212C2DFC007B3D19 /* ZSDiscussWebService.swift in Sources */,
 				B2A02F8020F33F710034DC64 /* ZSReaderManager.swift in Sources */,
 				B203BB651E9E119400F9C052 /* QSSearchViewController+Transition.swift in Sources */,
 				B22AC44F1E9F1C7D008625E6 /* QSRankInteractor.swift in Sources */,

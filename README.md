@@ -54,6 +54,21 @@ Main development of zhuishushenqi olny support Swift 4.0+.
 ![zhuishenqiimg](images/qs_changeSource.png)-->
 
 <img src="images/qs_bookshelf.png" width="20%" height="20%" /><img src="images/qs_reader.png" width="20%" height="20%" /><img src="images/qs_readerMain.png" width="20%" height="20%" /><img src="images/qs_changeSource.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.36.06.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.38.43.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.36.09.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.36.12.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.36.18.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.36.23.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.36.27.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.36.38.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.36.46.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.36.54.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.37.04.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.37.09.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.38.21.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.38.28.png" width="20%" height="20%" />
+<img src="images/Simulator Screen Shot - iPhone X - 2018-08-22 at 18.38.33.png" width="20%" height="20%" />
 
 
 ## Contact
