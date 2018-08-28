@@ -35,6 +35,12 @@ class BookCommentCell: UITableViewCell {
     var moreBtn:QSToolButton!
     var rateView:RateView!
     var content: UILabel!
+    
+    var data:CoreTextData!
+    
+    let config = CTFrameParserConfig()
+    
+    var displayView:CTDisplayView!
 
     func modelSetAction(model:BookComment?){
         let created = model?.created ?? "2014-02-23T16:48:18.179Z"
@@ -44,12 +50,19 @@ class BookCommentCell: UITableViewCell {
         titleHeight.constant = model?.titleHeight ?? 0
         
         content.text = "\(model?.content ?? "")"
-        contentHeight.constant = model?.contentHeight ?? 0 + 20
+        
+        data = CTFrameParser.parseString(model?.content ?? "", config: config)
+        displayView.data = data
+        displayView.height = data?.height ?? 21
+        displayView.backgroundColor = UIColor.white
+
+        
+        contentHeight.constant = data?.height ?? 0 + 20
 
         bookName.text = "\(model?.book.title ?? "")"
     
         let titleHeighttt = model?.titleHeight ?? 0
-        let contentHeightttt = model?.contentHeight ?? 0
+        let contentHeightttt = data?.height ?? 0
         let totalHeight = titleHeighttt + contentHeightttt  + title.frame.minY + 19 + bgView.bounds.height
         rateView.rate = model?.rating ?? 0
 
@@ -77,12 +90,18 @@ class BookCommentCell: UITableViewCell {
         content = UILabel(frame: CGRect(x: 8, y: 78, width: ScreenWidth - 16, height: 21))
         content.numberOfLines = 0;
         content.font = UIFont.systemFont(ofSize: 13)
-        contentView.addSubview(content)
+//        contentView.addSubview(content)
+        
+        displayView = CTDisplayView(frame: CGRect(x: 8, y: 78, width: ScreenWidth - 16, height: 21))
+        contentView.addSubview(displayView)
+        config.width = displayView.size.width
     }
     
     static func height(model:BookComment?)->CGFloat{
         let titleHeight = model?.titleHeight ?? 0
-        let contentHeight = model?.contentHeight ?? 0
+        let config = CTFrameParserConfig()
+        let data = CTFrameParser.parseString(model?.content ?? "", config: config)
+        let contentHeight = data?.height ?? 0
         let height = titleHeight + contentHeight + 210
         return height
     }
@@ -93,7 +112,9 @@ class BookCommentCell: UITableViewCell {
         moreBtn.frame = CGRect(x: self.bounds.width*2/3, y: height, width: self.bounds.width/3, height: 80)
         let lightRect = CGRect(x: readerRate.frame.maxX , y: readerRate.frame.minY + readerRate.frame.height/2 - 10/2, width: 60, height: 10)
         rateView.frame = lightRect
-        content.frame = CGRect(x: 8, y: 78, width: ScreenWidth - 16, height: model?.contentHeight ?? 0)
+//        NotificationCenter.qs_postNotification(name: "BookCellRefreshHeight", obj: nil)
+//        displayView.frame = CGRect(x: 8, y: 78, width: ScreenWidth - 16, height: model?.contentHeight ?? 0)
+//        content.frame = CGRect(x: 8, y: 78, width: ScreenWidth - 16, height: model?.contentHeight ?? 0)
     }
     
     func toolBar(height:CGFloat){

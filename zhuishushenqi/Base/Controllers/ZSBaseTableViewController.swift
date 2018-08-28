@@ -16,6 +16,7 @@ class ZSBaseTableViewController: UITableViewController {
         self.view.backgroundColor = UIColor.white
         navigationController?.navigationBar.tintColor = UIColor.red
         navigationController?.navigationBar.barTintColor = UIColor.white
+        register()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +31,15 @@ class ZSBaseTableViewController: UITableViewController {
     override var prefersStatusBarHidden : Bool {
         return false
     }
+    
+    private func register(){
+        let classes = registerCellClasses()
+        for cls in classes {
+            self.tableView.register(cls, forCellReuseIdentifier: NSStringFromClass(cls))
+        }
+    }
 
-
+    func registerCellClasses() -> Array<AnyClass> {
+        return []
+    }
 }

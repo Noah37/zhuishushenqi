@@ -3,11 +3,10 @@
 //  CoreTextDemo
 //
 //  Created by caonongyun on 2017/7/25.
-//  Copyright © 2017年 QS. All rights reserved.
+//  Copyright (c) 2017年 caonongyun. All rights reserved.
 //
 
 #import "CoreTextData.h"
-#import "CoreTextImageData.h"
 
 @implementation CoreTextData
 
@@ -20,6 +19,7 @@
         _ctFrame = ctFrame;
     }
 }
+
 - (void)dealloc {
     if (_ctFrame != nil) {
         CFRelease(_ctFrame);
@@ -31,16 +31,19 @@
     _imageArray = imageArray;
     [self fillImagePosition];
 }
+
 - (void)fillImagePosition {
     if (self.imageArray.count == 0) {
         return;
     }
     NSArray *lines = (NSArray *)CTFrameGetLines(self.ctFrame);
-    int lineCount = [lines count];
+    NSUInteger lineCount = [lines count];
     CGPoint lineOrigins[lineCount];
     CTFrameGetLineOrigins(self.ctFrame, CFRangeMake(0, 0), lineOrigins);
+    
     int imgIndex = 0;
     CoreTextImageData * imageData = self.imageArray[0];
+    
     for (int i = 0; i < lineCount; ++i) {
         if (imageData == nil) {
             break;
@@ -54,22 +57,28 @@
             if (delegate == nil) {
                 continue;
             }
+            
             NSDictionary * metaDic = CTRunDelegateGetRefCon(delegate);
             if (![metaDic isKindOfClass:[NSDictionary class]]) {
                 continue;
             }
+            
             CGRect runBounds;
             CGFloat ascent;
             CGFloat descent;
             runBounds.size.width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), &ascent, &descent, NULL);
             runBounds.size.height = ascent + descent;
+            
             CGFloat xOffset = CTLineGetOffsetForStringIndex(line, CTRunGetStringRange(run).location, NULL);
             runBounds.origin.x = lineOrigins[i].x + xOffset;
             runBounds.origin.y = lineOrigins[i].y;
             runBounds.origin.y -= descent;
+            
             CGPathRef pathRef = CTFrameGetPath(self.ctFrame);
             CGRect colRect = CGPathGetBoundingBox(pathRef);
+            
             CGRect delegateBounds = CGRectOffset(runBounds, colRect.origin.x, colRect.origin.y);
+            
             imageData.imagePosition = delegateBounds;
             imgIndex++;
             if (imgIndex == self.imageArray.count) {
@@ -81,5 +90,6 @@
         }
     }
 }
+
 
 @end

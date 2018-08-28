@@ -16,6 +16,6 @@
 #import "CoreTextUtils.h"
 #import "CTFrameParser.h"
 #import "CTFrameParserConfig.h"
-#import "UIView+frameAdjust.h"
+//#import "UIView+frameAdjust.h"
 
 #endif /* CTDisplayText_h */

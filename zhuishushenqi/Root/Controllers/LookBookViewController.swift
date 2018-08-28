@@ -9,9 +9,10 @@
 import UIKit
 import QSNetwork
 import MJRefresh
+import RxSwift
 
-class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableViewDelegate,QSSegmentDropViewDelegate {
-    var models:[BookComment] = []
+class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableViewDelegate,QSSegmentDropViewDelegate,Refreshable {
+
     var selectIndexs:[Int] = []
     
     var viewModel:ZSDiscussViewModel = ZSDiscussViewModel()
@@ -21,6 +22,12 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
             
         }
     }
+    
+    var headerRefresh:MJRefreshHeader?
+    var footerRefresh:MJRefreshFooter?
+    fileprivate let disposeBag = DisposeBag()
+
+    
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: kNavgationBarHeight + 40, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - 40), style: .grouped)
         tableView.dataSource = self
@@ -50,44 +57,32 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
         let dropView = QSSegmentDropView(frame: CGRect(x: 0, y: kNavgationBarHeight, width: ScreenWidth, height: 40), WithTitles: titles,parentView:self.view)
         dropView.menuDelegate = self
         view.addSubview(dropView)
+        
+        let header = initRefreshHeader(tableView) {
+            self.viewModel.fetchDiscuss(selectIndexs: self.selectIndexs, completion: { (comments) in
+                self.tableView.reloadData()
+            })
+        }
+        let footer = initRefreshFooter(tableView) {
+            self.viewModel.fetchMore(selectIndexs: self.selectIndexs, completion: { (comments) in
+                self.tableView.reloadData()
+            })
+        }
+        headerRefresh = header
+        footerRefresh = footer
+        
+        headerRefresh?.beginRefreshing()
+        viewModel.autoSetRefreshHeaderStatus(header: header, footer: footer).disposed(by: disposeBag)
     }
     
     func fetchHelp(_ selectIndexs:[Int]){
-        // local list
-        //all ,默认排序
-        //        http://api.zhuishushenqi.com/post/by-block?block=ramble&duration=all&sort=updated&start=0&limit=20
-        
-        // all,最新发布
-        //        http://api.zhuishushenqi.com/post/by-block?block=ramble&duration=all&sort=created&start=0&limit=20
-        
-        // all,最多评论
-        //        http://api.zhuishushenqi.com/post/by-block?block=ramble&duration=all&sort=comment-count&start=0&limit=20
-        
-        // 精品,默认
-        //        http://api.zhuishushenqi.com/post/by-block?block=ramble&distillate=true&duration=all&sort=updated&start=0&limit=20
-        
-        // 精品,最新发布
-        //        http://api.zhuishushenqi.com/post/by-block?block=ramble&distillate=true&duration=all&sort=created&start=0&limit=20
-        
-        // 精品,最多评论
-        //        http://api.zhuishushenqi.com/post/by-block?block=ramble&distillate=true&duration=all&sort=comment-count&start=0&limit=20
-        
-        let urlString = getURLString(selectIndexs: selectIndexs)
-        QSNetwork.request(urlString) { (response) in
-            let helps = response.json?["posts"] as? [[String:Any]]
-            if let commnets = [BookComment].deserialize(from: helps) as? [BookComment] {
-                self.models = commnets
-                self.tableView.reloadData()
+        viewModel.fetchDiscuss(selectIndexs: selectIndexs) { (comments) in
+            self.tableView.reloadData()
+            if self.viewModel.models.count > 0 {
+                let indexPath = IndexPath(row: 0, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: false)
             }
         }
-        
-    }
-    
-    func getURLString(selectIndexs:[Int])->String{
-        let durations = ["duration=all","duration=all&distillate=true"]
-        let sort = ["sort=updated","sort=created","sort=comment-count"]
-        let urlString = "\(BASEURL)/post/by-block?block=\(block)&\(durations[selectIndexs[0]])&\(sort[selectIndexs[1]])&start=0&limit=20"
-        return urlString
     }
     
     //MARK: - QSSegmentDropViewDelegate
@@ -99,7 +94,7 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
     //MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models.count
+        return viewModel.models.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -110,7 +105,7 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
         let cell:QSHelpViewCell? = tableView.qs_dequeueReusableCell(QSHelpViewCell.self)
         cell?.backgroundColor = UIColor.white
         cell?.selectionStyle = .none
-        cell?.configureCell(model: models[indexPath.row])
+        cell?.configureCell(model: viewModel.models[indexPath.row])
         return cell!
     }
     
@@ -123,7 +118,7 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = models[indexPath.row]
+        let model = viewModel.models[indexPath.row]
         self.navigationController?.pushViewController(QSBookCommentRouter.createModule(model: model), animated: true)
     }
 }

@@ -38,6 +38,8 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.qs_addObserver(observer: self, selector: #selector(refreshCell(noti:)), name: "BookCellRefreshHeight", object: nil)
+        
         initRefreshFooter(tableView) {
             self.presenter?.requestMore()
         }
@@ -52,6 +54,10 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
         self.navigationItem.rightBarButtonItem = rightBar
         presenter?.viewDidLoad()
         view.addSubview(tableView)
+    }
+    
+    @objc func refreshCell(noti:Notification){
+        self.tableView.reloadData()
     }
     
     @objc func jump(btn:UIButton){

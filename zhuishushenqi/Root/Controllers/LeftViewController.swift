@@ -64,6 +64,10 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
         return cell!
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         for index in 0..<images.count {
             let selectedImage = view.viewWithTag(12306 + index)
