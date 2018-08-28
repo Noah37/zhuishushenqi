@@ -204,7 +204,7 @@ typedef enum CTDisplayViewState : NSInteger {
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetTextMatrix(context, CGAffineTransformIdentity);
-    CGContextTranslateCTM(context, 0, self.bounds.size.height);
+    CGContextTranslateCTM(context, 0, self.data.height);
     CGContextScaleCTM(context, 1.0, -1.0);
 
     if (self.state == CTDisplayViewStateTouching || self.state == CTDisplayViewStateSelecting) {
