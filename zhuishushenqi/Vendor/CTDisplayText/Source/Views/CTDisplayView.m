@@ -182,7 +182,7 @@ typedef enum CTDisplayViewState : NSInteger {
 - (void)setupEvents {
     UIGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                     action:@selector(userTapGestureDetected:)];
-//    [self addGestureRecognizer:tapRecognizer];
+    [self addGestureRecognizer:tapRecognizer];
 
     UIGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                     action:@selector(userLongPressedGuestureDetected:)];
@@ -239,6 +239,9 @@ typedef enum CTDisplayViewState : NSInteger {
                 NSLog(@"hint image");
                 // 在这里处理点击后的逻辑
                 NSDictionary *userInfo = @{ @"imageData": imageData };
+                if (_handler) {
+                    _handler(userInfo);
+                }
                 [[NSNotificationCenter defaultCenter] postNotificationName:CTDisplayViewImagePressedNotification
                                                                     object:self userInfo:userInfo];
                 return;
@@ -249,6 +252,9 @@ typedef enum CTDisplayViewState : NSInteger {
         if (linkData) {
             NSLog(@"hint link!");
             NSDictionary *userInfo = @{ @"linkData": linkData };
+            if (_handler) {
+                _handler(userInfo);
+            }
             [[NSNotificationCenter defaultCenter] postNotificationName:CTDisplayViewLinkPressedNotification
                                                                 object:self userInfo:userInfo];
             return;

@@ -13,6 +13,8 @@
 @property (strong, nonatomic) NSString * title;
 @property (strong, nonatomic) NSString * url;
 @property (assign, nonatomic) NSRange range;
+// post或者booklist
+@property (nonatomic, copy) NSString *linkTo;
 
 // key一般为24位的ID,可以手动拼接成URL
 @property (nonatomic, copy) NSString *key;

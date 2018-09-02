@@ -47,7 +47,7 @@ class BookComment: NSObject,HandyJSON {
     
     func calTitleHeight(){
         DispatchQueue.global().async {
-            let height = self.title.qs_height(13, width: UIScreen.main.bounds.width - 30)
+            let height = self.title.qs_height(13, width: UIScreen.main.bounds.width - 16)
             self.titleHeight = height
         }
     }

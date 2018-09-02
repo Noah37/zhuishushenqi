@@ -31,7 +31,9 @@ class QSCommunityRouter: QSCommunityWireframeProtocol {
     }
     
     func presentDetail(detail: BookComment) {
-        viewController?.navigationController?.pushViewController(QSBookCommentRouter.createModule(model: detail), animated: true)
+        let commentVC = ZSBookCommentViewController(style: .grouped)
+       commentVC.viewModel.model = detail
+        viewController?.navigationController?.pushViewController(commentVC, animated: true)
     }
     
 }

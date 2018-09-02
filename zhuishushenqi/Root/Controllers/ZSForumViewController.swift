@@ -100,7 +100,7 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
 
                 SideVC.navigationController?.pushViewController(lookVC, animated: true)
                 
-            }else if indexPath.row == 5{
+            }else if indexPath.row == 5{1
                 let lookVC = ZSDiscussViewController()
                 lookVC.block = "original"
                 lookVC.title = self.titles[indexPath.row]["title"]

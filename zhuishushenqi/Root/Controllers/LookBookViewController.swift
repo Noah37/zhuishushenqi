@@ -19,7 +19,7 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
     
     var block:String = "girl" {
         didSet{
-            
+            self.viewModel.block = block
         }
     }
     
@@ -119,7 +119,9 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = viewModel.models[indexPath.row]
-        self.navigationController?.pushViewController(QSBookCommentRouter.createModule(model: model), animated: true)
+        let commentVC = ZSBookCommentViewController(style: .grouped)
+        commentVC.viewModel.model = model
+        self.navigationController?.pushViewController(commentVC, animated: true)
     }
 }
 
@@ -301,7 +303,9 @@ class ZSBookReviewViewController:BaseViewController,UITableViewDataSource,UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = models[indexPath.row]
-        self.navigationController?.pushViewController(QSBookCommentRouter.createModule(model: model), animated: true)
+        let commentVC = ZSBookCommentViewController(style: .grouped)
+        commentVC.viewModel.model = model
+        self.navigationController?.pushViewController(commentVC, animated: true)
     }
 }
 
@@ -412,8 +416,9 @@ class ZSFemaleViewController:BaseViewController,UITableViewDataSource,UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = models[indexPath.row]
-        self.navigationController?.pushViewController(QSBookCommentRouter.createModule(model: model), animated: true)        
-    }
+        let commentVC = ZSBookCommentViewController(style: .grouped)
+        commentVC.viewModel.model = model
+        self.navigationController?.pushViewController(commentVC, animated: true)    }
 }
 
 class LookBookViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate,QSSegmentDropViewDelegate {
@@ -516,6 +521,7 @@ class LookBookViewController: BaseViewController,UITableViewDataSource,UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = models[indexPath.row]
-        self.navigationController?.pushViewController(QSBookCommentRouter.createModule(model: model), animated: true)
-    }
+        let commentVC = ZSBookCommentViewController(style: .grouped)
+        commentVC.viewModel.model = model
+        self.navigationController?.pushViewController(commentVC, animated: true)    }
 }

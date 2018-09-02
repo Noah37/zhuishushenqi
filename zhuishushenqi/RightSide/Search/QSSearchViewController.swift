@@ -81,6 +81,28 @@ class ZSSearchViewController: ZSBaseTableViewController {
         resultViewController.didSelectIndexPathAtRow = { (book) in
             self.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: book?._id ?? ""), animated: true)
         }
+        
+        if self.searchViewModel.keywords != "" {
+            self.searchController.searchBar.text = self.searchViewModel.keywords
+            searchViewModel.fetchAutoComplete(key: searchController.searchBar.text ?? "") { (books) in
+                self.autoCompleteController.books = books ?? []
+                let indexPath = IndexPath(row: 0, section: 0)
+                if self.autoCompleteController.books.count > 0 {
+                    self.resultViewController.view.origin.y = self.searchBarHeight
+                    self.resultViewController.view.size.height = ScreenHeight - self.searchBarHeight - kNavgationBarHeight
+                    self.searchViewModel.addToHistory(history: self.searchController.searchBar.text ?? "")
+                    self.view.addSubview(self.resultViewController.view)
+                    self.searchViewModel.fetchBooks(key: self.searchController.searchBar.text ?? "", start: 0, limit: 50) { (books) in
+                        self.resultViewController.books = books
+                    }
+                }
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
     }
 }
 
@@ -129,7 +151,12 @@ extension ZSSearchViewController:UISearchResultsUpdating,UISearchControllerDeleg
     }
     
     func didPresentSearchController(_ searchController: UISearchController) {
-        
+//        let indexPath = IndexPath(row: 0, section: 0)
+//
+//        if indexPath.row < self.autoCompleteController.books.count {
+//            self.searchController.searchBar.text = self.autoCompleteController.books[indexPath.row]
+//            self.searchBarSearchButtonClicked(self.searchController.searchBar)
+//        }
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {
@@ -137,6 +164,10 @@ extension ZSSearchViewController:UISearchResultsUpdating,UISearchControllerDeleg
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
+        
+    }
+    
+    func presentSearchController(_ searchController: UISearchController) {
         
     }
 }

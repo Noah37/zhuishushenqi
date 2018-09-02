@@ -13,8 +13,12 @@
 extern NSString *const CTDisplayViewImagePressedNotification;
 extern NSString *const CTDisplayViewLinkPressedNotification;
 
+typedef void(^CTDisplayHandler)(NSDictionary *data);
+
 @interface CTDisplayView : UIView
 
 @property (strong, nonatomic) CoreTextData * data;
+
+@property (nonatomic, copy) CTDisplayHandler handler;
 
 @end

@@ -23,6 +23,8 @@
 		3D968CF62133917900DF3279 /* ZSCellAdapterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D968CF52133917900DF3279 /* ZSCellAdapterProtocol.swift */; };
 		3D968CF8213392F500DF3279 /* ZSBaseCellAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D968CF7213392F500DF3279 /* ZSBaseCellAdapter.swift */; };
 		3D968CFA213396B700DF3279 /* ZSBaseSectionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D968CF9213396B700DF3279 /* ZSBaseSectionAdapter.swift */; };
+		3D968CFC2135391400DF3279 /* ZSBookCTViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D968CFB2135391400DF3279 /* ZSBookCTViewModel.swift */; };
+		3D968CFE2135398600DF3279 /* ZSBookCTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D968CFD2135398600DF3279 /* ZSBookCTService.swift */; };
 		3D9D857C20CA439D003FEDFE /* ZSShelfMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D857B20CA439D003FEDFE /* ZSShelfMessage.swift */; };
 		3DDB6CA82130F4BC00E8698D /* CoreTextUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDB6C952130F4BC00E8698D /* CoreTextUtils.m */; };
 		3DDB6CA92130F4BC00E8698D /* CTFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDB6C962130F4BC00E8698D /* CTFrameParser.m */; };
@@ -323,7 +325,6 @@
 		B2C0DF4C20D4CB350057DC84 /* BookCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2C0DEE720D4CB340057DC84 /* BookCommentCell.xib */; };
 		B2C0DF4D20D4CB350057DC84 /* UserfulCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DEE820D4CB340057DC84 /* UserfulCell.swift */; };
 		B2C0DF4E20D4CB350057DC84 /* QSDiscussCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DEE920D4CB340057DC84 /* QSDiscussCell.swift */; };
-		B2C0DF5020D4CB350057DC84 /* .DS_Store~876a9ee6afa162f4fb71eff5fa02f2e0dbe52ae2 in Resources */ = {isa = PBXBuildFile; fileRef = B2C0DEEB20D4CB340057DC84 /* .DS_Store~876a9ee6afa162f4fb71eff5fa02f2e0dbe52ae2 */; };
 		B2C0DF5120D4CB350057DC84 /* ChangeSourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DEEC20D4CB340057DC84 /* ChangeSourceCell.swift */; };
 		B2C0DF5220D4CB350057DC84 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DEED20D4CB340057DC84 /* CategoryButton.swift */; };
 		B2C0DF5320D4CB350057DC84 /* QSRecommendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2C0DEEE20D4CB340057DC84 /* QSRecommendCell.xib */; };
@@ -424,6 +425,8 @@
 		3D968CF52133917900DF3279 /* ZSCellAdapterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCellAdapterProtocol.swift; sourceTree = "<group>"; };
 		3D968CF7213392F500DF3279 /* ZSBaseCellAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseCellAdapter.swift; sourceTree = "<group>"; };
 		3D968CF9213396B700DF3279 /* ZSBaseSectionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseSectionAdapter.swift; sourceTree = "<group>"; };
+		3D968CFB2135391400DF3279 /* ZSBookCTViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCTViewModel.swift; sourceTree = "<group>"; };
+		3D968CFD2135398600DF3279 /* ZSBookCTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCTService.swift; sourceTree = "<group>"; };
 		3D9D857B20CA439D003FEDFE /* ZSShelfMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSShelfMessage.swift; sourceTree = "<group>"; };
 		3DDB6C952130F4BC00E8698D /* CoreTextUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextUtils.m; sourceTree = "<group>"; };
 		3DDB6C962130F4BC00E8698D /* CTFrameParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTFrameParser.m; sourceTree = "<group>"; };
@@ -444,7 +447,6 @@
 		3DDB6CA62130F4BC00E8698D /* UIView+frameAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+frameAdjust.h"; sourceTree = "<group>"; };
 		3DDB6CA72130F4BC00E8698D /* CoreTextLinkData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextLinkData.m; sourceTree = "<group>"; };
 		3DDB6CB12130F56200E8698D /* CTDisplayText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTDisplayText.h; sourceTree = "<group>"; };
-		3DDB6CB22130F63100E8698D /* CTDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTDisplayView.h; sourceTree = "<group>"; };
 		3DDB6CB32130F63200E8698D /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		3DDB6CB42130F63200E8698D /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		3DDB6CB62130F73000E8698D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
@@ -780,7 +782,6 @@
 		B2C0DEE720D4CB340057DC84 /* BookCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookCommentCell.xib; sourceTree = "<group>"; };
 		B2C0DEE820D4CB340057DC84 /* UserfulCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserfulCell.swift; sourceTree = "<group>"; };
 		B2C0DEE920D4CB340057DC84 /* QSDiscussCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSDiscussCell.swift; sourceTree = "<group>"; };
-		B2C0DEEB20D4CB340057DC84 /* .DS_Store~876a9ee6afa162f4fb71eff5fa02f2e0dbe52ae2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ".DS_Store~876a9ee6afa162f4fb71eff5fa02f2e0dbe52ae2"; sourceTree = "<group>"; };
 		B2C0DEEC20D4CB340057DC84 /* ChangeSourceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeSourceCell.swift; sourceTree = "<group>"; };
 		B2C0DEED20D4CB340057DC84 /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		B2C0DEEE20D4CB340057DC84 /* QSRecommendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSRecommendCell.xib; sourceTree = "<group>"; };
@@ -917,7 +918,6 @@
 		3DDB6C942130F4BC00E8698D /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				3DDB6CB22130F63100E8698D /* CTDisplayView.h */,
 				3DDB6CB32130F63200E8698D /* RegexKitLite.h */,
 				3DDB6CB42130F63200E8698D /* RegexKitLite.m */,
 				3DDB6CB12130F56200E8698D /* CTDisplayText.h */,
@@ -1637,10 +1637,10 @@
 				B2B4BA591E7EA4A8000CC201 /* DynamicViewController.swift */,
 				B2B4BA5A1E7EA4A8000CC201 /* LeftViewController.swift */,
 				B2B4BA5B1E7EA4A8000CC201 /* RightViewController.swift */,
+				B252D4E3211037380091858E /* ZSShelfViewController.swift */,
 				B2B4BA5D1E7EA4A8000CC201 /* RootViewController.swift */,
 				3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */,
 				3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */,
-				B252D4E3211037380091858E /* ZSShelfViewController.swift */,
 				B2A39C472110447300D6308E /* ZSLocalShelfViewController.swift */,
 				B252D4A9210EF8770091858E /* ZSImportBookViewController.swift */,
 				3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */,
@@ -1761,6 +1761,7 @@
 			isa = PBXGroup;
 			children = (
 				B2C0DF8220D612F00057DC84 /* ZSBookCommentViewModel.swift */,
+				3D968CFB2135391400DF3279 /* ZSBookCTViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1791,6 +1792,7 @@
 			isa = PBXGroup;
 			children = (
 				B2C0DF7E20D4CC480057DC84 /* ZSBookCommentService.swift */,
+				3D968CFD2135398600DF3279 /* ZSBookCTService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1909,7 +1911,6 @@
 				B2C0DEE720D4CB340057DC84 /* BookCommentCell.xib */,
 				B2C0DEE820D4CB340057DC84 /* UserfulCell.swift */,
 				B2C0DEE920D4CB340057DC84 /* QSDiscussCell.swift */,
-				B2C0DEEB20D4CB340057DC84 /* .DS_Store~876a9ee6afa162f4fb71eff5fa02f2e0dbe52ae2 */,
 				B2C0DEEC20D4CB340057DC84 /* ChangeSourceCell.swift */,
 				B2C0DEED20D4CB340057DC84 /* CategoryButton.swift */,
 				B2C0DEEE20D4CB340057DC84 /* QSRecommendCell.xib */,
@@ -2183,7 +2184,6 @@
 				B2C0DF7A20D4CB6D0057DC84 /* TXTReader.storyboard in Resources */,
 				B2C0DF4B20D4CB350057DC84 /* BookCommentViewCell.xib in Resources */,
 				B20D74171EED83690034516F /* QSLastIntroduceCell.xib in Resources */,
-				B2C0DF5020D4CB350057DC84 /* .DS_Store~876a9ee6afa162f4fb71eff5fa02f2e0dbe52ae2 in Resources */,
 				B29B4FA31E8257BC008852E3 /* DynamicCell.xib in Resources */,
 				B2ACA06521244B3D0032305E /* ZSSetting.plist in Resources */,
 				B2B4BC211E7EA4AB000CC201 /* TopicDetailHeaderCell.xib in Resources */,
@@ -2484,6 +2484,7 @@
 				B2ACA01E212179F60032305E /* ZSSegmentViewController.swift in Sources */,
 				B252D496210EF3960091858E /* HTTPServer.m in Sources */,
 				B200D1FF1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift in Sources */,
+				3D968CFC2135391400DF3279 /* ZSBookCTViewModel.swift in Sources */,
 				B25570871F3A963300C35A34 /* Theme.swift in Sources */,
 				B252D497210EF3960091858E /* DAVConnection.m in Sources */,
 				B252D4A5210EF7070091858E /* ZSHTTPConnection.m in Sources */,
@@ -2492,6 +2493,7 @@
 				B25570811F3A07BB00C35A34 /* AppStyle.swift in Sources */,
 				B2C0DF3920D4CB350057DC84 /* BookShelf.swift in Sources */,
 				B2C0DF2620D4CB350057DC84 /* QSInterestedViewController.swift in Sources */,
+				3D968CFE2135398600DF3279 /* ZSBookCTService.swift in Sources */,
 				B2ACA061212444870032305E /* ZSSettingViewController.swift in Sources */,
 				B2C0DF5E20D4CB350057DC84 /* QSBookListViewCell.swift in Sources */,
 				B2C0DF2D20D4CB350057DC84 /* QSRecord.swift in Sources */,
@@ -2817,7 +2819,7 @@
 				);
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = zhuishushenqi/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
@@ -2853,7 +2855,7 @@
 				);
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = zhuishushenqi/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (

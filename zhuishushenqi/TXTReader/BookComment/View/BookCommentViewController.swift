@@ -201,7 +201,7 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            let height = BookCommentCell.height(model: readerModel)
+            let height = BookCommentCell.totalCellHeight
             return height
         }else if indexPath.section == 1 {
             return 91

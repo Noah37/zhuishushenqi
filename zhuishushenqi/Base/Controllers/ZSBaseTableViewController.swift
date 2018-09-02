@@ -35,11 +35,21 @@ class ZSBaseTableViewController: UITableViewController {
     private func register(){
         let classes = registerCellClasses()
         for cls in classes {
-            self.tableView.register(cls, forCellReuseIdentifier: NSStringFromClass(cls))
+            self.tableView.qs_registerCellClass(cls as! UITableViewCell.Type)
+        }
+        let nibClasses = registerCellNibs()
+        for cls in nibClasses {
+            self.tableView.qs_registerCellNib(cls as! UITableViewCell.Type)
         }
     }
+    
+    
 
     func registerCellClasses() -> Array<AnyClass> {
+        return []
+    }
+    
+    func registerCellNibs() -> Array<AnyClass> {
         return []
     }
 }

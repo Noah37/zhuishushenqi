@@ -88,7 +88,9 @@ static CGFloat widthCallback(void* ref){
     NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] init];
     imageInfoArr = @[].mutableCopy;
     __block NSRange lastRange = NSMakeRange(0, 0);
+    __block BOOL exist = NO;
     [string enumerateStringsMatchedByRegex:pattern usingBlock:^(NSInteger captureCount, NSString *const __unsafe_unretained *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+        exist = YES;
 //        NSLog(@"%@ %@", *capturedStrings, NSStringFromRange(*capturedRanges));
         NSString *text = [string substringWithRange:NSMakeRange(lastRange.location +lastRange.length, (*capturedRanges).location - lastRange.location - lastRange.length)];
         NSLog(@"text:%@",text);
@@ -135,15 +137,18 @@ static CGFloat widthCallback(void* ref){
         //3.处理链接
         if ([*capturedStrings rangeOfString:@"[["].location != NSNotFound) {
 //[[post:5b45ac11137888850bb1c69e 【传送门】报名阶段：7月11日~8月1日]]
-            CGFloat location = [*capturedStrings rangeOfString:@"post:"].location;
-            NSString *key = [*capturedStrings substringWithRange:NSMakeRange(location + 5, 24)];
-            NSString *content = [*capturedStrings substringFromIndex:location + 29];
+            NSRange maohaoRange = [*capturedStrings rangeOfString:@":"];
+            NSRange range = [*capturedStrings rangeOfString:@"[["];
+            NSString *linkKey = [*capturedStrings substringWithRange:NSMakeRange(range.location + 2, maohaoRange.location - range.location - 2)];
+            
+            NSString *key = [*capturedStrings substringWithRange:NSMakeRange(maohaoRange.location + 1, 24)];
+            NSString *content = [*capturedStrings substringFromIndex:maohaoRange.location + 26];
             content = [content stringByReplacingOccurrencesOfString:@"]]" withString:@""];
             NSUInteger startPos = attributeString.length;
             NSDictionary *linkInfo = @{@"type":@"link",
                                        @"key":key,
                                        @"color":@"orange",
-                                       @"content":content
+                                       @"content":content,
                                        };
             NSAttributedString *as = [self parseAttributedContentFromNSDictionary:linkInfo
                                                                            config:config];
@@ -155,6 +160,7 @@ static CGFloat widthCallback(void* ref){
             linkData.title = [NSString stringWithFormat:@"%@",linkInfo[@"content"]];
             linkData.url = [NSString stringWithFormat:@"%@",linkInfo[@"url"]];
             linkData.key = [NSString stringWithFormat:@"%@",linkInfo[@"key"]];
+            linkData.linkTo = [NSString stringWithFormat:@"%@",linkKey];
             linkData.range = linkRange;
             [linkArray addObject:linkData];
         } else
@@ -162,7 +168,7 @@ static CGFloat widthCallback(void* ref){
         if ([*capturedStrings rangeOfString:@"《"].location != NSNotFound) {
             NSUInteger startPos = attributeString.length;
             NSString *key = [*capturedStrings stringByReplacingOccurrencesOfString:@"《" withString:@""];
-            key = [*capturedStrings stringByReplacingOccurrencesOfString:@"》" withString:@""];
+            key = [key stringByReplacingOccurrencesOfString:@"》" withString:@""];
 
             NSDictionary *linkInfo = @{@"type":@"link",
                                       @"key":key,
@@ -180,10 +186,17 @@ static CGFloat widthCallback(void* ref){
             linkData.url = [NSString stringWithFormat:@"%@",linkInfo[@"url"]];
             linkData.key = [NSString stringWithFormat:@"%@",linkInfo[@"key"]];
             linkData.range = linkRange;
+            linkData.linkTo = @"search";
             [linkArray addObject:linkData];
         }
         lastRange = *capturedRanges;
     }];
+    if (exist) {
+        return  attributeString;
+    } else {
+        NSAttributedString *attr = [[NSAttributedString alloc] initWithString:string];
+        [attributeString appendAttributedString:attr];
+    }
     return attributeString;
 }
 

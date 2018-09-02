@@ -12,6 +12,7 @@ import UIKit
 
 class ZSSearchViewModel {
     
+    var keywords = ""
     
     fileprivate var hotwords:[String] = []
     
@@ -82,8 +83,8 @@ class ZSSearchViewModel {
         }
         if !searchWordExist(key: history) {
             let store = getHistoryStore()
-            var list = fetchHistoryList(nil)
-            list?.append(history.trimmingCharacters(in: CharacterSet(charactersIn: " ")))
+            var list = fetchHistoryList(nil) ?? []
+            list.append(history.trimmingCharacters(in: CharacterSet(charactersIn: " ")))
             store?.clearTable(searchHistory)
             store?.put(list, withId: SearchStoreKey, intoTable: searchHistory)
             
