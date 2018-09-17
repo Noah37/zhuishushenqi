@@ -39,7 +39,7 @@ class QSTextReaderController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
         
         // 第一次进入没有record,初始化一个record
         setupRecord()
@@ -54,16 +54,16 @@ class QSTextReaderController: UIViewController {
         viewModel.book?.isUpdated = false
         
         if let book = viewModel.book {
-            BookManager.shared.modifyBookshelf(book: book)
+//            BookManager.shared.modifyBookshelf(book: book)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setNeedsStatusBarAppearanceUpdate()
+//        setNeedsStatusBarAppearanceUpdate()
         // 保存浏览记录
         if let book = viewModel.book {
-            BookManager.shared.addReadHistory(book: book)
+//            BookManager.shared.addReadHistory(book: book)
         }
     }
     

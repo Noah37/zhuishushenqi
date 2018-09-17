@@ -29,3 +29,23 @@ func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallb
     }
     return req
 }
+
+@discardableResult
+func zs_download(url:String, parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DownloadRequest {
+    let destination = DownloadRequest.suggestedDownloadDestination()
+    let downloadRequest = download(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil, to: destination).response { (response) in
+        QSLog(response.destinationURL)
+        
+        let exist = FileManager.default.fileExists(atPath: response.destinationURL?.path ?? "")
+        if exist {
+            // 字体文件下载成功
+            handler?(["url":response.destinationURL?.path ?? ""])
+        } else {
+            handler?(["error":response.error])
+        }
+        QSLog(response.temporaryURL)
+        QSLog(response.error)
+        QSLog(response.response)
+    }
+    return downloadRequest
+}

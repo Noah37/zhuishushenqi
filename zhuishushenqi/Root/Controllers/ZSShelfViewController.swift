@@ -34,8 +34,10 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
         setupSubviews()
+        
+//        let books = ZSBookManager.shared.books
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,7 +78,8 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         tableView.delegate = self
         view.addSubview(tableView)
     }
-
+    
+    //MARK: - UITableView
     func numberOfSections(in tableView: UITableView) -> Int {
         if viewModel.localBooks.count > 0 {
             return 2
@@ -103,12 +106,12 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                 return cell
             }
             let id = viewModel.booksID[indexPath.row]
-            if let item = viewModel.books[id] as? BookDetail {
+            if let item = viewModel.books[id] {
                 cell.configureCell(model: item)
             }
         } else {
             let id = viewModel.booksID[indexPath.row]
-            if let item = viewModel.books[id] as? BookDetail {
+            if let item = viewModel.books[id]  {
                 cell.configureCell(model: item)
             }
         }

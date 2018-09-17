@@ -181,7 +181,7 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
         } else if QSReaderSetting.shared.pageStyle == .horMove {
             horMoveController.changeSourceClicked()
         } else if QSReaderSetting.shared.pageStyle == .none {
-            
+            noneAnimationViewController.changeSourceClicked()
         }
     }
     

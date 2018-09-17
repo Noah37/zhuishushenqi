@@ -11,6 +11,7 @@ typealias QSMoreSettingCallbackAction = (_ obj:Int)->Void
 import UIKit
 
 class QSMoreSettingController: UIViewController {
+    
 
     private let settings = [["title":"翻页方式","list":["拟真","简洁","滑动"],"tip":"选择要使用的翻页方式"],
                             ["title":"简繁转换","list":["简体","繁体"],"tip":"选择使用简体或繁体"],
@@ -113,6 +114,11 @@ extension QSMoreSettingController:UITableViewDataSource,UITableViewDelegate{
         if indexPath.row < settings.count - 1 {
             let list = settings[indexPath.row]["list"] as? [String]
             let tip = settings[indexPath.row]["tip"] as? String
+            if indexPath.row == 2 {
+                let fontVC = ZSFontViewController(style: .grouped)
+                fontVC.title = "字体设置"
+                self.navigationController?.pushViewController(fontVC, animated: true)
+            }
             if let ttip = tip,let llist = list {
                 actionSheet(title: ttip, message: "", list: llist, callback: { (obj) in
                     QSLog("点击了第\(obj)个")
@@ -122,6 +128,8 @@ extension QSMoreSettingController:UITableViewDataSource,UITableViewDelegate{
                         QSReaderSetting.shared.chineseFontStyle = QSReaderChineseFontStyle(rawValue: obj) ?? .simpleChinese
                     } else if indexPath.row == 2 {
                         QSReaderSetting.shared.fontStyle = QSReaderFontStyle(rawValue: obj) ?? .system
+                    } else if indexPath.row == 3 {
+                        
                     }
                     tableView.reloadRow(at: indexPath, with: .automatic)
                 })

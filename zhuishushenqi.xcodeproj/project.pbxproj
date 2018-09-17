@@ -12,6 +12,13 @@
 		3D2B4D0320EB616D008E3E81 /* ZSReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */; };
 		3D2B4D0520EB6552008E3E81 /* ZSNoneAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */; };
 		3D2B4D0720EB68AC008E3E81 /* ZSReaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */; };
+		3D3AB5D2214E98AC00E9C246 /* hylst.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D1214E98AC00E9C246 /* hylst.ttf */; };
+		3D3AB5D4214E98B800E9C246 /* Redocn.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D3214E98B800E9C246 /* Redocn.ttf */; };
+		3D3AB5D6214E993E00E9C246 /* hkppt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D5214E993E00E9C246 /* hkppt.ttf */; };
+		3D3AB5DA214E99CC00E9C246 /* ypt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D9214E99CB00E9C246 /* ypt.ttf */; };
+		3D3AB5DC214E99FE00E9C246 /* fz-wbt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DB214E99FE00E9C246 /* fz-wbt.ttf */; };
+		3D3AB5DE214E9A8300E9C246 /* fz-kt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DD214E9A8300E9C246 /* fz-kt.ttf */; };
+		3D3AB5E0214E9ABD00E9C246 /* ltt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */; };
 		3D5280DD20C8D21B00252D67 /* ZSBookShelvesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */; };
 		3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */; };
 		3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */; };
@@ -37,6 +44,11 @@
 		3DDB6CB02130F4BC00E8698D /* CoreTextLinkData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDB6CA72130F4BC00E8698D /* CoreTextLinkData.m */; };
 		3DDB6CB52130F63300E8698D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDB6CB42130F63200E8698D /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3DDB6CB72130F73000E8698D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DDB6CB62130F73000E8698D /* libicucore.tbd */; };
+		3DDEEAF9214A8E3F003D12DB /* ZSFontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDEEAF8214A8E3F003D12DB /* ZSFontViewController.swift */; };
+		3DDEEAFB214A8EC8003D12DB /* ZSFontService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDEEAFA214A8EC8003D12DB /* ZSFontService.swift */; };
+		3DDEEAFD214A8EE1003D12DB /* ZSFontViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDEEAFC214A8EE1003D12DB /* ZSFontViewModel.swift */; };
+		3DDEEAFF214B5D3A003D12DB /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDEEAFE214B5D39003D12DB /* UIFont+Extension.swift */; };
+		3DDEEB02214B5D59003D12DB /* UIFont+ZSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDEEB01214B5D59003D12DB /* UIFont+ZSExtension.m */; };
 		3DE77D2620C8E99500A86DF0 /* ZSBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */; };
 		3DE77D2A20C90EA300A86DF0 /* ZSRootWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */; };
 		3DE77D2C20C9143C00A86DF0 /* ZSRootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2B20C9143C00A86DF0 /* ZSRootViewModel.swift */; };
@@ -414,6 +426,13 @@
 		3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSNoneAnimationViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderProtocol.swift; sourceTree = "<group>"; };
+		3D3AB5D1214E98AC00E9C246 /* hylst.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hylst.ttf; sourceTree = "<group>"; };
+		3D3AB5D3214E98B800E9C246 /* Redocn.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Redocn.ttf; sourceTree = "<group>"; };
+		3D3AB5D5214E993E00E9C246 /* hkppt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hkppt.ttf; sourceTree = "<group>"; };
+		3D3AB5D9214E99CB00E9C246 /* ypt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ypt.ttf; sourceTree = "<group>"; };
+		3D3AB5DB214E99FE00E9C246 /* fz-wbt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fz-wbt.ttf"; sourceTree = "<group>"; };
+		3D3AB5DD214E9A8300E9C246 /* fz-kt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fz-kt.ttf"; sourceTree = "<group>"; };
+		3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ltt.ttf; sourceTree = "<group>"; };
 		3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookShelvesViewController.swift; sourceTree = "<group>"; };
 		3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumViewController.swift; sourceTree = "<group>"; };
 		3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSProtocol.swift; sourceTree = "<group>"; };
@@ -450,6 +469,12 @@
 		3DDB6CB32130F63200E8698D /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		3DDB6CB42130F63200E8698D /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		3DDB6CB62130F73000E8698D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		3DDEEAF8214A8E3F003D12DB /* ZSFontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSFontViewController.swift; sourceTree = "<group>"; };
+		3DDEEAFA214A8EC8003D12DB /* ZSFontService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSFontService.swift; sourceTree = "<group>"; };
+		3DDEEAFC214A8EE1003D12DB /* ZSFontViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSFontViewModel.swift; sourceTree = "<group>"; };
+		3DDEEAFE214B5D39003D12DB /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		3DDEEB00214B5D59003D12DB /* UIFont+ZSExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+ZSExtension.h"; sourceTree = "<group>"; };
+		3DDEEB01214B5D59003D12DB /* UIFont+ZSExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ZSExtension.m"; sourceTree = "<group>"; };
 		3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseTableViewController.swift; sourceTree = "<group>"; };
 		3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootWebService.swift; sourceTree = "<group>"; };
 		3DE77D2B20C9143C00A86DF0 /* ZSRootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootViewModel.swift; sourceTree = "<group>"; };
@@ -969,6 +994,7 @@
 				3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */,
 				B2A02F7B20F337C20034DC64 /* ZSHorizonalMoveViewController.swift */,
 				B2A02F7D20F33A1A0034DC64 /* ZSHorizonalMoveCell.swift */,
+				3DDEEAF8214A8E3F003D12DB /* ZSFontViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -978,6 +1004,7 @@
 			children = (
 				B2C0DEB420D4CB340057DC84 /* ZSReaderWebService.swift */,
 				B2A02F7F20F33F710034DC64 /* ZSReaderManager.swift */,
+				3DDEEAFA214A8EC8003D12DB /* ZSFontService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -986,6 +1013,14 @@
 			isa = PBXGroup;
 			children = (
 				B2C0DEB220D4CB340057DC84 /* ZSReaderViewModel.swift */,
+				3DDEEAFC214A8EE1003D12DB /* ZSFontViewModel.swift */,
+				3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */,
+				3D3AB5DD214E9A8300E9C246 /* fz-kt.ttf */,
+				3D3AB5DB214E99FE00E9C246 /* fz-wbt.ttf */,
+				3D3AB5D9214E99CB00E9C246 /* ypt.ttf */,
+				3D3AB5D5214E993E00E9C246 /* hkppt.ttf */,
+				3D3AB5D3214E98B800E9C246 /* Redocn.ttf */,
+				3D3AB5D1214E98AC00E9C246 /* hylst.ttf */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1398,6 +1433,8 @@
 				B2B4BA171E7EA4A8000CC201 /* NSDate+Date.m */,
 				B2B4BA181E7EA4A8000CC201 /* NSDate+Extension.h */,
 				B2B4BA191E7EA4A8000CC201 /* NSDate+Extension.m */,
+				3DDEEB00214B5D59003D12DB /* UIFont+ZSExtension.h */,
+				3DDEEB01214B5D59003D12DB /* UIFont+ZSExtension.m */,
 				B2B4BA1A1E7EA4A8000CC201 /* String+QSExtension.swift */,
 				B251F89B2030350E004AAF95 /* Dictionary+QSExtension.swift */,
 				B24B3F5520ECA04B0098ACE5 /* Array+ZSExtension.swift */,
@@ -1420,6 +1457,7 @@
 				B252D4DD211006670091858E /* Alamofire+ZSExtension.swift */,
 				3D9325ED20B2E07F0049CDBF /* Value.swift */,
 				B263E2E8211EBFEC001819FB /* SQLite+Extension.swift */,
+				3DDEEAFE214B5D39003D12DB /* UIFont+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2156,8 +2194,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D3AB5DA214E99CC00E9C246 /* ypt.ttf in Resources */,
 				B2B4BC1F1E7EA4AB000CC201 /* TopicDetailCell.xib in Resources */,
 				B2C0DF5C20D4CB350057DC84 /* CategoryTableViewCell.xib in Resources */,
+				3D3AB5E0214E9ABD00E9C246 /* ltt.ttf in Resources */,
 				B2B4BC111E7EA4AB000CC201 /* TopDetailCell.xib in Resources */,
 				B252D4B1210EFF260091858E /* index.html in Resources */,
 				B2C0DF5320D4CB350057DC84 /* QSRecommendCell.xib in Resources */,
@@ -2169,6 +2209,7 @@
 				B200D2221EEE44AB003A42E3 /* QSLaunchRecView.xib in Resources */,
 				B2B4BBDF1E7EA4AB000CC201 /* Assets.xcassets in Resources */,
 				B252D4B2210EFF260091858E /* upload.html in Resources */,
+				3D3AB5D6214E993E00E9C246 /* hkppt.ttf in Resources */,
 				B2B4BC0B1E7EA4AB000CC201 /* CategoryCell.xib in Resources */,
 				B2C0DF5920D4CB350057DC84 /* BookDetailHeader.xib in Resources */,
 				B24B3F4E20E534390098ACE5 /* ZSSearchViewCell.xib in Resources */,
@@ -2184,6 +2225,7 @@
 				B2C0DF7A20D4CB6D0057DC84 /* TXTReader.storyboard in Resources */,
 				B2C0DF4B20D4CB350057DC84 /* BookCommentViewCell.xib in Resources */,
 				B20D74171EED83690034516F /* QSLastIntroduceCell.xib in Resources */,
+				3D3AB5D2214E98AC00E9C246 /* hylst.ttf in Resources */,
 				B29B4FA31E8257BC008852E3 /* DynamicCell.xib in Resources */,
 				B2ACA06521244B3D0032305E /* ZSSetting.plist in Resources */,
 				B2B4BC211E7EA4AB000CC201 /* TopicDetailHeaderCell.xib in Resources */,
@@ -2192,12 +2234,15 @@
 				B278AA991F396074000A0D55 /* ReadHistoryCell.xib in Resources */,
 				B252D4C3210F0B990091858E /* bg.png in Resources */,
 				B252D4C7210F163C0091858E /* txt.jpeg in Resources */,
+				3D3AB5DE214E9A8300E9C246 /* fz-kt.ttf in Resources */,
 				B200D2001EEDB1FE003A42E3 /* QSIntroduceReadCell.xib in Resources */,
+				3D3AB5DC214E99FE00E9C246 /* fz-wbt.ttf in Resources */,
 				B2C0DF4620D4CB350057DC84 /* UserfulCell.xib in Resources */,
 				B2B4BBEA1E7EA4AB000CC201 /* EmptyView.xib in Resources */,
 				B20D74091EED7D250034516F /* QSIntroduceCell.xib in Resources */,
 				B2C0DF3B20D4CB350057DC84 /* ChapterInfo.json in Resources */,
 				B2B4BC1D1E7EA4AB000CC201 /* ThemeTopicCell.xib in Resources */,
+				3D3AB5D4214E98B800E9C246 /* Redocn.ttf in Resources */,
 				B203BB691E9E142C00F9C052 /* QSHistoryCell.xib in Resources */,
 				B252D49B210EF3960091858E /* README.markdown in Resources */,
 			);
@@ -2364,6 +2409,7 @@
 				B2B02E4C1EA9A9CA00A6880A /* QSCategoryyViewController.swift in Sources */,
 				B24B3F5620ECA04B0098ACE5 /* Array+ZSExtension.swift in Sources */,
 				B24B3F5020E8885A0098ACE5 /* ZSSearchHeaderView.swift in Sources */,
+				3DDEEAFB214A8EC8003D12DB /* ZSFontService.swift in Sources */,
 				3DDB6CAF2130F4BC00E8698D /* MagnifiterView.m in Sources */,
 				B2B4BBFC1E7EA4AB000CC201 /* UITableView+swizzling.swift in Sources */,
 				B2A39C482110447300D6308E /* ZSLocalShelfViewController.swift in Sources */,
@@ -2428,7 +2474,9 @@
 				B2B02E461EA8920F00A6880A /* QSCategoryDetailProtocols.swift in Sources */,
 				B2B02E531EA9A9F000A6880A /* QSCatalogInteractor.swift in Sources */,
 				B2C0DF3620D4CB350057DC84 /* ResourceModel.swift in Sources */,
+				3DDEEAFD214A8EE1003D12DB /* ZSFontViewModel.swift in Sources */,
 				B2B02E2E1EA8505200A6880A /* QSTopicDetailRouter.swift in Sources */,
+				3DDEEAFF214B5D3A003D12DB /* UIFont+Extension.swift in Sources */,
 				B28FFC861EAFAED600C27FF9 /* NSString+Encode.m in Sources */,
 				B255707E1F3A075600C35A34 /* AppDelegate.swift in Sources */,
 				B2B4BD771E7ECEE0000CC201 /* RootViewController+Subviews.swift in Sources */,
@@ -2547,6 +2595,7 @@
 				B2C0DF8320D612F00057DC84 /* ZSBookCommentViewModel.swift in Sources */,
 				B2B02E481EA8920F00A6880A /* QSCategoryDetailViewController.swift in Sources */,
 				B2F778BC1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift in Sources */,
+				3DDEEAF9214A8E3F003D12DB /* ZSFontViewController.swift in Sources */,
 				B25570891F3A96E500C35A34 /* BookManager.swift in Sources */,
 				B2B4BC0A1E7EA4AB000CC201 /* CategoryCell.swift in Sources */,
 				B2B4BD091E7EA4AC000CC201 /* ViewController.swift in Sources */,
@@ -2617,6 +2666,7 @@
 				B27D7E841F4BDF8D00866341 /* QSCategoryDetailCell.swift in Sources */,
 				B2C0DF6620D4CB350057DC84 /* QSCategoryPresenter.swift in Sources */,
 				B2A02F7E20F33A1A0034DC64 /* ZSHorizonalMoveCell.swift in Sources */,
+				3DDEEB02214B5D59003D12DB /* UIFont+ZSExtension.m in Sources */,
 				3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */,
 				B278AA8D1F395F30000A0D55 /* ReadHistoryViewController.swift in Sources */,
 				B2C0DF6D20D4CB350057DC84 /* QSCommunityProtocols.swift in Sources */,

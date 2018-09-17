@@ -155,7 +155,6 @@ class ZSWebViewController: BaseViewController {
             jump(urlString: urlString)
         }
     }
-
 }
 
 extension ZSWebViewController:WKNavigationDelegate,WKUIDelegate {
@@ -180,7 +179,19 @@ extension ZSWebViewController:WKNavigationDelegate,WKUIDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
+        // 去除广告
+        let classNames = ["c-top-app-download clearfix",
+                          "c-page-header",
+                          "c-full-screen-page-header",
+                          "c-bottom-app-download clearfix"]
+        let jsAddClearOpHead = "document.getElementsByClassName('"
+        let jsAddClearOpTail = "')[0].style.display = 'none'"
+        for className in classNames {
+            let js = "\(jsAddClearOpHead)\(className)\(jsAddClearOpTail)"
+            self.webView.evaluateJavaScript(js) { (result, error) in
+                
+            }
+        }
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {

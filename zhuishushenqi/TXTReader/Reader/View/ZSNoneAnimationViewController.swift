@@ -103,6 +103,24 @@ class ZSNoneAnimationViewController: BaseViewController {
             self.pageViewController.page = page
         }
     }
+    
+    func changeSourceClicked() {
+        let sourceVC = ChangeSourceViewController()
+        sourceVC.viewModel = self.viewModel
+        sourceVC.selectAction = { (index:Int,sources:[ResourceModel]?) in
+            self.viewModel = sourceVC.viewModel
+            self.viewModel.cachedChapter.removeAll()
+            self.viewModel.fetchAllChapters({ (info) in
+                self.viewModel.fetchCurrentPage({ (page) in
+                    self.pageViewController.page = page
+                })
+            })
+        }
+        let nav = UINavigationController(rootViewController: sourceVC)
+        present(nav, animated: true) {
+            
+        }
+    }
 }
 
 extension ZSNoneAnimationViewController:ZSReaderTap{

@@ -68,6 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }.disposed(by: disposeBag)
         
         QSLog(String.localized_login)
+        QSLog(ZSBookManager.shared) 
         return true
     }
     

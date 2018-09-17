@@ -15,9 +15,23 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
     
     var localBooks:[String] = []
     // 网络书籍
-    @objc internal var books:[String:Any] = BookManager.shared.books
+    var books:[String:BookDetail] {
+        get {
+           return ZSBookManager.shared.books
+        }
+        set {
+            ZSBookManager.shared.books = newValue
+        }
+    }
     // 保存所有书籍的id,books存在时,他就存在
-    var booksID:[String] = []
+    var booksID:[String] {
+        get {
+            return ZSBookManager.shared.ids
+        }
+        set {
+            ZSBookManager.shared.ids = newValue
+        }
+    }
     fileprivate let shelvesWebService = ZSShelfWebService()
     fileprivate let disposeBag = DisposeBag()
     
@@ -40,14 +54,14 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
                 // 更新内存中books的值与archive中的值
                 if let book = noti.object as? BookDetail {
                     self.books[book._id] = book
-                    self.booksID = self.books.allKeys()
+                    self.booksID.append(book._id)
                     BookManager.shared.addBook(book: book)
+                    ZSBookManager.shared.addBook(book: book)
                     // 添加新的书籍之后需要刷新更新信息
                 }
             })
             .disposed(by: disposeBag)
         
-        booksID = books.allKeys()
         refreshStatus.value = .none
     }
     
@@ -62,12 +76,17 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
 extension ZSShelfViewModel {
     func fetchShelvesBooks(completion:ZSBaseCallback<Void>?) {
         refreshStatus.value = .none
-        shelvesWebService.fetchShelvesUpdate(for: books.allKeys()) { (updateInfo) in
-            if let info = updateInfo {
-                self.refreshStatus.value = .headerRefreshEnd
-                BookManager.shared.updateInfoUpdate(updateInfo: info)
-                completion?(nil)
+        if booksID.count > 0 {
+            shelvesWebService.fetchShelvesUpdate(for: booksID) { (updateInfo) in
+                if let info = updateInfo {
+                    self.refreshStatus.value = .headerRefreshEnd
+                    ZSBookManager.shared.update(updateInfo: info)
+                    BookManager.shared.updateInfoUpdate(updateInfo: info)
+                    completion?(nil)
+                }
             }
+        } else {
+            self.refreshStatus.value = .headerRefreshEnd
         }
     }
     

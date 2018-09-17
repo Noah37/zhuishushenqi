@@ -115,7 +115,6 @@ extension BookDetail:DBSaveProtocol {
                 t.column(book)
                 t.column(updateInfo)
             })
-
         }
     }
 }

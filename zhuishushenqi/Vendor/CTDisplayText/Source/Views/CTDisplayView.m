@@ -34,6 +34,7 @@ typedef enum CTDisplayViewState : NSInteger {
 @property (strong, nonatomic) UIImageView *leftSelectionAnchor;
 @property (strong, nonatomic) UIImageView *rightSelectionAnchor;
 @property (strong, nonatomic) MagnifiterView *magnifierView;
+@property (strong, nonatomic) UIGestureRecognizer * tapRecognizer;
 
 @end
 
@@ -180,10 +181,9 @@ typedef enum CTDisplayViewState : NSInteger {
 }
 
 - (void)setupEvents {
-    UIGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+    _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                     action:@selector(userTapGestureDetected:)];
-    [self addGestureRecognizer:tapRecognizer];
-
+    
     UIGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                     action:@selector(userLongPressedGuestureDetected:)];
     [self addGestureRecognizer:longPressRecognizer];
@@ -200,6 +200,10 @@ typedef enum CTDisplayViewState : NSInteger {
     [super drawRect:rect];
     if (self.data == nil) {
         return;
+    }
+    if (self.data.imageArray.count > 0 || self.data.linkArray.count > 0) {
+        [self removeGestureRecognizer:_tapRecognizer];
+        [self addGestureRecognizer:_tapRecognizer];
     }
 
     CGContextRef context = UIGraphicsGetCurrentContext();
