@@ -66,15 +66,16 @@ class QSSegmentDropView: UIView {
             let tmpTitles = titles[item]
             let title = tmpTitles.count > 0 ? tmpTitles[0]:""
             let btn = UIButton(type: .custom)
-            btn.setTitle(title, for: UIControlState())
-            btn.setTitleColor(UIColor.gray, for: UIControlState())
+            btn.setTitle(title, for: UIControl.State())
+            btn.setTitleColor(UIColor.gray, for: UIControl.State())
             btn.tag = index + btnTag
             btn.setImage(UIImage(named:"nav_arrow_down"), for: .normal)
             btn.setImage(UIImage(named:"nav_arrow_up"), for: .selected)
             btn.frame = CGRect(x: width*CGFloat(index), y: 0, width: width, height: height)
-            let labelWidth = title.qs_width(UIFont.systemFont(ofSize: 13), height: 16) 
-            btn.imageEdgeInsets = UIEdgeInsetsMake(0, labelWidth, 0, -labelWidth)
-            btn.titleEdgeInsets = UIEdgeInsetsMake(0, -13, 0, 13)
+            let labelWidth = title.qs_width(UIFont.systemFont(ofSize: 13), height: 16)
+            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: labelWidth, bottom: 0, right: -labelWidth)
+            
+            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -13, bottom: 0, right: 13)
             btn.contentHorizontalAlignment = .center
             btn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
             btn.addTarget(self, action: #selector(self.segAction(_:)), for: .touchUpInside)

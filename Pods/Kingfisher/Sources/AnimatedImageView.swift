@@ -9,7 +9,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2017 Reda Lemeden.
+//  Copyright (c) 2018 Reda Lemeden.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -35,7 +35,7 @@ import UIKit
 import ImageIO
 
 /// Protocol of `AnimatedImageView`.
-public protocol AnimatedImageViewDelegate: class {
+public protocol AnimatedImageViewDelegate: AnyObject {
     /**
      Called after the animatedImageView has finished each animation loop.
 
@@ -86,6 +86,9 @@ open class AnimatedImageView: UIImageView {
             case (.once, .once),
                  (.infinite, .infinite):
                 return true
+            case (.once, .finite(let count)),
+                 (.finite(let count), .once):
+                return count == 1
             case (.once, _),
                  (.infinite, _),
                  (.finite, _):
@@ -289,7 +292,7 @@ struct AnimatedFrame {
     static let null: AnimatedFrame = AnimatedFrame(image: .none, duration: 0.0)
 }
 
-protocol AnimatorDelegate: class {
+protocol AnimatorDelegate: AnyObject {
     func animator(_ animator: Animator, didPlayAnimationLoops count: UInt)
 }
 
@@ -305,6 +308,7 @@ class Animator {
     fileprivate let maxTimeStep: TimeInterval = 1.0
     fileprivate var frameCount = 0
     fileprivate var currentFrameIndex = 0
+    fileprivate var currentFrameIndexInBuffer = 0
     fileprivate var currentPreloadIndex = 0
     fileprivate var timeSinceLastFrameChange: TimeInterval = 0.0
     fileprivate var needsPrescaling = true
@@ -315,7 +319,7 @@ class Animator {
     private var loopCount = 0
     
     var currentFrame: UIImage? {
-        return frame(at: currentFrameIndex)
+        return frame(at: currentFrameIndexInBuffer)
     }
 
     var isReachMaxRepeatCount: Bool {
@@ -380,7 +384,7 @@ class Animator {
         let frameToProcess = min(frameCount, maxFrameCount)
         animatedFrames.reserveCapacity(frameToProcess)
         animatedFrames = (0..<frameToProcess).reduce([]) { $0 + pure(prepareFrame(at: $1))}
-        currentPreloadIndex = (frameToProcess + 1) % frameCount
+        currentPreloadIndex = (frameToProcess + 1) % frameCount - 1
     }
     
     private func prepareFrame(at index: Int) -> AnimatedFrame {
@@ -426,21 +430,24 @@ class Animator {
      */
     func updateCurrentFrame(duration: CFTimeInterval) -> Bool {
         timeSinceLastFrameChange += min(maxTimeStep, duration)
-        guard let frameDuration = animatedFrames[safe: currentFrameIndex]?.duration, frameDuration <= timeSinceLastFrameChange else {
+        guard let frameDuration = animatedFrames[safe: currentFrameIndexInBuffer]?.duration, frameDuration <= timeSinceLastFrameChange else {
             return false
         }
         
         timeSinceLastFrameChange -= frameDuration
         
-        let lastFrameIndex = currentFrameIndex
-        currentFrameIndex += 1
-        currentFrameIndex = currentFrameIndex % animatedFrames.count
-
+        let lastFrameIndex = currentFrameIndexInBuffer
+        currentFrameIndexInBuffer += 1
+        currentFrameIndexInBuffer = currentFrameIndexInBuffer % animatedFrames.count
+        
         if animatedFrames.count < frameCount {
             preloadFrameAsynchronously(at: lastFrameIndex)
         }
-
-        if currentFrameIndex == 0 {
+        
+        currentFrameIndex += 1
+        
+        if currentFrameIndex == frameCount {
+            currentFrameIndex = 0
             currentRepeatCount += 1
 
             delegate?.animator(self, didPlayAnimationLoops: currentRepeatCount)

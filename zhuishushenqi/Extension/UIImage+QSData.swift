@@ -45,10 +45,11 @@ extension UIImage{
         var imageData:Data?
         var mimeType:String?
         if self.imageHasAlpha(image: self) {
-            imageData = UIImagePNGRepresentation(self)
+            imageData = self.pngData()
             mimeType = "image/png"
         }else{
-            imageData = UIImageJPEGRepresentation(self, 1.0)
+            
+            imageData = self.jpegData(compressionQuality: 1.0)
             mimeType = "image/jpeg"
         }
         QSLog(mimeType)

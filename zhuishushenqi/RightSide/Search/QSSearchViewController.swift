@@ -265,7 +265,7 @@ class QSSearchViewController: ZSBaseTableViewController{
         return searchVC
     }()
 
-    override init(style: UITableViewStyle) {
+    override init(style: UITableView.Style) {
         super.init(style: .grouped)
     }
 

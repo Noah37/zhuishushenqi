@@ -93,7 +93,7 @@ class ZSHorizonalMoveViewController: BaseViewController {
         pageController?.delegate = self
         pageController?.isDoubleSided = true
         view.addSubview(pageController!.view)
-        addChildViewController(pageController!)
+        addChild(pageController!)
 //        pageController?.setViewControllers([initialPageViewController()], direction: .forward, animated: true, completion: nil)
     }
     
@@ -166,7 +166,7 @@ extension ZSHorizonalMoveViewController:UICollectionViewDataSource,UICollectionV
             cell.pageViewController.page = page
         }) { (page) in
             cell.pageViewController.page = page
-            self.collectionView.reloadSections([indexPath.section], animationStyle: .automatic)
+            self.collectionView.reloadSections([indexPath.section])
         }
 //        if pageType == .next {
 //            record = viewModel.book?.record ?? record

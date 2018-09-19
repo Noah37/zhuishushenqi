@@ -20,7 +20,7 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     
     var disposeBag = DisposeBag()
     
-    override init(style: UITableViewStyle) {
+    override init(style: UITableView.Style) {
         super.init(style: .grouped)
         title = "书评"
     }
@@ -54,7 +54,7 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
         tableView.sectionHeaderHeight = 60
         tableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         tableView.estimatedRowHeight = 180
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         let header = initRefreshHeader(tableView) {
             self.viewModel.fetchCommentDetail(handler: { (detail) in
@@ -205,7 +205,7 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
             if indexPath.section == 1 {
             return 91
         }
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -254,7 +254,7 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
         tableView.sectionHeaderHeight = 60
         tableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         tableView.estimatedRowHeight = 180
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.qs_registerCellNib(BookCommentCell.self)
         tableView.qs_registerCellNib(UserfulCell.self)
 
@@ -333,7 +333,7 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
         }else if indexPath.section == 1 {
             return 91
         }else {
-            return UITableViewAutomaticDimension
+            return UITableView.automaticDimension
 //            var height:CGFloat = 130
 //            if (hotComments?.count ?? 0) > 0 {
 //                if indexPath.section == 2 {

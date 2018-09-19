@@ -44,7 +44,7 @@ class QSLastIntroduceCell: UITableViewCell {
 //        (102.0, 451.0, 118.0, 30.0)
         noAccount = UIButton(frame: CGRect(x: self.bounds.size.width/2 - 118/2, y: self.qqLoginBtn.frame.maxY + 44, width: 118, height: 30))
         
-        let dict = [NSAttributedStringKey.underlineStyle:1,NSAttributedStringKey.font:UIFont.systemFont(ofSize: 15)] as [NSAttributedStringKey : Any]
+        let dict = [NSAttributedString.Key.underlineStyle:1,NSAttributedString.Key.font:UIFont.systemFont(ofSize: 15)] as [NSAttributedString.Key : Any]
         let attr = NSMutableAttributedString(string: "没有帐号怎么办?", attributes: dict)
         noAccount?.setAttributedTitle(attr, for: .normal)
         noAccount?.titleLabel?.textAlignment = .center

@@ -51,9 +51,9 @@ class QSBookDetailTagsView: UIView {
             }
             let btn = UIButton(type: .custom)
             btn.frame = CGRect(x: x, y: y, width: width, height: height)
-            btn.setTitle(tags[index], for: UIControlState())
+            btn.setTitle(tags[index], for: UIControl.State())
             btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-            btn.setTitleColor(UIColor.white, for: UIControlState())
+            btn.setTitleColor(UIColor.white, for: UIControl.State())
             btn.backgroundColor = tagColor[index%tagColor.count]
             btn.layer.cornerRadius = 2
             self.addSubview(btn)

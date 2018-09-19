@@ -150,14 +150,14 @@ extension QSMoreSettingController:UITableViewDataSource,UITableViewDelegate{
 }
 
 //fileprivate extension UITableViewCell {
-//    convenience init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+//    convenience init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 //        self.init(style: .value1, reuseIdentifier: reuseIdentifier)
 //    }
 //}
 
 @objcMembers
 class QSMoreSettingCell: UITableViewCell {
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
     }
     

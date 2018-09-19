@@ -34,7 +34,7 @@ class QSLoadingView: UIView {
         let bgView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         bgView.backgroundColor = UIColor(red: 1/255.0, green: 1/255.0, blue: 1/255.0, alpha: 0.8)
         bgView.center = self.center
-        let acctivityView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        let acctivityView = UIActivityIndicatorView(style: .white)
         acctivityView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         acctivityView.center = CGPoint(x: bgView.bounds.width/2, y: bgView.bounds.height/2 - 10)
         acctivityView.startAnimating()

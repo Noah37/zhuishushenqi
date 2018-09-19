@@ -124,7 +124,7 @@ class QSReaderSetting: NSObject {
     
     static var shared = QSReaderSetting(dict: nil)
     
-    public func attributes() -> [NSAttributedStringKey:Any]{
+    public func attributes() -> [NSAttributedString.Key:Any]{
         
         let paragraphStyle = NSMutableParagraphStyle()
         
@@ -134,8 +134,8 @@ class QSReaderSetting: NSObject {
         
         let font = readerFont()
         
-        let attributes = [NSAttributedStringKey.font:font,
-                          NSAttributedStringKey.paragraphStyle:paragraphStyle] as [NSAttributedStringKey : Any]
+        let attributes = [NSAttributedString.Key.font:font,
+                          NSAttributedString.Key.paragraphStyle:paragraphStyle] as [NSAttributedString.Key : Any]
         return attributes
     }
     

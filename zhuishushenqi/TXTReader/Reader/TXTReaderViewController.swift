@@ -73,7 +73,7 @@ class TXTReaderViewController: UIViewController {
                 return
             }
             view.addSubview(pageController!.view)
-            addChildViewController(pageController!)
+            addChild(pageController!)
             pageController?.setViewControllers([currentReaderVC], direction: .forward, animated: true, completion: nil)
             if let model = viewModel.book?.record?.chapterModel {
                 if let chapterIndex = viewModel.book?.record?.chapter {
@@ -94,7 +94,7 @@ class TXTReaderViewController: UIViewController {
     }
     
     private func setupPageController(){
-        var transitionStyle:UIPageViewControllerTransitionStyle = .pageCurl
+        var transitionStyle:UIPageViewController.TransitionStyle = .pageCurl
         if style == .horMove {
             transitionStyle = .scroll
         }
@@ -103,7 +103,7 @@ class TXTReaderViewController: UIViewController {
         pageController?.delegate = self
         pageController?.isDoubleSided = (style == .horMove ? false:true)
         view.addSubview(pageController!.view)
-        addChildViewController(pageController!)
+        addChild(pageController!)
         pageController?.setViewControllers([initialPageViewController()], direction: .forward, animated: true, completion: nil)
     }
     
@@ -304,7 +304,7 @@ extension TXTReaderViewController:UIPageViewControllerDataSource,UIPageViewContr
     
     @objc func updateStatusBarStyle(){
         window = UIWindow(frame: CGRect(x: 0, y: UIScreen.main.bounds.size.height - 20, width: UIScreen.main.bounds.size.width, height: 20))
-        window?.windowLevel = UIWindowLevelStatusBar
+        window?.windowLevel = UIWindow.Level.statusBar
         window?.makeKeyAndVisible()
         window?.backgroundColor = UIColor.red
         setNeedsStatusBarAppearanceUpdate()

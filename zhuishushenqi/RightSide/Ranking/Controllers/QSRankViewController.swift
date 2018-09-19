@@ -37,7 +37,7 @@ class QSRankViewController: BaseViewController,UITableViewDataSource,UITableView
         tableView.delegate = self
         tableView.rowHeight = kCellHeaderHeight
         tableView.sectionFooterHeight = 0.001
-        tableView.separatorInset = UIEdgeInsetsMake(0, kCellHeaderHeight, 0, 0)
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: kCellHeaderHeight, bottom: 0, right: 0)
         tableView.qs_registerCellClass(RankingViewCell.self)
         self.view.addSubview(self.tableView)
     }

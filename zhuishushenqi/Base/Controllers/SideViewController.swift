@@ -106,7 +106,7 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
         let velocity:CGPoint = pan.velocity(in: self.contentView)
         let location = pan.location(in: self.contentView)
         
-        if pan.state == UIGestureRecognizerState.began {
+        if pan.state == UIGestureRecognizer.State.began {
             // 是否开启全屏手势识别，默认关闭
             if !fullScreenPanGestureEnable {
                 if location.x > panGestureToleranceX && location.x < (ScreenWidth - panGestureToleranceX) {
@@ -134,7 +134,7 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
             return
         }
         
-        if pan.state == UIGestureRecognizerState.ended {
+        if pan.state == UIGestureRecognizer.State.ended {
             //停止时的手势速度方向为哪边则显示哪边
             //这里设置了最小 open 宽度，小于它则不会显示侧边栏
             if self.minimumSwipeX > 0 && (self.contentView.frame.origin.x < 0 && self.contentView.frame.origin.x > -self.minimumSwipeX) ||
@@ -262,18 +262,18 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
     
     fileprivate func addChildController(){
         if leftViewController != nil {
-            addChildViewController(leftViewController!)
+            addChild(leftViewController!)
             leftViewController?.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
             leftView.addSubview(leftViewController!.view)
         }
         if rightViewController != nil {
-            addChildViewController(rightViewController!)
+            addChild(rightViewController!)
             rightViewController?.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
             rightView.addSubview(rightViewController!.view)
         }
         if contentViewController != nil {
             let nav  = UINavigationController(rootViewController: contentViewController!)
-            addChildViewController(nav)
+            addChild(nav)
             nav.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
             contentView.addSubview(nav.view)
         }

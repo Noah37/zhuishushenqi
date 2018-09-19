@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 15/4/23.
 //
-//  Copyright (c) 2017 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -80,6 +80,9 @@ public enum KingfisherOptionsInfoItem {
     ///  If set, `Kingfisher` will only cache the value in memory but not in disk.
     case cacheMemoryOnly
     
+    ///  If set, `Kingfisher` will wait for caching operation to be completed before calling the completion block.
+    case waitForCache
+    
     /// If set, `Kingfisher` will only try to retrieve the image from cache not from network.
     case onlyFromCache
     
@@ -87,7 +90,7 @@ public enum KingfisherOptionsInfoItem {
     case backgroundDecode
     
     /// The associated value of this member will be used as the target queue of dispatch callbacks when
-    /// retrieving images from cache. If not set, `Kingfisher` will use main quese for callbacks.
+    /// retrieving images from cache. If not set, `Kingfisher` will use main queue for callbacks.
     case callbackDispatchQueue(DispatchQueue?)
     
     /// The associated value of this member will be used as the scale factor when converting retrieved data to an image.
@@ -141,7 +144,7 @@ public enum KingfisherOptionsInfoItem {
     
     /// If set and an `ImageProcessor` is used, Kingfisher will try to cache both 
     /// the final result and original image. Kingfisher will have a chance to use 
-    /// the original image when another processor is applied to the same resouce, 
+    /// the original image when another processor is applied to the same resource,
     /// instead of downloading it again.
     case cacheOriginalImage
 }
@@ -165,6 +168,7 @@ func <== (lhs: KingfisherOptionsInfoItem, rhs: KingfisherOptionsInfoItem) -> Boo
     case (.fromMemoryCacheOrRefresh, .fromMemoryCacheOrRefresh): return true
     case (.forceTransition, .forceTransition): return true
     case (.cacheMemoryOnly, .cacheMemoryOnly): return true
+    case (.waitForCache, .waitForCache): return true
     case (.onlyFromCache, .onlyFromCache): return true
     case (.backgroundDecode, .backgroundDecode): return true
     case (.callbackDispatchQueue(_), .callbackDispatchQueue(_)): return true
@@ -262,6 +266,11 @@ public extension Collection where Iterator.Element == KingfisherOptionsInfoItem 
     /// Whether cache the image only in memory or not.
     public var cacheMemoryOnly: Bool {
         return contains{ $0 <== .cacheMemoryOnly }
+    }
+    
+    /// Whether the caching operation will be waited or not.
+    public var waitForCache: Bool {
+        return contains{ $0 <== .waitForCache }
     }
     
     /// Whether only load the images from cache or not.

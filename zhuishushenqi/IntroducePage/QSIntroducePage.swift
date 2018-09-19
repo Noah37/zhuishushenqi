@@ -70,7 +70,7 @@ class QSIntroduceViewController: UIViewController {
             self.qs_scrollViewDidScroll(contentOffset: contentOffset)
         }
         horizonalVC.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
-        self.addChildViewController(horizonalVC)
+        self.addChild(horizonalVC)
         self.view.addSubview(horizonalVC.view)
         
         pageControl = UIPageControl(frame: CGRect(x: 0, y: self.view.bounds.height - 60, width: self.view.bounds.width, height: 30))
@@ -110,7 +110,7 @@ class QSHorizonalTableViewController: UITableViewController {
     private let titleNames = ["p_anywhere_title","p_synchronize_title","p_fast_title","",""]
     private var scrollEnable:Bool = false
     
-    override init(style: UITableViewStyle) {
+    override init(style: UITableView.Style) {
         super.init(style: style)
     }
     

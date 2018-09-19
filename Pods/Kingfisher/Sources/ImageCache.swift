@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 15/4/6.
 //
-//  Copyright (c) 2017 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@ import AppKit
 import UIKit
 #endif
 
-public extension Notification.Name {
+extension Notification.Name {
     /**
      This notification will be sent when the disk cache got cleaned either there are cached files expired or the total size exceeding the max allowed size. The manually invoking of `clearDiskCache` method will not trigger this notification.
      
@@ -40,7 +40,7 @@ public extension Notification.Name {
      
      The main purpose of this notification is supplying a chance to maintain some necessary information on the cached files. See [this wiki](https://github.com/onevcat/Kingfisher/wiki/How-to-implement-ETag-based-304-(Not-Modified)-handling-in-Kingfisher) for a use case on it.
      */
-    public static var KingfisherDidCleanDiskCache = Notification.Name.init("com.onevcat.Kingfisher.KingfisherDidCleanDiskCache")
+    public static let KingfisherDidCleanDiskCache = Notification.Name.init("com.onevcat.Kingfisher.KingfisherDidCleanDiskCache")
 }
 
 /**
@@ -131,8 +131,6 @@ open class ImageCache {
                       the `.cachesDirectory` in of your app will be used.
     - parameter diskCachePathClosure: Closure that takes in an optional initial path string and generates
                       the final disk cache path. You could use it to fully customize your cache path.
-    
-    - returns: The cache object.
     */
     public init(name: String,
                 path: String? = nil,
@@ -322,7 +320,7 @@ open class ImageCache {
                                         toDisk: false,
                                         completionHandler: nil)
                             options.callbackDispatchQueue.safeAsync {
-                                completionHandler(imageModifier.modify(result), .memory)
+                                completionHandler(imageModifier.modify(result), .disk)
                                 sSelf = nil
                             }
                         }
@@ -431,7 +429,7 @@ open class ImageCache {
     */
     open func cleanExpiredDiskCache(completion handler: (()->())? = nil) {
         
-        // Do things in cocurrent io queue
+        // Do things in concurrent io queue
         ioQueue.async {
             
             var (URLsToDelete, diskCacheSize, cachedFiles) = self.travelCachedFiles(onlyForCacheSize: false)

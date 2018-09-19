@@ -204,11 +204,11 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
 extension UINavigationController {
     //http://stackoverflow.com/questions/19022210/preferredstatusbarstyle-isnt-called
     //The UINavigationController does not forward on preferredStatusBarStyle calls to its child view controllers. Instead it manages its own state - as it should, it is drawing at the top of the screen where the status bar lives and so should be responsible for it. Therefor implementing preferredStatusBarStyle in your VCs within a nav controller will do nothing - they will never be called.
-    open override var childViewControllerForStatusBarStyle: UIViewController?{
+    open override var childForStatusBarStyle: UIViewController?{
         return self.topViewController
     }
     
-    open override var childViewControllerForStatusBarHidden: UIViewController?{
+    open override var childForStatusBarHidden: UIViewController?{
         return self.topViewController
     }
     
