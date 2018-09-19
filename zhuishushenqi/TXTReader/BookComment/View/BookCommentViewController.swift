@@ -34,7 +34,7 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
         tableView.sectionHeaderHeight = 60
         tableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         tableView.estimatedRowHeight = 180
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.qs_registerCellNib(BookCommentCell.self)
         tableView.qs_registerCellNib(UserfulCell.self)
         tableView.qs_registerCellNib(BookCommentViewCell.self)

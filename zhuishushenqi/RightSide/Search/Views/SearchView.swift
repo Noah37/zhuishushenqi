@@ -114,9 +114,9 @@ class SearchView: UIView,UITableViewDataSource,UITableViewDelegate {
             }
             let btn = UIButton(type: .custom)
             btn.frame = CGRect(x: x, y: y, width: width, height: height)
-            btn.setTitle(hotWords[count], for: UIControlState())
+            btn.setTitle(hotWords[count], for: UIControl.State())
             btn.titleLabel?.font = UIFont.systemFont(ofSize: 11)
-            btn.setTitleColor(UIColor.white, for: UIControlState())
+            btn.setTitleColor(UIColor.white, for: UIControl.State())
             btn.backgroundColor = tagColor[index%tagColor.count]
             btn.tag = count  + 12121
             btn.addTarget(self, action: #selector(hotWordSearchAction(btn:)), for: .touchUpInside)

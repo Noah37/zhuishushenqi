@@ -130,7 +130,7 @@ class ZSRankViewController:BaseViewController {
             viewControllers.append(viewController)
         }
         segmentViewController.viewControllers = viewControllers
-        addChildViewController(segmentViewController)
+        addChild(segmentViewController)
         view.addSubview(segmentViewController.view)
     }
 }

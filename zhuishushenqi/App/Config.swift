@@ -97,7 +97,7 @@ func getAttributes(with lineSpave:CGFloat,font:UIFont)->NSDictionary{
     paraStyle.paragraphSpacingBefore = 0.0
     paraStyle.headIndent = 0
     paraStyle.tailIndent = 0
-    let dict = [NSAttributedStringKey.font:font,NSAttributedStringKey.kern:1.5,NSAttributedStringKey.paragraphStyle:paraStyle] as [NSAttributedStringKey : Any]
+    let dict = [NSAttributedString.Key.font:font,NSAttributedString.Key.kern:1.5,NSAttributedString.Key.paragraphStyle:paraStyle] as [NSAttributedString.Key : Any]
     return dict as NSDictionary
 }
 
@@ -110,7 +110,7 @@ func attributeText(with lineSpace:CGFloat,text:String,font:UIFont)->NSAttributed
     paraStyle.paragraphSpacingBefore = 0.0
     paraStyle.headIndent = 0
     paraStyle.tailIndent = 0
-    let dict = [NSAttributedStringKey.font:font,NSAttributedStringKey.kern:1.5,NSAttributedStringKey.paragraphStyle:paraStyle] as [NSAttributedStringKey : Any]
+    let dict = [NSAttributedString.Key.font:font,NSAttributedString.Key.kern:1.5,NSAttributedString.Key.paragraphStyle:paraStyle] as [NSAttributedString.Key : Any]
     let attributeStr = NSAttributedString(string: text, attributes: dict)
     return attributeStr
 }

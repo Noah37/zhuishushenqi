@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ObjectMapper
 /*
  *  章节信息保存到NSDictionary中，key为link或者id
  *  value为QSChapter模型，不需要持久化，每次内存释放则释放
@@ -73,19 +72,6 @@ class QSChapter: NSObject ,NSCoding{
         self.ranges = []
     }
     
-    /// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
-    func mapping(map: Map) {
-        id    <- map["id"]
-        link         <- map["link"]
-        title <- map["title"]
-        content       <- map["content"]
-        pages <- map["pages"]
-        ranges <- map["pages"]
-        curChapter <- map["curChapter"]
-        
-    }
-
-    
     required init?(coder aDecoder: NSCoder) {
         super.init()
         self.id = aDecoder.decodeObject(forKey: "id") as! String
@@ -111,9 +97,5 @@ class QSChapter: NSObject ,NSCoding{
     override init() {
         super.init()
         NotificationCenter.qs_addObserver(observer: self, selector: #selector(clear), name: QSReaderPagesClearNotificationKey, object: nil)
-    }
-    
-    required init?(map: Map) {
-        
     }
 }

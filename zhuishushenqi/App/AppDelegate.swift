@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RxCocoa
 import RxSwift
 
 let rightScaleX:CGFloat = 0.2
@@ -18,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let sideVC = SideViewController.shared
@@ -67,8 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             QSLog("显示完成:\(event)")
         }.disposed(by: disposeBag)
         
-        QSLog(String.localized_login)
-        QSLog(ZSBookManager.shared) 
+//        QSLog(String.localized_login)
+        QSLog(ZSBookManager.shared)
         return true
     }
     
@@ -84,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         
         return true

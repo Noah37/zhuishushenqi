@@ -89,7 +89,7 @@ class QSReaderParse: NSObject {
     }
     
     //耗时操作，只在显示章节时才去计算,计算完成将会缓存，在改变约束，或者换源时重置
-    public class func pageWithAttributes(attrubutes:[NSAttributedStringKey:Any]?,constrainedToFrame frame:CGRect,string:String)->[NSRange]{
+    public class func pageWithAttributes(attrubutes:[NSAttributedString.Key:Any]?,constrainedToFrame frame:CGRect,string:String)->[NSRange]{
         // 记录
         let date = NSDate()
         var rangeArray:[NSRange] = []

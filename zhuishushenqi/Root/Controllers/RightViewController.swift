@@ -14,7 +14,7 @@ class RightViewController: UITableViewController {
     
     var images:[String]?
 
-    override init(style: UITableViewStyle) {
+    override init(style: UITableView.Style) {
         super.init(style: style)
         let scale = SideVC.leftOffSetXScale
         self.tableView.frame = CGRect(x: ScreenWidth*scale + 20, y: 0, width: ScreenWidth*(1-scale) - 20, height: ScreenHeight)

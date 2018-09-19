@@ -168,6 +168,7 @@ class ZSForumCell:UITableViewCell{
         super.layoutSubviews()
         self.imageView?.frame = CGRect(x: 20, y: 9, width: 30, height: 30)
         self.textLabel?.frame = CGRect(x: 65, y: 0, width: ScreenWidth - 65 - 38, height: 49.67)
-        self.separatorInset = UIEdgeInsetsMake(0, 65, 0, 0)
+        
+        self.separatorInset = UIEdgeInsets(top: 0, left: 65, bottom: 0, right: 0)
     }
 }

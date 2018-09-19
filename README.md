@@ -29,6 +29,7 @@
 
 **20180828: 本次功能变更: 评论区增加图文混排功能,正确展示评论中的图片及链接**
 
+**20180919: 本次功能变更: 适配Swift4.2及Xcode10 **
 
 ----
 
@@ -36,9 +37,9 @@
 
 ## Requirements
 
-- iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 9.1+
-- Swift 4.0+
+- iOS 9.0+ / macOS 10.13+ / tvOS 9.0+ / watchOS 2.0+
+- Xcode 10.0+
+- Swift 4.2+
 
 Main development of zhuishushenqi olny support Swift 4.0+.
 

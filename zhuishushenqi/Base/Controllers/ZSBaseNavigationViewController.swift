@@ -23,7 +23,7 @@ class ZSBaseNavigationViewController: UINavigationController {
     }
     
     func setupNavigationItem(){
-        let leftBar:UIBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItemStyle.plain, target: self, action: #selector(popAction))
+        let leftBar:UIBarButtonItem = UIBarButtonItem(title: "返回", style: UIBarButtonItem.Style.plain, target: self, action: #selector(popAction))
         self.navigationItem.leftBarButtonItem = leftBar
     }
     

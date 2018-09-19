@@ -49,7 +49,7 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
         titleLabel.textAlignment = .center
         titleLabel.text = "书籍详情"
         let titleShare = UIImageView(image: UIImage(named: "bd_share"))
-        let width = (titleLabel.text! as NSString).boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 13)], context: nil)
+        let width = (titleLabel.text! as NSString).boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 13)], context: nil)
         titleShare.frame = CGRect(x: width.size.width/2 + 120/2, y: 5, width: 20, height: 20)
         let ges = UITapGestureRecognizer(target: self, action: #selector(shareAction(_:)))
         titleShare.addGestureRecognizer(ges)
@@ -260,9 +260,9 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
             }
             let btn = UIButton(type: .custom)
             btn.frame = CGRect(x: x, y: y, width: width, height: height)
-            btn.setTitle(bookModel!.tags![index] as? String, for: UIControlState())
+            btn.setTitle(bookModel!.tags![index] as? String, for: UIControl.State())
             btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-            btn.setTitleColor(UIColor.white, for: UIControlState())
+            btn.setTitleColor(UIColor.white, for: UIControl.State())
             btn.backgroundColor = tagColor[index%tagColor.count]
             btn.layer.cornerRadius = 2
             cell.contentView.addSubview(btn)

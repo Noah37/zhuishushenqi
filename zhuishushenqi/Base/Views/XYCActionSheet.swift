@@ -32,7 +32,7 @@ class XYCActionSheet: UIView {
         }
         for index in 0..<titles.count{
             let btn = UIButton(type: .custom)
-            btn.setTitleColor(UIColor.white, for: UIControlState())
+            btn.setTitleColor(UIColor.white, for: UIControl.State())
             btn.frame = CGRect(x: 20, y: 20 + 40*CGFloat(index) + 5*CGFloat(index), width: ScreenWidth - 40, height: 40)
             let randomIndex = getIndexNotExist()
             
@@ -41,7 +41,7 @@ class XYCActionSheet: UIView {
             btn.layer.cornerRadius = 4
             btn.addTarget(self, action: #selector(btnAction(_:)), for: .touchUpInside)
             btn.backgroundColor = backColor[Int(randomIndex)] as? UIColor
-            btn.setTitle(titles[index] as? String, for: UIControlState())
+            btn.setTitle(titles[index] as? String, for: UIControl.State())
             if index == titles.count - 1 {
                 btn.backgroundColor = UIColor.gray
             }

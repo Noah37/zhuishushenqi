@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import ObjectMapper
+import HandyJSON
 
 //@objc(ChapterInfo)
-class ChapterInfo: Mappable ,NSCoding{
+class ChapterInfo : NSCoding,HandyJSON {
 
     //数据持久化标志，代表当前的章节，与小说对应章节可能不符
     var currentIndex:Int = 0
@@ -48,7 +48,7 @@ class ChapterInfo: Mappable ,NSCoding{
     var attribute:NSDictionary? = ["size": 20] {
         didSet{
             //如果设置约束，则重新计算
-            self.ranges = self.pageWithAttributes(attrubutes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 20)], constrainedToSize: CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40), string: cpContent!) as? [String]
+            self.ranges = self.pageWithAttributes(attrubutes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 20)], constrainedToSize: CGSize(width:UIScreen.main.bounds.size.width - 40,height: UIScreen.main.bounds.size.height - 40), string: cpContent!) as? [String]
         }
     }
     
@@ -72,27 +72,14 @@ class ChapterInfo: Mappable ,NSCoding{
         self.attribute = aDecoder.decodeObject(forKey: "attribute") as? NSDictionary
     }
     
-    init() {
+    required init() {
         
-    }
-    
-    required init?(map: Map) {
-        
-    }
-    
-    // Mappable
-    func mapping(map: Map) {
-        title    <- map["title"]
-        body         <- map["body"]
-        cpContent <- map["cpContent"]
-        id      <- map["id"]
-        currency       <- map["currency"]
     }
     
     private func pageWithAttributes(attrubutes:NSDictionary,constrainedToSize size:CGSize,string:String)->NSArray{
         let resultRange = NSMutableArray(capacity: 5)
         let rect = CGRect(x:0,y: 0,width: size.width,height: size.height)
-        let attributedString = NSAttributedString(string:string , attributes: attrubutes as? [NSAttributedStringKey: AnyObject])
+        let attributedString = NSAttributedString(string:string , attributes: attrubutes as? [NSAttributedString.Key: AnyObject])
         let date = NSDate()
         var rangeIndex = 0
         repeat{
@@ -129,8 +116,9 @@ class ChapterInfo: Mappable ,NSCoding{
         var model:ChapterInfo?
         var file:[String:Any]?
         file = NSKeyedUnarchiver.unarchiveObject(withFile: filePath!) as? [String : Any]
-        if file != nil {
-            model = ChapterInfo(JSON: file!)
+        if let dict = file as? [String:Any]{
+            
+            model = ChapterInfo.deserialize(from: dict)
             QSLog(model?.cpContent)
         }
         return model

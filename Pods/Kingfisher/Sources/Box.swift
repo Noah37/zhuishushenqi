@@ -1,12 +1,9 @@
 //
-//  ISO8601DateTransform.swift
-//  ObjectMapper
+//  Box.swift
+//  Kingfisher
 //
-//  Created by Jean-Pierre Mouilleseaux on 21 Nov 2014.
-//
-//  The MIT License (MIT)
-//
-//  Copyright (c) 2014-2016 Hearst
+//  Created by Wei Wang on 2018/3/17.
+//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,20 +25,10 @@
 
 import Foundation
 
-public extension DateFormatter {
-	public convenience init(withFormat format : String, locale : String) {
-		self.init()
-		self.locale = Locale(identifier: locale)
-		dateFormat = format
-	}
+class Box<T> {
+    let value: T
+    
+    init(_ value: T) {
+        self.value = value
+    }
 }
-
-open class ISO8601DateTransform: DateFormatterTransform {
-	
-	static let reusableISODateFormatter = DateFormatter(withFormat: "yyyy-MM-dd'T'HH:mm:ssZZZZZ", locale: "en_US_POSIX")
-
-	public init() {
-		super.init(dateFormatter: ISO8601DateTransform.reusableISODateFormatter)
-	}
-}
-

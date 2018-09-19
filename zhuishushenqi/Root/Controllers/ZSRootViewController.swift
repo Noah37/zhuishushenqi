@@ -10,7 +10,6 @@ import UIKit
 import Then
 import RxSwift
 import RxCocoa
-import RxDataSources
 
 class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SegMenuDelegate {
     
@@ -18,7 +17,7 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
 
     var tableView = UITableView(frame: CGRect.zero, style: .grouped).then {
         $0.estimatedRowHeight = kCellHeight
-        $0.rowHeight = UITableViewAutomaticDimension
+        $0.rowHeight = UITableView.automaticDimension
     }
     
     var collectionView:UICollectionView!
@@ -79,8 +78,8 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
     func configureChildViewController(){
         let shelvesVC = ZSShelfViewController()
         let forumVC = ZSForumViewController()
-        addChildViewController(shelvesVC)
-        addChildViewController(forumVC)
+        addChild(shelvesVC)
+        addChild(forumVC)
         viewControllers.append(shelvesVC)
         viewControllers.append(forumVC)
     }

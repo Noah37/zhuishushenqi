@@ -19,7 +19,6 @@
 		3D3AB5DC214E99FE00E9C246 /* fz-wbt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DB214E99FE00E9C246 /* fz-wbt.ttf */; };
 		3D3AB5DE214E9A8300E9C246 /* fz-kt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DD214E9A8300E9C246 /* fz-kt.ttf */; };
 		3D3AB5E0214E9ABD00E9C246 /* ltt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */; };
-		3D5280DD20C8D21B00252D67 /* ZSBookShelvesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */; };
 		3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */; };
 		3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */; };
 		3D9325E120B2BCFB0049CDBF /* ZSRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */; };
@@ -51,7 +50,6 @@
 		3DDEEB02214B5D59003D12DB /* UIFont+ZSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDEEB01214B5D59003D12DB /* UIFont+ZSExtension.m */; };
 		3DE77D2620C8E99500A86DF0 /* ZSBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */; };
 		3DE77D2A20C90EA300A86DF0 /* ZSRootWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */; };
-		3DE77D2C20C9143C00A86DF0 /* ZSRootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2B20C9143C00A86DF0 /* ZSRootViewModel.swift */; };
 		3DF2D27820EB5773004E73B6 /* ZSChapterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2D27720EB5773004E73B6 /* ZSChapterInfo.swift */; };
 		3DF2D27A20EB5C1C004E73B6 /* ZSChapterBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2D27920EB5C1C004E73B6 /* ZSChapterBody.swift */; };
 		48103378801B43EB177B7D8A /* Pods_zhuishushenqi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D606ED88FDF674D404EC160E /* Pods_zhuishushenqi.framework */; };
@@ -377,12 +375,10 @@
 		B2C0DF7D20D4CB6D0057DC84 /* QSBookCommentProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF7620D4CB6D0057DC84 /* QSBookCommentProtocols.swift */; };
 		B2C0DF7F20D4CC480057DC84 /* ZSBookCommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF7E20D4CC480057DC84 /* ZSBookCommentService.swift */; };
 		B2C0DF8120D4CC5A0057DC84 /* ZSBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF8020D4CC5A0057DC84 /* ZSBaseService.swift */; };
-		B2C0DF8320D612F00057DC84 /* ZSBookCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF8220D612F00057DC84 /* ZSBookCommentViewModel.swift */; };
 		B2C0DF8520D7C1D30057DC84 /* ZSHottwitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF8420D7C1D30057DC84 /* ZSHottwitterViewController.swift */; };
 		B2CA942B1EB331DC00D60BF2 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */; };
 		B2E072781F3AD99500C63347 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E072771F3AD99500C63347 /* Reader.swift */; };
 		B2EE7CF41F3BFC7B00BE997C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B2EE7CF61F3BFC7B00BE997C /* Localizable.strings */; };
-		B2EE7CFA1F3C00FB00BE997C /* LocalizedUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EE7CF91F3C00FB00BE997C /* LocalizedUtils.swift */; };
 		B2F778BC1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F778BB1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift */; };
 		B2FB91FD1EB1EEDF000C990A /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FB91FC1EB1EEDF000C990A /* Reachability.swift */; };
 		B2FB92111EB1EEDF000C990A /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2FB92101EB1EEDF000C990A /* CoreTelephony.framework */; };
@@ -433,7 +429,6 @@
 		3D3AB5DB214E99FE00E9C246 /* fz-wbt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fz-wbt.ttf"; sourceTree = "<group>"; };
 		3D3AB5DD214E9A8300E9C246 /* fz-kt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fz-kt.ttf"; sourceTree = "<group>"; };
 		3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ltt.ttf; sourceTree = "<group>"; };
-		3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookShelvesViewController.swift; sourceTree = "<group>"; };
 		3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumViewController.swift; sourceTree = "<group>"; };
 		3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSProtocol.swift; sourceTree = "<group>"; };
 		3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootViewController.swift; sourceTree = "<group>"; };
@@ -477,7 +472,6 @@
 		3DDEEB01214B5D59003D12DB /* UIFont+ZSExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ZSExtension.m"; sourceTree = "<group>"; };
 		3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseTableViewController.swift; sourceTree = "<group>"; };
 		3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootWebService.swift; sourceTree = "<group>"; };
-		3DE77D2B20C9143C00A86DF0 /* ZSRootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootViewModel.swift; sourceTree = "<group>"; };
 		3DF2D27720EB5773004E73B6 /* ZSChapterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSChapterInfo.swift; sourceTree = "<group>"; };
 		3DF2D27920EB5C1C004E73B6 /* ZSChapterBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSChapterBody.swift; sourceTree = "<group>"; };
 		B08901F972525F29A370AA86 /* Pods-zhuishushenqi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zhuishushenqi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi.debug.xcconfig"; sourceTree = "<group>"; };
@@ -847,12 +841,10 @@
 		B2C0DF7620D4CB6D0057DC84 /* QSBookCommentProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSBookCommentProtocols.swift; sourceTree = "<group>"; };
 		B2C0DF7E20D4CC480057DC84 /* ZSBookCommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCommentService.swift; sourceTree = "<group>"; };
 		B2C0DF8020D4CC5A0057DC84 /* ZSBaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseService.swift; sourceTree = "<group>"; };
-		B2C0DF8220D612F00057DC84 /* ZSBookCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCommentViewModel.swift; sourceTree = "<group>"; };
 		B2C0DF8420D7C1D30057DC84 /* ZSHottwitterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHottwitterViewController.swift; sourceTree = "<group>"; };
 		B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
 		B2E072771F3AD99500C63347 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
 		B2EE7CF51F3BFC7B00BE997C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		B2EE7CF91F3C00FB00BE997C /* LocalizedUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedUtils.swift; sourceTree = "<group>"; };
 		B2EE7CFB1F3C063F00BE997C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B2EE7CFC1F3C064800BE997C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B2EE7CFD1F3C0C3400BE997C /* Script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Script.sh; sourceTree = "<group>"; };
@@ -929,7 +921,6 @@
 			isa = PBXGroup;
 			children = (
 				3D9325EB20B2C9120049CDBF /* ZSHomeViewModel.swift */,
-				3DE77D2B20C9143C00A86DF0 /* ZSRootViewModel.swift */,
 				B252D4E1211035060091858E /* ZSShelfViewModel.swift */,
 				B2A39C492110453100D6308E /* ZSLocalShelfViewModel.swift */,
 				3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */,
@@ -1424,7 +1415,6 @@
 		B2B4BA131E7EA4A8000CC201 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				B2EE7CF91F3C00FB00BE997C /* LocalizedUtils.swift */,
 				B2FB91FC1EB1EEDF000C990A /* Reachability.swift */,
 				B2F778BB1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift */,
 				B2B4BA141E7EA4A8000CC201 /* Date+Extension.swift */,
@@ -1678,7 +1668,6 @@
 				B252D4E3211037380091858E /* ZSShelfViewController.swift */,
 				B2B4BA5D1E7EA4A8000CC201 /* RootViewController.swift */,
 				3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */,
-				3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */,
 				B2A39C472110447300D6308E /* ZSLocalShelfViewController.swift */,
 				B252D4A9210EF8770091858E /* ZSImportBookViewController.swift */,
 				3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */,
@@ -1798,7 +1787,6 @@
 		B2C0DEA020D4CB340057DC84 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B2C0DF8220D612F00057DC84 /* ZSBookCommentViewModel.swift */,
 				3D968CFB2135391400DF3279 /* ZSBookCTViewModel.swift */,
 			);
 			path = ViewModel;
@@ -2275,28 +2263,19 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PullToRefresh/PullToRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/QSNetwork/QSNetwork.framework",
-				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
-				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
-				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
@@ -2307,28 +2286,19 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PullToRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QSNetwork.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
@@ -2465,7 +2435,6 @@
 				3D968CF62133917900DF3279 /* ZSCellAdapterProtocol.swift in Sources */,
 				B278AA8C1F395F30000A0D55 /* LookBookViewController.swift in Sources */,
 				B2B4BC261E7EA4AB000CC201 /* RootViewController.swift in Sources */,
-				3DE77D2C20C9143C00A86DF0 /* ZSRootViewModel.swift in Sources */,
 				B2580E231E9B284900455AFE /* QSHotwords.swift in Sources */,
 				B2C0DF4820D4CB350057DC84 /* BookCommentViewCell.swift in Sources */,
 				3DF2D27820EB5773004E73B6 /* ZSChapterInfo.swift in Sources */,
@@ -2592,7 +2561,6 @@
 				3DF2D27A20EB5C1C004E73B6 /* ZSChapterBody.swift in Sources */,
 				B2B4BBE21E7EA4AB000CC201 /* SwiftyJSON.swift in Sources */,
 				3D08F242212C2DC6007B3D19 /* ZSDiscussViewModel.swift in Sources */,
-				B2C0DF8320D612F00057DC84 /* ZSBookCommentViewModel.swift in Sources */,
 				B2B02E481EA8920F00A6880A /* QSCategoryDetailViewController.swift in Sources */,
 				B2F778BC1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift in Sources */,
 				3DDEEAF9214A8E3F003D12DB /* ZSFontViewController.swift in Sources */,
@@ -2632,7 +2600,6 @@
 				B252D493210EF3960091858E /* DDNumber.m in Sources */,
 				B27D7E961F4D1F8600866341 /* QSSegmentViewController.swift in Sources */,
 				B2FCAA8B1E9C82CE0064837C /* QSSearchItem.swift in Sources */,
-				B2EE7CFA1F3C00FB00BE997C /* LocalizedUtils.swift in Sources */,
 				B2C0DF6E20D4CB350057DC84 /* QSCommunityInteractor.swift in Sources */,
 				B2B4BC1A1E7EA4AB000CC201 /* TopicDetailModel.swift in Sources */,
 				B2C0DF6520D4CB350057DC84 /* CategoryController.swift in Sources */,
@@ -2677,7 +2644,6 @@
 				B2ACA06E212944AC0032305E /* ZSWebViewController.swift in Sources */,
 				B22AC4551E9F1E8F008625E6 /* QSRankViewController.swift in Sources */,
 				B252D499210EF3960091858E /* DAVResponse.m in Sources */,
-				3D5280DD20C8D21B00252D67 /* ZSBookShelvesViewController.swift in Sources */,
 				B2C0DF3320D4CB350057DC84 /* QSReaderViewFlowLayout.swift in Sources */,
 				B2580E1F1E9B236000455AFE /* QSSearchViewController.swift in Sources */,
 				3DDB6CAE2130F4BC00E8698D /* UIView+frameAdjust.m in Sources */,
@@ -2883,7 +2849,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/zhuishushenqi/zhuishushenqi-Bridge-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -2919,7 +2885,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/zhuishushenqi/zhuishushenqi-Bridge-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

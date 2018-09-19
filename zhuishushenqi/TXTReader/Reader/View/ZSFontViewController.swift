@@ -79,7 +79,7 @@ class ZSFontViewCell: UITableViewCell {
     
     var type:ZSDownloadType = .notdown
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setDownloadType(type: .notdown)
         download.titleLabel?.font = UIFont.systemFont(ofSize: 11)
@@ -89,7 +89,7 @@ class ZSFontViewCell: UITableViewCell {
         download.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
         download.addTarget(self, action: #selector(downloadAction(sender:)), for: .touchUpInside)
         self.accessoryView = download
-        self.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0)
+        self.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
         self.selectionStyle = .none
     }
     

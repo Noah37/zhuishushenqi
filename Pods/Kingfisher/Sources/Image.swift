@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 16/1/6.
 //
-//  Copyright (c) 2017 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -206,7 +206,7 @@ extension Kingfisher where Base: Image {
 
 // MARK: - Create images from data
 extension Kingfisher where Base: Image {
-    static func animated(with data: Data, scale: CGFloat = 1.0, duration: TimeInterval = 0.0, preloadAll: Bool, onlyFirstFrame: Bool = false) -> Image? {
+    public static func animated(with data: Data, scale: CGFloat = 1.0, duration: TimeInterval = 0.0, preloadAll: Bool, onlyFirstFrame: Bool = false) -> Image? {
         
         func decode(from imageSource: CGImageSource, for options: NSDictionary) -> ([Image], TimeInterval)? {
             
@@ -293,7 +293,7 @@ extension Kingfisher where Base: Image {
         #endif
     }
 
-    static func image(data: Data, scale: CGFloat, preloadAllAnimationData: Bool, onlyFirstFrame: Bool) -> Image? {
+    public static func image(data: Data, scale: CGFloat, preloadAllAnimationData: Bool, onlyFirstFrame: Bool) -> Image? {
         var image: Image?
 
         #if os(macOS)
@@ -708,11 +708,11 @@ extension Kingfisher where Base: Image {
 
 // MARK: - Decode
 extension Kingfisher where Base: Image {
-    var decoded: Image {
+    public var decoded: Image {
         return decoded(scale: scale)
     }
     
-    func decoded(scale: CGFloat) -> Image {
+    public func decoded(scale: CGFloat) -> Image {
         // prevent animated image (GIF) lose it's images
         #if os(iOS)
             if imageSource != nil { return base }
@@ -756,7 +756,7 @@ private struct ImageHeaderData {
     static var GIF: [UInt8] = [0x47, 0x49, 0x46]
 }
 
-enum ImageFormat {
+public enum ImageFormat {
     case unknown, PNG, JPEG, GIF
 }
 
@@ -777,7 +777,7 @@ extension Data: KingfisherCompatible {
 }
 
 extension DataProxy {
-    var imageFormat: ImageFormat {
+    public var imageFormat: ImageFormat {
         var buffer = [UInt8](repeating: 0, count: 8)
         (base as NSData).getBytes(&buffer, length: 8)
         if buffer == ImageHeaderData.PNG {
@@ -813,14 +813,26 @@ extension CGSize: KingfisherCompatible {
 }
 
 extension CGSizeProxy {
-    func constrained(_ size: CGSize) -> CGSize {
+    
+    public func resize(to size: CGSize, for contentMode: ContentMode) -> CGSize {
+        switch contentMode {
+        case .aspectFit:
+            return constrained(size)
+        case .aspectFill:
+            return filling(size)
+        default:
+            return self.base
+        }
+    }
+    
+    public func constrained(_ size: CGSize) -> CGSize {
         let aspectWidth = round(aspectRatio * size.height)
         let aspectHeight = round(size.width / aspectRatio)
 
         return aspectWidth > size.width ? CGSize(width: size.width, height: aspectHeight) : CGSize(width: aspectWidth, height: size.height)
     }
 
-    func filling(_ size: CGSize) -> CGSize {
+    public func filling(_ size: CGSize) -> CGSize {
         let aspectWidth = round(aspectRatio * size.height)
         let aspectHeight = round(size.width / aspectRatio)
 
@@ -832,7 +844,7 @@ extension CGSizeProxy {
     }
     
     
-    func constrainedRect(for size: CGSize, anchor: CGPoint) -> CGRect {
+    public func constrainedRect(for size: CGSize, anchor: CGPoint) -> CGRect {
         
         let unifiedAnchor = CGPoint(x: anchor.x.clamped(to: 0.0...1.0),
                                     y: anchor.y.clamped(to: 0.0...1.0))
@@ -972,9 +984,9 @@ extension NSBezierPath {
         let maxCorner = min(rect.width, rect.height) / 2
         
         let radiusTopLeft = min(maxCorner, max(0, topLeftRadius))
-        let radiustopRight = min(maxCorner, max(0, topRightRadius))
-        let radiusbottomLeft = min(maxCorner, max(0, bottomLeftRadius))
-        let radiusbottomRight = min(maxCorner, max(0, bottomRightRadius))
+        let radiusTopRight = min(maxCorner, max(0, topRightRadius))
+        let radiusBottomLeft = min(maxCorner, max(0, bottomLeftRadius))
+        let radiusBottomRight = min(maxCorner, max(0, bottomRightRadius))
         
         guard !NSIsEmptyRect(rect) else {
             return
@@ -986,9 +998,9 @@ extension NSBezierPath {
         
         move(to: NSMakePoint(NSMidX(rect), NSMaxY(rect)))
         appendArc(from: topLeft, to: rect.origin, radius: radiusTopLeft)
-        appendArc(from: rect.origin, to: bottomRight, radius: radiusbottomLeft)
-        appendArc(from: bottomRight, to: topRight, radius: radiusbottomRight)
-        appendArc(from: topRight, to: topLeft, radius: radiustopRight)
+        appendArc(from: rect.origin, to: bottomRight, radius: radiusBottomLeft)
+        appendArc(from: bottomRight, to: topRight, radius: radiusBottomRight)
+        appendArc(from: topRight, to: topLeft, radius: radiusTopRight)
         close()
     }
     

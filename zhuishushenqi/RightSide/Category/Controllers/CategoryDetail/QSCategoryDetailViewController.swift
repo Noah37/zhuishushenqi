@@ -89,8 +89,8 @@ extension QSCategoryDetailViewController:UICollectionViewDataSource,UICollection
         let cell = collectionView.qs_dequeueReusableCell(UICollectionViewCell.self, for: indexPath)
         self.removeSubviews(parentView: cell.contentView)
         let subVC = subviews[indexPath.item]
-        self.addChildViewController(subVC)
-        subVC.didMove(toParentViewController: self)
+        self.addChild(subVC)
+        subVC.didMove(toParent: self)
         subVC.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight)
         cell.contentView.addSubview(subVC.view)
         return cell

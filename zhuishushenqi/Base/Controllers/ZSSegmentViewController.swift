@@ -79,7 +79,7 @@ class ZSSegmentViewController: UIViewController ,UICollectionViewDelegate{
     
     fileprivate func setupChildViewControllers() {
         for controller in viewControllers {
-            addChildViewController(controller)
+            addChild(controller)
         }
     }
 }

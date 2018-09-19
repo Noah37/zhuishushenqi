@@ -82,19 +82,19 @@ class ZSReaderViewController: BaseViewController  {
     func setupNoneAnimationController(){
         noneAnimationViewController.viewModel = viewModel
         view.addSubview(noneAnimationViewController.view)
-        addChildViewController(noneAnimationViewController)
+        addChild(noneAnimationViewController)
     }
     
     func setupHorMoveAnimationController(){
         horMoveController.viewModel = viewModel
         view.addSubview(horMoveController.view)
-        addChildViewController(horMoveController)
+        addChild(horMoveController)
     }
     
     func setupCurlPageViewController(){
         curlPageViewController.viewModel = viewModel
         view.addSubview(curlPageViewController.view)
-        addChildViewController(curlPageViewController)
+        addChild(curlPageViewController)
     }
     
     func removeNoneAnimationView(){

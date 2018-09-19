@@ -42,7 +42,7 @@ class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableVie
         if let _ = self.titleView {
             self.titleView?.setTitle(title, for: .normal)
             let width = (self.titleView?.currentTitle ?? "").qs_width(UIFont.systemFont(ofSize: 17), height: 21)*1.3
-            self.titleView?.imageEdgeInsets = UIEdgeInsetsMake(0, width, 0, -width)
+            self.titleView?.imageEdgeInsets = UIEdgeInsets(top: 0, left: width, bottom: 0, right: -width)
             return
         }
         let titleView = UIButton(type: .custom)
@@ -50,7 +50,7 @@ class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableVie
         titleView.setImage(UIImage(named: "c_arrow_down"), for: .normal)
         titleView.setTitle(title, for: .normal)
         let width = (titleView.currentTitle ?? "").qs_width(UIFont.systemFont(ofSize: 17), height: 21)*1.3
-        titleView.imageEdgeInsets = UIEdgeInsetsMake(0, width, 0, -width)
+        titleView.imageEdgeInsets = UIEdgeInsets(top: 0, left: width, bottom: 0, right: -width)
         titleView.setTitleColor(UIColor.black, for: .normal)
         titleView.addTarget(self, action: #selector(titleViewAction(btn:)), for: .touchUpInside)
         self.titleView = titleView

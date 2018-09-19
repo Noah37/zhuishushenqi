@@ -34,7 +34,7 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
         tableView.delegate = self
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 97
         tableView.qs_registerCellNib(QSHelpViewCell.self)
         return tableView
@@ -80,7 +80,7 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
             self.tableView.reloadData()
             if self.viewModel.models.count > 0 {
                 let indexPath = IndexPath(row: 0, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: false)
+                self.tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.top, animated: false)
             }
         }
     }
@@ -135,7 +135,7 @@ class ZSBookReviewViewController:BaseViewController,UITableViewDataSource,UITabl
         tableView.delegate = self
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 99
         tableView.qs_registerCellNib(ZSReviewsCell.self)
         return tableView
@@ -318,7 +318,7 @@ class ZSFemaleViewController:BaseViewController,UITableViewDataSource,UITableVie
         tableView.delegate = self
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 97
         tableView.qs_registerCellNib(QSHelpViewCell.self)
         return tableView
@@ -431,7 +431,7 @@ class LookBookViewController: BaseViewController,UITableViewDataSource,UITableVi
         tableView.delegate = self
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 97
         tableView.qs_registerCellNib(QSHelpViewCell.self)
         return tableView

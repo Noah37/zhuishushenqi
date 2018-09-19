@@ -27,7 +27,7 @@ class BookCommentDetail: NSObject,HandyJSON {
 //                    font = font*1.05
 //                }
 //            }
-//            attri.append(NSMutableAttributedString(string: content,attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: font)]))
+//            attri.append(NSMutableAttributedString(string: content,attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: font)]))
 //            
 //            let textContainer = YYTextContainer(size: CGSize(width: ScreenWidth - 65, height: 9999))
 //            self.textLayout = YYTextLayout(container: textContainer, text: attri)

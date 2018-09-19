@@ -60,12 +60,12 @@ class PageViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIDevice.batteryLevelDidChangeNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIDevice.batteryLevelDidChangeNotification, object: nil)
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -82,7 +82,7 @@ class PageViewController: UIViewController {
         view.addSubview(batteryView)
         
         UIDevice.current.isBatteryMonitoringEnabled = true
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil, queue: OperationQueue.main) { (notification) in
+        NotificationCenter.default.addObserver(forName: UIDevice.batteryLevelDidChangeNotification, object: nil, queue: OperationQueue.main) { (notification) in
             let level = UIDevice.current.batteryLevel
             QSLog("电池电量：\(level)）")
             self.batteryView.batteryLevel = CGFloat(level)

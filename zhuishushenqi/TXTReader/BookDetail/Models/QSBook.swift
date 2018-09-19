@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ObjectMapper
 
 /*
     暂时不需要这个类，考虑废弃掉

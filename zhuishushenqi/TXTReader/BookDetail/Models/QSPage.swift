@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ObjectMapper
 
 class Attribute: NSObject,NSCoding {
     var fontSize:Int = 20
@@ -61,10 +60,6 @@ class QSPage: NSObject ,NSCoding{
     }
     
     override init() {
-        
-    }
-    
-    required init?(map: Map) {
         
     }
 

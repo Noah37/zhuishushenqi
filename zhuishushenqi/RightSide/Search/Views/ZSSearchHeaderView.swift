@@ -111,9 +111,9 @@ import SnapKit
             }
             let btn = UIButton(type: .custom)
             btn.frame = CGRect(x: x, y: y, width: width, height: height)
-            btn.setTitle(hotwords[index], for: UIControlState())
+            btn.setTitle(hotwords[index], for: UIControl.State())
             btn.titleLabel?.font = UIFont.systemFont(ofSize: 11)
-            btn.setTitleColor(UIColor.white, for: UIControlState())
+            btn.setTitleColor(UIColor.white, for: UIControl.State())
             btn.backgroundColor = tagColor[index%tagColor.count]
             btn.addTarget(self, action: #selector(hotwordClicked(btn:)), for: .touchUpInside)
             btn.layer.cornerRadius = 2
@@ -124,7 +124,7 @@ import SnapKit
     }
     
     func animate(){
-        activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activity = UIActivityIndicatorView(style: .gray)
         activity.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         activity.center = self.center
         self.addSubview(activity)
