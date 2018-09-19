@@ -1,6 +1,0 @@
-framework module QSNetwork {
-  umbrella header "QSNetwork-umbrella.h"
-
-  export *
-  module * { export * }
-}
