@@ -66,12 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             QSLog("显示完成:\(event)")
         }.disposed(by: disposeBag)
         
-<<<<<<< HEAD
-        QSLog(String.localized_login)
-=======
-//        QSLog(String.localized_login)
-        QSLog(ZSBookManager.shared)
->>>>>>> b2158ad... 适配Swift4.2及Xcode10
         return true
     }
     
