@@ -12,9 +12,7 @@
 		3D2B4D0320EB616D008E3E81 /* ZSReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */; };
 		3D2B4D0520EB6552008E3E81 /* ZSNoneAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */; };
 		3D2B4D0720EB68AC008E3E81 /* ZSReaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */; };
-<<<<<<< HEAD
 		3D5280DD20C8D21B00252D67 /* ZSBookShelvesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */; };
-=======
 		3D3AB5D2214E98AC00E9C246 /* hylst.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D1214E98AC00E9C246 /* hylst.ttf */; };
 		3D3AB5D4214E98B800E9C246 /* Redocn.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D3214E98B800E9C246 /* Redocn.ttf */; };
 		3D3AB5D6214E993E00E9C246 /* hkppt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D5214E993E00E9C246 /* hkppt.ttf */; };
@@ -22,7 +20,6 @@
 		3D3AB5DC214E99FE00E9C246 /* fz-wbt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DB214E99FE00E9C246 /* fz-wbt.ttf */; };
 		3D3AB5DE214E9A8300E9C246 /* fz-kt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DD214E9A8300E9C246 /* fz-kt.ttf */; };
 		3D3AB5E0214E9ABD00E9C246 /* ltt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */; };
->>>>>>> b2158ad... 适配Swift4.2及Xcode10
 		3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */; };
 		3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */; };
 		3D9325E120B2BCFB0049CDBF /* ZSRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */; };
@@ -421,9 +418,7 @@
 		3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSNoneAnimationViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderProtocol.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookShelvesViewController.swift; sourceTree = "<group>"; };
-=======
 		3D3AB5D1214E98AC00E9C246 /* hylst.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hylst.ttf; sourceTree = "<group>"; };
 		3D3AB5D3214E98B800E9C246 /* Redocn.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Redocn.ttf; sourceTree = "<group>"; };
 		3D3AB5D5214E993E00E9C246 /* hkppt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hkppt.ttf; sourceTree = "<group>"; };
@@ -431,7 +426,6 @@
 		3D3AB5DB214E99FE00E9C246 /* fz-wbt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fz-wbt.ttf"; sourceTree = "<group>"; };
 		3D3AB5DD214E9A8300E9C246 /* fz-kt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fz-kt.ttf"; sourceTree = "<group>"; };
 		3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ltt.ttf; sourceTree = "<group>"; };
->>>>>>> b2158ad... 适配Swift4.2及Xcode10
 		3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumViewController.swift; sourceTree = "<group>"; };
 		3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSProtocol.swift; sourceTree = "<group>"; };
 		3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootViewController.swift; sourceTree = "<group>"; };
