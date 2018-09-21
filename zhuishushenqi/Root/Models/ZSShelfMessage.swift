@@ -37,6 +37,15 @@ class ZSShelfMessage: NSObject,HandyJSON {
         let endRange = qsLink.range(of: "]]")
         let endContainRange = qsLink.range(of: "]]]")
         let post = qsLink.range(of: "post:")
+        let linkRange = qsLink.range(of: "link:")
+        let spaceRange = qsLink.range(of: " ")
+        if linkRange.location != NSNotFound && spaceRange.location != NSNotFound {
+            let link = postLink.qs_subStr(range: NSMakeRange(linkRange.location + linkRange.length, spaceRange.location - linkRange.location - linkRange.length))
+            if endRange.location != NSNotFound {
+                title =  postLink.qs_subStr(range: NSMakeRange(spaceRange.location + 1, endRange.location - spaceRange.location - 1))
+                return (link, title, textColor)
+            }
+        }
         if startRange.location == NSNotFound {
             if endRange.location != NSNotFound {
                 if qsLink.length > 32 {
