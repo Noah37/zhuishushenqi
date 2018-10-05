@@ -8,6 +8,188 @@
 
 import Foundation
 
+// 书籍信息保存类
+public class ZSBookManager:NSObject {
+    
+    // 策略
+    // 书架信息:保存书架书籍的所有id的list到本地
+    // 根据id从本地文件中查询是否存在该书籍,如果不存在,从list中删除该id,如果存在,在内存中保存信息
+    
+    // 书架中书籍的id保存为list的key,对key取md5即为保存的文件名
+    let ZSBookShelfIDSKey = "ZSBookShelfIDSKey"
+    let ZSReadHistorySaveKey = "ZSReadHistorySaveKey"
+    
+    fileprivate static var _ids:[String] = []
+    fileprivate static var _books:[String:BookDetail] = [:]
+    
+    // 书架的所有书籍的id
+    var ids:[String] {
+        get {
+            let idsArr = booksID()
+            return idsArr
+        }
+        set {
+            saveBooksID(booksID: newValue)
+        }
+    }
+    
+    // 书架中的所有书籍的model,请勿使用set方法
+    var books:[String:BookDetail] {
+        get {
+            let booksInfo = self.booksInfo()
+            return booksInfo
+        }
+        set {
+            saveBooks(books: newValue)
+        }
+    }
+    
+    var _diskQueue:DispatchQueue!
+    
+    static let shared = ZSBookManager()
+    
+    private override init() {
+        super.init()
+        ZSBookManager.calTime {
+            QSLog(self.ids)
+            QSLog(self.books)
+        }
+    }
+    
+    // 是否存在book
+    func existBook(book:BookDetail) -> Bool {
+        var exist:Bool = false
+        for id in self.ids {
+            if book._id == id {
+                exist = true
+            }
+        }
+        return exist
+    }
+    
+    //MARK: - 添加,默认添加到尾部
+    func addBook(book:BookDetail) {
+        if existBook(book: book) {
+            QSLog("\(book.title)已存在")
+            return
+        }
+        self.ids.append(book._id)
+        self.books[book._id] = book
+    }
+    
+    //MARK: - 删除
+    func deleteBook(book:BookDetail) {
+        if !existBook(book: book) {
+            QSLog("\(book.title)不存在")
+            return
+        }
+        self.books.removeValue(forKey: book._id)
+    }
+    
+    func update(updateInfo:[UpdateInfo]) {
+        for update in updateInfo {
+            if let book = self.books[update._id ?? ""] {
+                book.updateInfo = update
+                self.updateBook(book: book)
+            }
+        }
+    }
+    
+    //MARK: - 更新
+    func updateBook(book:BookDetail) {
+        if !existBook(book: book) {
+            QSLog("\(book.title)不存在")
+            return
+        }
+        QSLog("\(book.title)更新成功")
+        self.books[book._id] = book
+    }
+    
+    //MARK: - books
+    // 保存书籍信息
+    fileprivate func saveBooks(books:[String:BookDetail]) {
+        if books == ZSBookManager._books {
+            return
+        }
+        ZSBookManager._books = books
+        for book in books {
+            let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/Books")
+            let data = NSKeyedArchiver.archivedData(withRootObject: book.value)
+            try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+            let filePath = path.appending("/\(book.key.md5())")
+            let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+            if success {
+                QSLog("保存'\(book.value.title)'成功@_@")
+            }
+        }
+    }
+    
+    // 获取所有的书籍信息
+    fileprivate func booksInfo() -> [String:BookDetail] {
+        if ZSBookManager._books.count > 0 {
+            return ZSBookManager._books
+        }
+        var models:[String:BookDetail] = [:]
+        for id in self.ids {
+            let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/Books").appending("/\(id.md5())")
+            let url = URL(fileURLWithPath: path)
+            if let data = try? Data(contentsOf: url, options: Data.ReadingOptions.alwaysMapped) {
+                if let obj = NSKeyedUnarchiver.unarchiveObject(with: data) as? BookDetail {
+                    models[id] = obj
+                }
+            }
+        }
+        ZSBookManager._books = models
+        return models
+    }
+    
+    //MARK: - ids
+    // 保存书架List信息
+    fileprivate func saveBooksID(booksID:[String]) {
+        if booksID == ZSBookManager._ids  {
+            return
+        }
+        ZSBookManager._ids = booksID
+        let path = NSHomeDirectory().appending("/Documents/ZSBookShelf")
+        let idString = booksID.joined(separator: ",")
+        let data = idString.data(using: .utf8)
+        try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+        let filePath = path.appending("/\(ZSBookShelfIDSKey.md5())")
+        let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+        if success {
+            QSLog("书架List保存成功")
+        }
+    }
+    
+    // 如果ids存在,返回ids,如果不存在,读文件后保存到ids中,修改时页需要更新ids中的内容
+    fileprivate func booksID() ->[String] {
+        if ZSBookManager._ids.count > 0 {
+            return ZSBookManager._ids
+        }
+        let path = NSHomeDirectory().appending("/Documents/ZSBookShelf").appending("/\(ZSBookShelfIDSKey.md5())")
+        let url = URL(fileURLWithPath: path)
+        if let data = try? Data(contentsOf: url, options: Data.ReadingOptions.alwaysMapped) {
+            if let ids = String(data: data, encoding: .utf8) {
+                let idArr = ids.components(separatedBy: ",")
+                ZSBookManager._ids = idArr
+                return idArr
+            }
+        }
+        ZSBookManager._ids = []
+        return []
+    }
+    
+    // 计算耗时的方法
+    static func calTime(_ action: @escaping () ->Void){
+        let startTime = CFAbsoluteTimeGetCurrent()
+        action()
+        let linkTime = (CFAbsoluteTimeGetCurrent() - startTime)
+        QSLog("Linked in \(linkTime * 1000.0) ms")
+    }
+    
+   
+}
+
 // 由于采用数组时，每次遍历的时间会很长，无法快速保存，因此采用NSDictionary来保存书架中的书籍，key为对应的书籍的_id
 // 书架信息只保存_id 数组，这样可以对书籍进行排序
 // 根据_id从本地保存的数据中取出NSDictionary
@@ -173,6 +355,7 @@ public class BookManager:NSObject {
     public func bookshelf()->[String]{
         let data = qs_data(forKey: bookshelfSaveKey)
         if let bookData = data {
+            
             let obj = NSKeyedUnarchiver.unarchiveObject(with: bookData) as? [String]
             return obj ?? []
         }

@@ -24,6 +24,7 @@ protocol ToolBarDelegate{
     func brightnessChange(value:CGFloat)
     func cacheAll()
     func toolbar(toolbar:ToolBar, clickMoreSetting:UIView)
+    func listen()
 }
 
 class ToolBar: UIView {
@@ -83,6 +84,13 @@ class ToolBar: UIView {
         changeSourceBtn.frame = CGRect(x:self.bounds.width - 65, y: 27,width: 50,height: 30)
         changeSourceBtn.frame = CGRect(x:10, y:STATEBARHEIGHT + 7,width: 50,height: 30)
         topBar?.addSubview(changeSourceBtn)
+        
+        let listenBtn = UIButton(type: .custom)
+        listenBtn.setImage(UIImage(named: "readAloud"), for: .normal)
+        listenBtn.addTarget(self, action: #selector(listenAction(btn:)), for: .touchUpInside)
+        listenBtn.frame = CGRect(x:self.bounds.width - 104, y: STATEBARHEIGHT,width: 49,height: 49)
+        topBar?.addSubview(listenBtn)
+        
         
         titleLabel = UILabel(frame: CGRect(x: self.bounds.width/2 - 100, y: STATEBARHEIGHT+7, width: 200, height: 30))
         titleLabel.textColor = UIColor.white
@@ -296,6 +304,10 @@ class ToolBar: UIView {
     
     @objc private func  backAction(btn:UIButton){
         toolBarDelegate?.backButtonDidClicked()
+    }
+    
+    @objc private func  listenAction(btn:UIButton){
+        toolBarDelegate?.listen()
     }
     
     

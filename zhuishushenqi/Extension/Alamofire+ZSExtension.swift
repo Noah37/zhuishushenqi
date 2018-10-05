@@ -29,3 +29,46 @@ func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallb
     }
     return req
 }
+
+func zs_download(urlString:String, filePath:String, handler:ZSBaseCallback<Any>?) {
+    let pathURL = URL(fileURLWithPath: filePath, isDirectory: true)
+    do {
+        try FileManager.default.createDirectory(at: pathURL, withIntermediateDirectories: true, attributes: nil)
+    } catch {
+        print(error)
+    }
+    let fileName = (urlString as NSString).lastPathComponent
+    let fileURL = pathURL.appendingPathComponent(fileName)
+    let destination: DownloadRequest.DownloadFileDestination = { temporaryURL, _ in
+        
+        return (fileURL, [.createIntermediateDirectories, .removePreviousFile])
+    }
+    download(urlString, to: destination).response { (response) in
+        if let error = response.error {
+            handler?(error)
+        } else {
+            handler?(response.destinationURL)
+        }
+    }
+    
+}
+
+@discardableResult
+func zs_download(url:String, parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DownloadRequest {
+    let destination = DownloadRequest.suggestedDownloadDestination()
+    let downloadRequest = download(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil, to: destination).response { (response) in
+        QSLog(response.destinationURL)
+        
+        let exist = FileManager.default.fileExists(atPath: response.destinationURL?.path ?? "")
+        if exist {
+            // 字体文件下载成功
+            handler?(["url":response.destinationURL?.path ?? ""])
+        } else {
+            handler?(["error":response.error])
+        }
+        QSLog(response.temporaryURL)
+        QSLog(response.error)
+        QSLog(response.response)
+    }
+    return downloadRequest
+}

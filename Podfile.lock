@@ -16,11 +16,6 @@ PODS:
   - MJRefresh (3.1.15.6)
   - PullToRefresh (0.0.1)
   - QSNetwork (0.0.3)
-  - Realm (3.7.6):
-    - Realm/Headers (= 3.7.6)
-  - Realm/Headers (3.7.6)
-  - RealmSwift (3.7.6):
-    - Realm (= 3.7.6)
   - RxAlamofire (4.2.0):
     - RxAlamofire/Core (= 4.2.0)
   - RxAlamofire/Core (4.2.0):
@@ -33,11 +28,11 @@ PODS:
   - SQLite.swift (0.11.5):
     - SQLite.swift/standard (= 0.11.5)
   - SQLite.swift/standard (0.11.5)
-  - SwiftyJSON (4.1.0)
   - Then (2.3.0)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
+  - Zip (1.1.0)
 
 DEPENDENCIES:
   - CocoaAsyncSocket
@@ -49,15 +44,14 @@ DEPENDENCIES:
   - MJRefresh
   - PullToRefresh (= 0.0.1)
   - QSNetwork (~> 0.0.1)
-  - RealmSwift
   - RxAlamofire
   - RxCocoa
   - RxSwift
   - SnapKit
   - SQLite.swift (~> 0.11.5)
-  - SwiftyJSON
   - Then
   - YYKit
+  - Zip
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -71,16 +65,14 @@ SPEC REPOS:
     - MJRefresh
     - PullToRefresh
     - QSNetwork
-    - Realm
-    - RealmSwift
     - RxAlamofire
     - RxCocoa
     - RxSwift
     - SnapKit
     - SQLite.swift
-    - SwiftyJSON
     - Then
     - YYKit
+    - Zip
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
@@ -93,17 +85,15 @@ SPEC CHECKSUMS:
   MJRefresh: 0efa19656679d70a0f47cbe76e56c2271fe53a97
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   QSNetwork: a5b174e074386cdf8a3c1d604cbe55b4cbc0d731
-  Realm: 9eaecad54712d6246d08ba34c10f354e4715d7d3
-  RealmSwift: 1fe08b4ebaeeaacf17f9ba0343f7b25c9fc31fa6
   RxAlamofire: 87a9c588541210cc3e4a1f843ccc3ecf3eb98b31
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
-  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 4aa4f6815cbab5c6549d252ac0212961c6df97dc
+PODFILE CHECKSUM: 8fe96cf19e6b3054052cb4433520f1e3a1f5e7cf
 
 COCOAPODS: 1.5.3

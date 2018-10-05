@@ -154,4 +154,15 @@ extension String{
         let rect:CGRect = sttt.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: dict, context: nil)
         return rect.size.height
     }
+    
+    
+    //获取子字符串
+    func substingInRange(_ r: Range<Int>) -> String? {
+        if r.lowerBound < 0 || r.upperBound > self.count {
+            return nil
+        }
+        let startIndex = self.index(self.startIndex, offsetBy:r.lowerBound)
+        let endIndex   = self.index(self.startIndex, offsetBy:r.upperBound)
+        return String(self[startIndex..<endIndex])
+    }
 }

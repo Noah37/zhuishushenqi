@@ -12,6 +12,7 @@ import RxSwift
 protocol ZSReaderControllerProtocol {
     associatedtype Item
     var viewModel:ZSReaderViewModel { get set }
+    var pageViewController:PageViewController { get set }
     
 }
 
@@ -43,11 +44,18 @@ class ZSReaderViewController: BaseViewController  {
         }
     }
     
+    var voiceBook:VoiceBook = VoiceBook()
+    
     lazy var toolBar:ToolBar = {
         let toolBar:ToolBar = ToolBar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
         toolBar.isHidden = true
         toolBar.toolBarDelegate = self
         return toolBar;
+    }()
+    
+    lazy var speechView:ZSSpeechView = {
+        let speechView = ZSSpeechView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+        return speechView
     }()
 
     override func viewDidLoad() {
@@ -70,6 +78,34 @@ class ZSReaderViewController: BaseViewController  {
         NotificationCenter.zs_addObserver(oberver: self, name: PageViewDidTap) {
             self.toolBar.isHidden = false
             self.toolBar.showWithAnimations(animation: true, inView: self.view)
+        }
+        
+        speechView.startHandler = { selected in
+            if selected! {
+                if self.voiceBook.isSpeaking() {
+                    self.voiceBook.stop()
+                }
+                if self.speechView.speakers.count > self.speechView.speakerPicker.selectedItem {
+                    let speaker = self.speechView.speakers[Int(self.speechView.speakerPicker.selectedItem)]
+                    let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                    
+                    let speakerPath = "\(documentPath)/speakerres/3589709422/\(speaker.name).jet"
+                    self.voiceBook.config.speakerPath = speakerPath
+                    self.voiceBook.config.voiceID = "\(speaker.speakerId)"
+                    
+                    self.voiceBook.engineLocal()
+                    self.voiceBook.start(sentence: self.curlPageViewController.pageViewController.page?.content ?? "")
+                } else {
+                    self.voiceBook.engineCloud()
+                    self.voiceBook.start(sentence: self.curlPageViewController.pageViewController.page?.content ?? "")
+                }
+            } else {
+                
+            }
+        }
+        
+        speechView.stopHandler = { _ in
+            self.speechView.removeFromSuperview()
         }
     }
     
@@ -136,6 +172,12 @@ class ZSReaderViewController: BaseViewController  {
 }
 
 extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
+    
+    func listen() {
+        toolBar.hideWithAnimations(animation: false)
+        speechView.show()
+    }
+    
     func backButtonDidClicked() {
         let book = curBook()
         // 退出时，通常保存阅读记录就行，其它的不需要保存
@@ -181,7 +223,7 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
         } else if QSReaderSetting.shared.pageStyle == .horMove {
             horMoveController.changeSourceClicked()
         } else if QSReaderSetting.shared.pageStyle == .none {
-            
+            noneAnimationViewController.changeSourceClicked()
         }
     }
     
@@ -242,11 +284,6 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
             horMoveController.categoryDidSelectAtIndex(index: index)
         }
     }
-}
-
-extension ZSReaderViewController:ZSReaderControllerProtocol {
-    typealias Item = Book
-    
 }
 
 extension ZSReaderViewController:QSTextViewProtocol{

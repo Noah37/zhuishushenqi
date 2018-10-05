@@ -34,6 +34,7 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
         
         NotificationCenter.default.addObserver(self, selector: #selector(showRecommend), name: Notification.Name(rawValue:SHOW_RECOMMEND), object: nil)
         
+        
         RootNavigationView.make(delegate: self,leftAction: #selector(leftAction(_:)),rightAction: #selector(rightAction(_:)))
         setupSegMenu()
         

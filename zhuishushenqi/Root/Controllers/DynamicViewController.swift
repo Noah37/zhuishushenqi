@@ -88,15 +88,13 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
 //        http://api.zhuishushenqi.com/user/twitter/58d14859d0693ae736034619/comments
         //post不为null，id从post中取
 //        http://api.zhuishushenqi.com/post/58d1d313bd7cc9961f93192d/comment?start=0&limit=50
+        tableView.deselectRow(at: indexPath, animated: true)
         let model = self.timeline?[indexPath.row]
-        let bookCommentVC = BookCommentViewController()
-        bookCommentVC.id = model?.tweet.post?["_id"] as? String ?? ""
-        bookCommentVC.commentType = .hotPost
-        if model?.tweet.post == nil || model?.tweet.post?.isEmpty == true {
-            bookCommentVC.commentType = .hotUser
-            bookCommentVC.id = model?.tweet._id ?? ""
-        }
-        self.navigationController?.pushViewController(bookCommentVC, animated: true)
+        let comment = BookComment()
+        comment._id = (model?.tweet.post?["_id"] as? String) ?? ""
+        let commentVC = ZSBookCommentViewController(style: .grouped)
+        commentVC.viewModel.model = comment
+        self.navigationController?.pushViewController(commentVC, animated: true)
         
     }
     
