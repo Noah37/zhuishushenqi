@@ -66,6 +66,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             QSLog("显示完成:\(event)")
         }.disposed(by: disposeBag)
         
+        // 提前解析
+        TTSConfig.share.getSpeakers()
+        
 //        QSLog(String.localized_login)
         QSLog(ZSBookManager.shared)
         return true

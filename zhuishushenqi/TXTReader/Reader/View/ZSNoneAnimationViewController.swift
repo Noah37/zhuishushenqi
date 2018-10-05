@@ -136,4 +136,5 @@ extension ZSNoneAnimationViewController:ZSReaderTap{
 extension ZSNoneAnimationViewController:ZSReaderControllerProtocol {
     typealias Item = Book
     
+    
 }

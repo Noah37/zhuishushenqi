@@ -30,6 +30,29 @@ func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallb
     return req
 }
 
+func zs_download(urlString:String, filePath:String, handler:ZSBaseCallback<Any>?) {
+    let pathURL = URL(fileURLWithPath: filePath, isDirectory: true)
+    do {
+        try FileManager.default.createDirectory(at: pathURL, withIntermediateDirectories: true, attributes: nil)
+    } catch {
+        print(error)
+    }
+    let fileName = (urlString as NSString).lastPathComponent
+    let fileURL = pathURL.appendingPathComponent(fileName)
+    let destination: DownloadRequest.DownloadFileDestination = { temporaryURL, _ in
+        
+        return (fileURL, [.createIntermediateDirectories, .removePreviousFile])
+    }
+    download(urlString, to: destination).response { (response) in
+        if let error = response.error {
+            handler?(error)
+        } else {
+            handler?(response.destinationURL)
+        }
+    }
+    
+}
+
 @discardableResult
 func zs_download(url:String, parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DownloadRequest {
     let destination = DownloadRequest.suggestedDownloadDestination()

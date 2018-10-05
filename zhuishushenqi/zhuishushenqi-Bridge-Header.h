@@ -24,5 +24,9 @@
 #import "ZSHTTPConnection.h"
 #import "ZSHTTPTool.h"
 #import "MonitorFileChangeHelp.h"
+#import "AKPickerView.h"
+#import "IFlyMSC/IFlyMSC.h"
+#import "PcmPlayer.h"
+#import <FMDB/FMDB.h>
 
 #endif /* zhuishushenqi_Bridge_Header_h */

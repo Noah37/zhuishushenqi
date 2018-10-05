@@ -31,39 +31,22 @@ class ZSShelfMessage: NSObject,HandyJSON {
         var id:String = ""
         var title:String = ""
         
-        // 此处如果过滤方式不正确，则返回空,按中文【 开头，]]结尾
+        // 过滤方式变更
+        // 目前已知的有两种 post或者link
+        // post一般跳转到评论页,post后跟的默认为24位的字符串
+        // link一般打开链接,link一般以link后的第一个空格作为区分
+        
         let qsLink:NSString = self.postLink as NSString
-        let startRange = qsLink.range(of: "【")
-        let endRange = qsLink.range(of: "]]")
-        let endContainRange = qsLink.range(of: "]]]")
-        let post = qsLink.range(of: "post:")
-        let linkRange = qsLink.range(of: "link:")
-        let spaceRange = qsLink.range(of: " ")
-        if linkRange.location != NSNotFound && spaceRange.location != NSNotFound {
-            let link = postLink.qs_subStr(range: NSMakeRange(linkRange.location + linkRange.length, spaceRange.location - linkRange.location - linkRange.length))
-            if endRange.location != NSNotFound {
-                title =  postLink.qs_subStr(range: NSMakeRange(spaceRange.location + 1, endRange.location - spaceRange.location - 1))
-                return (link, title, textColor)
-            }
+        var typePost = qsLink.range(of: "post:") //[[post:5baf14726f660bbe4fe5dc36 🇨🇳喜迎国庆【惊喜】追书又双叒叕送福利！]]
+        if typePost.location == NSNotFound {
+            typePost = qsLink.range(of: "link:")
         }
-        if startRange.location == NSNotFound {
-            if endRange.location != NSNotFound {
-                if qsLink.length > 32 {
-                    // 过滤方式变更
-                    title = postLink.qs_subStr(start: 32, end: endRange.location)
-                    id = postLink.qs_subStr(start: 7, length: 24)
-                }
-            }
-            return (id,title,textColor)
-        }
-        title = postLink.qs_subStr(start: startRange.location, end: endRange.location)
-        if endContainRange.location != NSNotFound {
-            title = postLink.qs_subStr(start: startRange.location, end: endContainRange.location - 1)
-        }
-        if post.location == NSNotFound {
-            return (id,title,textColor)
-        }
-        id = postLink.qs_subStr(start: post.location + post.length, end: startRange.location)
-        return (id,title,textColor)
+        // 去除首尾的中括号,再以空格区分文字与post
+        let noLeadLink = self.postLink.qs_subStr(from: 2)
+        let noTailLink = noLeadLink.substingInRange(0..<(noLeadLink.count - 2)) ?? noLeadLink
+        let spaceRange = (noTailLink as NSString).range(of: " ")
+        id = noTailLink.substingInRange(typePost.length..<spaceRange.location) ?? noLeadLink
+        title = noTailLink.qs_subStr(from: spaceRange.location + 1)
+        return (id, title, textColor)
     }
 }

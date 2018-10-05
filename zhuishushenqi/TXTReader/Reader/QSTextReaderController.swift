@@ -17,6 +17,8 @@ import UIKit
 class QSTextReaderController: UIViewController {
     
     var viewModel = ZSReaderViewModel()
+    
+    var pageViewController = PageViewController()
 
     var isToolBarHidden:Bool = true
     
@@ -355,6 +357,7 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
 }
 
 extension QSTextReaderController:ZSReaderControllerProtocol {
+    
     typealias Item = Book
     
 }
