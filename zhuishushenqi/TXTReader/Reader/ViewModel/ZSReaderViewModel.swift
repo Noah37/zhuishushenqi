@@ -14,6 +14,9 @@ class ZSReaderViewModel {
     
     var cachedChapter:[String:QSChapter] = [:]
     
+    /// 默认缓存前后的章节数
+    var preCacheCount = 2
+    
     fileprivate var webService = ZSReaderWebService()
     
     // 默认选择非追书的源
@@ -236,10 +239,15 @@ class ZSReaderViewModel {
                                 let tmpModel = chapterModel.pages[tmpPage]
                                 callback?(tmpModel)
                             } else {
+                                
                                 fetchNewChapter(chapterOffset: 1,record: record,chaptersInfo: self.book?.chaptersInfo,callback: callback)
+                                fetchPreChapter(record: record, chapterOffset: 1)
+
                             }
                         } else {
                             fetchNewChapter(chapterOffset: 1,record: record,chaptersInfo: self.book?.chaptersInfo,callback: callback)
+                            fetchPreChapter(record: record, chapterOffset: 1)
+
                             
                         }
                     }
@@ -264,10 +272,14 @@ class ZSReaderViewModel {
                                 let pageModel = chapterModel.pages[pageIndex]
                                 callback?(pageModel)
                             } else {// 当前章节信息不存在,必然是新的章节
+
                                 fetchNewChapter(chapterOffset: -1,record: record,chaptersInfo: self.book?.chaptersInfo,callback:callback)
+                                fetchPreChapter(record: record, chapterOffset: -1)
                             }
                         } else {
+
                             fetchNewChapter(chapterOffset: -1,record: record,chaptersInfo: self.book?.chaptersInfo,callback: callback)
+                            fetchPreChapter(record: record, chapterOffset: -1)
                         }
                     }
                 } else if chapterIndex == 0 { //等于0则判断
@@ -334,6 +346,7 @@ class ZSReaderViewModel {
     
     func fetchCurrentPage(_ callback:ZSSearchWebAnyCallback<QSPage>?){
         if let record = book?.record {
+            fetchPreChapter(record: record, chapterOffset: 0)
             let chapter = record.chapter
             if let link = book?.chaptersInfo?[chapter].link {
                 fetchChapter(key: link) { (body) in
@@ -349,6 +362,7 @@ class ZSReaderViewModel {
     
     func fetchInitialChapter(_ callback:ZSSearchWebAnyCallback<QSPage>?){
         if let record = book?.record {
+            fetchPreChapter(record: record, chapterOffset: 0)
             if let chapter = record.chapterModel {
                 let chapterIndex = record.chapter
                 if let link = book?.chaptersInfo?[chapterIndex].link {
@@ -373,6 +387,26 @@ class ZSReaderViewModel {
                     }
                 }
             })
+        }
+    }
+    
+    /// 默认请求该章节的前后X章内容
+    func fetchPreChapter(record:QSRecord, chapterOffset:Int) {
+        if chapterOffset <= 0 {
+            /// 请求当前章节的前X章节
+            for index in (-preCacheCount + chapterOffset)..<0 {
+                fetchNewChapter(chapterOffset: index, record: record, chaptersInfo: book?.chaptersInfo) { (page) in
+                    // 缓存
+                }
+            }
+        }
+        if chapterOffset >= 0 {
+            /// 请求当前章节的后X章节
+            for index in 1..<(preCacheCount + 1 + chapterOffset) {
+                fetchNewChapter(chapterOffset: index, record: record, chaptersInfo: book?.chaptersInfo) { (page) in
+                    // 缓存
+                }
+            }
         }
     }
     

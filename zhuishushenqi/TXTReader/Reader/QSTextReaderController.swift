@@ -39,6 +39,10 @@ class QSTextReaderController: UIViewController {
     
     var record:QSRecord = QSRecord()
     
+    var shouldReactPanGesture:Bool = true
+    
+    var pagePanGesture:UIGestureRecognizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.navigationController?.isNavigationBarHidden = true
@@ -57,6 +61,19 @@ class QSTextReaderController: UIViewController {
         
         if let book = viewModel.book {
 //            BookManager.shared.modifyBookshelf(book: book)
+        }
+        
+        // 替换了delegate之后需要自己管理viewController,不建议替换
+//        for gesture in self.pageController?.gestureRecognizers ?? [] {
+//            if gesture.isKind(of: UIPanGestureRecognizer.self)  {
+//                gesture.delegate = self
+//            }
+//        }
+        
+        for gesture in self.pageController?.gestureRecognizers ?? [] {
+            if gesture.isKind(of: UIPanGestureRecognizer.self)  {
+                pagePanGesture = gesture
+            }
         }
     }
     
@@ -190,16 +207,19 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
                 currentReaderVC = pageVC
                 return pageVC
             }
+            shouldReactPanGesture = false
             return nil
         }
         if style == .horMove {
             return lastPage()
         } else {
             if abs(sideNum)%2 == 0 {
+               
                 let backgroundVC = QSReaderBackgroundViewController()
                 //这里获取的是当前页的背面,实际应该是获取上一页的背面
                 backgroundVC.setBackground(viewController: self.currentReaderVC!)
                 return backgroundVC
+               
             } else {
                 return lastPage()
             }
@@ -222,6 +242,8 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
                 currentReaderVC = pageVC
                 return pageVC
             }
+            // 没有下一页
+            shouldReactPanGesture = false
             return nil
         }
         
@@ -239,12 +261,17 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]){
-//        currentReaderVC.qs_removeObserver()
+        // 改变代理,在动画结束前不再响应滑动手势,防止翻页过快
+        pagePanGesture.delegate = self
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
+        
+        
+        pagePanGesture.delegate = pageViewController as? UIGestureRecognizerDelegate
+        
         if !completed {
-            currentReaderVC = previousViewControllers.first as! PageViewController
+            currentReaderVC = previousViewControllers.first as? PageViewController
         } else {
             // 更新阅读记录
             if curlPageStyle == .forwards {
@@ -360,4 +387,12 @@ extension QSTextReaderController:ZSReaderControllerProtocol {
     
     typealias Item = Book
     
+}
+
+extension QSTextReaderController:UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return false
+    }
+
 }

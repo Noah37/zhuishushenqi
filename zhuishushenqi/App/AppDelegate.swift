@@ -67,7 +67,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }.disposed(by: disposeBag)
         
         // 提前解析
-        TTSConfig.share.getSpeakers()
+        DispatchQueue.main.async {
+            TTSConfig.share.getSpeakers()
+        }
         
 //        QSLog(String.localized_login)
         QSLog(ZSBookManager.shared)
