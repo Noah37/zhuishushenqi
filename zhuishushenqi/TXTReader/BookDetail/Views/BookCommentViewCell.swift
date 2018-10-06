@@ -35,6 +35,7 @@ class BookCommentViewCell: UITableViewCell {
     var model:BookCommentDetail?
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         self.floor.text = ""
         self.readerName.text = ""
         self.createTime.text = ""
@@ -48,7 +49,7 @@ class BookCommentViewCell: UITableViewCell {
         if contentHeight < 19 {
             height = CGFloat(15 + 15 + 40)
         }
-        if let _ = model.replyTo?._id {
+        if model.replyTo._id != "" {
             height += (21 + 5)
         }
         return height
@@ -105,23 +106,24 @@ class BookCommentViewCell: UITableViewCell {
         setLayout()
     }
     
-    func bind(model:BookCommentDetail){
-        floor.text = "\(model.floor)楼"
-        readerName.text = "\(model.author.nickname) lv.\(model.author.lv)"
-        let created = model.created
+    func bind(book:BookCommentDetail){
+        model = book
+        floor.text = "\(model?.floor ?? 0)楼"
+        readerName.text = "\(model?.author.nickname ?? "") lv.\(model?.author.lv ?? 0)"
+        let created = model?.created ?? ""
         self.createTime.qs_setCreateTime(createTime: created, append: "")
         if type == .magical {
-            createTime.text = "\(model.likeCount)同感"
+            createTime.text = "\(model?.likeCount ?? 0)同感"
         }
-        if  model.replyTo != nil {
+        if let replyTo = model?.replyTo {
             reply.isHidden = false
-            reply.text = "回复\(model.replyTo?.author.nickname ?? "") (\(model.replyTo?.floor ?? 0)楼)"
+            reply.text = "回复\(replyTo.author.nickname) (\(replyTo.floor)楼)"
         }else{
             reply.text = ""
         }
-        floorWidth.constant = model.floorWidth
-        content.text = "\(model.content)"
-        let urlString = "\(model.author.avatar)"
+        floorWidth.constant = model?.floorWidth ?? 0
+        content.text = "\(model?.content ?? "")"
+        let urlString = "\(model?.author.avatar ?? "")"
         self.readerIcon.qs_setAvatarWithURLString(urlString: urlString)
         
     }

@@ -12,9 +12,6 @@
 		3D2B4D0320EB616D008E3E81 /* ZSReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */; };
 		3D2B4D0520EB6552008E3E81 /* ZSNoneAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */; };
 		3D2B4D0720EB68AC008E3E81 /* ZSReaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */; };
-		3D5280DD20C8D21B00252D67 /* ZSBookShelvesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */; };
-
-
 		3D3AB5D2214E98AC00E9C246 /* hylst.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D1214E98AC00E9C246 /* hylst.ttf */; };
 		3D3AB5D4214E98B800E9C246 /* Redocn.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D3214E98B800E9C246 /* Redocn.ttf */; };
 		3D3AB5D6214E993E00E9C246 /* hkppt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D5214E993E00E9C246 /* hkppt.ttf */; };
@@ -22,11 +19,8 @@
 		3D3AB5DC214E99FE00E9C246 /* fz-wbt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DB214E99FE00E9C246 /* fz-wbt.ttf */; };
 		3D3AB5DE214E9A8300E9C246 /* fz-kt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DD214E9A8300E9C246 /* fz-kt.ttf */; };
 		3D3AB5E0214E9ABD00E9C246 /* ltt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */; };
-
-
 		3D3BA0002160C5D700B0C80E /* speaker.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D3B9FFF2160C5D700B0C80E /* speaker.json */; };
 		3D3BA0042160C77E00B0C80E /* speakers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D3BA0032160C77E00B0C80E /* speakers.plist */; };
-
 		3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */; };
 		3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */; };
 		3D9325E120B2BCFB0049CDBF /* ZSRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */; };
@@ -443,10 +437,6 @@
 		3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSNoneAnimationViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderProtocol.swift; sourceTree = "<group>"; };
-
-		3D5280DC20C8D21B00252D67 /* ZSBookShelvesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookShelvesViewController.swift; sourceTree = "<group>"; };
-
-
 		3D3AB5D1214E98AC00E9C246 /* hylst.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hylst.ttf; sourceTree = "<group>"; };
 		3D3AB5D3214E98B800E9C246 /* Redocn.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Redocn.ttf; sourceTree = "<group>"; };
 		3D3AB5D5214E993E00E9C246 /* hkppt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hkppt.ttf; sourceTree = "<group>"; };
@@ -454,11 +444,8 @@
 		3D3AB5DB214E99FE00E9C246 /* fz-wbt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fz-wbt.ttf"; sourceTree = "<group>"; };
 		3D3AB5DD214E9A8300E9C246 /* fz-kt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fz-kt.ttf"; sourceTree = "<group>"; };
 		3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ltt.ttf; sourceTree = "<group>"; };
-
-
 		3D3B9FFF2160C5D700B0C80E /* speaker.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = speaker.json; sourceTree = "<group>"; };
 		3D3BA0032160C77E00B0C80E /* speakers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = speakers.plist; sourceTree = "<group>"; };
-
 		3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumViewController.swift; sourceTree = "<group>"; };
 		3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSProtocol.swift; sourceTree = "<group>"; };
 		3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootViewController.swift; sourceTree = "<group>"; };
@@ -2376,11 +2363,6 @@
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/PullToRefresh/PullToRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/QSNetwork/QSNetwork.framework",
-
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-
-
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -2402,11 +2384,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PullToRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QSNetwork.framework",
-
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-
-
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",

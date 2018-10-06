@@ -43,15 +43,13 @@ class BookCommentDetail: NSObject,HandyJSON {
     var replyAuthor:String = ""
     var likeCount:Int = 0
     var created:String = ""
-    var replyTo:ReplyTo?
+    var replyTo:ReplyTo = ReplyTo()
     var height:CGFloat = 0
     var replyHeight:CGFloat = 0
     var floorWidth:CGFloat = 0
     var textLayout:YYTextLayout?
 
-    required override init() {
-        
-    }
+    required override init() {}
 }
 
 @objc(ReplyTo)
@@ -60,7 +58,5 @@ class ReplyTo: NSObject,HandyJSON {
     var floor:Int = 0
     var author:BookCommentAuthor = BookCommentAuthor()
     
-    required override init() {
-        
-    }
+    required override init() {}
 }

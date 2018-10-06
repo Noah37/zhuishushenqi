@@ -41,9 +41,7 @@ class BookComment: NSObject,HandyJSON {
     
     var book:BookCommentBook = BookCommentBook()
     
-    required override init() {
-        
-    }
+    required override init() {}
     
     func calTitleHeight(){
         DispatchQueue.global().async {
@@ -73,9 +71,7 @@ class BookCommentAuthor: NSObject,HandyJSON {
     var created:String = ""
     var id:String = ""
     
-    required override init() {
-        
-    }
+    required override init() {}
 }
 
 @objc(BookCommentBook)
@@ -86,7 +82,5 @@ class BookCommentBook: NSObject,HandyJSON {
     var id:String = ""
     var type = ""
     
-    required override init() {
-        
-    }
+    required override init() {}
 }

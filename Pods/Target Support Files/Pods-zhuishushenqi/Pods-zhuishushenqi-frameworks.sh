@@ -153,11 +153,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PullToRefresh/PullToRefresh.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/QSNetwork/QSNetwork.framework"
-<<<<<<< HEAD
-  install_framework "${BUILT_PRODUCTS_DIR}/Realm/Realm.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework"
-=======
->>>>>>> 1892
   install_framework "${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework"
@@ -178,11 +173,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PullToRefresh/PullToRefresh.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/QSNetwork/QSNetwork.framework"
-<<<<<<< HEAD
-  install_framework "${BUILT_PRODUCTS_DIR}/Realm/Realm.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework"
-=======
->>>>>>> 1892
   install_framework "${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework"

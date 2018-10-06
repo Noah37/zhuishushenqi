@@ -171,14 +171,14 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
                     cell?.backgroundColor = UIColor.white
                     cell?.selectionStyle = .none
                     cell?.type = .magical
-                    cell?.bind(model: best[indexPath.row])
+                    cell?.bind(book: best[indexPath.row])
                     return cell!
                 } else if let normal = viewModel.normal {
                     let cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
                     cell?.backgroundColor = UIColor.white
                     cell?.selectionStyle = .none
                     cell?.type = .normal
-                    cell?.bind(model: normal[indexPath.row])
+                    cell?.bind(book: normal[indexPath.row])
                     return cell!
                 }
             } else if indexPath.section == 3 {
@@ -187,7 +187,7 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
                     cell?.backgroundColor = UIColor.white
                     cell?.selectionStyle = .none
                     cell?.type = .normal
-                    cell?.bind(model: normal[indexPath.row])
+                    cell?.bind(book: normal[indexPath.row])
                     return cell!
                 }
             }
@@ -432,18 +432,18 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
                 if indexPath.section == 2 {
                     cell?.type = types[indexPath.section - 2]
                     if let model = self.hotComments?[indexPath.row]{
-                        cell?.bind(model: model)
+                        cell?.bind(book: model)
                     }
 //                    cell?.model = self.hotComments?[indexPath.row]
                 }else{
                     if let model = self.normalComments?[indexPath.row]{
-                        cell?.bind(model: model)
+                        cell?.bind(book: model)
                     }
 //                    cell?.model = self.normalComments?[indexPath.row]
                 }
             }else{
                 if let model = self.hotComments?[indexPath.row]{
-                    cell?.bind(model: model)
+                    cell?.bind(book: model)
                 }
 //                cell?.model = self.normalComments?[indexPath.row]
             }

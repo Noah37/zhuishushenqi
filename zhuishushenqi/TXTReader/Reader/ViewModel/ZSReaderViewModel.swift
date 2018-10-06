@@ -154,11 +154,13 @@ class ZSReaderViewModel {
                         record.page = 0
                         record.chapter -= 1
                         record.chapterModel = nil
-                        if let link = book?.chaptersInfo?[record.chapter].link {
-                            if let chapter = cachedChapter[link] {
-                                record.page = chapter.pages.count - 1
-                                record.chapterModel = chapter
-                                callback?(chapter.pages[record.page])
+                        if record.chapter >= 0 {
+                            if let link = book?.chaptersInfo?[record.chapter].link {
+                                if let chapter = cachedChapter[link] {
+                                    record.page = chapter.pages.count - 1
+                                    record.chapterModel = chapter
+                                    callback?(chapter.pages[record.page])
+                                }
                             }
                         }
                     }
@@ -318,8 +320,11 @@ class ZSReaderViewModel {
                 }
             } else {
                 let chapter = record.chapter
+                let page = record.page
                 if chapter == 0 {
-                    return false
+                    if page == 0 {
+                        return false
+                    }
                 }
             }
             return true
