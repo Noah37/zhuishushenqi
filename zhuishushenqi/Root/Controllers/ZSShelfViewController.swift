@@ -62,6 +62,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     func setupSubviews(){
         let header = initRefreshHeader(tableView) {
             self.viewModel.fetchShelvesBooks(completion: { (_) in
+                self.view.showTip(tip: "更新了几本书")
                 self.tableView.reloadData()
             })
             self.viewModel.fetchShelfMessage(completion: { (_) in
@@ -177,7 +178,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
             }
         }
         let books = self.viewModel.books
-        if let model =  books[books.allKeys()[indexPath.row]] as? BookDetail {
+        if let model =  books[viewModel.booksID[indexPath.row]] {
             let viewController = ZSReaderViewController()
             viewController.viewModel.book = model
             self.present(viewController, animated: true, completion: nil)

@@ -336,6 +336,7 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         sourceVC.selectAction = { (index:Int,sources:[ResourceModel]?) in
             self.viewModel = sourceVC.viewModel
             self.viewModel.cachedChapter.removeAll()
+            self.viewModel.changeSource(index: index)
             self.viewModel.fetchAllChapters({ (info) in
                 self.viewModel.fetchCurrentPage({ (page) in
                     self.currentReaderVC.page = page

@@ -41,4 +41,22 @@ class BaseViewController: UIViewController {
     @objc func popAction(){
         self.navigationController?.popViewController(animated: true)
     }
+    
+    //MARK: - progress
+    func showProgress() {
+        self.view.addSubview(self.indicatorView)
+        self.view.bringSubviewToFront(self.indicatorView)
+    }
+    
+    func hideProgress() {
+        self.indicatorView.stopAnimating()
+        self.indicatorView.removeFromSuperview()
+    }
+    
+    lazy var indicatorView:UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .gray)
+        indicator.frame = CGRect(x: ScreenWidth/2 - 50 , y: ScreenHeight/2 - 50, width: 100, height: 100)
+        indicator.startAnimating()
+        return indicator
+    }()
 }

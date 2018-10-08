@@ -51,8 +51,10 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
     }
     
     func requestData(){
+        self.showProgress()
         let urlString = "\(BASEURL)/user/twitter/hottweets"
         QSNetwork.request(urlString) { (response) in
+            self.hideProgress()
             if let hottweets = response.json?["tweets"] as? [Any] {
                 if let time = [QSHotModel].deserialize(from: hottweets) as? [QSHotModel] {
                     self.timeline = time
@@ -91,7 +93,7 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
         tableView.deselectRow(at: indexPath, animated: true)
         let model = self.timeline?[indexPath.row]
         let comment = BookComment()
-        comment._id = (model?.tweet.post?["_id"] as? String) ?? ""
+        comment._id = (model?.tweet.post["_id"] as? String) ?? ""
         let commentVC = ZSBookCommentViewController(style: .grouped)
         commentVC.viewModel.model = comment
         self.navigationController?.pushViewController(commentVC, animated: true)

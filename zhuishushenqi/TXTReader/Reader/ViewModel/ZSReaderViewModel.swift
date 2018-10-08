@@ -19,8 +19,12 @@ class ZSReaderViewModel {
     
     fileprivate var webService = ZSReaderWebService()
     
-    // 默认选择非追书的源
+    // 默认选择非追书的源,选择的源根据record中的记录
     var sourceIndex = 2
+    
+    init() {
+        
+    }
     
     //MARK: - fontChange
     func fontChange(action: ToolBarFontChangeAction,_ callback:ZSSearchWebAnyCallback<QSPage>?) {
@@ -39,12 +43,13 @@ class ZSReaderViewModel {
             return
         }
         QSReaderSetting.shared.fontSize = size
-        //字体变小，页数变少
+       
         if let record = book?.record {
             let chapterIndex = record.chapter > 0 ? record.chapter:0
             let pageIndex = record.page > 0 ? record.page:0
             if let link = book?.chaptersInfo?[chapterIndex].link {
                 if let chapter = cachedChapter[link] {
+                    // 如果缓存的章节量较大,为了防止影响用户体验,当前章节处理后直接返回,其他章节继续处理
                     chapter.getPages()
                     if pageIndex >= 0 && pageIndex < chapter.pages.count {
                         callback?(chapter.pages[pageIndex])
@@ -53,6 +58,10 @@ class ZSReaderViewModel {
                     }
                 }
             }
+        }
+        //字体变小，页数变少,这里应该对所有的已缓存章节变更
+        for (_, chapter) in cachedChapter {
+            chapter.getPages()
         }
     }
     
@@ -65,19 +74,52 @@ class ZSReaderViewModel {
         }
     }
     
+    func fetchSourceIndex() ->Int? {
+        if let source = self.book?.record?.source {
+            if let resources = self.book?.resources {
+                var index = 0
+                for model in resources {
+                    if model._id == source._id {
+                        break
+                    }
+                    index += 1
+                }
+                return index
+            }
+        }
+        return nil
+    }
+    
+    func changeSource(index:Int) {
+        if index < (self.book?.resources?.count ?? 0) {
+            self.book?.record?.source = self.book?.resources?[index]
+        }
+    }
+    
     func fetchAllChapters(_ callback:ZSBaseCallback<[ZSChapterInfo]>?){
-        if sourceIndex < (self.book?.resources?.count ?? 0) {
-            let key = self.book?.resources?[sourceIndex]._id ?? ""
+        if let index = fetchSourceIndex() {
+            let key = self.book?.resources?[index]._id ?? ""
             webService.fetchAllChapters(key: key) { (chapters) in
                 self.book?.chaptersInfo = chapters
                 callback?(chapters)
             }
         } else {
-            sourceIndex = (self.book?.resources?.count ?? 0) - 1
-            let key = self.book?.resources?[sourceIndex]._id ?? ""
-            webService.fetchAllChapters(key: key) { (chapters) in
-                self.book?.chaptersInfo = chapters
-                callback?(chapters)
+            
+            if sourceIndex < (self.book?.resources?.count ?? 0) {
+                changeSource(index: sourceIndex)
+                let key = self.book?.resources?[sourceIndex]._id ?? ""
+                webService.fetchAllChapters(key: key) { (chapters) in
+                    self.book?.chaptersInfo = chapters
+                    callback?(chapters)
+                }
+            } else {
+                sourceIndex = (self.book?.resources?.count ?? 0) - 1
+                changeSource(index: sourceIndex)
+                let key = self.book?.resources?[sourceIndex]._id ?? ""
+                webService.fetchAllChapters(key: key) { (chapters) in
+                    self.book?.chaptersInfo = chapters
+                    callback?(chapters)
+                }
             }
         }
     }
@@ -311,8 +353,16 @@ class ZSReaderViewModel {
                 }
             } else {
                 let chapter = record.chapter
-                if chapter == ((book?.chaptersInfo?.count ?? 1) - 1) {
-                    return false
+                if let chaptersCount = book?.chaptersInfo?.count {
+                    // 如果是最后一章,要考虑是否为最后一页,一般第一次进入不存在chapterModel,网络请求成功后默认展示第一章
+                    if chapter == chaptersCount - 1 {
+                        if let chapterLink = book?.chaptersInfo?[chapter].link {
+                            let chapterModel = cachedChapter[chapterLink]
+                            if chapterModel?.pages.count == 1 {
+                                return false
+                            }
+                        }
+                    }
                 }
             }
             return true
@@ -365,8 +415,15 @@ class ZSReaderViewModel {
             fetchPreChapter(record: record, chapterOffset: 0)
             if let chapter = record.chapterModel {
                 let chapterIndex = record.chapter
-                if let link = book?.chaptersInfo?[chapterIndex].link {
-                    cachedChapter[link] = chapter
+                // 换源时有可能超出章节
+                if let chapters = book?.chaptersInfo {
+                    if chapterIndex < chapters.count {
+                        let link = chapters[chapterIndex].link
+                        cachedChapter[link] = chapter
+                    } else {
+                        let link = chapters[chapters.count - 1].link
+                        cachedChapter[link] = chapter
+                    }
                 }
             } else {
                 fetchNewChapter(chapterOffset: 0, record: record, chaptersInfo: book?.chaptersInfo) { (page) in

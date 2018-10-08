@@ -15,6 +15,9 @@ class QSRecord: NSObject,NSCoding {
     var page:Int = 0 //最后阅读的页数
     var bookId:String = "" //阅读的bookid
     
+    // 当前选择的来源
+    var source:ResourceModel?
+    
     var animatedComplete:Bool?  // 阅读动画完成与否
     var chapterModel:QSChapter? // 当前阅读到的章节模型
     
@@ -27,6 +30,7 @@ class QSRecord: NSObject,NSCoding {
         self.page = aDecoder.decodeInteger(forKey: "page")
         self.bookId = aDecoder.decodeObject(forKey:"bookId") as! String
         self.chapterModel = aDecoder.decodeObject(forKey:"chapterModel") as? QSChapter
+        self.source = aDecoder.decodeObject(forKey: "source") as? ResourceModel
 //        self.animatedComplete = aDecoder.decodeBool(forKey: "animatedComplete")
     }
     
@@ -35,6 +39,7 @@ class QSRecord: NSObject,NSCoding {
         aCoder.encode(self.page, forKey: "page")
         aCoder.encode(self.bookId, forKey: "bookId")
         aCoder.encode(self.chapterModel, forKey: "chapterModel")
+        aCoder.encode(self.source, forKey: "source")
 //        aCoder.encode(self.animatedComplete, forKey: "animatedComplete")
     }
     

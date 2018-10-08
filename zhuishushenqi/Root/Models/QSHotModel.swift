@@ -14,9 +14,7 @@ class QSHotModel: NSObject,HandyJSON {
     var user:QSHotUser = QSHotUser()
     var tweet:QSHotTweet = QSHotTweet()
     
-    required override init() {
-        
-    }
+    required override init() {}
 }
 
 @objc(QSHotUser)
@@ -40,8 +38,8 @@ class QSHotTweet: NSObject ,HandyJSON{
     var content:String = ""
     var __v:Int = 0
     var hotAt:String = ""
-    var post:[String:Any]?
-    var votes:[Any]?
+    var post:[String:Any] = [:]
+    var votes:[Any] = []
     var deleted:Bool = false
     var isHot:Bool = false
     var score:Int = 0

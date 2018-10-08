@@ -51,7 +51,7 @@ class QSCategoryReaderViewController: BaseViewController,UITableViewDataSource,U
         super.viewWillAppear(animated)
         self.tableView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - kNavgationBarHeight)
         let indexPATH = IndexPath(row: viewModel.book?.record?.chapter ?? 0, section: 0)
-        if (viewModel.book?.chaptersInfo?.count ?? 0) > 0 {
+        if (viewModel.book?.chaptersInfo?.count ?? 0) > 0 && (viewModel.book?.chaptersInfo?.count ?? 0) > indexPATH.row {
             self.tableView.scrollToRow(at: indexPATH , at: .middle, animated: false)
         }
     }

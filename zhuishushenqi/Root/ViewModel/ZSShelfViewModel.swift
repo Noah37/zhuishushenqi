@@ -55,7 +55,7 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
                 if let book = noti.object as? BookDetail {
                     self.books[book._id] = book
                     self.booksID.append(book._id)
-                    BookManager.shared.addBook(book: book)
+//                    BookManager.shared.addBook(book: book)
                     ZSBookManager.shared.addBook(book: book)
                     // 添加新的书籍之后需要刷新更新信息
                 }
@@ -81,7 +81,7 @@ extension ZSShelfViewModel {
                 if let info = updateInfo {
                     self.refreshStatus.value = .headerRefreshEnd
                     ZSBookManager.shared.update(updateInfo: info)
-                    BookManager.shared.updateInfoUpdate(updateInfo: info)
+//                    BookManager.shared.updateInfoUpdate(updateInfo: info)
                     completion?(nil)
                 }
             }

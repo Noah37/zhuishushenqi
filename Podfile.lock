@@ -14,6 +14,7 @@ PODS:
   - Kingfisher (4.9.0)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.1.15.6)
+  - PKHUD (5.2.0)
   - PullToRefresh (0.0.1)
   - QSNetwork (0.0.3)
   - RxAlamofire (4.2.0):
@@ -42,6 +43,7 @@ DEPENDENCIES:
   - Kingfisher
   - MBProgressHUD
   - MJRefresh
+  - PKHUD (~> 5.0)
   - PullToRefresh (= 0.0.1)
   - QSNetwork (~> 0.0.1)
   - RxAlamofire
@@ -63,6 +65,7 @@ SPEC REPOS:
     - Kingfisher
     - MBProgressHUD
     - MJRefresh
+    - PKHUD
     - PullToRefresh
     - QSNetwork
     - RxAlamofire
@@ -83,6 +86,7 @@ SPEC CHECKSUMS:
   Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: 0efa19656679d70a0f47cbe76e56c2271fe53a97
+  PKHUD: dd5357ac65f26115c35c4a68e9b328053326c5fe
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   QSNetwork: a5b174e074386cdf8a3c1d604cbe55b4cbc0d731
   RxAlamofire: 87a9c588541210cc3e4a1f843ccc3ecf3eb98b31
@@ -94,6 +98,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 896bdc7a91d8dbf7a6257af114aba2ce02ead073
+PODFILE CHECKSUM: 0a3daa43c239e7992258133c5e193254ce4263bf
 
 COCOAPODS: 1.5.3
