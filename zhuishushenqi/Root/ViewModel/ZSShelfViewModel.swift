@@ -53,11 +53,11 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
             .subscribe(onNext: { (noti) in
                 // 更新内存中books的值与archive中的值
                 if let book = noti.object as? BookDetail {
-                    self.books[book._id] = book
-                    self.booksID.append(book._id)
-//                    BookManager.shared.addBook(book: book)
-                    ZSBookManager.shared.addBook(book: book)
-                    // 添加新的书籍之后需要刷新更新信息
+                    if !self.existBook(id: book._id) {
+                        self.books[book._id] = book
+                        self.booksID.append(book._id)
+                        ZSBookManager.shared.addBook(book: book)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -70,6 +70,16 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
         if let items = try? FileManager.default.contentsOfDirectory(atPath: path) {
             localBooks = items
         }
+    }
+    
+    func existBook(id:String) -> Bool {
+        var exist = false
+        for item in self.booksID {
+            if item == id {
+                exist = true
+            }
+        }
+        return exist
     }
 }
 

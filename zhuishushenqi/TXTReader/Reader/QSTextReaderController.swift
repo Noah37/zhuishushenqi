@@ -14,11 +14,8 @@ enum QSTextCurlPageStyle {
 
 import UIKit
 
-class QSTextReaderController: UIViewController {
+class QSTextReaderController: ZSReaderBaseViewController, IndicatableView {
     
-    var viewModel = ZSReaderViewModel()
-    
-    var pageViewController = PageViewController()
 
     var isToolBarHidden:Bool = true
     
@@ -60,7 +57,7 @@ class QSTextReaderController: UIViewController {
         viewModel.book?.isUpdated = false
         
         if let book = viewModel.book {
-//            BookManager.shared.modifyBookshelf(book: book)
+            BookManager.shared.modifyBookshelf(book: book)
         }
         
         // 替换了delegate之后需要自己管理viewController,不建议替换
@@ -79,10 +76,10 @@ class QSTextReaderController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        setNeedsStatusBarAppearanceUpdate()
+        setNeedsStatusBarAppearanceUpdate()
         // 保存浏览记录
         if let book = viewModel.book {
-//            BookManager.shared.addReadHistory(book: book)
+            BookManager.shared.addReadHistory(book: book)
         }
     }
     
@@ -201,8 +198,10 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
             let existLast = viewModel.existLastPage()
             if existLast {
                 let pageVC = PageViewController()
+                self.showActivityView()
                 viewModel.fetchLastPage { (page) in
                     pageVC.page = page
+                    self.hideActivityView()
                 }
                 currentReaderVC = pageVC
                 return pageVC
@@ -236,8 +235,10 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
             let existNext = viewModel.existNextPage()
             if existNext {
                 let pageVC = PageViewController()
+                self.showActivityView()
                 viewModel.fetchNextPage { (page) in
                     pageVC.page = page
+                    self.hideActivityView()
                 }
                 currentReaderVC = pageVC
                 return pageVC
@@ -382,12 +383,6 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         }
         currentReaderVC = pageVC
     }
-}
-
-extension QSTextReaderController:ZSReaderControllerProtocol {
-    
-    typealias Item = Book
-    
 }
 
 extension QSTextReaderController:UIGestureRecognizerDelegate {

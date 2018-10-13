@@ -30,7 +30,7 @@ public class TTSConfig {
     var next_text:String = ""
     
     var speakerPath = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/speakerres/3589709422/xiaoyan.jet"
-    var commonPath = "\(Bundle.main.resourcePath ?? "")/speakerres/3589709422/TTSResource/common.jet"
+    var commonPath = "\(Bundle.main.resourcePath ?? "")/TTSResource/common.jet"
     
     var fileName:String = "tts.pcm"
     

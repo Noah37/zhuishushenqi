@@ -66,6 +66,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             QSLog("显示完成:\(event)")
         }.disposed(by: disposeBag)
         
+        
+        IFlySetting.setLogFile(LOG_LEVEL.LVL_ALL)
+        IFlySetting.showLogcat(true)
+        let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first ?? ""
+        IFlySetting.setLogFilePath(paths)
+        //        let appid = "566551f4"
+//        let appid = "5ba0b197"
+        let xfyj = "5445f87d"
+        //        let xfyj2 = "591a4d99"
+        let initString = "appid=\(xfyj)"
+        IFlySpeechUtility.createUtility(initString)
+        
         // 提前解析
         DispatchQueue.main.async {
             TTSConfig.share.getSpeakers()

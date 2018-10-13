@@ -12,7 +12,7 @@ import RxSwift
 import Then
 import SnapKit
 
-class ZSForumViewController: BaseViewController,UITableViewDelegate {
+class ZSForumViewController: BaseViewController,UITableViewDelegate, UITableViewDataSource {
     
     var titles:[[String:String]] = [
         ["title":"动态","image":"d_icon"],
@@ -31,9 +31,6 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
     
     var tableView:UITableView = UITableView(frame: CGRect.zero, style: .grouped).then {
         $0.qs_registerCellClass(ZSForumCell.self)
-        $0.rowHeight = 50
-        $0.estimatedRowHeight = 50
-        $0.estimatedSectionHeaderHeight = 0.01
     }
     
     let disposeBag = DisposeBag()
@@ -57,21 +54,23 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
     
     func configureTableDataSource(){
         view.addSubview(tableView)
-        let items = Observable.just(titles.map { $0 })
-
-        items.bind(to: tableView.rx.items(cellIdentifier: "ZSForumCell", cellType: ZSForumCell.self)) { (row,element,cell) in
-            cell.selectionStyle = .none
-            let name = (element as! NSDictionary)["image"] as? String ?? ""
-            let title = (element as! NSDictionary)["title"] as? String
-            cell.textLabel?.text = title
-            cell.imageView?.image = UIImage(named:name)
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 15)
-            cell.accessoryType = .disclosureIndicator
-        }
-        .disposed(by: disposeBag)
+        tableView.dataSource = self
+//        let items = Observable.just(titles.map { $0 })
+//
+//        items.bind(to: tableView.rx.items(cellIdentifier: "ZSForumCell", cellType: ZSForumCell.self)) { (row,element,cell) in
+//            cell.selectionStyle = .none
+//            let name = (element as! NSDictionary)["image"] as? String ?? ""
+//            let title = (element as! NSDictionary)["title"] as? String
+//            cell.textLabel?.text = title
+//            cell.imageView?.image = UIImage(named:name)
+//            cell.textLabel?.font = UIFont.systemFont(ofSize: 15)
+//            cell.accessoryType = .disclosureIndicator
+//        }
+//        .disposed(by: disposeBag)
         
-        tableView.rx.setDelegate(self).disposed(by: disposeBag)
-
+//        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        tableView.delegate = self
         
     }
     
@@ -100,7 +99,7 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
 
                 SideVC.navigationController?.pushViewController(lookVC, animated: true)
                 
-            }else if indexPath.row == 5{1
+            }else if indexPath.row == 5{
                 let lookVC = ZSDiscussViewController()
                 lookVC.block = "original"
                 lookVC.title = self.titles[indexPath.row]["title"]
@@ -154,12 +153,33 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate {
         .disposed(by: disposeBag)
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return titles.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.qs_dequeueReusableCell(ZSForumCell.self) as! ZSForumCell
+        cell.selectionStyle = .none
+        let element = titles[indexPath.row]
+        let name = element["image"] as? String ?? ""
+        let title = element["title"] as? String
+        cell.textLabel?.text = title
+        cell.imageView?.image = UIImage(named:name)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 15)
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
 }
 

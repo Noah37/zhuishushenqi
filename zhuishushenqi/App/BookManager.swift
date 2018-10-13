@@ -89,6 +89,11 @@ public class ZSBookManager:NSObject {
     func update(updateInfo:[UpdateInfo]) {
         for update in updateInfo {
             if let book = self.books[update._id ?? ""] {
+                if let updateStr = update.updated {
+                    if updateStr != book.updateInfo?.updated {
+                        book.isUpdated = true
+                    }
+                }
                 book.updateInfo = update
                 self.updateBook(book: book)
             }
@@ -108,9 +113,18 @@ public class ZSBookManager:NSObject {
     //MARK: - books
     // 保存书籍信息
     fileprivate func saveBooks(books:[String:BookDetail]) {
-        if books == ZSBookManager._books {
-            return
-        }
+//        var change:Bool = false
+//        if books.count == ZSBookManager._books.count {
+//            for (id,book) in books {
+//                let boook = ZSBookManager._books[id]
+//                if book.record?.chapter != boook?.record?.chapter || book.record?.page != boook?.record?.page {
+//                    change = true
+//                }
+//            }
+//            if !change {
+//                return
+//            }
+//        }
         ZSBookManager._books = books
         for book in books {
             let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/Books")

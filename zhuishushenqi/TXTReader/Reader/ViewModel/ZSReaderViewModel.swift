@@ -238,6 +238,7 @@ class ZSReaderViewModel {
                     let totalPage = model.pages.count
                     if pageIndex < totalPage - 1 {
                         record.page += 1
+                        record.chapterModel = model
                         callback?(model.pages[record.page])
                     } else { // 新章节
                         record.chapter += 1
@@ -358,7 +359,7 @@ class ZSReaderViewModel {
                     if chapter == chaptersCount - 1 {
                         if let chapterLink = book?.chaptersInfo?[chapter].link {
                             let chapterModel = cachedChapter[chapterLink]
-                            if chapterModel?.pages.count == 1 {
+                            if chapterModel?.pages.count == 1 || record.page == ((chapterModel?.pages.count ?? 1) - 1) {
                                 return false
                             }
                         }

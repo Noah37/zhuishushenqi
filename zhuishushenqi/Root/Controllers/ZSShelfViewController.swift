@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import SafariServices
 
 class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSource,UITableViewDelegate {
     
@@ -22,7 +23,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         $0.qs_registerCellClass(SwipableCell.self)
         $0.rowHeight = kCellHeight
         $0.estimatedRowHeight = kCellHeight
-        $0.estimatedSectionHeaderHeight = 0.01
+        $0.estimatedSectionHeaderHeight = 1
     }
     
     fileprivate let kHeaderBigHeight:CGFloat = 44
@@ -78,6 +79,29 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
+        
+        shelfMsg.addTarget(self, action: #selector(openSafari), for: .touchUpInside)
+    }
+    
+    @objc
+    func openSafari() {
+        if let message = viewModel.shelfMessage {
+            let title = message.postMessage()
+            if title.0.hasPrefix("http") {
+                if let url = URL(string: title.0) {
+                    let safariVC = SFSafariViewController(url: url)
+                    self .present(safariVC, animated: true, completion: nil)
+                }
+            } else {
+                // 不是url就是post
+                let id = title.0
+                let comment = BookComment()
+                comment._id = id
+                let commentVC = ZSBookCommentViewController(style: .grouped)
+                commentVC.viewModel.model = comment
+                SideVC.navigationController?.pushViewController(commentVC, animated: true)
+            }
+        }
     }
     
     //MARK: - UITableView
@@ -161,11 +185,11 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                 }
             }
         }
-        return 0.01
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
+        return 1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -228,7 +252,7 @@ extension ZSShelfViewController:SwipableCellDelegate {
             if book._id == bookid {
                 self.viewModel.booksID.remove(at: index)
                 self.viewModel.books.removeValue(forKey: bookid)
-                BookManager.shared.deleteBook(book: book)
+//                BookManager.shared.deleteBook(book: book)
             }
             index += 1
         }

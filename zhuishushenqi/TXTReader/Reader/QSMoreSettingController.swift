@@ -16,7 +16,8 @@ class QSMoreSettingController: UIViewController {
     private let settings = [["title":"翻页方式","list":["拟真","简洁","滑动"],"tip":"选择要使用的翻页方式"],
                             ["title":"简繁转换","list":["简体","繁体"],"tip":"选择使用简体或繁体"],
                             ["title":"字体设置","list":["默认","兰亭黑","楷体","魏碑","雅痞","翩翩体","隶书","日文字体"]],
-                            ["title":"自动购买","switch":"off"]]
+                            ["title":"自动购买","switch":"off"],
+                            ["title":"发音人","viewController":ZSSpeakerViewController.self]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,9 +83,11 @@ extension QSMoreSettingController:UITableViewDataSource,UITableViewDelegate{
         let title = settings[indexPath.row]["title"] as? String
         cell?.textLabel?.text = title
         cell?.accessoryType = .disclosureIndicator
-        if indexPath.row == settings.count - 1 {
+        if indexPath.row == settings.count - 2 {
             cell?.accessoryType = .none
         }
+        
+        
         let autoSwitch = settings[indexPath.row]["switch"]
         if let _ = autoSwitch {
             let switchView = addSwitch()
@@ -111,13 +114,19 @@ extension QSMoreSettingController:UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row < settings.count - 1 {
+        if indexPath.row < settings.count  {
             let list = settings[indexPath.row]["list"] as? [String]
             let tip = settings[indexPath.row]["tip"] as? String
             if indexPath.row == 2 {
                 let fontVC = ZSFontViewController(style: .grouped)
                 fontVC.title = "字体设置"
                 self.navigationController?.pushViewController(fontVC, animated: true)
+            }
+            if let speakerVC = settings[indexPath.row]["viewController"] as? ZSSpeakerViewController.Type {
+                let vc = speakerVC.init()
+                vc.title = settings[indexPath.row]["title"] as? String
+                self.navigationController?.pushViewController(vc, animated: true)
+                
             }
             if let ttip = tip,let llist = list {
                 actionSheet(title: ttip, message: "", list: llist, callback: { (obj) in

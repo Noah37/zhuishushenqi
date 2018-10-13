@@ -17,9 +17,11 @@ class BookDetailHeader: UIView {
     var model:BookDetail?{
         didSet{
             name.text = model?.title
-            let exist = BookManager.shared.bookExist(book: model)
-            if exist{
-                addButton.isSelected = true
+            if let book = model {
+                let exist = ZSBookManager.shared.existBook(book: book)
+                if exist{
+                    addButton.isSelected = true
+                }
             }
             authorWidth.text = model?.author
             let widthttt = (authorWidth.text ?? "").qs_width(UIFont.boldSystemFont(ofSize: 13), height: 21)

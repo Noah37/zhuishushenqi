@@ -16,6 +16,10 @@ protocol ZSReaderControllerProtocol {
     
 }
 
+extension ZSReaderControllerProtocol where Self:UIViewController {
+    
+}
+
 let changeAnimationStyle = "changeAnimationStyle"
 
 class ZSReaderViewController: BaseViewController  {
@@ -86,26 +90,63 @@ class ZSReaderViewController: BaseViewController  {
                     self.voiceBook.stop()
                 }
                 if self.speechView.speakers.count > self.speechView.speakerPicker.selectedItem {
-                    let speaker = self.speechView.speakers[Int(self.speechView.speakerPicker.selectedItem)]
-                    let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+//                    let appid = "5ba0b197"
+                    let xfyj = "5445f87d"
+                    //        let xfyj2 = "591a4d99"
+                    let initString = "appid=\(xfyj)"
+                    IFlySpeechUtility.createUtility(initString)
                     
-                    let speakerPath = "\(documentPath)/speakerres/3589709422/\(speaker.name).jet"
+                    let speaker = self.speechView.speakers[Int(self.speechView.speakerPicker.selectedItem)]
+                    
+                    let speakerPath = "\(filePath)\(speaker.name).jet"
                     self.voiceBook.config.speakerPath = speakerPath
                     self.voiceBook.config.voiceID = "\(speaker.speakerId)"
                     
                     self.voiceBook.engineLocal()
-                    self.voiceBook.start(sentence: self.curlPageViewController.pageViewController.page?.content ?? "")
+                    if let vc = self.curViewController() {
+                        if let readerVC = vc as? QSTextReaderController {
+                            self.voiceBook.start(sentence: readerVC.currentReaderVC.page?.content ?? "")
+                        }
+                    }
+                    
                 } else {
+                    let appid = "5ba0b197"
+//                    let xfyj = "5445f87d"
+                    //        let xfyj2 = "591a4d99"
+                    let initString = "appid=\(appid)"
+                    IFlySpeechUtility.createUtility(initString)
                     self.voiceBook.engineCloud()
-                    self.voiceBook.start(sentence: self.curlPageViewController.pageViewController.page?.content ?? "")
+                    if let vc = self.curViewController() {
+                        if let readerVC = vc as? QSTextReaderController {
+                            self.voiceBook.start(sentence: readerVC.currentReaderVC.page?.content ?? "")
+                        }
+                    }
                 }
             } else {
-                
+                self.voiceBook.pause()
             }
         }
         
         speechView.stopHandler = { _ in
             self.speechView.removeFromSuperview()
+        }
+        
+        voiceBook.completeHandler = { error in
+            QSLog(error)
+            if error?.errorCode == 0 {
+                // 读完了,自动翻下一页
+                if let vc = self.curViewController() as? QSTextReaderController {
+                    
+                    vc.viewModel.fetchNextPage { (page) in
+                        vc.currentReaderVC.page = page
+                        // 这里需要更新阅读记录,否则退出自动阅读后,阅读进度还在开始阅读前
+                        vc.viewModel.updateNextRecord { (page) in
+                            
+                        }
+                        self.voiceBook.start(sentence: vc.currentReaderVC.page?.content ?? "")
+                    }
+                }
+            }
         }
     }
     
@@ -145,6 +186,13 @@ class ZSReaderViewController: BaseViewController  {
         return curViewModel().book
     }
     
+    func curViewController() -> ZSReaderBaseViewController? {
+        if QSReaderSetting.shared.pageStyle == .curlPage {
+            return curlPageViewController
+        }
+        return nil
+    }
+    
     func curViewModel() ->ZSReaderViewModel {
         var viewModel:ZSReaderViewModel!
         if QSReaderSetting.shared.pageStyle == .none {
@@ -179,27 +227,23 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
     }
     
     func backButtonDidClicked() {
-        let book = curBook()
-        // 退出时，通常保存阅读记录就行，其它的不需要保存
-        let exist = BookManager.shared.bookExist(book:book)
-        if !exist {
-            self.alert(with: "追书提示", message: "是否将本书加入我的收藏", okTitle: "好的", cancelTitle: "不了", okAction: { (action) in
-                if let tmpBook = book {
-                    BookManager.shared.modifyBookshelf(book: tmpBook)
-                }
+        if let book = curBook() {
+            
+            // 退出时，通常保存阅读记录就行，其它的不需要保存
+            let exist = ZSBookManager.shared.existBook(book: book)
+            if !exist {
+                self.alert(with: "追书提示", message: "是否将本书加入我的收藏", okTitle: "好的", cancelTitle: "不了", okAction: { (action) in
+                    ZSBookManager.shared.addBook(book: book)
+                    self.dismiss(animated: true, completion: nil)
+                }, cancelAction: { (action) in
+                    self.dismiss(animated: true, completion: nil)
+                })
+            }else{
+                ZSBookManager.shared.updateBook(book: book)
                 self.dismiss(animated: true, completion: nil)
-            }, cancelAction: { (action) in
-                self.dismiss(animated: true, completion: nil)
-            })
-        }else{
-            if let tmpBook = book {
-                BookManager.shared.modifyRecord(tmpBook, tmpBook.record?.chapter, tmpBook.record?.page)
             }
-            self.dismiss(animated: true, completion: nil)
-        }
-        if let back = callback {
-            if let tmpBook = book {
-                back(tmpBook)
+            if let back = callback {
+                back(book)
             }
         }
     }

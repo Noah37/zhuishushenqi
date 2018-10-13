@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class ZSLocalShelfViewController: BaseViewController ,UITableViewDataSource,UITableViewDelegate,IndicatableView{
+class ZSLocalShelfViewController: BaseViewController ,UITableViewDataSource,UITableViewDelegate {
     
     var tableView:UITableView = UITableView(frame: CGRect.zero, style: .grouped).then {
         $0.qs_registerCellClass(SwipableCell.self)
