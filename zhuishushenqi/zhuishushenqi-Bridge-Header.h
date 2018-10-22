@@ -32,6 +32,7 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 #import "WechatAuthSDK.h"
+#import "WeiboSDK.h"
 
 
 #endif /* zhuishushenqi_Bridge_Header_h */

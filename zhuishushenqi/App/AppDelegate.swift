@@ -85,6 +85,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        QSLog(String.localized_login)
         QSLog(ZSBookManager.shared)
+        
+        WeiboSDK.enableDebugMode(true)
+        WeiboSDK.registerApp(ZSThirdLogin.WBAppID)
         return true
     }
     
@@ -105,7 +108,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if TencentOAuth.canHandleOpen(url) {
             return TencentOAuth.handleOpen(url)
         }
-        return WXApi.handleOpen(url, delegate: WXApiRequestHandler.share)
+        var result = WXApi.handleOpen(url, delegate: WXApiRequestHandler.share)
+        result = WeiboSDK.handleOpen(url, delegate: ZSThirdLogin.share)
+        return result
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
@@ -113,7 +118,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if TencentOAuth.canHandleOpen(url) {
             return TencentOAuth.handleOpen(url)
         }
-        return WXApi.handleOpen(url, delegate: WXApiRequestHandler.share)
+        var result = WXApi.handleOpen(url, delegate: WXApiRequestHandler.share)
+        result = WeiboSDK.handleOpen(url, delegate: ZSThirdLogin.share)
+        return result
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

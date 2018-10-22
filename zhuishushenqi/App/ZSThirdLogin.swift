@@ -41,6 +41,10 @@ class ZSThirdLogin: NSObject {
     
     static let WXAppSecret = "0464c67bdd87c303c5bfdc5761beb329"
     
+    static let WBAppID = ""
+    
+    static let WBRedirectURI = "https://www.sina.com"
+    
     static let share = ZSThirdLogin()
     private override init() {
         super.init()
@@ -141,6 +145,17 @@ class ZSThirdLogin: NSObject {
     }
 }
 
+extension ZSThirdLogin:WeiboSDKDelegate {
+    func didReceiveWeiboRequest(_ request: WBBaseRequest!) {
+        
+    }
+    
+    func didReceiveWeiboResponse(_ response: WBBaseResponse!) {
+        
+    }
+    
+}
+
 
 extension ZSThirdLogin:QQApiInterfaceDelegate {
     func onReq(_ req: QQBaseReq!) {
@@ -154,7 +169,6 @@ extension ZSThirdLogin:QQApiInterfaceDelegate {
     func isOnlineResponse(_ response: [AnyHashable : Any]!) {
         
     }
-    
     
 }
 

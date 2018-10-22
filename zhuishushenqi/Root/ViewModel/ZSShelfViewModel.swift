@@ -122,8 +122,22 @@ extension ZSShelfViewModel {
     func fetchBooksInfo(books:[ZSUserBookshelf]) {
         for item in books {
             self.shelvesWebService.fetchBookInfo(id: item.id, completion: { (book) in
-                
+                // 获取到书记信息后加入到books中
+                self.lock(object: self.booksID as AnyObject, callback: {
+                    if let bookDetail = book {
+                        self.booksID.append(item.id)
+                        self.books[item.id] = bookDetail
+                    }
+                })
             })
         }
+    }
+    
+    func lock(object:AnyObject, callback:()->Void) {
+        print("\(object)开始加锁")
+        objc_sync_enter(object)
+        callback()
+        print("\(object)结束加锁")
+        objc_sync_exit(object)
     }
 }

@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		3D08F242212C2DC6007B3D19 /* ZSDiscussViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */; };
 		3D08F244212C2DFC007B3D19 /* ZSDiscussWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */; };
+		3D1F679E217DB3D7000FB968 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D1F679A217DB3D7000FB968 /* WeiboSDK.bundle */; };
+		3D1F679F217DB3D7000FB968 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1F679B217DB3D7000FB968 /* libWeiboSDK.a */; };
+		3D1F67A1217DBA1B000FB968 /* ZSLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F67A0217DBA1B000FB968 /* ZSLoginViewController.swift */; };
+		3D1F67A3217DBA94000FB968 /* ZSLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F67A2217DBA94000FB968 /* ZSLoginView.swift */; };
+		3D1F67A5217DCE9B000FB968 /* ZSLeftViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F67A4217DCE9B000FB968 /* ZSLeftViewCell.swift */; };
 		3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */; };
 		3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */; };
 		3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */; };
@@ -444,6 +449,13 @@
 /* Begin PBXFileReference section */
 		3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussViewModel.swift; sourceTree = "<group>"; };
 		3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussWebService.swift; sourceTree = "<group>"; };
+		3D1F679A217DB3D7000FB968 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
+		3D1F679B217DB3D7000FB968 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
+		3D1F679C217DB3D7000FB968 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
+		3D1F679D217DB3D7000FB968 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
+		3D1F67A0217DBA1B000FB968 /* ZSLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLoginViewController.swift; sourceTree = "<group>"; };
+		3D1F67A2217DBA94000FB968 /* ZSLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLoginView.swift; sourceTree = "<group>"; };
+		3D1F67A4217DCE9B000FB968 /* ZSLeftViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLeftViewCell.swift; sourceTree = "<group>"; };
 		3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderBaseViewController.swift; sourceTree = "<group>"; };
 		3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerViewController.swift; sourceTree = "<group>"; };
 		3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerCell.swift; sourceTree = "<group>"; };
@@ -945,6 +957,7 @@
 				B252D4A0210EF4480091858E /* libxml2.tbd in Frameworks */,
 				B29CFAE42179A0DF0006F294 /* TencentOpenAPI.framework in Frameworks */,
 				B252D49E210EF4190091858E /* Security.framework in Frameworks */,
+				3D1F679F217DB3D7000FB968 /* libWeiboSDK.a in Frameworks */,
 				B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */,
 				B22182CF1DA40594002458D2 /* libz.tbd in Frameworks */,
 				B22182CD1DA4058E002458D2 /* libsqlite3.tbd in Frameworks */,
@@ -978,6 +991,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D1F6799217DB3D7000FB968 /* libWeiboSDK */ = {
+			isa = PBXGroup;
+			children = (
+				3D1F679A217DB3D7000FB968 /* WeiboSDK.bundle */,
+				3D1F679B217DB3D7000FB968 /* libWeiboSDK.a */,
+				3D1F679C217DB3D7000FB968 /* WBHttpRequest.h */,
+				3D1F679D217DB3D7000FB968 /* WeiboSDK.h */,
+			);
+			path = libWeiboSDK;
+			sourceTree = "<group>";
+		};
 		3D5671FA2174CABA0049B2FF /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1822,6 +1846,7 @@
 				B29CFB7E217B37DC0006F294 /* ZSUserInfoViewController.swift */,
 				B2B4BA5B1E7EA4A8000CC201 /* RightViewController.swift */,
 				B252D4E3211037380091858E /* ZSShelfViewController.swift */,
+				3D1F67A0217DBA1B000FB968 /* ZSLoginViewController.swift */,
 				B2B4BA5D1E7EA4A8000CC201 /* RootViewController.swift */,
 				3D9325E020B2BCFB0049CDBF /* ZSRootViewController.swift */,
 				B2A39C472110447300D6308E /* ZSLocalShelfViewController.swift */,
@@ -1872,6 +1897,8 @@
 				B29CFB6E217ADA690006F294 /* ZSMyCell.swift */,
 				B29CFB80217B395D0006F294 /* ZSUserBindCell.swift */,
 				B29CFB70217AE84B0006F294 /* ZSMyHeaderView.swift */,
+				3D1F67A2217DBA94000FB968 /* ZSLoginView.swift */,
+				3D1F67A4217DCE9B000FB968 /* ZSLeftViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2211,6 +2238,7 @@
 		B2CA80E821797B9C007A3EE7 /* ThirdLoginSDK */ = {
 			isa = PBXGroup;
 			children = (
+				3D1F6799217DB3D7000FB968 /* libWeiboSDK */,
 				B29CFB622179F5400006F294 /* WeChatSDK1.8.3 */,
 				B29CFAE32179A0DF0006F294 /* TencentOpenAPI.framework */,
 			);
@@ -2390,6 +2418,7 @@
 				B29B4FA31E8257BC008852E3 /* DynamicCell.xib in Resources */,
 				B2ACA06521244B3D0032305E /* ZSSetting.plist in Resources */,
 				B2B4BC211E7EA4AB000CC201 /* TopicDetailHeaderCell.xib in Resources */,
+				3D1F679E217DB3D7000FB968 /* WeiboSDK.bundle in Resources */,
 				B2C0DF4320D4CB350057DC84 /* .DS_Store~HEAD in Resources */,
 				B2C0DF5820D4CB350057DC84 /* HotCommentCell.xib in Resources */,
 				B278AA991F396074000A0D55 /* ReadHistoryCell.xib in Resources */,
@@ -2528,6 +2557,7 @@
 				B2ACA0632124467F0032305E /* ZSSettingViewModel.swift in Sources */,
 				B2C0DF4A20D4CB350057DC84 /* QSRecommendCell.swift in Sources */,
 				B2B4BC1C1E7EA4AB000CC201 /* ThemeTopicCell.swift in Sources */,
+				3D1F67A3217DBA94000FB968 /* ZSLoginView.swift in Sources */,
 				B20D74161EED83690034516F /* QSLastIntroduceCell.swift in Sources */,
 				B2B4BBEC1E7EA4AB000CC201 /* LightView.swift in Sources */,
 				B29CFB77217B1FEC0006F294 /* ZSCoin.swift in Sources */,
@@ -2556,6 +2586,7 @@
 				B24B3F5620ECA04B0098ACE5 /* Array+ZSExtension.swift in Sources */,
 				B24B3F5020E8885A0098ACE5 /* ZSSearchHeaderView.swift in Sources */,
 				3DDEEAFB214A8EC8003D12DB /* ZSFontService.swift in Sources */,
+				3D1F67A1217DBA1B000FB968 /* ZSLoginViewController.swift in Sources */,
 				3DD0842D2157604D008E3B4A /* ZSSpeechView.swift in Sources */,
 				3DDB6CAF2130F4BC00E8698D /* MagnifiterView.m in Sources */,
 				B2B4BBFC1E7EA4AB000CC201 /* UITableView+swizzling.swift in Sources */,
@@ -2778,6 +2809,7 @@
 				B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */,
 				B2C0DF6F20D4CB350057DC84 /* QSCommunityPresenter.swift in Sources */,
 				B252D48F210EF3960091858E /* MultipartMessageHeaderField.m in Sources */,
+				3D1F67A5217DCE9B000FB968 /* ZSLeftViewCell.swift in Sources */,
 				B29CFB81217B395D0006F294 /* ZSUserBindCell.swift in Sources */,
 				B29B4F9D1E821E61008852E3 /* UIImage+QSData.swift in Sources */,
 				B2580E1B1E9B236000455AFE /* QSSearchInteractor.swift in Sources */,
@@ -3040,6 +3072,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK/WeChatSDK1.8.3",
+					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK/libWeiboSDK",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
@@ -3082,6 +3115,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK/WeChatSDK1.8.3",
+					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK/libWeiboSDK",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (

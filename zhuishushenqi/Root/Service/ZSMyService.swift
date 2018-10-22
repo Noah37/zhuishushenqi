@@ -49,12 +49,12 @@ class ZSMyService: NSObject {
         }
     }
     
-    func fetchLogout(token:String, completion:@escaping ZSBaseCallback<[ZSUserBookshelf]>) {
+    func fetchLogout(token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
 //        https://api.zhuishushenqi.com/user/logout
         let api = QSAPI.logout(token: token)
         zs_post(api.path, parameters: api.parameters) { (json) in
-            let books = [ZSUserBookshelf].deserialize(from: json?["books"] as? [Any]) as? [ZSUserBookshelf]
-            completion(books)
+//            let books = [ZSUserBookshelf].deserialize(from: json?["books"] as? [Any]) as? [String:Any]
+            completion(json)
         }
     }
 

@@ -100,7 +100,10 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
                 SideVC.closeSideViewController()
                 SideVC.navigationController?.pushViewController(myVC, animated: true)
             } else {
-                showShare()
+//                showShare()
+                let loginVC = ZSLoginViewController()
+                SideVC.closeSideViewController()
+                SideVC.navigationController?.pushViewController(loginVC, animated: false)
             }
         }else{
             SideVC.closeSideViewController()
