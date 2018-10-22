@@ -31,6 +31,7 @@ class ZSRankItemViewController:BaseViewController {
         super.viewDidLoad()
         setupSubviews()
         request()
+        tableView.frame = view.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +55,7 @@ class ZSRankItemViewController:BaseViewController {
             viewModel.fetchRanking(rank: rankInfo, index: index) { (books) in
                 if let models = books {
                     self.dataSource = models
+                    self.tableView.reloadData()
                 }
             }
         }

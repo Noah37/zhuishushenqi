@@ -38,6 +38,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     
         setupSubviews()
         
+        
 //        let books = ZSBookManager.shared.books
     }
     
@@ -194,6 +195,10 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+//        if let url = URL(string: "IFlySpeechPlus://?version=1.006&businessType=1&callType=0") {
+//            UIApplication.shared.openURL(url)
+//            return
+//        }
         if viewModel.localBooks.count > 0 {
             if indexPath.section == 0 {
                 let localVC = ZSLocalShelfViewController()

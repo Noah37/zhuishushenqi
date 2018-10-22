@@ -2,11 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>audio</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -14,14 +9,14 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeName</key>
+			<string>TXT File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.plain-text</string>
 			</array>
-			<key>CFBundleTypeName</key>
-			<string>TXT File</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -38,8 +33,69 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>isp566551f4</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>isp566551f4</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>tencent100497199</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tencent100497199</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>wechar</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wxaf0fdeed6872dfcf</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixin</string>
+		<string>wechat</string>
+		<string>IFlySpeechPlus</string>
+		<string>mqq</string>
+		<string>mqqapi</string>
+		<string>mqqwpa</string>
+		<string>mqqbrowser</string>
+		<string>mttbrowser</string>
+		<string>mqqOpensdkSSoLogin</string>
+		<string>mqqopensdkapiV2</string>
+		<string>mqqopensdkapiV3</string>
+		<string>mqqopensdkapiV4</string>
+		<string>wtloginmqq2</string>
+		<string>mqzone</string>
+		<string>mqzoneopensdk</string>
+		<string>mqzoneopensdkapi</string>
+		<string>mqzoneopensdkapi19</string>
+		<string>mqzoneopensdkapiV2</string>
+		<string>mqqapiwallet</string>
+		<string>mqqopensdkfriend</string>
+		<string>mqqopensdkdataline</string>
+		<string>mqqgamebindinggroup</string>
+		<string>mqqopensdkgrouptribeshare</string>
+		<string>tencentapi.qq.reqContent</string>
+		<string>tencentapi.qzone.reqContent</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -49,6 +105,11 @@
 	</dict>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>audio</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -72,7 +133,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>UTExportedTypeDeclarations</key>
-	<array/>
 </dict>
 </plist>

@@ -28,5 +28,10 @@
 #import "IFlyMSC/IFlyMSC.h"
 #import "PcmPlayer.h"
 #import <FMDB/FMDB.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import "WXApi.h"
+#import "WechatAuthSDK.h"
+
 
 #endif /* zhuishushenqi_Bridge_Header_h */

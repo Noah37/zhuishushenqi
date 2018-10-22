@@ -11,6 +11,10 @@
 import RxSwift
 import UIKit
 
+#if swift(>=4.2)
+    public typealias UITableViewCellEditingStyle = UITableViewCell.EditingStyle
+#endif
+
 // Items
 
 extension Reactive where Base: UITableView {
@@ -103,38 +107,6 @@ extension Reactive where Base: UITableView {
     - parameter dataSource: Data source used to transform elements to view cells.
     - parameter source: Observable sequence of items.
     - returns: Disposable object that can be used to unbind.
-     
-     Example 
-
-        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, Double>>()
-
-        let items = Observable.just([
-            SectionModel(model: "First section", items: [
-                1.0,
-                2.0,
-                3.0
-                ]),
-            SectionModel(model: "Second section", items: [
-                1.0,
-                2.0,
-                3.0
-                ]),
-            SectionModel(model: "Third section", items: [
-                1.0,
-                2.0,
-                3.0
-                ])
-            ])
-
-        dataSource.configureCell = { (dataSource, tv, indexPath, element) in
-            let cell = tv.dequeueReusableCell(withIdentifier: "Cell")!
-            cell.textLabel?.text = "\(element) @ row \(indexPath.row)"
-            return cell
-        }
-
-        items
-            .bind(to: tableView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBag)
     */
     public func items<
             DataSource: RxTableViewDataSourceType & UITableViewDataSource,
@@ -231,7 +203,7 @@ extension Reactive where Base: UITableView {
     public var itemInserted: ControlEvent<IndexPath> {
         let source = self.dataSource.methodInvoked(#selector(UITableViewDataSource.tableView(_:commit:forRowAt:)))
             .filter { a in
-                return UITableViewCell.EditingStyle(rawValue: (try castOrThrow(NSNumber.self, a[1])).intValue) == .insert
+                return UITableViewCellEditingStyle(rawValue: (try castOrThrow(NSNumber.self, a[1])).intValue) == .insert
             }
             .map { a in
                 return (try castOrThrow(IndexPath.self, a[2]))
@@ -246,7 +218,7 @@ extension Reactive where Base: UITableView {
     public var itemDeleted: ControlEvent<IndexPath> {
         let source = self.dataSource.methodInvoked(#selector(UITableViewDataSource.tableView(_:commit:forRowAt:)))
             .filter { a in
-                return UITableViewCell.EditingStyle(rawValue: (try castOrThrow(NSNumber.self, a[1])).intValue) == .delete
+                return UITableViewCellEditingStyle(rawValue: (try castOrThrow(NSNumber.self, a[1])).intValue) == .delete
             }
             .map { a in
                 return try castOrThrow(IndexPath.self, a[2])

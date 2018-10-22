@@ -42,24 +42,28 @@ extension Reactive where Base: UIButton {
 import RxSwift
 import UIKit
 
+#if swift(>=4.2)
+    public typealias UIControlState = UIControl.State
+#endif
+
 extension Reactive where Base: UIButton {
     
     /// Reactive wrapper for `setTitle(_:for:)`
-    public func title(for controlState: UIControl.State = []) -> Binder<String?> {
+    public func title(for controlState: UIControlState = []) -> Binder<String?> {
         return Binder(self.base) { (button, title) -> () in
             button.setTitle(title, for: controlState)
         }
     }
 
     /// Reactive wrapper for `setImage(_:for:)`
-    public func image(for controlState: UIControl.State = []) -> Binder<UIImage?> {
+    public func image(for controlState: UIControlState = []) -> Binder<UIImage?> {
         return Binder(self.base) { (button, image) -> () in
             button.setImage(image, for: controlState)
         }
     }
 
     /// Reactive wrapper for `setBackgroundImage(_:for:)`
-    public func backgroundImage(for controlState: UIControl.State = []) -> Binder<UIImage?> {
+    public func backgroundImage(for controlState: UIControlState = []) -> Binder<UIImage?> {
         return Binder(self.base) { (button, image) -> () in
             button.setBackgroundImage(image, for: controlState)
         }
@@ -76,7 +80,7 @@ extension Reactive where Base: UIButton {
     extension Reactive where Base: UIButton {
         
         /// Reactive wrapper for `setAttributedTitle(_:controlState:)`
-        public func attributedTitle(for controlState: UIControl.State = []) -> Binder<NSAttributedString?> {
+        public func attributedTitle(for controlState: UIControlState = []) -> Binder<NSAttributedString?> {
             return Binder(self.base) { (button, attributedTitle) -> () in
                 button.setAttributedTitle(attributedTitle, for: controlState)
             }

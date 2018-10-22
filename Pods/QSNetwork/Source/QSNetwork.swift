@@ -88,6 +88,9 @@ public class QSNetwork{
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = QSManager.defaultHTTPHeaders
         let manager = QSManager(configuration: configuration)
+        if method == .post {
+            return manager.request(url, method: .post, parameters: parameters, headers: headers,completionHandler: completionHandler)
+        }
         return manager.request(url, method: .get, parameters: parameters, headers: headers,completionHandler: completionHandler)
     }
     

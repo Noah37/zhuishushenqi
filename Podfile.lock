@@ -11,7 +11,7 @@ PODS:
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
   - HandyJSON (4.2.0)
-  - Kingfisher (4.9.0)
+  - Kingfisher (4.10.0)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.1.15.6)
   - PKHUD (5.2.0)
@@ -45,7 +45,7 @@ DEPENDENCIES:
   - MJRefresh
   - PKHUD (~> 5.0)
   - PullToRefresh (= 0.0.1)
-  - QSNetwork (~> 0.0.1)
+  - QSNetwork (~> 0.0.3)
   - RxAlamofire
   - RxCocoa
   - RxSwift
@@ -83,7 +83,7 @@ SPEC CHECKSUMS:
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   HandyJSON: 9dfc026c7d7adc1f0f8ba8b181495f0e0763b0f4
-  Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
+  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: 0efa19656679d70a0f47cbe76e56c2271fe53a97
   PKHUD: dd5357ac65f26115c35c4a68e9b328053326c5fe
@@ -98,6 +98,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 0a3daa43c239e7992258133c5e193254ce4263bf
+PODFILE CHECKSUM: a279d4fc040622fbb50bb47e408e2b22cf60851a
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.2

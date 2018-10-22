@@ -51,6 +51,24 @@ class ZSShelfWebService: ZSBaseService {
         }
     }
     
+    func fetchBookshelf(token:String, completion:@escaping ZSBaseCallback<[ZSUserBookshelf]>) {
+        let api = QSAPI.bookshelf(token: token)
+        zs_get(api.path, parameters: api.parameters) { (json) in
+            if let models = [ZSUserBookshelf].deserialize(from: json?["books"] as? [Any]) as? [ZSUserBookshelf] {
+                completion(models)
+            }
+        }
+    }
+    
+    func fetchBookInfo(id:String, completion:@escaping ZSBaseCallback<BookDetail>) {
+        let api = QSAPI.book(key: id)
+        zs_get(api.path, parameters: api.parameters) { (json) in
+            if let book = BookDetail.deserialize(from: json) {
+                completion(book)
+            }
+        }
+    }
+    
     private func getIDSOf(books:[BookDetail]) ->String{
         var id = ""
         for book in  books {

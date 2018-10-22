@@ -19,6 +19,7 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,16 +43,33 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
             cell?.selectionStyle = .none
         }
         let scale = SideVC.leftOffSetXScale
-        let headIcon = UIImageView(frame: CGRect(x: ScreenWidth*scale/2 - 12.5, y: 10, width: 25, height: 25))
-        cell?.contentView.addSubview(headIcon)
-        headIcon.image = UIImage(named: images[indexPath.row] as! String)
+        
+        var headIcon:UIImageView? = cell?.contentView.viewWithTag(12321) as? UIImageView
+        if (headIcon != nil) {
+            headIcon?.removeFromSuperview()
+        }
+        headIcon = UIImageView(frame: CGRect(x: ScreenWidth*scale/2 - 12.5, y: 10, width: 25, height: 25))
+        headIcon?.image = UIImage(named: images[indexPath.row] as! String)
+        headIcon?.tag = 12321
+        cell?.contentView.addSubview(headIcon!)
         if indexPath.row == 0 {
-            let label = UILabel(frame: CGRect(x: ScreenWidth*scale/2 - 20,y: 35,width: 40,height: 10))
-            label.font = UIFont.systemFont(ofSize: 9)
-            label.text = "登录"
-            label.textAlignment = .center
-            label.textColor = UIColor(white: 1.0, alpha: 0.5)
-            cell?.contentView.addSubview(label)
+            if ZSLogin.share.hasLogin() {
+                headIcon?.qs_setAvatarWithURLString(urlString: ZSThirdLogin.share.userInfo?.user?.avatar ?? "")
+            }
+            var label:UILabel? = cell?.contentView.viewWithTag(12323) as? UILabel
+            if label != nil {
+                label?.removeFromSuperview()
+            }
+            label = UILabel(frame: CGRect(x: ScreenWidth*scale/2 - 20,y: 35,width: 40,height: 10))
+            label?.font = UIFont.systemFont(ofSize: 9)
+            if ZSLogin.share.hasLogin() {
+                label?.text = ZSThirdLogin.share.userInfo?.user?.nickname ?? ""
+            } else {
+                label?.text = "登录"
+            }
+            label?.textAlignment = .center
+            label?.textColor = UIColor(white: 1.0, alpha: 0.5)
+            cell?.contentView.addSubview(label!)
         }
         let view = UIView(frame: CGRect(x: 0,y: 0,width: 5,height: 44))
         view.backgroundColor =  UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
@@ -77,7 +95,13 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
             }
         }
         if indexPath.row == 0 {
-            showShare()
+            if ZSLogin.share.hasLogin() {
+                let myVC = ZSMyViewController.init(style: .grouped)
+                SideVC.closeSideViewController()
+                SideVC.navigationController?.pushViewController(myVC, animated: true)
+            } else {
+                showShare()
+            }
         }else{
             SideVC.closeSideViewController()
         }
@@ -94,6 +118,24 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
     }
     
     func didSelectedAtIndex(_ index:Int,sheet:XYCActionSheet){
+        SideVC.closeSideViewController()
+        self.maskView.removeFromSuperview()
+        self.tableView.reloadData()
+//        let indexPath = IndexPath(row: 1, section: 0)
+//        self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+        if index == 1 {
+            ZSThirdLogin.share.successHandler = {
+                self.tableView.reloadData()
+            }
+            ZSThirdLogin.share.QQAuth()
+            self.shareActionSheet.removeFromSuperview()
+        } else if index == 2 {
+            ZSThirdLogin.share.successHandler = {
+                self.tableView.reloadData()
+            }
+            ZSThirdLogin.share.WXAuth()
+            self.shareActionSheet.removeFromSuperview()
+        }
         if index == 3 {
             UIView.animate(withDuration: 0.35, animations: {
                 sheet.frame = CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: 200)

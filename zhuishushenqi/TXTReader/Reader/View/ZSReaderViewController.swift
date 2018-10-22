@@ -91,10 +91,10 @@ class ZSReaderViewController: BaseViewController  {
                 }
                 if self.speechView.speakers.count > self.speechView.speakerPicker.selectedItem {
 //                    let appid = "5ba0b197"
-                    let xfyj = "5445f87d"
-                    //        let xfyj2 = "591a4d99"
-                    let initString = "appid=\(xfyj)"
-                    IFlySpeechUtility.createUtility(initString)
+//                    let xfyj = "5445f87d"
+//                    //        let xfyj2 = "591a4d99"
+//                    let initString = "appid=\(xfyj)"
+//                    IFlySpeechUtility.createUtility(initString)
                     
                     let speaker = self.speechView.speakers[Int(self.speechView.speakerPicker.selectedItem)]
                     

@@ -11,6 +11,10 @@
 import RxSwift
 import UIKit
 
+#if swift(>=4.2)
+    public typealias UIControlEvents = UIControl.Event
+#endif
+
 extension Reactive where Base: UIControl {
     
     /// Bindable sink for `enabled` property.
@@ -30,7 +34,7 @@ extension Reactive where Base: UIControl {
     /// Reactive wrapper for target action pattern.
     ///
     /// - parameter controlEvents: Filter for observed event types.
-    public func controlEvent(_ controlEvents: UIControl.Event) -> ControlEvent<()> {
+    public func controlEvent(_ controlEvents: UIControlEvents) -> ControlEvent<()> {
         let source: Observable<Void> = Observable.create { [weak control = self.base] observer in
                 MainScheduler.ensureExecutingOnScheduler()
 
@@ -57,7 +61,7 @@ extension Reactive where Base: UIControl {
     /// - parameter getter: Property value getter.
     /// - parameter setter: Property value setter.
     public func controlProperty<T>(
-        editingEvents: UIControl.Event,
+        editingEvents: UIControlEvents,
         getter: @escaping (Base) -> T,
         setter: @escaping (Base, T) -> ()
     ) -> ControlProperty<T> {
@@ -84,15 +88,15 @@ extension Reactive where Base: UIControl {
         return ControlProperty<T>(values: source, valueSink: bindingObserver)
     }
 
-    /// This is a separate method is to better communicate to public consumers that
+    /// This is a separate method to better communicate to public consumers that
     /// an `editingEvent` needs to fire for control property to be updated.
     internal func controlPropertyWithDefaultEvents<T>(
-        editingEvents: UIControl.Event = [.allEditingEvents, .valueChanged],
+        editingEvents: UIControlEvents = [.allEditingEvents, .valueChanged],
         getter: @escaping (Base) -> T,
         setter: @escaping (Base, T) -> ()
         ) -> ControlProperty<T> {
         return controlProperty(
-            editingEvents: [.allEditingEvents, .valueChanged],
+            editingEvents: editingEvents,
             getter: getter,
             setter: setter
         )

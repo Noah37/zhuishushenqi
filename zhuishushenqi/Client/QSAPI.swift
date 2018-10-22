@@ -76,6 +76,20 @@ enum QSAPI {
     case recommend(key:String)
     //随机看书
     case mysteryBook()
+    ///登录
+    case login(idfa:String,platform_code:String,platform_token:String,platform_uid:String,version:String,tag:String)
+    ///账户信息
+    case account(token:String)
+    ///金币信息
+    case golden(token:String)
+    ///账户详情
+    case userDetail(token:String)
+    ///个人信息绑定账户
+    case userBind(token:String)
+    ///退出登录
+    case logout(token:String)
+    ///书架列表
+    case bookshelf(token:String)
 }
 
 extension QSAPI:TargetType{
@@ -166,6 +180,21 @@ extension QSAPI:TargetType{
         case .mysteryBook():
             pathComponent = "/book/mystery-box"
             break
+        case .login(_,_,_,_,_,_):
+            pathComponent = "/user/login"
+            break
+        case .account(_):
+            pathComponent = "/user/account"
+        case .golden(_):
+            pathComponent = "/account"
+        case .userDetail(_):
+            pathComponent = "/user/detail-info"
+        case .userBind(_):
+            pathComponent = "/user/loginBind"
+        case .logout(_):
+            pathComponent = "/user/logout"
+        case .bookshelf(_):
+            pathComponent = "/v3/user/bookshelf"
         }
         return "\(baseURLString)\(pathComponent)"
     }
@@ -180,6 +209,8 @@ extension QSAPI:TargetType{
             default:
                 urlString = "http://api.zhuishushenqi.com"
             }
+        case .golden(_):
+            urlString = "http://goldcoin.zhuishushenqi.com"
         default:
             urlString = "http://api.zhuishushenqi.com"
         }
@@ -210,9 +241,29 @@ extension QSAPI:TargetType{
             return ["view":"summary","book":key]
         case .allChapters(_):
             return ["view":"chapters"]
+        case let .login(idfa, platform_code, platform_token, platform_uid, version, tag):
+            return ["idfa":idfa,
+                    "platform_code":platform_code,
+                    "platform_token":platform_token,
+                    "platform_uid":platform_uid,
+                    "version":version,
+                    "tag":tag]
+        case let .account(token):
+            return ["token":token]
+        case let .golden(token):
+            return ["token":token]
+        case let .userDetail(token):
+            return ["token":token]
+        case let .userBind(token):
+            return ["token":token]
+        case let .logout(token):
+            return ["token":token]
+        case let .bookshelf(token):
+            return ["token":token]
         default:
             return nil
         }
     }
 }
 
+//https://api.zhuishushenqi.com/v3/user/bookshelf?token=oRSd5bVUCpSunbwiKe5NOpOM

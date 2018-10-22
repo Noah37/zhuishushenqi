@@ -32,6 +32,9 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
             ZSBookManager.shared.ids = newValue
         }
     }
+    
+    var bookshelfBooks:[ZSUserBookshelf] = []
+    
     fileprivate let shelvesWebService = ZSShelfWebService()
     fileprivate let disposeBag = DisposeBag()
     
@@ -104,6 +107,23 @@ extension ZSShelfViewModel {
         shelvesWebService.fetchShelfMsg { (message) in
             self.shelfMessage = message
             completion?(nil)
+        }
+    }
+    
+    func fetchUserBookshelf(token:String, completion:ZSBaseCallback<[ZSUserBookshelf]>?) {
+        shelvesWebService.fetchBookshelf(token: token) { (books) in
+            if let models = books {
+                self.bookshelfBooks = models
+                self.fetchBooksInfo(books: models)
+            }
+        }
+    }
+    
+    func fetchBooksInfo(books:[ZSUserBookshelf]) {
+        for item in books {
+            self.shelvesWebService.fetchBookInfo(id: item.id, completion: { (book) in
+                
+            })
         }
     }
 }

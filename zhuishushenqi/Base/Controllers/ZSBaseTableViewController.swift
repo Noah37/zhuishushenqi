@@ -14,6 +14,7 @@ class ZSBaseTableViewController: UITableViewController {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.white
+        self.tableView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
         navigationController?.navigationBar.tintColor = UIColor.red
         navigationController?.navigationBar.barTintColor = UIColor.white
         register()
@@ -41,9 +42,24 @@ class ZSBaseTableViewController: UITableViewController {
         for cls in nibClasses {
             self.tableView.qs_registerCellNib(cls as! UITableViewCell.Type)
         }
+        
+        let headerClasses = registerHeaderViewClasses()
+        for cls in headerClasses {
+            self.tableView.qs_registerHeaderFooterClass(cls as! UITableViewHeaderFooterView.Type)
+        }
+        let footerClasses = registerFooterViewClasses()
+        for cls in footerClasses {
+            self.tableView.qs_registerHeaderFooterClass(cls as! UITableViewHeaderFooterView.Type)
+        }
     }
     
+    func registerHeaderViewClasses() -> Array<AnyClass> {
+        return []
+    }
     
+    func registerFooterViewClasses() -> Array<AnyClass> {
+        return []
+    }
 
     func registerCellClasses() -> Array<AnyClass> {
         return []

@@ -211,11 +211,29 @@
 		B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B4F9E1E822992008852E3 /* QSHotModel.swift */; };
 		B29B4FA21E8257BC008852E3 /* DynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B4FA01E8257BC008852E3 /* DynamicCell.swift */; };
 		B29B4FA31E8257BC008852E3 /* DynamicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B29B4FA11E8257BC008852E3 /* DynamicCell.xib */; };
+		B29CFAE42179A0DF0006F294 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29CFAE32179A0DF0006F294 /* TencentOpenAPI.framework */; };
+		B29CFAE62179B6E50006F294 /* ZSLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFAE52179B6E50006F294 /* ZSLoginService.swift */; };
+		B29CFAE82179B7270006F294 /* ZSQQUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFAE72179B7270006F294 /* ZSQQUser.swift */; };
+		B29CFB682179F5400006F294 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = B29CFB652179F5400006F294 /* README.txt */; };
+		B29CFB692179F5400006F294 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B29CFB672179F5400006F294 /* libWeChatSDK.a */; };
+		B29CFB6B217A3D8F0006F294 /* ZSLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB6A217A3D8F0006F294 /* ZSLogin.swift */; };
+		B29CFB6D217AD6D30006F294 /* ZSMyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB6C217AD6D30006F294 /* ZSMyViewController.swift */; };
+		B29CFB6F217ADA690006F294 /* ZSMyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB6E217ADA690006F294 /* ZSMyCell.swift */; };
+		B29CFB71217AE84B0006F294 /* ZSMyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB70217AE84B0006F294 /* ZSMyHeaderView.swift */; };
+		B29CFB73217B1CC00006F294 /* ZSMyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB72217B1CC00006F294 /* ZSMyService.swift */; };
+		B29CFB75217B1DAB0006F294 /* ZSAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB74217B1DAB0006F294 /* ZSAccount.swift */; };
+		B29CFB77217B1FEC0006F294 /* ZSCoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB76217B1FEC0006F294 /* ZSCoin.swift */; };
+		B29CFB79217B21C60006F294 /* ZSMyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB78217B21C60006F294 /* ZSMyViewModel.swift */; };
+		B29CFB7B217B2F3A0006F294 /* ZSUserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB7A217B2F3A0006F294 /* ZSUserDetail.swift */; };
+		B29CFB7D217B35EA0006F294 /* ZSUserBind.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB7C217B35E90006F294 /* ZSUserBind.swift */; };
+		B29CFB7F217B37DC0006F294 /* ZSUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB7E217B37DC0006F294 /* ZSUserInfoViewController.swift */; };
+		B29CFB81217B395D0006F294 /* ZSUserBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29CFB80217B395D0006F294 /* ZSUserBindCell.swift */; };
 		B2A02F7C20F337C20034DC64 /* ZSHorizonalMoveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A02F7B20F337C20034DC64 /* ZSHorizonalMoveViewController.swift */; };
 		B2A02F7E20F33A1A0034DC64 /* ZSHorizonalMoveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A02F7D20F33A1A0034DC64 /* ZSHorizonalMoveCell.swift */; };
 		B2A02F8020F33F710034DC64 /* ZSReaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A02F7F20F33F710034DC64 /* ZSReaderManager.swift */; };
 		B2A39C482110447300D6308E /* ZSLocalShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A39C472110447300D6308E /* ZSLocalShelfViewController.swift */; };
 		B2A39C4A2110453100D6308E /* ZSLocalShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A39C492110453100D6308E /* ZSLocalShelfViewModel.swift */; };
+		B2A7CD81217C5E5E0067D25B /* ZSUserBookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CD80217C5E5E0067D25B /* ZSUserBookshelf.swift */; };
 		B2ACA01E212179F60032305E /* ZSSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA01D212179F60032305E /* ZSSegmentViewController.swift */; };
 		B2ACA02221217DFB0032305E /* ZSRankService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA02121217DFB0032305E /* ZSRankService.swift */; };
 		B2ACA05F212416AE0032305E /* ZSBaseNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA05E212416AE0032305E /* ZSBaseNavigationViewController.swift */; };
@@ -394,6 +412,7 @@
 		B2C0DF7F20D4CC480057DC84 /* ZSBookCommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF7E20D4CC480057DC84 /* ZSBookCommentService.swift */; };
 		B2C0DF8120D4CC5A0057DC84 /* ZSBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF8020D4CC5A0057DC84 /* ZSBaseService.swift */; };
 		B2C0DF8520D7C1D30057DC84 /* ZSHottwitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF8420D7C1D30057DC84 /* ZSHottwitterViewController.swift */; };
+		B2CA80F021797EA2007A3EE7 /* ZSThirdLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA80EF21797EA2007A3EE7 /* ZSThirdLogin.swift */; };
 		B2CA942B1EB331DC00D60BF2 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */; };
 		B2E072781F3AD99500C63347 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E072771F3AD99500C63347 /* Reader.swift */; };
 		B2EE7CF41F3BFC7B00BE997C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B2EE7CF61F3BFC7B00BE997C /* Localizable.strings */; };
@@ -420,19 +439,6 @@
 			remoteInfo = zhuishushenqi;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		B2B58B521E7A79340054FE84 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussViewModel.swift; sourceTree = "<group>"; };
@@ -688,11 +694,32 @@
 		B29B4F9E1E822992008852E3 /* QSHotModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHotModel.swift; sourceTree = "<group>"; };
 		B29B4FA01E8257BC008852E3 /* DynamicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCell.swift; sourceTree = "<group>"; };
 		B29B4FA11E8257BC008852E3 /* DynamicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DynamicCell.xib; sourceTree = "<group>"; };
+		B29CFAE32179A0DF0006F294 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		B29CFAE52179B6E50006F294 /* ZSLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLoginService.swift; sourceTree = "<group>"; };
+		B29CFAE72179B7270006F294 /* ZSQQUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSQQUser.swift; sourceTree = "<group>"; };
+		B29CFB632179F5400006F294 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		B29CFB642179F5400006F294 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		B29CFB652179F5400006F294 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		B29CFB662179F5400006F294 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		B29CFB672179F5400006F294 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		B29CFB6A217A3D8F0006F294 /* ZSLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLogin.swift; sourceTree = "<group>"; };
+		B29CFB6C217AD6D30006F294 /* ZSMyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSMyViewController.swift; sourceTree = "<group>"; };
+		B29CFB6E217ADA690006F294 /* ZSMyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSMyCell.swift; sourceTree = "<group>"; };
+		B29CFB70217AE84B0006F294 /* ZSMyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSMyHeaderView.swift; sourceTree = "<group>"; };
+		B29CFB72217B1CC00006F294 /* ZSMyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSMyService.swift; sourceTree = "<group>"; };
+		B29CFB74217B1DAB0006F294 /* ZSAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSAccount.swift; sourceTree = "<group>"; };
+		B29CFB76217B1FEC0006F294 /* ZSCoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCoin.swift; sourceTree = "<group>"; };
+		B29CFB78217B21C60006F294 /* ZSMyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSMyViewModel.swift; sourceTree = "<group>"; };
+		B29CFB7A217B2F3A0006F294 /* ZSUserDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSUserDetail.swift; sourceTree = "<group>"; };
+		B29CFB7C217B35E90006F294 /* ZSUserBind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSUserBind.swift; sourceTree = "<group>"; };
+		B29CFB7E217B37DC0006F294 /* ZSUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSUserInfoViewController.swift; sourceTree = "<group>"; };
+		B29CFB80217B395D0006F294 /* ZSUserBindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSUserBindCell.swift; sourceTree = "<group>"; };
 		B2A02F7B20F337C20034DC64 /* ZSHorizonalMoveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHorizonalMoveViewController.swift; sourceTree = "<group>"; };
 		B2A02F7D20F33A1A0034DC64 /* ZSHorizonalMoveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHorizonalMoveCell.swift; sourceTree = "<group>"; };
 		B2A02F7F20F33F710034DC64 /* ZSReaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderManager.swift; sourceTree = "<group>"; };
 		B2A39C472110447300D6308E /* ZSLocalShelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLocalShelfViewController.swift; sourceTree = "<group>"; };
 		B2A39C492110453100D6308E /* ZSLocalShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLocalShelfViewModel.swift; sourceTree = "<group>"; };
+		B2A7CD80217C5E5E0067D25B /* ZSUserBookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSUserBookshelf.swift; sourceTree = "<group>"; };
 		B2ACA01D212179F60032305E /* ZSSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSegmentViewController.swift; sourceTree = "<group>"; };
 		B2ACA02121217DFB0032305E /* ZSRankService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRankService.swift; sourceTree = "<group>"; };
 		B2ACA05E212416AE0032305E /* ZSBaseNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseNavigationViewController.swift; sourceTree = "<group>"; };
@@ -882,6 +909,7 @@
 		B2C0DF7E20D4CC480057DC84 /* ZSBookCommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCommentService.swift; sourceTree = "<group>"; };
 		B2C0DF8020D4CC5A0057DC84 /* ZSBaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseService.swift; sourceTree = "<group>"; };
 		B2C0DF8420D7C1D30057DC84 /* ZSHottwitterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHottwitterViewController.swift; sourceTree = "<group>"; };
+		B2CA80EF21797EA2007A3EE7 /* ZSThirdLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSThirdLogin.swift; sourceTree = "<group>"; };
 		B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
 		B2E072771F3AD99500C63347 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
 		B2EE7CF51F3BFC7B00BE997C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -906,12 +934,14 @@
 				B22182C11DA4055E002458D2 /* QuartzCore.framework in Frameworks */,
 				3DD0843A2157C124008E3B4A /* AddressBook.framework in Frameworks */,
 				B22182CB1DA40588002458D2 /* SystemConfiguration.framework in Frameworks */,
+				B29CFB692179F5400006F294 /* libWeChatSDK.a in Frameworks */,
 				3DD084382157C101008E3B4A /* AudioToolbox.framework in Frameworks */,
 				B2FB92111EB1EEDF000C990A /* CoreTelephony.framework in Frameworks */,
 				3DD084362157C0ED008E3B4A /* libc++.tbd in Frameworks */,
 				3DDB6CB72130F73000E8698D /* libicucore.tbd in Frameworks */,
 				B252D4A2210EF4600091858E /* libxml2.2.tbd in Frameworks */,
 				B252D4A0210EF4480091858E /* libxml2.tbd in Frameworks */,
+				B29CFAE42179A0DF0006F294 /* TencentOpenAPI.framework in Frameworks */,
 				B252D49E210EF4190091858E /* Security.framework in Frameworks */,
 				B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */,
 				B22182CF1DA40594002458D2 /* libz.tbd in Frameworks */,
@@ -971,6 +1001,7 @@
 				3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */,
 				B2ACA0622124467F0032305E /* ZSSettingViewModel.swift */,
 				3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */,
+				B29CFB78217B21C60006F294 /* ZSMyViewModel.swift */,
 				B2ACA06421244B3D0032305E /* ZSSetting.plist */,
 			);
 			path = ViewModel;
@@ -1064,6 +1095,8 @@
 				B2C0DF8020D4CC5A0057DC84 /* ZSBaseService.swift */,
 				B252D4DF211033F20091858E /* ZSShelfWebService.swift */,
 				3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */,
+				B29CFAE52179B6E50006F294 /* ZSLoginService.swift */,
+				B29CFB72217B1CC00006F294 /* ZSMyService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1285,6 +1318,8 @@
 				B25570861F3A963300C35A34 /* Theme.swift */,
 				B25570881F3A96E500C35A34 /* BookManager.swift */,
 				B2E072771F3AD99500C63347 /* Reader.swift */,
+				B2CA80EF21797EA2007A3EE7 /* ZSThirdLogin.swift */,
+				B29CFB6A217A3D8F0006F294 /* ZSLogin.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1348,6 +1383,7 @@
 		B278AA9F1F396773000A0D55 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				B2CA80E821797B9C007A3EE7 /* ThirdLoginSDK */,
 				B252D454210EF3960091858E /* CocoaHTTPServer */,
 				B2D8688520050C2800B9AF01 /* CTDisplayText */,
 				B278AAFB1F398926000A0D55 /* M80AttributedLabel */,
@@ -1380,6 +1416,18 @@
 				B278AB041F398926000A0D55 /* NSMutableAttributedString+M80.m */,
 			);
 			path = M80AttributedLabel;
+			sourceTree = "<group>";
+		};
+		B29CFB622179F5400006F294 /* WeChatSDK1.8.3 */ = {
+			isa = PBXGroup;
+			children = (
+				B29CFB632179F5400006F294 /* WXApi.h */,
+				B29CFB642179F5400006F294 /* WXApiObject.h */,
+				B29CFB652179F5400006F294 /* README.txt */,
+				B29CFB662179F5400006F294 /* WechatAuthSDK.h */,
+				B29CFB672179F5400006F294 /* libWeChatSDK.a */,
+			);
+			path = WeChatSDK1.8.3;
 			sourceTree = "<group>";
 		};
 		B2ACA01F21217D970032305E /* ViewModel */ = {
@@ -1760,6 +1808,8 @@
 				B278AA8B1F395F30000A0D55 /* ReadHistoryViewController.swift */,
 				B2B4BA591E7EA4A8000CC201 /* DynamicViewController.swift */,
 				B2B4BA5A1E7EA4A8000CC201 /* LeftViewController.swift */,
+				B29CFB6C217AD6D30006F294 /* ZSMyViewController.swift */,
+				B29CFB7E217B37DC0006F294 /* ZSUserInfoViewController.swift */,
 				B2B4BA5B1E7EA4A8000CC201 /* RightViewController.swift */,
 				B252D4E3211037380091858E /* ZSShelfViewController.swift */,
 				B2B4BA5D1E7EA4A8000CC201 /* RootViewController.swift */,
@@ -1780,6 +1830,12 @@
 			children = (
 				B29B4F9E1E822992008852E3 /* QSHotModel.swift */,
 				3D9D857B20CA439D003FEDFE /* ZSShelfMessage.swift */,
+				B29CFAE72179B7270006F294 /* ZSQQUser.swift */,
+				B29CFB74217B1DAB0006F294 /* ZSAccount.swift */,
+				B29CFB76217B1FEC0006F294 /* ZSCoin.swift */,
+				B29CFB7A217B2F3A0006F294 /* ZSUserDetail.swift */,
+				B29CFB7C217B35E90006F294 /* ZSUserBind.swift */,
+				B2A7CD80217C5E5E0067D25B /* ZSUserBookshelf.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1803,6 +1859,9 @@
 				B28FFC911EB03EA300C27FF9 /* QSHomeDeleteBtn.swift */,
 				B222A2C21EEE6EE9007CD57F /* QSLaunchRecView.swift */,
 				B200D2211EEE44AB003A42E3 /* QSLaunchRecView.xib */,
+				B29CFB6E217ADA690006F294 /* ZSMyCell.swift */,
+				B29CFB80217B395D0006F294 /* ZSUserBindCell.swift */,
+				B29CFB70217AE84B0006F294 /* ZSMyHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2146,6 +2205,15 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		B2CA80E821797B9C007A3EE7 /* ThirdLoginSDK */ = {
+			isa = PBXGroup;
+			children = (
+				B29CFB622179F5400006F294 /* WeChatSDK1.8.3 */,
+				B29CFAE32179A0DF0006F294 /* TencentOpenAPI.framework */,
+			);
+			path = ThirdLoginSDK;
+			sourceTree = "<group>";
+		};
 		B2D8688520050C2800B9AF01 /* CTDisplayText */ = {
 			isa = PBXGroup;
 			children = (
@@ -2175,7 +2243,6 @@
 				B2BB5B931D8BDF8E00379217 /* Frameworks */,
 				B2BB5B941D8BDF8E00379217 /* Resources */,
 				1031C96B74D74AC62BE49F90 /* [CP] Embed Pods Frameworks */,
-				B2B58B521E7A79340054FE84 /* Embed Frameworks */,
 				B2EE7CE81F3BEEE000BE997C /* ShellScript */,
 			);
 			buildRules = (
@@ -2305,6 +2372,7 @@
 				B24B3F4E20E534390098ACE5 /* ZSSearchViewCell.xib in Resources */,
 				B278AA941F395FA4000A0D55 /* QSHelpViewCell.xib in Resources */,
 				B252D4C5210F0B990091858E /* theadbg.png in Resources */,
+				B29CFB682179F5400006F294 /* README.txt in Resources */,
 				B252D4C4210F0B990091858E /* titlebg.png in Resources */,
 				B2B4BBF11E7EA4AB000CC201 /* Main.storyboard in Resources */,
 				B2ACA06C212915AC0032305E /* ZSReviewsCell.xib in Resources */,
@@ -2451,6 +2519,7 @@
 				B27D7E9C1F4D320400866341 /* QSSegmentPresenter.swift in Sources */,
 				3DD0842521569A95008E3B4A /* AKPickerView.m in Sources */,
 				3DDB6CAD2130F4BC00E8698D /* CTDisplayView.m in Sources */,
+				B29CFB73217B1CC00006F294 /* ZSMyService.swift in Sources */,
 				B2B4BBEE1E7EA4AB000CC201 /* V2FPSLabel.swift in Sources */,
 				3DD0842221569A74008E3B4A /* VoiceBook.swift in Sources */,
 				B2ACA0632124467F0032305E /* ZSSettingViewModel.swift in Sources */,
@@ -2458,6 +2527,7 @@
 				B2B4BC1C1E7EA4AB000CC201 /* ThemeTopicCell.swift in Sources */,
 				B20D74161EED83690034516F /* QSLastIntroduceCell.swift in Sources */,
 				B2B4BBEC1E7EA4AB000CC201 /* LightView.swift in Sources */,
+				B29CFB77217B1FEC0006F294 /* ZSCoin.swift in Sources */,
 				B2B02E2C1EA8505200A6880A /* QSTopicDetailPresenter.swift in Sources */,
 				B2C0DF2B20D4CB350057DC84 /* QSHotComment.swift in Sources */,
 				B2583CBC1EA782C2004178F3 /* QSThemeTopicProtocols.swift in Sources */,
@@ -2465,6 +2535,7 @@
 				B2C0DF6C20D4CB350057DC84 /* QSCommunityViewController.swift in Sources */,
 				B2C0DF6020D4CB350057DC84 /* QSBookDetailRouter.swift in Sources */,
 				B252D48B210EF3960091858E /* HTTPRedirectResponse.m in Sources */,
+				B29CFB6B217A3D8F0006F294 /* ZSLogin.swift in Sources */,
 				B26286CA1EEA46DD005A1A8A /* QSIntroducePage.swift in Sources */,
 				B22AC4591E9F6767008625E6 /* QSRankDetailProtoocol.swift in Sources */,
 				B22AC45B1E9F6774008625E6 /* QSRankDetailInteractor.swift in Sources */,
@@ -2502,6 +2573,7 @@
 				B2B4BBF41E7EA4AB000CC201 /* DateIntervalFormatter+formatter.swift in Sources */,
 				B278AB081F398926000A0D55 /* NSMutableAttributedString+M80.m in Sources */,
 				B2C0DF4020D4CB350057DC84 /* QSBookDetailInteractor.swift in Sources */,
+				B29CFB75217B1DAB0006F294 /* ZSAccount.swift in Sources */,
 				3DD0840B21569902008E3B4A /* Speaker.swift in Sources */,
 				3D9325EC20B2C9120049CDBF /* ZSHomeViewModel.swift in Sources */,
 				B2A39C4A2110453100D6308E /* ZSLocalShelfViewModel.swift in Sources */,
@@ -2545,6 +2617,7 @@
 				3DF2D27820EB5773004E73B6 /* ZSChapterInfo.swift in Sources */,
 				B2C0DF2420D4CB350057DC84 /* TXTReaderViewController.swift in Sources */,
 				3DDB6CB02130F4BC00E8698D /* CoreTextLinkData.m in Sources */,
+				B29CFB79217B21C60006F294 /* ZSMyViewModel.swift in Sources */,
 				B2B02E461EA8920F00A6880A /* QSCategoryDetailProtocols.swift in Sources */,
 				B2B02E531EA9A9F000A6880A /* QSCatalogInteractor.swift in Sources */,
 				B2C0DF3620D4CB350057DC84 /* ResourceModel.swift in Sources */,
@@ -2590,6 +2663,7 @@
 				B2B4BC101E7EA4AB000CC201 /* TopDetailCell.swift in Sources */,
 				B2B4BC0F1E7EA4AB000CC201 /* RankingViewCell.swift in Sources */,
 				B22AC45F1E9F6799008625E6 /* QSRankDetailRouter.swift in Sources */,
+				B2CA80F021797EA2007A3EE7 /* ZSThirdLogin.swift in Sources */,
 				B2C0DF3C20D4CB350057DC84 /* QSPage.swift in Sources */,
 				B2ACA05F212416AE0032305E /* ZSBaseNavigationViewController.swift in Sources */,
 				B2C0DF6720D4CB350057DC84 /* QSCategoryRouter.swift in Sources */,
@@ -2611,6 +2685,7 @@
 				B252D497210EF3960091858E /* DAVConnection.m in Sources */,
 				B252D4A5210EF7070091858E /* ZSHTTPConnection.m in Sources */,
 				B252D4DC210F583B0091858E /* MonitorFileChangeHelp.m in Sources */,
+				B29CFB6D217AD6D30006F294 /* ZSMyViewController.swift in Sources */,
 				B278AAD71F396773000A0D55 /* YTKKeyValueStore.m in Sources */,
 				B25570811F3A07BB00C35A34 /* AppStyle.swift in Sources */,
 				B2C0DF3920D4CB350057DC84 /* BookShelf.swift in Sources */,
@@ -2619,6 +2694,7 @@
 				B2ACA061212444870032305E /* ZSSettingViewController.swift in Sources */,
 				B2C0DF5E20D4CB350057DC84 /* QSBookListViewCell.swift in Sources */,
 				B2C0DF2D20D4CB350057DC84 /* QSRecord.swift in Sources */,
+				B29CFB7F217B37DC0006F294 /* ZSUserInfoViewController.swift in Sources */,
 				3DD084322157A14C008E3B4A /* PcmPlayer.m in Sources */,
 				B27D7E9D1F4D320400866341 /* QSSegmentProtocols.swift in Sources */,
 				B2B02E471EA8920F00A6880A /* QSCategoryDetailRouter.swift in Sources */,
@@ -2643,8 +2719,10 @@
 				B2B4BBF71E7EA4AB000CC201 /* String+QSExtension.swift in Sources */,
 				3DDB6CAB2130F4BC00E8698D /* CTFrameParserConfig.m in Sources */,
 				B2C0DF2020D4CB350057DC84 /* QSTextReaderController.swift in Sources */,
+				B29CFB7B217B2F3A0006F294 /* ZSUserDetail.swift in Sources */,
 				B2B4BC271E7EA4AB000CC201 /* BarButton.swift in Sources */,
 				B2C0DF2820D4CB350057DC84 /* QSReaderParse.swift in Sources */,
+				B29CFB71217AE84B0006F294 /* ZSMyHeaderView.swift in Sources */,
 				B22AC44D1E9F1C62008625E6 /* QSRankProtocols.swift in Sources */,
 				B2B4BBF91E7EA4AB000CC201 /* UILabel+zhuishu.swift in Sources */,
 				B252D491210EF3960091858E /* MultipartMessageHeader.m in Sources */,
@@ -2674,6 +2752,7 @@
 				3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */,
 				B2B4BC0A1E7EA4AB000CC201 /* CategoryCell.swift in Sources */,
 				3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */,
+				B29CFAE82179B7270006F294 /* ZSQQUser.swift in Sources */,
 				B2B4BD091E7EA4AC000CC201 /* ViewController.swift in Sources */,
 				B263E2E9211EBFEC001819FB /* SQLite+Extension.swift in Sources */,
 				B2B02E561EA9A9F000A6880A /* QSCatalogRouter.swift in Sources */,
@@ -2695,6 +2774,7 @@
 				B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */,
 				B2C0DF6F20D4CB350057DC84 /* QSCommunityPresenter.swift in Sources */,
 				B252D48F210EF3960091858E /* MultipartMessageHeaderField.m in Sources */,
+				B29CFB81217B395D0006F294 /* ZSUserBindCell.swift in Sources */,
 				B29B4F9D1E821E61008852E3 /* UIImage+QSData.swift in Sources */,
 				B2580E1B1E9B236000455AFE /* QSSearchInteractor.swift in Sources */,
 				B27D7EA11F4D593D00866341 /* UIScrollView+StateView.m in Sources */,
@@ -2705,6 +2785,7 @@
 				3D9D857C20CA439D003FEDFE /* ZSShelfMessage.swift in Sources */,
 				B2B02E551EA9A9F000A6880A /* QSCatalogProtocols.swift in Sources */,
 				B2B4BBF61E7EA4AB000CC201 /* NSDate+Extension.m in Sources */,
+				B2A7CD81217C5E5E0067D25B /* ZSUserBookshelf.swift in Sources */,
 				B252D493210EF3960091858E /* DDNumber.m in Sources */,
 				B27D7E961F4D1F8600866341 /* QSSegmentViewController.swift in Sources */,
 				B2FCAA8B1E9C82CE0064837C /* QSSearchItem.swift in Sources */,
@@ -2731,6 +2812,7 @@
 				3D2B4D0320EB616D008E3E81 /* ZSReaderViewController.swift in Sources */,
 				B2C0DF3720D4CB350057DC84 /* PageInfo.swift in Sources */,
 				B2B02E3D1EA891E700A6880A /* CategoryDetailViewController.swift in Sources */,
+				B29CFAE62179B6E50006F294 /* ZSLoginService.swift in Sources */,
 				B2C0DF3820D4CB350057DC84 /* BookDetail.swift in Sources */,
 				3D08F244212C2DFC007B3D19 /* ZSDiscussWebService.swift in Sources */,
 				3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */,
@@ -2743,6 +2825,7 @@
 				B27D7E841F4BDF8D00866341 /* QSCategoryDetailCell.swift in Sources */,
 				B2C0DF6620D4CB350057DC84 /* QSCategoryPresenter.swift in Sources */,
 				B2A02F7E20F33A1A0034DC64 /* ZSHorizonalMoveCell.swift in Sources */,
+				B29CFB6F217ADA690006F294 /* ZSMyCell.swift in Sources */,
 				3DDEEB02214B5D59003D12DB /* UIFont+ZSExtension.m in Sources */,
 				3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */,
 				B278AA8D1F395F30000A0D55 /* ReadHistoryViewController.swift in Sources */,
@@ -2752,6 +2835,7 @@
 				B22AC43A1E9E6626008625E6 /* QSSearchResultTable.swift in Sources */,
 				B278AB061F398926000A0D55 /* M80AttributedLabelAttachment.m in Sources */,
 				B2ACA06E212944AC0032305E /* ZSWebViewController.swift in Sources */,
+				B29CFB7D217B35EA0006F294 /* ZSUserBind.swift in Sources */,
 				B22AC4551E9F1E8F008625E6 /* QSRankViewController.swift in Sources */,
 				B252D499210EF3960091858E /* DAVResponse.m in Sources */,
 				B2C0DF3320D4CB350057DC84 /* QSReaderViewFlowLayout.swift in Sources */,
@@ -2926,20 +3010,20 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B08901F972525F29A370AA86 /* Pods-zhuishushenqi.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZYDXKQKHVY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YYKit/Vendor",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/zhuishushenqi/TXTReader/Speech/Model",
+					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2949,13 +3033,17 @@
 				INFOPLIST_FILE = zhuishushenqi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK/WeChatSDK1.8.3",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cibdev.zhuishushenqitest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ifmoc.ZhuiShuShenQi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2969,31 +3057,35 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C17F4CC59FFA95D661BDB3BB /* Pods-zhuishushenqi.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZYDXKQKHVY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/YYKit/Vendor",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/zhuishushenqi/TXTReader/Speech/Model",
+					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK",
 				);
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = zhuishushenqi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK/WeChatSDK1.8.3",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cibdev.zhuishushenqitest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ifmoc.ZhuiShuShenQi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

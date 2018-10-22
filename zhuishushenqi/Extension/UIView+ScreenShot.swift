@@ -78,13 +78,13 @@ extension UIView {
         }
         
         let width = tip.qs_width(UIFont.systemFont(ofSize: 14), height: 30)
-        let label = UILabel(frame: CGRect(x: ScreenWidth/2 - (width + 20)/2, y: 0, width: width + 20, height: 30))
+        let label = UILabel(frame: CGRect(x: ScreenWidth/2 - (width + 20)/2, y: self.bounds.height/2 - 15, width: width + 20, height: 30))
         label.backgroundColor = UIColor.gray
         label.textAlignment = .center
         label.layer.cornerRadius = 15
         label.clipsToBounds = true
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = RGBAColor(255, 255, 255)
+        label.textColor = UIColor.white
         label.text = tip
         label.tag = tag
         self.addSubview(label)

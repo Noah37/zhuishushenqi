@@ -71,9 +71,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IFlySetting.showLogcat(true)
         let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first ?? ""
         IFlySetting.setLogFilePath(paths)
-        //        let appid = "566551f4"
 //        let appid = "5ba0b197"
         let xfyj = "5445f87d"
+        let zssq = "566551f4"
         //        let xfyj2 = "591a4d99"
         let initString = "appid=\(xfyj)"
         IFlySpeechUtility.createUtility(initString)
@@ -101,9 +101,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        
-        
-        return true
+        QQApiInterface.handleOpen(url, delegate: ZSThirdLogin.share)
+        if TencentOAuth.canHandleOpen(url) {
+            return TencentOAuth.handleOpen(url)
+        }
+        return WXApi.handleOpen(url, delegate: WXApiRequestHandler.share)
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        QQApiInterface.handleOpen(url, delegate: ZSThirdLogin.share)
+        if TencentOAuth.canHandleOpen(url) {
+            return TencentOAuth.handleOpen(url)
+        }
+        return WXApi.handleOpen(url, delegate: WXApiRequestHandler.share)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -120,7 +130,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        
+        let pasteboard = UIPasteboard.general
+        let items = pasteboard.items
+        for item in items {
+            if let vcnList = item["IFlySpeechPlusVcnList"] as? Data {
+                if let files = NSKeyedUnarchiver.unarchiveObject(with: vcnList) as? [[String:Any]] {
+                    for file in files {
+                        if let vcn = file["vcn"] as? [String:Any] {
+                            if let data = file["data"] as? Data {
+                                let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0]
+                                let filePath = "\(path)/\(vcn["name"] ?? "").jet"
+                                let url = URL(fileURLWithPath: filePath)
+                                let success = try? data.write(to: url)
+                                QSLog("save success.")
+                            }
+                        }
+                    }
+                }
+                
+            } else if ZSThirdLoginStorage.share.canHandle(pasteData: item) {
+                ZSThirdLoginStorage.share.handle(pasteData: item as! [String : Data])
+            }
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
