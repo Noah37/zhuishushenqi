@@ -261,6 +261,22 @@ class ZSReaderViewModel {
                         }
                     }
                 }
+            } else if let localChapters = self.book?.book.localChapters {
+                let chapterModel = localChapters[record.chapter]
+                let pageIndex = record.page
+                if pageIndex < (chapterModel.pages.count - 1) {
+                    record.page += 1
+                    record.chapterModel = chapterModel
+                    callback?(chapterModel.pages[record.page])
+                } else {
+                    record.page = 0
+                    record.chapter += 1
+                    record.chapterModel = nil
+                    if record.chapter < localChapters.count {
+                        record.chapterModel = localChapters[record.chapter]
+                        callback?(localChapters[record.chapter].pages[record.page])
+                    }
+                }
             }
             book?.record = record
         }
@@ -364,6 +380,10 @@ class ZSReaderViewModel {
                             }
                         }
                     }
+                } else if let chapterCount = book?.book.localChapters.count {
+                    if chapter >= chapterCount {
+                        return false
+                    }
                 }
             }
             return true
@@ -391,7 +411,7 @@ class ZSReaderViewModel {
                 }
             }
             return true
-        }
+        } 
         return false
     }
     
@@ -809,8 +829,8 @@ extension ZSReaderViewModel {
     func fetchNextLocalPage(page:QSPage?,_ callback:ZSBaseCallback<QSPage>?){
         if let chapters = book?.book.localChapters {
             
-            let pageIndex = page?.curPage ?? 0
-            let chapterIndex = page?.curChapter ?? 0
+            let pageIndex = book?.record?.page ?? 0
+            let chapterIndex = book?.record?.chapter ?? 0
             if chapterIndex < chapters.count - 1 {
                 if pageIndex < chapters[chapterIndex].pages.count - 1 {
                     callback?(chapters[chapterIndex].pages[pageIndex + 1])
@@ -832,8 +852,8 @@ extension ZSReaderViewModel {
     func fetchLastLocalPage(page:QSPage?,_ callback:ZSBaseCallback<QSPage>?){
         if let chapters = book?.book.localChapters {
             
-            let pageIndex = page?.curPage ?? 0
-            let chapterIndex = page?.curChapter ?? 0
+            let pageIndex = book?.record?.page ?? 0
+            let chapterIndex = book?.record?.chapter ?? 0
             if chapterIndex > 0 && chapterIndex < chapters.count {
                 if pageIndex > 0 {
                     callback?(chapters[chapterIndex].pages[pageIndex - 1])

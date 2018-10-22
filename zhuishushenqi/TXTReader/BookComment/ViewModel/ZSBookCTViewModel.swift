@@ -27,9 +27,16 @@ class ZSBookCTViewModel:NSObject,ZSRefreshProtocol {
     var start = 0
     var limit = 50
     
+    var config = CTFrameParserConfig()
+    
+    var data:CoreTextData?
+    
+    var layout:ZSBookCTLayoutModel?
+
     func fetchCommentDetail(handler:@escaping ZSBaseCallback<BookComment>){
         webService.fetchCommentDetail(id: model?._id ?? "", type: .normal) { (comment) in
             self.detail = comment
+            self.parseData()
             handler(comment)
         }
     }
@@ -60,6 +67,17 @@ class ZSBookCTViewModel:NSObject,ZSRefreshProtocol {
                     self.normal?.append(contentsOf: normals)
                     handler(normals)
                 }
+            }
+        }
+    }
+    
+    func parseData() {
+        if let detailModel = self.detail {
+            config.width = ScreenWidth - 16
+            if let data = CTFrameParser.parseString(detailModel.content, config: config) {
+                let layout = ZSBookCTLayoutModel(book: detailModel, data: data)
+                self.layout = layout
+                self.data = data
             }
         }
     }

@@ -56,8 +56,11 @@ class QSTextReaderController: ZSReaderBaseViewController, IndicatableView {
         // 变更书籍的更新信息
         viewModel.book?.isUpdated = false
         
-        if let book = viewModel.book {
-            BookManager.shared.modifyBookshelf(book: book)
+        if !viewModel.exsitLocal() {
+            
+            if let book = viewModel.book {
+                BookManager.shared.modifyBookshelf(book: book)
+            }
         }
         
         // 替换了delegate之后需要自己管理viewController,不建议替换
@@ -367,6 +370,10 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
         if let link = viewModel.book?.chaptersInfo?[index].link {
             if let chapterModel = viewModel.cachedChapter[link] {
                 viewModel.book?.record?.chapterModel = chapterModel
+            }
+        } else {
+            if index < (viewModel.book?.book.localChapters.count ?? 0) {
+                viewModel.book?.record?.chapterModel = viewModel.book?.book.localChapters[index]
             }
         }
         let pageVC = PageViewController()

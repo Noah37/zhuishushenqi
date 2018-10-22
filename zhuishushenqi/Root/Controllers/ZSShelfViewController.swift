@@ -12,19 +12,25 @@ import SafariServices
 
 class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSource,UITableViewDelegate {
     
-    var shelfMsg = UIButton(type: .custom).then {
-        $0.frame = CGRect.zero
-        $0.backgroundColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.7 )
-        $0.setTitleColor(UIColor.gray, for: .normal)
-        $0.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-    }
+    lazy var shelfMsg:UIButton = {
+        
+        let btn = UIButton(type: .custom)
+        btn.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: 44)
+        btn.backgroundColor = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 0.7 )
+        btn.setTitleColor(UIColor.gray, for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        return btn
+    }()
     
-    var tableView:UITableView = UITableView(frame: CGRect.zero, style: .grouped).then {
-        $0.qs_registerCellClass(SwipableCell.self)
-        $0.rowHeight = kCellHeight
-        $0.estimatedRowHeight = kCellHeight
-        $0.estimatedSectionHeaderHeight = 1
-    }
+    lazy var tableView:UITableView = {
+        let tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        tableView.qs_registerCellClass(SwipableCell.self)
+        tableView.rowHeight = ZSShelfViewController.kCellHeight
+        tableView.estimatedRowHeight = ZSShelfViewController.kCellHeight
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
+    }()
     
     fileprivate let kHeaderBigHeight:CGFloat = 44
     static let kCellHeight:CGFloat = 60
@@ -62,6 +68,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     }
     
     func setupSubviews(){
+
         let header = initRefreshHeader(tableView) {
             self.viewModel.fetchShelvesBooks(completion: { (_) in
                 self.view.showTip(tip: "更新了几本书")
@@ -77,8 +84,6 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
             .autoSetRefreshHeaderStatus(header: header, footer: nil)
             .disposed(by: disposeBag)
         
-        tableView.dataSource = self
-        tableView.delegate = self
         view.addSubview(tableView)
         
         shelfMsg.addTarget(self, action: #selector(openSafari), for: .touchUpInside)

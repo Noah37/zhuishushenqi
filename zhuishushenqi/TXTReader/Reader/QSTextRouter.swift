@@ -17,7 +17,7 @@ class QSTextRouter: QSTextWireframeProtocol {
     static func createModule(bookDetail:BookDetail,callback:@escaping QSTextCallBack) -> UIViewController {
         // Change to get view from storyboard if not using progammatic UI
         let view = ZSReaderViewController()
-
+        view.viewModel.book = bookDetail
         
         return view
     }

@@ -11,12 +11,15 @@ import SnapKit
 
 class ZSLocalShelfViewController: BaseViewController ,UITableViewDataSource,UITableViewDelegate {
     
-    var tableView:UITableView = UITableView(frame: CGRect.zero, style: .grouped).then {
-        $0.qs_registerCellClass(SwipableCell.self)
-        $0.rowHeight = kCellHeight
-        $0.estimatedRowHeight = kCellHeight
-        $0.estimatedSectionHeaderHeight = 0.01
-    }
+    lazy var tableView:UITableView = {
+        let tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        tableView.qs_registerCellClass(SwipableCell.self)
+        tableView.rowHeight = ZSLocalShelfViewController.kCellHeight
+        tableView.estimatedRowHeight = ZSLocalShelfViewController.kCellHeight
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
+    }()
     
     static let kCellHeight:CGFloat = 60
     
@@ -26,8 +29,7 @@ class ZSLocalShelfViewController: BaseViewController ,UITableViewDataSource,UITa
         super.viewDidLoad()
 
         title = "本地书架"
-        tableView.dataSource = self
-        tableView.delegate = self
+       
         view.addSubview(tableView)
         
 //        viewModel.fetchBook(path: <#T##String#>, completion: <#T##((BookDetail) -> Void)?##((BookDetail) -> Void)?##(BookDetail) -> Void#>)

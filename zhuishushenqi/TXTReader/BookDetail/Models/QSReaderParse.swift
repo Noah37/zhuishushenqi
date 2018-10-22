@@ -12,14 +12,19 @@ class QSReaderParse: NSObject {
     
     //从本地目录中获取书籍内容并解析
     public class func fetchBook(path:String,completion:((BookDetail?)->Void)?){
-        if let contents = FileManager.default.contents(atPath: path) {
-            if let content = String(data: contents, encoding: .utf8) {
-                let book = self.chapterInfo(text: content, path: path)
-                completion?(book)
-            } else if let content = String(data: contents, encoding: .unicode) {
-                let book = self.chapterInfo(text: content, path: path)
-                completion?(book)
-            }
+//        unsigned long encode = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+
+        let encode = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
+        let url = URL(fileURLWithPath: path)
+        if let content = try? String(contentsOf: url, encoding: String.Encoding(rawValue: encode)) {
+            let book = self.chapterInfo(text: content, path: path)
+            completion?(book)
+        } else if let content = try? String(contentsOf: url, encoding: .utf8) {
+            let book = self.chapterInfo(text: content, path: path)
+            completion?(book)
+        } else if let content = try? String(contentsOf: url, encoding: .unicode) {
+            let book = self.chapterInfo(text: content, path: path)
+            completion?(book)
         }
     }
     

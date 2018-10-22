@@ -245,6 +245,8 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
             if let back = callback {
                 back(book)
             }
+        } else {
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

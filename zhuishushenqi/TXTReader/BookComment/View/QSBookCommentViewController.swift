@@ -147,6 +147,9 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
         if indexPath.section == 0 {
             let cell:BookCommentCell? = tableView.qs_dequeueReusableCell(BookCommentCell.self)
             cell?.backgroundColor = UIColor.white
+            if let dt = viewModel.data {
+                cell?.data = dt
+            }
             cell?.selectionStyle = .none
             cell?.handler = { data in
                 if let dict = data as? [String:Any] {
@@ -197,10 +200,7 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            let height = BookCommentCell.totalCellHeight
-            if height > 0 {
-                return height
-            }
+            return BookCommentCell.totalCellHeight
         } else
             if indexPath.section == 1 {
             return 91

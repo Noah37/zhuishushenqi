@@ -125,6 +125,7 @@ extension ZSSearchViewController:UISearchResultsUpdating,UISearchControllerDeleg
         self.resultViewController.view.origin.y = self.searchBarHeight
         self.resultViewController.view.size.height = ScreenHeight - self.searchBarHeight - kNavgationBarHeight
         searchViewModel.addToHistory(history: searchBar.text ?? "")
+        self.tableView.reloadData()
         self.view.addSubview(self.resultViewController.view)
         
         searchController.dismiss(animated: true) {
