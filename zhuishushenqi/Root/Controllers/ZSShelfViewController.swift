@@ -44,8 +44,9 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     
         setupSubviews()
         
-        
-//        let books = ZSBookManager.shared.books
+        NotificationCenter.qs_addObserver(observer: self, selector: #selector(loginSuccessAction), name: LoginSuccess, object: nil)
+        NotificationCenter.qs_addObserver(observer: self, selector: #selector(addBookToShelf(noti:)), name: BOOKSHELF_ADD, object: nil)
+        loginSuccessAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,6 +107,44 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                 let commentVC = ZSBookCommentViewController(style: .grouped)
                 commentVC.viewModel.model = comment
                 SideVC.navigationController?.pushViewController(commentVC, animated: true)
+            }
+        }
+    }
+    
+    @objc
+    func loginSuccessAction() {
+        viewModel.fetchShelfAdd(books: viewModel.books.allValues() as! [BookDetail], token: ZSLogin.share.token) { (json) in
+            if json?["ok"] as? Bool == true {
+                self.view.showTip(tip: "书架书籍上传成功")
+            } else {
+                self.view.showTip(tip: "书架书籍上传失败")
+            }
+        }
+        viewModel.fetchUserBookshelf(token: ZSLogin.share.token) { (bookshelf) in
+            self.viewModel.fetchShelvesBooks(completion: { (_) in
+                self.view.showTip(tip: "更新了几本书")
+                self.tableView.reloadData()
+            })
+            self.tableView.reloadData()
+        }
+
+    }
+    
+    @objc
+    func addBookToShelf(noti:Notification) {
+        if let book = noti.object as? BookDetail {
+            if ZSLogin.share.hasLogin() {
+                viewModel.fetchShelfAdd(books: [book], token: ZSLogin.share.token) { (json) in
+                    if json?["ok"] as? Bool == true {
+                        self.view.showTip(tip: "添加到书架成功")
+                        self.headerRefresh?.beginRefreshing()
+                    } else {
+                        self.view.showTip(tip: "添加到书架失败")
+                    }
+                }
+            } else {
+                self.view.showTip(tip: "添加到书架成功")
+                self.headerRefresh?.beginRefreshing()
             }
         }
     }
@@ -262,7 +301,13 @@ extension ZSShelfViewController:SwipableCellDelegate {
             if book._id == bookid {
                 self.viewModel.booksID.remove(at: index)
                 self.viewModel.books.removeValue(forKey: bookid)
-//                BookManager.shared.deleteBook(book: book)
+                self.viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
+                    if json?["ok"] as? Bool == true {
+                        self.view.showTip(tip: "\(book.title)已从书架中删除")
+                    } else {
+                        self.view.showTip(tip: "\(book.title)从书架中删除失败")
+                    }
+                }
             }
             index += 1
         }

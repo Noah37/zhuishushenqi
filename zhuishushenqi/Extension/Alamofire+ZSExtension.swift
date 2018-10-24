@@ -25,10 +25,27 @@ func zs_post(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCall
             if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
                 handler?(json)
             }
+        } else {
+            handler?([:])
         }
     }
     return req
 }
+
+@discardableResult
+func zs_put(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
+    let req = request(urlStr, method: .put, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+        if let data = response.data {
+            if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
+                handler?(json)
+            }
+        } else {
+            handler?([:])
+        }
+    }
+    return req
+}
+
 
 @discardableResult
 func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
@@ -37,6 +54,22 @@ func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallb
             if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
                 handler?(json)
             }
+        } else {
+            handler?([:])
+        }
+    }
+    return req
+}
+
+@discardableResult
+func zs_delete(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
+    let req = request(urlStr, method: .delete, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+        if let data = response.data {
+            if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
+                handler?(json)
+            }
+        } else {
+            handler?([:])
         }
     }
     return req

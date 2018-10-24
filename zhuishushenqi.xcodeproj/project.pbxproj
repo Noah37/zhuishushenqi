@@ -240,6 +240,10 @@
 		B2A39C482110447300D6308E /* ZSLocalShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A39C472110447300D6308E /* ZSLocalShelfViewController.swift */; };
 		B2A39C4A2110453100D6308E /* ZSLocalShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A39C492110453100D6308E /* ZSLocalShelfViewModel.swift */; };
 		B2A7CD81217C5E5E0067D25B /* ZSUserBookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CD80217C5E5E0067D25B /* ZSUserBookshelf.swift */; };
+		B2A7CD83217F33230067D25B /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2A7CD82217F33230067D25B /* Photos.framework */; };
+		B2A7CD85217F36B20067D25B /* ZSThirdLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CD84217F36B20067D25B /* ZSThirdLoginView.swift */; };
+		B2A7CD87218016060067D25B /* ZSLoginVerifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CD86218016060067D25B /* ZSLoginVerifyView.swift */; };
+		B2A7CD89218017380067D25B /* ZSMobileLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CD88218017380067D25B /* ZSMobileLogin.swift */; };
 		B2ACA01E212179F60032305E /* ZSSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA01D212179F60032305E /* ZSSegmentViewController.swift */; };
 		B2ACA02221217DFB0032305E /* ZSRankService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA02121217DFB0032305E /* ZSRankService.swift */; };
 		B2ACA05F212416AE0032305E /* ZSBaseNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA05E212416AE0032305E /* ZSBaseNavigationViewController.swift */; };
@@ -734,6 +738,10 @@
 		B2A39C472110447300D6308E /* ZSLocalShelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLocalShelfViewController.swift; sourceTree = "<group>"; };
 		B2A39C492110453100D6308E /* ZSLocalShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLocalShelfViewModel.swift; sourceTree = "<group>"; };
 		B2A7CD80217C5E5E0067D25B /* ZSUserBookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSUserBookshelf.swift; sourceTree = "<group>"; };
+		B2A7CD82217F33230067D25B /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		B2A7CD84217F36B20067D25B /* ZSThirdLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSThirdLoginView.swift; sourceTree = "<group>"; };
+		B2A7CD86218016060067D25B /* ZSLoginVerifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLoginVerifyView.swift; sourceTree = "<group>"; };
+		B2A7CD88218017380067D25B /* ZSMobileLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSMobileLogin.swift; sourceTree = "<group>"; };
 		B2ACA01D212179F60032305E /* ZSSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSegmentViewController.swift; sourceTree = "<group>"; };
 		B2ACA02121217DFB0032305E /* ZSRankService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRankService.swift; sourceTree = "<group>"; };
 		B2ACA05E212416AE0032305E /* ZSBaseNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseNavigationViewController.swift; sourceTree = "<group>"; };
@@ -944,6 +952,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2A7CD83217F33230067D25B /* Photos.framework in Frameworks */,
 				3DD0843C2157C136008E3B4A /* Contacts.framework in Frameworks */,
 				B22182C11DA4055E002458D2 /* QuartzCore.framework in Frameworks */,
 				3DD0843A2157C124008E3B4A /* AddressBook.framework in Frameworks */,
@@ -1194,6 +1203,7 @@
 		96FE9B86D6BF6F1F079B71F4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B2A7CD82217F33230067D25B /* Photos.framework */,
 				3DD0843B2157C135008E3B4A /* Contacts.framework */,
 				3DD084392157C124008E3B4A /* AddressBook.framework */,
 				3DD084372157C101008E3B4A /* AudioToolbox.framework */,
@@ -1354,6 +1364,7 @@
 				B2E072771F3AD99500C63347 /* Reader.swift */,
 				B2CA80EF21797EA2007A3EE7 /* ZSThirdLogin.swift */,
 				B29CFB6A217A3D8F0006F294 /* ZSLogin.swift */,
+				B2A7CD88218017380067D25B /* ZSMobileLogin.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1898,7 +1909,9 @@
 				B29CFB80217B395D0006F294 /* ZSUserBindCell.swift */,
 				B29CFB70217AE84B0006F294 /* ZSMyHeaderView.swift */,
 				3D1F67A2217DBA94000FB968 /* ZSLoginView.swift */,
+				B2A7CD84217F36B20067D25B /* ZSThirdLoginView.swift */,
 				3D1F67A4217DCE9B000FB968 /* ZSLeftViewCell.swift */,
+				B2A7CD86218016060067D25B /* ZSLoginVerifyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2577,6 +2590,7 @@
 				3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */,
 				B2B02E2B1EA8505200A6880A /* QSTopicDetailInteractor.swift in Sources */,
 				B255707F1F3A075600C35A34 /* Config.swift in Sources */,
+				B2A7CD87218016060067D25B /* ZSLoginVerifyView.swift in Sources */,
 				B2C0DF7B20D4CB6D0057DC84 /* QSBookCommentInteractor.swift in Sources */,
 				B2C0DF2320D4CB350057DC84 /* ZSReaderWebService.swift in Sources */,
 				B2B02E541EA9A9F000A6880A /* QSCatalogPresenter.swift in Sources */,
@@ -2789,6 +2803,7 @@
 				3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */,
 				B29CFAE82179B7270006F294 /* ZSQQUser.swift in Sources */,
 				B2B4BD091E7EA4AC000CC201 /* ViewController.swift in Sources */,
+				B2A7CD89218017380067D25B /* ZSMobileLogin.swift in Sources */,
 				B263E2E9211EBFEC001819FB /* SQLite+Extension.swift in Sources */,
 				B2B02E561EA9A9F000A6880A /* QSCatalogRouter.swift in Sources */,
 				B2C0DF6220D4CB350057DC84 /* QSBookDetailPresenter.swift in Sources */,
@@ -2849,6 +2864,7 @@
 				B2C0DF3720D4CB350057DC84 /* PageInfo.swift in Sources */,
 				B2B02E3D1EA891E700A6880A /* CategoryDetailViewController.swift in Sources */,
 				B29CFAE62179B6E50006F294 /* ZSLoginService.swift in Sources */,
+				B2A7CD85217F36B20067D25B /* ZSThirdLoginView.swift in Sources */,
 				B2C0DF3820D4CB350057DC84 /* BookDetail.swift in Sources */,
 				3D08F244212C2DFC007B3D19 /* ZSDiscussWebService.swift in Sources */,
 				3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */,

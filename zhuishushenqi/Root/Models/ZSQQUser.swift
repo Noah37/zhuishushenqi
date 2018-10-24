@@ -17,6 +17,7 @@ class ZSQQLoginResponse: NSObject, HandyJSON ,NSCoding {
     var isNew:Bool = true
     var bindMobile:Bool = false
     var register:Bool = false
+    var code:String = ""
     
     required override init() {}
     

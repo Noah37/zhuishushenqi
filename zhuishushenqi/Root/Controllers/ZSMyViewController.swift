@@ -50,6 +50,8 @@ class ZSMyViewController: ZSBaseTableViewController {
                  ]
     let viewModel:ZSMyViewModel = ZSMyViewModel()
     
+    var backHandler:ZSLoginVCBackHandler?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -67,6 +69,11 @@ class ZSMyViewController: ZSBaseTableViewController {
             self.view.hideProgress()
             self.tableView.reloadData()
         }
+    }
+    
+    override func popAction() {
+        backHandler?()
+        super.popAction()
     }
     
     //MARK: -
@@ -122,7 +129,9 @@ class ZSMyViewController: ZSBaseTableViewController {
         if section == cells.count - 1 {
             let footer = tableView.qs_dequeueReusableHeaderFooterView(ZSMyFooterView.self)
             footer?.footerHandler = {
+                self.view.showProgress()
                 self.viewModel.fetchLogout(token: ZSLogin.share.token , completion: { (json) in
+                    self.hideProgress()
                     if let ok = json?["ok"] as? Bool {
                         if ok {
                             ZSLogin.share.logout()

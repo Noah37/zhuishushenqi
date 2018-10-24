@@ -10,7 +10,10 @@ import UIKit
 
 class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,XYCActionSheetDelegate {
 
-    var images:NSArray = ["hsm_default_avatar","hsm_icon_1","hsm_icon_2","hsm_icon_3"]
+    var images = ["hsm_default_avatar","hsm_icon_1","hsm_icon_2","hsm_icon_3"]
+    
+    var selectedIndex = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
@@ -35,49 +38,25 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let iden = "CellIden"
-        var cell = tableView.dequeueReusableCell(withIdentifier: iden)
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: iden)
-            cell?.backgroundColor = UIColor ( red: 0.16, green: 0.16, blue: 0.16, alpha: 1.0 )
-            cell?.selectionStyle = .none
-        }
-        let scale = SideVC.leftOffSetXScale
-        
-        var headIcon:UIImageView? = cell?.contentView.viewWithTag(12321) as? UIImageView
-        if (headIcon != nil) {
-            headIcon?.removeFromSuperview()
-        }
-        headIcon = UIImageView(frame: CGRect(x: ScreenWidth*scale/2 - 12.5, y: 10, width: 25, height: 25))
-        headIcon?.image = UIImage(named: images[indexPath.row] as! String)
-        headIcon?.tag = 12321
-        cell?.contentView.addSubview(headIcon!)
+        let cell = tableView.qs_dequeueReusableCell(ZSLeftViewCell.self)
+        cell?.backgroundColor = UIColor ( red: 0.16, green: 0.16, blue: 0.16, alpha: 1.0 )
+        cell?.selectionStyle = .none
         if indexPath.row == 0 {
             if ZSLogin.share.hasLogin() {
-                headIcon?.qs_setAvatarWithURLString(urlString: ZSThirdLogin.share.userInfo?.user?.avatar ?? "")
-            }
-            var label:UILabel? = cell?.contentView.viewWithTag(12323) as? UILabel
-            if label != nil {
-                label?.removeFromSuperview()
-            }
-            label = UILabel(frame: CGRect(x: ScreenWidth*scale/2 - 20,y: 35,width: 40,height: 10))
-            label?.font = UIFont.systemFont(ofSize: 9)
-            if ZSLogin.share.hasLogin() {
-                label?.text = ZSThirdLogin.share.userInfo?.user?.nickname ?? ""
+                cell?.iconView.qs_setAvatarWithURLString(urlString: ZSThirdLogin.share.userInfo?.user?.avatar ?? "")
+                cell?.nameLabel.text = ZSThirdLogin.share.userInfo?.user?.nickname ?? ""
             } else {
-                label?.text = "登录"
+                cell?.iconView.image =  UIImage(named: images[indexPath.row])
+                cell?.nameLabel.text = "登录"
             }
-            label?.textAlignment = .center
-            label?.textColor = UIColor(white: 1.0, alpha: 0.5)
-            cell?.contentView.addSubview(label!)
+        } else {
+            cell?.iconView.image =  UIImage(named: images[indexPath.row])
+            cell?.nameLabel.text = ""
         }
-        let view = UIView(frame: CGRect(x: 0,y: 0,width: 5,height: 44))
-        view.backgroundColor =  UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-        view.tag = 12306 + indexPath.row
-        view.isHidden = true
-        cell?.contentView.addSubview(view)
-        if indexPath.row == 1 {
-            view.isHidden = false
+        if indexPath.row == selectedIndex {
+            cell?.selectedView.isHidden = false
+        } else {
+            cell?.selectedView.isHidden = true
         }
         return cell!
     }
@@ -87,27 +66,32 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        for index in 0..<images.count {
-            let selectedImage = view.viewWithTag(12306 + index)
-            selectedImage?.isHidden = true
-            if indexPath.row == index {
-                selectedImage?.isHidden = false
-            }
-        }
+        selectedIndex = indexPath.row
         if indexPath.row == 0 {
             if ZSLogin.share.hasLogin() {
                 let myVC = ZSMyViewController.init(style: .grouped)
+                myVC.backHandler = {
+                    self.selectedIndex = 1
+                    self.tableView.reloadData()
+                }
                 SideVC.closeSideViewController()
                 SideVC.navigationController?.pushViewController(myVC, animated: true)
             } else {
-//                showShare()
                 let loginVC = ZSLoginViewController()
+                loginVC.backHandler = {
+                    self.selectedIndex = 1
+                    self.tableView.reloadData()
+                }
+                loginVC.loginResultHandler = { success in
+                    NotificationCenter.qs_postNotification(name: LoginSuccess, obj: nil)
+                }
                 SideVC.closeSideViewController()
-                SideVC.navigationController?.pushViewController(loginVC, animated: false)
+                SideVC.present(loginVC, animated: true, completion: nil)
             }
         }else{
             SideVC.closeSideViewController()
         }
+        self.tableView.reloadData()
     }
     
     func showShare(){
@@ -155,6 +139,7 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.backgroundColor  = UIColor(red: 0.211, green: 0.211, blue: 0.211, alpha: 1.00)
+        tableView.qs_registerCellClass(ZSLeftViewCell.self)
         return tableView
     }()
     

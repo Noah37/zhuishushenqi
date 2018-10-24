@@ -60,6 +60,18 @@ class ZSShelfWebService: ZSBaseService {
         }
     }
     
+    func fetchShelfDelete(urlString:String, param:[String:Any]? ,completion:@escaping ZSBaseCallback<[String:Any]>) {
+        zs_delete(urlString, parameters: param) { (json) in
+            completion(json)
+        }
+    }
+    
+    func fetchShelfAdd(urlString:String, param:[String:Any]?, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        zs_put(urlString, parameters: param) { (json) in
+            completion(json)
+        }
+    }
+    
     func fetchBookInfo(id:String, completion:@escaping ZSBaseCallback<BookDetail>) {
         let api = QSAPI.book(key: id)
         zs_get(api.path, parameters: api.parameters) { (json) in

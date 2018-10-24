@@ -31,5 +31,29 @@ class ZSLoginService: NSObject {
             }
         }
     }
+    
+    func WBLogin(url:String, parameter:[String:Any]?,completion:@escaping ZSBaseCallback<ZSQQLoginResponse>) {
+        zs_post(url, parameters: parameter) { (json) in
+            if let user = ZSQQLoginResponse.deserialize(from: json) {
+                completion(user)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
+    func fetchSMSCode(url:String, parameter:[String:Any]?,completion:@escaping ZSBaseCallback<[String:Any]>) {
+        zs_post(url, parameters: parameter) { (json) in
+            completion(json)
+        }
+    }
+    
+    func mobileLgin(urlString:String, param:[String:Any]?, completion:@escaping ZSBaseCallback<ZSQQLoginResponse>) {
+        zs_post(urlString, parameters: param) { (json) in
+            if let user = ZSQQLoginResponse.deserialize(from: json) {
+                completion(user)
+            } 
+        }
+    }
 
 }

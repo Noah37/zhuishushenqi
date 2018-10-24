@@ -14,11 +14,17 @@ class ZSLogin: NSObject {
     
     var lastLoginType = ZSThirdLoginStorage.share.lastLoginType
     
+    var mobileLogin:Bool = false
+    
     static let share = ZSLogin()
     private override init() {
         super.init()
-        
-        self.token = ZSThirdLogin.share.userInfo?.token ?? ""
+        if let token =  ZSThirdLogin.share.userInfo?.token {
+            self.token = token
+        } else if let token = ZSMobileLogin.share.userInfo?.token {
+            self.mobileLogin = true
+            self.token = token
+        }
     }
     
     func hasLogin() ->Bool {
@@ -35,4 +41,7 @@ class ZSLogin: NSObject {
         ZSThirdLogin.share.wxTokenResp = nil
     }
 
+    func login() {
+        
+    }
 }

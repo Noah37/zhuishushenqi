@@ -110,26 +110,57 @@ extension ZSShelfViewModel {
         }
     }
     
-    func fetchUserBookshelf(token:String, completion:ZSBaseCallback<[ZSUserBookshelf]>?) {
+    func fetchShelfDelete(books:[BookDetail], token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        var booksID = ""
+        for book in books {
+            if booksID != "" {
+                booksID.append(",")
+            }
+            booksID.append(book._id)
+        }
+        let api = QSAPI.booksheldDelete(books: booksID, token: token)
+        shelvesWebService.fetchShelfDelete(urlString: api.path, param: api.parameters) { (json) in
+            completion(json)
+        }
+    }
+    
+    func fetchShelfAdd(books:[BookDetail], token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        var booksID = ""
+        for book in books {
+            if booksID != "" {
+                booksID.append(",")
+            }
+            booksID.append(book._id)
+        }
+        let api = QSAPI.bookshelfAdd(books: booksID, token: token)
+        shelvesWebService.fetchShelfAdd(urlString: api.path, param: api.parameters) { (json) in
+            completion(json)
+        }
+    }
+    
+    func fetchUserBookshelf(token:String, completion:@escaping ZSBaseCallback<[ZSUserBookshelf]>) {
         shelvesWebService.fetchBookshelf(token: token) { (books) in
             if let models = books {
                 self.bookshelfBooks = models
-                self.fetchBooksInfo(books: models)
+                self.fetchBooksInfo(books: models, completion: completion)
             }
         }
     }
     
-    func fetchBooksInfo(books:[ZSUserBookshelf]) {
+    func fetchBooksInfo(books:[ZSUserBookshelf], completion:@escaping ZSBaseCallback<[ZSUserBookshelf]>) {
         for item in books {
-            self.shelvesWebService.fetchBookInfo(id: item.id, completion: { (book) in
-                // 获取到书记信息后加入到books中
-                self.lock(object: self.booksID as AnyObject, callback: {
-                    if let bookDetail = book {
-                        self.booksID.append(item.id)
-                        self.books[item.id] = bookDetail
-                    }
+            if !existBook(id: item.id) {
+                self.shelvesWebService.fetchBookInfo(id: item.id, completion: { (book) in
+                    // 获取到书记信息后加入到books中
+                    self.lock(object: self.booksID as AnyObject, callback: {
+                        if let bookDetail = book {
+                            self.booksID.append(item.id)
+                            self.books[item.id] = bookDetail
+                            completion(books)
+                        }
+                    })
                 })
-            })
+            }
         }
     }
     

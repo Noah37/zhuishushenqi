@@ -10,11 +10,14 @@ import UIKit
 import HandyJSON
 import AdSupport
 
+typealias ZSThirdLoginResultHandler = (_ success:Bool)->Void
+
 enum ThirdLoginType:String {
     case None = "None"
     case WX = "WX"
     case QQ = "QQ"
     case WB = "WB"
+    case XM = "XM"
 }
 
 typealias ZSLoginSuccess = ()->Void
@@ -29,7 +32,11 @@ class ZSThirdLogin: NSObject {
     
     var wxTokenResp:ZSWXAccessTokenResp?
     
+    var wbAuthorizeResp:WBAuthorizeResponse?
+    
     var successHandler:ZSLoginSuccess?
+    
+    var loginResultHandler:ZSThirdLoginResultHandler?
     
     var permissions = ["get_user_info","get_simple_userinfo","add_t"]
     
@@ -41,9 +48,11 @@ class ZSThirdLogin: NSObject {
     
     static let WXAppSecret = "0464c67bdd87c303c5bfdc5761beb329"
     
-    static let WBAppID = ""
+    static let WBAppID = "2023668704"
     
-    static let WBRedirectURI = "https://www.sina.com"
+    static let WBAppSecret = "26efa7a6a6bed540092c9535bda75db9"
+    
+    static let WBRedirectURI = "http://ushaqi.com"
     
     static let share = ZSThirdLogin()
     private override init() {
@@ -64,7 +73,10 @@ class ZSThirdLogin: NSObject {
     }
     
     func WBAuth() {
-        
+        let request = WBAuthorizeRequest()
+        request.redirectURI = ZSThirdLogin.WBRedirectURI
+        request.scope = "all"
+        WeiboSDK.send(request)
     }
     
     func login(type:ThirdLoginType) {
@@ -98,8 +110,10 @@ class ZSThirdLogin: NSObject {
         let platform_token = tencentOAuth.accessToken ?? ""
         let platform_uid = tencentOAuth.openId ?? ""
         let version = "2"
+        KeyWindow?.showProgress()
         let loginApi:QSAPI = QSAPI.login(idfa: idfa, platform_code: platform_code, platform_token: platform_token, platform_uid: platform_uid, version: version ,tag: "")
         webService.QQLogin(url: loginApi.path, parameter: loginApi.parameters) { (json) in
+            KeyWindow?.hideProgress()
             if let user = json {
                 // 登录成功
                 KeyWindow?.showTip(tip: "登录成功")
@@ -107,10 +121,12 @@ class ZSThirdLogin: NSObject {
                 ZSLogin.share.token = self.userInfo?.token ?? ""
                 ZSThirdLoginStorage.share.saveUserInfo(userInfo: user, type: .QQ)
                 self.successHandler?()
-                
+                self.loginResultHandler?(true)
+
             } else {
                 KeyWindow?.showTip(tip: "登录失败")
                 self.userInfo = nil
+                self.loginResultHandler?(false)
             }
         }
     }
@@ -123,8 +139,10 @@ class ZSThirdLogin: NSObject {
             let platform_uid = resp.openid
             let version = "2"
             let tag = "zssq"
+            KeyWindow?.showProgress()
             let loginApi = QSAPI.login(idfa: idfa, platform_code: platform_code, platform_token: platform_token, platform_uid: platform_uid, version: version, tag: tag)
             webService.WXLogin(url: loginApi.path, parameter: loginApi.parameters) { (json) in
+                KeyWindow?.hideProgress()
                 if let user = json {
                     // 登录成功
                     KeyWindow?.showTip(tip: "登录成功")
@@ -132,16 +150,43 @@ class ZSThirdLogin: NSObject {
                     ZSLogin.share.token = self.userInfo?.token ?? ""
                     ZSThirdLoginStorage.share.saveUserInfo(userInfo: user, type: .WX)
                     self.successHandler?()
+                    self.loginResultHandler?(true)
                 } else {
                     KeyWindow?.showTip(tip: "登录失败")
                     self.userInfo = nil
+                    self.loginResultHandler?(false)
                 }
             }
         }
     }
     
     private func WBLogin() {
-        
+        if let resp = self.wbAuthorizeResp {
+            let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+            let platform_code = "SinaWeibo"
+            let platform_token = resp.accessToken ?? ""
+            let platform_uid = resp.userID ?? ""
+            let version = "2"
+            let tag = "zssq"
+            KeyWindow?.showProgress()
+            let loginApi = QSAPI.login(idfa: idfa, platform_code: platform_code, platform_token: platform_token, platform_uid: platform_uid, version: version, tag: tag)
+            webService.WBLogin(url: loginApi.path, parameter: loginApi.parameters) { (json) in
+                KeyWindow?.hideProgress()
+                if let user = json, let _ = json?.token  {
+                    // 登录成功
+                    KeyWindow?.showTip(tip: "登录成功")
+                    self.userInfo = user
+                    ZSLogin.share.token = self.userInfo?.token ?? ""
+                    ZSThirdLoginStorage.share.saveUserInfo(userInfo: user, type: .WX)
+                    self.successHandler?()
+                    self.loginResultHandler?(true)
+                } else {
+                    KeyWindow?.showTip(tip: "登录失败")
+                    self.userInfo = nil
+                    self.loginResultHandler?(false)
+                }
+            }
+        }
     }
 }
 
@@ -151,7 +196,10 @@ extension ZSThirdLogin:WeiboSDKDelegate {
     }
     
     func didReceiveWeiboResponse(_ response: WBBaseResponse!) {
-        
+        if let authorize = response as? WBAuthorizeResponse {
+            self.wbAuthorizeResp = authorize
+            login(type: .WB)
+        }
     }
     
 }
@@ -337,8 +385,9 @@ class ZSThirdLoginStorage: NSObject {
         
         case .None:
             break
+        default:
+            break
         }
-       
     }
 }
 

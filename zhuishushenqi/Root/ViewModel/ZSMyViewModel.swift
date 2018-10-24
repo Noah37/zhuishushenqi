@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import AdSupport
 
 class ZSMyViewModel: NSObject {
     
     let webService = ZSMyService()
+    
+    let loginService = ZSLoginService()
     
     var account:ZSAccount?
     
@@ -50,6 +53,28 @@ class ZSMyViewModel: NSObject {
     
     func fetchLogout(token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
         webService.fetchLogout(token: token) { (json) in
+            completion(json)
+        }
+    }
+    
+    func fetchSMSCode(param:[String:String]?, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        let mobile = param?["mobile"] ?? ""
+        let randstr = param?["Randstr"] ?? ""
+        let ticket = param?["Ticket"] ?? ""
+        let captchaType = param?["captchaType"] ?? ""
+        let type = param?["type"] ?? ""
+        let api = QSAPI.SMSCode(mobile: mobile, Randstr: randstr, Ticket: ticket, captchaType: captchaType, type: type)
+        loginService.fetchSMSCode(url: api.path, parameter: api.parameters) { (json) in
+            completion(json)
+        }
+    }
+    
+    func mobileLogin(mobile:String, smsCode:String, completion:@escaping ZSBaseCallback<ZSQQLoginResponse>) {
+        let version = "2"
+        let platform_code = "mobile"
+        let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        let api = QSAPI.mobileLogin(mobile: mobile, idfa: idfa, platform_code: platform_code, smsCode: smsCode, version: version)
+        loginService.mobileLgin(urlString: api.path, param: api.parameters) { (json) in
             completion(json)
         }
     }

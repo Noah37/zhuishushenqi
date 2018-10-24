@@ -90,6 +90,14 @@ enum QSAPI {
     case logout(token:String)
     ///书架列表
     case bookshelf(token:String)
+    ///获取手机验证码
+    case SMSCode(mobile:String,Randstr:String,Ticket:String,captchaType:String,type:String)
+    ///手机号登录
+    case mobileLogin(mobile:String,idfa:String,platform_code:String,smsCode:String,version:String)
+    ///书架书籍删除
+    case booksheldDelete(books:String, token:String)
+    ///书架书籍添加
+    case bookshelfAdd(books:String,token:String)
 }
 
 extension QSAPI:TargetType{
@@ -185,16 +193,36 @@ extension QSAPI:TargetType{
             break
         case .account(_):
             pathComponent = "/user/account"
+            break
         case .golden(_):
             pathComponent = "/account"
+            break
         case .userDetail(_):
             pathComponent = "/user/detail-info"
+            break
         case .userBind(_):
             pathComponent = "/user/loginBind"
+            break
         case .logout(_):
             pathComponent = "/user/logout"
+            break
         case .bookshelf(_):
             pathComponent = "/v3/user/bookshelf"
+            break
+        case .SMSCode(_, _, _, _, _):
+            pathComponent = "/v2/sms/sendSms"
+            break
+        case .mobileLogin(_, _, _, _, _):
+            pathComponent = "/user/login"
+            break
+        case .booksheldDelete(_, _):
+            pathComponent = "/v3/user/bookshelf"
+            break
+        case .bookshelfAdd(_, _):
+            pathComponent = "/v3/user/bookshelf"
+            break
+        default:
+            break
         }
         return "\(baseURLString)\(pathComponent)"
     }
@@ -260,6 +288,24 @@ extension QSAPI:TargetType{
             return ["token":token]
         case let .bookshelf(token):
             return ["token":token]
+        case let .SMSCode(mobile,Randstr,Ticket,captchaType,type):
+            return ["mobile":mobile,
+                    "Randstr":Randstr,
+                    "Ticket":Ticket,
+                    "captchaType":captchaType,
+                    "type":type]
+        case let .mobileLogin(mobile, idfa, platform_code, smsCode, version):
+            return ["mobile":mobile,
+                    "idfa":idfa,
+                    "platform_code":platform_code,
+                    "smsCode":smsCode,
+                    "version":version]
+        case let .booksheldDelete(books, token):
+            return ["books":books,
+                    "token":token]
+        case let .bookshelfAdd(books, token):
+            return ["books":books,
+                    "token":token]
         default:
             return nil
         }
