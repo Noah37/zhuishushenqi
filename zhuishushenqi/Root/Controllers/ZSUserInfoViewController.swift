@@ -37,6 +37,10 @@ class ZSUserInfoViewController: ZSBaseTableViewController {
         // Do any additional setup after loading the view.
         self.tableView.rowHeight = 50
         title = "个人信息"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         request()
     }
     
@@ -75,13 +79,13 @@ class ZSUserInfoViewController: ZSBaseTableViewController {
             }
             let wx = bind.bind?.Weixin
             if wx?.name != "" {
-                cells[1][1]["detail"] = "已绑定"
-                cells[1][1]["center"] = wx?.name ?? ""
+                cells[1][2]["detail"] = "已绑定"
+                cells[1][2]["center"] = wx?.name ?? ""
             }
             let wb = bind.bind?.SinaWeibo
             if wb?.name != ""  {
-                cells[1][1]["detail"] = "已绑定"
-                cells[1][1]["center"] = wb?.name ?? ""
+                cells[1][3]["detail"] = "已绑定"
+                cells[1][3]["center"] = wb?.name ?? ""
             }
         }
     }
@@ -129,6 +133,7 @@ class ZSUserInfoViewController: ZSBaseTableViewController {
                 cell?.rightButton.setTitle("复制", for: .normal)
                 cell?.buttonHandler = { selected in
                     UIPasteboard.general.string = center
+                    self.view.showTip(tip: "用户ID已复制到您的剪切板")
                 }
                 return cell!
             } else if type == "bind" {
@@ -148,7 +153,15 @@ class ZSUserInfoViewController: ZSBaseTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        if indexPath.section == 0 {
+            if indexPath.row == 1 {
+                let dict = cells[indexPath.section][indexPath.row]
+                let nicknameVC = ZSModifyNicknameViewController()
+                nicknameVC.title = "修改昵称"
+                nicknameVC.nickname = dict["detail"] ?? ""
+                self.navigationController?.pushViewController(nicknameVC, animated: true)
+            }
+        }
     }
     
     override func registerCellClasses() -> Array<AnyClass> {

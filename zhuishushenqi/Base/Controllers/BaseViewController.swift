@@ -14,6 +14,7 @@ class BaseViewController: UIViewController, IndicatableView {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
         navigationController?.navigationBar.tintColor = UIColor.red
         navigationController?.navigationBar.barTintColor = UIColor.white
         let backItem = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(popAction))

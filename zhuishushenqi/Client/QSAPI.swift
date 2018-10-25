@@ -98,6 +98,8 @@ enum QSAPI {
     case booksheldDelete(books:String, token:String)
     ///书架书籍添加
     case bookshelfAdd(books:String,token:String)
+    ///用户昵称修改
+    case nicknameChange(nickname:String,token:String)
 }
 
 extension QSAPI:TargetType{
@@ -221,6 +223,9 @@ extension QSAPI:TargetType{
         case .bookshelfAdd(_, _):
             pathComponent = "/v3/user/bookshelf"
             break
+        case .nicknameChange(_, _):
+            pathComponent = "/user/change-nickname"
+            break
         default:
             break
         }
@@ -305,6 +310,9 @@ extension QSAPI:TargetType{
                     "token":token]
         case let .bookshelfAdd(books, token):
             return ["books":books,
+                    "token":token]
+        case let .nicknameChange(nickname,token):
+            return ["nickname":nickname,
                     "token":token]
         default:
             return nil

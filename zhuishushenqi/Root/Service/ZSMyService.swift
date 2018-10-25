@@ -57,5 +57,11 @@ class ZSMyService: NSObject {
             completion(json)
         }
     }
+    
+    func fetchNicknameChange(url:String, param:[String:Any]?, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        zs_post(url, parameters: param) { (json) in
+            completion(json)
+        }
+    }
 
 }

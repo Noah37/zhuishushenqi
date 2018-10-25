@@ -25,7 +25,7 @@ class ZSUserBindCell: UITableViewCell {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
         button.setTitle("立即绑定", for: .normal)
-        button.setTitle("已绑定", for: .selected)
+//        button.setTitle("已绑定", for: .selected)
         button.setTitleColor(UIColor.red, for: .normal)
         button.setTitleColor(UIColor.gray, for: .selected)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -50,7 +50,7 @@ class ZSUserBindCell: UITableViewCell {
     
     @objc
     func rightAction(btn:UIButton) {
-        btn.isSelected = !btn.isSelected
+//        btn.isSelected = !btn.isSelected
         buttonHandler?(btn.isSelected)
     }
     

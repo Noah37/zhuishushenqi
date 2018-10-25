@@ -78,4 +78,11 @@ class ZSMyViewModel: NSObject {
             completion(json)
         }
     }
+    
+    func fetchNicknameChange(nickname:String, token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        let api = QSAPI.nicknameChange(nickname: nickname, token: token)
+        webService.fetchNicknameChange(url: api.path, param: api.parameters) { (json) in
+            completion(json)
+        }
+    }
 }

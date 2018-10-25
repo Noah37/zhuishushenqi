@@ -10,7 +10,7 @@ import UIKit
 
 class ZSMyViewController: ZSBaseTableViewController {
     
-    let cells = [[],
+    var cells = [[],
                  [["title":"我的账户",
                   "image":"userCenter_account",
                   "rightB":"充值"],
@@ -56,6 +56,14 @@ class ZSMyViewController: ZSBaseTableViewController {
         super.viewDidLoad()
 
         title = "我"
+        var lv = "1"
+        if let token =  ZSThirdLogin.share.userInfo {
+            lv = "\(token.user?.lv ?? 1)"
+        } else if let token = ZSMobileLogin.share.userInfo {
+            lv = "\(token.user?.lv ?? 1)"
+        }
+        cells[1][1]["rightL"] = lv
+        self.tableView.reloadData()
         request()
     }
     
