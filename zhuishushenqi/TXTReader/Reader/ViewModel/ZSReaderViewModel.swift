@@ -306,8 +306,6 @@ class ZSReaderViewModel {
                         } else {
                             fetchNewChapter(chapterOffset: 1,record: record,chaptersInfo: self.book?.chaptersInfo,callback: callback)
                             fetchPreChapter(record: record, chapterOffset: 1)
-
-                            
                         }
                     }
                 }
@@ -811,17 +809,19 @@ extension ZSReaderViewModel {
     }
     
     func fetchLocalPage(_ callback:ZSBaseCallback<QSPage>?){
-        if let chapters = book?.book.localChapters {
+        if (book?.book.localChapters.count ?? 0) > 0 {
+            let localChapters = book?.book.localChapters ?? []
             if let record = book?.record {
                 let pageIndex = record.page
                 let chapterIndex = record.chapter
-                if chapterIndex < chapters.count {
-                    if pageIndex < chapters[chapterIndex].pages.count {
-                        callback?(chapters[chapterIndex].pages[pageIndex])
+                if chapterIndex < localChapters.count {
+                    if pageIndex < localChapters[chapterIndex].pages.count {
+                        callback?(localChapters[chapterIndex].pages[pageIndex])
                     }
                 }
             }
         } else {
+            
             callback?(nil)
         }
     }

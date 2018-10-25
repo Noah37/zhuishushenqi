@@ -8,6 +8,8 @@
 
 import UIKit
 
+let ZSReaderAnimationStyleChangeNotification = "ZSReaderAnimationStyleChangeNotification"
+
 let QSReaderSettingKey = "QSReaderSettingKey"
 let QSReaderPagesClearNotificationKey = "QSReaderPagesClearNotificationKey"
 let QSReaderLineSpace:CGFloat = 10
@@ -195,6 +197,7 @@ class QSReaderSetting: NSObject {
     }
     
     fileprivate func pageStyleAction(){
+        NotificationCenter.qs_postNotification(name: ZSReaderAnimationStyleChangeNotification, obj: nil)
         save()
     }
     

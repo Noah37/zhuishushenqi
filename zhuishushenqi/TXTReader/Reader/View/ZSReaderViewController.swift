@@ -84,6 +84,8 @@ class ZSReaderViewController: BaseViewController  {
             self.toolBar.showWithAnimations(animation: true, inView: self.view)
         }
         
+        NotificationCenter.qs_addObserver(observer: self, selector: #selector(changePageStyle), name: ZSReaderAnimationStyleChangeNotification, object: nil)
+        
         speechView.startHandler = { selected in
             if selected! {
                 if self.voiceBook.isSpeaking() {
@@ -155,6 +157,31 @@ class ZSReaderViewController: BaseViewController  {
         // 全局设置
         
     }
+    
+    @objc
+    func changePageStyle() {
+        if animationStyle == .none {
+            viewModel = noneAnimationViewController.viewModel
+        } else if animationStyle == .horMove {
+            viewModel = horMoveController.viewModel
+        } else if animationStyle == .curlPage {
+            viewModel = curlPageViewController.viewModel
+        }
+        animationStyle = QSReaderSetting.shared.pageStyle
+        if animationStyle == .none {
+            removeHorMoveAnimationView()
+            removeCurlPageViewController()
+            setupNoneAnimationController()
+        } else if animationStyle == .horMove {
+            removeNoneAnimationView()
+            removeCurlPageViewController()
+            setupHorMoveAnimationController()
+        } else if animationStyle == .curlPage {
+            removeNoneAnimationView()
+            removeHorMoveAnimationView()
+            setupCurlPageViewController()
+        }
+    }
 
     func setupNoneAnimationController(){
         noneAnimationViewController.viewModel = viewModel
@@ -175,11 +202,21 @@ class ZSReaderViewController: BaseViewController  {
     }
     
     func removeNoneAnimationView(){
-        noneAnimationViewController.view.removeFromSuperview()
+        if let _ = noneAnimationViewController.view.superview {
+            noneAnimationViewController.view.removeFromSuperview()
+        }
     }
     
     func removeHorMoveAnimationView(){
-        horMoveViewController.view.removeFromSuperview()
+        if let _ = horMoveViewController.view.superview {
+            horMoveViewController.view.removeFromSuperview()
+        }
+    }
+    
+    func removeCurlPageViewController() {
+        if let _ = curlPageViewController.view.superview {
+            curlPageViewController.view.removeFromSuperview()
+        }
     }
     
     func curBook() ->BookDetail? {

@@ -35,18 +35,31 @@ class ZSNoneAnimationViewController: BaseViewController {
     }
     
     func initial(){
-        viewModel.fetchLocalPage { (page) in
-            if let pageModel = page {
-                self.pageViewController.page = pageModel
-            } else {
-                self.viewModel.fetchAllResource { resources in
-                    self.viewModel.fetchAllChapters({ (chapters) in
-                        self.viewModel.fetchInitialChapter({ (page) in
-                            self.pageViewController.page = page
-                        })
-                    })
+        if let record = viewModel.book?.record {
+            if let chapterModel = record.chapterModel {
+                let pageIndex = record.page
+                if pageIndex < chapterModel.pages.count {
+                    pageViewController.page = chapterModel.pages[pageIndex]
+                }
+            } else if (viewModel.book?.book.localChapters.count)! > 0 {
+                if let chapters =  viewModel.book?.book.localChapters {
+                    let chapterIndex = record.chapter
+                    let pageIndex = record.page
+                    if chapterIndex < chapters.count  {
+                        let chapterModel = chapters[chapterIndex]
+                        if pageIndex < chapterModel.pages.count {
+                            pageViewController.page = chapterModel.pages[pageIndex]
+                        }
+                    }
                 }
             }
+        }
+        self.viewModel.fetchAllResource { resources in
+            self.viewModel.fetchAllChapters({ (chapters) in
+                self.viewModel.fetchInitialChapter({ (page) in
+                    self.pageViewController.page = page
+                })
+            })
         }
         
     }
@@ -94,13 +107,24 @@ class ZSNoneAnimationViewController: BaseViewController {
     func getNextPage(){
         
         self.viewModel.fetchNextPage { (page) in
+            // 更新record
             self.pageViewController.page = page
+            self.viewModel.updateNextRecord(callback: { (page) in
+                if self.pageViewController.page?.curPage != self.viewModel.book?.record?.page {
+                    self.pageViewController.page = page
+                }
+            })
         }
     }
     
     func getLastPage(){
         viewModel.fetchLastPage { (page) in
             self.pageViewController.page = page
+            self.viewModel.updateLastRecord(callback: { (page) in
+                if self.pageViewController.page?.curPage != self.viewModel.book?.record?.page {
+                    self.pageViewController.page = page
+                }
+            })
         }
     }
     
