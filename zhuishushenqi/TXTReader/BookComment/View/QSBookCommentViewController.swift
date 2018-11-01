@@ -125,10 +125,11 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 || section == 1 {
+        if section == 0 {
+            return 0
+        } else if section == 1 {
             return 1
-        }
-        if section == 2 {
+        } else if section == 2 {
             if let best = viewModel.best {
                 return best.count
             } else if let normal = viewModel.normal {
@@ -144,23 +145,24 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if indexPath.section == 0 {
-            let cell:BookCommentCell? = tableView.qs_dequeueReusableCell(BookCommentCell.self)
-            cell?.backgroundColor = UIColor.white
-            if let dt = viewModel.data {
-                cell?.data = dt
-            }
-            cell?.selectionStyle = .none
-            cell?.handler = { data in
-                if let dict = data as? [String:Any] {
-                    self.handleClick(noti: dict)
-                }
-            }
-            if let detail = viewModel.detail {
-                cell?.model = detail
-            }
-            return cell!
-        } else if indexPath.section == 1 {
+//        if indexPath.section == 0 {
+//            let cell:BookCommentCell? = tableView.qs_dequeueReusableCell(BookCommentCell.self)
+//            cell?.backgroundColor = UIColor.white
+//            if let dt = viewModel.data {
+//                cell?.data = dt
+//            }
+//            cell?.selectionStyle = .none
+//            cell?.handler = { data in
+//                if let dict = data as? [String:Any] {
+//                    self.handleClick(noti: dict)
+//                }
+//            }
+//            if let detail = viewModel.detail {
+//                cell?.model = detail
+//            }
+//            return cell!
+//        } else
+        if indexPath.section == 1 {
             let cell:UserfulCell? = tableView.qs_dequeueReusableCell(UserfulCell.self)
             cell?.backgroundColor = UIColor.white
             cell?.selectionStyle = .none
@@ -200,6 +202,9 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
+            if let dt = viewModel.data {
+                return dt.height
+            }
             return BookCommentCell.totalCellHeight
         } else
             if indexPath.section == 1 {

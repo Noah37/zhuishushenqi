@@ -245,6 +245,10 @@
 		B2A7CD87218016060067D25B /* ZSLoginVerifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CD86218016060067D25B /* ZSLoginVerifyView.swift */; };
 		B2A7CD89218017380067D25B /* ZSMobileLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CD88218017380067D25B /* ZSMobileLogin.swift */; };
 		B2A7CD8B2180D6E90067D25B /* ZSModifyNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CD8A2180D6E90067D25B /* ZSModifyNicknameViewController.swift */; };
+		B2A7CDEB2184526D0067D25B /* ZSBookReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CDEA2184526D0067D25B /* ZSBookReviewViewController.swift */; };
+		B2A7CDED218453900067D25B /* ZSReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CDEC218453900067D25B /* ZSReviewDetailView.swift */; };
+		B2A7CDEF218453DC0067D25B /* ZSBestReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CDEE218453DC0067D25B /* ZSBestReviewView.swift */; };
+		B2A7CDF1218469860067D25B /* ZSFeelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A7CDF0218469860067D25B /* ZSFeelingView.swift */; };
 		B2ACA01E212179F60032305E /* ZSSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA01D212179F60032305E /* ZSSegmentViewController.swift */; };
 		B2ACA02221217DFB0032305E /* ZSRankService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA02121217DFB0032305E /* ZSRankService.swift */; };
 		B2ACA05F212416AE0032305E /* ZSBaseNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA05E212416AE0032305E /* ZSBaseNavigationViewController.swift */; };
@@ -744,6 +748,10 @@
 		B2A7CD86218016060067D25B /* ZSLoginVerifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLoginVerifyView.swift; sourceTree = "<group>"; };
 		B2A7CD88218017380067D25B /* ZSMobileLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSMobileLogin.swift; sourceTree = "<group>"; };
 		B2A7CD8A2180D6E90067D25B /* ZSModifyNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSModifyNicknameViewController.swift; sourceTree = "<group>"; };
+		B2A7CDEA2184526D0067D25B /* ZSBookReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookReviewViewController.swift; sourceTree = "<group>"; };
+		B2A7CDEC218453900067D25B /* ZSReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReviewDetailView.swift; sourceTree = "<group>"; };
+		B2A7CDEE218453DC0067D25B /* ZSBestReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBestReviewView.swift; sourceTree = "<group>"; };
+		B2A7CDF0218469860067D25B /* ZSFeelingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSFeelingView.swift; sourceTree = "<group>"; };
 		B2ACA01D212179F60032305E /* ZSSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSegmentViewController.swift; sourceTree = "<group>"; };
 		B2ACA02121217DFB0032305E /* ZSRankService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRankService.swift; sourceTree = "<group>"; };
 		B2ACA05E212416AE0032305E /* ZSBaseNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseNavigationViewController.swift; sourceTree = "<group>"; };
@@ -2010,8 +2018,12 @@
 				B2C0DF7620D4CB6D0057DC84 /* QSBookCommentProtocols.swift */,
 				B2C0DF7520D4CB6C0057DC84 /* QSBookCommentRouter.swift */,
 				B2C0DF7020D4CB6C0057DC84 /* QSBookCommentViewController.swift */,
+				B2A7CDEA2184526D0067D25B /* ZSBookReviewViewController.swift */,
 				B2C0DF7320D4CB6C0057DC84 /* TXTReader.storyboard */,
 				B2C0DF8420D7C1D30057DC84 /* ZSHottwitterViewController.swift */,
+				B2A7CDEC218453900067D25B /* ZSReviewDetailView.swift */,
+				B2A7CDF0218469860067D25B /* ZSFeelingView.swift */,
+				B2A7CDEE218453DC0067D25B /* ZSBestReviewView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2353,6 +2365,11 @@
 						DevelopmentTeam = ZYDXKQKHVY;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					B2BB5BA91D8BDF8E00379217 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -2595,6 +2612,7 @@
 				B255707F1F3A075600C35A34 /* Config.swift in Sources */,
 				B2A7CD87218016060067D25B /* ZSLoginVerifyView.swift in Sources */,
 				B2C0DF7B20D4CB6D0057DC84 /* QSBookCommentInteractor.swift in Sources */,
+				B2A7CDED218453900067D25B /* ZSReviewDetailView.swift in Sources */,
 				B2C0DF2320D4CB350057DC84 /* ZSReaderWebService.swift in Sources */,
 				B2B02E541EA9A9F000A6880A /* QSCatalogPresenter.swift in Sources */,
 				B2C0DF2E20D4CB350057DC84 /* User.swift in Sources */,
@@ -2676,6 +2694,7 @@
 				B2B02E2E1EA8505200A6880A /* QSTopicDetailRouter.swift in Sources */,
 				3DDEEAFF214B5D3A003D12DB /* UIFont+Extension.swift in Sources */,
 				B28FFC861EAFAED600C27FF9 /* NSString+Encode.m in Sources */,
+				B2A7CDEB2184526D0067D25B /* ZSBookReviewViewController.swift in Sources */,
 				B255707E1F3A075600C35A34 /* AppDelegate.swift in Sources */,
 				B2B4BD771E7ECEE0000CC201 /* RootViewController+Subviews.swift in Sources */,
 				B2A02F7C20F337C20034DC64 /* ZSHorizonalMoveViewController.swift in Sources */,
@@ -2802,6 +2821,7 @@
 				3DDEEAF9214A8E3F003D12DB /* ZSFontViewController.swift in Sources */,
 				B25570891F3A96E500C35A34 /* BookManager.swift in Sources */,
 				3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */,
+				B2A7CDF1218469860067D25B /* ZSFeelingView.swift in Sources */,
 				B2B4BC0A1E7EA4AB000CC201 /* CategoryCell.swift in Sources */,
 				3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */,
 				B29CFAE82179B7270006F294 /* ZSQQUser.swift in Sources */,
@@ -2861,6 +2881,7 @@
 				B2A7CD8B2180D6E90067D25B /* ZSModifyNicknameViewController.swift in Sources */,
 				B2B02E451EA8920F00A6880A /* QSCategoryDetailPresenter.swift in Sources */,
 				B252D4E2211035060091858E /* ZSShelfViewModel.swift in Sources */,
+				B2A7CDEF218453DC0067D25B /* ZSBestReviewView.swift in Sources */,
 				B2B4BC2B1E7EA4AB000CC201 /* SwipableCell.swift in Sources */,
 				B2B02E441EA8920F00A6880A /* QSCategoryDetailInteractor.swift in Sources */,
 				B2B4BD7A1E7EE2B1000CC201 /* QSNetworkManager.swift in Sources */,

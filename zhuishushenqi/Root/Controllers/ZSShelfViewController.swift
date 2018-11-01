@@ -87,6 +87,10 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         
         view.addSubview(tableView)
         
+        viewModel.fetchBlessingBag(token: ZSLogin.share.token) { (json) in
+            print(json)
+        }
+        
         shelfMsg.addTarget(self, action: #selector(openSafari), for: .touchUpInside)
     }
     

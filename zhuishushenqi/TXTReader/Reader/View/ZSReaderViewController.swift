@@ -130,6 +130,7 @@ class ZSReaderViewController: BaseViewController  {
         }
         
         speechView.stopHandler = { _ in
+            self.voiceBook.stop()
             self.speechView.removeFromSuperview()
         }
         

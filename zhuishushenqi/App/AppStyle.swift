@@ -48,9 +48,7 @@ struct AppStyle {
         }
     }
     
-    private init(){
-        
-    }
+    private init(){}
     
     static func getReader()->Reader{
         let value = UserDefaults.standard.integer(forKey: readerKey)

@@ -81,6 +81,12 @@ class ZSShelfWebService: ZSBaseService {
         }
     }
     
+    func fetchBlessingBag(urlString:String, param:[String:Any]?, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        zs_get(urlString, parameters: param) { (json) in
+            completion(json)
+        }
+    }
+    
     private func getIDSOf(books:[BookDetail]) ->String{
         var id = ""
         for book in  books {

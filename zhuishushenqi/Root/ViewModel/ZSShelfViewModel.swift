@@ -164,6 +164,13 @@ extension ZSShelfViewModel {
         }
     }
     
+    func fetchBlessingBag(token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        let api = QSAPI.blessing_bag(token: token)
+        shelvesWebService.fetchBlessingBag(urlString: api.path, param: api.parameters) { (json) in
+            completion(json)
+        }
+    }
+    
     func lock(object:AnyObject, callback:()->Void) {
         print("\(object)开始加锁")
         objc_sync_enter(object)

@@ -100,6 +100,8 @@ enum QSAPI {
     case bookshelfAdd(books:String,token:String)
     ///用户昵称修改
     case nicknameChange(nickname:String,token:String)
+    ///签到领书券
+    case blessing_bag(token:String)
 }
 
 extension QSAPI:TargetType{
@@ -226,6 +228,10 @@ extension QSAPI:TargetType{
         case .nicknameChange(_, _):
             pathComponent = "/user/change-nickname"
             break
+        case let .blessing_bag(token):
+//            https://goldcoin.zhuishushenqi.com/tasks/blessing-bag/detail?token=WupdmBZpkuzehCqdtDZF9IJR
+            pathComponent = "/tasks/blessing-bag/detail?token=\(token)"
+            break
         default:
             break
         }
@@ -244,6 +250,8 @@ extension QSAPI:TargetType{
             }
         case .golden(_):
             urlString = "http://goldcoin.zhuishushenqi.com"
+        case .blessing_bag(_):
+            urlString = "https://goldcoin.zhuishushenqi.com"
         default:
             urlString = "http://api.zhuishushenqi.com"
         }
