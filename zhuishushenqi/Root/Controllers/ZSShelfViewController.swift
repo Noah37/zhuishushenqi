@@ -97,6 +97,8 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                     self.viewModel.fetchSignIn(token: ZSLogin.share.token, activityId: activityId, version: "2", type: "2", completion: { (json) in
                         if json?["ok"] as? Bool == true {
                             print("签到成功")
+                            let amount = json?["amount"] as? Int ?? 0
+                            self.view.showTip(tip: "自动签到获得\(amount)书券")
                         }
                     })
                 }

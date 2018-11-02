@@ -185,6 +185,9 @@ extension ZSShelfViewModel {
         }
     }
     
+    // 下载章节到磁盘
+//    func
+    
     func lock(object:AnyObject, callback:()->Void) {
         print("\(object)开始加锁")
         objc_sync_enter(object)
