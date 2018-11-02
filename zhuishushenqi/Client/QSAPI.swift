@@ -100,8 +100,12 @@ enum QSAPI {
     case bookshelfAdd(books:String,token:String)
     ///用户昵称修改
     case nicknameChange(nickname:String,token:String)
-    ///签到领书券
+    ///
     case blessing_bag(token:String)
+    ///查询活动
+    case judgeSignIn(token:String)
+    ///签到领金币
+    case signIn(token:String,activityId:String,version:String,type:String)
 }
 
 extension QSAPI:TargetType{
@@ -232,6 +236,14 @@ extension QSAPI:TargetType{
 //            https://goldcoin.zhuishushenqi.com/tasks/blessing-bag/detail?token=WupdmBZpkuzehCqdtDZF9IJR
             pathComponent = "/tasks/blessing-bag/detail?token=\(token)"
             break
+//    https://api.zhuishushenqi.com/user/v2/judgeSignIn?token=Abrv3NbHCuKKJSVzeSglLXns
+        case .judgeSignIn(_):
+            pathComponent = "/user/v2/judgeSignIn"
+            break
+            //    https://api.zhuishushenqi.com/user/signIn?token=Abrv3NbHCuKKJSVzeSglLXns&activityId=57eb9278b7b0f6fc1f2e1bc0&version=2&type=2
+        case .signIn(_, _, _, _):
+            pathComponent = "/user/signIn"
+            break
         default:
             break
         }
@@ -322,6 +334,13 @@ extension QSAPI:TargetType{
         case let .nicknameChange(nickname,token):
             return ["nickname":nickname,
                     "token":token]
+        case let .judgeSignIn(token):
+            return ["token":token]
+        case let .signIn(token, activityId, version, type):
+            return ["token": token,
+                    "activityId": activityId,
+                    "version": version,
+                    "type": type]
         default:
             return nil
         }

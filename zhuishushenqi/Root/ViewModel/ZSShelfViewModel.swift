@@ -171,6 +171,20 @@ extension ZSShelfViewModel {
         }
     }
     
+    func fetchJudgeIn(token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        let api = QSAPI.judgeSignIn(token: token)
+        shelvesWebService.fetchJudgeIn(urlString: api.path, param: api.parameters) { (json) in
+            completion(json)
+        }
+    }
+    
+    func fetchSignIn(token:String, activityId:String, version:String, type:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        let api = QSAPI.signIn(token: token, activityId: activityId, version: version, type: type)
+        shelvesWebService.fetchSignIn(urlString: api.path, param: api.parameters) { (json) in
+            completion(json)
+        }
+    }
+    
     func lock(object:AnyObject, callback:()->Void) {
         print("\(object)开始加锁")
         objc_sync_enter(object)

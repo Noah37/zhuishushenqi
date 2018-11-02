@@ -45,7 +45,7 @@ class ZSFeelingView: UIView {
         addSubview(moreButton)
         
         for index in 0..<2 {
-            let horizonalLine = UILabel(frame: CGRect(x: (self.bounds.width/3 - 0.5)*(index + 1), y: 10, width: 0.5, height: self.bounds.height - 20))
+            let horizonalLine = UILabel(frame: CGRect(x: (self.bounds.width/3 - 0.5)*(CGFloat(index) + 1.0), y: 10, width: 0.5, height: self.bounds.height - 20))
             horizonalLine.backgroundColor = UIColor.gray
             addSubview(horizonalLine)
         }

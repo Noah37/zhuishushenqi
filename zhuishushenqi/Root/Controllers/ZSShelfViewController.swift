@@ -91,6 +91,18 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
             print(json)
         }
         
+        viewModel.fetchJudgeIn(token: ZSLogin.share.token) { (json) in
+            if json?["ok"] as? Bool == true {
+                if let activityId = json?["activityId"] as? String {
+                    self.viewModel.fetchSignIn(token: ZSLogin.share.token, activityId: activityId, version: "2", type: "2", completion: { (json) in
+                        if json?["ok"] as? Bool == true {
+                            print("签到成功")
+                        }
+                    })
+                }
+            }
+        }
+        
         shelfMsg.addTarget(self, action: #selector(openSafari), for: .touchUpInside)
     }
     
