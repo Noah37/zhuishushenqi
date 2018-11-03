@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias ZSBgViewHandler = ()->Void
+
 enum ToolBarFontChangeAction {
     case plus
     case minimus
@@ -41,6 +43,7 @@ class ToolBar: UIView {
     var whiteBtn:UIButton!
     var yellowBtn:UIButton!
     var greenBtn:UIButton!
+    var mode_bgView:UIScrollView!
     var fontSize:Int = QSReaderSetting.shared.fontSize
     var titleLabel:UILabel!
     var title:String  = "" {
@@ -48,6 +51,7 @@ class ToolBar: UIView {
             titleLabel.text = self.title
         }
     }
+    var bgItemViews:[ZSModeBgItemView] = []
     var progressView:ProgressView!
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -116,13 +120,29 @@ class ToolBar: UIView {
         let fontPlus = button(with: UIImage(named:"font_increase"), selectedImage: nil, title: nil, frame: CGRect(x: fontminus.frame.maxX + 13, y: fontminus.frame.minY, width: 60, height: 60), selector: #selector(fontPlusAction(btn:)), font: nil)
         let landscape = button(with: UIImage(named:"landscape"), selectedImage: nil, title: nil, frame: CGRect(x: fontPlus.frame.maxX, y: fontminus.frame.minY + 5, width: 60, height: 50), selector: #selector(landscape(btn:)), font: nil)
         let autoReading = button(with: UIImage(named:"autoreading_start"), selectedImage: nil, title: "自动阅读", frame: CGRect(x: landscape.frame.maxX, y: landscape.frame.minY + 10, width: 115, height: 30), selector: #selector(autoReading(btn:)), font: UIFont.systemFont(ofSize: 15))
-        let white = button(with: UIImage(named:"background_white"), selectedImage: UIImage(named:"background_white_selected"), title: nil, frame: CGRect(x: fontminus.frame.minX, y: 115, width: 60, height: 60), selector: #selector(whiteAction(btn:)), font: nil)
-        whiteBtn = white
-        let yellow = button(with: UIImage(named:"background_yellow"), selectedImage: UIImage(named:"background_yellow_selected"), title: nil, frame: CGRect(x: 80, y: 115, width: 60, height: 60), selector: #selector(yellowAction(btn:)), font: nil)
-        yellowBtn = yellow
-        let green = button(with: UIImage(named:"background_green"), selectedImage: UIImage(named:"background_green_selected"), title: nil, frame: CGRect(x: 150, y: 115, width: 60, height: 60), selector: #selector(greenAction(btn:)), font: nil)
-        greenBtn = green
-        let senior = button(with: UIImage(named:"reading_more_setting"), selectedImage: nil, title: "高级设置", frame: CGRect(x: 205, y: 130, width: 115, height: 30), selector: #selector(seniorSettingAction(btn:)), font: UIFont.systemFont(ofSize: 15))
+        
+        mode_bgView = UIScrollView(frame: CGRect(x: 0, y: 115, width: self.bounds.width - 140, height: 60))
+        mode_bgView.isUserInteractionEnabled = true
+//        mode_bgView.backgroundColor = UIColor.orange
+        mode_bgView.showsHorizontalScrollIndicator = true
+        midBar?.addSubview(mode_bgView)
+
+        let itemImages = ["white_mode_bg","yellow_mode_bg","green_mode_bg","blackGreen_mode_bg","pink_mode_bg","sheepskin_mode_bg","violet_mode_bg","water_mode_bg","weekGreen_mode_bg","weekPink_mode_bg","coffee_mode_bg"]
+        var index = 0
+        for image in itemImages {
+            let bgView = ZSModeBgItemView(frame: CGRect(x: 25*(index + 1) + 60 * index, y: 0, width: 60, height: 60))
+            bgView.setImage(image: UIImage(named: image))
+            bgView.index = index
+            bgView.selectHandler = {
+                self.itemAction(index: bgView.index)
+            }
+            mode_bgView.addSubview(bgView)
+            bgItemViews.append(bgView)
+            index += 1
+        }
+        mode_bgView.contentSize = CGSize(width: itemImages.count * (60 + 25), height: 60)
+        
+        let senior = button(with: UIImage(named:"reading_more_setting"), selectedImage: nil, title: "高级设置", frame: CGRect(x: self.bounds.width - 140, y: 130, width: 115, height: 30), selector: #selector(seniorSettingAction(btn:)), font: UIFont.systemFont(ofSize: 15))
         progressView = ProgressView(frame: CGRect(x: 0, y: self.bounds.height - 49 - 20, width: self.bounds.width, height: 20))
         progressView.backgroundColor = UIColor.black
         progressView.isHidden  = true
@@ -136,18 +156,19 @@ class ToolBar: UIView {
         midBar?.addSubview(fontPlus)
         midBar?.addSubview(landscape)
         midBar?.addSubview(autoReading)
-        midBar?.addSubview(whiteBtn)
-        midBar?.addSubview(yellowBtn)
-        midBar?.addSubview(greenBtn)
         midBar?.addSubview(senior)
         
         let type = AppStyle.shared.reader
-        if type == .white {
-            whiteBtn.isSelected = true
-        }else if type == .yellow {
-            yellowBtn.isSelected = true
-        }else{
-            greenBtn.isSelected = true
+        if type.rawValue >= 0 && type.rawValue < bgItemViews.count {
+            var index = 0
+            for bgView in bgItemViews {
+                if type.rawValue == index {
+                    bgView.select(select: true)
+                } else {
+                    bgView.select(select: false)
+                }
+                index += 1
+            }
         }
     }
     
@@ -250,6 +271,17 @@ class ToolBar: UIView {
         self.toolBarDelegate?.readBg(type: .green)
     }
     
+    @objc private func itemAction(index:Int) {
+        var viewIndex = 0
+        for bgView in bgItemViews {
+            if viewIndex != index {
+                bgView.select(select: false)
+            }
+            viewIndex += 1
+        }
+        self.toolBarDelegate?.readBg(type: Reader(rawValue: index) ?? .white)
+    }
+    
     @objc private func seniorSettingAction(btn:UIButton){
         self.toolBarDelegate?.toolbar(toolbar: self, clickMoreSetting: btn)
     }
@@ -319,5 +351,57 @@ class ToolBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+}
+
+class ZSModeBgItemView: UIView {
+    
+    
+    var backgroundImage:UIImageView!
+    private var selectedImage:UIImageView!
+    
+    var selectHandler:ZSBgViewHandler?
+    
+    var index:Int = 0
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupSubviews() {
+        isUserInteractionEnabled = true
+        backgroundImage = UIImageView(frame: self.bounds)
+        backgroundImage.isUserInteractionEnabled = true
+        backgroundImage.layer.cornerRadius = self.bounds.width/2
+        backgroundImage.layer.masksToBounds = true
+        selectedImage = UIImageView(frame: CGRect(x: self.bounds.width/2 - 18, y: self.bounds.width/2 - 18, width: 36, height: 36))
+        selectedImage.isUserInteractionEnabled = true
+        selectedImage.image = UIImage(named: "cell_selected_tip")
+        selectedImage.isHidden = true
+        
+        addSubview(backgroundImage)
+        addSubview(selectedImage)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(selectAction))
+        backgroundImage.addGestureRecognizer(tap)
+    }
+    
+    @objc
+    private func selectAction() {
+        selectedImage.isHidden = false
+        selectHandler?()
+    }
+    
+    func select(select:Bool) {
+        selectedImage.isHidden = !select
+    }
+    
+    func setImage(image:UIImage?) {
+        backgroundImage.image = image
+    }
 }
 

@@ -20,7 +20,7 @@ class PageView: CTDisplayView {
             let lineSpace = QSReaderSetting.shared.lineSpace
             let config = CTFrameParserConfig()
             config.fontSize = CGFloat(fontSize)
-            config.textColor = color
+            config.textColor = AppStyle.shared.reader.textColor
             config.width = QSReaderFrame.width
             config.lineSpace = lineSpace
             config.paragraphSpace = QSReaderSetting.shared.paragraphSpace
