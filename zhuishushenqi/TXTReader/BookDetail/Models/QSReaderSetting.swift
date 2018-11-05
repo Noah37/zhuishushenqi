@@ -16,8 +16,8 @@ let QSReaderLineSpace:CGFloat = 10
 let QSReaderParagraphSpace:CGFloat = 5
 
 // 阅读器的阅读设置，全局设置
-enum QSReaderFontStyle:String {
-    case system = "ArialMT"
+enum QSReaderFontStyle:Int {
+    case system 
     case lantingBalck
     case kaiti
     case weibei
