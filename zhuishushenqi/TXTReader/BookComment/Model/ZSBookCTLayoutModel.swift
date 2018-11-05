@@ -13,16 +13,16 @@ class ZSBookCTLayoutModel: NSObject {
     var nameLabelOriginY:CGFloat = 20
     var nameLabelHeight:CGFloat = 20
     
-    var createLabelOriginY:CGFloat = 0
+    var createLabelOriginY:CGFloat = 6
     var createLabelHeight:CGFloat = 10
     
-    var titleLabelOriginY:CGFloat = 26
+    var titleLabelOriginY:CGFloat = 20
     var titleLabelHeight:CGFloat = 30
     
     var displayViewOriginY:CGFloat = 10
     var displayViewHeight:CGFloat = 0
     
-    var bookBgViewOriginY:CGFloat = 10
+    var bookBgViewOriginY:CGFloat = 20
     var bookBgViewHeight:CGFloat = 74
     
     var feelingViewOriginY:CGFloat = 0

@@ -416,7 +416,11 @@ class ZSReaderViewModel {
     func fetchCurrentPage(_ callback:ZSSearchWebAnyCallback<QSPage>?){
         if let record = book?.record {
             fetchPreChapter(record: record, chapterOffset: 0)
-            let chapter = record.chapter
+            var chapter = record.chapter
+            // 如果当前章节超出限制,取最大值
+            if chapter > (book?.chaptersInfo?.count ?? 0) {
+                chapter = book?.chaptersInfo?.count ?? 0
+            }
             if let link = book?.chaptersInfo?[chapter].link {
                 fetchChapter(key: link) { (body) in
                     if let bodyInfo = body {

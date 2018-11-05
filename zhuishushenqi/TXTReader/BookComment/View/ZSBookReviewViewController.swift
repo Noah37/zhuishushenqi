@@ -39,7 +39,6 @@ class ZSBookReviewDetailViewController: BaseViewController, UIScrollViewDelegate
         view.addSubview(scrollView)
         
         detailView = ZSReviewDetailView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 0))
-        detailView.backgroundColor = UIColor.orange
         scrollView.addSubview(detailView)
         
         bestReviewView = ZSBestReviewView(frame:CGRect.zero)
