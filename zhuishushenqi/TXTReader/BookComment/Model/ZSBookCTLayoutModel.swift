@@ -16,7 +16,7 @@ class ZSBookCTLayoutModel: NSObject {
     var createLabelOriginY:CGFloat = 0
     var createLabelHeight:CGFloat = 10
     
-    var titleLabelOriginY:CGFloat = 6
+    var titleLabelOriginY:CGFloat = 26
     var titleLabelHeight:CGFloat = 30
     
     var displayViewOriginY:CGFloat = 10
@@ -27,6 +27,8 @@ class ZSBookCTLayoutModel: NSObject {
     
     var feelingViewOriginY:CGFloat = 0
     var feelingViewHeight:CGFloat = 70
+    
+    var totalHeight:CGFloat = 0
     
     
     // depreted
@@ -54,6 +56,7 @@ class ZSBookCTLayoutModel: NSObject {
         if book.book._id == "" {
             bookBgViewHeight = 0
         }
+        totalHeight = nameLabelOriginY + nameLabelHeight + createLabelOriginY + createLabelHeight + titleLabelOriginY + titleLabelHeight + displayViewOriginY + displayViewHeight + bookBgViewOriginY + feelingViewHeight
     }
 
 }

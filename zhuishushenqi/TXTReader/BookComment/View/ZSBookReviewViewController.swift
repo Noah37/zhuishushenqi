@@ -33,25 +33,26 @@ class ZSBookReviewDetailViewController: BaseViewController, UIScrollViewDelegate
     }
     
     private func setupSubviews() {
+        
         scrollView = UIScrollView(frame: self.view.bounds)
         scrollView.delegate = self
         view.addSubview(scrollView)
         
-        detailView = ZSReviewDetailView(frame: CGRect.zero)
+        detailView = ZSReviewDetailView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 0))
         detailView.backgroundColor = UIColor.orange
-        view.addSubview(detailView)
+        scrollView.addSubview(detailView)
         
         bestReviewView = ZSBestReviewView(frame:CGRect.zero)
         bestReviewView.backgroundColor = UIColor.red
-        view.addSubview(bestReviewView)
+        scrollView.addSubview(bestReviewView)
         
         normalReviewView = ZSBestReviewView(frame:CGRect.zero)
         normalReviewView.backgroundColor = UIColor.green
-        view.addSubview(normalReviewView)
+        scrollView.addSubview(normalReviewView)
         
         let header = initRefreshHeader(scrollView) {
             self.viewModel.fetchCommentDetail(handler: { (detail) in
-                
+                self.zs_layoutSubviews()
             })
             self.viewModel.fetchNewNormal(handler: { (normals) in
                 
@@ -83,8 +84,15 @@ class ZSBookReviewDetailViewController: BaseViewController, UIScrollViewDelegate
     
     func zs_layoutSubviews() {
         if let detail = viewModel.detail,let data = viewModel.data {
-            layoutModel = ZSBookCTLayoutModel(book: detail, data: data)
-            
+            if layoutModel == nil {
+                layoutModel = ZSBookCTLayoutModel(book: detail, data: data)
+            } else {
+                layoutModel?.setupLayout(book: detail, data: data)
+            }
+            let height = layoutModel?.totalHeight ?? 0
+            detailView.height = height
+            detailView.setupDetail(detail: detail, data: data)
+            scrollView.contentSize = CGSize(width: self.view.bounds.width, height: height)
         }
     }
 }

@@ -94,10 +94,12 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
         let model = self.timeline?[indexPath.row]
         let comment = BookComment()
         comment._id = (model?.tweet.post["_id"] as? String) ?? ""
-        let commentVC = ZSBookCommentViewController(style: .grouped)
-        commentVC.viewModel.model = comment
-        self.navigationController?.pushViewController(commentVC, animated: true)
-        
+//        let commentVC = ZSBookCommentViewController(style: .grouped)
+//        commentVC.viewModel.model = comment
+//        self.navigationController?.pushViewController(commentVC, animated: true)
+        let reviewVC = ZSBookReviewDetailViewController()
+        reviewVC.viewModel.model = comment
+        self.navigationController?.pushViewController(reviewVC, animated: true)
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {

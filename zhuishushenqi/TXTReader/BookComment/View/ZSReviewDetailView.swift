@@ -23,11 +23,7 @@ class ZSReviewDetailView: UIView {
     private var rateStarView:RateView!
     private var feelingView:ZSFeelingView!
     
-    var detail:BookComment? {
-        didSet {
-            setupDetail()
-        }
-    }
+    var detail:BookComment?
     
     private let defaultTime = "2014-02-23T16:48:18.179Z"
     
@@ -40,27 +36,31 @@ class ZSReviewDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupDetail() {
-        if let detail = self.detail {
-            let created = detail.created
-            self.createLabel.qs_setCreateTime(createTime: created,append: "")
-            nameLabel.text = "\(detail.author.nickname) lv.\(detail.author.lv)"
-            titleLabel.text = "\(detail.title)"
-            bookTitleLabel.text = "\(detail.book.title)"
-            if  detail.book.cover != "" {
-                let cover = "\(detail.book.cover)"
-                self.bookIconView.qs_setBookCoverWithURLString(urlString: cover)
-                rateStarView.rate = detail.rating
-            } else {
-                bookBgView.height = 0
-                rateStarView.height = 0
-            }
-            let urlString = "\(detail.author.avatar)"
-            self.iconView.qs_setAvatarWithURLString(urlString: urlString)
+    func setupDetail(detail:BookComment, data:CoreTextData) {
+        let created = detail.created
+        self.createLabel.qs_setCreateTime(createTime: created,append: "")
+        nameLabel.text = "\(detail.author.nickname) lv.\(detail.author.lv)"
+        titleLabel.text = "\(detail.title)"
+        let titleTextHegiht = detail.title.qs_height(UIFont.systemFont(ofSize: 18), width: UIScreen.main.bounds.width - 40)
+        titleLabel.height = titleTextHegiht
+        bookTitleLabel.text = "\(detail.book.title)"
+        if  detail.book.cover != "" {
+            let cover = "\(detail.book.cover)"
+            self.bookIconView.qs_setBookCoverWithURLString(urlString: cover)
+            rateStarView.rate = detail.rating
+        } else {
+            bookBgView.height = 0
+            rateStarView.height = 0
         }
+        displayView.data = data
+        displayView.height = data.height
+        let urlString = "\(detail.author.avatar)"
+        self.iconView.qs_setAvatarWithURLString(urlString: urlString)
     }
     
     private func setupSubviews() {
+        isUserInteractionEnabled = true
+        
         iconView = UIImageView(frame: CGRect(x: 20, y: 20, width: 36, height: 36))
         iconView.layer.cornerRadius = 5
         addSubview(iconView)
@@ -77,13 +77,15 @@ class ZSReviewDetailView: UIView {
         createLabel.textAlignment = .left
         addSubview(createLabel)
         
-        titleLabel = UILabel(frame: CGRect(x: 20, y: self.iconView.frame.maxY, width: self.bounds.width - 20*2, height: 30))
+        titleLabel = UILabel(frame: CGRect(x: 20, y: self.iconView.frame.maxY + 20, width: self.bounds.width - 20*2, height: 30))
         titleLabel.textColor = UIColor.black
         titleLabel.font = UIFont.systemFont(ofSize: 18)
         titleLabel.textAlignment = .left
+        titleLabel.numberOfLines = 0
         addSubview(titleLabel)
         
         displayView = CTDisplayView(frame: CGRect(x: 20, y: self.titleLabel.frame.maxY + 10, width: self.bounds.width - 40, height: 0))
+        displayView.isUserInteractionEnabled = true
         addSubview(displayView)
         
         bookBgView = UIView(frame: CGRect(x: 20, y: self.displayView.frame.maxY + 10, width: self.bounds.width - 40, height: 74))
@@ -112,5 +114,4 @@ class ZSReviewDetailView: UIView {
         feelingView = ZSFeelingView(frame: CGRect(x: 20, y: self.bookBgView.frame.maxY, width: self.bounds.width - 40 , height: 70))
         bookBgView.addSubview(feelingView)
     }
-
 }
