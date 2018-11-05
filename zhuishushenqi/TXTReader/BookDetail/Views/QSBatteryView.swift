@@ -16,6 +16,14 @@ class QSBatteryView: UIView {
         }
     }
     
+    var batteryColor:UIColor = UIColor.darkGray {
+        didSet {
+            header.backgroundColor = batteryColor
+            external.layer.borderColor = batteryColor.cgColor
+            `internal`.backgroundColor = batteryColor
+        }
+    }
+    
     private var `internal`:UIView!
     private var external:UIView!
     private var header:UIView!

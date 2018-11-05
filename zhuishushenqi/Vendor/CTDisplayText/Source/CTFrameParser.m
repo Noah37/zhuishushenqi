@@ -40,14 +40,14 @@ static CGFloat descentCallback(void *ref){
 }
 
 static CGFloat widthCallback(void* ref){
-//    return [UIScreen mainScreen].bounds.size.width;
     return [(NSNumber*)[(__bridge NSDictionary*)ref objectForKey:@"width"] floatValue];
 
 }
 
 + (NSMutableDictionary *)attributesWithConfig:(CTFrameParserConfig *)config {
     CGFloat fontSize = config.fontSize;
-    CTFontRef fontRef = CTFontCreateWithName((CFStringRef)@"ArialMT", fontSize, NULL);
+    CTFontRef fontRef = CTFontCreateWithName((CFStringRef)config.textFont.fontName, fontSize, NULL);
+//    CTFontRef fontRef = CTFontCreateWithName((CFStringRef)@"ArialMT", fontSize, NULL);
     CGFloat lineSpacing = config.lineSpace;
     const CFIndex kNumberOfSettings = 3;
     CTParagraphStyleSetting theSettings[kNumberOfSettings] = {

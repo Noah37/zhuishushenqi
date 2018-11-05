@@ -299,6 +299,7 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     // reader style change
     func readBg(type: Reader) {
         self.currentReaderVC?.bgView.image = AppStyle.shared.reader.backgroundImage
+        self.currentReaderVC.refreshView()
     }
     
     func fontChange(action:ToolBarFontChangeAction){

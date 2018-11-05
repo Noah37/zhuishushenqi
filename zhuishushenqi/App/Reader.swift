@@ -64,4 +64,15 @@ extension Reader {
         }
     }
     
+    var batteryColor:UIColor {
+        switch self {
+        case .yellow,.white,.green:
+            return UIColor.darkGray
+        case .blackgreen,.coffee:
+            return UIColor.white
+        default:
+            return UIColor.darkGray
+        }
+    }
+    
 }

@@ -18,6 +18,7 @@ class PageViewController: UIViewController {
         titleLabel.backgroundColor = UIColor.clear
         titleLabel.font = UIFont.systemFont(ofSize: 11)
         titleLabel.text = ""
+        titleLabel.textColor = AppStyle.shared.reader.textColor
         return titleLabel
     }()
     lazy var pageLabel:UILabel = {
@@ -26,7 +27,7 @@ class PageViewController: UIViewController {
         pageLabel.font = UIFont.systemFont(ofSize: 13)
         pageLabel.textAlignment = .center
         pageLabel.backgroundColor = UIColor.clear
-        pageLabel.textColor = UIColor.black
+        pageLabel.textColor = AppStyle.shared.reader.textColor
         pageLabel.text = "1/1"
         return pageLabel
     }()
@@ -43,14 +44,14 @@ class PageViewController: UIViewController {
         batteryView.batteryLevel = CGFloat(UIDevice.current.batteryLevel)
         return batteryView
     }()
-    var timeLabel:UILabel {
+    lazy var timeLabel:UILabel = {
         let timeLabel = UILabel()
         timeLabel.font = UIFont.systemFont(ofSize: 11)
         timeLabel.textAlignment = .center
         timeLabel.frame  = CGRect(x:self.view.bounds.width - 40 - 15 , y: self.view.bounds.height - 30, width: 40, height: 30)
         timeLabel.text = getCurrentTime()
         return timeLabel
-    }
+    }()
     var timer:Timer!
     
     override func viewDidLoad() {
@@ -144,6 +145,10 @@ class PageViewController: UIViewController {
             pageView.attributedText = page.content
             pageLabel.text = "第\((page.curPage + 1))/\(page.totalPages)页"
             titleLabel.text = page.title
+            titleLabel.textColor = AppStyle.shared.reader.textColor
+            pageLabel.textColor = AppStyle.shared.reader.textColor
+            timeLabel.textColor = AppStyle.shared.reader.textColor
+            batteryView.batteryColor = AppStyle.shared.reader.batteryColor
         }
     }
     
