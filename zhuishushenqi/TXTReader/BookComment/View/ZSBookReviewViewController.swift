@@ -36,6 +36,7 @@ class ZSBookReviewDetailViewController: BaseViewController, UIScrollViewDelegate
         
         scrollView = UIScrollView(frame: self.view.bounds)
         scrollView.delegate = self
+        scrollView.backgroundColor = UIColor.white
         view.addSubview(scrollView)
         
         detailView = ZSReviewDetailView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 0))

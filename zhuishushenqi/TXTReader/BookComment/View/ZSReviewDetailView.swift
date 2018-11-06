@@ -48,9 +48,16 @@ class ZSReviewDetailView: UIView {
             let cover = "\(detail.book.cover)"
             self.bookIconView.qs_setBookCoverWithURLString(urlString: cover)
             rateStarView.rate = detail.rating
+            rateStarView.height = 10
+            bookTitleLabel.height = 27
+            rateLabel.height = 27
+            bookIconView.height = 54
         } else {
             bookBgView.height = 0
             rateStarView.height = 0
+            bookTitleLabel.height = 0
+            rateLabel.height = 0
+            bookIconView.height = 0
         }
         displayView.data = data
         displayView.height = data.height
@@ -65,6 +72,7 @@ class ZSReviewDetailView: UIView {
         displayView.origin.y = self.titleLabel.frame.maxY + 10
         bookBgView.origin.y = self.displayView.frame.maxY + 20
         bookTitleLabel.frame = CGRect(x: self.bookIconView.frame.maxX + 10, y: 10, width: self.bookBgView.bounds.width - (self.bookIconView.frame.maxX + 10) - 20, height: 27)
+        feelingView.frame = CGRect(x: 20, y: self.bookBgView.frame.maxY, width: self.bounds.width - 40 , height: 70)
 
     }
     
@@ -106,24 +114,24 @@ class ZSReviewDetailView: UIView {
         bookIconView = UIImageView(frame: CGRect(x: 10, y: self.bookBgView.bounds.height/2 - 54/2, width: 36, height: 54))
         bookBgView.addSubview(bookIconView)
         
-        bookTitleLabel = UILabel(frame: CGRect(x: self.bookIconView.frame.maxX + 10, y: 10, width: self.bookBgView.bounds.width - (self.bookIconView.frame.maxX + 10) - 20, height: 27))
+        bookTitleLabel = UILabel(frame: CGRect(x: self.bookIconView.frame.maxX + 10, y: 10, width: self.bookBgView.bounds.width - (self.bookIconView.frame.maxX + 10) - 20, height: 0))
         bookTitleLabel.textColor = UIColor.black
         bookTitleLabel.font = UIFont.systemFont(ofSize: 15)
         bookTitleLabel.textAlignment = .left
         bookBgView.addSubview(bookTitleLabel)
         
-        rateLabel = UILabel(frame: CGRect(x: self.bookIconView.frame.maxX + 10, y: self.bookTitleLabel.frame.maxY, width: 120, height: 27))
+        rateLabel = UILabel(frame: CGRect(x: self.bookIconView.frame.maxX + 10, y: self.bookTitleLabel.frame.maxY, width: 120, height: 0))
         rateLabel.textColor = UIColor.white
         rateLabel.font = UIFont.systemFont(ofSize: 12)
         rateLabel.textAlignment = .left
         rateLabel.text = "楼主打分:"
         bookBgView.addSubview(rateLabel)
         
-        let lightRect = CGRect(x: rateLabel.frame.maxX , y: rateLabel.frame.minY + rateLabel.frame.height/2 - 10/2, width: 60, height: 10)
+        let lightRect = CGRect(x: rateLabel.frame.maxX , y: rateLabel.frame.minY + rateLabel.frame.height/2 - 10/2, width: 60, height: 0)
         rateStarView = RateView(frame: lightRect, darkImage: UIImage(named: "forum_gray_star"), lightImage: UIImage(named: "forum_red_star"))
         bookBgView.addSubview(rateStarView)
         
         feelingView = ZSFeelingView(frame: CGRect(x: 20, y: self.bookBgView.frame.maxY, width: self.bounds.width - 40 , height: 70))
-        bookBgView.addSubview(feelingView)
+        addSubview(feelingView)
     }
 }

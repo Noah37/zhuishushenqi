@@ -53,10 +53,10 @@ class ZSBookCTLayoutModel: NSObject {
         titleLabelHeight = titleTextHegiht
         
         displayViewHeight = data.height
-        if book.book._id == "" {
+        if book.book.cover == "" {
             bookBgViewHeight = 0
         }
-        totalHeight = nameLabelOriginY + nameLabelHeight + createLabelOriginY + createLabelHeight + titleLabelOriginY + titleLabelHeight + displayViewOriginY + displayViewHeight + bookBgViewOriginY + feelingViewHeight
+        totalHeight = nameLabelOriginY + nameLabelHeight + createLabelOriginY + createLabelHeight + titleLabelOriginY + titleLabelHeight + displayViewOriginY + displayViewHeight + bookBgViewOriginY + bookBgViewHeight + feelingViewOriginY + feelingViewHeight
     }
 
 }

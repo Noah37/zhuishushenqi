@@ -35,13 +35,13 @@ class ZSFeelingView: UIView {
         shareButton = QSToolButton(type: .custom)
         shareButton.setTitle("分享", for: .normal)
         shareButton.setImage(UIImage(named: "forum_share_icon"), for: .normal)
-        shareButton.frame = CGRect(x: 0, y: 10, width: self.bounds.width/3, height: self.bounds.height - 20)
+        shareButton.frame = CGRect(x: self.bounds.width/3, y: 10, width: self.bounds.width/3, height: self.bounds.height - 20)
         addSubview(shareButton)
         
         moreButton = QSToolButton(type: .custom)
         moreButton.setTitle("更多", for: .normal)
         moreButton.setImage(UIImage(named: "forum_more_icon"), for: .normal)
-        moreButton.frame = CGRect(x: 0, y: 10, width: self.bounds.width/3, height: self.bounds.height - 20)
+        moreButton.frame = CGRect(x: self.bounds.width*2/3, y: 10, width: self.bounds.width/3, height: self.bounds.height - 20)
         addSubview(moreButton)
         
         for index in 0..<2 {
