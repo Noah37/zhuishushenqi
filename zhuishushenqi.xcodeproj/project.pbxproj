@@ -17,6 +17,7 @@
 		3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */; };
 		3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */; };
 		3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */; };
+		3D252CE0219175FD0051B60D /* ZSDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D252CDF219175FC0051B60D /* ZSDatabase.swift */; };
 		3D2B4D0320EB616D008E3E81 /* ZSReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */; };
 		3D2B4D0520EB6552008E3E81 /* ZSNoneAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */; };
 		3D2B4D0720EB68AC008E3E81 /* ZSReaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */; };
@@ -468,6 +469,7 @@
 		3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderBaseViewController.swift; sourceTree = "<group>"; };
 		3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerViewController.swift; sourceTree = "<group>"; };
 		3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerCell.swift; sourceTree = "<group>"; };
+		3D252CDF219175FC0051B60D /* ZSDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDatabase.swift; sourceTree = "<group>"; };
 		3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSNoneAnimationViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderProtocol.swift; sourceTree = "<group>"; };
@@ -1375,6 +1377,7 @@
 				B2CA80EF21797EA2007A3EE7 /* ZSThirdLogin.swift */,
 				B29CFB6A217A3D8F0006F294 /* ZSLogin.swift */,
 				B2A7CD88218017380067D25B /* ZSMobileLogin.swift */,
+				3D252CDF219175FC0051B60D /* ZSDatabase.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -2906,6 +2909,7 @@
 				3DDEEB02214B5D59003D12DB /* UIFont+ZSExtension.m in Sources */,
 				3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */,
 				B278AA8D1F395F30000A0D55 /* ReadHistoryViewController.swift in Sources */,
+				3D252CE0219175FD0051B60D /* ZSDatabase.swift in Sources */,
 				B2C0DF6D20D4CB350057DC84 /* QSCommunityProtocols.swift in Sources */,
 				B2ACA06A212915240032305E /* ZSReviewsCell.swift in Sources */,
 				B2C0DF3020D4CB350057DC84 /* QSBookList.swift in Sources */,

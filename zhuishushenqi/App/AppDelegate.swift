@@ -73,8 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IFlySetting.setLogFilePath(paths)
 //        let appid = "5ba0b197"
         let xfyj = "5445f87d"
-        let zssq = "566551f4"
-        //        let xfyj2 = "591a4d99"
+//        let zssq = "566551f4"
+//        let xfyj2 = "591a4d99"
         let initString = "appid=\(xfyj)"
         IFlySpeechUtility.createUtility(initString)
         
@@ -88,6 +88,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         WeiboSDK.enableDebugMode(true)
         WeiboSDK.registerApp(ZSThirdLogin.WBAppID)
+        
+        // database
+        let database = ZSDatabase()
+        database.createBookshelf()
+        if let book = ZSBookManager.shared.books.allValues().first as? BookDetail {
+            database.insertBookshelf(book: book)
+        }
+        let books = database.queryBookshelf()
+        QSLog("books:\(books)")
         return true
     }
     

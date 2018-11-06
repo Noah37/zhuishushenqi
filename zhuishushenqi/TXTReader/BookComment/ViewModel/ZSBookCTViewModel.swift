@@ -73,7 +73,8 @@ class ZSBookCTViewModel:NSObject,ZSRefreshProtocol {
     
     func parseData() {
         if let detailModel = self.detail {
-            config.width = ScreenWidth - 16
+            config.width = ScreenWidth - 40
+            config.textColor = UIColor.gray
             if let data = CTFrameParser.parseString(detailModel.content, config: config) {
                 let layout = ZSBookCTLayoutModel(book: detailModel, data: data)
                 self.layout = layout

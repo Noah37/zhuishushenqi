@@ -101,7 +101,7 @@ static CGFloat widthCallback(void* ref){
                                        @"color":@"black",
                                        @"content":text
                                        };
-            NSAttributedString *as = [self parseAttributedContentFromNSDictionary:textDict config:config];
+            NSAttributedString *as = [self parseOnlyContentFromNSDictionary:textDict config:config];
             [attributeString appendAttributedString:as];
         }
         //2.处理图片
@@ -302,6 +302,32 @@ static CGFloat widthCallback(void* ref){
     // set font size
     CGFloat fontSize = [dict[@"size"] floatValue];
     if (fontSize > 0) {
+        CTFontRef fontRef = CTFontCreateWithName((CFStringRef)@"ArialMT", fontSize, NULL);
+        attributes[(id)kCTFontAttributeName] = (__bridge id)fontRef;
+        CFRelease(fontRef);
+    }
+    NSString *content = dict[@"content"];
+    return [[NSAttributedString alloc] initWithString:content attributes:attributes];
+}
+
++ (NSAttributedString *)parseOnlyContentFromNSDictionary:(NSDictionary *)dict
+                                                        config:(CTFrameParserConfig*)config {
+    NSMutableDictionary *attributes = [self attributesWithConfig:config];
+    // set color
+    UIColor *color = [self colorFromTemplate:dict[@"color"]];
+    if (config.textColor) {
+        color = config.textColor;
+    }
+    if (color) {
+        attributes[(id)kCTForegroundColorAttributeName] = (id)color.CGColor;
+    }
+    // set font size
+    CGFloat fontSize = [dict[@"size"] floatValue];
+    if (config.textFont) {
+        CTFontRef fontRef = CTFontCreateWithName((CFStringRef)config.textFont.fontName, fontSize, NULL);
+        attributes[(id)kCTFontAttributeName] = (__bridge id)fontRef;
+        CFRelease(fontRef);
+    } else if (fontSize > 0) {
         CTFontRef fontRef = CTFontCreateWithName((CFStringRef)@"ArialMT", fontSize, NULL);
         attributes[(id)kCTFontAttributeName] = (__bridge id)fontRef;
         CFRelease(fontRef);

@@ -14,6 +14,7 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
     internal var refreshStatus: Variable<ZSRefreshStatus> = Variable(.none)
     
     var localBooks:[String] = []
+    let database = ZSDatabase()
     // 网络书籍
     var books:[String:BookDetail] {
         get {
@@ -34,6 +35,8 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
     }
     
     var bookshelfBooks:[ZSUserBookshelf] = []
+    
+    var bookshelfs:[BookDetail] = []
     
     fileprivate let shelvesWebService = ZSShelfWebService()
     fileprivate let disposeBag = DisposeBag()
@@ -56,6 +59,10 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
             .subscribe(onNext: { (noti) in
                 // 更新内存中books的值与archive中的值
                 if let book = noti.object as? BookDetail {
+                    let result = self.database.insertBookshelf(book: book)
+                    if result {
+                        
+                    }
                     if !self.existBook(id: book._id) {
                         self.books[book._id] = book
                         self.booksID.append(book._id)
@@ -75,6 +82,14 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
         }
     }
     
+    func fetchBooks() ->[BookDetail] {
+        if bookshelfs.count > 0 {
+            return bookshelfs
+        }
+        let books = database.queryBookshelf()
+        return books
+    }
+    
     func existBook(id:String) -> Bool {
         var exist = false
         for item in self.booksID {
@@ -92,6 +107,9 @@ extension ZSShelfViewModel {
         if booksID.count > 0 {
             shelvesWebService.fetchShelvesUpdate(for: booksID) { (updateInfo) in
                 if let info = updateInfo {
+                    for update in info {
+                        self.database.updateInfo(updateInfo: update)
+                    }
                     self.refreshStatus.value = .headerRefreshEnd
                     ZSBookManager.shared.update(updateInfo: info)
 //                    BookManager.shared.updateInfoUpdate(updateInfo: info)
