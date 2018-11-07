@@ -25,6 +25,8 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     var bestHeaderView:ZSBookCommentHelpfulHeaderView?
     var writeCommentButton:UIButton!
     
+    var postView:ZSWriteReview!
+    
     var disposeBag = DisposeBag()
     
     let helpfulHeaderViewTag = 11240
@@ -86,7 +88,7 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
         bestHeaderView?.titleLabel.text = "神评论"
         
         writeCommentButton = UIButton(type: .custom)
-        writeCommentButton.frame = CGRect(x: 0, y: self.view.bounds.height - 50, width: self.view.bounds.width, height: 50)
+        writeCommentButton.frame = CGRect(x: 0, y: UIScreen.main.bounds.height - 50, width: self.view.bounds.width, height: 50)
         writeCommentButton.backgroundColor = UIColor.red
         writeCommentButton.setTitle("写评论", for: .normal)
         writeCommentButton.setTitleColor(UIColor.white, for: .normal)
@@ -94,7 +96,18 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
         writeCommentButton.isHidden = true
         KeyWindow?.addSubview(writeCommentButton)
 
-        
+        postView = ZSWriteReview(frame: UIScreen.main.bounds)
+        postView.postHandler = { text in
+            self.view.showProgress()
+            self.viewModel.fetchPost(token: ZSLogin.share.token, content: text) { (json) in
+                self.view.hideProgress()
+                if json?["ok"] as? Bool == true {
+                    self.view.showTip(tip: "评论成功")
+                } else {
+                    self.view.showTip(tip: "评论失败")
+                }
+            }
+        }
         let header = initRefreshHeader(tableView) {
             self.viewModel.fetchCommentDetail(handler: { (detail) in
                 self.tableView.reloadData()
@@ -130,13 +143,8 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     @objc
     func writeComment(btn:UIButton) {
         if ZSLogin.share.hasLogin() {
-            viewModel.fetchPost(token: ZSLogin.share.token, content: "") { (json) in
-                if json?["ok"] as? Bool == true {
-                    self.view.showTip(tip: "评论成功")
-                } else {
-                    self.view.showTip(tip: "评论失败")
-                }
-            }
+            KeyWindow?.addSubview(postView)
+            postView.textView.becomeFirstResponder()
         } else {
             self.view.showTip(tip: "请先登录")
         }

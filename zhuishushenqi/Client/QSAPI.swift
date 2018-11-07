@@ -248,7 +248,7 @@ extension QSAPI:TargetType{
             break
         case let .reviewPost(_,id,_):
             //        https://api.zhuishushenqi.com/post/review/5be2ac16f6459891448e9b46/comment
-            pathComponent = "/post/review/\(id)/"
+            pathComponent = "/post/review/\(id)/comment"
             break
         default:
             break
