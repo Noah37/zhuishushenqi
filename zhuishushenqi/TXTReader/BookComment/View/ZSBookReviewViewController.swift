@@ -28,8 +28,7 @@ class ZSBookReviewDetailViewController: BaseViewController, UIScrollViewDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupSubviews()
+        
     }
     
     private func setupSubviews() {
@@ -42,23 +41,24 @@ class ZSBookReviewDetailViewController: BaseViewController, UIScrollViewDelegate
         detailView = ZSReviewDetailView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 0))
         scrollView.addSubview(detailView)
         
-        bestReviewView = ZSBestReviewView(frame:CGRect.zero)
+        bestReviewView = ZSBestReviewView(frame:CGRect(x: 0, y: self.detailView.frame.maxY, width: self.view.bounds.width, height: 0))
         bestReviewView.backgroundColor = UIColor.red
         scrollView.addSubview(bestReviewView)
         
-        normalReviewView = ZSBestReviewView(frame:CGRect.zero)
+        normalReviewView = ZSBestReviewView(frame:CGRect(x: 0, y: self.bestReviewView.frame.maxY, width: self.view.bounds.width, height: 0))
         normalReviewView.backgroundColor = UIColor.green
         scrollView.addSubview(normalReviewView)
         
         let header = initRefreshHeader(scrollView) {
             self.viewModel.fetchCommentDetail(handler: { (detail) in
+                self.setupSubviews()
                 self.zs_layoutSubviews()
             })
             self.viewModel.fetchNewNormal(handler: { (normals) in
-                
+                self.normalReviewView.models = normals
             })
             self.viewModel.fetchCommentBest(handler: { (best) in
-                
+                self.bestReviewView.models = best
             })
         }
         let footer = initRefreshFooter(scrollView) {

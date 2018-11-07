@@ -28,20 +28,26 @@ class ZSFeelingView: UIView {
     func setupSubviews() {
         approvalButton = QSToolButton(type: .custom)
         approvalButton.setTitle("同感", for: .normal)
+        approvalButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        approvalButton.setTitleColor(UIColor.gray, for: .normal)
         approvalButton.setImage(UIImage(named: "forum_like_icon"), for: .normal)
-        approvalButton.frame = CGRect(x: 0, y: 10, width: self.bounds.width/3, height: self.bounds.height - 20)
+        approvalButton.frame = CGRect(x: 0, y: 0, width: self.bounds.width/3, height: self.bounds.height)
         addSubview(approvalButton)
         
         shareButton = QSToolButton(type: .custom)
         shareButton.setTitle("分享", for: .normal)
+        shareButton.setTitleColor(UIColor.gray, for: .normal)
+        shareButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         shareButton.setImage(UIImage(named: "forum_share_icon"), for: .normal)
-        shareButton.frame = CGRect(x: self.bounds.width/3, y: 10, width: self.bounds.width/3, height: self.bounds.height - 20)
+        shareButton.frame = CGRect(x: self.bounds.width/3, y: 0, width: self.bounds.width/3, height: self.bounds.height)
         addSubview(shareButton)
         
         moreButton = QSToolButton(type: .custom)
         moreButton.setTitle("更多", for: .normal)
+        moreButton.setTitleColor(UIColor.gray, for: .normal)
+        moreButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         moreButton.setImage(UIImage(named: "forum_more_icon"), for: .normal)
-        moreButton.frame = CGRect(x: self.bounds.width*2/3, y: 10, width: self.bounds.width/3, height: self.bounds.height - 20)
+        moreButton.frame = CGRect(x: self.bounds.width*2/3, y: 0, width: self.bounds.width/3, height: self.bounds.height)
         addSubview(moreButton)
         
         for index in 0..<2 {

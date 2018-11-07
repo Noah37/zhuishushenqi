@@ -106,6 +106,8 @@ enum QSAPI {
     case judgeSignIn(token:String)
     ///签到领金币
     case signIn(token:String,activityId:String,version:String,type:String)
+    ///编写评论
+    case reviewPost(token:String,id:String,content:String)
 }
 
 extension QSAPI:TargetType{
@@ -244,6 +246,10 @@ extension QSAPI:TargetType{
         case .signIn(_, _, _, _):
             pathComponent = "/user/signIn"
             break
+        case let .reviewPost(_,id,_):
+            //        https://api.zhuishushenqi.com/post/review/5be2ac16f6459891448e9b46/comment
+            pathComponent = "/post/review/\(id)/"
+            break
         default:
             break
         }
@@ -341,6 +347,9 @@ extension QSAPI:TargetType{
                     "activityId": activityId,
                     "version": version,
                     "type": type]
+        case let .reviewPost(token, _, content):
+            return ["token":token,
+                    "content":content]
         default:
             return nil
         }

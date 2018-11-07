@@ -189,12 +189,35 @@ static CGFloat widthCallback(void* ref){
             linkData.linkTo = @"search";
             [linkArray addObject:linkData];
         }
+        // 如果后续
         lastRange = *capturedRanges;
     }];
     if (exist) {
+        // 还需要添加最后的文本
+        if (lastRange.location + lastRange.length < string.length) {
+            NSString *lastString = [string substringFromIndex:lastRange.location + lastRange.length];
+            NSDictionary *textDict = @{@"size":@"13",
+                                       @"type":@"txt",
+                                       @"color":@"black",
+                                       @"content":lastString
+                                       };
+            NSAttributedString *as = [self parseOnlyContentFromNSDictionary:textDict config:config];
+            [attributeString appendAttributedString:as];
+        }
         return  attributeString;
     } else {
-        NSAttributedString *attr = [[NSAttributedString alloc] initWithString:string];
+        UIColor *textColor = [UIColor blackColor];
+        UIFont *textFont = [UIFont systemFontOfSize:15];
+        if (config.textColor) {
+            textColor = config.textColor;
+        }
+        if (config.textFont) {
+            textFont = config.textFont;
+        }
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
+        [attr addAttributes:@{NSForegroundColorAttributeName:textColor,
+                              NSFontAttributeName:textFont
+                              } range:NSMakeRange(0, attr.length)];
         [attributeString appendAttributedString:attr];
     }
     return attributeString;
@@ -324,7 +347,7 @@ static CGFloat widthCallback(void* ref){
     // set font size
     CGFloat fontSize = [dict[@"size"] floatValue];
     if (config.textFont) {
-        CTFontRef fontRef = CTFontCreateWithName((CFStringRef)config.textFont.fontName, fontSize, NULL);
+        CTFontRef fontRef = CTFontCreateWithName((CFStringRef)config.textFont.fontName, config.fontSize, NULL);
         attributes[(id)kCTFontAttributeName] = (__bridge id)fontRef;
         CFRelease(fontRef);
     } else if (fontSize > 0) {

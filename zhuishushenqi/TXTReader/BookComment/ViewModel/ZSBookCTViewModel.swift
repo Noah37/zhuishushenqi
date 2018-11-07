@@ -71,10 +71,18 @@ class ZSBookCTViewModel:NSObject,ZSRefreshProtocol {
         }
     }
     
+    func fetchPost(token:String,content:String, handler:@escaping ZSBaseCallback<[String:Any]>) {
+        let api = QSAPI.reviewPost(token: ZSLogin.share.token, id: detail?._id ?? "", content: content)
+        zs_post(api.path, parameters: api.parameters) { (json) in
+            handler(json)
+        }
+    }
+    
     func parseData() {
         if let detailModel = self.detail {
             config.width = ScreenWidth - 40
             config.textColor = UIColor.gray
+            config.textFont = UIFont.systemFont(ofSize: 15)
             if let data = CTFrameParser.parseString(detailModel.content, config: config) {
                 let layout = ZSBookCTLayoutModel(book: detailModel, data: data)
                 self.layout = layout

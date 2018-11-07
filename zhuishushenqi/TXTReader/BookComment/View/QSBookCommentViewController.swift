@@ -18,7 +18,18 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     var headerRefresh:MJRefreshHeader?
     var footerRefresh:MJRefreshFooter?
     
+    var detailHeaderView:ZSReviewDetailView?
+    
+    var helpfulHeaderView:ZSBookCommentHelpfulHeaderView?
+    var normalHeaderView:ZSBookCommentHelpfulHeaderView?
+    var bestHeaderView:ZSBookCommentHelpfulHeaderView?
+    var writeCommentButton:UIButton!
+    
     var disposeBag = DisposeBag()
+    
+    let helpfulHeaderViewTag = 11240
+    let normalCommentHeaderViewTag = 11241
+    let bestCommentHeaderViewTag = 11242
     
     override init(style: UITableView.Style) {
         super.init(style: .grouped)
@@ -39,6 +50,11 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
         super.viewWillAppear(animated)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        writeCommentButton.removeFromSuperview()
+    }
+    
     func addObserver(){
 //        extern NSString *const CTDisplayViewImagePressedNotification;
 //        extern NSString *const CTDisplayViewLinkPressedNotification;
@@ -55,6 +71,29 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
         tableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         tableView.estimatedRowHeight = 180
         tableView.rowHeight = UITableView.automaticDimension
+        
+        detailHeaderView = ZSReviewDetailView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: viewModel.layout?.totalHeight ?? 0))
+        detailHeaderView?.backgroundColor = UIColor.white
+        detailHeaderView?.gotoBookHandler = { id in
+            self.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: id), animated: true) 
+        }
+        
+        helpfulHeaderView = ZSBookCommentHelpfulHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
+        helpfulHeaderView?.titleLabel.text = "这个书评对你是否有用"
+        normalHeaderView = ZSBookCommentHelpfulHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
+        normalHeaderView?.titleLabel.text = "0条评论"
+        bestHeaderView = ZSBookCommentHelpfulHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
+        bestHeaderView?.titleLabel.text = "神评论"
+        
+        writeCommentButton = UIButton(type: .custom)
+        writeCommentButton.frame = CGRect(x: 0, y: self.view.bounds.height - 50, width: self.view.bounds.width, height: 50)
+        writeCommentButton.backgroundColor = UIColor.red
+        writeCommentButton.setTitle("写评论", for: .normal)
+        writeCommentButton.setTitleColor(UIColor.white, for: .normal)
+        writeCommentButton.addTarget(self, action: #selector(writeComment(btn:)), for: .touchUpInside)
+        writeCommentButton.isHidden = true
+        KeyWindow?.addSubview(writeCommentButton)
+
         
         let header = initRefreshHeader(tableView) {
             self.viewModel.fetchCommentDetail(handler: { (detail) in
@@ -89,6 +128,21 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     }
     
     @objc
+    func writeComment(btn:UIButton) {
+        if ZSLogin.share.hasLogin() {
+            viewModel.fetchPost(token: ZSLogin.share.token, content: "") { (json) in
+                if json?["ok"] as? Bool == true {
+                    self.view.showTip(tip: "评论成功")
+                } else {
+                    self.view.showTip(tip: "评论失败")
+                }
+            }
+        } else {
+            self.view.showTip(tip: "请先登录")
+        }
+    }
+    
+    @objc
     func handleClick(noti:[String:Any]){
         if let linkData = noti["linkData"] as? CoreTextLinkData {
             if let comment = viewModel.linkURL(linkData: linkData) as? BookComment {
@@ -114,29 +168,55 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     
     //MARK: - UITableViewDataSource
     override func numberOfSections(in tableView: UITableView) -> Int {
-        var sections = 2
-        if let _ = viewModel.best {
+        var sections = 0
+        if let detail = viewModel.detail {
+            normalHeaderView?.titleLabel.text = "\(detail.commentCount)条评论"
             sections += 1
         }
-        if let _ = viewModel.normal {
+        
+        if (viewModel.detail?.helpful.total ?? 0) != 0 {
             sections += 1
+        }
+        if let best = viewModel.best {
+            if best.count > 0 {
+                sections += 1
+            }
+        }
+        if let normal = viewModel.normal {
+            if normal.count > 0 {
+                sections += 1
+            }
         }
         return sections
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 0
-        } else if section == 1 {
-            return 1
-        } else if section == 2 {
-            if let best = viewModel.best {
-                return best.count
-            } else if let normal = viewModel.normal {
-                return normal.count
+        var sections = 0
+        if let _ = viewModel.detail {
+            sections += 1
+            if section == (sections - 1) {
+                return 0
             }
-        } else if section == 3 {
-            if let normal = viewModel.normal {
+        }
+        if (viewModel.detail?.helpful.total ?? 0) != 0 {
+            sections += 1
+            if section == (sections - 1) {
+                return 1
+            }
+        }
+        if let best = viewModel.best {
+            if best.count > 0 {
+                sections += 1
+            }
+            if section == (sections - 1) {
+                return best.count
+            }
+        }
+        if let normal = viewModel.normal {
+            if normal.count > 0 {
+                sections += 1
+            }
+            if section == (sections - 1) {
                 return normal.count
             }
         }
@@ -144,57 +224,46 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-//        if indexPath.section == 0 {
-//            let cell:BookCommentCell? = tableView.qs_dequeueReusableCell(BookCommentCell.self)
-//            cell?.backgroundColor = UIColor.white
-//            if let dt = viewModel.data {
-//                cell?.data = dt
-//            }
-//            cell?.selectionStyle = .none
-//            cell?.handler = { data in
-//                if let dict = data as? [String:Any] {
-//                    self.handleClick(noti: dict)
-//                }
-//            }
-//            if let detail = viewModel.detail {
-//                cell?.model = detail
-//            }
-//            return cell!
-//        } else
-        if indexPath.section == 1 {
-            let cell:UserfulCell? = tableView.qs_dequeueReusableCell(UserfulCell.self)
-            cell?.backgroundColor = UIColor.white
-            cell?.selectionStyle = .none
-            cell?.model = viewModel.detail
-            return cell!
+        var sections = 0
+        
+        if let _ = viewModel.detail {
+            writeCommentButton.isHidden = false
+            sections += 1
         }
-        else {
-            if indexPath.section == 2 {
-                if let best = viewModel.best {
-                    let cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
-                    cell?.backgroundColor = UIColor.white
-                    cell?.selectionStyle = .none
-                    cell?.type = .magical
-                    cell?.bind(book: best[indexPath.row])
-                    return cell!
-                } else if let normal = viewModel.normal {
-                    let cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
-                    cell?.backgroundColor = UIColor.white
-                    cell?.selectionStyle = .none
-                    cell?.type = .normal
-                    cell?.bind(book: normal[indexPath.row])
-                    return cell!
-                }
-            } else if indexPath.section == 3 {
-                if let normal = viewModel.normal {
-                    let cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
-                    cell?.backgroundColor = UIColor.white
-                    cell?.selectionStyle = .none
-                    cell?.type = .normal
-                    cell?.bind(book: normal[indexPath.row])
-                    return cell!
-                }
+        if (viewModel.detail?.helpful.total ?? 0) != 0{
+            sections += 1
+            if indexPath.section == (sections - 1) {
+                let cell:UserfulCell? = tableView.qs_dequeueReusableCell(UserfulCell.self)
+                cell?.backgroundColor = UIColor.white
+                cell?.selectionStyle = .none
+                cell?.model = viewModel.detail
+                return cell!
+            }
+        }
+        if let best = viewModel.best {
+            if best.count > 0 {
+                sections += 1
+            }
+            if indexPath.section == (sections - 1) {
+                let cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
+                cell?.backgroundColor = UIColor.white
+                cell?.selectionStyle = .none
+                cell?.type = .magical
+                cell?.bind(book: best[indexPath.row])
+                return cell!
+            }
+        }
+        if let normal = viewModel.normal {
+            if normal.count > 0 {
+                sections += 1
+            }
+            if indexPath.section == (sections - 1) {
+                let cell:BookCommentViewCell? = tableView.qs_dequeueReusableCell(BookCommentViewCell.self)
+                cell?.backgroundColor = UIColor.white
+                cell?.selectionStyle = .none
+                cell?.type = .normal
+                cell?.bind(book: normal[indexPath.row])
+                return cell!
             }
         }
         return UITableViewCell(frame: CGRect.zero)
@@ -202,44 +271,92 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            if let dt = viewModel.data {
-                return dt.height
+            if let _ = viewModel.detail {
+                return viewModel.layout?.totalHeight ?? 0
             }
-            return BookCommentCell.totalCellHeight
-        } else
-            if indexPath.section == 1 {
-            return 91
+            return 0
+        } else {
+            if (viewModel.detail?.helpful.total ?? 0) != 0 {
+                return 91
+            }
         }
         return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section > 0 {
-            return tableView.sectionHeaderHeight
+        var sections = 0
+        if let detail = viewModel.detail {
+            sections += 1
+            if section == (sections - 1) {
+                if let data = viewModel.data {
+                    if viewModel.layout == nil {
+                        viewModel.layout = ZSBookCTLayoutModel(book: detail, data: data)
+                    } else {
+                        viewModel.layout?.setupLayout(book: detail, data: data)
+                    }
+                    detailHeaderView?.setupDetail(detail: detail, data: data)
+                    
+                }
+                return viewModel.layout?.totalHeight ?? 0
+            }
         }
-        return CGFloat.leastNonzeroMagnitude
+        return tableView.sectionHeaderHeight
         
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section > 0 {
-            var titles = ["这个书评是否对你有用"]
-            if let _ = viewModel.best {
-                titles.append("仰望神评论")
+        var sections = 0
+        if let _ = viewModel.detail {
+            sections += 1
+            if section == (sections - 1) {
+                return detailHeaderView
             }
-            if let _ = viewModel.normal {
-                titles.append("\(self.viewModel.detail?.commentCount ?? 0)条评论")
+        }
+        if (viewModel.detail?.helpful.total ?? 0) != 0 {
+            sections += 1
+            if section == (sections - 1) {
+                return helpfulHeaderView
             }
-            let headerView = UIView()
-            let headerLabel = UILabel()
-            headerLabel.frame = CGRect(x: 15, y: 30, width: self.view.bounds.width - 30, height: 30)
-            headerLabel.text = titles[section - 1]
-            headerLabel.textColor = UIColor.darkGray
-            headerLabel.font = UIFont.systemFont(ofSize: 13)
-            headerView.addSubview(headerLabel)
-            return headerView
+        }
+        if let best = viewModel.best {
+            if best.count > 0 {
+                sections += 1
+            }
+            if section == (sections - 1) {
+                return bestHeaderView
+            }
+        }
+        if let normal = viewModel.normal {
+            if normal.count > 0 {
+                sections += 1
+            }
+            if section == (sections - 1) {
+                return normalHeaderView
+            }
         }
         return nil
+    }
+}
+
+class ZSBookCommentHelpfulHeaderView:UIView {
+    
+    var titleLabel:UILabel!
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupSubviews() {
+        titleLabel = UILabel()
+        titleLabel.frame = CGRect(x: 15, y: 30, width: self.bounds.width - 30, height: 30)
+        titleLabel.textColor = UIColor.darkGray
+        titleLabel.font = UIFont.systemFont(ofSize: 13)
+        addSubview(titleLabel)
     }
 }
 
@@ -339,40 +456,6 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
             return 91
         }else {
             return UITableView.automaticDimension
-//            var height:CGFloat = 130
-//            if (hotComments?.count ?? 0) > 0 {
-//                if indexPath.section == 2 {
-//                    if let model = self.hotComments?[indexPath.row] {
-//                        height = BookCommentViewCell.cellHeight(model: model)
-//                    }
-//                }else{
-//                    if let model = self.normalComments?[indexPath.row] {
-//                        height = BookCommentViewCell.cellHeight(model: model)
-//                    }
-//                }
-//            }else {
-//                if let model = self.normalComments?[indexPath.row]{
-//                    height = BookCommentViewCell.cellHeight(model: model)
-//                }
-//            }
-//            return height
-//            var height:CGFloat = 130
-//            if (hotComments?.count ?? 0) > 0 {
-//                if indexPath.section == 2 {
-//                    if let model = self.hotComments?[indexPath.row] {
-//                        height = BookCommentViewCell.cellHeight(model: model)
-//                    }
-//                }else{
-//                    if let model = self.normalComments?[indexPath.row] {
-//                        height = BookCommentViewCell.cellHeight(model: model)
-//                    }
-//                }
-//            }else {
-//                if let model = self.normalComments?[indexPath.row]{
-//                    height = BookCommentViewCell.cellHeight(model: model)
-//                }
-//            }
-//            return height
         }
     }
     
@@ -388,17 +471,18 @@ class QSBookCommentViewController: BaseViewController,UITableViewDataSource,UITa
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section > 0 {
-            let headerTitles = ["这个书评是否对你有用","仰望神评论","\(self.detail?.commentCount ?? 0)条评论"]
-            let headerView = UIView()
-            let headerLabel = UILabel()
-            headerLabel.frame = CGRect(x: 15, y: 30, width: self.view.bounds.width - 30, height: 30)
-            headerLabel.text = headerTitles[section - 1]
-            headerLabel.textColor = UIColor.darkGray
-            headerLabel.font = UIFont.systemFont(ofSize: 13)
-            headerView.addSubview(headerLabel)
-            return headerView
-        }
+        
+//        if section > 0 {
+//            let headerTitles = ["这个书评是否对你有用","仰望神评论","\(self.detail?.commentCount ?? 0)条评论"]
+//            let headerView = UIView()
+//            let headerLabel = UILabel()
+//            headerLabel.frame = CGRect(x: 15, y: 30, width: self.view.bounds.width - 30, height: 30)
+//            headerLabel.text = headerTitles[section - 1]
+//            headerLabel.textColor = UIColor.darkGray
+//            headerLabel.font = UIFont.systemFont(ofSize: 13)
+//            headerView.addSubview(headerLabel)
+//            return headerView
+//        }
         return nil
     }
     

@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias ZSReviewDetailHandler = (_ id:String )->Void
+
 class ZSReviewDetailView: UIView {
     
     private var iconView:UIImageView!
@@ -21,9 +23,14 @@ class ZSReviewDetailView: UIView {
     private var bookTitleLabel:UILabel!
     private var rateLabel:UILabel!
     private var rateStarView:RateView!
+    private var gotoBookButton:UIButton!
     private var feelingView:ZSFeelingView!
     
     var detail:BookComment?
+    
+    var gotoBookHandler:ZSReviewDetailHandler?
+    
+    private var bookBgViewHeight:CGFloat = 74
     
     private let defaultTime = "2014-02-23T16:48:18.179Z"
     
@@ -37,6 +44,7 @@ class ZSReviewDetailView: UIView {
     }
     
     func setupDetail(detail:BookComment, data:CoreTextData) {
+        self.detail = detail
         let created = detail.created
         self.createLabel.qs_setCreateTime(createTime: created,append: "")
         nameLabel.text = "\(detail.author.nickname) lv.\(detail.author.lv)"
@@ -48,16 +56,9 @@ class ZSReviewDetailView: UIView {
             let cover = "\(detail.book.cover)"
             self.bookIconView.qs_setBookCoverWithURLString(urlString: cover)
             rateStarView.rate = detail.rating
-            rateStarView.height = 10
-            bookTitleLabel.height = 27
-            rateLabel.height = 27
-            bookIconView.height = 54
+            bookBgViewHeight = 74
         } else {
-            bookBgView.height = 0
-            rateStarView.height = 0
-            bookTitleLabel.height = 0
-            rateLabel.height = 0
-            bookIconView.height = 0
+            bookBgViewHeight = 0
         }
         displayView.data = data
         displayView.height = data.height
@@ -67,13 +68,22 @@ class ZSReviewDetailView: UIView {
         layoutSubview()
     }
     
+    @objc
+    private func gotoBookAction(btn:UIButton) {
+        if let id = detail?.book._id {
+            gotoBookHandler?(id)
+        }
+    }
+    
     private func layoutSubview() {
         
         displayView.origin.y = self.titleLabel.frame.maxY + 10
         bookBgView.origin.y = self.displayView.frame.maxY + 20
-        bookTitleLabel.frame = CGRect(x: self.bookIconView.frame.maxX + 10, y: 10, width: self.bookBgView.bounds.width - (self.bookIconView.frame.maxX + 10) - 20, height: 27)
+        bookBgView.height = bookBgViewHeight
+        if bookBgViewHeight == 0 {
+            bookBgView.isHidden = true
+        }
         feelingView.frame = CGRect(x: 20, y: self.bookBgView.frame.maxY, width: self.bounds.width - 40 , height: 70)
-
     }
     
     private func setupSubviews() {
@@ -107,27 +117,33 @@ class ZSReviewDetailView: UIView {
         displayView.backgroundColor = UIColor.clear
         addSubview(displayView)
         
-        bookBgView = UIView(frame: CGRect(x: 20, y: self.displayView.frame.maxY + 10, width: self.bounds.width - 40, height: 74))
-        bookBgView.backgroundColor = UIColor.gray
+        bookBgView = UIView(frame: CGRect(x: 20, y: self.displayView.frame.maxY + 10, width: self.bounds.width - 40, height: bookBgViewHeight))
+        bookBgView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
         addSubview(bookBgView)
         
         bookIconView = UIImageView(frame: CGRect(x: 10, y: self.bookBgView.bounds.height/2 - 54/2, width: 36, height: 54))
         bookBgView.addSubview(bookIconView)
         
-        bookTitleLabel = UILabel(frame: CGRect(x: self.bookIconView.frame.maxX + 10, y: 10, width: self.bookBgView.bounds.width - (self.bookIconView.frame.maxX + 10) - 20, height: 0))
+        bookTitleLabel = UILabel(frame: CGRect(x: self.bookIconView.frame.maxX + 10, y: 10, width: self.bookBgView.bounds.width - (self.bookIconView.frame.maxX + 10) - 20, height: 27))
         bookTitleLabel.textColor = UIColor.black
         bookTitleLabel.font = UIFont.systemFont(ofSize: 15)
         bookTitleLabel.textAlignment = .left
         bookBgView.addSubview(bookTitleLabel)
         
-        rateLabel = UILabel(frame: CGRect(x: self.bookIconView.frame.maxX + 10, y: self.bookTitleLabel.frame.maxY, width: 120, height: 0))
-        rateLabel.textColor = UIColor.white
+        rateLabel = UILabel(frame: CGRect(x: self.bookIconView.frame.maxX + 10, y: self.bookTitleLabel.frame.maxY, width: 60, height: 27))
+        rateLabel.textColor = UIColor.gray
         rateLabel.font = UIFont.systemFont(ofSize: 12)
         rateLabel.textAlignment = .left
         rateLabel.text = "楼主打分:"
         bookBgView.addSubview(rateLabel)
         
-        let lightRect = CGRect(x: rateLabel.frame.maxX , y: rateLabel.frame.minY + rateLabel.frame.height/2 - 10/2, width: 60, height: 0)
+        gotoBookButton = UIButton(type: .custom)
+        gotoBookButton.frame = CGRect(x: self.bookBgView.bounds.width - 36 - 20, y: bookBgViewHeight/2 - 36/2, width: 36, height: 36)
+        gotoBookButton.setImage(UIImage(named: "forum_book_entry"), for: .normal)
+        gotoBookButton.addTarget(self, action: #selector(gotoBookAction(btn:)), for: .touchUpInside)
+        bookBgView.addSubview(gotoBookButton)
+        
+        let lightRect = CGRect(x: rateLabel.frame.maxX , y: rateLabel.frame.minY + rateLabel.frame.height/2 - 10/2, width: 60, height: 10)
         rateStarView = RateView(frame: lightRect, darkImage: UIImage(named: "forum_gray_star"), lightImage: UIImage(named: "forum_red_star"))
         bookBgView.addSubview(rateStarView)
         
