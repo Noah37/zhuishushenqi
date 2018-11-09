@@ -187,6 +187,10 @@
 		B2583CBE1EA782C2004178F3 /* QSThemeTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB91EA782C2004178F3 /* QSThemeTopicViewController.swift */; };
 		B258BB241EA4B201006E5802 /* UIView+ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BB231EA4B201006E5802 /* UIView+ScreenShot.swift */; };
 		B25EB92A21933A6D000D3657 /* ZSWriteReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92921933A6D000D3657 /* ZSWriteReview.swift */; };
+		B25EB92C2194986C000D3657 /* ZSEncryptorAESUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92B2194986C000D3657 /* ZSEncryptorAESUtils.swift */; };
+		B25EB92F2194999E000D3657 /* FBEncryptorAESUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.m */; };
+		B25EB93221949AF1000D3657 /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = B25EB93121949AF1000D3657 /* FBEncryptorAES.m */; };
+		B25EB93521949C0F000D3657 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B25EB93421949C0F000D3657 /* NSData+Base64.m */; };
 		B26286CA1EEA46DD005A1A8A /* QSIntroducePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26286C91EEA46DD005A1A8A /* QSIntroducePage.swift */; };
 		B263ACDF1EE679830096CE80 /* HomeListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263ACDD1EE679830096CE80 /* HomeListViewCell.swift */; };
 		B263E2E9211EBFEC001819FB /* SQLite+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263E2E8211EBFEC001819FB /* SQLite+Extension.swift */; };
@@ -681,6 +685,13 @@
 		B2583CB91EA782C2004178F3 /* QSThemeTopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSThemeTopicViewController.swift; sourceTree = "<group>"; };
 		B258BB231EA4B201006E5802 /* UIView+ScreenShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ScreenShot.swift"; sourceTree = "<group>"; };
 		B25EB92921933A6D000D3657 /* ZSWriteReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWriteReview.swift; sourceTree = "<group>"; };
+		B25EB92B2194986C000D3657 /* ZSEncryptorAESUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSEncryptorAESUtils.swift; sourceTree = "<group>"; };
+		B25EB92D2194999E000D3657 /* FBEncryptorAESUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAESUtils.h; sourceTree = "<group>"; };
+		B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAESUtils.m; sourceTree = "<group>"; };
+		B25EB93021949AF1000D3657 /* FBEncryptorAES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAES.h; sourceTree = "<group>"; };
+		B25EB93121949AF1000D3657 /* FBEncryptorAES.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
+		B25EB93321949C0F000D3657 /* NSData+Base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		B25EB93421949C0F000D3657 /* NSData+Base64.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		B26286C91EEA46DD005A1A8A /* QSIntroducePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroducePage.swift; sourceTree = "<group>"; };
 		B263ACDD1EE679830096CE80 /* HomeListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeListViewCell.swift; sourceTree = "<group>"; };
 		B263E2E8211EBFEC001819FB /* SQLite+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQLite+Extension.swift"; sourceTree = "<group>"; };
@@ -1380,6 +1391,11 @@
 				B29CFB6A217A3D8F0006F294 /* ZSLogin.swift */,
 				B2A7CD88218017380067D25B /* ZSMobileLogin.swift */,
 				3D252CDF219175FC0051B60D /* ZSDatabase.swift */,
+				B25EB92B2194986C000D3657 /* ZSEncryptorAESUtils.swift */,
+				B25EB92D2194999E000D3657 /* FBEncryptorAESUtils.h */,
+				B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.m */,
+				B25EB93021949AF1000D3657 /* FBEncryptorAES.h */,
+				B25EB93121949AF1000D3657 /* FBEncryptorAES.m */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1625,6 +1641,8 @@
 				B2B4BA151E7EA4A8000CC201 /* DateIntervalFormatter+formatter.swift */,
 				B2B4BA161E7EA4A8000CC201 /* NSDate+Date.h */,
 				B2B4BA171E7EA4A8000CC201 /* NSDate+Date.m */,
+				B25EB93321949C0F000D3657 /* NSData+Base64.h */,
+				B25EB93421949C0F000D3657 /* NSData+Base64.m */,
 				B2B4BA181E7EA4A8000CC201 /* NSDate+Extension.h */,
 				B2B4BA191E7EA4A8000CC201 /* NSDate+Extension.m */,
 				3DDEEB00214B5D59003D12DB /* UIFont+ZSExtension.h */,
@@ -2778,6 +2796,7 @@
 				3D9325E620B2C44A0049CDBF /* ZSBaseTableViewManger.swift in Sources */,
 				3DDB6CA82130F4BC00E8698D /* CoreTextUtils.m in Sources */,
 				B2C0DF1C20D4CB350057DC84 /* QSTextRouter.swift in Sources */,
+				B25EB93521949C0F000D3657 /* NSData+Base64.m in Sources */,
 				B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */,
 				3D5671FC2174CADD0049B2FF /* ZSBookCTLayoutModel.swift in Sources */,
 				B2E072781F3AD99500C63347 /* Reader.swift in Sources */,
@@ -2825,6 +2844,7 @@
 				3D08F242212C2DC6007B3D19 /* ZSDiscussViewModel.swift in Sources */,
 				B2B02E481EA8920F00A6880A /* QSCategoryDetailViewController.swift in Sources */,
 				B2F778BC1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift in Sources */,
+				B25EB93221949AF1000D3657 /* FBEncryptorAES.m in Sources */,
 				3DDEEAF9214A8E3F003D12DB /* ZSFontViewController.swift in Sources */,
 				B25570891F3A96E500C35A34 /* BookManager.swift in Sources */,
 				3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */,
@@ -2867,6 +2887,7 @@
 				B2B02E551EA9A9F000A6880A /* QSCatalogProtocols.swift in Sources */,
 				B2B4BBF61E7EA4AB000CC201 /* NSDate+Extension.m in Sources */,
 				B2A7CD81217C5E5E0067D25B /* ZSUserBookshelf.swift in Sources */,
+				B25EB92F2194999E000D3657 /* FBEncryptorAESUtils.m in Sources */,
 				B252D493210EF3960091858E /* DDNumber.m in Sources */,
 				B27D7E961F4D1F8600866341 /* QSSegmentViewController.swift in Sources */,
 				B2FCAA8B1E9C82CE0064837C /* QSSearchItem.swift in Sources */,
@@ -2890,6 +2911,7 @@
 				B252D4E2211035060091858E /* ZSShelfViewModel.swift in Sources */,
 				B2A7CDEF218453DC0067D25B /* ZSBestReviewView.swift in Sources */,
 				B2B4BC2B1E7EA4AB000CC201 /* SwipableCell.swift in Sources */,
+				B25EB92C2194986C000D3657 /* ZSEncryptorAESUtils.swift in Sources */,
 				B2B02E441EA8920F00A6880A /* QSCategoryDetailInteractor.swift in Sources */,
 				B2B4BD7A1E7EE2B1000CC201 /* QSNetworkManager.swift in Sources */,
 				3D2B4D0320EB616D008E3E81 /* ZSReaderViewController.swift in Sources */,

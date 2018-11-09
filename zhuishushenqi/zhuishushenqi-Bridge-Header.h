@@ -33,6 +33,6 @@
 #import "WXApi.h"
 #import "WechatAuthSDK.h"
 #import "WeiboSDK.h"
-
+#import "FBEncryptorAESUtils.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */
