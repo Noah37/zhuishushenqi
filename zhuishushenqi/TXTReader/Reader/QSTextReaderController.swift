@@ -160,6 +160,12 @@ class QSTextReaderController: ZSReaderBaseViewController, IndicatableView {
         if viewModel.exsitLocal() {
             return
         }
+        if ZSLogin.share.hasLogin() {
+            // 获取所有已购章节的key,用于解密章节文字
+            viewModel.boughtInfo( token: ZSLogin.share.token) { (info) in
+                
+            }
+        }
         viewModel.fetchAllResource { resources in
             self.viewModel.fetchAllChapters({ (chapters) in
                 self.viewModel.fetchInitialChapter({ (page) in

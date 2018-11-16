@@ -25,8 +25,14 @@ class QSChapter: NSObject ,NSCoding{
     var link:String = "" //非vip来源没有id，只有link
     var title:String = ""// 章节标题
 
+    var isVip = 0
     //章节主要内容,下载多章节时，内存会爆掉，所以只在获取章节显示时才去计算
     var content:String = ""
+    
+    var order:Int = 0
+    var currency:Int = 0
+    // vip章节
+    var cpContent:String = ""
     //所有页面信息
     var pages:[QSPage] = [QSPage()]
 
@@ -41,17 +47,29 @@ class QSChapter: NSObject ,NSCoding{
         if self.ranges.count > 0 && self.ranges[0] != NSMakeRange(0, 0){
             return self.pages
         }
-        if !content.isEmpty {
+        var isZSSQSource:Bool = false
+        if id == "" {
+            if !content.isEmpty {
+                let size = QSReaderFrame
+                let attributes = QSReaderSetting.shared.attributes()
+                self.ranges = QSReaderParse.pageWithAttributes(attrubutes: attributes, constrainedToFrame: size, string: self.content)
+            }
+        } else {
+            isZSSQSource = true
             let size = QSReaderFrame
             let attributes = QSReaderSetting.shared.attributes()
-            self.ranges = QSReaderParse.pageWithAttributes(attrubutes: attributes, constrainedToFrame: size, string: self.content)
+            self.ranges = QSReaderParse.pageWithAttributes(attrubutes: attributes, constrainedToFrame: size, string: self.cpContent)
         }
         
         var pages:[QSPage] = []
         for item in 0..<ranges.count {
             let range:NSRange =  ranges[item]
             let page = QSPage()
-            page.content = (content as NSString).substring(with: range)
+            if isZSSQSource {
+                page.content = (cpContent as NSString).substring(with: range)
+            } else {
+                page.content = (content as NSString).substring(with: range)
+            }
             page.curPage = item
             page.curChapter = curChapter
             page.totalPages = ranges.count

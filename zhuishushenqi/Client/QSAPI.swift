@@ -108,6 +108,8 @@ enum QSAPI {
     case signIn(token:String,activityId:String,version:String,type:String)
     ///编写评论
     case reviewPost(token:String,id:String,content:String)
+    ///已购章节信息
+    case boughtChapters(id:String,token:String)
 }
 
 extension QSAPI:TargetType{
@@ -250,6 +252,10 @@ extension QSAPI:TargetType{
             //        https://api.zhuishushenqi.com/post/review/5be2ac16f6459891448e9b46/comment
             pathComponent = "/post/review/\(id)/comment"
             break
+        case let .boughtChapters(id,_):
+ //    https://api.zhuishushenqi.com/v2/purchase/book/5b10fd1b5d144d1b68581805/chapters/bought?token=rPcCW1GGh1hFPnSRJDjkwjtS
+            pathComponent = "/v2/purchase/book/\(id)/chapters/bought"
+            break
         default:
             break
         }
@@ -350,6 +356,9 @@ extension QSAPI:TargetType{
         case let .reviewPost(token, _, content):
             return ["token":token,
                     "content":content]
+        case let .boughtChapters(_, token):
+            return ["token":token,
+                    ]
         default:
             return nil
         }
@@ -357,3 +366,4 @@ extension QSAPI:TargetType{
 }
 
 //https://api.zhuishushenqi.com/v3/user/bookshelf?token=oRSd5bVUCpSunbwiKe5NOpOM
+//https://api.zhuishushenqi.com/v2/purchase/book/5b10fd1b5d144d1b68581805/chapters/bought?token=rPcCW1GGh1hFPnSRJDjkwjtS

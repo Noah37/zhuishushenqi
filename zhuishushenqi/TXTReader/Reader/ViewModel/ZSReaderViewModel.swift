@@ -12,6 +12,8 @@ class ZSReaderViewModel {
     
     var book:BookDetail?
     
+    var boughtInfo:ZSBoughtInfo?
+    
     var cachedChapter:[String:QSChapter] = [:]
     
     /// 默认缓存前后的章节数
@@ -62,6 +64,17 @@ class ZSReaderViewModel {
         //字体变小，页数变少,这里应该对所有的已缓存章节变更
         for (_, chapter) in cachedChapter {
             chapter.getPages()
+        }
+    }
+    
+    //MARK: - boughtINfo
+    func boughtInfo( token:String, _ callback:ZSBaseCallback<ZSBoughtInfo>?) {
+        let api = QSAPI.boughtChapters(id: book?._id ?? "", token: token)
+        zs_get(api.path, parameters: api.parameters) { (json) in
+            if let info = ZSBoughtInfo.deserialize(from: json) {
+                self.boughtInfo = info
+                callback?(info)
+            }
         }
     }
     
@@ -521,12 +534,12 @@ class ZSReaderViewModel {
         if let link = chapterModel?.link {
             qsChapter.link = link
             // 如果使用追书正版书源，取的字段应该是cpContent，需要根据当前选择的源进行判断
-            if chapterModel?.order == 1  {
-                qsChapter.content = body.cpContent
-                
-            } else {
-                qsChapter.content = body.body
-            }
+            qsChapter.isVip = chapterModel?.isVip ?? 0
+            qsChapter.order = chapterModel?.order ?? 0
+            qsChapter.currency = chapterModel?.currency ?? 0
+            qsChapter.cpContent = body.cpContent
+            qsChapter.id = body.id
+            qsChapter.content = body.body
             if let title = chapterModel?.title {
                 qsChapter.title = title
             }
