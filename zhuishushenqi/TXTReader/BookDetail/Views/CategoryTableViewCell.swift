@@ -47,6 +47,7 @@ class CategoryTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         tittle.textColor = UIColor.black
+        downloadBtn.setImage(nil, for: .normal)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
