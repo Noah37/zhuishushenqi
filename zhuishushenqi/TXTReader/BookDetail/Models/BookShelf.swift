@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
 @objc(BookShelf)
-class BookShelf: NSObject {
+class BookShelf: NSObject, HandyJSON {
     var _id:String?
     var title:String?
     var author:String?
@@ -17,7 +18,12 @@ class BookShelf: NSObject {
     var allowMonthly:Bool?
     var allowVoucher:Bool?
     var updated:String?
-    var chaptersCount:NSNumber?
+    var chaptersCount:Int?
     var lastChapter:String?
+    var referenceSource:String?
+    var readRecord:ZSReadRecord?
+    var modifyTime:String?
     
+    required override init() {}
 }
+

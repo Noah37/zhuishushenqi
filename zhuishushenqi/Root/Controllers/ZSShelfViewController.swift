@@ -183,8 +183,8 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
             }
             return viewModel.books.count
         }
-//        return viewModel.fetchBooks().count
-        return viewModel.books.count
+        return viewModel.fetchBooks().count
+//        return viewModel.books.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -200,12 +200,12 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                 cell.configureCell(model: item)
             }
         } else {
-//            let book = viewModel.fetchBooks()[indexPath.row]
-//            cell.configureCell(model: book)
-            let id = viewModel.booksID[indexPath.row]
-            if let item = viewModel.books[id]  {
-                cell.configureCell(model: item)
-            }
+            let book = viewModel.fetchBooks()[indexPath.row]
+            cell.configureCell(model: book)
+//            let id = viewModel.booksID[indexPath.row]
+//            if let item = viewModel.books[id]  {
+//                cell.configureCell(model: item)
+//            }
         }
         return cell
     }
@@ -272,18 +272,18 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                 return
             }
         }
-//        let books = viewModel.fetchBooks()
-//        let viewController = ZSReaderViewController()
-//        viewController.viewModel.book = books[indexPath.row]
-//        self.present(viewController, animated: true, completion: nil)
-//        self.tableView.reloadRow(at: indexPath, with: .automatic)
-        let books = self.viewModel.books
-        if let model =  books[viewModel.booksID[indexPath.row]] {
-            let viewController = ZSReaderViewController()
-            viewController.viewModel.book = model
-            self.present(viewController, animated: true, completion: nil)
-            self.tableView.reloadRow(at: indexPath, with: .automatic)
-        }
+        let books = viewModel.fetchBooks()
+        let viewController = ZSReaderViewController()
+        viewController.viewModel.book = books[indexPath.row]
+        self.present(viewController, animated: true, completion: nil)
+        self.tableView.reloadRow(at: indexPath, with: .automatic)
+//        let books = self.viewModel.books
+//        if let model =  books[viewModel.booksID[indexPath.row]] {
+//            let viewController = ZSReaderViewController()
+//            viewController.viewModel.book = model
+//            self.present(viewController, animated: true, completion: nil)
+//            self.tableView.reloadRow(at: indexPath, with: .automatic)
+//        }
     }
 }
 

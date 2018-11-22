@@ -93,6 +93,7 @@ struct ZSDatabase {
     
     func updateInfo(updateInfo:UpdateInfo) {
         let item = TABLE_LAMP.filter(TABLE_LAMP_BOOKID == (updateInfo._id ?? ""))
+        
         do {
             if try db.run(item.update(TABLE_LAMP_LAST_CHAPTER <- (updateInfo.lastChapter ?? ""), TABLE_LAMP_LAST_UPDATE_TIME <- (updateInfo.updated ?? ""))) > 0 {
                 print("书籍\(String(describing: updateInfo._id)) 更新成功")

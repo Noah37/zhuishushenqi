@@ -30,6 +30,7 @@ class ZSShelfWebService: ZSBaseService {
         zs_get(shelfApi.path, parameters: shelfApi.parameters).responseJSON { (response) in
             if let data = response.data {
                 if let obj = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
+                    
                     if let message = ZSShelfMessage.deserialize(from: obj?["message"] as? [String:Any]) {
                         completion?(message)
                     }
