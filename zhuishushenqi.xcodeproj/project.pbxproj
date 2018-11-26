@@ -202,6 +202,8 @@
 		B26286CA1EEA46DD005A1A8A /* QSIntroducePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26286C91EEA46DD005A1A8A /* QSIntroducePage.swift */; };
 		B263ACDF1EE679830096CE80 /* HomeListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263ACDD1EE679830096CE80 /* HomeListViewCell.swift */; };
 		B263E2E9211EBFEC001819FB /* SQLite+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263E2E8211EBFEC001819FB /* SQLite+Extension.swift */; };
+		B2662EBC21A7DAC5008AD5C6 /* ZSDBPropertyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2662EBB21A7DAC5008AD5C6 /* ZSDBPropertyModel.m */; };
+		B266C66A21A6FCC3006B5A15 /* ZSDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B266C66921A6FCC3006B5A15 /* ZSDBManager.m */; };
 		B278AA661F3954FF000A0D55 /* QSAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA651F3954FF000A0D55 /* QSAPI.swift */; };
 		B278AA8C1F395F30000A0D55 /* LookBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA8A1F395F30000A0D55 /* LookBookViewController.swift */; };
 		B278AA8D1F395F30000A0D55 /* ReadHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA8B1F395F30000A0D55 /* ReadHistoryViewController.swift */; };
@@ -711,6 +713,10 @@
 		B26286C91EEA46DD005A1A8A /* QSIntroducePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroducePage.swift; sourceTree = "<group>"; };
 		B263ACDD1EE679830096CE80 /* HomeListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeListViewCell.swift; sourceTree = "<group>"; };
 		B263E2E8211EBFEC001819FB /* SQLite+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQLite+Extension.swift"; sourceTree = "<group>"; };
+		B2662EBA21A7DAC5008AD5C6 /* ZSDBPropertyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSDBPropertyModel.h; sourceTree = "<group>"; };
+		B2662EBB21A7DAC5008AD5C6 /* ZSDBPropertyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSDBPropertyModel.m; sourceTree = "<group>"; };
+		B266C66821A6FCC3006B5A15 /* ZSDBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSDBManager.h; sourceTree = "<group>"; };
+		B266C66921A6FCC3006B5A15 /* ZSDBManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSDBManager.m; sourceTree = "<group>"; };
 		B278AA651F3954FF000A0D55 /* QSAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSAPI.swift; sourceTree = "<group>"; };
 		B278AA8A1F395F30000A0D55 /* LookBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookBookViewController.swift; sourceTree = "<group>"; };
 		B278AA8B1F395F30000A0D55 /* ReadHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadHistoryViewController.swift; sourceTree = "<group>"; };
@@ -1418,6 +1424,10 @@
 				B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.m */,
 				B25EB93021949AF1000D3657 /* FBEncryptorAES.h */,
 				B25EB93121949AF1000D3657 /* FBEncryptorAES.m */,
+				B266C66821A6FCC3006B5A15 /* ZSDBManager.h */,
+				B266C66921A6FCC3006B5A15 /* ZSDBManager.m */,
+				B2662EBA21A7DAC5008AD5C6 /* ZSDBPropertyModel.h */,
+				B2662EBB21A7DAC5008AD5C6 /* ZSDBPropertyModel.m */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -2708,6 +2718,7 @@
 				B2414D9C1EA602ED005A5758 /* UIViewController+Alert.swift in Sources */,
 				3D2B4D0520EB6552008E3E81 /* ZSNoneAnimationViewController.swift in Sources */,
 				B252D48C210EF3960091858E /* HTTPMessage.m in Sources */,
+				B266C66A21A6FCC3006B5A15 /* ZSDBManager.m in Sources */,
 				B2C0DF6820D4CB350057DC84 /* QSCategoryReaderViewController.swift in Sources */,
 				B2B4BBE41E7EA4AB000CC201 /* CommunityView.swift in Sources */,
 				B2C0DF7C20D4CB6D0057DC84 /* QSBookCommentRouter.swift in Sources */,
@@ -2826,6 +2837,7 @@
 				B2C0DF1C20D4CB350057DC84 /* QSTextRouter.swift in Sources */,
 				B25EB93521949C0F000D3657 /* NSData+Base64.m in Sources */,
 				B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */,
+				B2662EBC21A7DAC5008AD5C6 /* ZSDBPropertyModel.m in Sources */,
 				3D5671FC2174CADD0049B2FF /* ZSBookCTLayoutModel.swift in Sources */,
 				B2E072781F3AD99500C63347 /* Reader.swift in Sources */,
 				B2C0DF2720D4CB350057DC84 /* UpdateInfo.swift in Sources */,
