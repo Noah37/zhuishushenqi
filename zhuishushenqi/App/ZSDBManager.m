@@ -145,7 +145,24 @@
         NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@",tableName];
         FMResultSet *resultSet = [db executeQuery:sql];
         while ([resultSet next]) {
-            
+            Class modelClass = [model class];
+            NSObject <ZSDBModel>*queryModel = [[modelClass alloc] init];
+            NSArray <ZSDBPropertyModel* >*columns = [self getPropertys:queryModel];
+            for (NSInteger i = 0; i< columns.count; i++) {
+                NSString *columnName = columns[i].mappingKey ? columns[i].mappingKey:columns[i].originalKey;
+                NSString *columnType = columns[i].type;
+                if ([columnType isEqualToString:SQLTEXT]) {
+                    [queryModel setValue:[resultSet stringForColumn:columnName] forKey:columnName];
+                } else if ([columnType isEqualToString:SQLBLOB]) {
+                    [queryModel setValue:[resultSet dataForColumn:columnName] forKey:columnName];
+                } else if ([columnName isEqualToString:NSStringFromProtocol(@protocol(ZSDBModel))]) {
+                    
+                } else {
+                    [queryModel setValue:[NSNumber numberWithLongLong:[resultSet longLongIntForColumn:columnName]] forKey:columnName];
+                }
+            }
+            [models addObject:queryModel];
+            FMDBRelease(queryModel);
         }
     }];
     return models;
