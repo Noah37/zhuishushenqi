@@ -99,6 +99,17 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
         }
         return exist
     }
+    
+    func topBook(key:String) {
+        var book_index = 0
+        for index in 0..<booksID.count {
+            if booksID[index] == key {
+                book_index = index
+            }
+        }
+        booksID.remove(at: book_index)
+        booksID.insert(key, at: 0)
+    }
 }
 
 extension ZSShelfViewModel {
@@ -106,10 +117,10 @@ extension ZSShelfViewModel {
         refreshStatus.value = .none
         if booksID.count > 0 {
             shelvesWebService.fetchShelvesUpdate(for: booksID) { (updateInfo) in
-                if let info = updateInfo {
-                    for update in info {
-                        self.database.updateInfo(updateInfo: update)
-                    }
+                if let info = updateInfo as? [BookShelf] {
+//                    for update in info {
+//                        self.database.updateInfo(updateInfo: update)
+//                    }
                     self.refreshStatus.value = .headerRefreshEnd
                     ZSBookManager.shared.update(updateInfo: info)
 //                    BookManager.shared.updateInfoUpdate(updateInfo: info)

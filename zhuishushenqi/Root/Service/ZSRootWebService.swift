@@ -34,8 +34,8 @@ final class ZSRootWebService:ZSBaseService {
             .observeOn(ConcurrentDispatchQueueScheduler(qos:.background))
             .map { (_,responseData) in
                 // json解析
-                if let models = [UpdateInfo].deserialize(from: responseData as? [Any]) {
-                    if let arr = models as? [UpdateInfo]{
+                if let models = [BookShelf].deserialize(from: responseData as? [Any]) {
+                    if let arr = models as? [BookShelf]{
                         BookManager.shared.updateInfoUpdate(updateInfo: arr)
                         return BookManager.shared.books
                     }

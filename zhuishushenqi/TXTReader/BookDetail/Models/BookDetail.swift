@@ -157,7 +157,7 @@ class BookDetail: NSObject,NSCoding ,HandyJSON{
     var book:QSBook!
 
     //更新信息
-    var updateInfo:UpdateInfo?
+    var updateInfo:BookShelf?
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -177,7 +177,7 @@ class BookDetail: NSObject,NSCoding ,HandyJSON{
         self.wordCount = aDecoder.decodeObject(forKey: "wordCount") as? String ?? ""
         self.updated = aDecoder.decodeObject(forKey: "updated") as? String ?? ""
         self.tags = aDecoder.decodeObject(forKey: "tags") as? NSArray
-        self.updateInfo = aDecoder.decodeObject(forKey: "updateInfo") as? UpdateInfo
+        self.updateInfo = aDecoder.decodeObject(forKey: "updateInfo") as? BookShelf
         self.chapter = aDecoder.decodeInteger(forKey:"chapter")
         self.page = aDecoder.decodeInteger(forKey:"page")
         self.sourceIndex = aDecoder.decodeInteger(forKey:"sourceIndex")

@@ -75,7 +75,7 @@ struct ZSDatabase {
         for item in (try! db.prepare(TABLE_LAMP)) {
             QSLog("\(item)")
             let book = BookDetail()
-            let updateInfo = UpdateInfo()
+            let updateInfo = BookShelf()
             updateInfo.lastChapter = item[TABLE_LAMP_LAST_CHAPTER]
             updateInfo.updated = item[TABLE_LAMP_LAST_UPDATE_TIME]
             book.title = item[TABLE_LAMP_BOOKNAME]

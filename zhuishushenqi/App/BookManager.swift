@@ -40,7 +40,7 @@ public class ZSBookManager:NSObject {
             return booksInfo
         }
         set {
-            saveBooks(books: newValue)
+//            saveBooks(books: newValue)
         }
     }
     
@@ -86,7 +86,7 @@ public class ZSBookManager:NSObject {
         self.books.removeValue(forKey: book._id)
     }
     
-    func update(updateInfo:[UpdateInfo]) {
+    func update(updateInfo:[BookShelf]) {
         for update in updateInfo {
             if let book = self.books[update._id ?? ""] {
                 if let updateStr = update.updated {
@@ -96,6 +96,7 @@ public class ZSBookManager:NSObject {
                 }
                 book.updateInfo = update
                 self.updateBook(book: book)
+                
             }
         }
     }
@@ -108,32 +109,23 @@ public class ZSBookManager:NSObject {
         }
         QSLog("\(book.title)更新成功")
         self.books[book._id] = book
+        self.saveBooks(book:book)
     }
     
     //MARK: - books
     // 保存书籍信息
-    fileprivate func saveBooks(books:[String:BookDetail]) {
-//        var change:Bool = false
-//        if books.count == ZSBookManager._books.count {
-//            for (id,book) in books {
-//                let boook = ZSBookManager._books[id]
-//                if book.record?.chapter != boook?.record?.chapter || book.record?.page != boook?.record?.page {
-//                    change = true
-//                }
-//            }
-//            if !change {
-//                return
-//            }
-//        }
+    fileprivate func saveBooks(book:BookDetail) {
         ZSBookManager._books = books
-        for book in books {
+        // 只更新这本书,防止多次重复无用更新
+        ZSBookManager.calTime {
             let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/Books")
-            let data = NSKeyedArchiver.archivedData(withRootObject: book.value)
+            let data = NSKeyedArchiver.archivedData(withRootObject: book)
+            print(data.count)
             try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-            let filePath = path.appending("/\(book.key.md5())")
+            let filePath = path.appending("/\(book._id.md5())")
             let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
             if success {
-                QSLog("保存'\(book.value.title)'成功@_@")
+                QSLog("保存'\(book.title)'成功@_@")
             }
         }
     }
@@ -256,7 +248,7 @@ public class BookManager:NSObject {
     }
     
     // 更新bookdetail的信息,bookdetail的数组与updateinfo数组是一一对应的
-    func updateInfoUpdate(updateInfo:[UpdateInfo]){
+    func updateInfoUpdate(updateInfo:[BookShelf]){
         if updateInfo.count != books.allKeys().count {
             return
         }
@@ -273,7 +265,7 @@ public class BookManager:NSObject {
     }
     
     //需要将对应的update信息赋给model
-    func updateToModel(updateModels:[UpdateInfo]){
+    func updateToModel(updateModels:[BookShelf]){
         for updateModel in updateModels {
             let id = updateModel._id ?? ""
             let book:BookDetail? = books[id] as? BookDetail
@@ -288,7 +280,7 @@ public class BookManager:NSObject {
         }
     }
     
-    func anyUpdate(bookInfo:UpdateInfo?,updateInfo:UpdateInfo)->Bool{
+    func anyUpdate(bookInfo:BookShelf?,updateInfo:BookShelf)->Bool{
         if let updatedString = bookInfo?.updated {
             if updatedString != updateInfo.updated {
                 return true
