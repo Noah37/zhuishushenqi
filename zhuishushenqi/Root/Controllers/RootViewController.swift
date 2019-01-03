@@ -143,6 +143,7 @@ class RootViewController: UIViewController {
         QSNetwork.request(recURL) { (response) in
             if let books = response.json?["books"] {
                 if let models = [BookDetail].deserialize(from: books as? [Any]) as? [BookDetail] {
+                    ZSBookManager.shared.addBooks(books: models)
                     BookManager.shared.modifyBookshelf(books: models)
                     self.tableView.reloadData()
                 }

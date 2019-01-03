@@ -30,7 +30,7 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
             return ZSBookManager.shared.ids
         }
         set {
-            ZSBookManager.shared.ids = newValue
+//            ZSBookManager.shared.ids = newValue
         }
     }
     
@@ -107,6 +107,7 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
                 book_index = index
             }
         }
+        ZSBookManager.shared.topBook(key: key)
         booksID.remove(at: book_index)
         booksID.insert(key, at: 0)
     }
@@ -185,6 +186,7 @@ extension ZSShelfViewModel {
                         if let bookDetail = book {
                             self.booksID.append(item.id)
                             self.books[item.id] = bookDetail
+                            ZSBookManager.shared.addBook(book: bookDetail)
                             completion(books)
                         }
                     })

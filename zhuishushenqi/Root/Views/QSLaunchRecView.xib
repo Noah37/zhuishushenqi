@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,19 +19,19 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySj-Qv-EuH">
-                            <rect key="frame" x="26" y="40" width="268" height="488"/>
+                            <rect key="frame" x="20" y="40" width="280" height="488"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gU-0Q-eCZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="268" height="337"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="337"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="g_sex_tip" translatesAutoresizingMaskIntoConstraints="NO" id="vQj-LX-7vW">
-                                            <rect key="frame" x="0.0" y="50" width="268" height="174"/>
+                                            <rect key="frame" x="0.0" y="50" width="280" height="174"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="174" id="1Ft-GS-m4d"/>
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDX-Xj-Qrs">
-                                            <rect key="frame" x="218" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="230" y="0.0" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="SnW-cb-PMA"/>
                                                 <constraint firstAttribute="height" constant="50" id="cZl-ku-0PT"/>
@@ -42,7 +42,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="推荐相对应的小说" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Via-mr-CAA">
-                                            <rect key="frame" x="17" y="250" width="234" height="21"/>
+                                            <rect key="frame" x="17" y="250" width="246" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="xch-5A-Imw"/>
                                             </constraints>
@@ -51,7 +51,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们将会根据你的性别" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5eN-DI-AM2">
-                                            <rect key="frame" x="17" y="226" width="234" height="21"/>
+                                            <rect key="frame" x="17" y="226" width="246" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="7S0-jm-QH0"/>
                                             </constraints>
@@ -60,7 +60,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="g_girl_tip" translatesAutoresizingMaskIntoConstraints="NO" id="bhD-MB-JLq">
-                                            <rect key="frame" x="0.0" y="271" width="268" height="57"/>
+                                            <rect key="frame" x="0.0" y="271" width="280" height="57"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="57" id="53G-RV-i3q"/>
                                             </constraints>
@@ -85,7 +85,7 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择你的性别" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUO-RE-mvT">
-                                    <rect key="frame" x="84.5" y="367" width="99" height="21"/>
+                                    <rect key="frame" x="90.5" y="367" width="99" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="99" id="ObF-4J-Iky"/>
                                         <constraint firstAttribute="height" constant="21" id="xrc-Gj-dfb"/>
@@ -95,14 +95,14 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="g_left_line" translatesAutoresizingMaskIntoConstraints="NO" id="KoT-IY-om6">
-                                    <rect key="frame" x="15.5" y="367" width="69" height="16"/>
+                                    <rect key="frame" x="21.5" y="367" width="69" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="69" id="CdD-ug-VkD"/>
                                         <constraint firstAttribute="height" constant="16" id="rJL-l5-6xg"/>
                                     </constraints>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="g_right_line" translatesAutoresizingMaskIntoConstraints="NO" id="4UK-IT-1QV">
-                                    <rect key="frame" x="183.5" y="367" width="69" height="16"/>
+                                    <rect key="frame" x="189.5" y="367" width="69" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="Abw-aU-5bz"/>
                                         <constraint firstAttribute="width" constant="69" id="gDe-3l-W8s"/>
@@ -121,7 +121,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zug-0a-UEt">
-                                    <rect key="frame" x="148" y="406" width="100" height="50"/>
+                                    <rect key="frame" x="160" y="406" width="100" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="100" id="Hk2-vY-HlU"/>
                                         <constraint firstAttribute="height" constant="50" id="RtQ-3r-bcC"/>
@@ -144,9 +144,11 @@
                                 <constraint firstItem="KoT-IY-om6" firstAttribute="top" secondItem="5gU-0Q-eCZ" secondAttribute="bottom" constant="30" id="drD-Oq-byf"/>
                                 <constraint firstItem="4UK-IT-1QV" firstAttribute="top" secondItem="5gU-0Q-eCZ" secondAttribute="bottom" constant="30" id="ekV-gN-n1l"/>
                                 <constraint firstItem="5gU-0Q-eCZ" firstAttribute="leading" secondItem="ySj-Qv-EuH" secondAttribute="leading" id="fma-vM-Fuy"/>
+                                <constraint firstAttribute="height" constant="488" id="g7L-BN-iX1"/>
                                 <constraint firstAttribute="bottom" secondItem="5gU-0Q-eCZ" secondAttribute="bottom" constant="151" id="hFy-72-cRw"/>
                                 <constraint firstAttribute="trailing" secondItem="zug-0a-UEt" secondAttribute="trailing" constant="20" id="lJm-2O-fpP"/>
                                 <constraint firstItem="lUO-RE-mvT" firstAttribute="top" secondItem="5gU-0Q-eCZ" secondAttribute="bottom" constant="30" id="lZC-am-DIi"/>
+                                <constraint firstAttribute="width" constant="280" id="nQF-m4-7mf"/>
                                 <constraint firstItem="5gU-0Q-eCZ" firstAttribute="top" secondItem="ySj-Qv-EuH" secondAttribute="top" id="pHt-IO-okQ"/>
                                 <constraint firstItem="zug-0a-UEt" firstAttribute="top" secondItem="lUO-RE-mvT" secondAttribute="bottom" constant="18" id="raK-yN-nKU"/>
                             </constraints>
@@ -154,10 +156,8 @@
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.15140845070422534" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="ySj-Qv-EuH" secondAttribute="trailing" constant="26" id="62R-ys-bcH"/>
-                        <constraint firstAttribute="bottom" secondItem="ySj-Qv-EuH" secondAttribute="bottom" constant="40" id="QTZ-aU-plI"/>
-                        <constraint firstItem="ySj-Qv-EuH" firstAttribute="top" secondItem="yD6-El-0lX" secondAttribute="top" constant="40" id="YFn-rU-5t3"/>
-                        <constraint firstItem="ySj-Qv-EuH" firstAttribute="leading" secondItem="yD6-El-0lX" secondAttribute="leading" constant="26" id="wb0-w4-GR9"/>
+                        <constraint firstItem="ySj-Qv-EuH" firstAttribute="centerX" secondItem="yD6-El-0lX" secondAttribute="centerX" id="Q1v-1F-Gsc"/>
+                        <constraint firstItem="ySj-Qv-EuH" firstAttribute="centerY" secondItem="yD6-El-0lX" secondAttribute="centerY" id="hFb-M6-HKE"/>
                     </constraints>
                 </view>
             </subviews>

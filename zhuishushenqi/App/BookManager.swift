@@ -56,16 +56,36 @@ public class ZSBookManager:NSObject {
         }
     }
     
+    func topBook(key:String) {
+        var book_index = 0
+        for index in 0..<ids.count {
+            if ids[index] == key {
+                book_index = index
+            }
+        }
+        ids.remove(at: book_index)
+        ids.insert(key, at: 0)
+    }
+    
     // 是否存在book
     func existBook(book:BookDetail) -> Bool {
         var exist:Bool = false
+        var book_exist = false
         for id in self.ids {
             if book._id == id {
                 exist = true
             }
         }
-        return exist
+        for item in self.books {
+            if item.key == book._id {
+                book_exist = true
+            }
+        }
+        
+        return exist && book_exist
     }
+    
+    
     
     //MARK: - 添加,默认添加到尾部
     func addBook(book:BookDetail) {
@@ -75,6 +95,14 @@ public class ZSBookManager:NSObject {
         }
         self.ids.append(book._id)
         self.books[book._id] = book
+        self.saveBooks(book: book)
+    }
+    
+    //MARK: - 添加多本书籍,一般推荐书籍或者从远程拉取大量书籍时使用
+    func addBooks(books:[BookDetail]) {
+        for book in books {
+            self.addBook(book: book)
+        }
     }
     
     //MARK: - 删除
