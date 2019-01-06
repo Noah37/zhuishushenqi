@@ -47,6 +47,9 @@
 		3D968CFC2135391400DF3279 /* ZSBookCTViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D968CFB2135391400DF3279 /* ZSBookCTViewModel.swift */; };
 		3D968CFE2135398600DF3279 /* ZSBookCTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D968CFD2135398600DF3279 /* ZSBookCTService.swift */; };
 		3D9D857C20CA439D003FEDFE /* ZSShelfMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D857B20CA439D003FEDFE /* ZSShelfMessage.swift */; };
+		3DAC238E21E1D66A00E77891 /* ZSWebStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC238D21E1D66A00E77891 /* ZSWebStoreViewController.swift */; };
+		3DAC239021E1D73300E77891 /* ZSWebViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC238F21E1D73300E77891 /* ZSWebViewControllerDelegate.swift */; };
+		3DAC239221E1DE7400E77891 /* ZSWebItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC239121E1DE7400E77891 /* ZSWebItem.swift */; };
 		3DD08407215698E5008E3B4A /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD08406215698E5008E3B4A /* iflyMSC.framework */; };
 		3DD0840B21569902008E3B4A /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0840A21569902008E3B4A /* Speaker.swift */; };
 		3DD0841E21569A54008E3B4A /* TTSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0841D21569A54008E3B4A /* TTSConfig.swift */; };
@@ -514,6 +517,9 @@
 		3D968CFB2135391400DF3279 /* ZSBookCTViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCTViewModel.swift; sourceTree = "<group>"; };
 		3D968CFD2135398600DF3279 /* ZSBookCTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCTService.swift; sourceTree = "<group>"; };
 		3D9D857B20CA439D003FEDFE /* ZSShelfMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSShelfMessage.swift; sourceTree = "<group>"; };
+		3DAC238D21E1D66A00E77891 /* ZSWebStoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebStoreViewController.swift; sourceTree = "<group>"; };
+		3DAC238F21E1D73300E77891 /* ZSWebViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebViewControllerDelegate.swift; sourceTree = "<group>"; };
+		3DAC239121E1DE7400E77891 /* ZSWebItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebItem.swift; sourceTree = "<group>"; };
 		3DD08406215698E5008E3B4A /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iflyMSC.framework; sourceTree = "<group>"; };
 		3DD0840A21569902008E3B4A /* Speaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
 		3DD0841D21569A54008E3B4A /* TTSConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSConfig.swift; sourceTree = "<group>"; };
@@ -1931,6 +1937,9 @@
 				3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */,
 				B2ACA060212444870032305E /* ZSSettingViewController.swift */,
 				B2ACA06D212944AC0032305E /* ZSWebViewController.swift */,
+				3DAC238D21E1D66A00E77891 /* ZSWebStoreViewController.swift */,
+				3DAC238F21E1D73300E77891 /* ZSWebViewControllerDelegate.swift */,
+				3DAC239121E1DE7400E77891 /* ZSWebItem.swift */,
 				B2B4BA5C1E7EA4A8000CC201 /* RootViewController+FetchData.swift */,
 				B2B4BD761E7ECEE0000CC201 /* RootViewController+Subviews.swift */,
 			);
@@ -2811,6 +2820,7 @@
 				3D9325E820B2C66A0049CDBF /* UITableViewCell+ZSExtension.swift in Sources */,
 				B2B4BC1B1E7EA4AB000CC201 /* FilterThemeCell.swift in Sources */,
 				B252D492210EF3960091858E /* HTTPAuthenticationRequest.m in Sources */,
+				3DAC239021E1D73300E77891 /* ZSWebViewControllerDelegate.swift in Sources */,
 				B2ACA01E212179F60032305E /* ZSSegmentViewController.swift in Sources */,
 				B252D496210EF3960091858E /* HTTPServer.m in Sources */,
 				B200D1FF1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift in Sources */,
@@ -2834,6 +2844,7 @@
 				B2B02E471EA8920F00A6880A /* QSCategoryDetailRouter.swift in Sources */,
 				3D9325E620B2C44A0049CDBF /* ZSBaseTableViewManger.swift in Sources */,
 				3DDB6CA82130F4BC00E8698D /* CoreTextUtils.m in Sources */,
+				3DAC239221E1DE7400E77891 /* ZSWebItem.swift in Sources */,
 				B2C0DF1C20D4CB350057DC84 /* QSTextRouter.swift in Sources */,
 				B25EB93521949C0F000D3657 /* NSData+Base64.m in Sources */,
 				B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */,
@@ -2885,6 +2896,7 @@
 				B2B4BBE21E7EA4AB000CC201 /* SwiftyJSON.swift in Sources */,
 				3D08F242212C2DC6007B3D19 /* ZSDiscussViewModel.swift in Sources */,
 				B2B02E481EA8920F00A6880A /* QSCategoryDetailViewController.swift in Sources */,
+				3DAC238E21E1D66A00E77891 /* ZSWebStoreViewController.swift in Sources */,
 				B2F778BC1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift in Sources */,
 				B25EB93221949AF1000D3657 /* FBEncryptorAES.m in Sources */,
 				3DDEEAF9214A8E3F003D12DB /* ZSFontViewController.swift in Sources */,

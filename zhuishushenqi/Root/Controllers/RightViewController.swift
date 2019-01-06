@@ -81,7 +81,13 @@ class RightViewController: UITableViewController {
         } else if indexPath.row == 2 {
             let webVC = ZSWebViewController()
             let timeInterval = Date().timeIntervalSince1970
-            webVC.url = "https://h5.zhuishushenqi.com/monthly?platform=ios&gender=male&timeInterval=\(timeInterval*10)&appversion=2.29.5&timestamp=\(timeInterval)&version=8"
+            var url = ""
+            if ZSLogin.share.hasLogin() {
+                url = "https://h5.zhuishushenqi.com/monthly?platform=ios&gender=male&token=\(ZSLogin.share.token)&timeInterval=\(timeInterval*10)&appversion=2.29.5&timestamp=\(timeInterval)&version=8"
+            } else {
+                url = "https://h5.zhuishushenqi.com/monthly?platform=ios&gender=male&timeInterval=\(timeInterval*10)&appversion=2.29.5&timestamp=\(timeInterval)&version=8"
+            }
+            webVC.url = url
             webVC.title = "VIP专区"
             SideVC.navigationController?.pushViewController(webVC, animated: true)
         } else if indexPath.row == 3 {//排行榜
