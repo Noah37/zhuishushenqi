@@ -112,21 +112,41 @@ class ZSWebViewController: BaseViewController {
         }
     }
     
+    func isBlankString(str:String?) ->Bool {
+        var isBlank = false
+        if str == nil {
+            isBlank = true
+        }
+        if let trimStr = str?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) {
+            if trimStr.count > 0 {
+                if trimStr == "(null)" {
+                    isBlank = true
+                }
+            }
+        }
+        return isBlank
+    }
+    
     func parseURL(urlString:String) ->Bool {
         let replaceStr = urlString.replacingOccurrences(of: "/?", with: "?")
-        matchedResultWithLink(link: replaceStr)
-        
+        guard let webItem = matchedResultWithLink(link: replaceStr) else { return false }
+        let funcName = webItem.funcName
+        if !isBlankString(str: funcName) {
+            if funcName! == "getUserInfo" {
+                let queryDict = webItem.queryDic
+                let callback = queryDict?["callback"]
+                
+            }
+        }
         return false
     }
     
-    func matchedResultWithLink(link:String) {
+    func matchedResultWithLink(link:String) ->ZSWebItem? {
         let reg = try? NSRegularExpression(pattern: "^jsbridge://(\\w+)(\\?)?", options: NSRegularExpression.Options.allowCommentsAndWhitespace)
         let length = link.count
         let match = reg?.firstMatch(in: link, options: NSRegularExpression.MatchingOptions(rawValue: 2), range: NSMakeRange(0, length))
         let result = match?.range(at: 1)
-        if result?.location == NSNotFound {
-            
-        } else {
+        if result?.location != NSNotFound {
             let subStr = link.qs_subStr(range: result!)
             let webItem = ZSWebItem()
             if subStr.count > 0 {
@@ -136,14 +156,41 @@ class ZSWebViewController: BaseViewController {
                     let linkLength = link.count
                     let twoLength = rangeTwo?.length ?? 0
                     let twoLocation = rangeTwo?.location ?? 0
-                    link.qs_subStr(range: NSMakeRange(twoLocation,linkLength - twoLength))
+                    let query = link.qs_subStr(range: NSMakeRange(twoLocation,linkLength - twoLength))
+                    let queryDict = parseQueryStr(str: query)
+                    webItem.queryDic = queryDict
+                    if let param = queryDict["param"] {
+                        if let data = param.data(using: String.Encoding(rawValue: 4)) {
+                            if let paramObj:[String:Any] = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as? [String:Any] {
+                                webItem.paramDic = paramObj
+                            }
+                        }
+                    }
+                    if let callback = queryDict["callback"] {
+                        webItem.callback = callback
+                        webItem.callbackParamStr = queryDict["param"]
+                    }
                 }
             }
+            return webItem
         }
+        return nil
     }
     
-    func parseQueryStr(Str:String) {
-        
+    func parseQueryStr(str:String) ->[String:String] {
+        let queryStr = str.replacingOccurrences(of: "?", with: "")
+        let comps = queryStr.components(separatedBy: "&")
+        var queryDict:[String:String] = [:]
+        for comp in comps {
+            let keyValueArr = comp.components(separatedBy: "=")
+            if keyValueArr.count == 2 {
+                let key = keyValueArr[0]
+                let value = keyValueArr[1]
+                let noPerValue = value.removingPercentEncoding
+                queryDict[key] = noPerValue
+            }
+        }
+        return queryDict
     }
     
     func parse(url:URL)->[String:Any]{

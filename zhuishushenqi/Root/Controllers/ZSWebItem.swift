@@ -12,7 +12,7 @@ class ZSWebItem: NSObject {
     
     var callbackParamStr:String?
     var callback:String?
-    var paramDic:String?
-    var queryDic:String?
+    var paramDic:[String:Any]?
+    var queryDic:[String:Any]?
     var funcName:String?
 }
