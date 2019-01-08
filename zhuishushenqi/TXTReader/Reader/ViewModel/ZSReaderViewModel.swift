@@ -244,6 +244,13 @@ class ZSReaderViewModel {
         // 向前章节,完成后从内存中获取当前章节,更新阅读记录中的model
         // 判断是否为新的章节
         if let record = book?.record {
+            if record.chapter >= (book?.chaptersInfo?.count ?? 0) {
+                if (book?.chaptersInfo?.count ?? 0) > 0 {
+                    record.chapter = (book?.chaptersInfo?.count ?? 0) - 1
+                } else {
+                    record.chapter = 0
+                }
+            }
             if let chapters = book?.chaptersInfo?[record.chapter] {
                 // 从cachedChapter中获取model
                 if let model = cachedChapter[chapters.link] {
@@ -431,8 +438,8 @@ class ZSReaderViewModel {
             fetchPreChapter(record: record, chapterOffset: 0)
             var chapter = record.chapter
             // 如果当前章节超出限制,取最大值
-            if chapter > (book?.chaptersInfo?.count ?? 0) {
-                chapter = book?.chaptersInfo?.count ?? 0
+            if chapter >= (book?.chaptersInfo?.count ?? 0) {
+                chapter = (book?.chaptersInfo?.count ?? 0) - 1
             }
             if let link = book?.chaptersInfo?[chapter].link {
                 fetchChapter(key: link) { (body) in

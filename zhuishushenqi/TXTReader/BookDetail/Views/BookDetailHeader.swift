@@ -18,7 +18,7 @@ class BookDetailHeader: UIView {
         didSet{
             name.text = model?.title
             if let book = model {
-                let exist = ZSBookManager.shared.existBook(book: book)
+                let exist = ZSBookManager.shared.existBookId(bookId: book._id)
                 if exist{
                     addButton.isSelected = true
                 }

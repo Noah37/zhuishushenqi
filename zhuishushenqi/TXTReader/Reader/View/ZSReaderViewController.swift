@@ -268,7 +268,7 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
         if let book = curBook() {
             
             // 退出时，通常保存阅读记录就行，其它的不需要保存
-            let exist = ZSBookManager.shared.existBook(book: book)
+            let exist = ZSBookManager.shared.existBookId(bookId: book._id)
             if !exist {
                 self.alert(with: "追书提示", message: "是否将本书加入我的收藏", okTitle: "好的", cancelTitle: "不了", okAction: { (action) in
                     ZSBookManager.shared.addBook(book: book)
@@ -276,7 +276,7 @@ extension ZSReaderViewController:ToolBarDelegate ,QSCategoryDelegate{
                 }, cancelAction: { (action) in
                     self.dismiss(animated: true, completion: nil)
                 })
-            }else{
+            } else{
                 ZSBookManager.shared.updateBook(book: book)
                 self.dismiss(animated: true, completion: nil)
             }

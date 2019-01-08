@@ -13,7 +13,7 @@ private enum HorizonalXSideType{
     case right
 }
 
-class SideViewController: UIViewController,UIGestureRecognizerDelegate {
+class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
     /**
      *  右侧视图控制器相对于容器视图的比例,1.0不进行缩放
      */

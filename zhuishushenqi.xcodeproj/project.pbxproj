@@ -50,6 +50,7 @@
 		3DAC238E21E1D66A00E77891 /* ZSWebStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC238D21E1D66A00E77891 /* ZSWebStoreViewController.swift */; };
 		3DAC239021E1D73300E77891 /* ZSWebViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC238F21E1D73300E77891 /* ZSWebViewControllerDelegate.swift */; };
 		3DAC239221E1DE7400E77891 /* ZSWebItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC239121E1DE7400E77891 /* ZSWebItem.swift */; };
+		3DAC23CE21E32DA500E77891 /* ZSYJSchemeHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC23CD21E32DA500E77891 /* ZSYJSchemeHandle.swift */; };
 		3DD08407215698E5008E3B4A /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD08406215698E5008E3B4A /* iflyMSC.framework */; };
 		3DD0840B21569902008E3B4A /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0840A21569902008E3B4A /* Speaker.swift */; };
 		3DD0841E21569A54008E3B4A /* TTSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0841D21569A54008E3B4A /* TTSConfig.swift */; };
@@ -520,6 +521,7 @@
 		3DAC238D21E1D66A00E77891 /* ZSWebStoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebStoreViewController.swift; sourceTree = "<group>"; };
 		3DAC238F21E1D73300E77891 /* ZSWebViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebViewControllerDelegate.swift; sourceTree = "<group>"; };
 		3DAC239121E1DE7400E77891 /* ZSWebItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebItem.swift; sourceTree = "<group>"; };
+		3DAC23CD21E32DA500E77891 /* ZSYJSchemeHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSYJSchemeHandle.swift; sourceTree = "<group>"; };
 		3DD08406215698E5008E3B4A /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iflyMSC.framework; sourceTree = "<group>"; };
 		3DD0840A21569902008E3B4A /* Speaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
 		3DD0841D21569A54008E3B4A /* TTSConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSConfig.swift; sourceTree = "<group>"; };
@@ -1957,6 +1959,7 @@
 				B29CFB7A217B2F3A0006F294 /* ZSUserDetail.swift */,
 				B29CFB7C217B35E90006F294 /* ZSUserBind.swift */,
 				B2A7CD80217C5E5E0067D25B /* ZSUserBookshelf.swift */,
+				3DAC23CD21E32DA500E77891 /* ZSYJSchemeHandle.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2955,6 +2958,7 @@
 				B2B4BBEF1E7EA4AB000CC201 /* XYCActionSheet.swift in Sources */,
 				B2C0DF3F20D4CB350057DC84 /* QSBookDetailProtocols.swift in Sources */,
 				B2C0DF4920D4CB350057DC84 /* QSBookDetailRateView.swift in Sources */,
+				3DAC23CE21E32DA500E77891 /* ZSYJSchemeHandle.swift in Sources */,
 				B278AA661F3954FF000A0D55 /* QSAPI.swift in Sources */,
 				B2583CB31EA78280004178F3 /* ThemeTopicViewController.swift in Sources */,
 				B2C0DF6B20D4CB350057DC84 /* QSCommunityRouter.swift in Sources */,

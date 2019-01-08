@@ -91,9 +91,9 @@ class ZSWebViewController: BaseViewController {
                     userAgent.append("/YouShaQi")
                     let userAgentDict = ["UserAgent":userAgent]
                     UserDefaults.standard.register(defaults: userAgentDict)
-                    let webView = WKWebView(frame: self.view.frame, configuration: configuration)
-                    return webView
                 }
+                let webView = WKWebView(frame: self.view.frame, configuration: configuration)
+                return webView
             }
         }
         return nil
@@ -131,23 +131,131 @@ class ZSWebViewController: BaseViewController {
         let replaceStr = urlString.replacingOccurrences(of: "/?", with: "?")
         guard let webItem = matchedResultWithLink(link: replaceStr) else { return false }
         let funcName = webItem.funcName
+        var result = true
         if !isBlankString(str: funcName) {
-            if funcName! == "getUserInfo" {
+            if funcName! == "jump" {
+                perform(#selector(jumpToViewWithItem(item:)), with: webItem)
+                result = false
+            } else if funcName! == "getUserInfo" {
                 let queryDict = webItem.queryDic
                 let callback = queryDict?["callback"]
+                result = false
+            } else if funcName! == "login" {
+                loginWithWebItem(item: webItem)
+            } else if funcName! == "copyBoard" {
+                triggerCopyBoardWithItem(item: webItem)
+            } else if funcName! == "pop" {
+                let jsStr = jsStrFromWebItem(item: webItem)
+                // webViewHandlePopEventWithCallBack:jsstr
+                self.navigationController?.popViewController(animated: true)
+            } else if funcName! == "backEvent" {
+                setBackEventItem(item: webItem)
+            } else if funcName! == "setUserBehavior" {
+                handleBuryPointsWithJSItem(item: webItem)
+            } else if funcName! == "openTaobaoDetail" {
+                ZSYJSchemeHandle.handleTaobaoUrl(url: webItem.callbackParamStr ?? "")
+            } else if funcName! == "baseRecharge" {
                 
             }
+            else {
+                if funcName! != "openBookstore" {
+                    if funcName! == "openBookshelf" {
+                        
+                    } else if funcName! == "openBindPhone" {
+                        
+                    }
+                }
+            }
         }
-        return false
+        return result
+    }
+    
+    @objc func jumpToViewWithItem(item:ZSWebItem) {
+        if let paramDic = item.paramDic {
+            let jumpType = paramDic["jumpType"] as? String ?? ""
+//            let pageType = paramDic["pageType"] as? String ?? ""
+            let title = paramDic["title"] as? String ?? ""
+            var link = paramDic["link"] as? String ?? ""
+            let id = paramDic["id"] as? String ?? ""
+//            let sourceType = paramDic["sourceType"] as? String ?? ""
+            var platform = ""
+            if (link as NSString).range(of: "platform=ios").location == NSNotFound {
+                let whRange = (link as NSString).range(of: "?")
+                let timeInterval = Date().timeIntervalSince1970
+                if whRange.location == NSNotFound {
+                    platform = "?platform=ios&timestamp=\(timeInterval)"
+                    
+                } else {
+                    platform = "&platform=ios&timestamp=\(timeInterval)"
+                }
+            }
+            link.append(platform)
+            if jumpType == "webview" {
+                let webVC = ZSWebViewController()
+                webVC.title = title
+                webVC.url = link
+                self.navigationController?.pushViewController(webVC, animated: true)
+                return
+            }
+            if jumpType != "native" {
+                if jumpType == "safari" {
+                    if let webUrl = URL(string: link) {
+                        if UIApplication.shared.canOpenURL(webUrl) {
+                            UIApplication.shared.openURL(webUrl)
+                            return
+                        }
+                    }
+                }
+            }
+            if jumpType != "bookDetail" {
+                if jumpType == "login" {
+//                    -[ZSWebViewController loginWithWebItem:](v139, "loginWithWebItem:", v4);
+//                    goto LABEL_44;
+                    return
+                }
+                if jumpType != "post" {
+                    if jumpType != "account" {
+                        
+                    }
+                    if !ZSLogin.share.hasLogin() {
+//                    showLoginView
+                    }
+                }
+            }
+            if id != "" {
+                let detailVC = QSBookDetailRouter.createModule(id: id)
+                self.navigationController?.pushViewController(detailVC, animated: true)
+            }
+        }
+    }
+    
+    @objc func loginWithWebItem(item:ZSWebItem) {
+        
+    }
+    
+    @objc func triggerCopyBoardWithItem(item:ZSWebItem) {
+        
+    }
+    
+    @objc func jsStrFromWebItem(item:ZSWebItem) {
+        
+    }
+    
+    @objc func setBackEventItem(item:ZSWebItem) {
+        
+    }
+    
+    @objc func handleBuryPointsWithJSItem(item:ZSWebItem) {
+        
     }
     
     func matchedResultWithLink(link:String) ->ZSWebItem? {
         let reg = try? NSRegularExpression(pattern: "^jsbridge://(\\w+)(\\?)?", options: NSRegularExpression.Options.allowCommentsAndWhitespace)
         let length = link.count
         let match = reg?.firstMatch(in: link, options: NSRegularExpression.MatchingOptions(rawValue: 2), range: NSMakeRange(0, length))
-        let result = match?.range(at: 1)
-        if result?.location != NSNotFound {
-            let subStr = link.qs_subStr(range: result!)
+        guard let result = match?.range(at: 1) else { return nil }
+        if result.location != NSNotFound {
+            let subStr = link.qs_subStr(range: result)
             let webItem = ZSWebItem()
             if subStr.count > 0 {
                 webItem.funcName = subStr
@@ -192,104 +300,6 @@ class ZSWebViewController: BaseViewController {
         }
         return queryDict
     }
-    
-    func parse(url:URL)->[String:Any]{
-        var result:[String:Any] = [:]
-        let query = url.query ?? ""
-        let params = query.components(separatedBy: "&")
-        for param in params {
-            let dict = param.components(separatedBy: "=")
-            if dict.count > 1 {
-                let key = dict[0]
-                let value = dict[1]
-                let decodeValue = value.removingPercentEncoding ?? ""
-                var obj:Any = decodeValue
-                if let data = decodeValue.data(using: .utf8) {
-                    if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) {
-                        QSLog(json)
-                        obj = json
-                    }
-                }
-                if key != "" {
-                    result[key] = obj
-                }
-            }
-        }
-        return result
-    }
-    
-    func zs_query(url:String?)->String{
-        var query = ""
-        if let urlString = url {
-            let urlArr = urlString.components(separatedBy: "?")
-            if urlArr.count > 1 {
-                query = urlArr[1]
-            }
-        }
-        return query
-    }
-    
-    func getTitle(code:String)->String{
-        let codes = code.components(separatedBy: "##")
-        var title:String = ""
-        if codes.count > 1 {
-            title = codes[1]
-        }
-        return title
-    }
-    
-    func jumpReader(id:String, code:String){
-        let title = getTitle(code: code)
-        let book = BookDetail()
-        book._id = id
-        book.title = title
-        let readerVC = ZSReaderViewController()
-        readerVC.viewModel.book = book
-        self.present(readerVC, animated: true, completion: nil)
-    }
-    
-    func jumpWeb(urlString:URL,title:String){
-        let webVC = ZSWebViewController()
-        webVC.url = urlString.absoluteString
-        webVC.webTitle = title
-        self.navigationController?.pushViewController(webVC, animated: true)
-    }
-    
-    func jump(urlString:URL){
-        let queryDict = parse(url: urlString)
-//        let t = queryDict["t"]
-        if let param = queryDict["param"] as? [String:Any] {
-            let code = param["code"] as? String ?? ""
-            if let jumpType = param["jumpType"] as? String {
-                if jumpType == "native" {
-                    if let pageType = param["pageType"] as? String {
-                        if pageType == "bookDetail" {
-                            let id = param["id"] as? String ?? ""
-                            jumpReader(id: id,code: code)
-                        }
-                    }
-                } else if jumpType == "webview" {
-                    if let pageType = param["pageType"] as? String {
-                        if pageType == "recommend" {
-                            
-                        }
-                        let webviewTitle = param["title"] as? String ?? ""
-                        let link = param["link"] as? String ?? ""
-                        if let webviewURL = URL(string: link) {
-                            jumpWeb(urlString: webviewURL, title: webviewTitle)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    func configure(urlString:URL) {
-        let host = urlString.host ?? ""
-        if host == "jump" {
-            jump(urlString: urlString)
-        }
-    }
 }
 
 extension ZSWebViewController:WKNavigationDelegate,WKUIDelegate {
@@ -327,29 +337,29 @@ extension ZSWebViewController:WKNavigationDelegate,WKUIDelegate {
                     // self.delegate webViewWillLoadUrl:isOutSide:1
                     UIApplication.shared.openURL(url)
                     // self.delegate webViewNeedClose:animated:1
-                }
-                if !isWXScheme(url: url.absoluteString) {
+                } else if !isWXScheme(url: url.absoluteString) {
                     if parseURL(urlString: url.absoluteString) {
                         // self.delegate webViewWillLoadUrl:isOutSide:0
                     }
-                }
-                UIApplication.shared.openURL(url)
-                let backForwardList = webView.backForwardList
-                let backList = backForwardList.backList
-                let firstObject = backList.first
-                if let firstString = firstObject?.url.absoluteString {
-                    if firstString.contains("m.zhuishushenqi.com/publicPay/") {
-                        UserDefaults.standard.set(1, forKey: "kIsPurchasingByW")
-                        UserDefaults.standard.synchronize()
-                        // needsCloseWebView = 1
-                        // self.delegate webViewNeedClose:animated:1
+                } else {
+                    UIApplication.shared.openURL(url)
+                    let backForwardList = webView.backForwardList
+                    let backList = backForwardList.backList
+                    let firstObject = backList.first
+                    if let firstString = firstObject?.url.absoluteString {
+                        if firstString.contains("m.zhuishushenqi.com/publicPay/") {
+                            UserDefaults.standard.set(1, forKey: "kIsPurchasingByW")
+                            UserDefaults.standard.synchronize()
+                            // needsCloseWebView = 1
+                            // self.delegate webViewNeedClose:animated:1
+                        }
                     }
                 }
             }
             if url.absoluteString.hasPrefix("https://h5.zhuishushenqi.com") {
                 decisionHandler(.allow)
             } else if url.absoluteString.hasPrefix("jsbridge://") {
-                configure(urlString: url)
+//                configure(urlString: url)
                 decisionHandler(.cancel)
             } else {
                 decisionHandler(.cancel)
@@ -365,18 +375,18 @@ extension ZSWebViewController:WKNavigationDelegate,WKUIDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         // 去除广告
-        let classNames = ["c-top-app-download clearfix",
-                          "c-page-header",
-                          "c-full-screen-page-header",
-                          "c-bottom-app-download clearfix"]
-        let jsAddClearOpHead = "document.getElementsByClassName('"
-        let jsAddClearOpTail = "')[0].style.display = 'none'"
-        for className in classNames {
-            let js = "\(jsAddClearOpHead)\(className)\(jsAddClearOpTail)"
-            self.webView.evaluateJavaScript(js) { (result, error) in
-                
-            }
-        }
+//        let classNames = ["c-top-app-download clearfix",
+//                          "c-page-header",
+//                          "c-full-screen-page-header",
+//                          "c-bottom-app-download clearfix"]
+//        let jsAddClearOpHead = "document.getElementsByClassName('"
+//        let jsAddClearOpTail = "')[0].style.display = 'none'"
+//        for className in classNames {
+//            let js = "\(jsAddClearOpHead)\(className)\(jsAddClearOpTail)"
+//            self.webView.evaluateJavaScript(js) { (result, error) in
+//
+//            }
+//        }
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {

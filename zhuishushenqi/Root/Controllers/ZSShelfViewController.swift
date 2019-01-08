@@ -46,6 +46,8 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         
         NotificationCenter.qs_addObserver(observer: self, selector: #selector(loginSuccessAction), name: LoginSuccess, object: nil)
         NotificationCenter.qs_addObserver(observer: self, selector: #selector(addBookToShelf(noti:)), name: BOOKSHELF_ADD, object: nil)
+        NotificationCenter.qs_addObserver(observer: self, selector: #selector(deleteFromShelf(noti:)), name: BOOKSHELF_DELETE, object: nil)
+
         loginSuccessAction()
     }
     
@@ -61,6 +63,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
             // Fallback on earlier versions
         }
         self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -149,6 +152,23 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     }
     
     @objc
+    func deleteFromShelf(noti:Notification) {
+        if let book = noti.object as? BookDetail {
+            self.tableView.reloadData()
+            if ZSLogin.share.hasLogin() {
+                viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
+                    if json?["ok"] as? Bool == true {
+                        self.view.showTip(tip: "\(book.title)从书架删除成功")
+                        self.headerRefresh?.beginRefreshing()
+                    } else {
+                        self.view.showTip(tip: "\(book.title)从书架删除失败")
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc
     func addBookToShelf(noti:Notification) {
         if let book = noti.object as? BookDetail {
             self.tableView.reloadData()
@@ -185,7 +205,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
             return viewModel.books.count
         }
 //        return viewModel.fetchBooks().count
-        return viewModel.books.count
+        return viewModel.booksID.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -203,9 +223,11 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         } else {
 //            let book = viewModel.fetchBooks()[indexPath.row]
 //            cell.configureCell(model: book)
-            let id = viewModel.booksID[indexPath.row]
-            if let item = viewModel.books[id]  {
-                cell.configureCell(model: item)
+            if viewModel.booksID.count > indexPath.row {
+                let id = viewModel.booksID[indexPath.row]
+                if let item = viewModel.books[id]  {
+                    cell.configureCell(model: item)
+                }
             }
         }
         return cell
@@ -330,6 +352,7 @@ extension ZSShelfViewController:SwipableCellDelegate {
             if book._id == bookid {
                 self.viewModel.booksID.remove(at: index)
                 self.viewModel.books.removeValue(forKey: bookid)
+                ZSBookManager.shared.deleteBook(book: book)
                 self.viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
                     if json?["ok"] as? Bool == true {
                         self.view.showTip(tip: "\(book.title)已从书架中删除")

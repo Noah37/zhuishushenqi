@@ -14,7 +14,6 @@ public class ZSBookManager:NSObject {
     // 策略
     // 书架信息:保存书架书籍的所有id的list到本地
     // 根据id从本地文件中查询是否存在该书籍,如果不存在,从list中删除该id,如果存在,在内存中保存信息
-    
     // 书架中书籍的id保存为list的key,对key取md5即为保存的文件名
     let ZSBookShelfIDSKey = "ZSBookShelfIDSKey"
     let ZSReadHistorySaveKey = "ZSReadHistorySaveKey"
@@ -25,23 +24,17 @@ public class ZSBookManager:NSObject {
     // 书架的所有书籍的id
     var ids:[String] {
         get {
-            let idsArr = booksID()
-            return idsArr
+            return booksID()
         }
-        set {
-            saveBooksID(booksID: newValue)
-        }
+        set {}
     }
     
     // 书架中的所有书籍的model,请勿使用set方法
     var books:[String:BookDetail] {
         get {
-            let booksInfo = self.booksInfo()
-            return booksInfo
+            return booksInfo()
         }
-        set {
-//            saveBooks(books: newValue)
-        }
+        set {}
     }
     
     var _diskQueue:DispatchQueue!
@@ -56,6 +49,7 @@ public class ZSBookManager:NSObject {
         }
     }
     
+    //MARK: - 置顶
     func topBook(key:String) {
         var book_index = 0
         for index in 0..<ids.count {
@@ -67,81 +61,119 @@ public class ZSBookManager:NSObject {
         ids.insert(key, at: 0)
     }
     
-    // 是否存在book
-    func existBook(book:BookDetail) -> Bool {
-        var exist:Bool = false
-        var book_exist = false
-        for id in self.ids {
-            if book._id == id {
-                exist = true
-            }
-        }
-        for item in self.books {
-            if item.key == book._id {
-                book_exist = true
-            }
-        }
-        
-        return exist && book_exist
-    }
-    
-    
-    
     //MARK: - 添加,默认添加到尾部
     func addBook(book:BookDetail) {
-        if existBook(book: book) {
-            QSLog("\(book.title)已存在")
-            return
-        }
-        self.ids.append(book._id)
-        self.books[book._id] = book
-        self.saveBooks(book: book)
+        addBookId(book: book)
+        addBookInfo(book: book)
     }
     
     //MARK: - 添加多本书籍,一般推荐书籍或者从远程拉取大量书籍时使用
     func addBooks(books:[BookDetail]) {
         for book in books {
-            self.addBook(book: book)
+            addBook(book: book)
         }
     }
     
-    //MARK: - 删除
+    //MARK: - 删除指定书籍
     func deleteBook(book:BookDetail) {
-        if !existBook(book: book) {
+        if !existBookId(bookId: book._id) {
             QSLog("\(book.title)不存在")
             return
         }
-        self.books.removeValue(forKey: book._id)
+        clearId(id: book._id)
+        clearBook(book: book)
     }
     
-    func update(updateInfo:[BookShelf]) {
-        for update in updateInfo {
-            if let book = self.books[update._id ?? ""] {
-                if let updateStr = update.updated {
-                    if updateStr != book.updateInfo?.updated {
-                        book.isUpdated = true
-                    }
+    //MARK: - 更新书架信息
+    func update(bookshelfs:[BookShelf]) {
+        for bookshelf in bookshelfs {
+            guard let book = ZSBookManager._books[bookshelf._id ?? ""] else { return }
+            if let updateStr = bookshelf.updated {
+                if updateStr != book.updateInfo?.updated {
+                    book.isUpdated = true
+                    book.updateInfo = bookshelf
+                    self.updateBook(book: book)
                 }
-                book.updateInfo = update
-                self.updateBook(book: book)
-                
             }
         }
     }
     
     //MARK: - 更新
     func updateBook(book:BookDetail) {
-        if !existBook(book: book) {
+        if !existBookInfo(book: book) {
             QSLog("\(book.title)不存在")
-            return
+            // 不存在,添加
+            addBook(book: book)
         }
         QSLog("\(book.title)更新成功")
-        self.books[book._id] = book
-        self.saveBooks(book:book)
+        ZSBookManager._books["\(book._id)"] = book
+        saveBooks(book:book)
     }
     
-    //MARK: - books
-    // 保存书籍信息
+    /// id数组中是否存在该id
+    func existBookId(bookId:String) -> Bool {
+        var exist_id:Bool = false
+        for id in ZSBookManager._ids {
+            if bookId == id {
+                exist_id = true
+            }
+        }
+        return exist_id
+    }
+    
+    /// 删除id数组中的该书id与本地id
+    fileprivate func clearId(id:String) {
+        var index = 0
+        for bookId in ZSBookManager._ids {
+            if id == bookId {
+                break
+            }
+            index += 1
+        }
+        ZSBookManager._ids.remove(at: index)
+        saveBooksID(booksID: ZSBookManager._ids)
+    }
+    
+    /// 书籍数组中是否存在该书籍
+    fileprivate func existBookInfo(book:BookDetail) -> Bool {
+        var book_exist = false
+        for item in ZSBookManager._books {
+            if item.key == book._id {
+                book_exist = true
+            }
+        }
+        return book_exist
+    }
+    
+    /// 添加书籍的id到id数组中
+    private func addBookId(book:BookDetail) {
+        if book._id == "" {
+            // 为空,不添加
+            return
+        }
+        if existBookId(bookId: book._id) {
+            // 书架中已存在,不添加
+            return
+        }
+        ZSBookManager._ids.append(book._id)
+        saveBooksID(booksID: ZSBookManager._ids)
+    }
+    
+    /// 添加书籍到书籍数组中
+    private func addBookInfo(book:BookDetail) {
+        if book._id == "" {
+            // 为空,不添加
+            return
+        }
+        if existBookInfo(book: book) {
+            // 书架中已存在,不添加
+            return
+        }
+        ZSBookManager._books["\(book._id)"] = book
+        saveBooks(book: book)
+    }
+    
+    //MARK: - 保存该书籍信息到本地
     fileprivate func saveBooks(book:BookDetail) {
         ZSBookManager._books = books
         // 只更新这本书,防止多次重复无用更新
@@ -158,7 +190,35 @@ public class ZSBookManager:NSObject {
         }
     }
     
-    // 获取所有的书籍信息
+    //MARK: - 保存id数组到本地
+    fileprivate func saveBooksID(booksID:[String]) {
+        if booksID == ZSBookManager._ids  {
+            return
+        }
+        ZSBookManager._ids = booksID
+        let path = NSHomeDirectory().appending("/Documents/ZSBookShelf")
+        let idString = booksID.joined(separator: ",")
+        let data = idString.data(using: .utf8)
+        try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+        let filePath = path.appending("/\(ZSBookShelfIDSKey.md5())")
+        let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+        if success {
+            QSLog("书架List保存成功")
+        }
+    }
+    
+    /// 清除本地书籍信息
+    fileprivate func clearBook(book:BookDetail) {
+        ZSBookManager.calTime {
+            let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/Books").appending("/\(book._id.md5())")
+            let fileEixst = FileManager.default.fileExists(atPath: path)
+            if fileEixst {
+                try? FileManager.default.removeItem(atPath: path)
+            }
+        }
+    }
+    
+    /// 获取本地保存的所有的书籍信息
     fileprivate func booksInfo() -> [String:BookDetail] {
         if ZSBookManager._books.count > 0 {
             return ZSBookManager._books
@@ -175,24 +235,6 @@ public class ZSBookManager:NSObject {
         }
         ZSBookManager._books = models
         return models
-    }
-    
-    //MARK: - ids
-    // 保存书架List信息
-    fileprivate func saveBooksID(booksID:[String]) {
-        if booksID == ZSBookManager._ids  {
-            return
-        }
-        ZSBookManager._ids = booksID
-        let path = NSHomeDirectory().appending("/Documents/ZSBookShelf")
-        let idString = booksID.joined(separator: ",")
-        let data = idString.data(using: .utf8)
-        try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-        let filePath = path.appending("/\(ZSBookShelfIDSKey.md5())")
-        let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
-        if success {
-            QSLog("书架List保存成功")
-        }
     }
     
     // 如果ids存在,返回ids,如果不存在,读文件后保存到ids中,修改时页需要更新ids中的内容
@@ -220,8 +262,6 @@ public class ZSBookManager:NSObject {
         let linkTime = (CFAbsoluteTimeGetCurrent() - startTime)
         QSLog("Linked in \(linkTime * 1000.0) ms")
     }
-    
-   
 }
 
 // 由于采用数组时，每次遍历的时间会很长，无法快速保存，因此采用NSDictionary来保存书架中的书籍，key为对应的书籍的_id

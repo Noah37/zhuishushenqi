@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RightViewController: UITableViewController {
+class RightViewController: ZSBaseTableViewController {
 
     var titles:[String]?
     
