@@ -221,6 +221,7 @@
 		B278AB061F398926000A0D55 /* M80AttributedLabelAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = B278AAFF1F398926000A0D55 /* M80AttributedLabelAttachment.m */; };
 		B278AB071F398926000A0D55 /* M80AttributedLabelURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B278AB021F398926000A0D55 /* M80AttributedLabelURL.m */; };
 		B278AB081F398926000A0D55 /* NSMutableAttributedString+M80.m in Sources */ = {isa = PBXBuildFile; fileRef = B278AB041F398926000A0D55 /* NSMutableAttributedString+M80.m */; };
+		B27B752121E5061100EFC2D7 /* ZSUserAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27B752021E5061100EFC2D7 /* ZSUserAccountViewController.swift */; };
 		B27D7E841F4BDF8D00866341 /* QSCategoryDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27D7E831F4BDF8D00866341 /* QSCategoryDetailCell.swift */; };
 		B27D7E861F4BE04300866341 /* UICollectionView+QSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27D7E851F4BE04300866341 /* UICollectionView+QSExtension.swift */; };
 		B27D7E961F4D1F8600866341 /* QSSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27D7E951F4D1F8600866341 /* QSSegmentViewController.swift */; };
@@ -744,6 +745,7 @@
 		B278AB021F398926000A0D55 /* M80AttributedLabelURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M80AttributedLabelURL.m; sourceTree = "<group>"; };
 		B278AB031F398926000A0D55 /* NSMutableAttributedString+M80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+M80.h"; sourceTree = "<group>"; };
 		B278AB041F398926000A0D55 /* NSMutableAttributedString+M80.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+M80.m"; sourceTree = "<group>"; };
+		B27B752021E5061100EFC2D7 /* ZSUserAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSUserAccountViewController.swift; sourceTree = "<group>"; };
 		B27D7E831F4BDF8D00866341 /* QSCategoryDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCategoryDetailCell.swift; sourceTree = "<group>"; };
 		B27D7E851F4BE04300866341 /* UICollectionView+QSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+QSExtension.swift"; sourceTree = "<group>"; };
 		B27D7E951F4D1F8600866341 /* QSSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSegmentViewController.swift; sourceTree = "<group>"; };
@@ -1928,6 +1930,7 @@
 				B2B4BA5A1E7EA4A8000CC201 /* LeftViewController.swift */,
 				B29CFB6C217AD6D30006F294 /* ZSMyViewController.swift */,
 				B29CFB7E217B37DC0006F294 /* ZSUserInfoViewController.swift */,
+				B27B752021E5061100EFC2D7 /* ZSUserAccountViewController.swift */,
 				B2A7CD8A2180D6E90067D25B /* ZSModifyNicknameViewController.swift */,
 				B2B4BA5B1E7EA4A8000CC201 /* RightViewController.swift */,
 				B252D4E3211037380091858E /* ZSShelfViewController.swift */,
@@ -2738,6 +2741,7 @@
 				B2580E1D1E9B236000455AFE /* QSSearchProtocols.swift in Sources */,
 				3DD0842B215750C8008E3B4A /* Network.swift in Sources */,
 				B2C0DF5B20D4CB350057DC84 /* BookDetailHeader.swift in Sources */,
+				B27B752121E5061100EFC2D7 /* ZSUserAccountViewController.swift in Sources */,
 				B222A2C31EEE6EE9007CD57F /* QSLaunchRecView.swift in Sources */,
 				B252D488210EF3960091858E /* HTTPDynamicFileResponse.m in Sources */,
 				B22AC4511E9F1C8C008625E6 /* ZSRankViewModel.swift in Sources */,
