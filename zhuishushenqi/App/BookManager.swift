@@ -16,10 +16,13 @@ public class ZSBookManager:NSObject {
     // 根据id从本地文件中查询是否存在该书籍,如果不存在,从list中删除该id,如果存在,在内存中保存信息
     // 书架中书籍的id保存为list的key,对key取md5即为保存的文件名
     let ZSBookShelfIDSKey = "ZSBookShelfIDSKey"
-    let ZSReadHistorySaveKey = "ZSReadHistorySaveKey"
+    let ZSReadHistorySaveIDKey = "ZSReadHistorySaveKey"
+    let ZSReadHistoryBooksKey = "ZSReadHistoryBooksKey"
     
     fileprivate static var _ids:[String] = []
     fileprivate static var _books:[String:BookDetail] = [:]
+    fileprivate static var _historyIds:[String] = []
+    fileprivate static var _historyBooks:[String:BookDetail] = [:]
     
     // 书架的所有书籍的id
     var ids:[String] {
@@ -37,6 +40,21 @@ public class ZSBookManager:NSObject {
         set {}
     }
     
+    /// 阅读历史
+    var historyBooks:[String:BookDetail] {
+        get {
+            return historyBooksInfo()
+        }
+        set {}
+    }
+    
+    var historyIds:[String] {
+        get {
+            return historyBooksID()
+        }
+        set {}
+    }
+    
     var _diskQueue:DispatchQueue!
     
     static let shared = ZSBookManager()
@@ -46,6 +64,16 @@ public class ZSBookManager:NSObject {
         ZSBookManager.calTime {
             QSLog(self.ids)
             QSLog(self.books)
+            ZSBookManager._ids = ZSBookManager._ids.filterDuplicates({$0})
+            let ids = ZSBookManager._ids
+            var index = 0
+            for id in ids {
+                if id == "" {
+                    ZSBookManager._ids.remove(at: index)
+                }
+                index += 1
+            }
+            self.saveBooksID(booksID: ZSBookManager._ids)
         }
     }
     
@@ -57,8 +85,9 @@ public class ZSBookManager:NSObject {
                 book_index = index
             }
         }
-        ids.remove(at: book_index)
-        ids.insert(key, at: 0)
+        ZSBookManager._ids.remove(at: book_index)
+        ZSBookManager._ids.insert(key, at: 0)
+        saveBooksID(booksID: ZSBookManager._ids)
     }
     
     //MARK: - 添加,默认添加到尾部
@@ -119,6 +148,59 @@ public class ZSBookManager:NSObject {
             }
         }
         return exist_id
+    }
+    
+    
+    //MARK: - 浏览记录
+    fileprivate func existHistoryId(id:String) ->Bool {
+        var exist_id:Bool = false
+        for historyId in ZSBookManager._historyIds {
+            if historyId == id {
+                exist_id = true
+            }
+        }
+        return exist_id
+    }
+    
+    func addHistory(book:BookDetail) {
+        addHistoryId(id: book._id)
+        addHistoryBook(book: book)
+    }
+    
+    fileprivate func addHistoryId(id:String) {
+        if existHistoryId(id: id) {
+            return
+        }
+        if id == "" {
+            return
+        }
+        ZSBookManager._historyIds.append(id)
+        let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/History")
+        let idString = ZSBookManager._historyIds.joined(separator: ",")
+        let data = idString.data(using: .utf8)
+        try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+        let filePath = path.appending("/\(ZSReadHistorySaveIDKey.md5())")
+        let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+        if success {
+            QSLog("阅读历史保存成功")
+        }
+    }
+    
+    fileprivate func addHistoryBook(book:BookDetail) {
+        if book._id == "" {
+            return
+        }
+        ZSBookManager.calTime {
+            let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/History")
+            let data = NSKeyedArchiver.archivedData(withRootObject: book)
+            print(data.count)
+            try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+            let filePath = path.appending("/\(book._id.md5())")
+            let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+            if success {
+                QSLog("保存'\(book.title)'的阅读记录成功@_@")
+            }
+        }
     }
     
     /// 删除id数组中的该书id与本地id
@@ -192,9 +274,6 @@ public class ZSBookManager:NSObject {
     
     //MARK: - 保存id数组到本地
     fileprivate func saveBooksID(booksID:[String]) {
-        if booksID == ZSBookManager._ids  {
-            return
-        }
         ZSBookManager._ids = booksID
         let path = NSHomeDirectory().appending("/Documents/ZSBookShelf")
         let idString = booksID.joined(separator: ",")
@@ -216,6 +295,42 @@ public class ZSBookManager:NSObject {
                 try? FileManager.default.removeItem(atPath: path)
             }
         }
+    }
+    
+    //MARK: - 历史信息
+    fileprivate func historyBooksInfo() -> [String:BookDetail] {
+        if ZSBookManager._historyBooks.count > 0 {
+            return ZSBookManager._historyBooks
+        }
+        var models:[String:BookDetail] = [:]
+        for id in self.ids {
+            let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/History").appending("/\(id.md5())")
+            let url = URL(fileURLWithPath: path)
+            if let data = try? Data(contentsOf: url, options: Data.ReadingOptions.alwaysMapped) {
+                if let obj = NSKeyedUnarchiver.unarchiveObject(with: data) as? BookDetail {
+                    models[id] = obj
+                }
+            }
+        }
+        ZSBookManager._historyBooks = models
+        return models
+    }
+    
+    fileprivate func historyBooksID() ->[String] {
+        if ZSBookManager._historyIds.count > 0 {
+            return ZSBookManager._historyIds
+        }
+        let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/History").appending("/\(ZSReadHistorySaveIDKey.md5())")
+        let url = URL(fileURLWithPath: path)
+        if let data = try? Data(contentsOf: url, options: Data.ReadingOptions.alwaysMapped) {
+            if let ids = String(data: data, encoding: .utf8) {
+                let idArr = ids.components(separatedBy: ",")
+                ZSBookManager._historyIds = idArr
+                return idArr
+            }
+        }
+        ZSBookManager._historyIds = []
+        return []
     }
     
     /// 获取本地保存的所有的书籍信息

@@ -350,8 +350,6 @@ extension ZSShelfViewController:SwipableCellDelegate {
         var index = 0
         for bookid in books {
             if book._id == bookid {
-                self.viewModel.booksID.remove(at: index)
-                self.viewModel.books.removeValue(forKey: bookid)
                 ZSBookManager.shared.deleteBook(book: book)
                 self.viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
                     if json?["ok"] as? Bool == true {

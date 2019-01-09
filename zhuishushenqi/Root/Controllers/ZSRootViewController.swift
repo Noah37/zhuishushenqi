@@ -25,6 +25,7 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
     
     var viewControllers:[UIViewController] = []
     let disposeBag = DisposeBag()
+    let recommend = ZSRecommend()
     
     private var recView:QSLaunchRecView!
     private var tipImageView:UIImageView!
@@ -136,38 +137,20 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
     @objc
     private func showRecommend(){
         // animate
-        let nib = UINib(nibName: "QSLaunchRecView", bundle: nil)
-        recView = nib.instantiate(withOwner: nil, options: nil).first as? QSLaunchRecView
-        recView.frame = self.view.bounds
-        recView.alpha = 0.0
-        recView.closeCallback = { (btn) in
-            self.dismissRecView()
-        }
-        recView.boyTipCallback = { (btn) in
+        recommend.show(boyTipCallback: { (btn) in
             self.fetchRecList(index: 0)
-            self.perform(#selector(self.dismissRecView), with: nil, afterDelay: 1)
-        }
-        
-        recView?.girlTipCallback = { (btn) in
+            self.dismissRecView()
+        }, girlTipCallback: { (btn) in
             self.fetchRecList(index: 1)
-            self.perform(#selector(self.dismissRecView), with: nil, afterDelay: 1)
-        }
-        KeyWindow?.addSubview(recView)
-        UIView.animate(withDuration: 0.35, animations: {
-            self.recView.alpha = 1.0
-        }) { (finished) in
-            
+            self.dismissRecView()
+        }) { (btn) in
+            self.dismissRecView()
         }
     }
     
     @objc
     func dismissRecView(){
-        UIView.animate(withDuration: 0.35, animations: {
-            self.recView.alpha = 0.0
-        }) { (finished) in
-            self.recView.removeFromSuperview()
-            self.showUserTipView()
-        }
+        self.showUserTipView()
     }
     
     @objc
@@ -190,7 +173,9 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
         zs_get(recURL) { (json) in
             if let books = json?["books"] as? [Any] {
                 if let models = [BookDetail].deserialize(from: books) as? [BookDetail] {
-                    BookManager.shared.modifyBookshelf(books: models)
+                    ZSBookManager.shared.addBooks(books: models)
+                    let shelvesVC = self.viewControllerFor(index: 0) as! ZSShelfViewController
+                    shelvesVC.headerRefresh?.beginRefreshing()
                 }
             }
         }

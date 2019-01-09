@@ -156,7 +156,9 @@ class ZSReaderViewController: BaseViewController  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 全局设置
-        
+        if let book = viewModel.book {
+            ZSBookManager.shared.addHistory(book: book)
+        }
     }
     
     @objc

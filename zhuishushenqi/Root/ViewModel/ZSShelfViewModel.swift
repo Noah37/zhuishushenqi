@@ -102,15 +102,7 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
     }
     
     func topBook(key:String) {
-        var book_index = 0
-        for index in 0..<booksID.count {
-            if booksID[index] == key {
-                book_index = index
-            }
-        }
         ZSBookManager.shared.topBook(key: key)
-        booksID.remove(at: book_index)
-        booksID.insert(key, at: 0)
     }
 }
 

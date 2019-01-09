@@ -113,28 +113,36 @@ class RootViewController: UIViewController {
     
     @objc private func showRecommend(){
         // animate
-        let nib = UINib(nibName: "QSLaunchRecView", bundle: nil)
-        recView = nib.instantiate(withOwner: nil, options: nil).first as? QSLaunchRecView
-        recView.frame = self.view.bounds
-        recView.alpha = 0.0
-        recView.closeCallback = { (btn) in
-            self.dismissRecView()
-        }
-        recView.boyTipCallback = { (btn) in
-            self.fetchRecList(index: 0)
-            self.perform(#selector(self.dismissRecView), with: nil, afterDelay: 1)
-        }
-        
-        recView?.girlTipCallback = { (btn) in
-            self.fetchRecList(index: 1)
-            self.perform(#selector(self.dismissRecView), with: nil, afterDelay: 1)
-        }
-        KeyWindow?.addSubview(recView)
-        UIView.animate(withDuration: 0.35, animations: { 
-            self.recView.alpha = 1.0
-        }) { (finished) in
+        let recommend = ZSRecommend()
+        recommend.show(boyTipCallback: { (btn) in
+            
+        }, girlTipCallback: { (btn) in
+            
+        }) { (btn) in
             
         }
+//        let nib = UINib(nibName: "QSLaunchRecView", bundle: nil)
+//        recView = nib.instantiate(withOwner: nil, options: nil).first as? QSLaunchRecView
+//        recView.frame = self.view.bounds
+//        recView.alpha = 0.0
+//        recView.closeCallback = { (btn) in
+//            self.dismissRecView()
+//        }
+//        recView.boyTipCallback = { (btn) in
+//            self.fetchRecList(index: 0)
+//            self.perform(#selector(self.dismissRecView), with: nil, afterDelay: 1)
+//        }
+//
+//        recView?.girlTipCallback = { (btn) in
+//            self.fetchRecList(index: 1)
+//            self.perform(#selector(self.dismissRecView), with: nil, afterDelay: 1)
+//        }
+//        KeyWindow?.addSubview(recView)
+//        UIView.animate(withDuration: 0.35, animations: {
+//            self.recView.alpha = 1.0
+//        }) { (finished) in
+//
+//        }
     }
     
     func fetchRecList(index:Int){
