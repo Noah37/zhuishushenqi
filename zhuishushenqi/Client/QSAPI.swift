@@ -112,6 +112,8 @@ enum QSAPI {
     case boughtChapters(id:String,token:String)
     ///书架信息diff
     case bookshelfdiff(books:String,token:String)
+    ///追书券列表
+    case voucherList(token:String, type:String, start:Int, limit:Int)
 }
 
 extension QSAPI:TargetType{
@@ -262,6 +264,9 @@ extension QSAPI:TargetType{
 //            https://api.zhuishushenqi.com/v3/user/bookshelf/diff
             pathComponent = "/v3/user/bookshelf/diff"
             break
+        case .voucherList(_, _, _, _):
+            pathComponent = "/voucher"
+            break
         default:
             break
         }
@@ -368,6 +373,11 @@ extension QSAPI:TargetType{
         case let .bookshelfdiff(books, token):
             return ["books":books,
                     "token":token]
+        case let .voucherList(token, type, start, limit):
+            return ["token":token,
+                    "type":"\(type)",
+                    "start":"\(start)",
+                    "limit":"\(limit)"]
         default:
             return nil
         }

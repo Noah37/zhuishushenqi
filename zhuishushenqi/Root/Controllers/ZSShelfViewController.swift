@@ -113,21 +113,25 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     
     @objc
     func openSafari() {
+        // 存在三种可能,post,link,booklist
         if let message = viewModel.shelfMessage {
             let title = message.postMessage()
-            if title.0.hasPrefix("http") {
+            let type = title.2
+            if type == .link {
                 if let url = URL(string: title.0) {
                     let safariVC = SFSafariViewController(url: url)
                     self .present(safariVC, animated: true, completion: nil)
                 }
-            } else {
-                // 不是url就是post
+            } else if type == .post {
                 let id = title.0
                 let comment = BookComment()
                 comment._id = id
                 let commentVC = ZSBookCommentViewController(style: .grouped)
                 commentVC.viewModel.model = comment
                 SideVC.navigationController?.pushViewController(commentVC, animated: true)
+            } else if type == .booklist {
+                let topicVC = QSTopicDetailRouter.createModule(id: title.0)
+                SideVC.navigationController?.pushViewController(topicVC, animated: true)
             }
         }
     }
@@ -240,7 +244,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                 if let message = viewModel.shelfMessage {
                     let title = message.postMessage()
                     shelfMsg.setTitle(title.1, for: .normal)
-                    shelfMsg.setTitleColor(title.2, for: .normal)
+                    shelfMsg.setTitleColor(title.3, for: .normal)
                     return shelfMsg
                 }
             }
@@ -249,7 +253,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                 if let message = viewModel.shelfMessage {
                     let title = message.postMessage()
                     shelfMsg.setTitle(title.1, for: .normal)
-                    shelfMsg.setTitleColor(title.2, for: .normal)
+                    shelfMsg.setTitleColor(title.3, for: .normal)
                     return shelfMsg
                 }
             }

@@ -71,7 +71,7 @@ class ZSRLMyCell: UITableViewCell {
 
 class ZSRTMyCell: UITableViewCell {
     
-    private lazy var rightButton:UIButton = {
+    lazy var rightButton:UIButton = {
         let button = UIButton(type: .custom)
         button.layer.borderColor = UIColor.red.cgColor
         button.layer.borderWidth = 1
@@ -115,5 +115,64 @@ class ZSRTMyCell: UITableViewCell {
         let width = rightTitle.qs_width(UIFont.systemFont(ofSize: 13), height: 30)
         rightButton.frame = CGRect(x: self.bounds.width - width - 20 - 40, y: self.bounds.height/2 - 13 , width: width + 20, height: 26)
         rightButton.layer.cornerRadius = 5
+    }
+}
+
+class ZSRLTMyCell: ZSRTMyCell {
+    
+    private var rightLabel:UILabel!
+    var rightLabelTitle:String = "" {
+        didSet {
+            rightLabel.text = self.rightLabelTitle
+            let width = rightTitle.qs_width(UIFont.systemFont(ofSize: 13), height: 30)
+            
+            rightLabel.frame = CGRect(x: self.bounds.width - width - 40, y: self.bounds.height/2 - 15 , width: width, height: 30)
+        }
+    }
+    
+    override var rightTitle:String {
+        didSet {
+            rightButton.setTitle(rightTitle, for: .normal)
+            let width = rightTitle.qs_width(UIFont.systemFont(ofSize: 13), height: 30)
+            rightButton.frame = CGRect(x: self.bounds.width - width - 20, y: self.bounds.height/2 - 15 , width: width, height: 30)
+            
+        }
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        rightLabel = UILabel(frame: CGRect.zero)
+        rightLabel.font = UIFont.systemFont(ofSize: 13)
+        rightLabel.textColor = UIColor.gray
+        rightLabel.textAlignment = .center
+        
+        self.accessoryType = .none
+        contentView.addSubview(self.rightLabel)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let width = rightTitle.qs_width(UIFont.systemFont(ofSize: 13), height: 30)
+        rightButton.frame = CGRect(x: self.bounds.width - width - 20 - 20, y: self.bounds.height/2 - 13 , width: width + 20, height: 26)
+        rightButton.layer.cornerRadius = 5
+        
+        let labelWidth = rightLabelTitle.qs_width(UIFont.systemFont(ofSize: 13), height: 30)
+        
+        rightLabel.frame = CGRect(x: rightButton.frame.minX - labelWidth - 10, y: self.bounds.height/2 - 15 , width: labelWidth, height: 30)
     }
 }

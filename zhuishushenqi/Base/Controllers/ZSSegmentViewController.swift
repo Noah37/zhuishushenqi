@@ -8,22 +8,27 @@
 
 import UIKit
 
-class ZSSegmentViewController: UIViewController ,UICollectionViewDelegate{
+typealias ZSSegmentHandler = (_ index:Int)->Void
 
+protocol ZSSegmenuProtocol {
+    func viewControllersForSegmenu(_ segmenu:ZSSegmenuViewController) ->[UIViewController]
+    func segmenu(_ segmenu:ZSSegmenuViewController, didSelectSegAt index:Int)
+    func segmenu(_ segmenu:ZSSegmenuViewController, didScrollToSegAt index:Int)
+}
+
+class ZSSegmenuViewController: UIViewController {
     
-    fileprivate var collectionView:UICollectionView!
     fileprivate var segMenu:SegMenu!
-    var viewControllers:[UIViewController] = [] {
-        didSet {
-            setupSegMenu()
-            setupChildViewControllers()
-            collectionView.reloadData()
-        }
-    }
+    
+    fileprivate var segmentViewController:ZSSegmentViewController = ZSSegmentViewController()
+    
+    var delegate:ZSSegmenuProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionView()
+        if let viewControllers = self.delegate?.viewControllersForSegmenu(self) {
+            setupSubviews(viewControllers: viewControllers)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,10 +38,59 @@ class ZSSegmentViewController: UIViewController ,UICollectionViewDelegate{
             make.top.equalToSuperview().offset(kNavgationBarHeight)
             make.height.equalTo(kTootSegmentViewHeight)
         }
-        
-        collectionView.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalToSuperview()
+        segmentViewController.view.snp.makeConstraints { (make) in
+            make.left.bottom.right.equalToSuperview()
             make.top.equalTo(segMenu.snp.bottom)
+        }
+    }
+    
+    fileprivate func setupSubviews(viewControllers:[UIViewController]) {
+        var titles:[String] = []
+        for controller in viewControllers {
+            titles.append(controller.title ?? "")
+        }
+        segMenu = SegMenu(frame: CGRect.zero, WithTitles: titles)
+        segMenu.menuDelegate = self
+        self.view.addSubview(segMenu)
+        
+        segmentViewController.scrollViewDidEndDeceleratingHandler = { index in
+            self.segMenu.selectIndex(index)
+        }
+        view.addSubview(segmentViewController.view)
+        addChild(segmentViewController)
+        segmentViewController.viewControllers = viewControllers
+    }
+}
+
+extension ZSSegmenuViewController:SegMenuDelegate{
+    //MARK: - SegMenuDelegate
+    func didSelectAtIndex(_ index:Int){
+        let indexPath = IndexPath(row: index, section: 0)
+        self.segmentViewController.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+    }
+}
+
+class ZSSegmentViewController: UIViewController ,UICollectionViewDelegate{
+
+    
+    var collectionView:UICollectionView!
+    var viewControllers:[UIViewController] = [] {
+        didSet {
+            setupChildViewControllers()
+        }
+    }
+    
+    var scrollViewDidEndDeceleratingHandler:ZSSegmentHandler?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureCollectionView()
+        collectionView.snp.makeConstraints { (make) in
+            make.left.top.right.bottom.equalToSuperview()
         }
         
         if #available(iOS 11.0, *) {
@@ -51,9 +105,13 @@ class ZSSegmentViewController: UIViewController ,UICollectionViewDelegate{
         // Dispose of any resources that can be recreated.
     }
     
+    func didSelect(index:Int) {
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+    
     fileprivate func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: ScreenWidth, height: ScreenHeight - kNavgationBarHeight - kTootSegmentViewHeight)
         layout.minimumLineSpacing = 0.01
         layout.minimumInteritemSpacing = 0.01
         layout.scrollDirection = .horizontal
@@ -67,16 +125,6 @@ class ZSSegmentViewController: UIViewController ,UICollectionViewDelegate{
         view.addSubview(collectionView)
     }
     
-    fileprivate func setupSegMenu(){
-        var titles:[String] = []
-        for controller in viewControllers {
-            titles.append(controller.title ?? "")
-        }
-        segMenu = SegMenu(frame: CGRect.zero, WithTitles: titles)
-        segMenu.menuDelegate = self
-        self.view.addSubview(segMenu)
-    }
-    
     fileprivate func setupChildViewControllers() {
         for controller in viewControllers {
             addChild(controller)
@@ -84,7 +132,7 @@ class ZSSegmentViewController: UIViewController ,UICollectionViewDelegate{
     }
 }
 
-extension ZSSegmentViewController:UICollectionViewDataSource {
+extension ZSSegmentViewController:UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //MARK: -
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -102,6 +150,10 @@ extension ZSSegmentViewController:UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.view.bounds.width, height: self.view.bounds.height)
+    }
+    
     func viewControllerFor(index:Int) -> UIViewController{
         if index > viewControllers.count - 1 {
             return UIViewController()
@@ -110,17 +162,9 @@ extension ZSSegmentViewController:UICollectionViewDataSource {
     }
 }
 
-extension ZSSegmentViewController:SegMenuDelegate{
-    //MARK: - SegMenuDelegate
-    func didSelectAtIndex(_ index:Int){
-        let indexPath = IndexPath(row: index, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-    }
-}
-
 extension ZSSegmentViewController:UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index:Int = Int(fabs(scrollView.contentOffset.x/self.view.bounds.width))
-        segMenu.selectIndex(index)
+        let index:Int = Int(abs(scrollView.contentOffset.x/self.view.bounds.width))
+        scrollViewDidEndDeceleratingHandler?(index)
     }
 }

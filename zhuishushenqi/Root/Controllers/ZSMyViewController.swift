@@ -173,6 +173,16 @@ class ZSMyViewController: ZSBaseTableViewController {
         return 20
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                let userAccountVC = ZSUserAccountViewController()
+                self.navigationController?.pushViewController(userAccountVC, animated: true)
+            }
+        }
+    }
+    
     //MARK: -
     override func registerCellClasses() -> Array<AnyClass> {
         return [ZSRLMyCell.self,ZSRTMyCell.self,UITableViewCell.self]
