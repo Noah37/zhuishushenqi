@@ -138,7 +138,7 @@ class ZSVoucherViewController: ZSBaseTableViewController, Refreshable {
         if let voucherList = vouchers() {
             cell?.titleText = "\(voucherList[indexPath.row].amount)"
             cell?.rightText = "\(voucherList[indexPath.row].balance)"
-            cell?.titleDetailText = voucherList[indexPath.row].expired
+            cell?.titleDetailText = "\(voucherList[indexPath.row].expired.qs_subStr(to: 10))" 
             cell?.rightDetailText = voucherList[indexPath.row].from
         }
         return cell!

@@ -10,8 +10,8 @@
 #import "CoreTextData.h"
 #import <UIKit/UIKit.h>
 
-extern NSString *const CTDisplayViewImagePressedNotification;
-extern NSString *const CTDisplayViewLinkPressedNotification;
+extern NSString *const CTDisplayViewImagePressed;
+extern NSString *const CTDisplayViewLinkPressed;
 
 typedef void(^CTDisplayHandler)(NSDictionary *data);
 
