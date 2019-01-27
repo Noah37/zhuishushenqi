@@ -11,7 +11,7 @@ import Then
 import RxSwift
 import RxCocoa
 
-class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SegMenuDelegate {
+class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SegMenuDelegate {
     
     static let kCellHeight:CGFloat = 60
 
@@ -76,6 +76,30 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { (context) in
+            self.didSelectAtIndex(self.segMenu.selectedIndex)
+        }, completion: nil)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        segMenu.snp.remakeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().offset(kNavgationBarHeight)
+            make.height.equalTo(kTootSegmentViewHeight)
+        }
+        
+        collectionView.snp.remakeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(segMenu.snp.bottom)
+        }
+        collectionView.reloadData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.didSelectAtIndex(self.segMenu.selectedIndex)
+    }
+    
     func configureChildViewController(){
         let shelvesVC = ZSShelfViewController()
         let forumVC = ZSForumViewController()
@@ -91,6 +115,7 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
         layout.minimumLineSpacing = 0.01
         layout.minimumInteritemSpacing = 0.01
         layout.scrollDirection = .horizontal
+        
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate  = self
@@ -185,6 +210,10 @@ class ZSRootViewController: UIViewController,UITableViewDelegate,UICollectionVie
     func didSelectAtIndex(_ index:Int){
         let indexPath = IndexPath(row: index, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return self.collectionView.bounds.size
     }
     
     //MARK: -

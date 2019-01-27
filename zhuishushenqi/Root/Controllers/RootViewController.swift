@@ -295,6 +295,10 @@ extension RootViewController:ComnunityDelegate{
 }
 
 extension RootViewController:SwipableCellDelegate{
+    func swipableCell(swipableCell: SwipableCell, didSelectAt index: Int) {
+        
+    }
+    
     
     func swipeCell(clickAt: Int,model:BookDetail,cell:SwipableCell,selected:Bool) {
         if clickAt == 0 {

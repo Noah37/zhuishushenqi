@@ -50,20 +50,19 @@ class QSSplashScreen: NSObject {
         QSLog("info:\(String(describing: USER_DEFAULTS.object(forKey: splashInfoKey)))")
         // first check network, load image from disk,if not reachable
         if Reachability(hostname: IMAGE_BASEURL)?.isReachable == false {
-            if let data:Data = UserDefaults.value(forKey: splashInfoKey) as? Data {
-                if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
-                    let splashInfo = json
-                    // image not exist,skip
-                    // searchPah exchange everytime you run your app
-                    let imageName = splashInfo?[splashImageNameKey] as? String ?? ""
-                    let imagePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(imageName)") ?? ""
-                    let image = UIImage(contentsOfFile: imagePath)
-                    if let splashImage = image {
-                        self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
-                        self.splashRootVC?.setSplashImage(image: splashImage)
-                    }else{
-                        hide()
-                    }
+            let path = "/ZSSQ/Splash"
+            if let dict = ZSCacheHelper.shared.cachedObj(for: splashInfoKey, cachePath: path) as? [String:Any] {
+                let splashInfo = dict
+                // image not exist,skip
+                // searchPah exchange everytime you run your app
+                let imageName = splashInfo[splashImageNameKey] as? String ?? ""
+                let imagePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(imageName)") ?? ""
+                let image = UIImage(contentsOfFile: imagePath)
+                if let splashImage = image {
+                    self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
+                    self.splashRootVC?.setSplashImage(image: splashImage)
+                }else{
+                    hide()
                 }
             } else {
                 hide()
@@ -94,9 +93,8 @@ class QSSplashScreen: NSObject {
             QSLog("\(fileURL?.path ?? "")")
             let splashImage = UIImage(contentsOfFile: fileURL?.path ?? "")
             self.splashInfo[self.splashImageNameKey] = fileURL?.lastPathComponent ?? ""
-            if let data = try? JSONSerialization.data(withJSONObject: self.splashInfo, options: JSONSerialization.WritingOptions.prettyPrinted) {
-                USER_DEFAULTS.set(data, forKey: self.splashInfoKey)
-            }
+            let path = "/ZSSQ/Splash"
+            ZSCacheHelper.shared.storage(obj: self.splashInfo, for: self.splashInfoKey, cachePath: path)
             self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
             if let image  = splashImage {
                 self.splashRootVC?.setSplashImage(image: image)

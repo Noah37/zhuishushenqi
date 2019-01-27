@@ -277,7 +277,6 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
         
-        
         pagePanGesture.delegate = pageViewController as? UIGestureRecognizerDelegate
         
         if !completed {

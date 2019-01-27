@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.7.3)
+  - Cache (5.2.0)
   - CocoaAsyncSocket (7.6.3)
   - CocoaLumberjack (3.4.2):
     - CocoaLumberjack/Default (= 3.4.2)
@@ -36,6 +37,7 @@ PODS:
   - Zip (1.1.0)
 
 DEPENDENCIES:
+  - Cache
   - CocoaAsyncSocket
   - CocoaLumberjack
   - FMDB
@@ -58,6 +60,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Cache
     - CocoaAsyncSocket
     - CocoaLumberjack
     - FMDB
@@ -79,6 +82,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
@@ -98,6 +102,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: a279d4fc040622fbb50bb47e408e2b22cf60851a
+PODFILE CHECKSUM: 02697a42bae059baeb39dd6c6dad801d2423e30e
 
 COCOAPODS: 1.5.3

@@ -155,6 +155,9 @@ class BookDetail: NSObject,NSCoding ,HandyJSON{
     var isUpdated:Bool = false //是否存在更新,如果存在更新，进入书籍后修改状态
     // book 一直存在，默认初始化，不保存任何章节
     var book:QSBook!
+    
+    // 书架缓存状态
+    var bookCacheState:SwipeCellState = .none
 
     //更新信息
     var updateInfo:BookShelf?
@@ -189,6 +192,8 @@ class BookDetail: NSObject,NSCoding ,HandyJSON{
         self.book = aDecoder.decodeObject(forKey: "book") as? QSBook
         self.record = aDecoder.decodeObject(forKey: "record") as? QSRecord
         self.chaptersInfo = aDecoder.decodeObject(forKey: "chaptersInfo") as? [ZSChapterInfo]
+        self.bookCacheState = SwipeCellState.init(rawValue: aDecoder.decodeObject(forKey: "bookCacheState") as? String ?? "") ?? .none
+        
         setupBook()
     }
     
@@ -232,5 +237,6 @@ class BookDetail: NSObject,NSCoding ,HandyJSON{
         aCoder.encode(self.book, forKey: "book")
         aCoder.encode(self.record, forKey: "record")
         aCoder.encode(self.chaptersInfo,forKey:"chaptersInfo")
+        aCoder.encode(self.bookCacheState.rawValue, forKey: "bookCacheState")
     }
 }

@@ -31,6 +31,19 @@ extension Array {
         }
         return result
     }
+    
+    subscript (safe index:Int) -> Element? {
+        return (0..<count).contains(index) ? self[index]:nil
+    }
+}
+
+extension Collection where Index:Comparable {
+    subscript (safe index:Index) ->Element? {
+        guard startIndex <= index && index < endIndex else {
+            return nil
+        }
+        return self[index]
+    }
 }
 
 

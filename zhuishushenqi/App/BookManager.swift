@@ -62,8 +62,6 @@ public class ZSBookManager:NSObject {
     private override init() {
         super.init()
         ZSBookManager.calTime {
-            QSLog(self.ids)
-            QSLog(self.books)
             ZSBookManager._ids = ZSBookManager._ids.filterDuplicates({$0})
             let ids = ZSBookManager._ids
             var index = 0
@@ -73,7 +71,9 @@ public class ZSBookManager:NSObject {
                 }
                 index += 1
             }
-            self.saveBooksID(booksID: ZSBookManager._ids)
+            if ZSBookManager._ids.count > 0 {
+                self.saveBooksID(booksID: ZSBookManager._ids)
+            }
         }
     }
     
@@ -175,12 +175,9 @@ public class ZSBookManager:NSObject {
             return
         }
         ZSBookManager._historyIds.append(id)
-        let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/History")
+        let path = ZSCacheHelper.historyPath
         let idString = ZSBookManager._historyIds.joined(separator: ",")
-        let data = idString.data(using: .utf8)
-        try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-        let filePath = path.appending("/\(ZSReadHistorySaveIDKey.md5())")
-        let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+        let success = ZSCacheHelper.shared.storage(obj: idString, for: ZSReadHistorySaveIDKey, cachePath: path)
         if success {
             QSLog("阅读历史保存成功")
         }
@@ -191,12 +188,8 @@ public class ZSBookManager:NSObject {
             return
         }
         ZSBookManager.calTime {
-            let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/History")
-            let data = NSKeyedArchiver.archivedData(withRootObject: book)
-            print(data.count)
-            try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-            let filePath = path.appending("/\(book._id.md5())")
-            let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+            let path = ZSCacheHelper.historyPath
+            let success = ZSCacheHelper.shared.storage(obj: book, for: book._id, cachePath: path)
             if success {
                 QSLog("保存'\(book.title)'的阅读记录成功@_@")
             }
@@ -260,12 +253,8 @@ public class ZSBookManager:NSObject {
         ZSBookManager._books = books
         // 只更新这本书,防止多次重复无用更新
         ZSBookManager.calTime {
-            let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/Books")
-            let data = NSKeyedArchiver.archivedData(withRootObject: book)
-            print(data.count)
-            try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-            let filePath = path.appending("/\(book._id.md5())")
-            let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+            let cachePath = ZSCacheHelper.bookshelfBooksPath
+            let success = ZSCacheHelper.shared.storage(obj: book, for: book._id, cachePath: cachePath)
             if success {
                 QSLog("保存'\(book.title)'成功@_@")
             }
@@ -275,12 +264,9 @@ public class ZSBookManager:NSObject {
     //MARK: - 保存id数组到本地
     fileprivate func saveBooksID(booksID:[String]) {
         ZSBookManager._ids = booksID
-        let path = NSHomeDirectory().appending("/Documents/ZSBookShelf")
+        let path = ZSCacheHelper.bookshelfPath
         let idString = booksID.joined(separator: ",")
-        let data = idString.data(using: .utf8)
-        try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-        let filePath = path.appending("/\(ZSBookShelfIDSKey.md5())")
-        let success = FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+        let success = ZSCacheHelper.shared.storage(obj: idString, for: ZSBookShelfIDSKey, cachePath: path)
         if success {
             QSLog("书架List保存成功")
         }
@@ -289,11 +275,8 @@ public class ZSBookManager:NSObject {
     /// 清除本地书籍信息
     fileprivate func clearBook(book:BookDetail) {
         ZSBookManager.calTime {
-            let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/Books").appending("/\(book._id.md5())")
-            let fileEixst = FileManager.default.fileExists(atPath: path)
-            if fileEixst {
-                try? FileManager.default.removeItem(atPath: path)
-            }
+            let path = ZSCacheHelper.bookshelfBooksPath
+            ZSCacheHelper.shared.clear(for: book._id, cachePath: path)
         }
     }
     
@@ -303,13 +286,10 @@ public class ZSBookManager:NSObject {
             return ZSBookManager._historyBooks
         }
         var models:[String:BookDetail] = [:]
-        for id in self.ids {
-            let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/History").appending("/\(id.md5())")
-            let url = URL(fileURLWithPath: path)
-            if let data = try? Data(contentsOf: url, options: Data.ReadingOptions.alwaysMapped) {
-                if let obj = NSKeyedUnarchiver.unarchiveObject(with: data) as? BookDetail {
-                    models[id] = obj
-                }
+        for id in self.historyIds {
+            let path = ZSCacheHelper.historyPath
+            if let obj = ZSCacheHelper.shared.cachedObj(for: id, cachePath: path) as? BookDetail {
+                models[id] = obj
             }
         }
         ZSBookManager._historyBooks = models
@@ -320,14 +300,11 @@ public class ZSBookManager:NSObject {
         if ZSBookManager._historyIds.count > 0 {
             return ZSBookManager._historyIds
         }
-        let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/History").appending("/\(ZSReadHistorySaveIDKey.md5())")
-        let url = URL(fileURLWithPath: path)
-        if let data = try? Data(contentsOf: url, options: Data.ReadingOptions.alwaysMapped) {
-            if let ids = String(data: data, encoding: .utf8) {
-                let idArr = ids.components(separatedBy: ",")
-                ZSBookManager._historyIds = idArr
-                return idArr
-            }
+        let path = ZSCacheHelper.historyPath
+        if let ids = ZSCacheHelper.shared.cachedObj(for: ZSReadHistorySaveIDKey, cachePath: path) as? String {
+            let idArr = ids.components(separatedBy: ",")
+            ZSBookManager._historyIds = idArr
+            return idArr
         }
         ZSBookManager._historyIds = []
         return []
@@ -336,16 +313,14 @@ public class ZSBookManager:NSObject {
     /// 获取本地保存的所有的书籍信息
     fileprivate func booksInfo() -> [String:BookDetail] {
         if ZSBookManager._books.count > 0 {
+            
             return ZSBookManager._books
         }
         var models:[String:BookDetail] = [:]
         for id in self.ids {
-            let path = NSHomeDirectory().appending("/Documents/ZSBookShelf/Books").appending("/\(id.md5())")
-            let url = URL(fileURLWithPath: path)
-            if let data = try? Data(contentsOf: url, options: Data.ReadingOptions.alwaysMapped) {
-                if let obj = NSKeyedUnarchiver.unarchiveObject(with: data) as? BookDetail {
-                    models[id] = obj
-                }
+            let path = ZSCacheHelper.bookshelfBooksPath
+            if let obj = ZSCacheHelper.shared.cachedObj(for: id, cachePath: path) as? BookDetail {
+                models[id] = obj
             }
         }
         ZSBookManager._books = models
@@ -355,16 +330,14 @@ public class ZSBookManager:NSObject {
     // 如果ids存在,返回ids,如果不存在,读文件后保存到ids中,修改时页需要更新ids中的内容
     fileprivate func booksID() ->[String] {
         if ZSBookManager._ids.count > 0 {
-            return ZSBookManager._ids
+            return ZSBookManager._ids.filter{ return $0 != "" }
         }
-        let path = NSHomeDirectory().appending("/Documents/ZSBookShelf").appending("/\(ZSBookShelfIDSKey.md5())")
-        let url = URL(fileURLWithPath: path)
-        if let data = try? Data(contentsOf: url, options: Data.ReadingOptions.alwaysMapped) {
-            if let ids = String(data: data, encoding: .utf8) {
-                let idArr = ids.components(separatedBy: ",")
-                ZSBookManager._ids = idArr
-                return idArr
-            }
+        let key = ZSBookShelfIDSKey
+        let path = ZSCacheHelper.bookshelfPath
+        if let ids = ZSCacheHelper.shared.cachedObj(for: key, cachePath: path) as? String {
+            let idArr = ids.components(separatedBy: ",").filter{ $0 != "" }
+            ZSBookManager._ids = idArr
+            return idArr
         }
         ZSBookManager._ids = []
         return []

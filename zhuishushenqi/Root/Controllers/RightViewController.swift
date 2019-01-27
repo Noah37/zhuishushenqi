@@ -17,8 +17,9 @@ class RightViewController: ZSBaseTableViewController {
     override init(style: UITableView.Style) {
         super.init(style: style)
         let scale = SideVC.leftOffSetXScale
-        self.tableView.frame = CGRect(x: ScreenWidth*scale + 20, y: 0, width: ScreenWidth*(1-scale) - 20, height: ScreenHeight)
+        self.tableView.frame = CGRect(x: self.view.bounds.width*scale + 20, y: 0, width: self.view.bounds.width*(1-scale) - 20, height: self.view.bounds.height)
         self.tableView.rowHeight = 60
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 55, bottom: 0, right: 0)
         self.tableView.qs_registerCellClass(RightTableViewCell.self)
     }
     
@@ -41,6 +42,10 @@ class RightViewController: ZSBaseTableViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         automaticallyAdjustsScrollViewInsets = false
+    }
+    
+    override func viewWillLayoutSubviews() {
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

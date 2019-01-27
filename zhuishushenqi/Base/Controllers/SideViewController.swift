@@ -109,7 +109,7 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
         if pan.state == UIGestureRecognizer.State.began {
             // 是否开启全屏手势识别，默认关闭
             if !fullScreenPanGestureEnable {
-                if location.x > panGestureToleranceX && location.x < (ScreenWidth - panGestureToleranceX) {
+                if location.x > panGestureToleranceX && location.x < (self.view.bounds.width - panGestureToleranceX) {
                     showSideMenu = false
                 }else {
                     showSideMenu = true
@@ -174,13 +174,13 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
                     return
                 }
                 //增加一点缓冲空间
-                if offSetX < -leftOffSetXScale*ScreenWidth - bounchesX {
+                if offSetX < -leftOffSetXScale*self.view.bounds.width - bounchesX {
                     return
                 }
                 //缩放实现
-                let scale:CGFloat = leftViewControllerScale + abs(offSetX)/(leftOffSetXScale*ScreenWidth)*(1 - leftViewControllerScale)
+                let scale:CGFloat = leftViewControllerScale + abs(offSetX)/(leftOffSetXScale*self.view.bounds.width)*(1 - leftViewControllerScale)
                 let scaleT = CGAffineTransform(scaleX: scale, y: scale)
-                let transT = CGAffineTransform(translationX: offSetX + leftOffSetXScale*ScreenWidth, y: 0)
+                let transT = CGAffineTransform(translationX: offSetX + leftOffSetXScale*self.view.bounds.width, y: 0)
                 let conT = transT.concatenating(scaleT)
                 self.contentView.transform = conT
 
@@ -188,13 +188,13 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
                 if offSetX < -bounchesX{
                     return
                 }
-                if offSetX > rightOffSetXScale*ScreenWidth + bounchesX {
+                if offSetX > rightOffSetXScale*self.view.bounds.width + bounchesX {
                     return
                 }
                 pan.setTranslation(CGPoint(x: offSetX, y: translation.y), in: self.contentView)
-                let transT = CGAffineTransform(translationX: offSetX + -rightOffSetXScale*ScreenWidth, y: 0)
+                let transT = CGAffineTransform(translationX: offSetX + -rightOffSetXScale*self.view.bounds.width, y: 0)
                 //目前只考虑了平移的问题，缩放后面慢慢加上
-                let scale:CGFloat = rightViewControllerScale + abs(offSetX)/(rightOffSetXScale*ScreenWidth)*(1 - rightViewControllerScale)
+                let scale:CGFloat = rightViewControllerScale + abs(offSetX)/(rightOffSetXScale*self.view.bounds.width)*(1 - rightViewControllerScale)
                 let scaleT = CGAffineTransform(scaleX: scale, y: scale)
                 let conT = transT.concatenating(scaleT)
                 self.contentView.transform = conT
@@ -204,13 +204,13 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
                  *  左右侧边栏都处于关闭状态
                  */
                 //缩放实现
-                let scale:CGFloat = 1 - abs(offSetX)/(leftOffSetXScale*ScreenWidth)*(1 - leftViewControllerScale)
+                let scale:CGFloat = 1 - abs(offSetX)/(leftOffSetXScale*self.view.bounds.width)*(1 - leftViewControllerScale)
                 let scaleT = CGAffineTransform(scaleX: scale, y: scale)
                 
                 if offSetX < -bounchesX {
                     return
                 }
-                if offSetX > leftOffSetXScale*ScreenWidth + bounchesX {
+                if offSetX > leftOffSetXScale*self.view.bounds.width + bounchesX {
                     return
                 }
                 let transT = CGAffineTransform(translationX: offSetX, y: 0)
@@ -220,12 +220,12 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
                 self.contentView.transform = conT
             }else if horizonalXSide == .right {
                 //缩放实现
-                let scale:CGFloat = 1 - abs(offSetX)/(rightOffSetXScale*ScreenWidth)*(1 - rightViewControllerScale)
+                let scale:CGFloat = 1 - abs(offSetX)/(rightOffSetXScale*self.view.bounds.width)*(1 - rightViewControllerScale)
                 let scaleT = CGAffineTransform(scaleX: scale, y: scale)
                 if offSetX  > bounchesX  {
                     return
                 }
-                if offSetX <  -rightOffSetXScale*ScreenWidth - bounchesX {
+                if offSetX <  -rightOffSetXScale*self.view.bounds.width - bounchesX {
                     return
                 }
                 let transT = CGAffineTransform(translationX: offSetX, y: 0)
@@ -263,18 +263,18 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
     fileprivate func addChildController(){
         if leftViewController != nil {
             addChild(leftViewController!)
-            leftViewController?.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
+            leftViewController?.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
             leftView.addSubview(leftViewController!.view)
         }
         if rightViewController != nil {
             addChild(rightViewController!)
-            rightViewController?.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
+            self.rightViewController?.view.frame = CGRect(x: self.leftView.bounds.width*(1 - rightOffSetXScale), y: 0, width: self.rightView.bounds.width*rightOffSetXScale, height: self.rightView.bounds.height)
             rightView.addSubview(rightViewController!.view)
         }
         if contentViewController != nil {
             let nav  = UINavigationController(rootViewController: contentViewController!)
             addChild(nav)
-            nav.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
+            nav.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
             contentView.addSubview(nav.view)
         }
     }
@@ -290,7 +290,9 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
         }
         self.contentView.addSubview(maskView)
         rightView.isHidden = true
-        let transT = CGAffineTransform(translationX: leftOffSetXScale*ScreenWidth, y: 0)
+        resetContent()
+        self.contentView.transform = CGAffineTransform(translationX: 0, y: 0)
+        let transT = CGAffineTransform(translationX: leftOffSetXScale*self.view.bounds.width, y: 0)
         let scaleT = CGAffineTransform(scaleX: leftViewControllerScale, y: leftViewControllerScale)
         let conT = transT.concatenating(scaleT)
         UIView.animate(withDuration: animateDuration, animations: {
@@ -309,7 +311,7 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
             return
         }
         self.contentView.addSubview(maskView)
-        let transT = CGAffineTransform(translationX: -rightOffSetXScale*ScreenWidth, y: 0)
+        let transT = CGAffineTransform(translationX: -rightOffSetXScale*self.view.bounds.width, y: 0)
         let scaleT = CGAffineTransform(scaleX: rightViewControllerScale, y: rightViewControllerScale)
         let conT = transT.concatenating(scaleT)
         UIView.animate(withDuration: animateDuration, animations: { 
@@ -326,13 +328,17 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
     func closeSideViewController(){
         let orit = CGAffineTransform.identity
         UIView.animate(withDuration: animateDuration, animations: {
-            self.contentView.transform = orit
+            self.resetContent()
         }, completion: { (finished) in
             self.isCloseLeftSide = true
             self.isCloseRightSide = true
             self.rightView.isHidden = false
             self.maskView.removeFromSuperview()
         }) 
+    }
+    
+    func resetContent() {
+        self.contentView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
     }
     
     fileprivate func updateContentViewShadow(){
@@ -345,6 +351,52 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
         layer.shadowRadius = 3
     }
     
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { (context) in
+            if self.isCloseLeftSide && self.isCloseRightSide {
+                self.leftView.frame = CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: size.width, height: size.height)
+                self.rightView.frame = self.leftView.bounds
+                self.contentView.frame = self.leftView.bounds
+                self.maskView.frame = self.leftView.bounds
+                self.leftViewController?.view.frame = self.leftView.bounds
+                let scale = SideVC.rightOffSetXScale
+                self.rightViewController?.view.frame = CGRect(x: self.leftView.bounds.width*(1 - scale), y: 0, width: self.rightView.bounds.width*scale, height: self.rightView.bounds.height)
+                self.contentViewController?.navigationController?.view.frame = self.leftView.bounds
+            }
+            // 分两种情况 1.左侧菜单显示 2.右侧菜单显示
+            if !self.isCloseLeftSide {
+                self.leftView.frame = CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: size.width, height: size.height)
+                self.leftViewController?.view.frame = self.leftView.bounds
+                let contentX = self.leftOffSetXScale*self.view.bounds.width
+                self.contentView.frame = CGRect(x: contentX, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+                self.contentViewController?.view.frame = self.contentView.bounds
+            } else if !self.isCloseRightSide {
+                let contentX = -self.rightOffSetXScale*self.view.bounds.width
+                self.contentView.frame = CGRect(x: contentX, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+                self.contentViewController?.view.frame = self.contentView.bounds
+                self.rightView.frame = CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y, width: size.width, height: size.height)
+                let scale = SideVC.rightOffSetXScale
+                self.rightViewController?.view.frame = CGRect(x: self.rightView.bounds.width*(1 - scale), y: 0, width: self.rightView.bounds.width*scale, height: self.rightView.bounds.height)
+            }
+            self.maskView.frame = self.contentView.bounds
+            
+        }) { (context) in
+            
+        }
+    }
+    
+    
+    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

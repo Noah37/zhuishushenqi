@@ -29,6 +29,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         tableView.estimatedRowHeight = ZSShelfViewController.kCellHeight
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
         return tableView
     }()
     
@@ -64,6 +65,10 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         }
         self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
         self.tableView.reloadData()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -215,6 +220,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SwipableCell.reuseIdentifier, for: indexPath) as! SwipableCell
         cell.delegate = self
+        cell.selectionStyle = .none
         if viewModel.localBooks.count > 0 {
             if indexPath.section == 0 {
                 cell.title?.text = "本地书架"
@@ -317,53 +323,93 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
 }
 
 extension ZSShelfViewController:SwipableCellDelegate {
-    func swipeCell(clickAt: Int,model:BookDetail,cell:SwipableCell,selected:Bool) {
-        if clickAt == 0 {
-            if selected == false {
-                // 取消下载
-                
-                return
+    
+    
+    func swipableCell(swipableCell:SwipableCell, didSelectAt index:Int) {
+        if index == 0 {
+            if let indexPath = tableView.indexPath(for: swipableCell) {
+                alert(with: swipableCell, indexPath: indexPath)
+            } else {
+                self.hudAddTo(view: self.view, text: "当前书籍不存在...", animated: true)
             }
-            let indexPath = tableView.indexPath(for: cell)
-            // 选择一种缓存方式后，缓存按钮变为选中状态，小说图标变为在缓存中
-            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            let firstAcion = UIAlertAction(title: "全本缓存", style: .default, handler: { (action) in
-                self.hudAddTo(view: self.view, text: "暂不支持当前功能,敬请期待...", animated: true)
-            })
-            let secondAction = UIAlertAction(title: "从当前章节缓存", style: .default, handler: { (action) in
-                self.hudAddTo(view: self.view, text: "暂不支持当前功能,敬请期待...", animated: true)
-            })
-            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (action) in
-                
-            })
-            alert.addAction(firstAcion)
-            alert.addAction(secondAction)
-            alert.addAction(cancelAction)
-            present(alert, animated: true, completion: nil)
         }
-        else if clickAt == 3 {
-            self.removeBook(book: model)
+        else if index == 3 {
+            self.removeBook(at: index)
             self.tableView.reloadData()
         } else {
             self.hudAddTo(view: self.view, text: "暂不支持当前功能,敬请期待...", animated: true)
         }
     }
     
-    func removeBook(book:BookDetail){
-        let books = self.viewModel.booksID
-        var index = 0
-        for bookid in books {
-            if book._id == bookid {
-                ZSBookManager.shared.deleteBook(book: book)
-                self.viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
-                    if json?["ok"] as? Bool == true {
-                        self.view.showTip(tip: "\(book.title)已从书架中删除")
+    func alert(with cell:SwipableCell, indexPath:IndexPath) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let firstAcion = UIAlertAction(title: "全本缓存", style: .default, handler: { (action) in
+            cell.state = .prepare
+            let ids = self.viewModel.booksID
+            if indexPath.row >= 0 && indexPath.row < ids.count {
+                let id = ids[indexPath.row]
+                guard let book = self.viewModel.books[id] else { return }
+                cell.state = .download
+                ZSBookDownloader.shared.download(book: book, start: 0, handler: { (finish) in
+                    // cell状态变更
+                    cell.state = .finish
+                })
+            } else {
+                cell.state = .none
+            }
+        })
+        let secondAction = UIAlertAction(title: "从当前章节缓存", style: .default, handler: { (action) in
+            cell.state = .prepare
+            let ids = self.viewModel.booksID
+            if indexPath.row > 0 && indexPath.row < ids.count {
+                let id = ids[indexPath.row]
+                guard let book = self.viewModel.books[id] else { return }
+                if let chapter = book.record?.chapter, let chaptersInfo = book.chaptersInfo {
+                    cell.state = .download
+                    if chapter < chaptersInfo.count {
+                        ZSBookDownloader.shared.download(book: book, start: chapter, handler: { (finish) in
+                            // cell状态变更
+                            cell.state = .finish
+                        })
                     } else {
-                        self.view.showTip(tip: "\(book.title)从书架中删除失败")
+                        ZSBookDownloader.shared.download(book: book, start: 0, handler: { (finish) in
+                            // cell状态变更
+                            cell.state = .finish
+                        })
+                    }
+                } else {
+                    cell.state = .none
+                }
+            } else {
+                cell.state = .none
+            }
+        })
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (action) in
+            cell.state = .none
+        })
+        alert.addAction(firstAcion)
+        alert.addAction(secondAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func removeBook(at index:Int){
+        let books = self.viewModel.booksID
+        var bookIndex = 0
+        for bookid in books {
+            if bookIndex == index {
+                if let book = self.viewModel.books[bookid] {
+                    ZSBookManager.shared.deleteBook(book: book)
+                    self.viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
+                        if json?["ok"] as? Bool == true {
+                            self.view.showTip(tip: "\(book.title)已从书架中删除")
+                        } else {
+                            self.view.showTip(tip: "\(book.title)从书架中删除失败")
+                        }
                     }
                 }
             }
-            index += 1
+            bookIndex += 1
         }
     }
 }

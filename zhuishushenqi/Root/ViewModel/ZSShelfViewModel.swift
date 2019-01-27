@@ -111,11 +111,11 @@ extension ZSShelfViewModel {
         refreshStatus.value = .none
         if booksID.count > 0 {
             shelvesWebService.fetchShelvesUpdate(for: booksID) { (updateInfo) in
+                self.refreshStatus.value = .headerRefreshEnd
                 if let info = updateInfo as? [BookShelf] {
 //                    for update in info {
 //                        self.database.updateInfo(updateInfo: update)
 //                    }
-                    self.refreshStatus.value = .headerRefreshEnd
                     ZSBookManager.shared.update(bookshelfs: info)
 //                    BookManager.shared.updateInfoUpdate(updateInfo: info)
                     completion?(nil)

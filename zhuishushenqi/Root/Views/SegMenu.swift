@@ -36,12 +36,11 @@ class SegMenu: UIView {
     }
     
     fileprivate func layoutAllSubview() {
-        let ScreenBounds = UIScreen.main.bounds
-        let width = ScreenBounds.width/CGFloat(titles.count)
-        let height = frame.size.height
+        let width = self.bounds.width/CGFloat(titles.count)
+        let height = self.bounds.height
         for index in 0..<titles.count {
             let btn = self.viewWithTag(index + btnBaseTag)
-            btn?.snp.makeConstraints({ (make) in
+            btn?.snp.remakeConstraints({ (make) in
                 make.left.equalTo(width*CGFloat(index))
                 make.top.equalTo(self)
                 make.width.equalTo(width)
@@ -49,7 +48,7 @@ class SegMenu: UIView {
             })
             if index > 0 && index <= titles.count - 1 {
                 let line = self.viewWithTag(lineTag + index)
-                line?.snp.makeConstraints({ (make) in
+                line?.snp.remakeConstraints({ (make) in
                     make.left.equalTo(width*CGFloat(index))
                     make.top.equalTo(height/3)
                     make.width.equalTo(0.5)

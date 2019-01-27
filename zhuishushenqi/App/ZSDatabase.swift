@@ -73,7 +73,6 @@ struct ZSDatabase {
     func queryBookshelf() ->[BookDetail] {
         var books:[BookDetail] = []
         for item in (try! db.prepare(TABLE_LAMP)) {
-            QSLog("\(item)")
             let book = BookDetail()
             let updateInfo = BookShelf()
             updateInfo.lastChapter = item[TABLE_LAMP_LAST_CHAPTER]
