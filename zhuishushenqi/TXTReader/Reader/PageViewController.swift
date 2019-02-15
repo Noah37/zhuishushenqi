@@ -54,6 +54,9 @@ class PageViewController: UIViewController {
     }()
     var timer:Timer!
     
+    // 正版购买信息
+    var payView:ZSChapterPayView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setSubviews()
@@ -81,6 +84,10 @@ class PageViewController: UIViewController {
         view.addSubview(timeLabel)
         
         view.addSubview(batteryView)
+        
+        payView = ZSChapterPayView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        payView.isHidden = true
+        view.addSubview(payView)
         
         UIDevice.current.isBatteryMonitoringEnabled = true
         NotificationCenter.default.addObserver(forName: UIDevice.batteryLevelDidChangeNotification, object: nil, queue: OperationQueue.main) { (notification) in

@@ -25,6 +25,8 @@
 		3D2B4D0320EB616D008E3E81 /* ZSReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */; };
 		3D2B4D0520EB6552008E3E81 /* ZSNoneAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */; };
 		3D2B4D0720EB68AC008E3E81 /* ZSReaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */; };
+		3D31FFAF2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D31FFAE2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift */; };
+		3D31FFB12216E1850011D275 /* ZSChapterPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D31FFB02216E1850011D275 /* ZSChapterPayView.swift */; };
 		3D3AB5D2214E98AC00E9C246 /* hylst.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D1214E98AC00E9C246 /* hylst.ttf */; };
 		3D3AB5D4214E98B800E9C246 /* Redocn.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D3214E98B800E9C246 /* Redocn.ttf */; };
 		3D3AB5D6214E993E00E9C246 /* hkppt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D5214E993E00E9C246 /* hkppt.ttf */; };
@@ -506,6 +508,8 @@
 		3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0420EB6552008E3E81 /* ZSNoneAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSNoneAnimationViewController.swift; sourceTree = "<group>"; };
 		3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderProtocol.swift; sourceTree = "<group>"; };
+		3D31FFAE2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZSReaderViewModel+Bought.swift"; sourceTree = "<group>"; };
+		3D31FFB02216E1850011D275 /* ZSChapterPayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSChapterPayView.swift; sourceTree = "<group>"; };
 		3D3AB5D1214E98AC00E9C246 /* hylst.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hylst.ttf; sourceTree = "<group>"; };
 		3D3AB5D3214E98B800E9C246 /* Redocn.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Redocn.ttf; sourceTree = "<group>"; };
 		3D3AB5D5214E993E00E9C246 /* hkppt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hkppt.ttf; sourceTree = "<group>"; };
@@ -1233,6 +1237,7 @@
 		3DF2D27320EB375A004E73B6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3D31FFB02216E1850011D275 /* ZSChapterPayView.swift */,
 				3D65504A219577DB0064BA0C /* ZSMultiplePayView.swift */,
 				3D65504C21957B410064BA0C /* ZSChapterSelectView.swift */,
 				3D2B4D0220EB616D008E3E81 /* ZSReaderViewController.swift */,
@@ -1259,6 +1264,7 @@
 			isa = PBXGroup;
 			children = (
 				B2C0DEB220D4CB340057DC84 /* ZSReaderViewModel.swift */,
+				3D31FFAE2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift */,
 				3DE393DA219D514100890488 /* ZSBookBoughtViewModel.swift */,
 				3DDEEAFC214A8EE1003D12DB /* ZSFontViewModel.swift */,
 				3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */,
@@ -2714,6 +2720,7 @@
 				B2C0DF6C20D4CB350057DC84 /* QSCommunityViewController.swift in Sources */,
 				B2C0DF6020D4CB350057DC84 /* QSBookDetailRouter.swift in Sources */,
 				B252D48B210EF3960091858E /* HTTPRedirectResponse.m in Sources */,
+				3D31FFB12216E1850011D275 /* ZSChapterPayView.swift in Sources */,
 				B29CFB6B217A3D8F0006F294 /* ZSLogin.swift in Sources */,
 				3DFCF6F421E9984100D3A8EC /* ZSSwipeCell.swift in Sources */,
 				B26286CA1EEA46DD005A1A8A /* QSIntroducePage.swift in Sources */,
@@ -2963,6 +2970,7 @@
 				B263E2E9211EBFEC001819FB /* SQLite+Extension.swift in Sources */,
 				B2B02E561EA9A9F000A6880A /* QSCatalogRouter.swift in Sources */,
 				B2C0DF6220D4CB350057DC84 /* QSBookDetailPresenter.swift in Sources */,
+				3D31FFAF2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift in Sources */,
 				B2583CBA1EA782C2004178F3 /* QSThemeTopicInteractor.swift in Sources */,
 				B2B4BBE61E7EA4AB000CC201 /* DarkView.swift in Sources */,
 				B252D489210EF3960091858E /* HTTPFileResponse.m in Sources */,
