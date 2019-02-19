@@ -248,6 +248,11 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
                 viewModel.fetchNextPage { (page) in
                     pageVC.page = page
                     self.hideActivityView()
+                    if pageVC.page?.isDecrypted == false {
+                        pageVC.showPayView()
+                    } else {
+                        pageVC.hidePayView()
+                    }
                 }
                 currentReaderVC = pageVC
                 return pageVC

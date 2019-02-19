@@ -560,7 +560,7 @@ class ZSReaderViewModel {
         if let link = chapterModel?.link {
             qsChapter.link = link
             // 如果使用追书正版书源，取的字段应该是cpContent，需要根据当前选择的源进行判断
-            qsChapter.isVip = chapterModel?.isVip ?? 0
+            qsChapter.isVip = chapterModel?.isVip ?? false
             qsChapter.order = chapterModel?.order ?? 0
             qsChapter.currency = chapterModel?.currency ?? 0
             qsChapter.cpContent = body.cpContent

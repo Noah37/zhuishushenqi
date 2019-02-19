@@ -13,7 +13,7 @@ class ZSChapterInfo:NSObject,HandyJSON,NSCoding {
     
     var chapterCover:String = ""
     var currency:Int = 0
-    var isVip:Int = 0
+    var isVip:Bool = false
     var link:String = ""
     var order:Int = 0
     var partsize:Int = 0
@@ -27,7 +27,7 @@ class ZSChapterInfo:NSObject,HandyJSON,NSCoding {
         super.init()
         self.chapterCover = aDecoder.decodeObject(forKey: "chapterCover") as? String ?? ""
         self.currency = aDecoder.decodeInteger(forKey: "currency")
-        self.isVip = aDecoder.decodeInteger(forKey: "isVip")
+        self.isVip = aDecoder.decodeBool(forKey: "isVip")
         self.link = aDecoder.decodeObject(forKey: "link") as? String ?? ""
         self.order = aDecoder.decodeInteger(forKey: "order")
         self.partsize = aDecoder.decodeInteger(forKey: "partsize")

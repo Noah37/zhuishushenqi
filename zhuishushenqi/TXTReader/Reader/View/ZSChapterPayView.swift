@@ -59,12 +59,12 @@ class ZSChapterPayView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         titleLabel.frame = CGRect(x: 20, y: 200, width: bounds.width - 40, height: 60)
-        tipLabel.frame = CGRect(x: 0, y: 0, width: 120, height: 15)
+        tipLabel.frame = CGRect(x: 0, y: 0, width: 130, height: 15)
         tipLabel.center = CGPoint(x: bounds.width/2, y: bounds.height/2)
         leftLineView.frame = CGRect(x: 0, y: 0, width: bounds.width/2 - tipLabel.bounds.width/2, height: 1)
         leftLineView.center = CGPoint(x: bounds.width/4 - tipLabel.bounds.width/4, y: tipLabel.centerY)
-        rightLineView.frame = CGRect(x: 0, y: 0, width: bounds.width/2 - tipLabel.bounds.width/2, height: 1)
-        rightLineView.center = CGPoint(x:bounds.width + tipLabel.bounds.width +  bounds.width/4 - tipLabel.bounds.width/4, y: tipLabel.centerY)
+        rightLineView.frame = CGRect(x: bounds.width/2 + tipLabel.bounds.width/2, y: tipLabel.centerY, width: bounds.width/2 - tipLabel.bounds.width/2, height: 1)
+//        rightLineView.center = CGPoint(x:bounds.width + tipLabel.bounds.width +  bounds.width/4 - tipLabel.bounds.width/4, y: tipLabel.centerY)
         payButton.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
         payButton.center = CGPoint(x: bounds.width/2, y: tipLabel.frame.maxY + 60)
 
