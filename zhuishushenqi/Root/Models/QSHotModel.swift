@@ -53,6 +53,60 @@ class QSHotTweet: NSObject ,HandyJSON{
     }
 }
 
+@objcMembers
+class ZSDBTestModel:NSObject, ZSDBModel {
+    
+    var id:String?
+    var num:Int = 0
+    var data:Data?
+    var subModel:ZSDBTestSubModel?
+    
+    func tableName() -> String! {
+        return "bookshelf"
+    }
+    
+    func primaryKey() -> String! {
+        return ""
+    }
+    
+    func foreignKey() -> String! {
+        return ""
+    }
+    
+    func dbColumnMapping() -> [String : String]! {
+        return [:]
+    }
+    
+    func ignoredKeys() -> [String]! {
+        return []
+    }
+}
+
+@objcMembers
+class ZSDBTestSubModel:NSObject, ZSDBModel {
+    @objc dynamic var key:String?
+    
+    func tableName() -> String! {
+        return "record"
+    }
+    
+    func primaryKey() -> String! {
+        return ""
+    }
+    
+    func foreignKey() -> String! {
+        return ""
+    }
+    
+    func dbColumnMapping() -> [String : String]! {
+        return [:]
+    }
+    
+    func ignoredKeys() -> [String]! {
+        return []
+    }
+}
+
 //{
 //    "user": {
 //        "_id": "56ada4e2c911b9455cedeaee",

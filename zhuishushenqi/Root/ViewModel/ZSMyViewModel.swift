@@ -8,8 +8,11 @@
 
 import UIKit
 import AdSupport
+import RxSwift
 
-class ZSMyViewModel: NSObject {
+class ZSMyViewModel: NSObject, ZSRefreshProtocol {
+    
+    var refreshStatus: Variable<ZSRefreshStatus> = Variable(.none)
     
     let webService = ZSMyService()
     
@@ -22,6 +25,10 @@ class ZSMyViewModel: NSObject {
     var detail:ZSUserDetail?
     
     var bind:ZSUserBind?
+    
+    var useableVoucher:[ZSVoucher] = []
+    var unuseableVoucher:[ZSVoucher] = []
+    var expiredVoucher:[ZSVoucher] = []
     
     func fetchAccount(token:String ,completion:@escaping ZSBaseCallback<ZSAccount>) {
         webService.fetchAccount(token: token) { (account) in
@@ -85,4 +92,36 @@ class ZSMyViewModel: NSObject {
             completion(json)
         }
     }
+    
+//    https://api.zhuishushenqi.com/voucher?token=xAk9Ac8k3Jj9Faf11q8mBVPQ&type=useable&start=0&limit=20
+    func fetchVoucher(token:String, type:String, start:Int, limit:Int, completion:@escaping ZSBaseCallback<[ZSVoucher]>) {
+        let api = QSAPI.voucherList(token: token, type: type, start: start, limit: limit)
+        webService.fetchVoucherList(url: api.path, param: api.parameters) { (vouchers) in
+            if type == "useable" {
+                self.useableVoucher = vouchers ?? []
+            } else if type == "unuseable" {
+                self.unuseableVoucher = vouchers ?? []
+            } else {
+                self.expiredVoucher = vouchers ?? []
+            }
+            self.refreshStatus.value = .headerRefreshEnd
+            completion(vouchers)
+        }
+    }
+    
+    func fetchMoreVoucher(token:String, type:String, start:Int, limit:Int, completion:@escaping ZSBaseCallback<[ZSVoucher]>) {
+        let api = QSAPI.voucherList(token: token, type: type, start: start, limit: limit)
+        webService.fetchVoucherList(url: api.path, param: api.parameters) { (vouchers) in
+            if type == "useable" {
+                self.useableVoucher.append(contentsOf: vouchers ?? [])
+            } else if type == "unuseable" {
+                self.unuseableVoucher.append(contentsOf: vouchers ?? [])
+            } else {
+                self.expiredVoucher.append(contentsOf: vouchers ?? [])
+            }
+            self.refreshStatus.value = .footerRefreshEnd
+            completion(vouchers)
+        }
+    }
+    
 }

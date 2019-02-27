@@ -34,5 +34,6 @@
 #import "WechatAuthSDK.h"
 #import "WeiboSDK.h"
 #import "FBEncryptorAESUtils.h"
+#import "ZSDBManager.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */

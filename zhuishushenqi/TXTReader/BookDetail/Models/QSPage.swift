@@ -40,6 +40,8 @@ class QSPage: NSObject ,NSCoding{
 
     var totalPages:Int = 1
     var title:String = ""
+    var isVip:Bool = false
+    var isDecrypted:Bool = false
     
     required init?(coder aDecoder: NSCoder) {
         super.init()
@@ -48,6 +50,8 @@ class QSPage: NSObject ,NSCoding{
         self.curChapter = aDecoder.decodeInteger(forKey: "curChapter")
         self.totalPages = aDecoder.decodeInteger(forKey: "totalPages")
         self.title = aDecoder.decodeObject(forKey: "title") as! String
+        self.isVip = aDecoder.decodeBool(forKey: "isVip")
+        self.isDecrypted = aDecoder.decodeBool(forKey: "isDecrypted")
     }
     
     func encode(with aCoder: NSCoder) {
@@ -56,7 +60,8 @@ class QSPage: NSObject ,NSCoding{
         aCoder.encode(self.curChapter, forKey: "curChapter")
         aCoder.encode(self.totalPages, forKey: "totalPages")
         aCoder.encode(self.title, forKey: "title")
-
+        aCoder.encode(self.isVip, forKey: "isVip")
+        aCoder.encode(self.isDecrypted, forKey: "isDecrypted")
     }
     
     override init() {

@@ -165,4 +165,68 @@ extension String{
         let endIndex   = self.index(self.startIndex, offsetBy:r.upperBound)
         return String(self[startIndex..<endIndex])
     }
+    
+    //MARK: - equal
+    func isEqual(to string:String) ->Bool {
+        if self == string {
+            return true
+        }
+        return false
+    }
+    
+    //MARK: - string
+    func asNSString() ->NSString {
+        return (self as NSString)
+    }
+    
+    func isEmpty() ->Bool {
+        if self == "" || self.count == 0 {
+            return true
+        }
+        return false
+    }
+    
+    //MARK: - transform
+    var length:Int {
+        return self.lengthOfBytes(using: .utf8)
+    }
+    
+    var toArray:Array<[String:Any]>? {
+        var json = self
+        if json.contains("\\") {
+            json = json.components(separatedBy: "\\").joined()
+        }
+        if let data = json.data(using: .utf8) {
+            do {
+                let arr = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) as? Array<[String:Any]>
+                return arr
+            } catch let error {
+                QSLog(error)
+            }
+        }
+        return nil
+    }
+    
+    var toDict:Dictionary<String,Any>? {
+        var json = self
+        if json.contains("\\") {
+            json = json.components(separatedBy: "\\").joined()
+        }
+        if let data = json.data(using: .utf8) {
+            do {
+                let dict = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) as? Dictionary<String,Any>
+                guard let _ = dict?.first else {
+                    return nil
+                }
+                return dict
+            } catch let error {
+                QSLog(error)
+            }
+        }
+        return nil
+    }
+}
+
+extension Optional {
+    
 }

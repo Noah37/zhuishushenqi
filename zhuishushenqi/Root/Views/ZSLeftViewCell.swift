@@ -11,8 +11,7 @@ import UIKit
 class ZSLeftViewCell: UITableViewCell {
     
     lazy var iconView:UIImageView = {
-        let scale = SideVC.leftOffSetXScale
-        let imageView = UIImageView(frame: CGRect(x: ScreenWidth*scale/2 - 12.5, y: 10, width: 25, height: 25))
+        let imageView = UIImageView(frame: CGRect(x: SideVC.maximumLeftOffsetWidth/2 - 12.5, y: 10, width: 25, height: 25))
         return imageView
     }()
     
@@ -24,8 +23,7 @@ class ZSLeftViewCell: UITableViewCell {
     }()
     
     lazy var nameLabel:UILabel = {
-        let scale = SideVC.leftOffSetXScale
-        let label = UILabel(frame: CGRect(x: ScreenWidth*scale/2 - 20,y: 35,width: 40,height: 10))
+        let label = UILabel(frame: CGRect(x: SideVC.maximumLeftOffsetWidth/2 - 20,y: 35,width: 40,height: 10))
         label.font = UIFont.systemFont(ofSize: 9)
         label.textAlignment = .center
         label.textColor = UIColor(white: 1.0, alpha: 0.5)

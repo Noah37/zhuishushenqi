@@ -11,8 +11,8 @@
 #import "MagnifiterView.h"
 #import "UIView+frameAdjust.h"
 
-NSString *const CTDisplayViewImagePressedNotification = @"CTDisplayViewImagePressedNotification";
-NSString *const CTDisplayViewLinkPressedNotification = @"CTDisplayViewLinkPressedNotification";
+NSString *const CTDisplayViewImagePressed = @"CTDisplayViewImagePressedNotification";
+NSString *const CTDisplayViewLinkPressed = @"CTDisplayViewLinkPressedNotification";
 
 
 typedef enum CTDisplayViewState : NSInteger {
@@ -246,7 +246,7 @@ typedef enum CTDisplayViewState : NSInteger {
                 if (_handler) {
                     _handler(userInfo);
                 }
-                [[NSNotificationCenter defaultCenter] postNotificationName:CTDisplayViewImagePressedNotification
+                [[NSNotificationCenter defaultCenter] postNotificationName:CTDisplayViewImagePressed
                                                                     object:self userInfo:userInfo];
                 return;
             }
@@ -259,7 +259,7 @@ typedef enum CTDisplayViewState : NSInteger {
             if (_handler) {
                 _handler(userInfo);
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:CTDisplayViewLinkPressedNotification
+            [[NSNotificationCenter defaultCenter] postNotificationName:CTDisplayViewLinkPressed
                                                                 object:self userInfo:userInfo];
             return;
         }

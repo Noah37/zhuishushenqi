@@ -161,8 +161,8 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate, UITableView
         let cell = tableView.qs_dequeueReusableCell(ZSForumCell.self) as! ZSForumCell
         cell.selectionStyle = .none
         let element = titles[indexPath.row]
-        let name = element["image"] as? String ?? ""
-        let title = element["title"] as? String
+        let name = element["image"] ?? ""
+        let title = element["title"]
         cell.textLabel?.text = title
         cell.imageView?.image = UIImage(named:name)
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15)

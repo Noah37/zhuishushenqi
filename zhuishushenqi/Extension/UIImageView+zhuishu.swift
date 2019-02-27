@@ -34,16 +34,14 @@ extension UIImageView{
     
     func qs_setAvatarWithURLString(urlString:String){
         self.image = UIImage(named: "default_avatar_light")
-        DispatchQueue.global().async {
-            let imageUrlString =  "\(IMAGE_BASEURL)\(urlString)"
-            let url:URL? = URL(string: imageUrlString)
-            guard let imageURL = url else {
-                QSLog("Invalid URL")
-                return
-            }
-            let resource:QSResource = QSResource(url: imageURL)
-            self.kf.setImage(with: resource, placeholder: UIImage(named: "default_avatar_light"), options: nil, progressBlock: nil, completionHandler: nil)
+        let imageUrlString =  "\(IMAGE_BASEURL)\(urlString)"
+        let url:URL? = URL(string: imageUrlString)
+        guard let imageURL = url else {
+            QSLog("Invalid URL")
+            return
         }
+        let resource:QSResource = QSResource(url: imageURL)
+        self.kf.setImage(with: resource, placeholder: UIImage(named: "default_avatar_light"), options: nil, progressBlock: nil, completionHandler: nil)
     }
     
     func qs_addCorner(radius: CGFloat) {
@@ -66,22 +64,20 @@ extension UIButton{
         
         let noPercentStr:String = urlString.removingPercentEncoding ?? ""
         self.setImage(UIImage(named: "default_book_cover"), for: .normal)
-        DispatchQueue.global().async {
-            var urlStr = noPercentStr
-            if urlStr.qs_subStr(to: 4) != "http"{
-                urlStr = urlStr.qs_subStr(from: 7)
-            }
-            if urlStr.contains("http") == false {
-                urlStr = "\(IMAGE_BASEURL)\(urlString)"
-            }
-            let url = URL(string: urlStr)
-            guard let imageURL = url else {
-                QSLog("Invalid URL")
-                return
-            }
-            let resource:QSResource = QSResource(url: imageURL)
-            self.kf.setImage(with:resource, for: .normal, placeholder: UIImage(named:"default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
+        var urlStr = noPercentStr
+        if urlStr.qs_subStr(to: 4) != "http"{
+            urlStr = urlStr.qs_subStr(from: 7)
         }
+        if urlStr.contains("http") == false {
+            urlStr = "\(IMAGE_BASEURL)\(urlString)"
+        }
+        let url = URL(string: urlStr)
+        guard let imageURL = url else {
+            QSLog("Invalid URL")
+            return
+        }
+        let resource:QSResource = QSResource(url: imageURL)
+        self.kf.setImage(with:resource, for: .normal, placeholder: UIImage(named:"default_book_cover"), options: nil, progressBlock: nil, completionHandler: nil)
     }
 }
 

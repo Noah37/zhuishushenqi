@@ -13,7 +13,7 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
 
     var timeline:[QSHotModel]?
     fileprivate var segment:UISegmentedControl = {
-       let seg = UISegmentedControl(frame: CGRect(x: 15,y: kNavgationBarHeight + 5,width: ScreenWidth - 30,height: 30))
+       let seg = UISegmentedControl(frame: CGRect.zero)
         seg.insertSegment(withTitle: "动态", at: 0, animated: false)
         seg.insertSegment(withTitle: "热门", at: 1, animated: false)
         seg.insertSegment(withTitle: "我的", at: 2, animated: false)
@@ -48,6 +48,24 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
         view.addSubview(segment)
         view.addSubview(tableView)
         requestData()  
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        layoutSubview(size: self.view.bounds.size)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { (context) in
+            self.layoutSubview(size: size)
+        }) { (context) in
+            
+        }
+    }
+    
+    func layoutSubview(size:CGSize) {
+        self.segment.frame = CGRect(x: 15,y: kNavgationBarHeight + 5,width: size.width - 30,height: 30)
+        self.tableView.frame = CGRect(x: 0, y: kNavgationBarHeight + 40, width: size.width, height: size.height - kNavgationBarHeight - 40)
     }
     
     func requestData(){

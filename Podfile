@@ -27,6 +27,7 @@ pod 'SQLite.swift', '~> 0.11.5'
 pod 'Zip'
 pod 'FMDB'
 pod 'PKHUD', '~> 5.0'
+pod 'Cache'
 #pod 'AFNetworking'
 
 #pod 'Realm', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true

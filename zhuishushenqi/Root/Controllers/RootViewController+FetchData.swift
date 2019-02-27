@@ -68,7 +68,7 @@ extension RootViewController{
             // 防止返回时卡顿，采用子线程
             DispatchQueue.global().async {
                 if let json:[Any] = response.json as? [Any] {
-                    if let models = [UpdateInfo].deserialize(from: json) as? [UpdateInfo] {
+                    if let models = [BookShelf].deserialize(from: json) as? [BookShelf] {
                         BookManager.shared.updateToModel(updateModels: models)
                         DispatchQueue.main.async {
                             self.tableView.reloadData()

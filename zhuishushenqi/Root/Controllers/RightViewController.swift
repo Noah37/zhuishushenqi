@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RightViewController: UITableViewController {
+class RightViewController: ZSBaseTableViewController {
 
     var titles:[String]?
     
@@ -16,9 +16,9 @@ class RightViewController: UITableViewController {
 
     override init(style: UITableView.Style) {
         super.init(style: style)
-        let scale = SideVC.leftOffSetXScale
-        self.tableView.frame = CGRect(x: ScreenWidth*scale + 20, y: 0, width: ScreenWidth*(1-scale) - 20, height: ScreenHeight)
+        self.tableView.frame = CGRect(x: self.view.bounds.width - SideVC.maximumRightOffsetWidth  + 20, y: 0, width: SideVC.maximumRightOffsetWidth - 20, height: self.view.bounds.height)
         self.tableView.rowHeight = 60
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 55, bottom: 0, right: 0)
         self.tableView.qs_registerCellClass(RightTableViewCell.self)
     }
     
@@ -41,6 +41,10 @@ class RightViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         automaticallyAdjustsScrollViewInsets = false
+    }
+    
+    override func viewWillLayoutSubviews() {
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,7 +85,13 @@ class RightViewController: UITableViewController {
         } else if indexPath.row == 2 {
             let webVC = ZSWebViewController()
             let timeInterval = Date().timeIntervalSince1970
-            webVC.url = "https://h5.zhuishushenqi.com/monthly?platform=ios&gender=male&timeInterval=\(timeInterval*10)&appversion=2.29.5&timestamp=\(timeInterval)&version=8"
+            var url = ""
+            if ZSLogin.share.hasLogin() {
+                url = "https://h5.zhuishushenqi.com/monthly?platform=ios&gender=male&token=\(ZSLogin.share.token)&timeInterval=\(timeInterval*10)&appversion=2.29.5&timestamp=\(timeInterval)&version=8"
+            } else {
+                url = "https://h5.zhuishushenqi.com/monthly?platform=ios&gender=male&timeInterval=\(timeInterval*10)&appversion=2.29.5&timestamp=\(timeInterval)&version=8"
+            }
+            webVC.url = url
             webVC.title = "VIP专区"
             SideVC.navigationController?.pushViewController(webVC, animated: true)
         } else if indexPath.row == 3 {//排行榜

@@ -9,14 +9,14 @@
 import Foundation
 
 class ZSShelfWebService: ZSBaseService {
-    func fetchShelvesUpdate(for ids:[String],completion:@escaping ZSBaseCallback<[UpdateInfo]>) {
+    func fetchShelvesUpdate(for ids:[String],completion:@escaping ZSBaseCallback<[BookShelf]>) {
         let id = (ids as NSArray).componentsJoined(by: ",")
         let api = QSAPI.update(id: id)
         zs_get(api.path, parameters: api.parameters).responseJSON { (response) in
             if let data = response.data {
                 if let obj = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [Any] {
-                    if let models = [UpdateInfo].deserialize(from: obj) {
-                        if let arr = models as? [UpdateInfo]{
+                    if let models = [BookShelf].deserialize(from: obj) {
+                        if let arr = models as? [BookShelf]{
                             completion(arr)
                         }
                     }
@@ -30,6 +30,7 @@ class ZSShelfWebService: ZSBaseService {
         zs_get(shelfApi.path, parameters: shelfApi.parameters).responseJSON { (response) in
             if let data = response.data {
                 if let obj = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
+                    
                     if let message = ZSShelfMessage.deserialize(from: obj?["message"] as? [String:Any]) {
                         completion?(message)
                     }

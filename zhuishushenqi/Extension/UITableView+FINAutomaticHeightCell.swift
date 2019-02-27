@@ -28,7 +28,6 @@ extension UITableView {
 //        self.layoutIfNeeded();
         
         var fittingSize = cell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        QSLog(fittingSize)
         if self.separatorStyle != .none {
             fittingSize.height += 1.0 / UIScreen.main.scale
         }

@@ -34,6 +34,19 @@ class BaseViewController: UIViewController, IndicatableView {
         return false
     }
 
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .all
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,6 +58,7 @@ class BaseViewController: UIViewController, IndicatableView {
     
     //MARK: - progress
     func showProgress() {
+        self.indicatorView.center = self.view.center
         self.view.addSubview(self.indicatorView)
         self.view.bringSubviewToFront(self.indicatorView)
     }
