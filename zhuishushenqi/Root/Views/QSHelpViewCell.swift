@@ -14,7 +14,7 @@ class ZSDiscussCell: UITableViewCell {
     
 }
 
-class QSHelpViewCell: UITableViewCell {
+class QSHelpViewCell: UITableViewCell, ZSDiscussCellProtocol {
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var nickName: UILabel!
     @IBOutlet weak var title: UILabel!
@@ -35,6 +35,12 @@ class QSHelpViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configureCell(with model: Any?) {
+        if model is BookComment {
+            configureCell(model: model as! BookComment)
+        }
     }
     
     func configureCell(model:BookComment){

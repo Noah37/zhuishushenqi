@@ -64,5 +64,17 @@ class ZSMyService: NSObject {
             completion(json)
         }
     }
+    
+    func fetchVoucherList(url:String, param:[String:Any]?, completion:@escaping ZSBaseCallback<[ZSVoucher]>) {
+        zs_get(url, parameters: param) { (json) in
+            if let vouchers = json?["vouchers"] as? [[String:Any]] {
+                if let voucherModels = [ZSVoucher].deserialize(from: vouchers) as? [ZSVoucher] {
+                    completion(voucherModels)
+                }
+            } else {
+                completion([])
+            }
+        }
+    }
 
 }

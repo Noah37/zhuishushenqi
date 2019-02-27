@@ -20,6 +20,16 @@ enum ZSRefreshStatus {
     case noMoreData
 }
 
+protocol ZSRefreshControl {
+    var refreshStatus:ZSRefreshStatus { get }
+}
+
+extension ZSRefreshControl {
+    func autoSetRefreshHeaderStatus(header:MJRefreshHeader?,footer:MJRefreshFooter?) {
+        
+    }
+}
+
 protocol ZSRefreshProtocol {
     var refreshStatus:Variable<ZSRefreshStatus>{ get }
 }

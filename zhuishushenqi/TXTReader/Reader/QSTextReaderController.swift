@@ -248,6 +248,11 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
                 viewModel.fetchNextPage { (page) in
                     pageVC.page = page
                     self.hideActivityView()
+                    if pageVC.page?.isDecrypted == false {
+                        pageVC.showPayView()
+                    } else {
+                        pageVC.hidePayView()
+                    }
                 }
                 currentReaderVC = pageVC
                 return pageVC
@@ -276,7 +281,6 @@ extension QSTextReaderController:UIPageViewControllerDataSource,UIPageViewContro
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
-        
         
         pagePanGesture.delegate = pageViewController as? UIGestureRecognizerDelegate
         

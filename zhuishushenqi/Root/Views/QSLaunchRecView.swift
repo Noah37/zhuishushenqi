@@ -10,6 +10,48 @@ import UIKit
 
 typealias QSLaunchRecViewCallback = (_ btn:UIButton)->Void
 
+class ZSRecommend: NSObject {
+    var window:UIWindow!
+    var recView:QSLaunchRecView!
+    
+    override init() {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window.backgroundColor = UIColor.clear
+    }
+    
+    func show(boyTipCallback:QSLaunchRecViewCallback?, girlTipCallback:QSLaunchRecViewCallback?, closeCallback:QSLaunchRecViewCallback?) {
+        let nib = UINib(nibName: "QSLaunchRecView", bundle: nil)
+        recView = nib.instantiate(withOwner: nil, options: nil).first as? QSLaunchRecView
+        recView.frame = window.bounds
+        recView.alpha = 0.0
+        recView.closeCallback = { (btn) in
+            self.hide()
+            closeCallback?(btn)
+        }
+        recView.boyTipCallback = { (btn) in
+            self.hide()
+            boyTipCallback?(btn)
+        }
+        
+        recView?.girlTipCallback = { (btn) in
+            self.hide()
+            girlTipCallback?(btn)
+        }
+        window?.addSubview(recView)
+        window.isHidden = false
+        UIView.animate(withDuration: 0.35, animations: {
+            self.recView.alpha = 1.0
+        }) { (finished) in
+            
+        }
+    }
+    
+    private func hide() {
+        recView.removeFromSuperview()
+        window.isHidden = true
+    }
+}
+
 class QSLaunchRecView: UIView {
     
     var closeCallback:QSLaunchRecViewCallback?
@@ -63,6 +105,10 @@ class QSLaunchRecView: UIView {
         if let close = girlTipCallback {
             close(btn)
         }
+    }
+    
+    func show() {
+        
     }
     
     override func awakeFromNib() {

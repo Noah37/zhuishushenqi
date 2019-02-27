@@ -58,11 +58,7 @@ class ZSBookCommentViewController: ZSBaseTableViewController ,Refreshable{
     }
     
     func addObserver(){
-//        extern NSString *const CTDisplayViewImagePressedNotification;
-//        extern NSString *const CTDisplayViewLinkPressedNotification;
-//        let imagePressed = NSNotification.Name.CTDisplayViewImagePressed.rawValue
-//        let linkPressed = NSNotification.Name.CTDisplayViewLinkPressed.rawValue
-        print(NSNotification.Name.CTDisplayViewImagePressed)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleClick(noti:)), name: NSNotification.Name(CTDisplayViewLinkPressed), object: nil)
 //        NotificationCenter.qs_addObserver(observer: self, selector: #selector(handleClick(noti:)), name: imagePressed, object: nil)
 //        NotificationCenter.qs_addObserver(observer: self, selector: #selector(handleClick(noti:)), name: linkPressed, object: nil)
 

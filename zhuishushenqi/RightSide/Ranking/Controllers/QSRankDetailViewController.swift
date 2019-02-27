@@ -106,7 +106,7 @@ extension ZSRankItemViewController:UITableViewDataSource,UITableViewDelegate {
 class ZSRankViewController:BaseViewController {
     
     var rank:QSRankModel?
-    var segmentViewController = ZSSegmentViewController()
+    var segmentViewController = ZSSegmenuViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,6 +119,14 @@ class ZSRankViewController:BaseViewController {
     }
     
     func setupSubviews(){
+        segmentViewController.delegate = self
+        view.addSubview(segmentViewController.view)
+        addChild(segmentViewController)
+    }
+}
+
+extension ZSRankViewController:ZSSegmenuProtocol {
+    func viewControllersForSegmenu(_ segmenu: ZSSegmenuViewController) -> [UIViewController] {
         var viewControllers:[UIViewController] = []
         var titles = ["周榜","月榜","总榜"]
         for i in 0..<3 {
@@ -131,9 +139,15 @@ class ZSRankViewController:BaseViewController {
             }
             viewControllers.append(viewController)
         }
-        segmentViewController.viewControllers = viewControllers
-        addChild(segmentViewController)
-        view.addSubview(segmentViewController.view)
+        return viewControllers
+    }
+    
+    func segmenu(_ segmenu: ZSSegmenuViewController, didSelectSegAt index: Int) {
+        
+    }
+    
+    func segmenu(_ segmenu: ZSSegmenuViewController, didScrollToSegAt index: Int) {
+        
     }
 }
 

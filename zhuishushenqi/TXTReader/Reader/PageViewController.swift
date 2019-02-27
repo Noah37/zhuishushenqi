@@ -54,6 +54,11 @@ class PageViewController: UIViewController {
     }()
     var timer:Timer!
     
+    // 正版购买信息
+    var payView:ZSChapterPayView!
+    
+    var isShowPayView:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setSubviews()
@@ -82,6 +87,10 @@ class PageViewController: UIViewController {
         
         view.addSubview(batteryView)
         
+        payView = ZSChapterPayView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 0))
+        payView.isHidden = true
+        view.addSubview(payView)
+        
         UIDevice.current.isBatteryMonitoringEnabled = true
         NotificationCenter.default.addObserver(forName: UIDevice.batteryLevelDidChangeNotification, object: nil, queue: OperationQueue.main) { (notification) in
             let level = UIDevice.current.batteryLevel
@@ -92,6 +101,23 @@ class PageViewController: UIViewController {
         // Fallback on earlier versions
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(getTime(time:)), userInfo: nil, repeats: true)
         
+    }
+    
+    func showPayView() {
+        isShowPayView = true
+        payView.isHidden = false
+        payView.titleLabel.text = titleLabel.text
+        view.bringSubviewToFront(payView)
+        UIView.animate(withDuration: 0.25, animations: {
+            self.payView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        }) { (finished) in
+            
+        }
+    }
+    
+    func hidePayView() {
+        isShowPayView = false
+        payView.isHidden = true
     }
     
     func qs_removeObserver() -> Void {

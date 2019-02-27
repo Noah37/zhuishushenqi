@@ -25,7 +25,9 @@ class QSChapter: NSObject ,NSCoding{
     var link:String = "" //非vip来源没有id，只有link
     var title:String = ""// 章节标题
 
-    var isVip = 0
+    var isVip:Bool = false
+    // 是否已经解密
+    var isDecrypted:Bool = false
     //章节主要内容,下载多章节时，内存会爆掉，所以只在获取章节显示时才去计算
     var content:String = ""
     
@@ -34,7 +36,7 @@ class QSChapter: NSObject ,NSCoding{
     // vip章节
     var cpContent:String = ""
     //所有页面信息
-    var pages:[QSPage] = [QSPage()]
+    var pages:[QSPage] = []
 
     //章节划分，根据attribute划分为很多页，每页的范围只在QSBook中使用
     var ranges:[NSRange] = []
@@ -48,6 +50,18 @@ class QSChapter: NSObject ,NSCoding{
             return self.pages
         }
         var isZSSQSource:Bool = false
+        if !isDecrypted && isVip {
+            let page = QSPage()
+            page.isDecrypted = isDecrypted
+            page.isVip = isVip
+            page.curChapter = curChapter
+            page.title = title
+            page.totalPages = 1
+            page.curPage = 0
+            self.pages = [page]
+            return [page]
+        }
+        
         if id == "" {
             if !content.isEmpty {
                 let size = QSReaderFrame
@@ -74,6 +88,8 @@ class QSChapter: NSObject ,NSCoding{
             page.curChapter = curChapter
             page.totalPages = ranges.count
             page.title = title
+            page.isVip = isVip
+            page.isDecrypted = isDecrypted
             pages.append(page)
         }
         if pages.count == 0 {
@@ -99,6 +115,7 @@ class QSChapter: NSObject ,NSCoding{
         self.pages = aDecoder.decodeObject(forKey: "pages") as! [QSPage]
         self.ranges = aDecoder.decodeObject(forKey: "ranges") as! [NSRange]
         self.curChapter = aDecoder.decodeInteger(forKey: "curChapter")
+        self.isDecrypted = aDecoder.decodeBool(forKey: "isDecrypted")
     }
     
     func encode(with aCoder: NSCoder) {
@@ -109,7 +126,7 @@ class QSChapter: NSObject ,NSCoding{
         aCoder.encode(self.pages, forKey: "pages")
         aCoder.encode(self.ranges, forKey: "ranges")
         aCoder.encode(self.curChapter, forKey: "curChapter")
-
+        aCoder.encode(self.isDecrypted, forKey: "isDecrypted")
     }
     
     override init() {

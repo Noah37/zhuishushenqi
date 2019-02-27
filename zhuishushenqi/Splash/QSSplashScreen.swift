@@ -15,7 +15,7 @@ typealias SplashCallback = ()->Void
 
 class QSSplashScreen: NSObject {
     
-    var splashInfo:NSDictionary?
+    var splashInfo:[String:Any] = [:]
     var subject:PublishSubject<Any>!
     private var splashRootVC:QSSplashViewController?
     private var remainDelay:Int = 3
@@ -50,24 +50,29 @@ class QSSplashScreen: NSObject {
         QSLog("info:\(String(describing: USER_DEFAULTS.object(forKey: splashInfoKey)))")
         // first check network, load image from disk,if not reachable
         if Reachability(hostname: IMAGE_BASEURL)?.isReachable == false {
-            let splashInfo = USER_DEFAULTS.object(forKey: splashInfoKey) as? NSDictionary
-            // image not exist,skip
-            // searchPah exchange everytime you run your app
-            let imageName = splashInfo?[splashImageNameKey] as? String ?? ""
-            let imagePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(imageName)") ?? ""
-            let image = UIImage(contentsOfFile: imagePath)
-            if let splashImage = image{
-                self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
-                self.splashRootVC?.setSplashImage(image: splashImage)
-            }else{
-                  hide()
+            let path = "/ZSSQ/Splash"
+            if let dict = ZSCacheHelper.shared.cachedObj(for: splashInfoKey, cachePath: path) as? [String:Any] {
+                let splashInfo = dict
+                // image not exist,skip
+                // searchPah exchange everytime you run your app
+                let imageName = splashInfo[splashImageNameKey] as? String ?? ""
+                let imagePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(imageName)") ?? ""
+                let image = UIImage(contentsOfFile: imagePath)
+                if let splashImage = image {
+                    self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
+                    self.splashRootVC?.setSplashImage(image: splashImage)
+                }else{
+                    hide()
+                }
+            } else {
+                hide()
             }
             return
         }
         
         // request splash image
         QSNetwork.request(splashURL) { (response) in
-            let splash =  response.json?["splash"] as? [NSDictionary]
+            let splash =  response.json?["splash"] as? [[String:Any]]
             if (splash?.count ?? 0) > 0{
                 if let splashInfo = splash?[0] {
                     // save splash info,download image and save it
@@ -87,10 +92,9 @@ class QSSplashScreen: NSObject {
         QSNetwork.download(urlString) { (fileURL, response, error) in
             QSLog("\(fileURL?.path ?? "")")
             let splashImage = UIImage(contentsOfFile: fileURL?.path ?? "")
-            let mutableInfo:NSMutableDictionary = NSMutableDictionary(dictionary: self.splashInfo!)
-            mutableInfo.setValue(fileURL?.lastPathComponent ?? "", forKey: self.splashImageNameKey)
-            self.splashInfo = mutableInfo
-            USER_DEFAULTS.set(self.splashInfo, forKey: self.splashInfoKey)
+            self.splashInfo[self.splashImageNameKey] = fileURL?.lastPathComponent ?? ""
+            let path = "/ZSSQ/Splash"
+            ZSCacheHelper.shared.storage(obj: self.splashInfo, for: self.splashInfoKey, cachePath: path)
             self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
             if let image  = splashImage {
                 self.splashRootVC?.setSplashImage(image: image)
@@ -108,7 +112,7 @@ class QSSplashScreen: NSObject {
     
     func getSplashURLString()->String {
         //according to screen dimension
-        let imageString = self.splashInfo?.object(forKey: "img") as? String ?? ""
+        let imageString = self.splashInfo["img"] as? String ?? ""
         return  imageString
     }
     

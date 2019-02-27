@@ -40,6 +40,19 @@ extension Dictionary {
         let allValues = dict.allValues as! [Any]
         return allValues
     }
+    
+    //MARK: - transform
+    var toJSON: String {
+        if !JSONSerialization.isValidJSONObject(self) {
+            return ""
+        }
+        if let data  = try? JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.init(rawValue: 0)) {
+            if let jsonString = String(data: data, encoding: .utf8) {
+                return jsonString
+            }
+        }
+        return ""
+    }
 }
 
 extension Dictionary where Value: Any {

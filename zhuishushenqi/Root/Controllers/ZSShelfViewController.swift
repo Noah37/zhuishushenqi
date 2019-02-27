@@ -29,6 +29,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         tableView.estimatedRowHeight = ZSShelfViewController.kCellHeight
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
         return tableView
     }()
     
@@ -46,6 +47,8 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         
         NotificationCenter.qs_addObserver(observer: self, selector: #selector(loginSuccessAction), name: LoginSuccess, object: nil)
         NotificationCenter.qs_addObserver(observer: self, selector: #selector(addBookToShelf(noti:)), name: BOOKSHELF_ADD, object: nil)
+        NotificationCenter.qs_addObserver(observer: self, selector: #selector(deleteFromShelf(noti:)), name: BOOKSHELF_DELETE, object: nil)
+
         loginSuccessAction()
     }
     
@@ -61,6 +64,11 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
             // Fallback on earlier versions
         }
         self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
+        self.tableView.reloadData()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -110,21 +118,25 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     
     @objc
     func openSafari() {
+        // 存在三种可能,post,link,booklist
         if let message = viewModel.shelfMessage {
             let title = message.postMessage()
-            if title.0.hasPrefix("http") {
+            let type = title.2
+            if type == .link {
                 if let url = URL(string: title.0) {
                     let safariVC = SFSafariViewController(url: url)
                     self .present(safariVC, animated: true, completion: nil)
                 }
-            } else {
-                // 不是url就是post
+            } else if type == .post {
                 let id = title.0
                 let comment = BookComment()
                 comment._id = id
                 let commentVC = ZSBookCommentViewController(style: .grouped)
                 commentVC.viewModel.model = comment
                 SideVC.navigationController?.pushViewController(commentVC, animated: true)
+            } else if type == .booklist {
+                let topicVC = QSTopicDetailRouter.createModule(id: title.0)
+                SideVC.navigationController?.pushViewController(topicVC, animated: true)
             }
         }
     }
@@ -149,6 +161,23 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     }
     
     @objc
+    func deleteFromShelf(noti:Notification) {
+        if let book = noti.object as? BookDetail {
+            self.tableView.reloadData()
+            if ZSLogin.share.hasLogin() {
+                viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
+                    if json?["ok"] as? Bool == true {
+                        self.view.showTip(tip: "\(book.title)从书架删除成功")
+                        self.headerRefresh?.beginRefreshing()
+                    } else {
+                        self.view.showTip(tip: "\(book.title)从书架删除失败")
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc
     func addBookToShelf(noti:Notification) {
         if let book = noti.object as? BookDetail {
             self.tableView.reloadData()
@@ -162,6 +191,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                     }
                 }
             } else {
+                
                 self.view.showTip(tip: "添加到书架成功")
                 self.headerRefresh?.beginRefreshing()
             }
@@ -184,12 +214,13 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
             return viewModel.books.count
         }
 //        return viewModel.fetchBooks().count
-        return viewModel.books.count
+        return viewModel.booksID.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SwipableCell.reuseIdentifier, for: indexPath) as! SwipableCell
         cell.delegate = self
+        cell.selectionStyle = .none
         if viewModel.localBooks.count > 0 {
             if indexPath.section == 0 {
                 cell.title?.text = "本地书架"
@@ -202,9 +233,11 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
         } else {
 //            let book = viewModel.fetchBooks()[indexPath.row]
 //            cell.configureCell(model: book)
-            let id = viewModel.booksID[indexPath.row]
-            if let item = viewModel.books[id]  {
-                cell.configureCell(model: item)
+            if viewModel.booksID.count > indexPath.row {
+                let id = viewModel.booksID[indexPath.row]
+                if let item = viewModel.books[id]  {
+                    cell.configureCell(model: item)
+                }
             }
         }
         return cell
@@ -217,7 +250,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                 if let message = viewModel.shelfMessage {
                     let title = message.postMessage()
                     shelfMsg.setTitle(title.1, for: .normal)
-                    shelfMsg.setTitleColor(title.2, for: .normal)
+                    shelfMsg.setTitleColor(title.3, for: .normal)
                     return shelfMsg
                 }
             }
@@ -226,7 +259,7 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
                 if let message = viewModel.shelfMessage {
                     let title = message.postMessage()
                     shelfMsg.setTitle(title.1, for: .normal)
-                    shelfMsg.setTitleColor(title.2, for: .normal)
+                    shelfMsg.setTitleColor(title.3, for: .normal)
                     return shelfMsg
                 }
             }
@@ -279,63 +312,104 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
 //        self.tableView.reloadRow(at: indexPath, with: .automatic)
         let books = self.viewModel.books
         if let model =  books[viewModel.booksID[indexPath.row]] {
+            // 刷新id的排序,当前点击的书籍置顶
+            viewModel.topBook(key: model._id)
             let viewController = ZSReaderViewController()
             viewController.viewModel.book = model
             self.present(viewController, animated: true, completion: nil)
-            self.tableView.reloadRow(at: indexPath, with: .automatic)
+            self.tableView.reloadData()
         }
     }
 }
 
 extension ZSShelfViewController:SwipableCellDelegate {
-    func swipeCell(clickAt: Int,model:BookDetail,cell:SwipableCell,selected:Bool) {
-        if clickAt == 0 {
-            if selected == false {
-                // 取消下载
-                
-                return
+    
+    
+    func swipableCell(swipableCell:SwipableCell, didSelectAt index:Int) {
+        if index == 0 {
+            if let indexPath = tableView.indexPath(for: swipableCell) {
+                alert(with: swipableCell, indexPath: indexPath)
+            } else {
+                self.hudAddTo(view: self.view, text: "当前书籍不存在...", animated: true)
             }
-            let indexPath = tableView.indexPath(for: cell)
-            // 选择一种缓存方式后，缓存按钮变为选中状态，小说图标变为在缓存中
-            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            let firstAcion = UIAlertAction(title: "全本缓存", style: .default, handler: { (action) in
-                self.hudAddTo(view: self.view, text: "暂不支持当前功能,敬请期待...", animated: true)
-            })
-            let secondAction = UIAlertAction(title: "从当前章节缓存", style: .default, handler: { (action) in
-                self.hudAddTo(view: self.view, text: "暂不支持当前功能,敬请期待...", animated: true)
-            })
-            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (action) in
-                
-            })
-            alert.addAction(firstAcion)
-            alert.addAction(secondAction)
-            alert.addAction(cancelAction)
-            present(alert, animated: true, completion: nil)
         }
-        else if clickAt == 3 {
-            self.removeBook(book: model)
+        else if index == 3 {
+            self.removeBook(at: index)
             self.tableView.reloadData()
         } else {
             self.hudAddTo(view: self.view, text: "暂不支持当前功能,敬请期待...", animated: true)
         }
     }
     
-    func removeBook(book:BookDetail){
-        let books = self.viewModel.booksID
-        var index = 0
-        for bookid in books {
-            if book._id == bookid {
-                self.viewModel.booksID.remove(at: index)
-                self.viewModel.books.removeValue(forKey: bookid)
-                self.viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
-                    if json?["ok"] as? Bool == true {
-                        self.view.showTip(tip: "\(book.title)已从书架中删除")
+    func alert(with cell:SwipableCell, indexPath:IndexPath) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let firstAcion = UIAlertAction(title: "全本缓存", style: .default, handler: { (action) in
+            cell.state = .prepare
+            let ids = self.viewModel.booksID
+            if indexPath.row >= 0 && indexPath.row < ids.count {
+                let id = ids[indexPath.row]
+                guard let book = self.viewModel.books[id] else { return }
+                cell.state = .download
+                ZSBookDownloader.shared.download(book: book, start: 0, handler: { (finish) in
+                    // cell状态变更
+                    cell.state = .finish
+                })
+            } else {
+                cell.state = .none
+            }
+        })
+        let secondAction = UIAlertAction(title: "从当前章节缓存", style: .default, handler: { (action) in
+            cell.state = .prepare
+            let ids = self.viewModel.booksID
+            if indexPath.row > 0 && indexPath.row < ids.count {
+                let id = ids[indexPath.row]
+                guard let book = self.viewModel.books[id] else { return }
+                if let chapter = book.record?.chapter, let chaptersInfo = book.chaptersInfo {
+                    cell.state = .download
+                    if chapter < chaptersInfo.count {
+                        ZSBookDownloader.shared.download(book: book, start: chapter, handler: { (finish) in
+                            // cell状态变更
+                            cell.state = .finish
+                        })
                     } else {
-                        self.view.showTip(tip: "\(book.title)从书架中删除失败")
+                        ZSBookDownloader.shared.download(book: book, start: 0, handler: { (finish) in
+                            // cell状态变更
+                            cell.state = .finish
+                        })
+                    }
+                } else {
+                    cell.state = .none
+                }
+            } else {
+                cell.state = .none
+            }
+        })
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (action) in
+            cell.state = .none
+        })
+        alert.addAction(firstAcion)
+        alert.addAction(secondAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func removeBook(at index:Int){
+        let books = self.viewModel.booksID
+        var bookIndex = 0
+        for bookid in books {
+            if bookIndex == index {
+                if let book = self.viewModel.books[bookid] {
+                    ZSBookManager.shared.deleteBook(book: book)
+                    self.viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
+                        if json?["ok"] as? Bool == true {
+                            self.view.showTip(tip: "\(book.title)已从书架中删除")
+                        } else {
+                            self.view.showTip(tip: "\(book.title)从书架中删除失败")
+                        }
                     }
                 }
             }
-            index += 1
+            bookIndex += 1
         }
     }
 }

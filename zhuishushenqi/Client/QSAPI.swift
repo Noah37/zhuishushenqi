@@ -110,6 +110,10 @@ enum QSAPI {
     case reviewPost(token:String,id:String,content:String)
     ///已购章节信息
     case boughtChapters(id:String,token:String)
+    ///书架信息diff
+    case bookshelfdiff(books:String,token:String)
+    ///追书券列表
+    case voucherList(token:String, type:String, start:Int, limit:Int)
 }
 
 extension QSAPI:TargetType{
@@ -256,6 +260,13 @@ extension QSAPI:TargetType{
  //    https://api.zhuishushenqi.com/v2/purchase/book/5b10fd1b5d144d1b68581805/chapters/bought?token=rPcCW1GGh1hFPnSRJDjkwjtS
             pathComponent = "/v2/purchase/book/\(id)/chapters/bought"
             break
+        case .bookshelfdiff(_, _):
+//            https://api.zhuishushenqi.com/v3/user/bookshelf/diff
+            pathComponent = "/v3/user/bookshelf/diff"
+            break
+        case .voucherList(_, _, _, _):
+            pathComponent = "/voucher"
+            break
         default:
             break
         }
@@ -359,6 +370,14 @@ extension QSAPI:TargetType{
         case let .boughtChapters(_, token):
             return ["token":token,
                     ]
+        case let .bookshelfdiff(books, token):
+            return ["books":books,
+                    "token":token]
+        case let .voucherList(token, type, start, limit):
+            return ["token":token,
+                    "type":"\(type)",
+                    "start":"\(start)",
+                    "limit":"\(limit)"]
         default:
             return nil
         }

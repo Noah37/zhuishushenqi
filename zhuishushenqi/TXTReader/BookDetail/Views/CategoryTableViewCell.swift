@@ -34,7 +34,7 @@ class CategoryTableViewCell: UITableViewCell {
         if let _ = model {
             downloadBtn.isEnabled = false
             downloadBtn.setTitle("已缓存", for: .normal)
-            if (model?.isVip ?? 0) == 1 {
+            if (model?.isVip ?? false) == true {
                 downloadBtn.setTitle("", for: .normal)
                 downloadBtn.setImage(UIImage(named: "directory_vip_chapter"), for: .normal)
             }
