@@ -219,6 +219,10 @@
 		B263E2E9211EBFEC001819FB /* SQLite+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263E2E8211EBFEC001819FB /* SQLite+Extension.swift */; };
 		B2662EBC21A7DAC5008AD5C6 /* ZSDBPropertyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2662EBB21A7DAC5008AD5C6 /* ZSDBPropertyModel.m */; };
 		B266C66A21A6FCC3006B5A15 /* ZSDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B266C66921A6FCC3006B5A15 /* ZSDBManager.m */; };
+<<<<<<< HEAD
+=======
+		B278AA661F3954FF000A0D55 /* QSAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA651F3954FF000A0D55 /* QSAPI.swift */; };
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
 		B278AA8C1F395F30000A0D55 /* LookBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA8A1F395F30000A0D55 /* LookBookViewController.swift */; };
 		B278AA8D1F395F30000A0D55 /* ReadHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA8B1F395F30000A0D55 /* ReadHistoryViewController.swift */; };
 		B278AA931F395FA4000A0D55 /* QSHelpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA901F395FA4000A0D55 /* QSHelpViewCell.swift */; };
@@ -747,6 +751,10 @@
 		B2662EBB21A7DAC5008AD5C6 /* ZSDBPropertyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSDBPropertyModel.m; sourceTree = "<group>"; };
 		B266C66821A6FCC3006B5A15 /* ZSDBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSDBManager.h; sourceTree = "<group>"; };
 		B266C66921A6FCC3006B5A15 /* ZSDBManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSDBManager.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
+		B278AA651F3954FF000A0D55 /* QSAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSAPI.swift; sourceTree = "<group>"; };
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
 		B278AA8A1F395F30000A0D55 /* LookBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookBookViewController.swift; sourceTree = "<group>"; };
 		B278AA8B1F395F30000A0D55 /* ReadHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadHistoryViewController.swift; sourceTree = "<group>"; };
 		B278AA901F395FA4000A0D55 /* QSHelpViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHelpViewCell.swift; sourceTree = "<group>"; };
@@ -3018,6 +3026,10 @@
 				B2C0DF3F20D4CB350057DC84 /* QSBookDetailProtocols.swift in Sources */,
 				B2C0DF4920D4CB350057DC84 /* QSBookDetailRateView.swift in Sources */,
 				3DAC23CE21E32DA500E77891 /* ZSYJSchemeHandle.swift in Sources */,
+<<<<<<< HEAD
+=======
+				B278AA661F3954FF000A0D55 /* QSAPI.swift in Sources */,
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
 				B2583CB31EA78280004178F3 /* ThemeTopicViewController.swift in Sources */,
 				B2C0DF6B20D4CB350057DC84 /* QSCommunityRouter.swift in Sources */,
 				B2B4BBFA1E7EA4AB000CC201 /* UINavigationItem+BackItem.m in Sources */,

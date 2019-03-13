@@ -7,7 +7,10 @@
 //
 
 import UIKit
+<<<<<<< HEAD
 import ZSAPI
+=======
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
 
 class ZSBookDownloader: NSObject {
     
@@ -77,7 +80,11 @@ class ZSBookDownloader: NSObject {
     
     private func download(for key:String,_ handler:@escaping ZSBaseCallback<ZSChapterBody>) {
         let link = (key as NSString).urlEncode() ?? key
+<<<<<<< HEAD
         let api = ZSAPI.chapter(key: link, type: ZSBaseType.chapter)
+=======
+        let api = QSAPI.chapter(key: link, type: BaseType.chapter)
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
         zs_get(api.path, parameters: api.parameters) { (json) in
             if let body = ZSChapterBody.deserialize(from: json?["chapter"] as? [String:Any]) {
                 handler(body)

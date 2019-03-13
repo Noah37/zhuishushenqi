@@ -266,6 +266,11 @@ extension ZSAPI:ZSTargetType{
             break
         case .voucherList(_, _, _, _):
             pathComponent = "/voucher"
+<<<<<<< HEAD:Pods/ZSAPI/ZSAPI/Classes/ZSAPI.swift
+=======
+            break
+        default:
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f:zhuishushenqi/Client/QSAPI.swift
             break
         }
         return "\(baseURLString)\(pathComponent)"

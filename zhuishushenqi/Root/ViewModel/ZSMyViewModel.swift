@@ -9,7 +9,10 @@
 import UIKit
 import AdSupport
 import RxSwift
+<<<<<<< HEAD
 import ZSAPI
+=======
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
 
 class ZSMyViewModel: NSObject, ZSRefreshProtocol {
     
@@ -96,7 +99,11 @@ class ZSMyViewModel: NSObject, ZSRefreshProtocol {
     
 //    https://api.zhuishushenqi.com/voucher?token=xAk9Ac8k3Jj9Faf11q8mBVPQ&type=useable&start=0&limit=20
     func fetchVoucher(token:String, type:String, start:Int, limit:Int, completion:@escaping ZSBaseCallback<[ZSVoucher]>) {
+<<<<<<< HEAD
         let api = ZSAPI.voucherList(token: token, type: type, start: start, limit: limit)
+=======
+        let api = QSAPI.voucherList(token: token, type: type, start: start, limit: limit)
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
         webService.fetchVoucherList(url: api.path, param: api.parameters) { (vouchers) in
             if type == "useable" {
                 self.useableVoucher = vouchers ?? []
@@ -111,7 +118,11 @@ class ZSMyViewModel: NSObject, ZSRefreshProtocol {
     }
     
     func fetchMoreVoucher(token:String, type:String, start:Int, limit:Int, completion:@escaping ZSBaseCallback<[ZSVoucher]>) {
+<<<<<<< HEAD
         let api = ZSAPI.voucherList(token: token, type: type, start: start, limit: limit)
+=======
+        let api = QSAPI.voucherList(token: token, type: type, start: start, limit: limit)
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
         webService.fetchVoucherList(url: api.path, param: api.parameters) { (vouchers) in
             if type == "useable" {
                 self.useableVoucher.append(contentsOf: vouchers ?? [])

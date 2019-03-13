@@ -17,8 +17,12 @@ class RightViewController: ZSBaseTableViewController {
 
     override init(style: UITableView.Style) {
         super.init(style: style)
+<<<<<<< HEAD
         let scale = SideVC.leftOffSetXScale
         self.tableView.frame = CGRect(x: self.view.bounds.width*scale + 20, y: 0, width: self.view.bounds.width*(1-scale) - 20, height: self.view.bounds.height)
+=======
+        self.tableView.frame = CGRect(x: self.view.bounds.width - SideVC.maximumRightOffsetWidth  + 20, y: 0, width: SideVC.maximumRightOffsetWidth - 20, height: self.view.bounds.height)
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
         self.tableView.rowHeight = 60
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 55, bottom: 0, right: 0)
         self.tableView.qs_registerCellClass(RightTableViewCell.self)

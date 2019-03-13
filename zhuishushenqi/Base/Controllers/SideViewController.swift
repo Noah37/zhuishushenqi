@@ -2,35 +2,40 @@
 //  SideViewController.swift
 //  zhuishushenqi
 //
-//  Created by Nory Cao on 16/9/30.
-//  Copyright © 2016年 QS. All rights reserved.
+//  Created by caonongyun on 16/9/30.
+//  Copyright © 2016年 CNY. All rights reserved.
 //
 
 import UIKit
 
 private enum HorizonalXSideType{
+    case none
     case left
     case right
 }
 
+<<<<<<< HEAD
 class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
+=======
+
+class SideViewController: UIViewController,UIGestureRecognizerDelegate {
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
     /**
-     *  右侧视图控制器相对于容器视图的比例,1.0不进行缩放
+     *  右侧视图控制器相对于容器视图的比例,1.0不进行缩放[暂不支持]
      */
-    var rightViewControllerScale:CGFloat = 1.0
+    var rightViewControllerScale:CGFloat = 0.75
     /**
-     *  左侧视图控制器相对于容器视图的比例,1.0不进行缩放
+     *  左侧视图控制器相对于容器视图的比例,1.0不进行缩放[暂不支持]
      */
-    var leftViewControllerScale:CGFloat = 1.0
+    var leftViewControllerScale:CGFloat = 0.75
     /**
-     *  右侧视图控制器相对于容器视图的 x 方向的偏移量比例，1.0则为完全偏移
+     *  手势滑动时bounces
      */
-    var rightOffSetXScale:CGFloat = 0.8
+    var shouldStretchDrawer:Bool = true
     
-    /**
-     *  左侧视图控制器相对于容器视图的 x 方向的偏移量比例，1.0则为完全偏移
-     */
-    var leftOffSetXScale:CGFloat = 0.2
+    var maximumLeftOffsetWidth:CGFloat = 100
+    
+    var maximumRightOffsetWidth:CGFloat = 200
     /**
      *  侧滑菜单加载时间
      */
@@ -41,29 +46,39 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
     /// 是否左侧边栏处于关闭状态
     var isCloseLeftSide:Bool = true
     
-    /// 全屏手势密码开启
-    var fullScreenPanGestureEnable:Bool = false
-    var panGestureToleranceX:CGFloat = 10
+    var isPanGestureEnable:Bool = true
     
-
-    var leftViewController:UIViewController?
-    var rightViewController:UIViewController?
-    var contentViewController:UIViewController?
+    
+    var leftViewController:UIViewController? {
+        didSet { setSideViewController(side: .left) }
+    }
+    var rightViewController:UIViewController? {
+        didSet { setSideViewController(side: .right) }
+    }
+    var contentViewController:UIViewController? {
+        didSet { setContentViewController() }
+    }
     
     fileprivate var contentView:UIView = UIView()
-    fileprivate var rightView:UIView = UIView()
-    fileprivate var leftView:UIView = UIView()
+    fileprivate var containerView:UIView = UIView()
     fileprivate var maskView:UIView = UIView()
+    fileprivate var shadowView:UIView = UIView()
+    
+    fileprivate var startingPanRect:CGRect = CGRect.zero
+    
+    var drawerOvershootPercentage:CGFloat = 0.1
+    
+    var drawerOvershootLinearRangePercentage:CGFloat = 0.75
+    
+    var panVelocityXAnimationThreshold:CGFloat = 200
     
     /// 显示菜单方向
-    fileprivate var horizonalXSide:HorizonalXSideType?
+    fileprivate var horizonalXSide:HorizonalXSideType = HorizonalXSideType.none
     /// 弹性空间，可以回弹
     fileprivate var bounchesX:CGFloat = 20
     /// 最小open宽度
     fileprivate var minimumSwipeX:CGFloat = 20
     
-    fileprivate var showSideMenu:Bool = true
-
     fileprivate lazy var panGes:UIPanGestureRecognizer =  {
         let pan:UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.panAction(_:)))
         pan.delegate = self
@@ -73,34 +88,64 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         initSubview()
-        addChildController()
         updateContentViewShadow()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateContentViewShadow()
+    }
+    
+    override func willAnimateRotation(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+        guard let oldShadowPath = self.shadowView.layer.shadowPath else { return }
+        self.shadowView.layer.shadowPath = nil
+        updateContentViewShadow()
+        
+        self.shadowView.layer.add((({
+            let transition = CABasicAnimation(keyPath: "shadowPath")
+            transition.fromValue = oldShadowPath
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            transition.duration = duration
+            return transition
+        })()) ,forKey: "transition")
+    }
+    
     fileprivate func initSubview(){
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        leftView = UIView(frame: self.view.bounds)
-        leftView.backgroundColor = UIColor.blue
-        view.addSubview(leftView)
-
+        var autoResizingMask = UIView.AutoresizingMask.flexibleWidth
+        autoResizingMask = autoResizingMask.union(.flexibleHeight)
+        containerView = UIView(frame: self.view.bounds)
+        containerView.backgroundColor = UIColor.white
+        containerView.autoresizingMask = autoResizingMask
+        view.addSubview(containerView)
         
-        rightView = UIView(frame: self.view.bounds)
-        rightView.backgroundColor = UIColor.red
-        view.addSubview(rightView)
-        
+        var contentAutoResizingMask = UIView.AutoresizingMask.flexibleWidth
+        contentAutoResizingMask = contentAutoResizingMask.union(.flexibleHeight)
         contentView = UIView(frame: self.view.bounds)
-        contentView.backgroundColor = UIColor.orange
-        view.addSubview(contentView)
+        contentView.backgroundColor = UIColor.white
+        containerView.addSubview(contentView)
+        contentView.autoresizingMask = contentAutoResizingMask
         contentView.addGestureRecognizer(panGes)
         
-        
-        
-        maskView.frame = self.view.bounds
+        maskView = UIView(frame: self.view.bounds)
+        maskView.autoresizingMask = autoResizingMask
         maskView.backgroundColor = UIColor(white: 0.5, alpha: 0.2)
         let ges = UITapGestureRecognizer(target: self, action: #selector(maskAction(_:)))
         maskView.addGestureRecognizer(ges)
+        contentView.addSubview(maskView)
+        
+        shadowView = UIView(frame: self.view.bounds)
+        shadowView.isUserInteractionEnabled = true
+        shadowView.autoresizingMask = autoResizingMask
+        shadowView.backgroundColor = UIColor.clear
+        contentView.addSubview(shadowView)
     }
     
+<<<<<<< HEAD
     @objc fileprivate func panAction(_ pan:UIPanGestureRecognizer){
         let translation:CGPoint = pan.translation(in: self.contentView)
         let velocity:CGPoint = pan.velocity(in: self.contentView)
@@ -114,52 +159,79 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
                 }else {
                     showSideMenu = true
                 }
+=======
+    //MARK: - UIGestureRecognizerDelegate
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == panGes {
+            let pan:UIPanGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
+            let velocity:CGPoint = pan.velocity(in: self.contentView)
+            if pan.velocity(in: self.contentView).x < 3000 && abs(velocity.x)/abs(velocity.y) > 1 {
+                return true
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
             }
-
-            if velocity.x > 0  && isCloseLeftSide{
-                horizonalXSide = .left
-            }else if velocity.x < 0 && isCloseRightSide {
-                horizonalXSide = .right
-            }
-            if !isCloseLeftSide {
-                rightView.isHidden = true
-            }else if !isCloseRightSide {
-                rightView.isHidden = false
-            }
-            
-            updateContentViewShadow()
+            return false
         }
-        
-        if !showSideMenu {
-            return
+        return true
+    }
+    
+    private func originXForDrawerOriginAndTargetOriginOffset(originX:CGFloat, targetOffset:CGFloat, maxOvershoot:CGFloat) ->CGFloat {
+        let delta = abs(originX - targetOffset)
+        let maxLinearPercentage = drawerOvershootLinearRangePercentage
+        let nonLinearRange = maxOvershoot * maxLinearPercentage
+        let nonLinearScalingDelta = delta - nonLinearRange
+        let overshoot = nonLinearRange + nonLinearScalingDelta * nonLinearRange/sqrt(pow(nonLinearScalingDelta, 2.0) + 15000)
+        if delta < nonLinearRange {
+            return originX
         }
-        
-        if pan.state == UIGestureRecognizer.State.ended {
-            //停止时的手势速度方向为哪边则显示哪边
-            //这里设置了最小 open 宽度，小于它则不会显示侧边栏
-            if self.minimumSwipeX > 0 && (self.contentView.frame.origin.x < 0 && self.contentView.frame.origin.x > -self.minimumSwipeX) ||
-                (self.contentView.frame.origin.x > 0 && self.contentView.frame.origin.x < self.minimumSwipeX){
-                closeSideViewController()
-            }else if self.contentView.frame.origin.x  == 0 {
-                closeSideViewController()
-            }else{
-                if velocity.x > 0 {
-                    if contentView.frame.origin.x < 0 {
-                        closeSideViewController()
-                    }else{
-                        isCloseLeftSide = true
-                        showLeftViewController()
-                    }
-                }else{
-                    if contentView.frame.origin.x < 20 {
-                        isCloseRightSide = true
-                        showRightViewController()
-                    }else{
-                        closeSideViewController()
-                    }
-                }
+        else if targetOffset < 0 {
+            return targetOffset - round(overshoot)
+        }
+        else {
+            return targetOffset + round(overshoot)
+        }
+    }
+    
+    private func roundedOriginX(for drawerConstriants:CGFloat) ->CGFloat {
+        if drawerConstriants < -self.maximumRightOffsetWidth {
+            if self.shouldStretchDrawer && self.rightViewController != nil {
+                let maxOvershoot = (self.contentView.frame.width - self.maximumRightOffsetWidth) * drawerOvershootPercentage
+                return originXForDrawerOriginAndTargetOriginOffset(originX: drawerConstriants, targetOffset: -self.maximumRightOffsetWidth, maxOvershoot: maxOvershoot)
+            } else {
+                return -self.maximumRightOffsetWidth
+            }
+        } else if drawerConstriants > self.maximumRightOffsetWidth {
+            if self.shouldStretchDrawer && self.leftViewController != nil {
+                let maxOvershoot = (self.contentView.frame.width - self.maximumLeftOffsetWidth) * drawerOvershootPercentage
+                return originXForDrawerOriginAndTargetOriginOffset(originX: drawerConstriants, targetOffset: self.maximumLeftOffsetWidth, maxOvershoot: maxOvershoot)
+            } else {
+                return self.maximumLeftOffsetWidth
             }
         }
+        return drawerConstriants
+    }
+    
+    private func childViewControllerForSide(drawerSide:HorizonalXSideType) ->UIViewController {
+        var childViewController:UIViewController?
+        switch drawerSide {
+        case .none:
+            childViewController = contentViewController
+            break
+        case .left:
+            childViewController = leftViewController
+            break
+        case .right:
+            childViewController = rightViewController
+            break
+        }
+        return childViewController!
+    }
+    
+    private func sideDrawerViewControllerForSide(drawerSide:HorizonalXSideType) ->UIViewController {
+        var sideDrawerViewController:UIViewController?
+        if drawerSide != .none {
+            sideDrawerViewController = self.childViewControllerForSide(drawerSide: drawerSide)
+        }
+<<<<<<< HEAD
         else if pan.state == .changed{
             let offSetX = translation.x
             /**
@@ -232,34 +304,100 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
                 let conT = transT.concatenating(scaleT)
 
                 self.contentView.transform = conT
+=======
+        return sideDrawerViewController!
+    }
+    
+    @objc
+    private func panAction(_ pan:UIPanGestureRecognizer) {
+        switch pan.state {
+        case .began:
+            self.startingPanRect = self.contentView.frame
+            break
+        case .changed:
+            self.view.isUserInteractionEnabled = false
+            var newFrame = self.startingPanRect
+            let translatedPoint = pan .translation(in: self.contentView)
+            newFrame.origin.x = self.roundedOriginX(for: self.startingPanRect.minX + translatedPoint.x)
+            newFrame = newFrame.integral
+            
+            self.contentView.center = CGPoint(x: newFrame.midX, y: newFrame.midY)
+            
+            newFrame = self.contentView.frame
+            newFrame.origin.x = floor(newFrame.origin.x)
+            newFrame.origin.y = floor(newFrame.origin.y)
+            self.contentView.frame = newFrame
+            let xOffset = newFrame.origin.x;
+            var visibleSide = HorizonalXSideType.none
+            if xOffset > 0 {
+                visibleSide = .left
+                self.leftViewController?.view.isHidden = false
+                self.rightViewController?.view.isHidden = true
+            } else {
+                visibleSide = .right
+                self.leftViewController?.view.isHidden = true
+                self.rightViewController?.view.isHidden = false
+            }
+            if visibleSide != horizonalXSide {
+                self.horizonalXSide = visibleSide
+            } else if visibleSide == .none {
+                self.horizonalXSide = .none
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
             }
             
-           
+            break
+        case .ended,.cancelled:
+            self.startingPanRect = CGRect.null
+            let velocity = pan.velocity(in: self.containerView)
+            finishAnimationForPanGestureWithXVelocity(xVelocity: velocity.x) { (finished) in
+                
+            }
+            self.view.isUserInteractionEnabled = true
+            break
+        default:
+            break
         }
     }
     
-    //MARK: - UIGestureRecognizerDelegate
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == panGes {
-            let pan:UIPanGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
-            let velocity:CGPoint = pan.velocity(in: self.contentView)
-            if pan.velocity(in: self.contentView).x < 3000 && abs(velocity.x)/abs(velocity.y) > 1 {
-                return true
+    private func finishAnimationForPanGestureWithXVelocity(xVelocity:CGFloat, completion:(_ finished:Bool)->Void) {
+        var currentOriginX = self.contentView.frame.minX
+        //        let animationVelocity = max(abs(xVelocity), self.panVelocityXAnimationThreshold * 2)
+        
+        if horizonalXSide == .left {
+            let midPoint = self.maximumLeftOffsetWidth / 2.0
+            if xVelocity > self.panVelocityXAnimationThreshold {
+                self.showLeftViewController()
+            } else if xVelocity < -self.panVelocityXAnimationThreshold {
+                self.closeSideViewController()
+            } else if currentOriginX < midPoint {
+                self.closeSideViewController()
+            } else {
+                self.showLeftViewController()
             }
-            return false
+        } else if horizonalXSide == .right {
+            currentOriginX = self.contentView.frame.maxX
+            let midPoint = self.containerView.bounds.width - self.maximumRightOffsetWidth + self.maximumRightOffsetWidth / 2.0
+            if xVelocity > self.panVelocityXAnimationThreshold {
+                self.closeSideViewController()
+            } else if xVelocity < -self.panVelocityXAnimationThreshold {
+                self.showRightViewController()
+            } else if currentOriginX > midPoint {
+                self.closeSideViewController()
+            } else {
+                self.showRightViewController()
+            }
         }
-        return true
     }
-
     
     @objc fileprivate func maskAction(_ tap:UITapGestureRecognizer){
         if !isCloseLeftSide {
-            showLeftViewController()
+            closeSideViewController()
         }else if !isCloseRightSide{
-            showRightViewController()
+            closeSideViewController()
         }
     }
     
+<<<<<<< HEAD
     fileprivate func addChildController(){
         if leftViewController != nil {
             addChild(leftViewController!)
@@ -276,6 +414,39 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
             addChild(nav)
             nav.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
             contentView.addSubview(nav.view)
+=======
+    private func setSideViewController(side:HorizonalXSideType) {
+        var autoResizingMask = UIView.AutoresizingMask.init(rawValue: 0)
+        autoResizingMask = autoResizingMask.union(UIView.AutoresizingMask.flexibleHeight)
+        var viewController:UIViewController!
+        if side == .left {
+            viewController = leftViewController
+            autoResizingMask = autoResizingMask.union(.flexibleRightMargin)
+        } else  {
+            viewController = rightViewController
+            autoResizingMask = autoResizingMask.union(.flexibleLeftMargin)
+        }
+        addChild(viewController)
+        containerView.addSubview(viewController.view)
+        containerView.sendSubviewToBack(viewController.view)
+        viewController.view.isHidden = true
+        
+        viewController.didMove(toParent: self)
+        viewController.view.autoresizingMask = autoResizingMask
+    }
+    
+    private func setContentViewController() {
+        if let viewController = contentViewController {
+            let nav  = UINavigationController(rootViewController: viewController)
+            addChild(nav)
+            nav.view.frame = view.bounds
+            nav.view.backgroundColor = UIColor.gray
+            self.contentView.addSubview(nav.view)
+            var autoResizingMask = UIView.AutoresizingMask.flexibleWidth
+            autoResizingMask = autoResizingMask.union(UIView.AutoresizingMask.flexibleHeight)
+            nav.view.autoresizingMask = autoResizingMask
+            nav.didMove(toParent: self)
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
         }
     }
     
@@ -283,6 +454,7 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
      显示左侧滑菜单，若已处于显示状态，调用该方法将关闭左侧滑菜单
      */
     func showLeftViewController(){
+<<<<<<< HEAD
         if !isCloseLeftSide {
             closeSideViewController()
             maskView.removeFromSuperview()
@@ -298,18 +470,45 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
         UIView.animate(withDuration: animateDuration, animations: {
             self.contentView.transform = conT
         }, completion: { (isfinished) in
+=======
+        var newFrame = CGRect.zero
+        leftViewController?.view.isHidden = false
+        rightViewController?.view.isHidden = true
+        _ = self.contentView.frame;
+        newFrame = self.contentView.frame
+        newFrame.origin.x = maximumLeftOffsetWidth
+        //        var distance = abs(oldFrame.minX - newFrame.origin.x)
+        self.contentView.bringSubviewToFront(self.maskView)
+        UIView.animate(withDuration: 0.25, animations: {
+            self.contentView.frame = newFrame
+            self.maskView.isHidden = false
+        }) { (finish) in
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
             self.isCloseLeftSide = false
-        }) 
+            self.horizonalXSide = .left
+        }
+//        contentView.addSubview(self.maskView)
     }
     /**
      显示右侧滑菜单，若已处于显示状态，调用该方法将关闭右侧滑菜单
      */
     func showRightViewController(){
-        if !isCloseRightSide {
-            closeSideViewController()
-            maskView.removeFromSuperview()
-            return
+        var newFrame = CGRect.zero
+        leftViewController?.view.isHidden = true
+        rightViewController?.view.isHidden = false
+        _ = self.contentView.frame;
+        newFrame = self.contentView.frame
+        newFrame.origin.x = 0 - maximumRightOffsetWidth
+        //        var distance = abs(oldFrame.minX - newFrame.origin.x)
+        self.contentView.bringSubviewToFront(self.maskView)
+        UIView.animate(withDuration: 0.25, animations: {
+            self.contentView.frame = newFrame
+            self.maskView.isHidden = false
+        }) { (finish) in
+            self.isCloseRightSide = false
+            self.horizonalXSide = .right
         }
+<<<<<<< HEAD
         self.contentView.addSubview(maskView)
         let transT = CGAffineTransform(translationX: -rightOffSetXScale*self.view.bounds.width, y: 0)
         let scaleT = CGAffineTransform(scaleX: rightViewControllerScale, y: rightViewControllerScale)
@@ -320,21 +519,28 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
               self.isCloseRightSide = false
                 self.updateContentViewShadow()
         }) 
+=======
+//        contentView.addSubview(self.maskView)
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
     }
     
     /**
      关闭侧滑菜单
      */
     func closeSideViewController(){
-        let orit = CGAffineTransform.identity
         UIView.animate(withDuration: animateDuration, animations: {
+<<<<<<< HEAD
             self.resetContent()
+=======
+            self.contentView.frame = self.containerView.bounds
+            self.maskView.isHidden = true
+>>>>>>> e551b07a83e397a0fcaf00504984a2d4f63d962f
         }, completion: { (finished) in
             self.isCloseLeftSide = true
             self.isCloseRightSide = true
-            self.rightView.isHidden = false
-            self.maskView.removeFromSuperview()
-        }) 
+            self.leftViewController?.view.isHidden = false
+            self.rightViewController?.view.isHidden = false
+        })
     }
     
     func resetContent() {
@@ -342,13 +548,20 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
     }
     
     fileprivate func updateContentViewShadow(){
-        let layer = self.contentView.layer
-        let path = UIBezierPath(rect: layer.bounds)
-        layer.shadowPath = path.cgPath
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize.zero
-        layer.shadowOpacity = 1.0
-        layer.shadowRadius = 3
+        shadowView.layer.masksToBounds = false
+        shadowView.layer.shadowRadius = 3
+        shadowView.layer.shadowOpacity = 1.0
+        shadowView.layer.shadowOffset = CGSize.zero
+        shadowView.layer.shadowColor = UIColor.black.cgColor
+        
+        if shadowView.layer.shadowPath == nil {
+            shadowView.layer.shadowPath = UIBezierPath(rect: self.contentView.bounds).cgPath
+        } else {
+            let currentPath = shadowView.layer.shadowPath?.boundingBoxOfPath
+            if currentPath?.equalTo(shadowView.bounds) == false {
+                shadowView.layer.shadowPath = UIBezierPath(rect: self.contentView.bounds).cgPath
+            }
+        }
     }
     
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
@@ -402,7 +615,7 @@ class SideViewController: BaseViewController,UIGestureRecognizerDelegate {
     }
     
     static let shared = SideViewController()
-
+    
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
     }
