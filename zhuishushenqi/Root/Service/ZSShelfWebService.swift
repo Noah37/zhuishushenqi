@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import ZSAPI
 
 class ZSShelfWebService: ZSBaseService {
     func fetchShelvesUpdate(for ids:[String],completion:@escaping ZSBaseCallback<[BookShelf]>) {
         let id = (ids as NSArray).componentsJoined(by: ",")
-        let api = QSAPI.update(id: id)
+        let api = ZSAPI.update(id: id)
         zs_get(api.path, parameters: api.parameters).responseJSON { (response) in
             if let data = response.data {
                 if let obj = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [Any] {
@@ -26,7 +27,7 @@ class ZSShelfWebService: ZSBaseService {
     }
     
     func fetchShelfMsg(_ completion:ZSBaseCallback<ZSShelfMessage>?) {
-        let shelfApi = QSAPI.shelfMSG()
+        let shelfApi = ZSAPI.shelfMSG()
         zs_get(shelfApi.path, parameters: shelfApi.parameters).responseJSON { (response) in
             if let data = response.data {
                 if let obj = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
@@ -42,7 +43,7 @@ class ZSShelfWebService: ZSBaseService {
     func fetchShelvesUpdate(for books:[BookDetail],completion:ZSBaseCallback<Void>?) {
         
         let id =  getIDSOf(books: books)
-        let api = QSAPI.update(id: id)
+        let api = ZSAPI.update(id: id)
         zs_get(api.path, parameters: api.parameters).responseJSON { (response) in
             if let data = response.data {
                 if let obj = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [Any] {
@@ -53,7 +54,7 @@ class ZSShelfWebService: ZSBaseService {
     }
     
     func fetchBookshelf(token:String, completion:@escaping ZSBaseCallback<[ZSUserBookshelf]>) {
-        let api = QSAPI.bookshelf(token: token)
+        let api = ZSAPI.bookshelf(token: token)
         zs_get(api.path, parameters: api.parameters) { (json) in
             if let models = [ZSUserBookshelf].deserialize(from: json?["books"] as? [Any]) as? [ZSUserBookshelf] {
                 completion(models)
@@ -74,7 +75,7 @@ class ZSShelfWebService: ZSBaseService {
     }
     
     func fetchBookInfo(id:String, completion:@escaping ZSBaseCallback<BookDetail>) {
-        let api = QSAPI.book(key: id)
+        let api = ZSAPI.book(key: id)
         zs_get(api.path, parameters: api.parameters) { (json) in
             if let book = BookDetail.deserialize(from: json) {
                 completion(book)

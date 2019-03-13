@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import ZSAPI
 
 class ZSMyService: NSObject {
     
     func fetchAccount(token:String ,completion:@escaping ZSBaseCallback<ZSAccount>) {
-        let api = QSAPI.account(token: token)
+        let api = ZSAPI.account(token: token)
         //        https://api.zhuishushenqi.com/user/account?token=MR7bHBNojupotkWO0IH1QZY0
         zs_get(api.path, parameters: api.parameters) { (json) in
             if let account = ZSAccount.deserialize(from: json) {
@@ -24,7 +25,7 @@ class ZSMyService: NSObject {
     
     func fetchCoin(token:String, completion:@escaping ZSBaseCallback<ZSCoin>) {
         //        http://goldcoin.zhuishushenqi.com/account?token=MR7bHBNojupotkWO0IH1QZY0
-        let api = QSAPI.golden(token: token)
+        let api = ZSAPI.golden(token: token)
         zs_get(api.path, parameters: api.parameters) { (json) in
             let coin = ZSCoin.deserialize(from: json)
             completion(coin)
@@ -33,7 +34,7 @@ class ZSMyService: NSObject {
     
     func fetchDetail(token:String, completion:@escaping ZSBaseCallback<ZSUserDetail>) {
 //        https://api.zhuishushenqi.com/user/detail-info?token=MR7bHBNojupotkWO0IH1QZY0
-        let api = QSAPI.userDetail(token: token)
+        let api = ZSAPI.userDetail(token: token)
         zs_get(api.path, parameters: api.parameters) { (json) in
             let detail = ZSUserDetail.deserialize(from: json)
             completion(detail)
@@ -42,7 +43,7 @@ class ZSMyService: NSObject {
     
     func fetchUserBind (token:String, completion:@escaping ZSBaseCallback<ZSUserBind>) {
 //        https://api.zhuishushenqi.com/user/loginBind?token=MR7bHBNojupotkWO0IH1QZY0
-        let api = QSAPI.userBind(token: token)
+        let api = ZSAPI.userBind(token: token)
         zs_get(api.path, parameters: api.parameters) { (json) in
             let bind = ZSUserBind.deserialize(from: json)
             completion(bind)
@@ -51,7 +52,7 @@ class ZSMyService: NSObject {
     
     func fetchLogout(token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
 //        https://api.zhuishushenqi.com/user/logout
-        let api = QSAPI.logout(token: token)
+        let api = ZSAPI.logout(token: token)
         zs_post(api.path, parameters: api.parameters) { (json) in
 //            let books = [ZSUserBookshelf].deserialize(from: json?["books"] as? [Any]) as? [String:Any]
             completion(json)

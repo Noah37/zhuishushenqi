@@ -8,18 +8,18 @@
 
 import UIKit
 
-public protocol TargetType {
+public protocol ZSTargetType {
     var baseURLString:String { get }
     var path:String { get }
     var parameters:[String:Any]? { get }
 }
 
-enum BaseType {
+public enum ZSBaseType {
     case normal
     case chapter
 }
 
-enum QSAPI {
+public enum ZSAPI {
     ///首次进入根据性别推荐书籍
     case genderRecommend(gender:String)
     ///追书书架信息
@@ -65,7 +65,7 @@ enum QSAPI {
     ///所有章节
     case allChapters(key:String)
     ///某一章节
-    case chapter(key:String,type:BaseType)
+    case chapter(key:String,type:ZSBaseType)
     ///书籍信息
     case book(key:String)
     ///详情页热门评论
@@ -116,8 +116,8 @@ enum QSAPI {
     case voucherList(token:String, type:String, start:Int, limit:Int)
 }
 
-extension QSAPI:TargetType{
-    var path: String {
+extension ZSAPI:ZSTargetType{
+    public var path: String {
         var pathComponent = ""
         switch self {
         case .genderRecommend(_):
@@ -267,13 +267,11 @@ extension QSAPI:TargetType{
         case .voucherList(_, _, _, _):
             pathComponent = "/voucher"
             break
-        default:
-            break
         }
         return "\(baseURLString)\(pathComponent)"
     }
 
-    var baseURLString: String{
+    public var baseURLString: String{
         var urlString = "http://api.zhuishushenqi.com"
         switch self {
         case let .chapter(_, type):
@@ -293,7 +291,7 @@ extension QSAPI:TargetType{
         return urlString
     }
     
-    var parameters: [String : Any]?{
+    public var parameters: [String : Any]?{
         switch self {
         case let .genderRecommend(gender):
             return ["gender":gender]

@@ -18,6 +18,7 @@ PODS:
   - PKHUD (5.2.0)
   - PullToRefresh (0.0.1)
   - QSNetwork (0.0.3)
+  - RESideMenu (4.0.7)
   - RxAlamofire (4.2.0):
     - RxAlamofire/Core (= 4.2.0)
   - RxAlamofire/Core (4.2.0):
@@ -35,6 +36,7 @@ PODS:
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
   - Zip (1.1.0)
+  - ZSAPI (0.1.6)
 
 DEPENDENCIES:
   - Cache
@@ -48,6 +50,7 @@ DEPENDENCIES:
   - PKHUD (~> 5.0)
   - PullToRefresh (= 0.0.1)
   - QSNetwork (~> 0.0.3)
+  - RESideMenu (~> 4.0.7)
   - RxAlamofire
   - RxCocoa
   - RxSwift
@@ -56,8 +59,11 @@ DEPENDENCIES:
   - Then
   - YYKit
   - Zip
+  - ZSAPI
 
 SPEC REPOS:
+  "git@github.com:NoryCao/cjspecs.git":
+    - ZSAPI
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Cache
@@ -71,6 +77,7 @@ SPEC REPOS:
     - PKHUD
     - PullToRefresh
     - QSNetwork
+    - RESideMenu
     - RxAlamofire
     - RxCocoa
     - RxSwift
@@ -93,6 +100,7 @@ SPEC CHECKSUMS:
   PKHUD: dd5357ac65f26115c35c4a68e9b328053326c5fe
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   QSNetwork: a5b174e074386cdf8a3c1d604cbe55b4cbc0d731
+  RESideMenu: f24c508404b49c667344c54aba7e590883533958
   RxAlamofire: 87a9c588541210cc3e4a1f843ccc3ecf3eb98b31
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
@@ -101,7 +109,8 @@ SPEC CHECKSUMS:
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
+  ZSAPI: d41a65bdc3c24731842b007c038a35238ca29dab
 
-PODFILE CHECKSUM: 02697a42bae059baeb39dd6c6dad801d2423e30e
+PODFILE CHECKSUM: 7789a4f4f3c623eb53c1a5ec5eacf4b099894d19
 
 COCOAPODS: 1.5.3

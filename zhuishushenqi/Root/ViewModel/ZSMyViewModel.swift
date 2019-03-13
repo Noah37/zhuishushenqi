@@ -9,6 +9,7 @@
 import UIKit
 import AdSupport
 import RxSwift
+import ZSAPI
 
 class ZSMyViewModel: NSObject, ZSRefreshProtocol {
     
@@ -70,7 +71,7 @@ class ZSMyViewModel: NSObject, ZSRefreshProtocol {
         let ticket = param?["Ticket"] ?? ""
         let captchaType = param?["captchaType"] ?? ""
         let type = param?["type"] ?? ""
-        let api = QSAPI.SMSCode(mobile: mobile, Randstr: randstr, Ticket: ticket, captchaType: captchaType, type: type)
+        let api = ZSAPI.SMSCode(mobile: mobile, Randstr: randstr, Ticket: ticket, captchaType: captchaType, type: type)
         loginService.fetchSMSCode(url: api.path, parameter: api.parameters) { (json) in
             completion(json)
         }
@@ -80,14 +81,14 @@ class ZSMyViewModel: NSObject, ZSRefreshProtocol {
         let version = "2"
         let platform_code = "mobile"
         let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-        let api = QSAPI.mobileLogin(mobile: mobile, idfa: idfa, platform_code: platform_code, smsCode: smsCode, version: version)
+        let api = ZSAPI.mobileLogin(mobile: mobile, idfa: idfa, platform_code: platform_code, smsCode: smsCode, version: version)
         loginService.mobileLgin(urlString: api.path, param: api.parameters) { (json) in
             completion(json)
         }
     }
     
     func fetchNicknameChange(nickname:String, token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
-        let api = QSAPI.nicknameChange(nickname: nickname, token: token)
+        let api = ZSAPI.nicknameChange(nickname: nickname, token: token)
         webService.fetchNicknameChange(url: api.path, param: api.parameters) { (json) in
             completion(json)
         }
@@ -95,7 +96,7 @@ class ZSMyViewModel: NSObject, ZSRefreshProtocol {
     
 //    https://api.zhuishushenqi.com/voucher?token=xAk9Ac8k3Jj9Faf11q8mBVPQ&type=useable&start=0&limit=20
     func fetchVoucher(token:String, type:String, start:Int, limit:Int, completion:@escaping ZSBaseCallback<[ZSVoucher]>) {
-        let api = QSAPI.voucherList(token: token, type: type, start: start, limit: limit)
+        let api = ZSAPI.voucherList(token: token, type: type, start: start, limit: limit)
         webService.fetchVoucherList(url: api.path, param: api.parameters) { (vouchers) in
             if type == "useable" {
                 self.useableVoucher = vouchers ?? []
@@ -110,7 +111,7 @@ class ZSMyViewModel: NSObject, ZSRefreshProtocol {
     }
     
     func fetchMoreVoucher(token:String, type:String, start:Int, limit:Int, completion:@escaping ZSBaseCallback<[ZSVoucher]>) {
-        let api = QSAPI.voucherList(token: token, type: type, start: start, limit: limit)
+        let api = ZSAPI.voucherList(token: token, type: type, start: start, limit: limit)
         webService.fetchVoucherList(url: api.path, param: api.parameters) { (vouchers) in
             if type == "useable" {
                 self.useableVoucher.append(contentsOf: vouchers ?? [])

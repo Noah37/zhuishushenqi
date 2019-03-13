@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import ZSAPI
 
 class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
     
@@ -141,7 +142,7 @@ extension ZSShelfViewModel {
             }
             booksID.append(book._id)
         }
-        let api = QSAPI.booksheldDelete(books: booksID, token: token)
+        let api = ZSAPI.booksheldDelete(books: booksID, token: token)
         shelvesWebService.fetchShelfDelete(urlString: api.path, param: api.parameters) { (json) in
             completion(json)
         }
@@ -155,7 +156,7 @@ extension ZSShelfViewModel {
             }
             booksID.append(book._id)
         }
-        let api = QSAPI.bookshelfAdd(books: booksID, token: token)
+        let api = ZSAPI.bookshelfAdd(books: booksID, token: token)
         shelvesWebService.fetchShelfAdd(urlString: api.path, param: api.parameters) { (json) in
             completion(json)
         }
@@ -189,21 +190,21 @@ extension ZSShelfViewModel {
     }
     
     func fetchBlessingBag(token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
-        let api = QSAPI.blessing_bag(token: token)
+        let api = ZSAPI.blessing_bag(token: token)
         shelvesWebService.fetchBlessingBag(urlString: api.path, param: api.parameters) { (json) in
             completion(json)
         }
     }
     
     func fetchJudgeIn(token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
-        let api = QSAPI.judgeSignIn(token: token)
+        let api = ZSAPI.judgeSignIn(token: token)
         shelvesWebService.fetchJudgeIn(urlString: api.path, param: api.parameters) { (json) in
             completion(json)
         }
     }
     
     func fetchSignIn(token:String, activityId:String, version:String, type:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
-        let api = QSAPI.signIn(token: token, activityId: activityId, version: version, type: type)
+        let api = ZSAPI.signIn(token: token, activityId: activityId, version: version, type: type)
         shelvesWebService.fetchSignIn(urlString: api.path, param: api.parameters) { (json) in
             completion(json)
         }

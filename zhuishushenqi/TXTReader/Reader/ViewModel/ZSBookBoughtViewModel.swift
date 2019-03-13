@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import ZSAPI
 
 class ZSBookBoughtViewModel: NSObject {
     func boughtInfo(id:String, token:String, _ callback:ZSBaseCallback<ZSBoughtInfo>?) {
-        let api = QSAPI.boughtChapters(id: id, token: token)
+        let api = ZSAPI.boughtChapters(id: id, token: token)
         zs_get(api.path, parameters: api.parameters) { (json) in
             if let info = ZSBoughtInfo.deserialize(from: json) {
                 callback?(info)

@@ -10,6 +10,7 @@
 
 import UIKit
 import QSNetwork
+import ZSAPI
 
 class QSBookCommentInteractor: QSBookCommentInteractorProtocol {
 
@@ -80,19 +81,19 @@ class QSBookCommentInteractor: QSBookCommentInteractorProtocol {
         switch type {
         case .normal:
             //        http://api.zhuishushenqi.com/post/review/530a26522852d5280e04c19c/comment?start=0&limit=50
-            let api = QSAPI.normalComment(key: model._id, start: "\(start)", limit: "\(limit)")
+            let api = ZSAPI.normalComment(key: model._id, start: "\(start)", limit: "\(limit)")
             urlString = api.path
             param = api.parameters
             break
         case .hotUser:
             //            http://api.zhuishushenqi.com/user/twitter/58d14859d0693ae736034619/comments
-            let api = QSAPI.hotUser(key: model._id)
+            let api = ZSAPI.hotUser(key: model._id)
             urlString = api.path
             param = nil
             break
         case .hotPost:
             //            http://api.zhuishushenqi.com/post/58d1d313bd7cc9961f93192d/comment?start=0&limit=50
-            let api = QSAPI.hotPost(key: model._id, start: "\(start)", limit: "\(limit)")
+            let api = ZSAPI.hotPost(key: model._id, start: "\(start)", limit: "\(limit)")
             urlString = api.path
             param = api.parameters
             break
@@ -104,7 +105,7 @@ class QSBookCommentInteractor: QSBookCommentInteractorProtocol {
         var urlString = ""
         switch type {
         case .normal:
-            let api = QSAPI.commentDetail(key: model._id)
+            let api = ZSAPI.commentDetail(key: model._id)
             urlString = api.path
             break
         case .hotUser:

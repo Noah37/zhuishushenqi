@@ -12,6 +12,7 @@ import RxCocoa
 import RxAlamofire
 import Alamofire
 import HandyJSON
+import ZSAPI
 
 typealias ZSBaseCallback<T> = (T?)->Void
 

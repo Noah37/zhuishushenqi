@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import ZSAPI
 
 class QSNetworkManager: NSObject {
     
     static let shared = QSNetworkManager()
     private override init(){
         super.init()
+        
     }
 }

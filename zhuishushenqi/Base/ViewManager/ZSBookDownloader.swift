@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZSAPI
 
 class ZSBookDownloader: NSObject {
     
@@ -76,7 +77,7 @@ class ZSBookDownloader: NSObject {
     
     private func download(for key:String,_ handler:@escaping ZSBaseCallback<ZSChapterBody>) {
         let link = (key as NSString).urlEncode() ?? key
-        let api = QSAPI.chapter(key: link, type: BaseType.chapter)
+        let api = ZSAPI.chapter(key: link, type: ZSBaseType.chapter)
         zs_get(api.path, parameters: api.parameters) { (json) in
             if let body = ZSChapterBody.deserialize(from: json?["chapter"] as? [String:Any]) {
                 handler(body)

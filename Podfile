@@ -1,4 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
+source 'git@github.com:NoryCao/cjspecs.git'
+
 
 # 对于Swift应用来说下面两句是必须的
 platform :ios, '9.0'
@@ -28,6 +30,9 @@ pod 'Zip'
 pod 'FMDB'
 pod 'PKHUD', '~> 5.0'
 pod 'Cache'
+pod 'ZSAPI'
+pod 'RESideMenu', '~> 4.0.7'
+
 #pod 'AFNetworking'
 
 #pod 'Realm', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true

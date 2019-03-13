@@ -9,10 +9,11 @@
 import Foundation
 import QSNetwork
 import HandyJSON
+import ZSAPI
 
 class ZSRankDetailWebService {
     func fetchRanking(rank:QSRankModel,index:Int,_ handler:ZSBaseCallback<[Book]>?){
-        let api = QSAPI.rankList(id: ID(novel: rank, index: index))
+        let api = ZSAPI.rankList(id: ID(novel: rank, index: index))
         zs_get(api.path) { (json) in
             if let ranking = json?["ranking"] as? [String:AnyObject] {
                 if let books = ranking["books"] as? [Any] {
@@ -57,7 +58,7 @@ class QSRankDetailInteractor: QSRankDetailInteractorProtocol {
             self.output.fetchRankSuccess(ranks: self.ranks)
             return
         }
-        let api = QSAPI.rankList(id: ID(novel: novel, index: index))
+        let api = ZSAPI.rankList(id: ID(novel: novel, index: index))
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let json = response.json {

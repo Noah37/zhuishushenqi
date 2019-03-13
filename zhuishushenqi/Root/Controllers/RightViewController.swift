@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZSAPI
 
 class RightViewController: ZSBaseTableViewController {
 
@@ -129,7 +130,7 @@ class RightViewController: ZSBaseTableViewController {
             
         } else if indexPath.row == 10 {
 //            https://api.zhuishushenqi.com/book/mystery-box
-            let api = QSAPI.mysteryBook()
+            let api = ZSAPI.mysteryBook()
             zs_get(api.path) { (json) in
                 if let books = json?["books"] as? [[String:[String:Any]]] {
                     if let book = books[0]["book"] {

@@ -24,12 +24,13 @@
 import Foundation
 import QSNetwork
 import HandyJSON
+import ZSAPI
 
 class ZSReaderWebService:ZSBaseService {
     
     //MARK: - 请求所有的来源,key为book的id
     func fetchAllResource(key:String,_ callback:ZSBaseCallback<[ResourceModel]>?){
-        let api = QSAPI.allResource(key: key)
+        let api = ZSAPI.allResource(key: key)
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             if let resource = response.json {
                 if let resources  = [ResourceModel].deserialize(from: resource as? [Any]) as? [ResourceModel] {
@@ -45,7 +46,7 @@ class ZSReaderWebService:ZSBaseService {
     
     //MARK: - 请求所有的章节,key为book的id
     func fetchAllChapters(key:String,_ callback:ZSBaseCallback<[ZSChapterInfo]>?){
-        let api = QSAPI.allChapters(key: key)
+        let api = ZSAPI.allChapters(key: key)
         let url:String = api.path
         QSNetwork.request(url, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             QSLog("JSON:\(String(describing: response.json))")
@@ -62,7 +63,7 @@ class ZSReaderWebService:ZSBaseService {
     func fetchChapter(key:String,_ callback:ZSBaseCallback<ZSChapterBody>?){
         var link:NSString = key as NSString
         link = link.urlEncode() as NSString
-        let api = QSAPI.chapter(key: link as String, type: .chapter)
+        let api = ZSAPI.chapter(key: link as String, type: .chapter)
         QSNetwork.request(api.path) { (response) in
             QSLog("JSON:\(String(describing: response.json))")
             if let body = ZSChapterBody.deserialize(from: response.json?["chapter"] as? NSDictionary) {
