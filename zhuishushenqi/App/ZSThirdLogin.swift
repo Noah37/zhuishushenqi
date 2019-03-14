@@ -9,6 +9,7 @@
 import UIKit
 import HandyJSON
 import AdSupport
+import ZSAPI
 
 typealias ZSThirdLoginResultHandler = (_ success:Bool)->Void
 
@@ -111,7 +112,7 @@ class ZSThirdLogin: NSObject {
         let platform_uid = tencentOAuth.openId ?? ""
         let version = "2"
         KeyWindow?.showProgress()
-        let loginApi:QSAPI = QSAPI.login(idfa: idfa, platform_code: platform_code, platform_token: platform_token, platform_uid: platform_uid, version: version ,tag: "")
+        let loginApi:ZSAPI = ZSAPI.login(idfa: idfa, platform_code: platform_code, platform_token: platform_token, platform_uid: platform_uid, version: version ,tag: "")
         webService.QQLogin(url: loginApi.path, parameter: loginApi.parameters) { (json) in
             KeyWindow?.hideProgress()
             if let user = json {
@@ -140,7 +141,7 @@ class ZSThirdLogin: NSObject {
             let version = "2"
             let tag = "zssq"
             KeyWindow?.showProgress()
-            let loginApi = QSAPI.login(idfa: idfa, platform_code: platform_code, platform_token: platform_token, platform_uid: platform_uid, version: version, tag: tag)
+            let loginApi = ZSAPI.login(idfa: idfa, platform_code: platform_code, platform_token: platform_token, platform_uid: platform_uid, version: version, tag: tag)
             webService.WXLogin(url: loginApi.path, parameter: loginApi.parameters) { (json) in
                 KeyWindow?.hideProgress()
                 if let user = json {
@@ -169,7 +170,7 @@ class ZSThirdLogin: NSObject {
             let version = "2"
             let tag = "zssq"
             KeyWindow?.showProgress()
-            let loginApi = QSAPI.login(idfa: idfa, platform_code: platform_code, platform_token: platform_token, platform_uid: platform_uid, version: version, tag: tag)
+            let loginApi = ZSAPI.login(idfa: idfa, platform_code: platform_code, platform_token: platform_token, platform_uid: platform_uid, version: version, tag: tag)
             webService.WBLogin(url: loginApi.path, parameter: loginApi.parameters) { (json) in
                 KeyWindow?.hideProgress()
                 if let user = json, let _ = json?.token  {

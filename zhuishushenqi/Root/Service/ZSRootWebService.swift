@@ -12,13 +12,14 @@ import RxCocoa
 import RxAlamofire
 import Alamofire
 import HandyJSON
+import ZSAPI
 
 final class ZSRootWebService:ZSBaseService {
     
     func fetchShelvesUpdate(for books:[BookDetail]) ->Observable<[BookDetail]>{
         
         let id =  getIDSOf(books: books)
-        let api = QSAPI.update(id: id)
+        let api = ZSAPI.update(id: id)
         return requestJSON(.get, api.path, parameters: api.parameters)
             .observeOn(ConcurrentDispatchQueueScheduler(qos:.background))
             .map { responseData in
@@ -29,7 +30,7 @@ final class ZSRootWebService:ZSBaseService {
     
     func fetchShelvesUpdate(for ids:[String]) ->Observable<[String:Any]>{
         let id = (ids as NSArray).componentsJoined(by: ",")
-        let api = QSAPI.update(id: id)
+        let api = ZSAPI.update(id: id)
         return requestJSON(.get, api.path, parameters: api.parameters)
             .observeOn(ConcurrentDispatchQueueScheduler(qos:.background))
             .map { (_,responseData) in
@@ -45,7 +46,7 @@ final class ZSRootWebService:ZSBaseService {
     }
     
     func fetchShelvesMsg() -> Observable<ZSShelfMessage>{
-        let shelfApi = QSAPI.shelfMSG()
+        let shelfApi = ZSAPI.shelfMSG()
         return requestJSON(.get, shelfApi.path, parameters: shelfApi.parameters)
             .observeOn(ConcurrentDispatchQueueScheduler(qos:.background))
             .map{ (_,responseData) in

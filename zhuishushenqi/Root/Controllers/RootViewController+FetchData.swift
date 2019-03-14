@@ -8,13 +8,14 @@
 
 import Foundation
 import QSNetwork
+import ZSAPI
 
 extension RootViewController{
     
     func requetShelfMsg(){
         autoreleasepool {
             self.bookShelfLB.text = USER_DEFAULTS.object(forKey: PostLink) as? String ?? ""
-            let shelfApi = QSAPI.shelfMSG()
+            let shelfApi = ZSAPI.shelfMSG()
             QSNetwork.request(shelfApi.path, method: HTTPMethodType.get, parameters: shelfApi.parameters, headers: nil) { (response) in
                 if let json = response.json {
                     let message = json["message"] as? NSDictionary
@@ -61,7 +62,7 @@ extension RootViewController{
         }
         let ids = self.booksID(books: self.bookshelf)
         
-        let api = QSAPI.update(id: ids)
+        let api = ZSAPI.update(id: ids)
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             self.tableView.mj_header.endRefreshing()
             self.tableView.mj_footer.endRefreshing()

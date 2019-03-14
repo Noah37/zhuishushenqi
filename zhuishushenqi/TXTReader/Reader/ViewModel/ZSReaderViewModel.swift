@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ZSAPI
 
 class ZSReaderViewModel {
     
@@ -69,7 +70,7 @@ class ZSReaderViewModel {
     
     //MARK: - boughtINfo
     func boughtInfo( token:String, _ callback:ZSBaseCallback<ZSBoughtInfo>?) {
-        let api = QSAPI.boughtChapters(id: book?._id ?? "", token: token)
+        let api = ZSAPI.boughtChapters(id: book?._id ?? "", token: token)
         zs_get(api.path, parameters: api.parameters) { (json) in
             if let info = ZSBoughtInfo.deserialize(from: json) {
                 self.boughtInfo = info

@@ -161,6 +161,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Then/Then.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSAPI/ZSAPI.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -182,6 +183,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Then/Then.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSAPI/ZSAPI.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

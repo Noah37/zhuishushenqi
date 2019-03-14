@@ -10,6 +10,7 @@
 
 import UIKit
 import QSNetwork
+import ZSAPI
 
 class QSThemeTopicInteractor: QSThemeTopicInteractorProtocol {
 
@@ -74,7 +75,7 @@ class QSThemeTopicInteractor: QSThemeTopicInteractorProtocol {
         //        http://api.zhuishushenqi.com/book-list?sort=collectorCount&duration=all&start=0
         var sorts:[String] = ["collectorCount","created","collectorCount"]
         var durations:[String] = ["last-seven-days","all","all"]
-        let api = QSAPI.themeTopic(sort: sorts[index], duration: durations[index], start: "0", gender: gender, tag: tag)
+        let api = ZSAPI.themeTopic(sort: sorts[index], duration: durations[index], start: "0", gender: gender, tag: tag)
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "bookLists") {

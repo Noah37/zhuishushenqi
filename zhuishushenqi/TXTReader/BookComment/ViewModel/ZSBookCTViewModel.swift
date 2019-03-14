@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import ZSAPI
 
 
 class ZSBookCTViewModel:NSObject,ZSRefreshProtocol {
@@ -72,7 +73,7 @@ class ZSBookCTViewModel:NSObject,ZSRefreshProtocol {
     }
     
     func fetchPost(token:String,content:String, handler:@escaping ZSBaseCallback<[String:Any]>) {
-        let api = QSAPI.reviewPost(token: ZSLogin.share.token, id: detail?._id ?? "", content: content)
+        let api = ZSAPI.reviewPost(token: ZSLogin.share.token, id: detail?._id ?? "", content: content)
         zs_post(api.path, parameters: api.parameters) { (json) in
             handler(json)
         }

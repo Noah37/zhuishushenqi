@@ -10,6 +10,7 @@
 
 import UIKit
 import QSNetwork
+import ZSAPI
 
 class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     
@@ -21,7 +22,7 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     var recList:[Book] = []
     
     func requestData(id:String){
-        let api = QSAPI.book(key: id)
+        let api = ZSAPI.book(key: id)
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             if let json = response.json as? [AnyHashable : Any]{
                 if let book = BookDetail.deserialize(from: json as NSDictionary) {
@@ -37,7 +38,7 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     }
     
     func requestHot(id:String){
-        let api = QSAPI.bookHot(key: id)
+        let api = ZSAPI.bookHot(key: id)
         QSNetwork.request(api.path) { (response) in
             
             if let json = response.json?["reviews"] as? [Any] {

@@ -10,6 +10,7 @@
 
 import UIKit
 import QSNetwork
+import ZSAPI
 
 class QSCatalogInteractor: QSCatalogInteractorProtocol {
 
@@ -18,7 +19,7 @@ class QSCatalogInteractor: QSCatalogInteractorProtocol {
     var books:[[NSDictionary]] = [[],[]]
     
     func requestDetail(){
-        let api = QSAPI.category()
+        let api = ZSAPI.category()
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "male") as? [NSDictionary] {

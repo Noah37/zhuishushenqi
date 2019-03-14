@@ -34,6 +34,7 @@ PODS:
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
   - Zip (1.1.0)
+  - ZSAPI (0.1.6)
 
 DEPENDENCIES:
   - CocoaAsyncSocket
@@ -54,8 +55,11 @@ DEPENDENCIES:
   - Then
   - YYKit
   - Zip
+  - ZSAPI
 
 SPEC REPOS:
+  "git@github.com:NoryCao/cjspecs.git":
+    - ZSAPI
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - CocoaAsyncSocket
@@ -97,7 +101,8 @@ SPEC CHECKSUMS:
   Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
+  ZSAPI: d41a65bdc3c24731842b007c038a35238ca29dab
 
-PODFILE CHECKSUM: a279d4fc040622fbb50bb47e408e2b22cf60851a
+PODFILE CHECKSUM: f27b5539b4a36865040259fcc397edece0dbe3d1
 
 COCOAPODS: 1.5.3

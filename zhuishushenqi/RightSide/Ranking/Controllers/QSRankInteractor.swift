@@ -9,13 +9,14 @@
 import Foundation
 import QSNetwork
 import HandyJSON
+import ZSAPI
 
 class QSRankInteractor: QSRankInteractorProtocol {
     var output: QSRankInteractorOutputProtocol!
     
     var ranks:[[QSRankModel]] = []
     func fetchRanks(){
-        let api = QSAPI.ranking()
+        let api = ZSAPI.ranking()
         QSNetwork.request(api.path) { (response) in
             if let dict = response.json as? NSDictionary {
                 if let male:[Any] = dict["male"] as? [Any] {

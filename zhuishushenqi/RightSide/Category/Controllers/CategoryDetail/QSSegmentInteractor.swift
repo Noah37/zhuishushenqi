@@ -11,6 +11,7 @@
 import UIKit
 import QSNetwork
 import HandyJSON
+import ZSAPI
 
 //        http://api.zhuishushenqi.com/book/by-categories?gender=male&type=new&major=都市&minor=&start=0&limit=50
 class QSSegmentInteractor: QSSegmentInteractorProtocol {
@@ -35,7 +36,7 @@ class QSSegmentInteractor: QSSegmentInteractorProtocol {
         let major:String = param["major"] as? String ?? ""
         let gender:String = param["gender"] as? String ?? ""
         let type:String = types[index]
-        let api = QSAPI.categoryList(gender: gender, type: type, major:  major, minor: "", start: "\(startIndex)", limit: "\(limit)")
+        let api = ZSAPI.categoryList(gender: gender, type: type, major:  major, minor: "", start: "\(startIndex)", limit: "\(limit)")
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "books"){
@@ -63,7 +64,7 @@ class QSSegmentInteractor: QSSegmentInteractorProtocol {
         let major:String = param["major"] as? String ?? ""
         let gender:String = param["gender"] as? String ?? ""
         let type:String = types[index]
-        let api = QSAPI.categoryList(gender: gender, type: type, major:  major, minor: "", start: "\(start)", limit: "\(limit)")
+        let api = ZSAPI.categoryList(gender: gender, type: type, major:  major, minor: "", start: "\(start)", limit: "\(limit)")
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "books"){

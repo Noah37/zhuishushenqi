@@ -1,3 +1,4 @@
+source 'git@github.com:NoryCao/cjspecs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 # 对于Swift应用来说下面两句是必须的
@@ -27,6 +28,7 @@ pod 'SQLite.swift', '~> 0.11.5'
 pod 'Zip'
 pod 'FMDB'
 pod 'PKHUD', '~> 5.0'
+pod 'ZSAPI'
 #pod 'AFNetworking'
 
 #pod 'Realm', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true

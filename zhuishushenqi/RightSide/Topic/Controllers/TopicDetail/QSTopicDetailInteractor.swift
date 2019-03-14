@@ -10,6 +10,7 @@
 
 import UIKit
 import QSNetwork
+import ZSAPI
 
 class QSTopicDetailInteractor: QSTopicDetailInteractorProtocol {
 
@@ -19,7 +20,7 @@ class QSTopicDetailInteractor: QSTopicDetailInteractorProtocol {
 
     func requestDetail(){
         //        http://api.zhuishushenqi.com/book-list/58b782f5a7674a5f67618731
-        let api = QSAPI.themeDetail(key: id)
+        let api = ZSAPI.themeDetail(key: id)
         //        QSNetwork.setDefaultURL(url: BASEURL)
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)

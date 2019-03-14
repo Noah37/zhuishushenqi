@@ -9,6 +9,7 @@
 
 import UIKit
 import QSNetwork
+import ZSAPI
 
 typealias ClickAction = (_ index:Int,_ title:String,_ name:String)->Void
 
@@ -37,7 +38,7 @@ class FilterThemeViewController: BaseViewController,UITableViewDataSource,UITabl
     
     fileprivate func requestDetail(index:Int){
         
-        let api = QSAPI.tagType()
+        let api = ZSAPI.tagType()
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "data") as? NSArray {

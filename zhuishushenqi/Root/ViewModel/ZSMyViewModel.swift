@@ -8,6 +8,7 @@
 
 import UIKit
 import AdSupport
+import ZSAPI
 
 class ZSMyViewModel: NSObject {
     
@@ -63,7 +64,7 @@ class ZSMyViewModel: NSObject {
         let ticket = param?["Ticket"] ?? ""
         let captchaType = param?["captchaType"] ?? ""
         let type = param?["type"] ?? ""
-        let api = QSAPI.SMSCode(mobile: mobile, Randstr: randstr, Ticket: ticket, captchaType: captchaType, type: type)
+        let api = ZSAPI.SMSCode(mobile: mobile, Randstr: randstr, Ticket: ticket, captchaType: captchaType, type: type)
         loginService.fetchSMSCode(url: api.path, parameter: api.parameters) { (json) in
             completion(json)
         }
@@ -73,14 +74,14 @@ class ZSMyViewModel: NSObject {
         let version = "2"
         let platform_code = "mobile"
         let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-        let api = QSAPI.mobileLogin(mobile: mobile, idfa: idfa, platform_code: platform_code, smsCode: smsCode, version: version)
+        let api = ZSAPI.mobileLogin(mobile: mobile, idfa: idfa, platform_code: platform_code, smsCode: smsCode, version: version)
         loginService.mobileLgin(urlString: api.path, param: api.parameters) { (json) in
             completion(json)
         }
     }
     
     func fetchNicknameChange(nickname:String, token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
-        let api = QSAPI.nicknameChange(nickname: nickname, token: token)
+        let api = ZSAPI.nicknameChange(nickname: nickname, token: token)
         webService.fetchNicknameChange(url: api.path, param: api.parameters) { (json) in
             completion(json)
         }
