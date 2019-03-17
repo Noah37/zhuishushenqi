@@ -9,6 +9,11 @@
 import UIKit
 import RxSwift
 
+#if DEBUG
+import DoraemonKit
+#endif
+
+
 let rightScaleX:CGFloat = 0.2
 
 @UIApplicationMain
@@ -18,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        #if DEBUG
+        DoraemonManager.shareInstance().install()
+        #endif
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let sideVC = SideViewController.shared

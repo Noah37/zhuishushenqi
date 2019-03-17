@@ -1,0 +1,6 @@
+framework module BSBacktraceLogger {
+  umbrella header "BSBacktraceLogger-umbrella.h"
+
+  export *
+  module * { export * }
+}

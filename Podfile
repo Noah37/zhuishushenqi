@@ -30,6 +30,11 @@ pod 'FMDB'
 pod 'PKHUD', '~> 5.0'
 pod 'ZSAPI'
 pod 'Cache'
+
+pod 'DoraemonKit/Core', '~> 1.1.6', :configurations => ['Debug']
+pod 'DoraemonKit/WithLogger', '~> 1.1.6', :configurations => ['Debug']
+pod 'DoraemonKit/WithGPS', '~> 1.1.6', :configurations => ['Debug']
+pod 'DoraemonKit/WithLoad', '~> 1.1.6', :configurations => ['Debug']
 #pod 'AFNetworking'
 #pod 'Realm', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true
 #pod 'RealmSwift', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true
