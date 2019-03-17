@@ -23,7 +23,7 @@ class QSTextRouter: QSTextWireframeProtocol {
     }
     
     func presentDetails(_ novel: QSRankModel) {
-        viewController?.navigationController?.pushViewController(QSRankDetailRouter.createModule(novel:novel), animated: true)
+//        viewController?.navigationController?.pushViewController(QSRankDetailRouter.createModule(novel:novel), animated: true)
     }
     
     func presentCategory(book:BookDetail,books:[String:Any]){

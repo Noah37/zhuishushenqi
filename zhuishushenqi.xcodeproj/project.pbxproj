@@ -128,17 +128,17 @@
 		B222A2C31EEE6EE9007CD57F /* QSLaunchRecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B222A2C21EEE6EE9007CD57F /* QSLaunchRecView.swift */; };
 		B22AC43A1E9E6626008625E6 /* QSSearchResultTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4391E9E6626008625E6 /* QSSearchResultTable.swift */; };
 		B22AC44B1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44A1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift */; };
-		B22AC44D1E9F1C62008625E6 /* QSRankProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44C1E9F1C62008625E6 /* QSRankProtocols.swift */; };
-		B22AC44F1E9F1C7D008625E6 /* QSRankInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44E1E9F1C7D008625E6 /* QSRankInteractor.swift */; };
+		B22AC44D1E9F1C62008625E6 /* ZSUnusedFile1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44C1E9F1C62008625E6 /* ZSUnusedFile1.swift */; };
+		B22AC44F1E9F1C7D008625E6 /* ZSUnusedFile2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44E1E9F1C7D008625E6 /* ZSUnusedFile2.swift */; };
 		B22AC4511E9F1C8C008625E6 /* ZSRankViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4501E9F1C8C008625E6 /* ZSRankViewModel.swift */; };
-		B22AC4531E9F1CA8008625E6 /* QSRankRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4521E9F1CA8008625E6 /* QSRankRouter.swift */; };
+		B22AC4531E9F1CA8008625E6 /* ZSUnusedFile3.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4521E9F1CA8008625E6 /* ZSUnusedFile3.swift */; };
 		B22AC4551E9F1E8F008625E6 /* QSRankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4541E9F1E8F008625E6 /* QSRankViewController.swift */; };
 		B22AC4571E9F5520008625E6 /* QSLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4561E9F5520008625E6 /* QSLoadingView.swift */; };
-		B22AC4591E9F6767008625E6 /* QSRankDetailProtoocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4581E9F6767008625E6 /* QSRankDetailProtoocol.swift */; };
-		B22AC45B1E9F6774008625E6 /* QSRankDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC45A1E9F6774008625E6 /* QSRankDetailInteractor.swift */; };
-		B22AC45D1E9F678D008625E6 /* QSRankDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC45C1E9F678D008625E6 /* QSRankDetailPresenter.swift */; };
-		B22AC45F1E9F6799008625E6 /* QSRankDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC45E1E9F6799008625E6 /* QSRankDetailRouter.swift */; };
-		B22AC4611E9F695D008625E6 /* QSRankDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4601E9F695D008625E6 /* QSRankDetailViewController.swift */; };
+		B22AC4591E9F6767008625E6 /* ZSUnusedFile4.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4581E9F6767008625E6 /* ZSUnusedFile4.swift */; };
+		B22AC45B1E9F6774008625E6 /* ZSRankDetailWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC45A1E9F6774008625E6 /* ZSRankDetailWebService.swift */; };
+		B22AC45D1E9F678D008625E6 /* ZSRankDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC45C1E9F678D008625E6 /* ZSRankDetailViewModel.swift */; };
+		B22AC45F1E9F6799008625E6 /* ZSUnusedFile5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC45E1E9F6799008625E6 /* ZSUnusedFile5.swift */; };
+		B22AC4611E9F695D008625E6 /* ZSRankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4601E9F695D008625E6 /* ZSRankViewController.swift */; };
 		B2414D9C1EA602ED005A5758 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2414D9B1EA602ED005A5758 /* UIViewController+Alert.swift */; };
 		B24B3F4D20E534390098ACE5 /* ZSSearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24B3F4B20E534390098ACE5 /* ZSSearchViewCell.swift */; };
 		B24B3F4E20E534390098ACE5 /* ZSSearchViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B24B3F4C20E534390098ACE5 /* ZSSearchViewCell.xib */; };
@@ -627,17 +627,17 @@
 		B222A2C21EEE6EE9007CD57F /* QSLaunchRecView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSLaunchRecView.swift; sourceTree = "<group>"; };
 		B22AC4391E9E6626008625E6 /* QSSearchResultTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchResultTable.swift; sourceTree = "<group>"; };
 		B22AC44A1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchAutoCompleteTable.swift; sourceTree = "<group>"; };
-		B22AC44C1E9F1C62008625E6 /* QSRankProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankProtocols.swift; sourceTree = "<group>"; };
-		B22AC44E1E9F1C7D008625E6 /* QSRankInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankInteractor.swift; sourceTree = "<group>"; };
+		B22AC44C1E9F1C62008625E6 /* ZSUnusedFile1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSUnusedFile1.swift; sourceTree = "<group>"; };
+		B22AC44E1E9F1C7D008625E6 /* ZSUnusedFile2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSUnusedFile2.swift; sourceTree = "<group>"; };
 		B22AC4501E9F1C8C008625E6 /* ZSRankViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSRankViewModel.swift; sourceTree = "<group>"; };
-		B22AC4521E9F1CA8008625E6 /* QSRankRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankRouter.swift; sourceTree = "<group>"; };
+		B22AC4521E9F1CA8008625E6 /* ZSUnusedFile3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSUnusedFile3.swift; sourceTree = "<group>"; };
 		B22AC4541E9F1E8F008625E6 /* QSRankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankViewController.swift; sourceTree = "<group>"; };
 		B22AC4561E9F5520008625E6 /* QSLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSLoadingView.swift; sourceTree = "<group>"; };
-		B22AC4581E9F6767008625E6 /* QSRankDetailProtoocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankDetailProtoocol.swift; sourceTree = "<group>"; };
-		B22AC45A1E9F6774008625E6 /* QSRankDetailInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankDetailInteractor.swift; sourceTree = "<group>"; };
-		B22AC45C1E9F678D008625E6 /* QSRankDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankDetailPresenter.swift; sourceTree = "<group>"; };
-		B22AC45E1E9F6799008625E6 /* QSRankDetailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankDetailRouter.swift; sourceTree = "<group>"; };
-		B22AC4601E9F695D008625E6 /* QSRankDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSRankDetailViewController.swift; sourceTree = "<group>"; };
+		B22AC4581E9F6767008625E6 /* ZSUnusedFile4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSUnusedFile4.swift; sourceTree = "<group>"; };
+		B22AC45A1E9F6774008625E6 /* ZSRankDetailWebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSRankDetailWebService.swift; sourceTree = "<group>"; };
+		B22AC45C1E9F678D008625E6 /* ZSRankDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSRankDetailViewModel.swift; sourceTree = "<group>"; };
+		B22AC45E1E9F6799008625E6 /* ZSUnusedFile5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSUnusedFile5.swift; sourceTree = "<group>"; };
+		B22AC4601E9F695D008625E6 /* ZSRankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSRankViewController.swift; sourceTree = "<group>"; };
 		B2414D9B1EA602ED005A5758 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		B24B3F4B20E534390098ACE5 /* ZSSearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSearchViewCell.swift; sourceTree = "<group>"; };
 		B24B3F4C20E534390098ACE5 /* ZSSearchViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZSSearchViewCell.xib; sourceTree = "<group>"; };
@@ -1519,6 +1519,15 @@
 			path = TopicDetail;
 			sourceTree = "<group>";
 		};
+		B25A70E0223E961900D0182D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B22AC4501E9F1C8C008625E6 /* ZSRankViewModel.swift */,
+				B22AC45C1E9F678D008625E6 /* ZSRankDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		B26286BE1EEA46C7005A1A8A /* IntroducePage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1583,16 +1592,10 @@
 			path = WeChatSDK1.8.3;
 			sourceTree = "<group>";
 		};
-		B2ACA01F21217D970032305E /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		B2ACA02021217D970032305E /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				B22AC45A1E9F6774008625E6 /* ZSRankDetailWebService.swift */,
 				B2ACA02121217DFB0032305E /* ZSRankService.swift */,
 			);
 			path = Service;
@@ -1804,8 +1807,8 @@
 		B2B4BA351E7EA4A8000CC201 /* Ranking */ = {
 			isa = PBXGroup;
 			children = (
+				B25A70E0223E961900D0182D /* ViewModel */,
 				B2ACA02021217D970032305E /* Service */,
-				B2ACA01F21217D970032305E /* ViewModel */,
 				B2B4BA361E7EA4A8000CC201 /* Controllers */,
 				B2B4BA391E7EA4A8000CC201 /* Models */,
 				B2B4BA3B1E7EA4A8000CC201 /* Views */,
@@ -1816,16 +1819,13 @@
 		B2B4BA361E7EA4A8000CC201 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B22AC44C1E9F1C62008625E6 /* QSRankProtocols.swift */,
-				B22AC44E1E9F1C7D008625E6 /* QSRankInteractor.swift */,
-				B22AC4501E9F1C8C008625E6 /* ZSRankViewModel.swift */,
-				B22AC4521E9F1CA8008625E6 /* QSRankRouter.swift */,
+				B22AC44C1E9F1C62008625E6 /* ZSUnusedFile1.swift */,
+				B22AC44E1E9F1C7D008625E6 /* ZSUnusedFile2.swift */,
+				B22AC4521E9F1CA8008625E6 /* ZSUnusedFile3.swift */,
 				B22AC4541E9F1E8F008625E6 /* QSRankViewController.swift */,
-				B22AC4581E9F6767008625E6 /* QSRankDetailProtoocol.swift */,
-				B22AC45A1E9F6774008625E6 /* QSRankDetailInteractor.swift */,
-				B22AC45C1E9F678D008625E6 /* QSRankDetailPresenter.swift */,
-				B22AC45E1E9F6799008625E6 /* QSRankDetailRouter.swift */,
-				B22AC4601E9F695D008625E6 /* QSRankDetailViewController.swift */,
+				B22AC4581E9F6767008625E6 /* ZSUnusedFile4.swift */,
+				B22AC45E1E9F6799008625E6 /* ZSUnusedFile5.swift */,
+				B22AC4601E9F695D008625E6 /* ZSRankViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2740,8 +2740,8 @@
 				B29CFB6B217A3D8F0006F294 /* ZSLogin.swift in Sources */,
 				3DFCF6F421E9984100D3A8EC /* ZSSwipeCell.swift in Sources */,
 				B26286CA1EEA46DD005A1A8A /* QSIntroducePage.swift in Sources */,
-				B22AC4591E9F6767008625E6 /* QSRankDetailProtoocol.swift in Sources */,
-				B22AC45B1E9F6774008625E6 /* QSRankDetailInteractor.swift in Sources */,
+				B22AC4591E9F6767008625E6 /* ZSUnusedFile4.swift in Sources */,
+				B22AC45B1E9F6774008625E6 /* ZSRankDetailWebService.swift in Sources */,
 				B286F01A202981DD0069565B /* NSObject+Extension.swift in Sources */,
 				B2C0DF5720D4CB350057DC84 /* CategoryTableViewCell.swift in Sources */,
 				3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */,
@@ -2812,11 +2812,11 @@
 				B2C0DF2A20D4CB350057DC84 /* BookComment.swift in Sources */,
 				B2C0DF7F20D4CC480057DC84 /* ZSBookCommentService.swift in Sources */,
 				B2C0DF2F20D4CB350057DC84 /* QSReaderSetting.swift in Sources */,
-				B22AC4611E9F695D008625E6 /* QSRankDetailViewController.swift in Sources */,
+				B22AC4611E9F695D008625E6 /* ZSRankViewController.swift in Sources */,
 				B2C0DF7720D4CB6D0057DC84 /* QSBookCommentViewController.swift in Sources */,
 				B2C0DF5D20D4CB350057DC84 /* QSBookDetailContentView.swift in Sources */,
 				B252D4E0211033F20091858E /* ZSShelfWebService.swift in Sources */,
-				B22AC45D1E9F678D008625E6 /* QSRankDetailPresenter.swift in Sources */,
+				B22AC45D1E9F678D008625E6 /* ZSRankDetailViewModel.swift in Sources */,
 				B278AA951F395FA4000A0D55 /* QSSegmentDropView.swift in Sources */,
 				B2B4BC121E7EA4AB000CC201 /* SearchDetailViewController.swift in Sources */,
 				B2C0DF4720D4CB350057DC84 /* ProgressView.swift in Sources */,
@@ -2872,10 +2872,10 @@
 				B2C0DF3120D4CB350057DC84 /* Book.swift in Sources */,
 				B252D495210EF3960091858E /* DDRange.m in Sources */,
 				B251F89C2030350E004AAF95 /* Dictionary+QSExtension.swift in Sources */,
-				B22AC4531E9F1CA8008625E6 /* QSRankRouter.swift in Sources */,
+				B22AC4531E9F1CA8008625E6 /* ZSUnusedFile3.swift in Sources */,
 				B2B4BC101E7EA4AB000CC201 /* TopDetailCell.swift in Sources */,
 				B2B4BC0F1E7EA4AB000CC201 /* RankingViewCell.swift in Sources */,
-				B22AC45F1E9F6799008625E6 /* QSRankDetailRouter.swift in Sources */,
+				B22AC45F1E9F6799008625E6 /* ZSUnusedFile5.swift in Sources */,
 				B2CA80F021797EA2007A3EE7 /* ZSThirdLogin.swift in Sources */,
 				3D850DFE21E61C9800F23DDB /* ZSVoucher.swift in Sources */,
 				B2C0DF3C20D4CB350057DC84 /* QSPage.swift in Sources */,
@@ -2945,7 +2945,7 @@
 				B2B4BC271E7EA4AB000CC201 /* BarButton.swift in Sources */,
 				B2C0DF2820D4CB350057DC84 /* QSReaderParse.swift in Sources */,
 				B29CFB71217AE84B0006F294 /* ZSMyHeaderView.swift in Sources */,
-				B22AC44D1E9F1C62008625E6 /* QSRankProtocols.swift in Sources */,
+				B22AC44D1E9F1C62008625E6 /* ZSUnusedFile1.swift in Sources */,
 				B2B4BBF91E7EA4AB000CC201 /* UILabel+zhuishu.swift in Sources */,
 				B252D491210EF3960091858E /* MultipartMessageHeader.m in Sources */,
 				B252D4DE211006670091858E /* Alamofire+ZSExtension.swift in Sources */,
@@ -3056,7 +3056,7 @@
 				3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */,
 				B2A02F8020F33F710034DC64 /* ZSReaderManager.swift in Sources */,
 				B203BB651E9E119400F9C052 /* QSSearchViewController+Transition.swift in Sources */,
-				B22AC44F1E9F1C7D008625E6 /* QSRankInteractor.swift in Sources */,
+				B22AC44F1E9F1C7D008625E6 /* ZSUnusedFile2.swift in Sources */,
 				B2B4BBE51E7EA4AB000CC201 /* DarkStarView.swift in Sources */,
 				B2C0DF4120D4CB350057DC84 /* ToolBar.swift in Sources */,
 				B2583CB21EA78280004178F3 /* FilterThemeViewController.swift in Sources */,

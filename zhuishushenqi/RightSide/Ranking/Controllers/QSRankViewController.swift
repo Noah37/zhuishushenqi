@@ -9,9 +9,7 @@
 import UIKit
 import QSNetwork
 
-class QSRankViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate,QSRankViewProtocol {
-    
-    var presenter: QSRankPresenterProtocol?
+class QSRankViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
     
     var viewModel = ZSRankViewModel()
     
