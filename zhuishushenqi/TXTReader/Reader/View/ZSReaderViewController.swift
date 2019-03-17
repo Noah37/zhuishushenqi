@@ -159,6 +159,24 @@ class ZSReaderViewController: BaseViewController  {
         if let book = viewModel.book {
             ZSBookManager.shared.addHistory(book: book)
         }
+        layoutSubview()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        layoutSubview()
+    }
+    
+    private func layoutSubview() {
+        if let _ = toolBar.superview {
+            toolBar.snp.remakeConstraints { (make) in
+                make.edges.equalToSuperview()
+            }
+        }
+        if let _ = speechView.superview {
+            speechView.snp.remakeConstraints { (make) in
+                make.edges.equalToSuperview()
+            }
+        }
     }
     
     @objc

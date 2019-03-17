@@ -158,7 +158,7 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.qs_dequeueReusableCell(ZSForumCell.self) as! ZSForumCell
+        let cell = tableView.qs_dequeueReusableCell(ZSForumCell.self) as ZSForumCell
         cell.selectionStyle = .none
         let element = titles[indexPath.row]
         let name = element["image"] ?? ""
@@ -187,8 +187,8 @@ class ZSForumCell:UITableViewCell{
     override func layoutSubviews() {
         super.layoutSubviews()
         self.imageView?.frame = CGRect(x: 20, y: 9, width: 30, height: 30)
-        self.textLabel?.frame = CGRect(x: 65, y: 0, width: ScreenWidth - 65 - 38, height: 49.67)
-        
+        self.textLabel?.frame = CGRect(x: 65, y: 0, width: self.bounds.width - 65 - 38, height: 49.67)
+
         self.separatorInset = UIEdgeInsets(top: 0, left: 65, bottom: 0, right: 0)
     }
 }

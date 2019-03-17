@@ -52,20 +52,27 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        layoutSubview(size: self.view.bounds.size)
+        layoutSubview()
+        tableView.reloadData()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { (context) in
-            self.layoutSubview(size: size)
-        }) { (context) in
-            
+    override func viewWillLayoutSubviews() {
+        layoutSubview()
+    }
+    
+    func layoutSubview() {
+        segment.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().offset(navHeight + statusHeight + 5)
+            make.height.equalTo(30)
         }
-    }
-    
-    func layoutSubview(size:CGSize) {
-        self.segment.frame = CGRect(x: 15,y: kNavgationBarHeight + 5,width: size.width - 30,height: 30)
-        self.tableView.frame = CGRect(x: 0, y: kNavgationBarHeight + 40, width: size.width, height: size.height - kNavgationBarHeight - 40)
+        
+        tableView.snp.remakeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(segment.snp.bottom).offset(5)
+        }
     }
     
     func requestData(){

@@ -33,12 +33,23 @@ class ZSSegmenuViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        segMenu.snp.makeConstraints { (make) in
+        layoutSubviews()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        layoutSubviews()
+    }
+    
+    private func layoutSubviews() {
+        
+        segMenu.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
             make.left.right.equalToSuperview()
-            make.top.equalToSuperview().offset(kNavgationBarHeight)
+            make.top.equalToSuperview().offset(statusHeight + navHeight)
             make.height.equalTo(kTootSegmentViewHeight)
         }
-        segmentViewController.view.snp.makeConstraints { (make) in
+        segmentViewController.view.snp.remakeConstraints { (make) in
             make.left.bottom.right.equalToSuperview()
             make.top.equalTo(segMenu.snp.bottom)
         }

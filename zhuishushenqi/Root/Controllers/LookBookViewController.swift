@@ -10,6 +10,7 @@ import UIKit
 import QSNetwork
 import MJRefresh
 import RxSwift
+import SnapKit
 
 protocol ZSDiscussCellProtocol {
     func configureCell(with model:Any?)
@@ -124,15 +125,23 @@ class ZSDiscussBaseViewController:BaseViewController,UITableViewDataSource,UITab
         self.selectionView.hideSelection()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { (context) in
-            self.layoutSubviews()
-        }, completion: nil)
+    override func viewWillLayoutSubviews() {
+        layoutSubviews()
     }
     
     private func layoutSubviews() {
-        self.tableView.frame =  CGRect(x: 0, y: kNavgationBarHeight + 40, width: self.view.bounds.width, height: self.view.bounds.height - kNavgationBarHeight - 40)
-        self.selectionView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: 40)
+        
+        selectionView.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
+            make.top.equalTo(statusHeight + navHeight)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(40)
+        }
+        tableView.snp.remakeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(selectionView.snp.bottom)
+        }
     }
     
     private func register(){
@@ -300,7 +309,11 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.layoutSubviews()
+        layoutSubviews()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        layoutSubviews()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -308,15 +321,19 @@ class ZSDiscussViewController:BaseViewController,UITableViewDataSource,UITableVi
         self.selectionView.hideSelection()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { (context) in
-            self.layoutSubviews()
-        }, completion: nil)
-    }
-    
     private func layoutSubviews() {
-        self.tableView.frame =  CGRect(x: 0, y: kNavgationBarHeight + 40, width: self.view.bounds.width, height: self.view.bounds.height - kNavgationBarHeight - 40)
-        self.selectionView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: 40)
+        
+        selectionView.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
+            make.top.equalTo(statusHeight + navHeight)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(40)
+        }
+        tableView.snp.remakeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(selectionView.snp.bottom)
+        }
     }
     
     func qs_equal<T:Equatable>(x:T,y:T)->Bool{
@@ -445,15 +462,23 @@ class ZSBookReviewViewController:BaseViewController,UITableViewDataSource,UITabl
         layoutSubviews()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { (context) in
-            self.layoutSubviews()
-        }, completion: nil)
+    override func viewWillLayoutSubviews() {
+        layoutSubviews()
     }
     
     private func layoutSubviews() {
-        self.selectionView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: 40)
-        self.tableView.frame = CGRect(x: 0, y: kNavgationBarHeight + 40, width: self.view.bounds.width, height: self.view.bounds.height - kNavgationBarHeight - 40)
+        
+        selectionView.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
+            make.top.equalTo(statusHeight + navHeight)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(40)
+        }
+        tableView.snp.remakeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(selectionView.snp.bottom)
+        }
     }
     
     func qs_equal<T:Equatable>(x:T,y:T)->Bool{
@@ -662,15 +687,23 @@ class ZSFemaleViewController:BaseViewController,UITableViewDataSource,UITableVie
         layoutSubviews()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { (context) in
-            self.layoutSubviews()
-        }, completion: nil)
+    override func viewWillLayoutSubviews() {
+        layoutSubviews()
     }
     
     private func layoutSubviews() {
-        self.tableView.frame =  CGRect(x: 0, y: kNavgationBarHeight + 40, width: self.view.bounds.width, height: self.view.bounds.height - kNavgationBarHeight - 40)
-        self.selectionView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: 40)
+        
+        selectionView.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
+            make.top.equalTo(statusHeight + navHeight)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(40)
+        }
+        tableView.snp.remakeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(selectionView.snp.bottom)
+        }
     }
     
     func qs_equal<T:Equatable>(x:T,y:T)->Bool{
@@ -811,15 +844,23 @@ class LookBookViewController: BaseViewController,UITableViewDataSource,UITableVi
         initSubview()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { (context) in
-            self.layoutSubivews()
-        }, completion: nil)
+    override func viewWillLayoutSubviews() {
+        layoutSubviews()
     }
     
-    private func layoutSubivews() {
-        self.selectionView.frame = CGRect(x: 0, y: kNavgationBarHeight, width: self.view.bounds.width, height: 40)
-        self.tableView.frame = CGRect(x: 0, y: kNavgationBarHeight + 40, width: self.view.bounds.width, height: self.view.bounds.height - kNavgationBarHeight - 40)
+    private func layoutSubviews() {
+        
+        selectionView.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
+            make.top.equalTo(statusHeight + navHeight)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(40)
+        }
+        tableView.snp.remakeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(selectionView.snp.bottom)
+        }
     }
     
     func qs_equal<T:Equatable>(x:T,y:T)->Bool{

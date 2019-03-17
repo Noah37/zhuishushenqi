@@ -16,6 +16,7 @@ class QSCategoryDetailViewController: BaseViewController ,SegMenuDelegate, QSCat
     
     var subviews:[UIViewController] = []
     var selectedIndex:Int = 0
+    var segView:SegMenu!
     
     private lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -41,9 +42,33 @@ class QSCategoryDetailViewController: BaseViewController ,SegMenuDelegate, QSCat
         self.setupSubview(titles: ["新书","热度","口碑","完结"])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        layoutSubview()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        layoutSubview()
+    }
+    
+    private func layoutSubview() {
+        
+        segView.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
+            make.top.equalToSuperview().offset(statusHeight + navHeight)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(40)
+        }
+        
+        collectionView.snp.remakeConstraints { (make) in
+            make.left.bottom.right.equalToSuperview()
+            make.top.equalTo(segView.snp.bottom)
+        }
+    }
     
     func setupSubview(titles:[String]){
-        let segView = SegMenu(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: 40), WithTitles: titles)
+        segView = SegMenu(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: 40), WithTitles: titles)
         segView.menuDelegate = self
         self.segmentView = segView
         view.addSubview(segView)

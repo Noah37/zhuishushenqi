@@ -13,6 +13,7 @@ import UIKit
 class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableViewDataSource,UITableViewDelegate,QSThemeTopicViewProtocol{
     
     var presenter: QSThemeTopicPresenterProtocol?
+    var segView:SegMenu!
     
     fileprivate var booksModel:[ThemeTopicModel]?
     fileprivate var titleView:UIButton?
@@ -32,8 +33,31 @@ class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableVie
         presenter?.viewDidLoad(index: 0)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        layoutSubview()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        layoutSubview()
+    }
+    
+    private func layoutSubview() {
+        segView.snp.makeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().offset(statusHeight + navHeight)
+            make.height.equalTo(kTootSegmentViewHeight)
+        }
+        tableView.snp.makeConstraints { (make) in
+            make.left.bottom.right.equalToSuperview()
+            make.top.equalTo(segView.snp.bottom)
+        }
+    }
+    
     func setupSegView(titles:[String]){
-        let segView = SegMenu(frame: CGRect(x: 0, y: kNavgationBarHeight, width: UIScreen.main.bounds.size.width, height: 40), WithTitles: titles)
+        segView = SegMenu(frame: CGRect(x: 0, y: kNavgationBarHeight, width: UIScreen.main.bounds.size.width, height: 40), WithTitles: titles)
         segView.menuDelegate = self
         view.addSubview(segView)
     }

@@ -38,6 +38,24 @@ class QSCatalogViewController: BaseViewController ,UITableViewDataSource,UITable
         title = "分类"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        layoutSubview()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        layoutSubview()
+    }
+    
+    private func layoutSubview() {
+        tableView.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
+            make.left.bottom.right.equalToSuperview()
+            make.top.equalToSuperview().offset(statusHeight + navHeight)
+        }
+    }
+    
     //CategoryCellDelegate
     func didSelected(at:Int,cell:CategoryCell){
         let indexPath = tableView.indexPath(for: cell) ?? IndexPath(row: 0, section: 0)

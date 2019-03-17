@@ -8,51 +8,50 @@
 
 import UIKit
 import ZSAPI
+import SnapKit
 
-class RightViewController: ZSBaseTableViewController {
+class RightViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     var titles:[String]?
     
     var images:[String]?
-
-    override init(style: UITableView.Style) {
-        super.init(style: style)
-        self.tableView.frame = CGRect(x: self.view.bounds.width - SideVC.maximumRightOffsetWidth  + 20, y: 0, width: SideVC.maximumRightOffsetWidth - 20, height: self.view.bounds.height)
-        self.tableView.rowHeight = 60
-        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 55, bottom: 0, right: 0)
-        self.tableView.qs_registerCellClass(RightTableViewCell.self)
-    }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var tableView:UITableView = UITableView(frame: CGRect.zero, style: .grouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         titles = ["搜索","书城","VIP专区","排行榜","主题书单","分类","免费专区","专属推荐","漫画专区","听书专区","随机看书","WIFI传书"]
         images = ["rsm_icon_0","rsm_icon_store","rsm_icon_monthly","rsm_icon_3","rsm_icon_4","rsm_icon_5","rsm_icon_exclusive","rsm_icon_recommended","rsm_icon_comic","rsm_icon_6","rsm_icon_7","rsm_icon_wifi"]
         tableView.backgroundColor  = UIColor(red: 0.211, green: 0.211, blue: 0.211, alpha: 1.00)
+        
+        tableView.frame = CGRect(x: self.view.bounds.width - SideVC.maximumRightOffsetWidth , y: 0, width: SideVC.maximumRightOffsetWidth, height: self.view.bounds.height)
+        tableView.rowHeight = 60
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 55, bottom: 0, right: 0)
+        tableView.qs_registerCellClass(RightTableViewCell.self)
+        view.addSubview(tableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         automaticallyAdjustsScrollViewInsets = false
+        tableView.snp.remakeConstraints { (make) in
+            make.top.right.bottom.equalToSuperview()
+            make.left.equalToSuperview().offset(self.view.bounds.width - SideVC.maximumRightOffsetWidth)
+        }
     }
     
     override func viewWillLayoutSubviews() {
         
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return titles?.count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:RightTableViewCell? = tableView.qs_dequeueReusableCell(RightTableViewCell.self)
         cell?.selectionStyle = .none
         
@@ -62,15 +61,15 @@ class RightViewController: ZSBaseTableViewController {
         return cell!
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {//搜索
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )

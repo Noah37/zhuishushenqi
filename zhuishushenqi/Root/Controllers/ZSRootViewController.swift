@@ -10,6 +10,7 @@ import UIKit
 import Then
 import RxSwift
 import RxCocoa
+import SnapKit
 
 class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SegMenuDelegate {
     
@@ -58,13 +59,15 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        segMenu.snp.makeConstraints { (make) in
+        segMenu.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
             make.left.right.equalToSuperview()
-            make.top.equalToSuperview().offset(kNavgationBarHeight)
+            make.top.equalToSuperview().offset(navHeight + statusHeight)
             make.height.equalTo(kTootSegmentViewHeight)
         }
         
-        collectionView.snp.makeConstraints { (make) in
+        collectionView.snp.remakeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
             make.top.equalTo(segMenu.snp.bottom)
         }
@@ -84,8 +87,10 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
     
     override func viewWillLayoutSubviews() {
         segMenu.snp.remakeConstraints { (make) in
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
             make.left.right.equalToSuperview()
-            make.top.equalToSuperview().offset(kNavgationBarHeight)
+            make.top.equalToSuperview().offset(navHeight + statusHeight)
             make.height.equalTo(kTootSegmentViewHeight)
         }
         
@@ -228,8 +233,13 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICollectionViewCell", for: indexPath)
         cell.contentView.backgroundColor = UIColor.white
         let viewController = viewControllerFor(index: indexPath.row)
-        viewController.view.frame = cell.contentView.bounds
+        if let _ = viewController.view.superview {
+            viewController.view.removeFromSuperview()
+        }
         cell.contentView.addSubview(viewController.view)
+        viewController.view.snp.remakeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         return cell
     }
 

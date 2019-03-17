@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SnapKit
 //https://h5.zhuishushenqi.com/monthly?platform=ios&gender=female&token=xAk9Ac8k3Jj9Faf11q8mBVPQ&timeInterval=1546603628999.309082&appversion=2.29.14&timestamp=1546603628.999911&version=8
 
 class ZSWebViewController: BaseViewController {
@@ -31,9 +32,18 @@ class ZSWebViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.webView.frame = self.view.bounds
+        layoutSubview()
     }
-
+    
+    override func viewWillLayoutSubviews() {
+        layoutSubview()
+    }
+    
+    private func layoutSubview() {
+        webView.snp.remakeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

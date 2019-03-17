@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         let sideVC = SideViewController.shared
         sideVC.contentViewController = ZSRootViewController()
-        sideVC.rightViewController = RightViewController(style: .grouped)
+        sideVC.rightViewController = RightViewController()
         sideVC.leftViewController = LeftViewController()
         let sideNavVC = ZSBaseNavigationViewController(rootViewController: sideVC)
         window?.rootViewController = sideNavVC

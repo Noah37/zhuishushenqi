@@ -64,6 +64,7 @@ class PageViewController: UIViewController {
         setSubviews()
     }
     
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIDevice.batteryLevelDidChangeNotification, object: nil)
@@ -73,6 +74,53 @@ class PageViewController: UIViewController {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIDevice.batteryLevelDidChangeNotification, object: nil)
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        layoutSubview()
+    }
+    
+    private func layoutSubview() {
+        titleLabel.snp.remakeConstraints { (make) in
+            var top = 0
+            let orientation = UIApplication.shared.statusBarOrientation
+            if orientation.isPortrait {
+                top = 30
+            }
+            make.left.right.equalToSuperview()
+            make.top.equalTo(top)
+            make.height.equalTo(20)
+        }
+        pageLabel.snp.remakeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(30)
+        }
+        batteryView.snp.remakeConstraints { (make) in
+            make.bottom.equalToSuperview().offset(-10)
+            make.left.equalTo(15)
+            make.width.equalTo(25)
+            make.height.equalTo(10)
+        }
+        timeLabel.snp.remakeConstraints { (make) in
+            make.right.equalToSuperview().offset(-15)
+            make.bottom.equalToSuperview()
+            make.width.equalTo(40)
+            make.height.equalTo(30)
+        }
+        payView.snp.remakeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        if let _ = pageView.superview {
+            pageView.snp.remakeConstraints { (make) in
+                make.left.equalToSuperview().offset(10)
+                make.right.equalToSuperview().offset(-10)
+                make.top.equalTo(titleLabel.snp.bottom).offset(10)
+                make.bottom.equalToSuperview().offset(-30)
+            }
+        }
+        bgView.snp.remakeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
     }
     
     func setSubviews() -> Void {
@@ -163,6 +211,7 @@ class PageViewController: UIViewController {
         super.viewWillAppear(animated)
         view.backgroundColor = UIColor.clear
         view.addSubview(pageView)
+        layoutSubview()
     }
     
     
