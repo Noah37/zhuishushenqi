@@ -70,6 +70,11 @@ class ZSShelfViewController: BaseViewController,Refreshable,UITableViewDataSourc
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -334,7 +339,9 @@ extension ZSShelfViewController:SwipableCellDelegate {
             }
         }
         else if index == 3 {
-            self.removeBook(at: index)
+            if let indexPath = tableView.indexPath(for: swipableCell) {
+                self.removeBook(at: indexPath.row)
+            }
             self.tableView.reloadData()
         } else {
             self.hudAddTo(view: self.view, text: "暂不支持当前功能,敬请期待...", animated: true)
@@ -395,21 +402,22 @@ extension ZSShelfViewController:SwipableCellDelegate {
     
     func removeBook(at index:Int){
         let books = self.viewModel.booksID
-        var bookIndex = 0
-        for bookid in books {
-            if bookIndex == index {
-                if let book = self.viewModel.books[bookid] {
-                    ZSBookManager.shared.deleteBook(book: book)
-                    self.viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
-                        if json?["ok"] as? Bool == true {
-                            self.view.showTip(tip: "\(book.title)已从书架中删除")
-                        } else {
-                            self.view.showTip(tip: "\(book.title)从书架中删除失败")
-                        }
-                    }
+        guard let bookid = books[safe: index] else {
+            return
+        }
+        if let book = self.viewModel.books[bookid] {
+            ZSBookManager.shared.deleteBook(book: book)
+            self.viewModel.fetchShelfDelete(books: [book], token: ZSLogin.share.token) { (json) in
+                if json?["ok"] as? Bool == true {
+                    self.view.showTip(tip: "\(book.title)已从书架中删除")
+                } else {
+                    self.view.showTip(tip: "\(book.title)从书架中删除失败")
                 }
             }
-            bookIndex += 1
+        } else {
+            let book = BookDetail()
+            book._id = bookid
+            ZSBookManager.shared.deleteBook(book: book)
         }
     }
 }

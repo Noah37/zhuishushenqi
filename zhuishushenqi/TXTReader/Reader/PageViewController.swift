@@ -84,7 +84,7 @@ class PageViewController: UIViewController {
         titleLabel.snp.remakeConstraints { (make) in
             var top = 0
             let orientation = UIApplication.shared.statusBarOrientation
-            if orientation.isPortrait {
+            if orientation.isPortrait && IPHONEX {
                 top = 30
             }
             make.left.right.equalToSuperview()

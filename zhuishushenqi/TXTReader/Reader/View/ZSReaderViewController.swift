@@ -86,6 +86,8 @@ class ZSReaderViewController: BaseViewController  {
         
         NotificationCenter.qs_addObserver(observer: self, selector: #selector(changePageStyle), name: ZSReaderAnimationStyleChangeNotification, object: nil)
         
+        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue:RootDisappearNotificationName)))
+        
         speechView.startHandler = { selected in
             if selected! {
                 if self.voiceBook.isSpeaking() {

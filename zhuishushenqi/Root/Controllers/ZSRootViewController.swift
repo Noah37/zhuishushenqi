@@ -35,7 +35,8 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(showRecommend), name: Notification.Name(rawValue:SHOW_RECOMMEND), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(rootDisappear), name: Notification.Name(rawValue:RootDisappearNotificationName), object: nil)
+
         
         RootNavigationView.make(delegate: self,leftAction: #selector(leftAction(_:)),rightAction: #selector(rightAction(_:)))
         setupSegMenu()
@@ -58,7 +59,21 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        layoutSubview()
         
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        layoutSubview()
+    }
+    
+    private func layoutSubview() {
         segMenu.snp.remakeConstraints { (make) in
             let statusHeight = UIApplication.shared.statusBarFrame.height
             let navHeight = self.navigationController?.navigationBar.height ?? 0
@@ -70,12 +85,6 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
         collectionView.snp.remakeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
             make.top.equalTo(segMenu.snp.bottom)
-        }
-        
-        if #available(iOS 11.0, *) {
-            collectionView.contentInsetAdjustmentBehavior = .never
-        } else {
-            // Fallback on earlier versions
         }
     }
     
@@ -176,6 +185,11 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
         }) { (btn) in
             self.dismissRecView()
         }
+    }
+    
+    @objc
+    private func rootDisappear() {
+        layoutSubview()
     }
     
     @objc
