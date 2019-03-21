@@ -29,6 +29,7 @@ class QSCatalogRouter: QSCatalogWireframeProtocol {
     }
     
     func presentDetail(param:[String:Any]){
-        viewController?.navigationController?.pushViewController(QSCategoryDetailRouter.createModule(param: param), animated: true)
+        
+//        viewController?.navigationController?.pushViewController(QSCategoryDetailRouter.createModule(param: param), animated: true)
     }
 }

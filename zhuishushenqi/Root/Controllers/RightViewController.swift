@@ -105,7 +105,8 @@ class RightViewController: BaseViewController, UITableViewDataSource, UITableVie
 
         } else if indexPath.row == 5 {
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
-            SideVC.navigationController?.pushViewController(QSCatalogRouter.createModule(), animated: true)
+            let catelogVC = ZSCatelogViewController()
+            SideVC.navigationController?.pushViewController(catelogVC, animated: true)
         } else if indexPath.row == 6 {
             let webVC = ZSWebViewController()
             let timeInterval = Date().timeIntervalSince1970

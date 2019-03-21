@@ -10,104 +10,10 @@
 
 import UIKit
 
-class ZSBaseSegmentItemViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
-    //标记控制器在父控制器中的序号
-    var index:Int = 0
-    
-    var dataSource:[Book] = [] {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
-    var tableView:UITableView!
-    
-    var clickRow:ZSBaseCallback<Book>?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupSubviews()
-        request()
-        tableView.frame = view.bounds
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.frame = view.bounds
-    }
-    
-    func setupSubviews(){
-        tableView = UITableView(frame: CGRect.zero, style: .grouped)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
-        tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
-        tableView.rowHeight = 93
-        tableView.qs_registerCellNib(TopDetailCell.self)
-        view.addSubview(tableView)
-    }
-    
-    func request() {
-        
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:TopDetailCell? = tableView.qs_dequeueReusableCell(TopDetailCell.self)
-        cell?.backgroundColor = UIColor.white
-        cell?.selectionStyle = .none
-        cell!.model = dataSource[indexPath.row]
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        clickRow?(dataSource[indexPath.row])
-    }
-}
-
-class ZSCatelogItemViewController: ZSBaseSegmentItemViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
-    override func request() {
-        
-    }
-}
-
 class ZSCatelogDetailViewController:BaseViewController {
-    
-    var rank:QSRankModel?
+
     var segmentViewController = ZSSegmenuViewController()
+    var parameterModel:ZSCatelogParameterModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,6 +26,7 @@ class ZSCatelogDetailViewController:BaseViewController {
     }
     
     func setupSubviews(){
+        title = parameterModel?.major ?? ""
         segmentViewController.delegate = self
         view.addSubview(segmentViewController.view)
         addChild(segmentViewController)
@@ -129,13 +36,17 @@ class ZSCatelogDetailViewController:BaseViewController {
 extension ZSCatelogDetailViewController:ZSSegmenuProtocol {
     func viewControllersForSegmenu(_ segmenu: ZSSegmenuViewController) -> [UIViewController] {
         var viewControllers:[UIViewController] = []
-        var titles = ["新书","热度","口碑","完结"]
-        for i in 0..<3 {
+        let titles = ["新书","热度","口碑","完结"]
+        let types = ["new","hot","reputation","over"]
+        for i in 0..<titles.count {
             let viewController = ZSCatelogItemViewController()
-            viewController.index = i
+            viewController.viewModel.segmentIndex = i
+            viewController.viewModel.title = titles[i]
+            viewController.viewModel.type = types[i]
             viewController.title = titles[i]
+            viewController.viewModel.parameterModel = parameterModel
             viewController.clickRow = { (book) in
-//                self.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: book?._id ?? ""), animated: true)
+                self.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: book?._id ?? ""), animated: true)
             }
             viewControllers.append(viewController)
         }

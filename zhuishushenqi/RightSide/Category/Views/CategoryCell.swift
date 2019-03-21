@@ -15,29 +15,29 @@ protocol CategoryCellItemDelegate {
 class CategoryCell: UITableViewCell {
     var itemDelegate:CategoryCellItemDelegate?
 
-    var models:NSArray?{
+    var models:[ZSCatelogItem]?{
         didSet{
             var index = 0
             if let tempModels = models {
+                self.removeAllSubviews()
                 for item in tempModels {
-                    if let dict:NSDictionary = item as? NSDictionary {
-                        let row = index/3
-                        let col = index%3
-                        let width = self.bounds.width/3
-                        let height:CGFloat = 60.00
-                        let x = CGFloat(col)*width
-                        let y = CGFloat(row)*height
-                        let categoryItem:CategoryCellItem = CategoryCellItem(frame: CGRect(x: x, y: y, width: width, height: height))
-                        categoryItem.model = dict
-                        categoryItem.tag = index + 12345
-                        let ges:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction(ges:)))
-                        ges.numberOfTapsRequired = 1
-                        ges.numberOfTouchesRequired = 1
-                        categoryItem.isUserInteractionEnabled = true
-                        categoryItem.addGestureRecognizer(ges)
-                        
-                        self.addSubview(categoryItem)
-                    }
+                    let row = index/3
+                    let col = index%3
+                    let width = self.bounds.width/3
+                    let height:CGFloat = 60.00
+                    let x = CGFloat(col)*width
+                    let y = CGFloat(row)*height
+                    let categoryItem:CategoryCellItem = CategoryCellItem(frame: CGRect(x: x, y: y, width: width, height: height))
+                    categoryItem.model = item
+                    categoryItem.tag = index + 12345
+                    let ges:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction(ges:)))
+                    ges.numberOfTapsRequired = 1
+                    ges.numberOfTouchesRequired = 1
+                    categoryItem.isUserInteractionEnabled = true
+                    categoryItem.addGestureRecognizer(ges)
+                    
+                    self.addSubview(categoryItem)
+                    
                     index += 1
                 }
                 let types = models?.count ?? 0
@@ -84,15 +84,20 @@ class CategoryCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+    }
 }
 
 class CategoryCellItem: UIView {
     var titleLabel:UILabel!
     var detailTitleLabel:UILabel!
-    var model:NSDictionary?{
+    var model:ZSCatelogItem?{
         didSet{
-            titleLabel.text = "\(model?["name"] ?? "")"
-            detailTitleLabel.text = "\(model?["bookCount"] ?? "")本"
+            titleLabel.text = "\(String(describing: model?.name ?? ""))"
+            detailTitleLabel.text = "\(String(describing: model?.bookCount ?? 0))本"
         }
     }
     override init(frame: CGRect) {

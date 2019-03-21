@@ -93,4 +93,42 @@ extension UIView {
             label.text = nil
         }
     }
+    
+    func addShadow(cornerRadius:CGFloat) {
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowRadius = cornerRadius
+        self.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
+        self.layer.shadowOpacity = 0.3
+    }
+    
+    static let shadowLayerAccess = "shadowLayerAccess"
+    static let backgroundViewAccess = "backgroundViewAccess"
+    func addShadow(borderRadius:CGFloat) {
+        if self.bounds.equalTo(CGRect.zero) {
+            return
+        }
+        for layer in self.layer.sublayers ?? [] {
+            if layer.accessibilityLabel == UIView.shadowLayerAccess {
+                layer.removeFromSuperlayer()
+            }
+        }
+        for view in self.subviews {
+            if view.accessibilityLabel == UIView.backgroundViewAccess {
+                view.removeFromSuperview()
+            }
+        }
+        let backgroundView = UIView(frame: self.bounds)
+        backgroundView.backgroundColor = UIColor.clear
+        backgroundView.isUserInteractionEnabled = true
+        addSubview(backgroundView)
+        
+        let layer = CAShapeLayer()
+        layer.frame = self.bounds
+        let path = UIBezierPath(roundedRect: layer.bounds, cornerRadius: borderRadius)
+        layer.shadowPath = path.cgPath
+        layer.shadowColor = RGBAColor(0, 0, 0, 0.5).cgColor
+        layer.shadowRadius = borderRadius
+        layer.masksToBounds = false
+        self.layer.insertSublayer(layer, below: backgroundView.layer)
+    }
 }

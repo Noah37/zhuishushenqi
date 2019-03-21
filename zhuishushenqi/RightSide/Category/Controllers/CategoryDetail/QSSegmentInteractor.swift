@@ -37,6 +37,14 @@ class QSSegmentInteractor: QSSegmentInteractorProtocol {
         let gender:String = param["gender"] as? String ?? ""
         let type:String = types[index]
         let api = ZSAPI.categoryList(gender: gender, type: type, major:  major, minor: "", start: "\(startIndex)", limit: "\(limit)")
+        zs_get(api.path, parameters: api.parameters) { (response) in
+            guard let books = response?["books"] as? [Any] else {
+                return
+            }
+            if let models = [Book].deserialize(from: books) as? [Book] {
+                
+            }
+        }
         QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
             QSLog(response.json)
             if let books = response.json?.object(forKey: "books"){

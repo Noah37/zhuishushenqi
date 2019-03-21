@@ -13,6 +13,8 @@ import UIKit
 class QSCatalogViewController: BaseViewController ,UITableViewDataSource,UITableViewDelegate,CategoryCellItemDelegate, QSCatalogViewProtocol {
 
 	var presenter: QSCatalogPresenterProtocol?
+    
+    var viewModel:ZSCatelogViewModel = ZSCatelogViewModel()
 
     var id:String? = ""
     var books:[[NSDictionary]] = []
@@ -33,7 +35,10 @@ class QSCatalogViewController: BaseViewController ,UITableViewDataSource,UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-        presenter?.viewDidLoad()
+//        presenter?.viewDidLoad()
+        viewModel.request { (_) in
+            self.tableView.reloadData()
+        }
         self.automaticallyAdjustsScrollViewInsets = false
         title = "分类"
     }
@@ -59,7 +64,13 @@ class QSCatalogViewController: BaseViewController ,UITableViewDataSource,UITable
     //CategoryCellDelegate
     func didSelected(at:Int,cell:CategoryCell){
         let indexPath = tableView.indexPath(for: cell) ?? IndexPath(row: 0, section: 0)
-        self.presenter?.didSelectAt(index: at, indexPath: indexPath)
+        let items = viewModel.catelogModel.items(at: indexPath.section)
+        let item = items[at]
+        let gender = viewModel.catelogModel.gender(for: indexPath.section)
+        let parameterModel = ZSCatelogParameterModel(major:item.name, gender:gender)
+        let detailVC = ZSCatelogDetailViewController()
+        detailVC.parameterModel = parameterModel
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,12 +78,13 @@ class QSCatalogViewController: BaseViewController ,UITableViewDataSource,UITable
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.books.count
+        
+        return viewModel.catelogModel.sections()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let types =  self.books[indexPath.section]
-        let count = ((types.count)%3 == 0 ? (types.count)/3:(types.count)/3 + 1)
+        let items = viewModel.catelogModel.items(at: indexPath.section)
+        let count = ((items.count)%3 == 0 ? (items.count)/3:(items.count)/3 + 1)
         let height = count * 60
         return CGFloat(height)
     }
@@ -81,8 +93,8 @@ class QSCatalogViewController: BaseViewController ,UITableViewDataSource,UITable
         let cell:CategoryCell? = tableView.qs_dequeueReusableCell(CategoryCell.self)
         cell?.backgroundColor = UIColor.white
         cell?.selectionStyle = .none
-        
-        cell!.models = books[indexPath.section] as NSArray
+        let items = viewModel.catelogModel.items(at: indexPath.section)
+        cell?.models = items
         cell?.itemDelegate = self
         return cell!
     }
@@ -96,11 +108,11 @@ class QSCatalogViewController: BaseViewController ,UITableViewDataSource,UITable
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sections = ["男生","女生"]
+        let name = viewModel.catelogModel.name(for: section)
         let headerView = UIView()
         headerView.backgroundColor = UIColor.white
         let label = UILabel(frame: CGRect(x: 15, y: 0, width: 200, height: 50))
-        label.text = sections[section]
+        label.text = name
         label.textColor = UIColor.darkGray
         label.font = UIFont.systemFont(ofSize: 13)
         headerView.addSubview(label)
