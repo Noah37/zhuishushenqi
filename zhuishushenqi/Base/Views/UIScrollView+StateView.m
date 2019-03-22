@@ -19,7 +19,24 @@ void qs_swizzle(Class cls,SEL old,SEL new){
         method_exchangeImplementations(oldMethod, newMethod);
 }
 
-@implementation UIScrollView (StateView)
+@implementation UITableView (StateView)
+
+- (void)setAutoControlErrorView:(BOOL)autoControlErrorView {
+    objc_setAssociatedObject(self, @selector(isAutoControlErrorView), @(autoControlErrorView), OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (BOOL)isAutoControlErrorView {
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+
+- (void)setStatus:(ZSTableViewStatus)status {
+    objc_setAssociatedObject(self, @selector(status), @(status), OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (ZSTableViewStatus)status {
+    ZSTableViewStatus ss = [objc_getAssociatedObject(self, _cmd) integerValue];
+    return ss;
+}
 
 - (void)setReloadAction:(QSErrorHandler)reloadAction{
     objc_setAssociatedObject(self, @selector(reloadAction), reloadAction, OBJC_ASSOCIATION_COPY);
@@ -78,7 +95,9 @@ void qs_swizzle(Class cls,SEL old,SEL new){
         QSLoadingPageView *loadingPage = [[QSLoadingPageView alloc] initWithFrame:self.bounds];
         self.loadingPageView = loadingPage;
     }
+    self.status = ZSTableViewStatusLoading;
     self.loadingPageView.hidden = NO;
+    self.loadingPageView.maskView.hidden = YES;
     if (self.subviews.count > 0) {
         [self insertSubview:self.loadingPageView atIndex:0];
     }else{
@@ -89,6 +108,7 @@ void qs_swizzle(Class cls,SEL old,SEL new){
 - (void)showErrorPage{
     if (self.loadingPageView) {
         self.loadingPageView.hidden = YES;
+        self.loadingPageView.maskView.hidden = NO;
     }
     if (!self.errorPageView) {
         QSErrorPageView *errorPage = [[QSErrorPageView alloc] initWithFrame:self.bounds];
@@ -97,6 +117,11 @@ void qs_swizzle(Class cls,SEL old,SEL new){
         }
         self.errorPageView = errorPage;
     }
+    // 初始状态不显示错误页面
+    if (self.status == ZSTableViewStatusInitial) {
+        return;
+    }
+    self.status = ZSTableViewStatusFailure;
     self.errorPageView.hidden = YES;
     if (self.subviews.count > 0) {
         [self insertSubview:self.errorPageView atIndex:0];
@@ -110,17 +135,21 @@ void qs_swizzle(Class cls,SEL old,SEL new){
 
 - (void)hideErrorPage{
     self.errorPageView.hidden = YES;
+    self.errorPageView.maskView.hidden = NO;
 }
 
 - (void)qs_reloadData{
     [self qs_reloadData];
-    [self showErrorPage];
+    if (self.isAutoControlErrorView) {
+        [self showErrorPage];
+    }
 }
 
 @end
 
 @interface QSErrorPageView ()
 
+@property (nonatomic, weak)UIView *maskView;
 @property (nonatomic, weak)UIImageView *errorImageView;
 @property (nonatomic, weak)UILabel *errorTipLabel;
 @property (nonatomic, weak)UIButton *reloadButton;
@@ -147,6 +176,7 @@ void qs_swizzle(Class cls,SEL old,SEL new){
 }
 
 - (void)setupSubviews{
+    
     UIImageView* errorImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"ic_tip_fail"]];
     errorImageView.frame = CGRectMake(0, 0, 120, 140);
     errorImageView.center = CGPointMake(self.center.x, self.center.y - 70);
@@ -178,6 +208,15 @@ void qs_swizzle(Class cls,SEL old,SEL new){
     _reloadButton = reloadButton;
     [self addSubview:_reloadButton];
     
+    UIView *maskView = [[UIView alloc] initWithFrame:self.bounds];
+    if ([self.backgroundColor isEqual:UIColor.clearColor]) {
+        maskView.backgroundColor = [UIColor whiteColor];;
+    } else {
+        maskView.backgroundColor = self.backgroundColor;
+    }
+    _maskView = maskView;
+    [self addSubview:_maskView];
+    
 }
 
 - (void)_clickReloadButton:(UIButton *)sender{
@@ -202,6 +241,7 @@ void qs_swizzle(Class cls,SEL old,SEL new){
 
 @interface QSLoadingPageView()
 
+@property (nonatomic, weak)UIView *maskView;
 @property (nonatomic, weak)UIActivityIndicatorView *activityIndicatorView;
 
 @end
@@ -240,6 +280,15 @@ void qs_swizzle(Class cls,SEL old,SEL new){
     errorTipLabel.textColor = [UIColor grayColor];
     errorTipLabel.text = @"正在加载...";
     [self addSubview:errorTipLabel];
+    
+    UIView *maskView = [[UIView alloc] initWithFrame:self.bounds];
+    if ([self.backgroundColor isEqual:UIColor.clearColor]) {
+        maskView.backgroundColor = [UIColor whiteColor];;
+    } else {
+        maskView.backgroundColor = self.backgroundColor;
+    }
+    _maskView = maskView;
+    [self addSubview:_maskView];
 }
 
 - (void)startAnimate{

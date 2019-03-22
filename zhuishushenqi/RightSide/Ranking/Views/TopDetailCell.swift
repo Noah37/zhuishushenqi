@@ -9,7 +9,7 @@
 import UIKit
 
 
-class TopDetailCell: UITableViewCell,QSSegmentCellProtocol {
+class TopDetailCell: UITableViewCell {
  
     @IBOutlet weak var authorWidth: NSLayoutConstraint!
     @IBOutlet weak var remain: UILabel!

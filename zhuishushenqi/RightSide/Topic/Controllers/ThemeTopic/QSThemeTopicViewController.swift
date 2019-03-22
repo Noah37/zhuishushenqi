@@ -65,16 +65,22 @@ class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableVie
     func titleView(title:String) -> Void {
         if let _ = self.titleView {
             self.titleView?.setTitle(title, for: .normal)
-            let width = (self.titleView?.currentTitle ?? "").qs_width(UIFont.systemFont(ofSize: 17), height: 21)*1.3
-            self.titleView?.imageEdgeInsets = UIEdgeInsets(top: 0, left: width, bottom: 0, right: -width)
+            let size = self.titleView?.titleLabel?.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 21)) ?? CGSize.zero
+            let titleSize = self.titleView?.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 21)) ?? CGSize.zero
+            self.titleView?.frame = CGRect(x: 0, y: 0, width: titleSize.width, height: 21)
+            self.titleView?.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(titleSize.width - size.width), bottom: 0, right: 0)
+            self.titleView?.imageEdgeInsets = UIEdgeInsets(top: 0, left: size.width + 6, bottom: 0, right: 0)
             return
         }
         let titleView = UIButton(type: .custom)
         titleView.frame = CGRect(x: 0, y: 0, width: 200, height: 21)
         titleView.setImage(UIImage(named: "c_arrow_down"), for: .normal)
         titleView.setTitle(title, for: .normal)
-        let width = (titleView.currentTitle ?? "").qs_width(UIFont.systemFont(ofSize: 17), height: 21)*1.3
-        titleView.imageEdgeInsets = UIEdgeInsets(top: 0, left: width, bottom: 0, right: -width)
+        let size = titleView.titleLabel?.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 21)) ?? CGSize.zero
+        let titleSize = titleView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 21)) 
+        titleView.frame = CGRect(x: 0, y: 0, width: titleSize.width, height: 21)
+        titleView.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(titleSize.width - size.width), bottom: 0, right: 0)
+        titleView.imageEdgeInsets = UIEdgeInsets(top: 0, left: size.width + 6, bottom: 0, right: 0)
         titleView.setTitleColor(UIColor.black, for: .normal)
         titleView.addTarget(self, action: #selector(titleViewAction(btn:)), for: .touchUpInside)
         self.titleView = titleView
@@ -82,7 +88,7 @@ class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableVie
     }
     
     @objc func titleViewAction(btn:UIButton){
-        let filterVC = FilterThemeViewController()
+        let filterVC = ZSFilterThemeViewController()
         filterVC.clickAction =  { (index:Int,title:String,name:String) in
             self.presenter?.didClickFilter(index: index, title: title, name: name)
         }

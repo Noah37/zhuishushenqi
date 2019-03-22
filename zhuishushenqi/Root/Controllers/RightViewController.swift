@@ -99,7 +99,6 @@ class RightViewController: BaseViewController, UITableViewDataSource, UITableVie
             let rankVC = QSRankViewController()
             SideVC.navigationController?.pushViewController(rankVC, animated: true)
         } else if indexPath.row == 4 {//主题书单
-            _ = ThemeTopicViewController()
             self.navigationItem.backBarButtonItem?.tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
             SideVC.navigationController?.pushViewController(QSThemeTopicRouter.createModule(), animated: true)
 

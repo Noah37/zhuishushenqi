@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    ZSTableViewStatusInitial,
+    ZSTableViewStatusNoData,
+    ZSTableViewStatusLoading,
+    ZSTableViewStatusFailure,
+} ZSTableViewStatus;
+
 typedef void(^QSErrorHandler)();
 
 @class QSErrorPageView,QSLoadingPageView;
@@ -28,5 +35,13 @@ typedef void(^QSErrorHandler)();
 
 - (void)startAnimate;
 - (void)stopAnimate;
+
+@end
+
+@interface UITableView (StateView)
+
+@property (nonatomic, assign, getter=isAutoControlErrorView) BOOL autoControlErrorView;
+
+@property (nonatomic, assign) ZSTableViewStatus status;
 
 @end

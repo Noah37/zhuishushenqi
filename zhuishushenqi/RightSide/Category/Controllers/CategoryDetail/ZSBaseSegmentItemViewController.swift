@@ -23,7 +23,6 @@ class ZSBaseSegmentItemViewController: BaseViewController, UITableViewDataSource
         super.viewDidLoad()
         setupSubviews()
         request()
-        tableView.frame = view.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +39,8 @@ class ZSBaseSegmentItemViewController: BaseViewController, UITableViewDataSource
         tableView.rowHeight = 93
         tableView.qs_registerCellNib(TopDetailCell.self)
         view.addSubview(tableView)
+        
+        self.tableView.isAutoControlErrorView = true
     }
     
     func request() {

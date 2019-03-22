@@ -100,6 +100,9 @@
 		3DE393EB21A3EB2D00890488 /* ZSJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE393EA21A3EB2D00890488 /* ZSJSON.swift */; };
 		3DE77D2620C8E99500A86DF0 /* ZSBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */; };
 		3DE77D2A20C90EA300A86DF0 /* ZSRootWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */; };
+		3DECC38422452F9E00EEB146 /* ZSFilterThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC38322452F9E00EEB146 /* ZSFilterThemeViewModel.swift */; };
+		3DECC386224533EB00EEB146 /* ZSFilterThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC385224533EB00EEB146 /* ZSFilterThemeModel.swift */; };
+		3DECC3882245379400EEB146 /* ZSFilterThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3872245379300EEB146 /* ZSFilterThemeCell.swift */; };
 		3DF2D27820EB5773004E73B6 /* ZSChapterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2D27720EB5773004E73B6 /* ZSChapterInfo.swift */; };
 		3DF2D27A20EB5C1C004E73B6 /* ZSChapterBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2D27920EB5C1C004E73B6 /* ZSChapterBody.swift */; };
 		3DFBDEDD21F1A7ED00AED519 /* ZSCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFBDEDC21F1A7EC00AED519 /* ZSCacheHelper.swift */; };
@@ -205,7 +208,7 @@
 		B2580E1F1E9B236000455AFE /* QSSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2580E191E9B236000455AFE /* QSSearchViewController.swift */; };
 		B2580E231E9B284900455AFE /* QSHotwords.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2580E221E9B284900455AFE /* QSHotwords.swift */; };
 		B2580E251E9B6AF500455AFE /* QSSearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2580E241E9B6AF500455AFE /* QSSearchHeaderView.swift */; };
-		B2583CB21EA78280004178F3 /* FilterThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CAD1EA78280004178F3 /* FilterThemeViewController.swift */; };
+		B2583CB21EA78280004178F3 /* ZSFilterThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CAD1EA78280004178F3 /* ZSFilterThemeViewController.swift */; };
 		B2583CB31EA78280004178F3 /* ThemeTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CAF1EA78280004178F3 /* ThemeTopicViewController.swift */; };
 		B2583CB41EA78280004178F3 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB11EA78280004178F3 /* TopicDetailViewController.swift */; };
 		B2583CBA1EA782C2004178F3 /* QSThemeTopicInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB51EA782C2004178F3 /* QSThemeTopicInteractor.swift */; };
@@ -307,7 +310,7 @@
 		B2B02E471EA8920F00A6880A /* QSCategoryDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E411EA8920F00A6880A /* QSCategoryDetailRouter.swift */; };
 		B2B02E481EA8920F00A6880A /* ZSCategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E421EA8920F00A6880A /* ZSCategoryDetailViewController.swift */; };
 		B2B02E4C1EA9A9CA00A6880A /* ZSCatelogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4B1EA9A9CA00A6880A /* ZSCatelogViewController.swift */; };
-		B2B02E531EA9A9F000A6880A /* QSCatalogInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4D1EA9A9F000A6880A /* QSCatalogInteractor.swift */; };
+		B2B02E531EA9A9F000A6880A /* ZSThemeTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4D1EA9A9F000A6880A /* ZSThemeTopicViewModel.swift */; };
 		B2B02E541EA9A9F000A6880A /* QSCatalogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4E1EA9A9F000A6880A /* QSCatalogPresenter.swift */; };
 		B2B02E551EA9A9F000A6880A /* QSCatalogProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4F1EA9A9F000A6880A /* QSCatalogProtocols.swift */; };
 		B2B02E561EA9A9F000A6880A /* QSCatalogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E501EA9A9F000A6880A /* QSCatalogRouter.swift */; };
@@ -604,6 +607,9 @@
 		3DE393EA21A3EB2D00890488 /* ZSJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSJSON.swift; sourceTree = "<group>"; };
 		3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseTableViewController.swift; sourceTree = "<group>"; };
 		3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootWebService.swift; sourceTree = "<group>"; };
+		3DECC38322452F9E00EEB146 /* ZSFilterThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSFilterThemeViewModel.swift; sourceTree = "<group>"; };
+		3DECC385224533EB00EEB146 /* ZSFilterThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSFilterThemeModel.swift; sourceTree = "<group>"; };
+		3DECC3872245379300EEB146 /* ZSFilterThemeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSFilterThemeCell.swift; sourceTree = "<group>"; };
 		3DF2D27720EB5773004E73B6 /* ZSChapterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSChapterInfo.swift; sourceTree = "<group>"; };
 		3DF2D27920EB5C1C004E73B6 /* ZSChapterBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSChapterBody.swift; sourceTree = "<group>"; };
 		3DFBDEDC21F1A7EC00AED519 /* ZSCacheHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCacheHelper.swift; sourceTree = "<group>"; };
@@ -734,7 +740,7 @@
 		B2580E191E9B236000455AFE /* QSSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchViewController.swift; sourceTree = "<group>"; };
 		B2580E221E9B284900455AFE /* QSHotwords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHotwords.swift; sourceTree = "<group>"; };
 		B2580E241E9B6AF500455AFE /* QSSearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchHeaderView.swift; sourceTree = "<group>"; };
-		B2583CAD1EA78280004178F3 /* FilterThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterThemeViewController.swift; sourceTree = "<group>"; };
+		B2583CAD1EA78280004178F3 /* ZSFilterThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSFilterThemeViewController.swift; sourceTree = "<group>"; };
 		B2583CAF1EA78280004178F3 /* ThemeTopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTopicViewController.swift; sourceTree = "<group>"; };
 		B2583CB11EA78280004178F3 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
 		B2583CB51EA782C2004178F3 /* QSThemeTopicInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSThemeTopicInteractor.swift; sourceTree = "<group>"; };
@@ -852,7 +858,7 @@
 		B2B02E411EA8920F00A6880A /* QSCategoryDetailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCategoryDetailRouter.swift; sourceTree = "<group>"; };
 		B2B02E421EA8920F00A6880A /* ZSCategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSCategoryDetailViewController.swift; sourceTree = "<group>"; };
 		B2B02E4B1EA9A9CA00A6880A /* ZSCatelogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSCatelogViewController.swift; sourceTree = "<group>"; };
-		B2B02E4D1EA9A9F000A6880A /* QSCatalogInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogInteractor.swift; sourceTree = "<group>"; };
+		B2B02E4D1EA9A9F000A6880A /* ZSThemeTopicViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSThemeTopicViewModel.swift; sourceTree = "<group>"; };
 		B2B02E4E1EA9A9F000A6880A /* QSCatalogPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogPresenter.swift; sourceTree = "<group>"; };
 		B2B02E4F1EA9A9F000A6880A /* QSCatalogProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogProtocols.swift; sourceTree = "<group>"; };
 		B2B02E501EA9A9F000A6880A /* QSCatalogRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogRouter.swift; sourceTree = "<group>"; };
@@ -1254,6 +1260,42 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		3DECC38122451AD800EEB146 /* DeprecatedFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B2B4BA501E7EA4A8000CC201 /* FilterThemeCell.swift */,
+				B2583CAF1EA78280004178F3 /* ThemeTopicViewController.swift */,
+				B22AC45E1E9F6799008625E6 /* ZSUnusedFile5.swift */,
+				B2B4BA331E7EA4A8000CC201 /* CategoryCell.swift */,
+				B2B4BA341E7EA4A8000CC201 /* CategoryCell.xib */,
+				B27D7E831F4BDF8D00866341 /* QSCategoryDetailCell.swift */,
+				B27D7E951F4D1F8600866341 /* QSSegmentViewController.swift */,
+				B27D7E971F4D320400866341 /* QSSegmentInteractor.swift */,
+				B27D7E981F4D320400866341 /* QSSegmentPresenter.swift */,
+				B27D7E991F4D320400866341 /* QSSegmentProtocols.swift */,
+				B27D7E9A1F4D320400866341 /* QSSegmentRouter.swift */,
+				B2B02E411EA8920F00A6880A /* QSCategoryDetailRouter.swift */,
+				B2B02E401EA8920F00A6880A /* QSCategoryDetailProtocols.swift */,
+				B2B02E3F1EA8920F00A6880A /* QSCategoryDetailPresenter.swift */,
+				B2B02E3E1EA8920F00A6880A /* QSCategoryDetailInteractor.swift */,
+				B2B02E3C1EA891E700A6880A /* CategoryDetailViewController.swift */,
+				B2B02E511EA9A9F000A6880A /* QSCatalogViewController.swift */,
+				B2B02E501EA9A9F000A6880A /* QSCatalogRouter.swift */,
+				B2B02E4F1EA9A9F000A6880A /* QSCatalogProtocols.swift */,
+				B2B02E4E1EA9A9F000A6880A /* QSCatalogPresenter.swift */,
+			);
+			path = DeprecatedFiles;
+			sourceTree = "<group>";
+		};
+		3DECC38222452A7500EEB146 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B2B02E4D1EA9A9F000A6880A /* ZSThemeTopicViewModel.swift */,
+				3DECC38322452F9E00EEB146 /* ZSFilterThemeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		3DF2D27320EB375A004E73B6 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1508,7 +1550,7 @@
 		B2583CAC1EA78280004178F3 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				B2583CAD1EA78280004178F3 /* FilterThemeViewController.swift */,
+				B2583CAD1EA78280004178F3 /* ZSFilterThemeViewController.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -1516,7 +1558,6 @@
 		B2583CAE1EA78280004178F3 /* ThemeTopic */ = {
 			isa = PBXGroup;
 			children = (
-				B2583CAF1EA78280004178F3 /* ThemeTopicViewController.swift */,
 				B2583CB51EA782C2004178F3 /* QSThemeTopicInteractor.swift */,
 				B2583CB61EA782C2004178F3 /* QSThemeTopicPresenter.swift */,
 				B2583CB71EA782C2004178F3 /* QSThemeTopicProtocols.swift */,
@@ -1624,16 +1665,6 @@
 		B2B02E3B1EA891E700A6880A /* CategoryDetail */ = {
 			isa = PBXGroup;
 			children = (
-				B27D7E971F4D320400866341 /* QSSegmentInteractor.swift */,
-				B27D7E981F4D320400866341 /* QSSegmentPresenter.swift */,
-				B27D7E991F4D320400866341 /* QSSegmentProtocols.swift */,
-				B27D7E9A1F4D320400866341 /* QSSegmentRouter.swift */,
-				B27D7E951F4D1F8600866341 /* QSSegmentViewController.swift */,
-				B2B02E3C1EA891E700A6880A /* CategoryDetailViewController.swift */,
-				B2B02E3E1EA8920F00A6880A /* QSCategoryDetailInteractor.swift */,
-				B2B02E3F1EA8920F00A6880A /* QSCategoryDetailPresenter.swift */,
-				B2B02E401EA8920F00A6880A /* QSCategoryDetailProtocols.swift */,
-				B2B02E411EA8920F00A6880A /* QSCategoryDetailRouter.swift */,
 				B2B02E421EA8920F00A6880A /* ZSCategoryDetailViewController.swift */,
 				B22AC44E1E9F1C7D008625E6 /* ZSCatelogItemViewController.swift */,
 				B22AC44C1E9F1C62008625E6 /* ZSBaseSegmentItemViewController.swift */,
@@ -1645,11 +1676,6 @@
 			isa = PBXGroup;
 			children = (
 				B2B02E4B1EA9A9CA00A6880A /* ZSCatelogViewController.swift */,
-				B2B02E4D1EA9A9F000A6880A /* QSCatalogInteractor.swift */,
-				B2B02E4E1EA9A9F000A6880A /* QSCatalogPresenter.swift */,
-				B2B02E4F1EA9A9F000A6880A /* QSCatalogProtocols.swift */,
-				B2B02E501EA9A9F000A6880A /* QSCatalogRouter.swift */,
-				B2B02E511EA9A9F000A6880A /* QSCatalogViewController.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1657,6 +1683,7 @@
 		B2B4B9F61E7EA4A8000CC201 /* zhuishushenqi */ = {
 			isa = PBXGroup;
 			children = (
+				3DECC38122451AD800EEB146 /* DeprecatedFiles */,
 				B2EE7CF61F3BFC7B00BE997C /* Localizable.strings */,
 				B255707B1F3A075600C35A34 /* App */,
 				B2B4BD781E7EE284000CC201 /* Client */,
@@ -1823,9 +1850,6 @@
 		B2B4BA321E7EA4A8000CC201 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B2B4BA331E7EA4A8000CC201 /* CategoryCell.swift */,
-				B2B4BA341E7EA4A8000CC201 /* CategoryCell.xib */,
-				B27D7E831F4BDF8D00866341 /* QSCategoryDetailCell.swift */,
 				3DB24B5C2240F5F100DCE8B2 /* ZSCatelogCell.swift */,
 			);
 			path = Views;
@@ -1847,7 +1871,6 @@
 			isa = PBXGroup;
 			children = (
 				B22AC4541E9F1E8F008625E6 /* QSRankViewController.swift */,
-				B22AC45E1E9F6799008625E6 /* ZSUnusedFile5.swift */,
 				B22AC4601E9F695D008625E6 /* ZSRankViewController.swift */,
 			);
 			path = Controllers;
@@ -1928,6 +1951,7 @@
 		B2B4BA461E7EA4A8000CC201 /* Topic */ = {
 			isa = PBXGroup;
 			children = (
+				3DECC38222452A7500EEB146 /* ViewModel */,
 				B2B4BA471E7EA4A8000CC201 /* Controllers */,
 				B2B4BA4B1E7EA4A8000CC201 /* Models */,
 				B2B4BA4F1E7EA4A8000CC201 /* Views */,
@@ -1951,6 +1975,7 @@
 				B2B4BA4C1E7EA4A8000CC201 /* ThemeTopicModel.swift */,
 				B2B4BA4D1E7EA4A8000CC201 /* TopicDetailHeader.swift */,
 				B2B4BA4E1E7EA4A8000CC201 /* TopicDetailModel.swift */,
+				3DECC385224533EB00EEB146 /* ZSFilterThemeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1958,7 +1983,7 @@
 		B2B4BA4F1E7EA4A8000CC201 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B2B4BA501E7EA4A8000CC201 /* FilterThemeCell.swift */,
+				3DECC3872245379300EEB146 /* ZSFilterThemeCell.swift */,
 				B2B4BA511E7EA4A8000CC201 /* ThemeTopicCell.swift */,
 				B2B4BA521E7EA4A8000CC201 /* ThemeTopicCell.xib */,
 				B2B4BA531E7EA4A8000CC201 /* TopicDetailCell.swift */,
@@ -2770,6 +2795,7 @@
 				3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */,
 				B2B02E2B1EA8505200A6880A /* QSTopicDetailInteractor.swift in Sources */,
 				B255707F1F3A075600C35A34 /* Config.swift in Sources */,
+				3DECC38422452F9E00EEB146 /* ZSFilterThemeViewModel.swift in Sources */,
 				B2A7CD87218016060067D25B /* ZSLoginVerifyView.swift in Sources */,
 				B2C0DF7B20D4CB6D0057DC84 /* QSBookCommentInteractor.swift in Sources */,
 				B2A7CDED218453900067D25B /* ZSReviewDetailView.swift in Sources */,
@@ -2839,6 +2865,7 @@
 				B22AC4611E9F695D008625E6 /* ZSRankViewController.swift in Sources */,
 				B2C0DF7720D4CB6D0057DC84 /* QSBookCommentViewController.swift in Sources */,
 				B2C0DF5D20D4CB350057DC84 /* QSBookDetailContentView.swift in Sources */,
+				3DECC386224533EB00EEB146 /* ZSFilterThemeModel.swift in Sources */,
 				B252D4E0211033F20091858E /* ZSShelfWebService.swift in Sources */,
 				B22AC45D1E9F678D008625E6 /* ZSRankDetailViewModel.swift in Sources */,
 				B278AA951F395FA4000A0D55 /* QSSegmentDropView.swift in Sources */,
@@ -2854,7 +2881,7 @@
 				3DDB6CB02130F4BC00E8698D /* CoreTextLinkData.m in Sources */,
 				B29CFB79217B21C60006F294 /* ZSMyViewModel.swift in Sources */,
 				B2B02E461EA8920F00A6880A /* QSCategoryDetailProtocols.swift in Sources */,
-				B2B02E531EA9A9F000A6880A /* QSCatalogInteractor.swift in Sources */,
+				B2B02E531EA9A9F000A6880A /* ZSThemeTopicViewModel.swift in Sources */,
 				B2C0DF3620D4CB350057DC84 /* ResourceModel.swift in Sources */,
 				3DDEEAFD214A8EE1003D12DB /* ZSFontViewModel.swift in Sources */,
 				B2B02E2E1EA8505200A6880A /* QSTopicDetailRouter.swift in Sources */,
@@ -2943,6 +2970,7 @@
 				3D9325E620B2C44A0049CDBF /* ZSBaseTableViewManger.swift in Sources */,
 				3DDB6CA82130F4BC00E8698D /* CoreTextUtils.m in Sources */,
 				3DAC239221E1DE7400E77891 /* ZSWebItem.swift in Sources */,
+				3DECC3882245379400EEB146 /* ZSFilterThemeCell.swift in Sources */,
 				B2C0DF1C20D4CB350057DC84 /* QSTextRouter.swift in Sources */,
 				B25EB93521949C0F000D3657 /* NSData+Base64.m in Sources */,
 				B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */,
@@ -3087,7 +3115,7 @@
 				B22AC44F1E9F1C7D008625E6 /* ZSCatelogItemViewController.swift in Sources */,
 				B2B4BBE51E7EA4AB000CC201 /* DarkStarView.swift in Sources */,
 				B2C0DF4120D4CB350057DC84 /* ToolBar.swift in Sources */,
-				B2583CB21EA78280004178F3 /* FilterThemeViewController.swift in Sources */,
+				B2583CB21EA78280004178F3 /* ZSFilterThemeViewController.swift in Sources */,
 				B27D7E841F4BDF8D00866341 /* QSCategoryDetailCell.swift in Sources */,
 				B2C0DF6620D4CB350057DC84 /* QSCategoryPresenter.swift in Sources */,
 				B2A02F7E20F33A1A0034DC64 /* ZSHorizonalMoveCell.swift in Sources */,

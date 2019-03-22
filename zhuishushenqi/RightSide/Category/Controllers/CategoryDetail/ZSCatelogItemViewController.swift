@@ -26,7 +26,8 @@ class ZSCatelogItemViewController: ZSBaseSegmentItemViewController {
     }
     
     override func request() {
-        
+        super.request()
+        self.tableView.showLoadingPage()
         viewModel.request { (_) in
             self.tableView.reloadData()
         }
