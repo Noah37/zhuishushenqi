@@ -62,7 +62,7 @@ class QSTopicDetailViewController: BaseViewController ,UITableViewDataSource,UIT
         let cell:TopicDetailCell? = tableView.qs_dequeueReusableCell(TopicDetailCell.self)
         cell?.backgroundColor = UIColor.white
         cell?.selectionStyle = .none
-        cell!.model = booksModel.count > indexPath.section ? booksModel[indexPath.section - 1]:nil
+        cell!.model = booksModel.count > (indexPath.section - 1) ? booksModel[indexPath.section - 1]:nil
         return cell!
     }
     

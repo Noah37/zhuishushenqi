@@ -77,7 +77,7 @@ class QSThemeTopicViewController: BaseViewController ,SegMenuDelegate,UITableVie
         titleView.setImage(UIImage(named: "c_arrow_down"), for: .normal)
         titleView.setTitle(title, for: .normal)
         let size = titleView.titleLabel?.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 21)) ?? CGSize.zero
-        let titleSize = titleView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 21)) 
+        let titleSize = titleView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 21))
         titleView.frame = CGRect(x: 0, y: 0, width: titleSize.width, height: 21)
         titleView.titleEdgeInsets = UIEdgeInsets(top: 0, left: -(titleSize.width - size.width), bottom: 0, right: 0)
         titleView.imageEdgeInsets = UIEdgeInsets(top: 0, left: size.width + 6, bottom: 0, right: 0)
