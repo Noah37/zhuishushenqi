@@ -119,9 +119,10 @@ class ZSCacheHelper: NSObject {
             realPath = self.cachePath
         }
         let filePath = NSHomeDirectory().appending(path).appending(realPath)
-        let exist = fileManager.fileExists(atPath: filePath)
+        let fullPath = filePath.appending("\(key.md5())")
+        let exist = fileManager.fileExists(atPath: fullPath)
         if exist {
-            try? fileManager.removeItem(atPath: filePath)
+            try? fileManager.removeItem(atPath: fullPath)
             return true
         }
         return false

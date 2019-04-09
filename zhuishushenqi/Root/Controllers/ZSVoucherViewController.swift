@@ -12,12 +12,13 @@ import RxCocoa
 
 typealias ZSVoucherHandler = (_ indexPath:IndexPath)->Void
 
-class ZSVoucherParentViewController: BaseViewController {
+class ZSVoucherParentViewController: BaseViewController, ZSSegmentProtocol {
     
     var segmentViewController = ZSSegmentViewController()
     
     var segmentView:UISegmentedControl!
     var headerView:UIView!
+    private var vcs:[UIViewController] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,11 +53,16 @@ class ZSVoucherParentViewController: BaseViewController {
             viewControllers.append(viewController)
             segmentView.insertSegment(withTitle: titles[i], at: i, animated: false)
         }
+        vcs = viewControllers
         segmentView.selectedSegmentIndex = 0
         segmentView.addTarget(self, action: #selector(segmentTap), for: .valueChanged)
         addChild(segmentViewController)
         view.addSubview(segmentViewController.view)
-        segmentViewController.viewControllers = viewControllers
+        
+    }
+    
+    func segmentViewControllers() -> [UIViewController] {
+        return vcs
     }
     
     @objc func segmentTap() {

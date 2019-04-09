@@ -156,9 +156,13 @@ class ZSSwipeView: UIView {
     
     @objc
     private func tapGestureAction(tap:UITapGestureRecognizer) {
+        reset()
+        animate(for: container, duration: 1)
+    }
+    
+    func reset() {
         self.curOffset = 0
         translation(direction: .right, offset: self.curOffset, animation: true)
-        animate(for: container, duration: 1)
     }
     
     func animate(for content:UIView, duration:Double) {
@@ -364,8 +368,9 @@ class SwipableCell: UITableViewCell {
     }
     
     func configureCell(model:BookDetail){
-        title!.text = model.title
+        self.swipeView.reset()
         
+        title!.text = model.title
         let created = model.updateInfo?.updated ?? "2014-02-23T16:48:18.179Z"
         self.detailTitle?.qs_setCreateTime(createTime: created, append: "更新：\(model.updateInfo?.lastChapter ?? "")")
         let urlString = "\(model.cover)"

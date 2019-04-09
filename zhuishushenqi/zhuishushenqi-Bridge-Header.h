@@ -35,5 +35,7 @@
 #import "WeiboSDK.h"
 #import "FBEncryptorAESUtils.h"
 #import "ZSDBManager.h"
+#import "XMReqMgr.h"
+#import "XMSDKPlayer.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */

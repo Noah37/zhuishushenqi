@@ -312,7 +312,7 @@ public class ZSBookManager:NSObject {
     
     /// 获取本地保存的所有的书籍信息
     fileprivate func booksInfo() -> [String:BookDetail] {
-        if ZSBookManager._books.count > 0 {
+        if ZSBookManager._books.count > 0 && ZSBookManager._books.count == self.ids.count {
             
             return ZSBookManager._books
         }

@@ -75,6 +75,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             QSLog("显示完成:\(event)")
         }.disposed(by: disposeBag)
         
+        let APP_KEY = "e31646fa4555ea3472d4114921ee192e"
+        let APP_SECRET = "b961a55b60fbd7129e49a986e44352fb"
+        XMSDKPlayer.shared()?.setAutoNexTrack(true)
+        XMReqMgr.sharedInstance()?.registerXMReqInfo(withKey: APP_KEY, appSecret: APP_SECRET)
         
         IFlySetting.setLogFile(LOG_LEVEL.LVL_ALL)
         IFlySetting.showLogcat(true)

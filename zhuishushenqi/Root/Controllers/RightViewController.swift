@@ -125,7 +125,9 @@ class RightViewController: BaseViewController, UITableViewDataSource, UITableVie
             webVC.title = "漫画专区"
             SideVC.navigationController?.pushViewController(webVC, animated: true)
         } else if indexPath.row == 9 {
-            
+            let voiceVC = ZSVoiceBookCategoryViewController()
+            voiceVC.title = "听书专区"
+            SideVC.navigationController?.pushViewController(voiceVC, animated: true)
         } else if indexPath.row == 10 {
 //            https://api.zhuishushenqi.com/book/mystery-box
             let api = ZSAPI.mysteryBook()
