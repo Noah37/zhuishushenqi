@@ -10,10 +10,14 @@ import UIKit
 
 class ZSVoicePlayListViewController: UIViewController {
 
+    var albums:[XMAlbum] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        view.backgroundColor = UIColor.cyan
+
     }
 
 }

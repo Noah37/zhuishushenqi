@@ -65,7 +65,7 @@ struct ZSVoiceAlbum: HandyJSON {
 
 
 struct ZSVoiceAlbums:HandyJSON {
-    var albums:ZSVoiceAlbum = ZSVoiceAlbum()
+    var albums:[ZSVoiceAlbum] = []
     var category_id:Int = 0
     var total_page:Int = 0
     var total_count:Int = 0

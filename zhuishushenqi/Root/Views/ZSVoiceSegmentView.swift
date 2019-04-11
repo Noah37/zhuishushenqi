@@ -41,6 +41,8 @@ class ZSVoiceSegmentView: UIView {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.qs_registerCellClass(ZSVoiceSegmentCell.self)
         addSubview(collectionView)
     }

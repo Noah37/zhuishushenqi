@@ -10,14 +10,10 @@ import UIKit
 
 class ZSVoicePlayViewController: BaseViewController, ZSSegmentProtocol {
     
+    
+    var album:XMAlbum = XMAlbum()
+    var albums:[XMAlbum] = []
     fileprivate var segmentViewController:ZSSegmentViewController = ZSSegmentViewController()
-
-    fileprivate var titleLabel:UILabel!
-    fileprivate var descLabel:UILabel!
-    fileprivate var imageBackgroundView:UIView!
-    fileprivate var imageView:UIImageView!
-    fileprivate var sourceLabel:UILabel!
-    fileprivate var playerView:ZSVoicePlayerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +31,10 @@ class ZSVoicePlayViewController: BaseViewController, ZSSegmentProtocol {
     
     private func layoutSubview() {
         segmentViewController.view.snp.remakeConstraints { (make) in
-            make.left.right.top.bottom.equalToSuperview()
+            let statusHeight = UIApplication.shared.statusBarFrame.height
+            let navHeight = self.navigationController?.navigationBar.height ?? 0
+            make.top.equalToSuperview().offset(statusHeight + navHeight)
+            make.left.right.bottom.equalToSuperview()
         }
     }
 
@@ -77,7 +76,9 @@ class ZSVoicePlayViewController: BaseViewController, ZSSegmentProtocol {
     //MARK: - ZSSegmentProtocol
     func segmentViewControllers() -> [UIViewController] {
         let playerVC = ZSVoicePlayerViewController()
+        playerVC.album = self.album
         let playListVC = ZSVoicePlayListViewController()
+        playListVC.albums = self.albums
         return [playerVC, playListVC]
     }
     

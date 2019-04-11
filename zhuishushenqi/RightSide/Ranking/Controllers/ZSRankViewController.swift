@@ -167,3 +167,13 @@ public class QSResource:Resource{
     }
 }
 
+public class ZSPlaceHolder:Placeholder {
+    public func add(to imageView: ImageView) {
+        
+    }
+    
+    public func remove(from imageView: ImageView) {
+        
+    }
+}
+

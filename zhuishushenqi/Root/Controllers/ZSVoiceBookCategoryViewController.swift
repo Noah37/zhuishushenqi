@@ -80,8 +80,10 @@ class ZSVoiceBookCategoryViewController: BaseViewController ,XMReqDelegate, UITa
     
     var segmentView:ZSVoiceSegmentView!
     
-    var albums:[ZSVoiceAlbums] = [ZSVoiceAlbums(),ZSVoiceAlbums(),ZSVoiceAlbums()]
+//    var albums:[ZSVoiceAlbums] = [ZSVoiceAlbums(),ZSVoiceAlbums(),ZSVoiceAlbums()]
+    var albums:[[XMAlbum]] = [[], [], []]
     
+    private let albumsCount = 3
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -94,17 +96,39 @@ class ZSVoiceBookCategoryViewController: BaseViewController ,XMReqDelegate, UITa
 //            @"tag_name":@"武侠",
 //            @"type":@0
 //        };
-        let params = [ "category_id":3,
-                        "count":20,
-                        "page":1,
-                        "tag_name":"官场商战",
-                        "type":0,
-                        "calc_dimension":2] as [String : Any]
-        XMReqMgr.sharedInstance()?.requestXMData(XMReqType.albumsList, params: params, withCompletionHander: { (result, error) in
-            if let albums = ZSVoiceAlbums.deserialize(from: result as! [String:Any]) {
-                
+        for index in 0..<albumsCount {
+            ZSVoiceSectionCenter.shared(section: index)
+            let calcDimension = ZSVoiceSectionCenter.categoryType
+            let tags = dataSource["nav"]?[self.segmentView.selectedIndex]["tags"] as! [String]
+            var tagName = ""
+            if tags.count > index {
+                tagName = tags[index]
+            } else {
+                let tagNum = arc4random() % UInt32(tags.count)
+                tagName = tags[Int(tagNum)]
             }
-        })
+            
+            let params = [ "category_id":3,
+                           "count":20,
+                           "page":1,
+                           "tag_name":tagName,
+                           "type":0,
+                           "calc_dimension":calcDimension] as [String : Any]
+            XMReqMgr.sharedInstance()?.requestXMData(XMReqType.albumsList, params: params, withCompletionHander: { (result, error) in
+                if let dict = result as? [String:Any] {
+                    if let albumArr = dict["albums"] as? [[AnyHashable : Any]] {
+                        var albumsModel:[XMAlbum] = []
+                        for item in albumArr {
+                            if let albumModel = XMAlbum(dictionary: item) {
+                                albumsModel.append(albumModel)
+                            }
+                        }
+                        self.albums[index] = albumsModel
+                        self.tableView.reloadData()
+                    }
+                }
+            })
+        }
     }
     
     func request(category_id:Int, tagName:String, handler:@escaping ZSBaseCallback<ZSVoiceAlbums>) {
@@ -145,6 +169,8 @@ class ZSVoiceBookCategoryViewController: BaseViewController ,XMReqDelegate, UITa
     }
     
     private func setupSubviews() {
+        title = "有声书分类"
+        
         segmentView = ZSVoiceSegmentView(frame: CGRect.zero)
         segmentView.delegate = self
         view.addSubview(segmentView)
@@ -152,37 +178,80 @@ class ZSVoiceBookCategoryViewController: BaseViewController ,XMReqDelegate, UITa
         tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.qs_registerCellClass(UITableViewCell.self)
+        tableView.qs_registerCellClass(ZSVoiceCategoryCell.self)
+        tableView.qs_registerHeaderFooterClass(ZSVoiceCategoryHeaderView.self)
         view.addSubview(tableView)
     }
     
     //MARK: - UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return albumsCount
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        let rows = [3,3,5]
+        if section < rows.count {
+            return rows[section]
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.qs_dequeueReusableCell(UITableViewCell.self)
-        ZSVoiceSectionCenter.shared(section: indexPath.section)
-        cell?.textLabel?.text = ZSVoiceSectionCenter.sectionName
-        cell?.imageView?.image = UIImage(named: ZSVoiceSectionCenter.imageName)
-        if indexPath.row == 0 {
-            let album = albums[indexPath.section]
-//            request(category_id: ZSVoiceSectionCenter.categoryType, tagName: ZSVoiceSectionCenter., handler: <#T##ZSBaseCallback<ZSVoiceAlbums>##ZSBaseCallback<ZSVoiceAlbums>##(ZSVoiceAlbums?) -> Void#>)
+        let cell = tableView.qs_dequeueReusableCell(ZSVoiceCategoryCell.self)
+        cell?.selectionStyle = .none
+        if let albums = albums[safe: indexPath.section] {
+            if let voiceAlbum:XMAlbum = albums[safe: indexPath.row] {
+                if let url = URL(string: voiceAlbum.coverUrlLarge) {
+                    cell?.imageView?.kf.setImage(with: QSResource(url: url), placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+                }
+                cell?.textLabel?.text = voiceAlbum.albumTitle;
+                cell?.detailTextLabel?.text = voiceAlbum.albumIntro
+                
+                let attr = NSMutableAttributedString(string: "\(voiceAlbum.playCount)人气")
+                attr.addAttribute(.foregroundColor, value: UIColor.red, range: NSMakeRange(0, attr.length - 2))
+                
+                cell?.popularityLabel.attributedText = attr
+                
+                let totalAttr = NSMutableAttributedString(string: "共\(voiceAlbum.includeTrackCount)集 内容来自喜马拉雅FM")
+                totalAttr.addAttribute(.foregroundColor, value: UIColor.red, range: NSMakeRange(1, totalAttr.length - 13))
+                cell?.totalLabel.attributedText = totalAttr
+                
+            }
         }
         return cell!
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
+        return 44
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
+        return 6
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.qs_dequeueReusableHeaderFooterView(ZSVoiceCategoryHeaderView.self)
+        headerView?.contentView.backgroundColor = UIColor.white
+        ZSVoiceSectionCenter.shared(section: section)
+        headerView?.titleLabel.text = ZSVoiceSectionCenter.sectionName
+        headerView?.imageView.image = UIImage(named: ZSVoiceSectionCenter.imageName)
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let palyVC = ZSVoicePlayViewController()
+        if let albumsModel = albums[safe: indexPath.section] {
+            if let voiceAlbum:XMAlbum = albumsModel[safe: indexPath.row] {
+                palyVC.title = voiceAlbum.albumTitle
+                palyVC.album = voiceAlbum
+            }
+            palyVC.albums = albumsModel
+        }
+        self.navigationController?.pushViewController(palyVC, animated: true)
     }
 
     //MARK: - XMReqDelegate
@@ -206,6 +275,6 @@ class ZSVoiceBookCategoryViewController: BaseViewController ,XMReqDelegate, UITa
     }
 
     func didSelect(segment: ZSVoiceSegmentView, at index: Int) {
-//        request(category_id: <#T##Int#>, tagName: <#T##String#>, handler: <#T##ZSBaseCallback<ZSVoiceAlbums>##ZSBaseCallback<ZSVoiceAlbums>##(ZSVoiceAlbums?) -> Void#>)
+
     }
 }

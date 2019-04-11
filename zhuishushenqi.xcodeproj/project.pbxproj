@@ -329,9 +329,9 @@
 		B2B02E481EA8920F00A6880A /* ZSCategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E421EA8920F00A6880A /* ZSCategoryDetailViewController.swift */; };
 		B2B02E4C1EA9A9CA00A6880A /* ZSCatelogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4B1EA9A9CA00A6880A /* ZSCatelogViewController.swift */; };
 		B2B02E531EA9A9F000A6880A /* ZSThemeTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4D1EA9A9F000A6880A /* ZSThemeTopicViewModel.swift */; };
-		B2B02E541EA9A9F000A6880A /* QSCatalogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4E1EA9A9F000A6880A /* QSCatalogPresenter.swift */; };
-		B2B02E551EA9A9F000A6880A /* QSCatalogProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4F1EA9A9F000A6880A /* QSCatalogProtocols.swift */; };
-		B2B02E561EA9A9F000A6880A /* QSCatalogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E501EA9A9F000A6880A /* QSCatalogRouter.swift */; };
+		B2B02E541EA9A9F000A6880A /* ZSVoiceCategoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4E1EA9A9F000A6880A /* ZSVoiceCategoryHeaderView.swift */; };
+		B2B02E551EA9A9F000A6880A /* ZSVoiceCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E4F1EA9A9F000A6880A /* ZSVoiceCategoryCell.swift */; };
+		B2B02E561EA9A9F000A6880A /* ZSVoiceBookSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E501EA9A9F000A6880A /* ZSVoiceBookSegmentViewController.swift */; };
 		B2B02E571EA9A9F000A6880A /* QSCatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E511EA9A9F000A6880A /* QSCatalogViewController.swift */; };
 		B2B4BBDF1E7EA4AB000CC201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2B4B9F81E7EA4A8000CC201 /* Assets.xcassets */; };
 		B2B4BBE01E7EA4AB000CC201 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4B9FB1E7EA4A8000CC201 /* BaseViewController.swift */; };
@@ -947,9 +947,9 @@
 		B2B02E421EA8920F00A6880A /* ZSCategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSCategoryDetailViewController.swift; sourceTree = "<group>"; };
 		B2B02E4B1EA9A9CA00A6880A /* ZSCatelogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSCatelogViewController.swift; sourceTree = "<group>"; };
 		B2B02E4D1EA9A9F000A6880A /* ZSThemeTopicViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSThemeTopicViewModel.swift; sourceTree = "<group>"; };
-		B2B02E4E1EA9A9F000A6880A /* QSCatalogPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogPresenter.swift; sourceTree = "<group>"; };
-		B2B02E4F1EA9A9F000A6880A /* QSCatalogProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogProtocols.swift; sourceTree = "<group>"; };
-		B2B02E501EA9A9F000A6880A /* QSCatalogRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogRouter.swift; sourceTree = "<group>"; };
+		B2B02E4E1EA9A9F000A6880A /* ZSVoiceCategoryHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSVoiceCategoryHeaderView.swift; sourceTree = "<group>"; };
+		B2B02E4F1EA9A9F000A6880A /* ZSVoiceCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSVoiceCategoryCell.swift; sourceTree = "<group>"; };
+		B2B02E501EA9A9F000A6880A /* ZSVoiceBookSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSVoiceBookSegmentViewController.swift; sourceTree = "<group>"; };
 		B2B02E511EA9A9F000A6880A /* QSCatalogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSCatalogViewController.swift; sourceTree = "<group>"; };
 		B2B4B9F81E7EA4A8000CC201 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2B4B9FB1E7EA4A8000CC201 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -1370,9 +1370,6 @@
 				B2B02E3E1EA8920F00A6880A /* QSCategoryDetailInteractor.swift */,
 				B2B02E3C1EA891E700A6880A /* CategoryDetailViewController.swift */,
 				B2B02E511EA9A9F000A6880A /* QSCatalogViewController.swift */,
-				B2B02E501EA9A9F000A6880A /* QSCatalogRouter.swift */,
-				B2B02E4F1EA9A9F000A6880A /* QSCatalogProtocols.swift */,
-				B2B02E4E1EA9A9F000A6880A /* QSCatalogPresenter.swift */,
 			);
 			path = DeprecatedFiles;
 			sourceTree = "<group>";
@@ -2268,6 +2265,7 @@
 				B2ACA060212444870032305E /* ZSSettingViewController.swift */,
 				B2ACA06D212944AC0032305E /* ZSWebViewController.swift */,
 				3DECC3E622464F9300EEB146 /* ZSVoiceBookCategoryViewController.swift */,
+				B2B02E501EA9A9F000A6880A /* ZSVoiceBookSegmentViewController.swift */,
 				3DECC38922460B6100EEB146 /* ZSVoicePlayViewController.swift */,
 				3DECC38D224611BC00EEB146 /* ZSVoicePlayerViewController.swift */,
 				3DECC38F224611EB00EEB146 /* ZSVoicePlayListViewController.swift */,
@@ -2304,6 +2302,8 @@
 				3DECC39122461E1900EEB146 /* ZSVoicePlayerView.swift */,
 				3DECC39322461E4900EEB146 /* ZSVoicePlayProgressView.swift */,
 				3DECC3E822467F9A00EEB146 /* ZSVoiceSegmentView.swift */,
+				B2B02E4E1EA9A9F000A6880A /* ZSVoiceCategoryHeaderView.swift */,
+				B2B02E4F1EA9A9F000A6880A /* ZSVoiceCategoryCell.swift */,
 				B278AA901F395FA4000A0D55 /* QSHelpViewCell.swift */,
 				B278AA911F395FA4000A0D55 /* QSHelpViewCell.xib */,
 				B2ACA069212915240032305E /* ZSReviewsCell.swift */,
@@ -3048,7 +3048,7 @@
 				B2C0DF7B20D4CB6D0057DC84 /* QSBookCommentInteractor.swift in Sources */,
 				B2A7CDED218453900067D25B /* ZSReviewDetailView.swift in Sources */,
 				B2C0DF2320D4CB350057DC84 /* ZSReaderWebService.swift in Sources */,
-				B2B02E541EA9A9F000A6880A /* QSCatalogPresenter.swift in Sources */,
+				B2B02E541EA9A9F000A6880A /* ZSVoiceCategoryHeaderView.swift in Sources */,
 				B2C0DF2E20D4CB350057DC84 /* User.swift in Sources */,
 				B2C0DF2120D4CB350057DC84 /* ZSReaderViewModel.swift in Sources */,
 				B2B02E4C1EA9A9CA00A6880A /* ZSCatelogViewController.swift in Sources */,
@@ -3298,7 +3298,7 @@
 				B2B4BD091E7EA4AC000CC201 /* ViewController.swift in Sources */,
 				B2A7CD89218017380067D25B /* ZSMobileLogin.swift in Sources */,
 				B263E2E9211EBFEC001819FB /* SQLite+Extension.swift in Sources */,
-				B2B02E561EA9A9F000A6880A /* QSCatalogRouter.swift in Sources */,
+				B2B02E561EA9A9F000A6880A /* ZSVoiceBookSegmentViewController.swift in Sources */,
 				B2C0DF6220D4CB350057DC84 /* QSBookDetailPresenter.swift in Sources */,
 				3D31FFAF2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift in Sources */,
 				B2583CBA1EA782C2004178F3 /* QSThemeTopicInteractor.swift in Sources */,
@@ -3330,7 +3330,7 @@
 				B27D7E9E1F4D320400866341 /* QSSegmentRouter.swift in Sources */,
 				B2B4BC281E7EA4AB000CC201 /* RightTableViewCell.swift in Sources */,
 				3D9D857C20CA439D003FEDFE /* ZSShelfMessage.swift in Sources */,
-				B2B02E551EA9A9F000A6880A /* QSCatalogProtocols.swift in Sources */,
+				B2B02E551EA9A9F000A6880A /* ZSVoiceCategoryCell.swift in Sources */,
 				B2B4BBF61E7EA4AB000CC201 /* NSDate+Extension.m in Sources */,
 				B2A7CD81217C5E5E0067D25B /* ZSUserBookshelf.swift in Sources */,
 				3DECC38C22460DD000EEB146 /* ZSSegmenuViewController.swift in Sources */,
