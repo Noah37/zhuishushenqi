@@ -39,6 +39,7 @@
 		3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */; };
 		3D5671FC2174CADD0049B2FF /* ZSBookCTLayoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5671FB2174CADD0049B2FF /* ZSBookCTLayoutModel.swift */; };
 		3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */; };
+		3D62EE5922604768002FFA39 /* ZSVoicePlayerCatelogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D62EE5822604768002FFA39 /* ZSVoicePlayerCatelogView.swift */; };
 		3D65504B219577DC0064BA0C /* ZSMultiplePayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D65504A219577DB0064BA0C /* ZSMultiplePayView.swift */; };
 		3D65504D21957B410064BA0C /* ZSChapterSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D65504C21957B410064BA0C /* ZSChapterSelectView.swift */; };
 		3D850DFE21E61C9800F23DDB /* ZSVoucher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850DFD21E61C9800F23DDB /* ZSVoucher.swift */; };
@@ -548,6 +549,7 @@
 		3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumViewController.swift; sourceTree = "<group>"; };
 		3D5671FB2174CADD0049B2FF /* ZSBookCTLayoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCTLayoutModel.swift; sourceTree = "<group>"; };
 		3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSProtocol.swift; sourceTree = "<group>"; };
+		3D62EE5822604768002FFA39 /* ZSVoicePlayerCatelogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVoicePlayerCatelogView.swift; sourceTree = "<group>"; };
 		3D65504A219577DB0064BA0C /* ZSMultiplePayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSMultiplePayView.swift; sourceTree = "<group>"; };
 		3D65504C21957B410064BA0C /* ZSChapterSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSChapterSelectView.swift; sourceTree = "<group>"; };
 		3D850DFD21E61C9800F23DDB /* ZSVoucher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVoucher.swift; sourceTree = "<group>"; };
@@ -2304,6 +2306,7 @@
 				3DECC3E822467F9A00EEB146 /* ZSVoiceSegmentView.swift */,
 				B2B02E4E1EA9A9F000A6880A /* ZSVoiceCategoryHeaderView.swift */,
 				B2B02E4F1EA9A9F000A6880A /* ZSVoiceCategoryCell.swift */,
+				3D62EE5822604768002FFA39 /* ZSVoicePlayerCatelogView.swift */,
 				B278AA901F395FA4000A0D55 /* QSHelpViewCell.swift */,
 				B278AA911F395FA4000A0D55 /* QSHelpViewCell.xib */,
 				B2ACA069212915240032305E /* ZSReviewsCell.swift */,
@@ -3378,6 +3381,7 @@
 				B22AC44F1E9F1C7D008625E6 /* ZSCatelogItemViewController.swift in Sources */,
 				B2B4BBE51E7EA4AB000CC201 /* DarkStarView.swift in Sources */,
 				3DECC3E422464C5000EEB146 /* FMResultSet.m in Sources */,
+				3D62EE5922604768002FFA39 /* ZSVoicePlayerCatelogView.swift in Sources */,
 				B2C0DF4120D4CB350057DC84 /* ToolBar.swift in Sources */,
 				B2583CB21EA78280004178F3 /* ZSFilterThemeViewController.swift in Sources */,
 				B27D7E841F4BDF8D00866341 /* QSCategoryDetailCell.swift in Sources */,

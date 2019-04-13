@@ -60,7 +60,7 @@ class ZSVoicePlayProgressView: UIView {
         totalTimeLabel.textColor = UIColor.gray
         totalTimeLabel.font = UIFont.systemFont(ofSize: 13)
         totalTimeLabel.textAlignment = .right
-        totalTimeLabel.text = "12:45"
+        totalTimeLabel.text = "00:00"
         addSubview(totalTimeLabel)
     }
     
