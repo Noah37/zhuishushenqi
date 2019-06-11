@@ -14,6 +14,8 @@ class ZSVoicePlayerViewController: UIViewController {
     
     var tracks:[XMTrack] = []
     
+    var playIndex:Int = 0
+    
     private func requestTrack() {
         if let albumValue = album {
             var count = 20
@@ -58,15 +60,29 @@ class ZSVoicePlayerViewController: UIViewController {
         layoutSubview()
     }
     
-    private func play() {
-        if self.tracks.count > 0 {
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        XMSDKPlayer.shared()?.stopTrackPlay()
+    }
+    
+    private func play(at index:Int) {
+        if index < self.tracks.count {
+            XMSDKPlayer.shared()?.stopTrackPlay()
             XMSDKPlayer.shared()?.trackPlayDelegate = self
             XMSDKPlayer.shared()?.setVolume(0.5)
             XMSDKPlayer.shared()?.setPlayMode(XMSDKPlayMode.track)
             XMSDKPlayer.shared()?.setTrackPlayMode(XMSDKTrackPlayMode.XMTrackPlayerModeList)
-            XMSDKPlayer.shared()?.play(with: self.tracks[0], playlist: self.tracks)
+            XMSDKPlayer.shared()?.play(with: self.tracks[index], playlist: self.tracks)
             XMSDKPlayer.shared()?.setAutoNexTrack(true)
-            refreshView(track: self.tracks[0])
+            refreshView(track: self.tracks[index])
+        } else {
+            view.showTip(tip: "超出了tracks限制，请重试")
+        }
+    }
+    
+    private func play() {
+        if self.tracks.count > 0 {
+            play(at: playIndex)
         }
     }
     
@@ -111,6 +127,22 @@ class ZSVoicePlayerViewController: UIViewController {
     }
     
     private func setupSubview() {
+        backgroundView = UIView(frame: view.bounds)
+        backgroundView.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissCatelogView))
+        backgroundView.addGestureRecognizer(tap)
+        
+        catelogView = ZSVoicePlayerCatelogView(frame: CGRect.zero)
+        catelogView.tracks = tracks
+        catelogView.album = album
+        catelogView.backhandler = {
+            self.dismissCatelogView()
+        }
+        catelogView.cellCickHandler = { indexPath in
+            self.dismissCatelogView()
+            self.playIndex = indexPath.row
+            self.play(at: self.playIndex)
+        }
         
         descLabel = UILabel(frame: CGRect.zero)
         descLabel.textAlignment = .center
@@ -127,20 +159,45 @@ class ZSVoicePlayerViewController: UIViewController {
         playerView = ZSVoicePlayerView(frame: CGRect.zero)
         playerView.playerDelegate = self
         playerView.isUserInteractionEnabled = true
+        
         view.addSubview(descLabel)
         view.addSubview(imageView)
         view.addSubview(sourceLabel)
         view.addSubview(playerView)
-
+    }
+    
+    @objc
+    private func dismissCatelogView() {
+        showCatelogView()
+    }
+    
+    private func showCatelogView() {
+        catelogView.tracks = tracks
+        catelogView.album = album
+        if let _ = backgroundView.superview {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.catelogView.frame = CGRect(x: 0, y: 1.0 * (self.navigationController?.view.bounds.height ?? 0), width: self.navigationController?.view.bounds.width ?? 0, height: 0.8 * (self.navigationController?.view.bounds.height ?? 0))
+            }) { (finished) in
+                self.backgroundView.removeFromSuperview()
+                self.catelogView.removeFromSuperview()
+            }
+        } else {
+            navigationController?.view.addSubview(backgroundView)
+            navigationController?.view.addSubview(catelogView)
+            self.catelogView.frame = CGRect(x: 0, y: 1.0 * (self.navigationController?.view.bounds.height ?? 0), width: self.navigationController?.view.bounds.width ?? 0, height: 0.8 * (self.navigationController?.view.bounds.height ?? 0))
+            UIView.animate(withDuration: 0.25) {
+                self.catelogView.frame = CGRect(x: 0, y: 0.2 * (self.navigationController?.view.bounds.height ?? 0), width: self.navigationController?.view.bounds.width ?? 0, height: 0.8 * (self.navigationController?.view.bounds.height ?? 0))
+            }
+        }
     }
     
 //    fileprivate var titleLabel:UILabel!
     fileprivate var descLabel:UILabel!
-//    fileprivate var imageBackgroundView:UIView!
+    fileprivate var backgroundView:UIView!
     fileprivate var imageView:UIImageView!
     fileprivate var sourceLabel:UILabel!
     fileprivate var playerView:ZSVoicePlayerView!
-
+    fileprivate var catelogView:ZSVoicePlayerCatelogView!
 }
 
 extension ZSVoicePlayerViewController:XMTrackPlayerDelegate {
@@ -159,6 +216,42 @@ extension ZSVoicePlayerViewController:XMTrackPlayerDelegate {
     
     func xmTrackPlayerDidPlaying() {
         playerView.didStartPlay()
+    }
+    
+    func xmTrackPlayerDidStopped() {
+        
+    }
+    
+    func xmTrackPlayerDidEnd() {
+        if playIndex + 1 < self.tracks.count {
+            playIndex += 1
+            catelogView.selectedIndex = playIndex
+            play(at: playIndex)
+        }
+    }
+    
+    func xmTrackPlayerDidPaused() {
+        
+    }
+    
+    func xmTrackPlayerDidPlaylistEnd() {
+        
+    }
+    
+    func xmTrackPlayerDidChange(to track: XMTrack!) {
+        
+    }
+    
+    func xmTrackPlayerDidPausePlayForBadNetwork() {
+        
+    }
+    
+    func xmTrackPlayerDidReplacePlayList(_ list: [Any]!) {
+        
+    }
+    
+    func xmTrackPlayerShouldContinueNextTrack(whenFailed track: XMTrack!) -> Bool {
+        return true
     }
     
     func xmTrackPlayerDidFailed(toPlay track: XMTrack!, withError error: Error!) {
@@ -195,7 +288,7 @@ extension ZSVoicePlayerViewController:ZSVoicePlayerDelegate {
     }
     
     func playerView(playerView: ZSVoicePlayerView, didClickCatelogButton: UIButton) {
-        
+        showCatelogView()
     }
     
     func playerView(playerView: ZSVoicePlayerView, didClickShelfButton: UIButton) {

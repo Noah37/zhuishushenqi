@@ -15,8 +15,6 @@ protocol ZSVoiceSegmentProtocol {
 }
 
 class ZSVoiceSegmentView: UIView {
-
-    var tableView:UITableView!
     
     var collectionView:UICollectionView!
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension String{
+extension String {
     
     //MARK: - crypto
     func md5() ->String{

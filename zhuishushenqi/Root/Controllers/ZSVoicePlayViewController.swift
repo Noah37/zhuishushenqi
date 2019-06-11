@@ -29,6 +29,14 @@ class ZSVoicePlayViewController: BaseViewController, ZSSegmentProtocol {
         layoutSubview()
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
     private func layoutSubview() {
         segmentViewController.view.snp.remakeConstraints { (make) in
             let statusHeight = UIApplication.shared.statusBarFrame.height

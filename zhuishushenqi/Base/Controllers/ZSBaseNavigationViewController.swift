@@ -30,6 +30,18 @@ class ZSBaseNavigationViewController: UINavigationController {
     @objc func popAction(){
         self.popViewController(animated: true)
     }
+    
+    override var shouldAutorotate: Bool {
+        return self.topViewController?.shouldAutorotate ?? false
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return topViewController?.supportedInterfaceOrientations ?? .all
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
+    }
 
     /*
     // MARK: - Navigation

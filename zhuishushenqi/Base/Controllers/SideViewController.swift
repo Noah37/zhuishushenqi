@@ -324,7 +324,7 @@ class SideViewController: UIViewController,UIGestureRecognizerDelegate {
     
     private func setContentViewController() {
         if let viewController = contentViewController {
-            let nav  = UINavigationController(rootViewController: viewController)
+            let nav  = ZSBaseNavigationViewController(rootViewController: viewController)
             addChild(nav)
             nav.view.frame = view.bounds
             nav.view.backgroundColor = UIColor.gray

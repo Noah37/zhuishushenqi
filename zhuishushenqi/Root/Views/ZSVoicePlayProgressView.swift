@@ -79,10 +79,11 @@ class ZSVoicePlayProgressView: UIView {
     
     func updateTotalLabel(with track:XMTrack) {
         var hours = 0
-        let minutes = track.duration/60
+        var minutes = track.duration/60
         let seconds = track.duration%60
         if minutes > 60 {
             hours = minutes/60
+            minutes = minutes%60
         }
         var totalTimeText = ""
         if hours > 0 {
@@ -111,10 +112,11 @@ class ZSVoicePlayProgressView: UIView {
     
     func updateStartLabel() {
         var hours = 0
-        let minutes = Int(currentSeconds)/60
+        var minutes = Int(currentSeconds)/60
         let seconds = Int(currentSeconds)%60
         if minutes > 60 {
             hours = minutes/60
+            minutes = minutes%60
         }
         var startTimeText = ""
         if hours > 0 {

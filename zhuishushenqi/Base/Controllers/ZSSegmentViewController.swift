@@ -37,6 +37,13 @@ class ZSSegmentViewController: UIViewController ,UICollectionViewDelegate{
             // Fallback on earlier versions
         }
     }
+    
+    override func viewWillLayoutSubviews() {
+        collectionView.snp.makeConstraints { (make) in
+            make.left.top.right.bottom.equalToSuperview()
+        }
+        collectionView.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -85,6 +92,7 @@ extension ZSSegmentViewController:UICollectionViewDataSource, UICollectionViewDe
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICollectionViewCell", for: indexPath)
         cell.contentView.backgroundColor = UIColor.white
         if let viewControllers = self.delegate?.segmentViewControllers() {
+            cell.contentView.removeAllSubviews()
             let viewController = viewControllers[indexPath.item]
             viewController.view.frame = cell.contentView.bounds
             if let _ = viewController.view.superview {
