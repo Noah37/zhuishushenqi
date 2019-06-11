@@ -20,7 +20,9 @@ public func zs_post(_ urlStr: String,parameters: Parameters? = nil) -> DataReque
 
 @discardableResult
 func zs_post(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
-    let req = request(urlStr, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+    var headers = SessionManager.defaultHTTPHeaders
+    headers["User-Agent"] = YouShaQiUserAgent
+    let req = request(urlStr, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
         if let data = response.data {
             if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
                 handler?(json)
@@ -34,7 +36,9 @@ func zs_post(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCall
 
 @discardableResult
 func zs_put(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
-    let req = request(urlStr, method: .put, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+    var headers = SessionManager.defaultHTTPHeaders
+    headers["User-Agent"] = YouShaQiUserAgent
+    let req = request(urlStr, method: .put, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
         if let data = response.data {
             if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
                 handler?(json)
@@ -46,10 +50,13 @@ func zs_put(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallb
     return req
 }
 
+let YouShaQiUserAgent = "YouShaQi/4.4.4 (iPhone; iOS 12.0; Scale/3.00)"
 
 @discardableResult
 func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
-    let req = request(urlStr, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+    var headers = SessionManager.defaultHTTPHeaders
+    headers["User-Agent"] = YouShaQiUserAgent
+    let req = request(urlStr, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
         if let data = response.data {
             if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
                 handler?(json)
@@ -63,7 +70,9 @@ func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallb
 
 @discardableResult
 func zs_delete(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
-    let req = request(urlStr, method: .delete, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+    var headers = SessionManager.defaultHTTPHeaders
+    headers["User-Agent"] = YouShaQiUserAgent
+    let req = request(urlStr, method: .delete, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
         if let data = response.data {
             if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
                 handler?(json)

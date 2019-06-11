@@ -7,8 +7,8 @@ use_frameworks!
 branch = ENV['sha']
 
 # target的名字一般与你的项目名字相同
-target ‘zhuishushenqi’ do
-project ‘./zhuishushenqi.xcodeproj'
+target 'zhuishushenqi' do
+project './zhuishushenqi.xcodeproj'
 
 pod 'Kingfisher'
 pod 'PullToRefresh','0.0.1'

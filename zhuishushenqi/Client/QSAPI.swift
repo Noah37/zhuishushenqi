@@ -184,7 +184,7 @@ extension QSAPI:TargetType{
             pathComponent = "/toc"
             break
         case let .allChapters(key):
-            pathComponent = "/toc/\(key)"
+            pathComponent = "/mix-toc/\(key)"
             break
         case let .chapter(key,_):
             pathComponent = "/\(key)?k=22870c026d978c75&t=1489933049"
