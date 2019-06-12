@@ -66,6 +66,11 @@ PODS:
   - YYKit/no-arc (1.0.9)
   - Zip (1.1.0)
   - ZSAPI (0.1.6)
+  - ZSBookShelf (0.1.0)
+  - ZSBookStore (0.1.0)
+  - ZSCommunity (0.1.0)
+  - ZSDiscover (0.1.0)
+  - ZSMine (0.1.0)
 
 DEPENDENCIES:
   - Cache
@@ -92,10 +97,20 @@ DEPENDENCIES:
   - YYKit
   - Zip
   - ZSAPI
+  - ZSBookShelf
+  - ZSBookStore
+  - ZSCommunity
+  - ZSDiscover
+  - ZSMine
 
 SPEC REPOS:
   "git@github.com:NoryCao/cjspecs":
     - ZSAPI
+    - ZSBookShelf
+    - ZSBookStore
+    - ZSCommunity
+    - ZSDiscover
+    - ZSMine
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - BSBacktraceLogger
@@ -152,7 +167,12 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
   ZSAPI: d41a65bdc3c24731842b007c038a35238ca29dab
+  ZSBookShelf: 68adf276f7b8cf54fa552ab4b7e5b962ffa7a591
+  ZSBookStore: d77021b4b260ca11ecfa64aeeaffd9dbb04a4240
+  ZSCommunity: 8ce6646882aed65f39ca9f12f660c5be720aad31
+  ZSDiscover: 9c33f0fa31a208a20495e960c90fe63df5b22ad2
+  ZSMine: da2ceaa148f2608ded18a45c9c565cc7f94092f1
 
-PODFILE CHECKSUM: 3a1e19b4c4c895a171345b3fdd2ac2debe4b16fc
+PODFILE CHECKSUM: ec3ed41dafe9467cc104e25ca9e3374b029008e4
 
 COCOAPODS: 1.6.1

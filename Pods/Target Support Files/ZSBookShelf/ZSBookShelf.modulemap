@@ -1,0 +1,6 @@
+framework module ZSBookShelf {
+  umbrella header "ZSBookShelf-umbrella.h"
+
+  export *
+  module * { export * }
+}

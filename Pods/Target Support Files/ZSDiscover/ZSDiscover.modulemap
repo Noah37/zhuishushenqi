@@ -1,0 +1,6 @@
+framework module ZSDiscover {
+  umbrella header "ZSDiscover-umbrella.h"
+
+  export *
+  module * { export * }
+}

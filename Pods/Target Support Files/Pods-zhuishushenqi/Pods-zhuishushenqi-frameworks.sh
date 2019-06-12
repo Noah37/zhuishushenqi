@@ -179,6 +179,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZSAPI/ZSAPI.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSBookShelf/ZSBookShelf.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSBookStore/ZSBookStore.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSCommunity/ZSCommunity.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSDiscover/ZSDiscover.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSMine/ZSMine.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework"
 fi
@@ -207,6 +212,11 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZSAPI/ZSAPI.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSBookShelf/ZSBookShelf.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSBookStore/ZSBookStore.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSCommunity/ZSCommunity.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSDiscover/ZSDiscover.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZSMine/ZSMine.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework"
 fi

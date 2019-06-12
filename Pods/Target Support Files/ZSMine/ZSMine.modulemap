@@ -1,0 +1,6 @@
+framework module ZSMine {
+  umbrella header "ZSMine-umbrella.h"
+
+  export *
+  module * { export * }
+}

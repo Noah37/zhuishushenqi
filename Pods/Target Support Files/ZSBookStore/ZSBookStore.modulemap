@@ -1,0 +1,6 @@
+framework module ZSBookStore {
+  umbrella header "ZSBookStore-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1629,6 +1629,53 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B2091C2A22B158F500AD550A /* NewVersion */ = {
+			isa = PBXGroup;
+			children = (
+				B2091C2F22B15A1600AD550A /* Mine */,
+				B2091C2E22B15A0E00AD550A /* Discover */,
+				B2091C2D22B159E500AD550A /* Community */,
+				B2091C2C22B159D900AD550A /* BookStore */,
+				B2091C2B22B159CD00AD550A /* BookShelf */,
+			);
+			path = NewVersion;
+			sourceTree = "<group>";
+		};
+		B2091C2B22B159CD00AD550A /* BookShelf */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BookShelf;
+			sourceTree = "<group>";
+		};
+		B2091C2C22B159D900AD550A /* BookStore */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BookStore;
+			sourceTree = "<group>";
+		};
+		B2091C2D22B159E500AD550A /* Community */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
+		B2091C2E22B15A0E00AD550A /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		B2091C2F22B15A1600AD550A /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
 		B22204961EE8FC45008E1902 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -1922,6 +1969,7 @@
 		B2B4B9F61E7EA4A8000CC201 /* zhuishushenqi */ = {
 			isa = PBXGroup;
 			children = (
+				B2091C2A22B158F500AD550A /* NewVersion */,
 				3DECC38122451AD800EEB146 /* DeprecatedFiles */,
 				B2EE7CF61F3BFC7B00BE997C /* Localizable.strings */,
 				B255707B1F3A075600C35A34 /* App */,
@@ -2941,6 +2989,11 @@
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ZSAPI/ZSAPI.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSBookShelf/ZSBookShelf.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSBookStore/ZSBookStore.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSCommunity/ZSCommunity.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSDiscover/ZSDiscover.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSMine/ZSMine.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 				"${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework",
 			);
@@ -2972,6 +3025,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSAPI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSBookShelf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSBookStore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSCommunity.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSDiscover.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSMine.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fishhook.framework",
 			);

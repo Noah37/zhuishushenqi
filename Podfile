@@ -31,6 +31,13 @@ pod 'PKHUD', '~> 5.0'
 pod 'ZSAPI'
 pod 'Cache'
 
+# local pods
+pod 'ZSBookShelf'
+pod 'ZSBookStore'
+pod 'ZSCommunity'
+pod 'ZSDiscover'
+pod 'ZSMine'
+
 pod 'DoraemonKit/Core', '~> 1.1.6', :configurations => ['Debug']
 pod 'DoraemonKit/WithLogger', '~> 1.1.6', :configurations => ['Debug']
 pod 'DoraemonKit/WithGPS', '~> 1.1.6', :configurations => ['Debug']
