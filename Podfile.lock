@@ -1,32 +1,29 @@
 PODS:
-  - Alamofire (4.7.3)
+  - Alamofire (4.8.2)
   - BSBacktraceLogger (0.0.1)
   - Cache (5.2.0)
   - CocoaAsyncSocket (7.6.3)
-  - CocoaLumberjack (3.4.2):
-    - CocoaLumberjack/Default (= 3.4.2)
-    - CocoaLumberjack/Extensions (= 3.4.2)
-  - CocoaLumberjack/Default (3.4.2)
-  - CocoaLumberjack/Extensions (3.4.2):
-    - CocoaLumberjack/Default
-  - DoraemonKit/Core (1.1.6):
+  - CocoaLumberjack (3.5.1):
+    - CocoaLumberjack/Core (= 3.5.1)
+  - CocoaLumberjack/Core (3.5.1)
+  - DoraemonKit/Core (1.1.9):
     - BSBacktraceLogger
     - fishhook
     - PNChart
     - "UITextView+Placeholder"
-  - DoraemonKit/WithGPS (1.1.6):
+  - DoraemonKit/WithGPS (1.1.9):
     - BSBacktraceLogger
     - DoraemonKit/Core
     - fishhook
     - PNChart
     - "UITextView+Placeholder"
-  - DoraemonKit/WithLoad (1.1.6):
+  - DoraemonKit/WithLoad (1.1.9):
     - BSBacktraceLogger
     - DoraemonKit/Core
     - fishhook
     - PNChart
     - "UITextView+Placeholder"
-  - DoraemonKit/WithLogger (1.1.6):
+  - DoraemonKit/WithLogger (1.1.9):
     - BSBacktraceLogger
     - CocoaLumberjack
     - DoraemonKit/Core
@@ -34,67 +31,90 @@ PODS:
     - PNChart
     - "UITextView+Placeholder"
   - fishhook (0.2)
-  - FMDB (2.7.2):
-    - FMDB/standard (= 2.7.2)
-  - FMDB/standard (2.7.2)
-  - HandyJSON (4.2.0)
-  - Kingfisher (4.10.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - HandyJSON (4.2.1)
+  - Kingfisher (4.10.1)
   - MBProgressHUD (1.1.0)
-  - MJRefresh (3.1.15.6)
-  - PKHUD (5.2.0)
+  - MJRefresh (3.2.0)
+  - PKHUD (5.2.1)
   - PNChart (0.8.9):
     - UICountingLabel (~> 1.2.0)
   - PullToRefresh (0.0.1)
   - QSNetwork (0.0.3)
-  - RxAlamofire (4.2.0):
-    - RxAlamofire/Core (= 4.2.0)
-  - RxAlamofire/Core (4.2.0):
-    - Alamofire (~> 4.5)
-    - RxSwift (~> 4)
-  - RxCocoa (4.2.0):
-    - RxSwift (~> 4.0)
-  - RxSwift (4.2.0)
-  - SnapKit (4.0.1)
+  - RxAlamofire (4.4.1):
+    - RxAlamofire/Core (= 4.4.1)
+  - RxAlamofire/Core (4.4.1):
+    - Alamofire (~> 4.8)
+    - RxSwift (~> 4.5)
+  - RxCocoa (4.5.0):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxSwift (4.5.0)
+  - SnapKit (4.2.0)
   - SQLite.swift (0.11.5):
     - SQLite.swift/standard (= 0.11.5)
   - SQLite.swift/standard (0.11.5)
-  - Then (2.3.0)
+  - Then (2.4.0)
   - UICountingLabel (1.2.0)
   - "UITextView+Placeholder (1.2.1)"
-  - YYKit (1.0.9):
-    - YYKit/no-arc (= 1.0.9)
-  - YYKit/no-arc (1.0.9)
+  - YYCategories (1.0.4):
+    - YYCategories/no-arc (= 1.0.4)
+  - YYCategories/no-arc (1.0.4)
+  - YYModel (1.0.4)
+  - YYText (1.0.7)
   - Zip (1.1.0)
   - ZSAPI (0.1.6)
-  - ZSBookShelf (0.1.0)
-  - ZSBookStore (0.1.0)
-  - ZSCommunity (0.1.0)
-  - ZSDiscover (0.1.0)
-  - ZSMine (0.1.0)
+  - ZSAppConfig (1.0.2)
+  - ZSBaseUI (1.0.3):
+    - RxCocoa (= 4.5.0)
+    - RxSwift (= 4.5.0)
+    - SnapKit
+    - Then (= 2.4.0)
+    - ZSExtension
+  - ZSBookShelf (0.1.4):
+    - ZSBaseUI
+    - ZSExtension
+  - ZSBookStore (0.1.1):
+    - ZSBaseUI
+  - ZSCommunity (0.1.1):
+    - ZSBaseUI
+  - ZSDiscover (0.1.1):
+    - ZSBaseUI
+  - ZSExtension (1.0.0):
+    - Alamofire
+    - Kingfisher
+    - MBProgressHUD
+    - PKHUD (= 5.2.1)
+    - SQLite.swift (= 0.11.5)
+    - YYCategories
+    - ZSAppConfig
+  - ZSMine (0.1.1):
+    - ZSBaseUI
 
 DEPENDENCIES:
   - Cache
   - CocoaAsyncSocket
-  - CocoaLumberjack
+  - CocoaLumberjack (= 3.5.1)
   - DoraemonKit/Core (~> 1.1.6)
   - DoraemonKit/WithGPS (~> 1.1.6)
   - DoraemonKit/WithLoad (~> 1.1.6)
   - DoraemonKit/WithLogger (~> 1.1.6)
   - FMDB
-  - HandyJSON
+  - HandyJSON (= 4.2.1)
   - Kingfisher
   - MBProgressHUD
   - MJRefresh
-  - PKHUD (~> 5.0)
+  - PKHUD (= 5.2.1)
   - PullToRefresh (= 0.0.1)
   - QSNetwork (~> 0.0.3)
   - RxAlamofire
   - RxCocoa
   - RxSwift
   - SnapKit
-  - SQLite.swift (~> 0.11.5)
   - Then
-  - YYKit
+  - YYModel
+  - YYText
   - Zip
   - ZSAPI
   - ZSBookShelf
@@ -104,12 +124,15 @@ DEPENDENCIES:
   - ZSMine
 
 SPEC REPOS:
-  "git@github.com:NoryCao/cjspecs":
+  "git@github.com:NoryCao/cjspecs.git":
     - ZSAPI
+    - ZSAppConfig
+    - ZSBaseUI
     - ZSBookShelf
     - ZSBookStore
     - ZSCommunity
     - ZSDiscover
+    - ZSExtension
     - ZSMine
   https://github.com/cocoapods/specs.git:
     - Alamofire
@@ -136,43 +159,50 @@ SPEC REPOS:
     - Then
     - UICountingLabel
     - "UITextView+Placeholder"
-    - YYKit
+    - YYCategories
+    - YYModel
+    - YYText
     - Zip
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
-  CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
-  DoraemonKit: 309c42d828dffb8149942afcfa2af84d8f44bad1
+  CocoaLumberjack: 2101f8a5508197a305e737d16c5c2e9e2157628c
+  DoraemonKit: efea4a8afe0a6f2aadffcf5e66010bff692c6f05
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
-  FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
-  HandyJSON: 9dfc026c7d7adc1f0f8ba8b181495f0e0763b0f4
-  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  HandyJSON: d0c5fc80204f29056d59d3e5c4587fa0b16b60a8
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  MJRefresh: 0efa19656679d70a0f47cbe76e56c2271fe53a97
-  PKHUD: dd5357ac65f26115c35c4a68e9b328053326c5fe
+  MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
+  PKHUD: 4e6162c4c39ac367c6934e9855c6b4762ee16256
   PNChart: 84774d225c2126ded6c93d4dbe6ae98c3a73c2d2
   PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
   QSNetwork: a5b174e074386cdf8a3c1d604cbe55b4cbc0d731
-  RxAlamofire: 87a9c588541210cc3e4a1f843ccc3ecf3eb98b31
-  RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
-  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
-  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  RxAlamofire: ed65f451f5a9a59419b0b9e705043dc01410edd9
+  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
-  Then: ee21c97b85ff6062b9b0080c9abb1eea46743345
+  Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
-  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
   ZSAPI: d41a65bdc3c24731842b007c038a35238ca29dab
-  ZSBookShelf: 68adf276f7b8cf54fa552ab4b7e5b962ffa7a591
-  ZSBookStore: d77021b4b260ca11ecfa64aeeaffd9dbb04a4240
-  ZSCommunity: 8ce6646882aed65f39ca9f12f660c5be720aad31
-  ZSDiscover: 9c33f0fa31a208a20495e960c90fe63df5b22ad2
-  ZSMine: da2ceaa148f2608ded18a45c9c565cc7f94092f1
+  ZSAppConfig: b7829e1fcfea4ff0dfd6a748020a2250c7e70bb7
+  ZSBaseUI: ade1fa8fbe13dfa44aae7036bafbdc7063e50015
+  ZSBookShelf: 1ac2fa8c9012968c6db319326e87cbf02b77ca96
+  ZSBookStore: 5dcd43e5beb9a420bcb4d16eee9347f2d700b9bc
+  ZSCommunity: 32eacf076441779f71e3b75c698deef4b12aac74
+  ZSDiscover: 1d6999f4c91a887636a87c7505e8085b6598f1eb
+  ZSExtension: 018984019456e98119ed683a2aeed9dea1326c79
+  ZSMine: 319d538dfd6ad463844a3fdb360834b3c9df0809
 
-PODFILE CHECKSUM: ec3ed41dafe9467cc104e25ca9e3374b029008e4
+PODFILE CHECKSUM: 49169a4b5921a4465ccb5efdaf56f15253b88faf
 
 COCOAPODS: 1.6.1

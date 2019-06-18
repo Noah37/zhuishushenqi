@@ -61,6 +61,7 @@
 		3D998939223FEA0400EA33D5 /* ZSCatelogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D998938223FEA0400EA33D5 /* ZSCatelogViewModel.swift */; };
 		3D99893B223FEC5900EA33D5 /* ZSCatelogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D99893A223FEC5900EA33D5 /* ZSCatelogModel.swift */; };
 		3D9D857C20CA439D003FEDFE /* ZSShelfMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D857B20CA439D003FEDFE /* ZSShelfMessage.swift */; };
+		3DABFC2B22B9183D00ECB5E3 /* ZSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DABFC2A22B9183D00ECB5E3 /* ZSTabBarController.swift */; };
 		3DAC238E21E1D66A00E77891 /* ZSWebStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC238D21E1D66A00E77891 /* ZSWebStoreViewController.swift */; };
 		3DAC239021E1D73300E77891 /* ZSWebViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC238F21E1D73300E77891 /* ZSWebViewControllerDelegate.swift */; };
 		3DAC239221E1DE7400E77891 /* ZSWebItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC239121E1DE7400E77891 /* ZSWebItem.swift */; };
@@ -573,6 +574,7 @@
 		3D998938223FEA0400EA33D5 /* ZSCatelogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCatelogViewModel.swift; sourceTree = "<group>"; };
 		3D99893A223FEC5900EA33D5 /* ZSCatelogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCatelogModel.swift; sourceTree = "<group>"; };
 		3D9D857B20CA439D003FEDFE /* ZSShelfMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSShelfMessage.swift; sourceTree = "<group>"; };
+		3DABFC2A22B9183D00ECB5E3 /* ZSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSTabBarController.swift; sourceTree = "<group>"; };
 		3DAC238D21E1D66A00E77891 /* ZSWebStoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebStoreViewController.swift; sourceTree = "<group>"; };
 		3DAC238F21E1D73300E77891 /* ZSWebViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebViewControllerDelegate.swift; sourceTree = "<group>"; };
 		3DAC239121E1DE7400E77891 /* ZSWebItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebItem.swift; sourceTree = "<group>"; };
@@ -1262,6 +1264,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		3DABFC2922B9182000ECB5E3 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				3DABFC2A22B9183D00ECB5E3 /* ZSTabBarController.swift */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
 		3DD0840321569850008E3B4A /* Speech */ = {
 			isa = PBXGroup;
 			children = (
@@ -1632,48 +1642,9 @@
 		B2091C2A22B158F500AD550A /* NewVersion */ = {
 			isa = PBXGroup;
 			children = (
-				B2091C2F22B15A1600AD550A /* Mine */,
-				B2091C2E22B15A0E00AD550A /* Discover */,
-				B2091C2D22B159E500AD550A /* Community */,
-				B2091C2C22B159D900AD550A /* BookStore */,
-				B2091C2B22B159CD00AD550A /* BookShelf */,
+				3DABFC2922B9182000ECB5E3 /* Tabbar */,
 			);
 			path = NewVersion;
-			sourceTree = "<group>";
-		};
-		B2091C2B22B159CD00AD550A /* BookShelf */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BookShelf;
-			sourceTree = "<group>";
-		};
-		B2091C2C22B159D900AD550A /* BookStore */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BookStore;
-			sourceTree = "<group>";
-		};
-		B2091C2D22B159E500AD550A /* Community */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Community;
-			sourceTree = "<group>";
-		};
-		B2091C2E22B15A0E00AD550A /* Discover */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Discover;
-			sourceTree = "<group>";
-		};
-		B2091C2F22B15A1600AD550A /* Mine */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Mine;
 			sourceTree = "<group>";
 		};
 		B22204961EE8FC45008E1902 /* Splash */ = {
@@ -2987,12 +2958,17 @@
 				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
 				"${BUILT_PRODUCTS_DIR}/UICountingLabel/UICountingLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
-				"${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
+				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
+				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
 				"${BUILT_PRODUCTS_DIR}/ZSAPI/ZSAPI.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSAppConfig/ZSAppConfig.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSBaseUI/ZSBaseUI.framework",
 				"${BUILT_PRODUCTS_DIR}/ZSBookShelf/ZSBookShelf.framework",
 				"${BUILT_PRODUCTS_DIR}/ZSBookStore/ZSBookStore.framework",
 				"${BUILT_PRODUCTS_DIR}/ZSCommunity/ZSCommunity.framework",
 				"${BUILT_PRODUCTS_DIR}/ZSDiscover/ZSDiscover.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSExtension/ZSExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/ZSMine/ZSMine.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 				"${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework",
@@ -3023,12 +2999,17 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICountingLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSAPI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSAppConfig.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSBaseUI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSBookShelf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSBookStore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSCommunity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSDiscover.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSMine.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fishhook.framework",
@@ -3423,6 +3404,7 @@
 				B2C0DF6B20D4CB350057DC84 /* QSCommunityRouter.swift in Sources */,
 				B2B4BBFA1E7EA4AB000CC201 /* UINavigationItem+BackItem.m in Sources */,
 				3DDB6CAA2130F4BC00E8698D /* CoreTextImageData.m in Sources */,
+				3DABFC2B22B9183D00ECB5E3 /* ZSTabBarController.swift in Sources */,
 				B2A7CD8B2180D6E90067D25B /* ZSModifyNicknameViewController.swift in Sources */,
 				B2B02E451EA8920F00A6880A /* QSCategoryDetailPresenter.swift in Sources */,
 				B252D4E2211035060091858E /* ZSShelfViewModel.swift in Sources */,

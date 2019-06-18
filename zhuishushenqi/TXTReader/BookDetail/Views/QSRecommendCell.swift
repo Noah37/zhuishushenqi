@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YYCategories
 
 typealias BtnClickAction = (_ btn:Any)->Void
 

@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import YYKit
+import YYText
+import YYCategories
 
 class ZSVoucherCell: UITableViewCell {
     
@@ -81,10 +82,10 @@ class ZSVoucherCell: UITableViewCell {
     
     func attributeText(number:String) ->NSAttributedString {
         let attributeText = NSMutableAttributedString(string: "\(number) 追书券")
-        attributeText.font = UIFont.systemFont(ofSize: 15)
-        attributeText.color = UIColor.black
-        attributeText.alignment = .left
-        attributeText.setTextHighlight(NSMakeRange(0, number.count), color: UIColor.red, backgroundColor: UIColor.clear) { (containerView, text, range, rect) in
+        attributeText.yy_font = UIFont.systemFont(ofSize: 15)
+        attributeText.yy_color = UIColor.black
+        attributeText.yy_alignment = .left
+        attributeText.yy_setTextHighlight(NSMakeRange(0, number.count), color: UIColor.red, backgroundColor: UIColor.clear) { (containerView, text, range, rect) in
             
         }
         return attributeText

@@ -83,7 +83,7 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let reader = response.json?.object(forKey: "review") {
-                self.readerModel = BookComment.model(with: reader as! [AnyHashable : Any])
+                 self.readerModel = BookComment.deserialize(from: reader as! [String : Any])
             }
             DispatchQueue.main.async {
                 self.tableView.removeFromSuperview()

@@ -9,6 +9,7 @@
 #import "DoraemonOscillogramViewController.h"
 #import "UIColor+Doraemon.h"
 #import "DoraemonDefine.h"
+#import "DoraemonOscillogramWindowManager.h"
 
 @interface DoraemonOscillogramWindow()
 
@@ -28,8 +29,9 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.windowLevel = UIWindowLevelStatusBar + 100.f;
+        self.windowLevel = UIWindowLevelStatusBar + 2.f;
         self.backgroundColor = [UIColor doraemon_colorWithHex:0x000000 andAlpha:0.33];
+        self.layer.masksToBounds = YES;
         
         [self addRootVc];
     }
@@ -46,7 +48,8 @@
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event{
-    if (point.x>DoraemonScreenWidth-kDoraemonSizeFrom750(60) && point.y<kDoraemonSizeFrom750(60)+IPHONE_TOPSENSOR_HEIGHT) {
+    // 默认曲线图不拦截触摸事件，只有在关闭按钮z之类才响应
+    if (CGRectContainsPoint(self.vc.closeBtn.frame, point)) {
         return [super pointInside:point withEvent:event];
     }
     return NO;
@@ -54,14 +57,18 @@
 
 - (void)show{
     self.hidden = NO;
-    self.frame = CGRectMake(0, 0, DoraemonScreenWidth, kDoraemonSizeFrom750(480)+IPHONE_TOPSENSOR_HEIGHT);
     [_vc startRecord];
+    [self resetLayout];
 }
 
 - (void)hide{
     [_vc endRecord];
     self.hidden = YES;
-    
+    [self resetLayout];
+}
+
+- (void)resetLayout{
+    [[DoraemonOscillogramWindowManager shareInstance] resetLayout];
 }
 
 @end

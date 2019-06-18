@@ -12,7 +12,7 @@
 
 @interface DoraemonMethodUseTimeListViewController ()
 
-@property (nonatomic, copy) NSArray *loadModelArray;
+@property (nonatomic, copy) NSMutableArray *loadModelArray;
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
@@ -23,7 +23,28 @@
     [super viewDidLoad];
     self.title = @"Load耗时检测记录";
     
-    _loadModelArray = dlaLoadModels;
+    _loadModelArray = [NSMutableArray arrayWithArray:dlaLoadModels];
+    [_loadModelArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        CGFloat costA = [obj1[@"cost"] floatValue];
+        CGFloat costB = [obj2[@"cost"] floatValue];
+        if (costA < costB) {
+            return NSOrderedDescending;
+        }else{
+            return NSOrderedAscending;
+        }
+    }];
+    CGFloat allCost = 0.f;
+    if(_loadModelArray && _loadModelArray.count>0){
+        for (NSDictionary *dic in _loadModelArray) {
+            CGFloat cost = [dic[@"cost"] floatValue];
+            allCost += cost;
+        }
+        NSDictionary *allDic = @{
+                                 @"name":@"总共耗时",
+                                 @"cost":@(allCost)
+                                 };
+        [_loadModelArray insertObject:allDic atIndex:0];
+    }
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.doraemon_width, self.view.doraemon_height) style:UITableViewStylePlain];
     self.tableView.backgroundColor = [UIColor whiteColor];

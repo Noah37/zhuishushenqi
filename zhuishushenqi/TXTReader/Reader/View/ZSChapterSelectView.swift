@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import YYKit
+import YYText
+import YYCategories
 
 class ZSChapterSelectView: UICollectionView {
     
@@ -79,8 +80,8 @@ class ZSChapterSelectItem: UICollectionViewCell {
         if (titleLabel.attributedText ?? NSAttributedString(string: "")).string == title {
             let titleText = title ?? ""
             let attr = NSMutableAttributedString(string: titleText)
-            attr.font = UIFont.systemFont(ofSize: 13)
-            attr.alignment = .center
+            attr.yy_font = UIFont.systemFont(ofSize: 13)
+            attr.yy_alignment = .center
             titleLabel.attributedText = attr
         } else {
             // 可能已经设置了discount
@@ -92,10 +93,10 @@ class ZSChapterSelectItem: UICollectionViewCell {
     func setDiscount(discount:String) {
         let title = titleLabel.attributedText ?? NSMutableAttributedString(string: "")
         let attr = NSMutableAttributedString(string: "\(title)\(discount)折")
-        attr.font = UIFont.systemFont(ofSize: 13)
-        attr.alignment = .center
-        attr.setTextHighlight(NSMakeRange(0, title.length), color: UIColor.gray, backgroundColor: UIColor.clear, userInfo: nil)
-        attr.setTextHighlight(NSMakeRange(title.length, (discount as NSString).length), color: UIColor.white, backgroundColor: UIColor.orange, userInfo: nil)
+        attr.yy_font = UIFont.systemFont(ofSize: 13)
+        attr.yy_alignment = .center
+        attr.yy_setTextHighlight(NSMakeRange(0, title.length), color: UIColor.gray, backgroundColor: UIColor.clear, userInfo: nil)
+        attr.yy_setTextHighlight(NSMakeRange(title.length, (discount as NSString).length), color: UIColor.white, backgroundColor: UIColor.orange, userInfo: nil)
         titleLabel.attributedText = attr
     }
     

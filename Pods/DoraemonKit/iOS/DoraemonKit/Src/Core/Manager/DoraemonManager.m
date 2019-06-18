@@ -21,6 +21,7 @@
 #import "DoraemonUtil.h"
 #import "DoraemonAllTestManager.h"
 #import "DoraemonStatisticsUtil.h"
+#import "DoraemonANRManager.h"
 
 #if DoraemonWithLogger
 #import "DoraemonCocoaLumberjackLogger.h"
@@ -76,7 +77,7 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
         Class pluginClass = NSClassFromString(pluginName);
         id<DoraemonStartPluginProtocol> plugin = [[pluginClass alloc] init];
         if (plugin) {
-            [plugin pluginDidLoad];
+            [plugin startPluginDidLoad];
         }
     }
 
@@ -127,11 +128,17 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
         [DoraemonUtil savePerformanceDataInFile:testTime data:data];
     }];
     
+    [[DoraemonANRManager sharedInstance] addANRBlock:^(NSDictionary *anrInfo) {
+        if (self.anrBlock) {
+            self.anrBlock(anrInfo);
+        }
+    }];
+    
     //监听DoraemonStateBar点击事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(quickOpenLogVC:) name:DoraemonQuickOpenLogVCNotification object:nil];
     
     //统计开源项目使用量 不用于任何恶意行为
-    [DoraemonStatisticsUtil upLoadUserInfo];
+    [[DoraemonStatisticsUtil shareInstance] upLoadUserInfo];
 
 }
 
@@ -193,37 +200,52 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
 - (void)addPluginWithPluginType:(DoraemonManagerPluginType)pluginType
 {
     DoraemonManagerPluginTypeModel *model = [self getDefaultPluginDataWithPluginType:pluginType];
-    
     [self addPluginWithTitle:DoraemonLocalizedString(model.title) icon:model.icon desc:DoraemonLocalizedString(model.desc) pluginName:model.pluginName atModule:DoraemonLocalizedString(model.atModule)];
 }
 
-- (void)addPluginWithTitle:(NSString *)title icon:(NSString *)iconName desc:(NSString *)desc pluginName:(NSString *)pluginName atModule:(NSString *)moduleName{
+- (void)addPluginWithTitle:(NSString *)title icon:(NSString *)iconName desc:(NSString *)desc pluginName:(NSString *)entryName atModule:(NSString *)moduleName{
     
-    NSMutableDictionary *pluginDic = [[NSMutableDictionary alloc] init];
-    [pluginDic setValue:title forKey:@"name"];
-    [pluginDic setValue:iconName forKey:@"icon"];
-    [pluginDic setValue:desc forKey:@"desc"];
-    [pluginDic setValue:pluginName forKey:@"pluginName"];
-    
-    BOOL hasModule = NO;
-    for (int i=0; i<_dataArray.count; i++) {
-        NSDictionary *moduleDic = _dataArray[i];
-        NSString *tempModuleName = moduleDic[@"moduleName"];
-        if ([tempModuleName isEqualToString:moduleName]) {
+    NSMutableDictionary *pluginDic = [self foundGroupWithModule:moduleName];
+    pluginDic[@"name"] = title;
+    pluginDic[@"icon"] = iconName;
+    pluginDic[@"desc"] = desc;
+    pluginDic[@"pluginName"] = entryName;
+}
+
+- (void)addPluginWithTitle:(NSString *)title icon:(NSString *)iconName desc:(NSString *)desc pluginName:(NSString *)entryName atModule:(NSString *)moduleName handle:(void (^)(NSDictionary *))handleBlock
+{
+    NSMutableDictionary *pluginDic = [self foundGroupWithModule:moduleName];
+    pluginDic[@"name"] = title;
+    pluginDic[@"icon"] = iconName;
+    pluginDic[@"desc"] = desc;
+    pluginDic[@"pluginName"] = entryName;
+    pluginDic[@"handleBlock"] = [handleBlock copy];
+
+}
+- (NSMutableDictionary *)foundGroupWithModule:(NSString *)module
+{
+    NSMutableDictionary *pluginDic = [NSMutableDictionary dictionary];
+    pluginDic[@"moduleName"] = module;
+    __block BOOL hasModule = NO;
+    [self.dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSDictionary *moduleDic = obj;
+        NSString *moduleName = moduleDic[@"moduleName"];
+        if ([moduleName isEqualToString:module]) {
             hasModule = YES;
             NSMutableArray *pluginArray = moduleDic[@"pluginArray"];
             if (pluginArray) {
                 [pluginArray addObject:pluginDic];
             }
             [moduleDic setValue:pluginArray forKey:@"pluginArray"];
+            *stop = YES;
         }
-    }
+    }];
     if (!hasModule) {
         NSMutableArray *pluginArray = [[NSMutableArray alloc] initWithObjects:pluginDic, nil];
-        [self registerPluginArray:pluginArray withModule:moduleName];
+        [self registerPluginArray:pluginArray withModule:module];
     }
+    return pluginDic;
 }
-
 - (void)removePluginWithPluginType:(DoraemonManagerPluginType)pluginType
 {
     DoraemonManagerPluginTypeModel *model = [self getDefaultPluginDataWithPluginType:pluginType];
@@ -265,9 +287,18 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
     }
 }
 
-- (void)hiddenDoraemon{
-    _entryView.hidden = YES;
+- (void)showDoraemon{
+    if (_entryView.hidden) {
+        _entryView.hidden = NO;
+    }
 }
+
+- (void)hiddenDoraemon{
+    if (!_entryView.hidden) {
+        _entryView.hidden = YES;
+     }
+}
+
 
 - (void)addH5DoorBlock:(void(^)(NSString *h5Url))block{
     self.h5DoorBlock = block;
@@ -277,7 +308,7 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
     self.anrBlock = block;
 }
 
-- (void)addperformanceBlock:(void(^)(NSDictionary *performanceDic))block{
+- (void)addPerformanceBlock:(void(^)(NSDictionary *performanceDic))block{
     self.performanceBlock = block;
 }
 
@@ -309,148 +340,148 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
     NSArray *dataArray = @{
                            // 常用工具
                            @(DoraemonManagerPluginType_DoraemonAppInfoPlugin) : @[
-                                   @{kTitle:@"App信息"},
-                                   @{kDesc:@"App的一些基本信息"},
+                                   @{kTitle:DoraemonLocalizedString(@"App信息")},
+                                   @{kDesc:DoraemonLocalizedString(@"App的一些基本信息")},
                                    @{kIcon:@"doraemon_app_info"},
                                    @{kPluginName:@"DoraemonAppInfoPlugin"},
-                                   @{kAtModule:@"常用工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"常用工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonSandboxPlugin) : @[
-                                   @{kTitle:@"沙盒浏览"},
-                                   @{kDesc:@"沙盒浏览"},
+                                   @{kTitle:DoraemonLocalizedString(@"沙盒浏览")},
+                                   @{kDesc:DoraemonLocalizedString(@"沙盒浏览")},
                                    @{kIcon:@"doraemon_file"},
                                    @{kPluginName:@"DoraemonSandboxPlugin"},
-                                   @{kAtModule:@"常用工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"常用工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonGPSPlugin) : @[
                                    @{kTitle:@"MockGPS"},
                                    @{kDesc:@"MockGPS"},
                                    @{kIcon:@"doraemon_mock_gps"},
                                    @{kPluginName:@"DoraemonGPSPlugin"},
-                                   @{kAtModule:@"常用工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"常用工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonH5Plugin) : @[
-                                   @{kTitle:@"H5任意门"},
-                                   @{kDesc:@"H5通用跳转"},
+                                   @{kTitle:DoraemonLocalizedString(@"H5任意门")},
+                                   @{kDesc:DoraemonLocalizedString(@"H5通用跳转")},
                                    @{kIcon:@"doraemon_h5"},
                                    @{kPluginName:@"DoraemonH5Plugin"},
-                                   @{kAtModule:@"常用工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"常用工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonCrashPlugin) : @[
-                                   @{kTitle:@"Crash查看"},
-                                   @{kDesc:@"Crash本地查看"},
+                                   @{kTitle:DoraemonLocalizedString(@"Crash查看")},
+                                   @{kDesc:DoraemonLocalizedString(@"Crash本地查看")},
                                    @{kIcon:@"doraemon_crash"},
                                    @{kPluginName:@"DoraemonCrashPlugin"},
-                                   @{kAtModule:@"常用工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"常用工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonSubThreadUICheckPlugin) : @[
-                                   @{kTitle:@"子线程UI"},
-                                   @{kDesc:@"非主线程UI渲染检查"},
+                                   @{kTitle:DoraemonLocalizedString(@"子线程UI")},
+                                   @{kDesc:DoraemonLocalizedString(@"非主线程UI渲染检查")},
                                    @{kIcon:@"doraemon_ui"},
                                    @{kPluginName:@"DoraemonSubThreadUICheckPlugin"},
-                                   @{kAtModule:@"常用工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"常用工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonDeleteLocalDataPlugin) : @[
-                                   @{kTitle:@"清除本地数据"},
-                                   @{kDesc:@"清除本地数据"},
+                                   @{kTitle:DoraemonLocalizedString(@"清除本地数据")},
+                                   @{kDesc:DoraemonLocalizedString(@"清除本地数据")},
                                    @{kIcon:@"doraemon_qingchu"},
                                    @{kPluginName:@"DoraemonDeleteLocalDataPlugin"},
-                                   @{kAtModule:@"常用工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"常用工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonNSLogPlugin) : @[
                                    @{kTitle:@"NSLog"},
                                    @{kDesc:@"NSLog"},
                                    @{kIcon:@"doraemon_nslog"},
                                    @{kPluginName:@"DoraemonNSLogPlugin"},
-                                   @{kAtModule:@"常用工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"常用工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonCocoaLumberjackPlugin) : @[
                                    @{kTitle:@"Lumberjack"},
-                                   @{kDesc:@"日志显示"},
+                                   @{kDesc:DoraemonLocalizedString(@"日志显示")},
                                    @{kIcon:@"doraemon_log"},
                                    @{kPluginName:@"DoraemonCocoaLumberjackPlugin"},
-                                   @{kAtModule:@"常用工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"常用工具")}
                                    ],
                            
                            // 性能检测
                            @(DoraemonManagerPluginType_DoraemonFPSPlugin) : @[
-                                   @{kTitle:@"帧率"},
-                                   @{kDesc:@"帧率监控"},
+                                   @{kTitle:DoraemonLocalizedString(@"帧率")},
+                                   @{kDesc:DoraemonLocalizedString(@"帧率监控")},
                                    @{kIcon:@"doraemon_fps"},
                                    @{kPluginName:@"DoraemonFPSPlugin"},
-                                   @{kAtModule:@"性能检测"}
+                                   @{kAtModule:DoraemonLocalizedString(@"性能检测")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonCPUPlugin) : @[
                                    @{kTitle:@"CPU"},
-                                   @{kDesc:@"CPU监控"},
+                                   @{kDesc:DoraemonLocalizedString(@"CPU监控")},
                                    @{kIcon:@"doraemon_cpu"},
                                    @{kPluginName:@"DoraemonCPUPlugin"},
-                                   @{kAtModule:@"性能检测"}
+                                   @{kAtModule:DoraemonLocalizedString(@"性能检测")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonMemoryPlugin) : @[
-                                   @{kTitle:@"内存"},
-                                   @{kDesc:@"内存监控"},
+                                   @{kTitle:DoraemonLocalizedString(@"内存")},
+                                   @{kDesc:DoraemonLocalizedString(@"内存监控")},
                                    @{kIcon:@"doraemon_memory"},
                                    @{kPluginName:@"DoraemonMemoryPlugin"},
-                                   @{kAtModule:@"性能检测"}
+                                   @{kAtModule:DoraemonLocalizedString(@"性能检测")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonNetFlowPlugin) : @[
-                                   @{kTitle:@"流量"},
-                                   @{kDesc:@"流量监控"},
+                                   @{kTitle:DoraemonLocalizedString(@"流量")},
+                                   @{kDesc:DoraemonLocalizedString(@"流量监控")},
                                    @{kIcon:@"doraemon_net"},
                                    @{kPluginName:@"DoraemonNetFlowPlugin"},
-                                   @{kAtModule:@"性能检测"}
+                                   @{kAtModule:DoraemonLocalizedString(@"性能检测")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonANRPlugin) : @[
-                                   @{kTitle:@"卡顿"},
-                                   @{kDesc:@"卡顿监控"},
+                                   @{kTitle:DoraemonLocalizedString(@"卡顿")},
+                                   @{kDesc:DoraemonLocalizedString(@"卡顿监控")},
                                    @{kIcon:@"doraemon_kadun"},
                                    @{kPluginName:@"DoraemonANRPlugin"},
-                                   @{kAtModule:@"性能检测"}
+                                   @{kAtModule:DoraemonLocalizedString(@"性能检测")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonAllTestPlugin) : @[
-                                   @{kTitle:@"自定义"},
-                                   @{kDesc:@"性能数据保存到本地"},
+                                   @{kTitle:DoraemonLocalizedString(@"自定义")},
+                                   @{kDesc:DoraemonLocalizedString(@"性能数据保存到本地")},
                                    @{kIcon:@"doraemon_default"},
                                    @{kPluginName:@"DoraemonAllTestPlugin"},
-                                   @{kAtModule:@"性能检测"}
+                                   @{kAtModule:DoraemonLocalizedString(@"性能检测")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonMethodUseTimePlugin) : @[
-                                   @{kTitle:@"Load耗时"},
-                                   @{kDesc:@"Load方法消耗时间"},
+                                   @{kTitle:DoraemonLocalizedString(@"Load耗时")},
+                                   @{kDesc:DoraemonLocalizedString(@"Load方法消耗时间")},
                                    @{kIcon:@"doraemon_method_use_time"},
                                    @{kPluginName:@"DoraemonMethodUseTimePlugin"},
-                                   @{kAtModule:@"性能检测"}
+                                   @{kAtModule:DoraemonLocalizedString(@"性能检测")}
                                    ],
                            
                            // 视觉工具
                            @(DoraemonManagerPluginType_DoraemonColorPickPlugin) : @[
-                                   @{kTitle:@"颜色吸管"},
-                                   @{kDesc:@"颜色拾取器"},
+                                   @{kTitle:DoraemonLocalizedString(@"颜色吸管")},
+                                   @{kDesc:DoraemonLocalizedString(@"颜色拾取器")},
                                    @{kIcon:@"doraemon_straw"},
                                    @{kPluginName:@"DoraemonColorPickPlugin"},
-                                   @{kAtModule:@"视觉工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"视觉工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonViewCheckPlugin) : @[
-                                   @{kTitle:@"组件检查"},
-                                   @{kDesc:@"View查看器"},
+                                   @{kTitle:DoraemonLocalizedString(@"组件检查")},
+                                   @{kDesc:DoraemonLocalizedString(@"View查看器")},
                                    @{kIcon:@"doraemon_view_check"},
                                    @{kPluginName:@"DoraemonViewCheckPlugin"},
-                                   @{kAtModule:@"视觉工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"视觉工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonViewAlignPlugin) : @[
-                                   @{kTitle:@"对齐标尺"},
-                                   @{kDesc:@"查看组件是否对齐"},
+                                   @{kTitle:DoraemonLocalizedString(@"对齐标尺")},
+                                   @{kDesc:DoraemonLocalizedString(@"查看组件是否对齐")},
                                    @{kIcon:@"doraemon_align"},
                                    @{kPluginName:@"DoraemonViewAlignPlugin"},
-                                   @{kAtModule:@"视觉工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"视觉工具")}
                                    ],
                            @(DoraemonManagerPluginType_DoraemonViewMetricsPlugin) : @[
-                                   @{kTitle:@"元素边框线"},
-                                   @{kDesc:@"显示元素边框线"},
+                                   @{kTitle:DoraemonLocalizedString(@"元素边框线")},
+                                   @{kDesc:DoraemonLocalizedString(@"显示元素边框线")},
                                    @{kIcon:@"doraemon_viewmetrics"},
                                    @{kPluginName:@"DoraemonViewMetricsPlugin"},
-                                   @{kAtModule:@"视觉工具"}
+                                   @{kAtModule:DoraemonLocalizedString(@"视觉工具")}
                                    ]
                            }[@(pluginType)];
     

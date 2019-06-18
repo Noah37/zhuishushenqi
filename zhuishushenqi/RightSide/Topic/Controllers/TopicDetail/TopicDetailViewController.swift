@@ -49,7 +49,7 @@ class TopicDetailViewController: BaseViewController ,SegMenuDelegate,UITableView
         QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
             QSLog(response.json)
             if let bookList = response.json?.object(forKey: "bookList") as? [AnyHashable : Any] {
-                self.headerModel = TopicDetailHeader.model(with: bookList)
+                self.headerModel = TopicDetailHeader.deserialize(from: bookList as! [String:Any])
             }
             if let books = (response.json?.object(forKey: "bookList") as AnyObject).object(forKey:"books") {
                 if let models = [TopicDetailModel].deserialize(from: books as? [Any]) as NSArray? {

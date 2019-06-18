@@ -22,7 +22,7 @@ pod 'ZSCommunity'
 
 ## Author
 
-NoryCao, caonongyun@guazi.com
+NoryCao, 2252055382@qq.com
 
 ## License
 

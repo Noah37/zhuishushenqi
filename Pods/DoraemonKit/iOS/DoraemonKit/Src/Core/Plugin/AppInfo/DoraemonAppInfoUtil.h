@@ -33,6 +33,8 @@
 
 + (BOOL)isIPhoneXSeries;
 
++ (BOOL)isIpad;
+
 + (NSString *)locationAuthority;
 
 + (NSString *)pushAuthority;
@@ -51,4 +53,6 @@
 
 + (NSString *)bluetoothAuthority;
 
+/// 设备是否模拟器
++ (BOOL)isSimulator;
 @end

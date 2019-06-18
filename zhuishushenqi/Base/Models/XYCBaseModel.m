@@ -7,7 +7,7 @@
 //
 
 #import "XYCBaseModel.h"
-#import "YYKit.h"
+#import "YYModel.h"
 @implementation XYCBaseModel
 +(NSArray *)modelWithModleClass:(Class )modelClass withJsArray:(NSArray *)JSONArray withError:(NSError **)error;
 {
@@ -24,7 +24,7 @@
     NSMutableArray *models = [NSMutableArray arrayWithCapacity:JSONArray.count];
     for (NSDictionary *dictionary in JSONArray
          ) {
-        NSObject *model  = [modelClass modelWithDictionary:dictionary];
+        NSObject *model  = [modelClass yy_modelWithDictionary:dictionary];
         if (model == nil) {
             return nil;
         }
