@@ -31,11 +31,11 @@ class ZSTabBarController: UITabBarController,UITabBarControllerDelegate {
     }
     
     private func setupSubviews() {
-        let homeItem = UITabBarItem(title: "Trending", image: UIImage(named: "bottom_tabbar_mainhome_normal")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bottom_tabbar_mainhome_selected")?.withRenderingMode(.alwaysOriginal))
-        let channelItem = UITabBarItem(title: "News", image: UIImage(named: "bottom_tabbar_pegasuschannel_normal")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bottom_tabbar_pegasuschannel_selected")?.withRenderingMode(.alwaysOriginal))
-        let dynamicItem = UITabBarItem(title: "Star", image: UIImage(named: "bottom_tabbar_followinghome_normal")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bottom_tabbar_followinghome_selected")?.withRenderingMode(.alwaysOriginal))
-        let vipItem = UITabBarItem(title: "Search", image: UIImage(named: "bottom_tabbar_mallhome_normal")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bottom_tabbar_mallhome_selected")?.withRenderingMode(.alwaysOriginal))
-        let mineItem = UITabBarItem(title: "Mine", image: UIImage(named: "bottom_tabbar_user_center_normal")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bottom_tabbar_user_center_selected")?.withRenderingMode(.alwaysOriginal))
+        let homeItem = UITabBarItem(title: "书架", image: UIImage(named: "tab_bookshelf")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "tab_bookshelf_sel")?.withRenderingMode(.alwaysOriginal))
+        let channelItem = UITabBarItem(title: "书城", image: UIImage(named: "tab_bookstore")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "tab_bookstore_sel")?.withRenderingMode(.alwaysOriginal))
+        let dynamicItem = UITabBarItem(title: "社区", image: UIImage(named: "tab_bbs")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "tab_bbs_sel")?.withRenderingMode(.alwaysOriginal))
+        let vipItem = UITabBarItem(title: "发现", image: UIImage(named: "tab_discover")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "tab_discover_sel")?.withRenderingMode(.alwaysOriginal))
+        let mineItem = UITabBarItem(title: "我的", image: UIImage(named: "tab_profile")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "tab_profile_sel")?.withRenderingMode(.alwaysOriginal))
         
         let homeVC = ZSBookShelfViewController()
         let homeNav = UINavigationController(rootViewController: homeVC)

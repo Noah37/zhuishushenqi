@@ -29,6 +29,7 @@
 		3D2B4D0720EB68AC008E3E81 /* ZSReaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */; };
 		3D31FFAF2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D31FFAE2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift */; };
 		3D31FFB12216E1850011D275 /* ZSChapterPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D31FFB02216E1850011D275 /* ZSChapterPayView.swift */; };
+		3D33B4D322BB6C40000C2D8D /* DispatchTime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D33B4D222BB6C40000C2D8D /* DispatchTime+Extension.swift */; };
 		3D3AB5D2214E98AC00E9C246 /* hylst.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D1214E98AC00E9C246 /* hylst.ttf */; };
 		3D3AB5D4214E98B800E9C246 /* Redocn.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D3214E98B800E9C246 /* Redocn.ttf */; };
 		3D3AB5D6214E993E00E9C246 /* hkppt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5D5214E993E00E9C246 /* hkppt.ttf */; };
@@ -542,6 +543,7 @@
 		3D2B4D0620EB68AC008E3E81 /* ZSReaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderProtocol.swift; sourceTree = "<group>"; };
 		3D31FFAE2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZSReaderViewModel+Bought.swift"; sourceTree = "<group>"; };
 		3D31FFB02216E1850011D275 /* ZSChapterPayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSChapterPayView.swift; sourceTree = "<group>"; };
+		3D33B4D222BB6C40000C2D8D /* DispatchTime+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchTime+Extension.swift"; sourceTree = "<group>"; };
 		3D3AB5D1214E98AC00E9C246 /* hylst.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hylst.ttf; sourceTree = "<group>"; };
 		3D3AB5D3214E98B800E9C246 /* Redocn.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Redocn.ttf; sourceTree = "<group>"; };
 		3D3AB5D5214E993E00E9C246 /* hkppt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hkppt.ttf; sourceTree = "<group>"; };
@@ -2060,6 +2062,7 @@
 				3D9325ED20B2E07F0049CDBF /* Value.swift */,
 				B263E2E8211EBFEC001819FB /* SQLite+Extension.swift */,
 				3DDEEAFE214B5D39003D12DB /* UIFont+Extension.swift */,
+				3D33B4D222BB6C40000C2D8D /* DispatchTime+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3214,6 +3217,7 @@
 				3D9325E120B2BCFB0049CDBF /* ZSRootViewController.swift in Sources */,
 				B2C0DF2920D4CB350057DC84 /* BookCommentDetail.swift in Sources */,
 				B2C0DF7920D4CB6D0057DC84 /* BookCommentViewController.swift in Sources */,
+				3D33B4D322BB6C40000C2D8D /* DispatchTime+Extension.swift in Sources */,
 				B2583CBD1EA782C2004178F3 /* QSThemeTopicRouter.swift in Sources */,
 				B2C0DF7820D4CB6D0057DC84 /* QSBookCommentPresenter.swift in Sources */,
 				B2B4BBE31E7EA4AB000CC201 /* XYCBaseModel.m in Sources */,

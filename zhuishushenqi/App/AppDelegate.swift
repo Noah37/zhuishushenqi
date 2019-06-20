@@ -15,12 +15,14 @@ import DoraemonKit
 
 
 let rightScaleX:CGFloat = 0.2
+let rootVCKey = "rootVCKey"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var lastTabVC:UIViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -29,12 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let sideVC = SideViewController.shared
-        sideVC.contentViewController = ZSRootViewController()
-        sideVC.rightViewController = RightViewController()
-        sideVC.leftViewController = LeftViewController()
-        let sideNavVC = ZSBaseNavigationViewController(rootViewController: sideVC)
-        window?.rootViewController = sideNavVC
+        if let newTabVC = UserDefaults.standard.value(forKey: rootVCKey) as? Bool {
+            let tabBarVC = ZSTabBarController()
+            window?.rootViewController = tabBarVC
+
+        } else {
+            let sideVC = SideViewController.shared
+            sideVC.contentViewController = ZSRootViewController()
+            sideVC.rightViewController = RightViewController()
+            sideVC.leftViewController = LeftViewController()
+            let sideNavVC = ZSBaseNavigationViewController(rootViewController: sideVC)
+            window?.rootViewController = sideNavVC
+        }
+        
         window?.makeKeyAndVisible()
         UIApplication.shared.setStatusBarHidden(false, with: .fade)
         #if DEBUG

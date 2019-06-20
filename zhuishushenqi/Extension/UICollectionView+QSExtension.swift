@@ -19,9 +19,9 @@ extension ReusableView where Self: UIView {
     }
 }
 
-extension UICollectionReusableView: ReusableView {
-    
-}
+//extension UICollectionReusableView: ReusableView {
+//    
+//}
 
 extension UICollectionView {
     func qs_registerCellNib<T:UICollectionViewCell>(_ aClass:T.Type){

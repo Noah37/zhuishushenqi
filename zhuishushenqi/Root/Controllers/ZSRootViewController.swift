@@ -41,6 +41,28 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
         RootNavigationView.make(delegate: self,leftAction: #selector(leftAction(_:)),rightAction: #selector(rightAction(_:)))
         setupSegMenu()
         
+//        DispatchQueue.main.asyncAfter(deadline: 5) {
+//            let delegate = UIApplication.shared.delegate as! AppDelegate
+//            delegate.window?.rootViewController = tabVC
+//        }
+        // 新版本弹窗入口
+        let alertVC = UIAlertController(title: "提示", message: "现已开发追书神器新版本，是否切换至新版[切换后无法撤销]？", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "确定", style: UIAlertAction.Style.default) { (action) in
+            let tabVC = ZSTabBarController()
+            let delegate = UIApplication.shared.delegate as! AppDelegate
+            delegate.lastTabVC = delegate.window!.rootViewController!
+            UIView.transition(from: delegate.window!.rootViewController!.view, to: tabVC.view, duration: 1, options: UIView.AnimationOptions.transitionCrossDissolve, completion: { (finished) in
+                delegate.window?.rootViewController = tabVC
+                UserDefaults.standard.setValue(true, forKey: rootVCKey)
+            })
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: UIAlertAction.Style.default) { (action) in
+            
+        }
+        alertVC.addAction(okAction)
+        alertVC.addAction(cancelAction)
+        present(alertVC, animated: true, completion: nil)
+        
         /*
         let items = Observable.just(
             [1,2,3].map{ $0 }
