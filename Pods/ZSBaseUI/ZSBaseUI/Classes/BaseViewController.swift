@@ -100,3 +100,19 @@ open class BaseViewController: UIViewController, IndicatableView {
         return indicator
     }()
 }
+
+extension BaseViewController {
+    public func tencentDidLogin() {
+        
+    }
+    
+    public func tencentDidNotLogin(_ cancelled: Bool) {
+        
+    }
+    
+    public func tencentDidNotNetWork() {
+        
+    }
+    
+    
+}

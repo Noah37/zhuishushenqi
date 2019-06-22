@@ -72,12 +72,12 @@ class ZSLoginVerifyView: UIView, UIWebViewDelegate {
                 if let data = noPercentJson.data(using: .utf8) {
                     if let obj = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] {
                         var requestParam:[String:String] = [:]
-                        let ret = obj?["ret"] as? Int ?? 1
+                        let ret = obj["ret"] as? Int ?? 1
                         requestParam["mobile"] = ZSMobileLogin.share.mobile
                         requestParam["type"] = "login"
                         requestParam["captchaType"] = "tencent"
-                        requestParam["Ticket"] = obj?["ticket"] as? String ?? ""
-                        requestParam["Randstr"] = obj?["randstr"] as? String ?? ""
+                        requestParam["Ticket"] = obj["ticket"] as? String ?? ""
+                        requestParam["Randstr"] = obj["randstr"] as? String ?? ""
                         resultHandler?(ret, requestParam)
                     }
                 }

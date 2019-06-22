@@ -15,7 +15,7 @@ class ZSBaseTableViewManger: NSObject, UITableViewDataSource, UITableViewDelegat
 
     
     lazy var myCellIdentifiers =  [String]()
-    lazy var zs_dataArrayList = []
+    lazy var zs_dataArrayList:[AnyObject] = []
     var didSelectCellBlock: didSelectTableCellBlock?
     
     init(cellIdentifiers: [String], didSelectBlock: @escaping didSelectTableCellBlock) {

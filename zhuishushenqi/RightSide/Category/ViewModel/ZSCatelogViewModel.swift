@@ -13,7 +13,7 @@ class ZSCatelogViewModel  {
     
     var catelogModel:ZSCatelogModel = ZSCatelogModel()
     func request(_ handler:ZSBaseCallback<Void>?) {
-        let api = ZSAPI.category()
+        let api = ZSAPI.category("" as AnyObject)
         zs_get(api.path, parameters: api.parameters) { (response) in
             guard let books = response else {
                 handler?(nil)

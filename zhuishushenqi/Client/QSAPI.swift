@@ -23,25 +23,25 @@ enum QSAPI {
     ///首次进入根据性别推荐书籍
     case genderRecommend(gender:String)
     ///追书书架信息
-    case shelfMSG()
+    case shelfMSG(_ shelf:Any)
     ///书架更新信息
     case update(id:String)
     ///热门搜索
-    case hotwords()
+    case hotwords(_ shelf:Any)
     ///联想搜索
     case autoComplete(query:String)
     ///搜索书籍
     case searchBook(id:String,start:String,limit:String)
     ///排行榜
-    case ranking()
+    case ranking(_ shelf:Any)
     ///榜单数据
     case rankList(id:String)
     ///分类
-    case category()
+    case category(_ shelf:Any)
     ///分类详细
     case categoryList(gender:String,type:String,major:String,minor:String,start:String,limit:String)
     ///tag过滤
-    case tagType()
+    case tagType(_ shelf:Any)
     ///主题书单
     case themeTopic(sort:String,duration:String,start:String,gender:String,tag:String)
     ///主题书单详细
@@ -75,7 +75,7 @@ enum QSAPI {
     ///详情页推荐书单
     case recommend(key:String)
     //随机看书
-    case mysteryBook()
+    case mysteryBook(_ shelf:Any)
     ///登录
     case login(idfa:String,platform_code:String,platform_token:String,platform_uid:String,version:String,tag:String)
     ///账户信息
@@ -123,13 +123,13 @@ extension QSAPI:TargetType{
         case .genderRecommend(_):
             pathComponent = "/book/recommend"
             break
-        case .shelfMSG():
+        case .shelfMSG(_):
             pathComponent = "/notification/shelfMessage"
             break
         case .update(_):
             pathComponent = "/book"
             break
-        case .hotwords():
+        case .hotwords(_):
             pathComponent = "/book/hot-word"
             break
         case .autoComplete(_):
@@ -138,19 +138,19 @@ extension QSAPI:TargetType{
         case .searchBook(_,_,_):
             pathComponent = "/book/fuzzy-search"
             break
-        case .ranking():
+        case .ranking(_):
             pathComponent = "/ranking/gender"
             break
         case let .rankList(id):
             pathComponent = "/ranking/\(id)"
             break
-        case .category():
+        case .category(_):
             pathComponent = "/cats/lv2/statistics"
             break
         case .categoryList(_,_,_,_,_,_):
             pathComponent = "/book/by-categories"
             break
-        case .tagType():
+        case .tagType(_):
             pathComponent = "/book-list/tagType"
             break
         case .themeTopic(_,_,_,_,_):
@@ -201,7 +201,7 @@ extension QSAPI:TargetType{
         case let .recommend(key):
             pathComponent = "/book-list/\(key)/recommend?limit=3"
             break
-        case .mysteryBook():
+        case .mysteryBook(_):
             pathComponent = "/book/mystery-box"
             break
         case .login(_,_,_,_,_,_):
@@ -303,7 +303,7 @@ extension QSAPI:TargetType{
             return ["query":query]
         case let .searchBook(id,start,limit):
             return ["query":id,"start":start,"limit":limit]
-        case .shelfMSG():
+        case .shelfMSG(_):
             return ["platform":"ios"]
         case let .categoryList(gender,type,major,minor,start,limit):
             return ["gender":gender,"type":type,"major":major,"minor":minor,"start":start,"limit":limit]

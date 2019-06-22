@@ -108,13 +108,13 @@ extension ZSSegmentViewController:UICollectionViewDataSource, UICollectionViewDe
         return cell
     }
     
-    private func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.bounds.width, height: self.view.bounds.height)
     }
 }
 
 extension ZSSegmentViewController:UIScrollViewDelegate {
-    private func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let index:Int = Int(abs(scrollView.contentOffset.x/self.view.bounds.width))
         scrollViewDidEndDeceleratingHandler?(index)
     }

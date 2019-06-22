@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2018, Deusty, LLC
+// Copyright (c) 2010-2016, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -22,12 +22,12 @@
 
 @interface DDLoggingContextSet : NSObject
 
-- (void)addToSet:(NSInteger)loggingContext;
-- (void)removeFromSet:(NSInteger)loggingContext;
+- (void)addToSet:(NSUInteger)loggingContext;
+- (void)removeFromSet:(NSUInteger)loggingContext;
 
 @property (readonly, copy) NSArray *currentSet;
 
-- (BOOL)isInSet:(NSInteger)loggingContext;
+- (BOOL)isInSet:(NSUInteger)loggingContext;
 
 @end
 
@@ -52,11 +52,11 @@
     return self;
 }
 
-- (void)addToWhitelist:(NSInteger)loggingContext {
+- (void)addToWhitelist:(NSUInteger)loggingContext {
     [_contextSet addToSet:loggingContext];
 }
 
-- (void)removeFromWhitelist:(NSInteger)loggingContext {
+- (void)removeFromWhitelist:(NSUInteger)loggingContext {
     [_contextSet removeFromSet:loggingContext];
 }
 
@@ -64,7 +64,7 @@
     return [_contextSet currentSet];
 }
 
-- (BOOL)isOnWhitelist:(NSInteger)loggingContext {
+- (BOOL)isOnWhitelist:(NSUInteger)loggingContext {
     return [_contextSet isInSet:loggingContext];
 }
 
@@ -99,11 +99,11 @@
     return self;
 }
 
-- (void)addToBlacklist:(NSInteger)loggingContext {
+- (void)addToBlacklist:(NSUInteger)loggingContext {
     [_contextSet addToSet:loggingContext];
 }
 
-- (void)removeFromBlacklist:(NSInteger)loggingContext {
+- (void)removeFromBlacklist:(NSUInteger)loggingContext {
     [_contextSet removeFromSet:loggingContext];
 }
 
@@ -111,7 +111,7 @@
     return [_contextSet currentSet];
 }
 
-- (BOOL)isOnBlacklist:(NSInteger)loggingContext {
+- (BOOL)isOnBlacklist:(NSUInteger)loggingContext {
     return [_contextSet isInSet:loggingContext];
 }
 
@@ -153,7 +153,7 @@
     pthread_mutex_destroy(&_mutex);
 }
 
-- (void)addToSet:(NSInteger)loggingContext {
+- (void)addToSet:(NSUInteger)loggingContext {
     pthread_mutex_lock(&_mutex);
     {
         [_set addObject:@(loggingContext)];
@@ -161,7 +161,7 @@
     pthread_mutex_unlock(&_mutex);
 }
 
-- (void)removeFromSet:(NSInteger)loggingContext {
+- (void)removeFromSet:(NSUInteger)loggingContext {
     pthread_mutex_lock(&_mutex);
     {
         [_set removeObject:@(loggingContext)];
@@ -181,7 +181,7 @@
     return result;
 }
 
-- (BOOL)isInSet:(NSInteger)loggingContext {
+- (BOOL)isInSet:(NSUInteger)loggingContext {
     BOOL result = NO;
 
     pthread_mutex_lock(&_mutex);

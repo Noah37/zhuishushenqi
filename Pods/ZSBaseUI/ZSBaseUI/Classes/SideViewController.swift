@@ -142,7 +142,7 @@ open class SideViewController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     //MARK: - UIGestureRecognizerDelegate
-    private func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == panGes {
             let pan:UIPanGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
             let velocity:CGPoint = pan.velocity(in: self.contentView)

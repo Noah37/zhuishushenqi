@@ -14,7 +14,7 @@ class ZSFilterThemeViewModel {
     var items:[ZSFilterThemeModel] = []
     
     func request(_ handler:ZSBaseCallback<Void>?) {
-        let api = ZSAPI.tagType()
+        let api = ZSAPI.tagType("" as AnyObject)
         zs_get(api.path, parameters: nil) { (response) in
             guard let books = response?["data"] as? [Any] else {
                 handler?(nil)

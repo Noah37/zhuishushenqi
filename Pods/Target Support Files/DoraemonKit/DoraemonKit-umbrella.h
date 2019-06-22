@@ -160,13 +160,6 @@
 #import "DoraemonMethodUseTimeManager.h"
 #import "DoraemonMethodUseTimeListCell.h"
 #import "DoraemonMethodUseTimeListViewController.h"
-#import "DoraemonCocoaLumberjackPlugin.h"
-#import "DoraemonCocoaLumberjackViewController.h"
-#import "DoraemonCocoaLumberjackLogger.h"
-#import "DoraemonDDLogMessage.h"
-#import "DoraemonCocoaLumberjackLevelView.h"
-#import "DoraemonCocoaLumberjackListCell.h"
-#import "DoraemonCocoaLumberjackListViewController.h"
 
 FOUNDATION_EXPORT double DoraemonKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char DoraemonKitVersionString[];

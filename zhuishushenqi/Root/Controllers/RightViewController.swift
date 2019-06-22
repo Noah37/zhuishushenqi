@@ -130,7 +130,7 @@ class RightViewController: BaseViewController, UITableViewDataSource, UITableVie
             SideVC.navigationController?.pushViewController(voiceVC, animated: true)
         } else if indexPath.row == 10 {
 //            https://api.zhuishushenqi.com/book/mystery-box
-            let api = ZSAPI.mysteryBook()
+            let api = ZSAPI.mysteryBook("" as AnyObject)
             zs_get(api.path) { (json) in
                 if let books = json?["books"] as? [[String:[String:Any]]] {
                     if let book = books[0]["book"] {

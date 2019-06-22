@@ -50,8 +50,8 @@ extension String {
         for i in 0..<digestLen {
             hash += String(format:"%02x",(digest[i]))
         }
-        digest.deinitialize()
-        ctx.deinitialize()
+//        digest.deinitialize()
+//        ctx.deinitialize()
         return hash
     }
     
@@ -61,8 +61,8 @@ extension String {
             return self
         }
         var ends = end
-        if self.characters.count < ends {
-            ends = self.characters.count
+        if self.count < ends {
+            ends = self.count
         }
         let startIndex = self.index(self.startIndex, offsetBy: start)
         let endIndex = self.index(self.startIndex, offsetBy: ends)

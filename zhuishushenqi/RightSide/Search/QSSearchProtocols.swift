@@ -13,14 +13,14 @@ import UIKit
 
 //MARK: Wireframe -
 protocol QSSearchWireframeProtocol: class {
-    weak var viewController: UIViewController? { get set }
+    var viewController: UIViewController? { get set }
     func presentDetails(_ novel:Book)
     
     static func createModule() -> UIViewController
 }
 //MARK: Presenter -
 protocol QSSearchPresenterProtocol: class {
-    weak var view: QSSearchViewProtocol?{ get set }
+    var view: QSSearchViewProtocol?{ get set }
     var interactor: QSSearchInteractorProtocol{ get set }
     var router: QSSearchWireframeProtocol{ get set }
     func viewDidLoad()

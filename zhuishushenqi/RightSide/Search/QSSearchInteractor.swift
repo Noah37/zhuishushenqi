@@ -21,7 +21,7 @@ class ZSSearchWebService {
     
     //NARK: - webserver data
     func fetchHotwords (_ callback: ZSSearchWebCallback?){
-        let api = ZSAPI.hotwords()
+        let api = ZSAPI.hotwords("" as AnyObject)
         QSNetwork.request(api.path) { (response) in
             QSLog(response.json)
             if let hotwords:[String] = response.json?["hotWords"] as? [String] {
@@ -68,7 +68,7 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
     private let SearchStoreKey = "SearchHistory"
 
     func fetchHotwords(){
-        let api = ZSAPI.hotwords()
+        let api = ZSAPI.hotwords("" as AnyObject)
         QSNetwork.request(api.path) { (response) in
             QSLog(response.json)
             if let hotwords:[String] = response.json?["hotWords"] as? [String] {

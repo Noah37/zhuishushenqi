@@ -12,12 +12,12 @@ import ZSAPI
 class ZSRankService {
     
     func fetchRanking(_ handler:ZSBaseCallback<[[QSRankModel]]>?){
-        let api = ZSAPI.ranking()
+        let api = ZSAPI.ranking("" as AnyObject)
         zs_get(api.path).responseJSON { (response) in
             if let data = response.data {
                 if let obj = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any]  {
                     var ranking:[[QSRankModel]] = []
-                    if let male = obj?["male"] as? [Any] {
+                    if let male = obj["male"] as? [Any] {
                         if let maleModels = [QSRankModel].deserialize(from: male) as? [QSRankModel] {
                             var males = maleModels
                             let otherRank = self.rankModel(title: "别人家的榜单", image: "ranking_other")
@@ -25,7 +25,7 @@ class ZSRankService {
                             ranking.append(males)
                         }
                     }
-                    if let female = obj?["female"] as? [Any] {
+                    if let female = obj["female"] as? [Any] {
                         if let femaleModels = [QSRankModel].deserialize(from: female) as? [QSRankModel] {
                             var females = femaleModels
                             let otherRank = self.rankModel(title: "别人家的榜单", image: "ranking_other")

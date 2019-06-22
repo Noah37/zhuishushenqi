@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2018, Deusty, LLC
+// Copyright (c) 2010-2016, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -14,8 +14,6 @@
 //   prior written permission of Deusty, LLC.
 
 #import "DDASLLogger.h"
-
-#if !TARGET_OS_WATCH
 #import <asl.h>
 
 #if !__has_feature(objc_arc)
@@ -92,7 +90,7 @@ static DDASLLogger *sharedInstance;
 
         char readUIDString[16];
 #ifndef NS_BLOCK_ASSERTIONS
-        size_t l = (size_t)snprintf(readUIDString, sizeof(readUIDString), "%d", readUID);
+        size_t l = snprintf(readUIDString, sizeof(readUIDString), "%d", readUID);
 #else
         snprintf(readUIDString, sizeof(readUIDString), "%d", readUID);
 #endif
@@ -116,10 +114,8 @@ static DDASLLogger *sharedInstance;
     }
 }
 
-- (DDLoggerName)loggerName {
-    return DDLoggerNameASL;
+- (NSString *)loggerName {
+    return @"cocoa.lumberjack.aslLogger";
 }
 
 @end
-
-#endif

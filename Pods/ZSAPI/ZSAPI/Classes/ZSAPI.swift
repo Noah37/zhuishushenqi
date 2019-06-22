@@ -23,25 +23,25 @@ public enum ZSAPI {
     ///首次进入根据性别推荐书籍
     case genderRecommend(gender:String)
     ///追书书架信息
-    case shelfMSG()
+    case shelfMSG(_ placeHolder:AnyObject)
     ///书架更新信息
     case update(id:String)
     ///热门搜索
-    case hotwords()
+    case hotwords(_ placeHolder:AnyObject)
     ///联想搜索
     case autoComplete(query:String)
     ///搜索书籍
     case searchBook(id:String,start:String,limit:String)
     ///排行榜
-    case ranking()
+    case ranking(_ placeHolder:AnyObject)
     ///榜单数据
     case rankList(id:String)
     ///分类
-    case category()
+    case category(_ placeHolder:AnyObject)
     ///分类详细
     case categoryList(gender:String,type:String,major:String,minor:String,start:String,limit:String)
     ///tag过滤
-    case tagType()
+    case tagType(_ placeHolder:AnyObject)
     ///主题书单
     case themeTopic(sort:String,duration:String,start:String,gender:String,tag:String)
     ///主题书单详细
@@ -75,7 +75,7 @@ public enum ZSAPI {
     ///详情页推荐书单
     case recommend(key:String)
     //随机看书
-    case mysteryBook()
+    case mysteryBook(_ placeHolder:AnyObject)
     ///登录
     case login(idfa:String,platform_code:String,platform_token:String,platform_uid:String,version:String,tag:String)
     ///账户信息
@@ -114,7 +114,13 @@ public enum ZSAPI {
     case bookshelfdiff(books:String,token:String)
     ///追书券列表
     case voucherList(token:String, type:String, start:Int, limit:Int)
+    ///有声书分类列表
+//    case voiceCategory()
+//    https://apidian2.lnk.la/system/rule?type=test&version=not_found&juhe=1
+    // 第三方书籍来源接口
+    case thirdPartSource(type:String, version:String,juhe:Int)
 }
+//https://api.ximalaya.com/openapi-gateway-app/v2/albums/list?access_token=906bbf257eddd7ba84ceec277bdef5b5&app_key=e31646fa4555ea3472d4114921ee192e&client_os_type=1&device=iPhone&device_id=F6F542A1-1676-4D28-96C2-CF9D2F52F5FD&pack_id=com.ifmoc.ZhuiShuShenQi&sdk_version=5.4.7&calc_dimension=1&category_id=3&count=20&page=1&tag_name=%E8%A8%80%E6%83%85&type=0&sig=8db40bb73de647a3baba9afb4635eb8e&
 
 extension ZSAPI:ZSTargetType{
     public var path: String {
@@ -123,13 +129,13 @@ extension ZSAPI:ZSTargetType{
         case .genderRecommend(_):
             pathComponent = "/book/recommend"
             break
-        case .shelfMSG():
+        case .shelfMSG(_):
             pathComponent = "/notification/shelfMessage"
             break
         case .update(_):
             pathComponent = "/book"
             break
-        case .hotwords():
+        case .hotwords(_):
             pathComponent = "/book/hot-word"
             break
         case .autoComplete(_):
@@ -138,19 +144,19 @@ extension ZSAPI:ZSTargetType{
         case .searchBook(_,_,_):
             pathComponent = "/book/fuzzy-search"
             break
-        case .ranking():
+        case .ranking(_):
             pathComponent = "/ranking/gender"
             break
         case let .rankList(id):
             pathComponent = "/ranking/\(id)"
             break
-        case .category():
+        case .category(_):
             pathComponent = "/cats/lv2/statistics"
             break
         case .categoryList(_,_,_,_,_,_):
             pathComponent = "/book/by-categories"
             break
-        case .tagType():
+        case .tagType(_):
             pathComponent = "/book-list/tagType"
             break
         case .themeTopic(_,_,_,_,_):
@@ -201,7 +207,7 @@ extension ZSAPI:ZSTargetType{
         case let .recommend(key):
             pathComponent = "/book-list/\(key)/recommend?limit=3"
             break
-        case .mysteryBook():
+        case .mysteryBook(_):
             pathComponent = "/book/mystery-box"
             break
         case .login(_,_,_,_,_,_):
@@ -267,6 +273,9 @@ extension ZSAPI:ZSTargetType{
         case .voucherList(_, _, _, _):
             pathComponent = "/voucher"
             break
+        case .thirdPartSource(_, _, _):
+            pathComponent = "/system/rule"
+            break
         }
         return "\(baseURLString)\(pathComponent)"
     }
@@ -285,6 +294,8 @@ extension ZSAPI:ZSTargetType{
             urlString = "http://goldcoin.zhuishushenqi.com"
         case .blessing_bag(_):
             urlString = "https://goldcoin.zhuishushenqi.com"
+        case .thirdPartSource(_, _, _):
+            urlString = "https://apidian2.lnk.la"
         default:
             urlString = "http://api.zhuishushenqi.com"
         }
@@ -301,7 +312,7 @@ extension ZSAPI:ZSTargetType{
             return ["query":query]
         case let .searchBook(id,start,limit):
             return ["query":id,"start":start,"limit":limit]
-        case .shelfMSG():
+        case .shelfMSG(_):
             return ["platform":"ios"]
         case let .categoryList(gender,type,major,minor,start,limit):
             return ["gender":gender,"type":type,"major":major,"minor":minor,"start":start,"limit":limit]
@@ -376,6 +387,10 @@ extension ZSAPI:ZSTargetType{
                     "type":"\(type)",
                     "start":"\(start)",
                     "limit":"\(limit)"]
+        case let .thirdPartSource(type, version, juhe):
+            return ["type":type,
+                    "version":version,
+                    "juhe":"\(juhe)"]
         default:
             return nil
         }

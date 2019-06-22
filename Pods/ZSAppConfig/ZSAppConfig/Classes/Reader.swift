@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Reader:Int {
+public enum Reader:Int {
     case white
     case yellow
     case green
@@ -24,7 +24,7 @@ enum Reader:Int {
 
 extension Reader {
     
-    var backgroundImage:UIImage {
+    public var backgroundImage:UIImage {
         switch self {
         case .yellow:
             return #imageLiteral(resourceName: "yellow_mode_bg")
@@ -51,7 +51,7 @@ extension Reader {
         }
     }
     
-    var textColor:UIColor {
+    public var textColor:UIColor {
         switch self {
         case .yellow,.white,.green:
             return UIColor.black
@@ -62,7 +62,7 @@ extension Reader {
         }
     }
     
-    var batteryColor:UIColor {
+    public var batteryColor:UIColor {
         switch self {
         case .yellow,.white,.green:
             return UIColor.darkGray

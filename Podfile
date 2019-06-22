@@ -22,13 +22,13 @@ pod 'RxCocoa'
 pod 'RxAlamofire'
 pod 'Then'
 pod 'MJRefresh'
-pod 'HandyJSON', '4.2.1'
+pod 'HandyJSON'
 pod 'CocoaAsyncSocket'
-pod 'CocoaLumberjack' , '3.5.1'
+pod 'CocoaLumberjack', '3.4.2'
 #pod 'SQLite.swift', '0.11.6'
 pod 'Zip'
 pod 'FMDB'
-pod 'PKHUD', '5.2.1'
+pod 'PKHUD'
 pod 'ZSAPI'
 pod 'Cache'
 
@@ -40,10 +40,22 @@ pod 'ZSDiscover'
 pod 'ZSMine'
 
 pod 'DoraemonKit/Core', '~> 1.1.6', :configurations => ['Debug']
-pod 'DoraemonKit/WithLogger', '~> 1.1.6', :configurations => ['Debug']
+#pod 'DoraemonKit/WithLogger', '~> 1.1.6', :configurations => ['Debug']
 pod 'DoraemonKit/WithGPS', '~> 1.1.6', :configurations => ['Debug']
 pod 'DoraemonKit/WithLoad', '~> 1.1.6', :configurations => ['Debug']
 #pod 'AFNetworking'
 #pod 'Realm', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true
 #pod 'RealmSwift', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    # 我們也可以懶惰不用 if，讓所有 pod 的版本都設為一樣的
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '5.0'
+    end
+    
+#    if ['RxSwift', 'RxSwiftExt', 'RxCocoa', 'RxDataSources', 'ProtocolBuffers-Swift'].include? target.name
+#    end
+  end
 end

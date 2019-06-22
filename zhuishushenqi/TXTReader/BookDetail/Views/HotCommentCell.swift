@@ -26,7 +26,7 @@ class HotCommentCell: UITableViewCell {
             self.userNameLabel.text = "\(model?.author.nickname ?? "")"
             self.titleLabel.text = "\(model?.title ?? "")"
             //文本过长会有卡顿现象
-            if (model?.content.characters.count ?? 0) > 40 {
+            if (model?.content.count ?? 0) > 40 {
                 self.contentLabel.text = "\(model?.content.qs_subStr(to: 40) ?? "")"
             }else{
                 self.contentLabel.text = "\(model?.content ?? "")"

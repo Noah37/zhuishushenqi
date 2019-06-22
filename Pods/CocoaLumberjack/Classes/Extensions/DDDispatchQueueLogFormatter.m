@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2018, Deusty, LLC
+// Copyright (c) 2010-2016, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -21,12 +21,11 @@
 #error This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
 
-#pragma mark - DDDispatchQueueLogFormatter
-
 @interface DDDispatchQueueLogFormatter () {
     DDDispatchQueueLogFormatterMode _mode;
     NSString *_dateFormatterKey;
-    DDAtomicCounter *_atomicLoggerCounter;
+    
+    int32_t _atomicLoggerCount;
     NSDateFormatter *_threadUnsafeDateFormatter; // Use [self stringFromDate]
     
     pthread_mutex_t _mutex;
@@ -58,7 +57,7 @@
         // now `cls` is the class that provides implementation for `configureDateFormatter:`
         _dateFormatterKey = [NSString stringWithFormat:@"%s_NSDateFormatter", class_getName(cls)];
 
-        _atomicLoggerCounter = [[DDAtomicCounter alloc] initWithDefaultValue:0];
+        _atomicLoggerCount = 0;
         _threadUnsafeDateFormatter = nil;
 
         _minQueueLength = 0;
@@ -131,7 +130,12 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS"];
     [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
 
-    NSString *calendarIdentifier = NSCalendarIdentifierGregorian;
+    NSString *calendarIdentifier = nil;
+#if defined(__IPHONE_8_0) || defined(__MAC_10_10)
+    calendarIdentifier = NSCalendarIdentifierGregorian;
+#else
+    calendarIdentifier = NSGregorianCalendar;
+#endif
 
     [dateFormatter setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:calendarIdentifier]];
 }
@@ -188,8 +192,7 @@
             @"com.apple.root.high-priority",
             @"com.apple.root.low-overcommit-priority",
             @"com.apple.root.default-overcommit-priority",
-            @"com.apple.root.high-overcommit-priority",
-            @"com.apple.root.default-qos.overcommit"
+            @"com.apple.root.high-overcommit-priority"
         ];
 
         for (NSString * name in names) {
@@ -266,65 +269,13 @@
 }
 
 - (void)didAddToLogger:(id <DDLogger>  __attribute__((unused)))logger {
-    NSAssert([_atomicLoggerCounter increment] <= 1 || _mode == DDDispatchQueueLogFormatterModeShareble, @"Can't reuse formatter with multiple loggers in non-shareable mode.");
+    int32_t count = 0;
+    count = OSAtomicIncrement32(&_atomicLoggerCount);
+    NSAssert(count <= 1 || _mode == DDDispatchQueueLogFormatterModeShareble, @"Can't reuse formatter with multiple loggers in non-shareable mode.");
 }
 
 - (void)willRemoveFromLogger:(id <DDLogger> __attribute__((unused)))logger {
-    [_atomicLoggerCounter decrement];
+    OSAtomicDecrement32(&_atomicLoggerCount);
 }
-
-@end
-
-#pragma mark - DDAtomicCounter
-
-#define DD_OSATOMIC_API_DEPRECATED (TARGET_OS_OSX && MAC_OS_X_VERSION_MIN_REQUIRED >= 101200) || (TARGET_OS_IOS && __IPHONE_OS_VERSION_MIN_REQUIRED >= 100000) || (TARGET_OS_WATCH && __WATCH_OS_VERSION_MIN_REQUIRED >= 30000) || (TARGET_OS_TV && __TV_OS_VERSION_MIN_REQUIRED >= 100000)
-
-#if DD_OSATOMIC_API_DEPRECATED
-#import <stdatomic.h>
-#else
-#import <libkern/OSAtomic.h>
-#endif
-
-@interface DDAtomicCounter() {
-#if DD_OSATOMIC_API_DEPRECATED
-    _Atomic(int32_t) _value;
-#else
-    int32_t _value;
-#endif
-}
-@end
-
-@implementation DDAtomicCounter
-
-- (instancetype)initWithDefaultValue:(int32_t)defaultValue {
-    if ((self = [super init])) {
-        _value = defaultValue;
-    }
-    return self;
-}
-
-- (int32_t)value {
-    return _value;
-}
-
-#if DD_OSATOMIC_API_DEPRECATED
-- (int32_t)increment {
-    atomic_fetch_add_explicit(&_value, 1, memory_order_relaxed);
-    return _value;
-}
-
-- (int32_t)decrement {
-    atomic_fetch_sub_explicit(&_value, 1, memory_order_relaxed);
-    return _value;
-}
-#else
-- (int32_t)increment {
-    return OSAtomicIncrement32(&_value);
-}
-
-- (int32_t)decrement {
-    return OSAtomicDecrement32(&_value);
-}
-#endif
 
 @end

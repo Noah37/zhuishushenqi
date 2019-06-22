@@ -15,7 +15,7 @@ extension RootViewController{
     func requetShelfMsg(){
         autoreleasepool {
             self.bookShelfLB.text = USER_DEFAULTS.object(forKey: PostLink) as? String ?? ""
-            let shelfApi = ZSAPI.shelfMSG()
+            let shelfApi = ZSAPI.shelfMSG("" as AnyObject)
             QSNetwork.request(shelfApi.path, method: HTTPMethodType.get, parameters: shelfApi.parameters, headers: nil) { (response) in
                 if let json = response.json {
                     let message = json["message"] as? NSDictionary

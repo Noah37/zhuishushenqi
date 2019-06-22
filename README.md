@@ -43,17 +43,19 @@
 
 **20190409：本次功能变更：修复书架删除书籍时误删整个书架的问题**
 
+**20190622: 本次功能变更：Swift 5.0支持**
+
 ----
 
 **仅供学习交流，请勿用于商业用途**
 
 ## Requirements
 
-- iOS 9.0+ / macOS 10.13+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 10.0+
-- Swift 4.2+
+- iOS 9.0+ / macOS 10.14+ / tvOS 9.0+ / watchOS 2.0+
+- Xcode 10.2+
+- Swift 5.0+
 
-Main development of zhuishushenqi olny support Swift 4.0+.
+Main development of zhuishushenqi olny support Swift 5.0+.
 
 ###Here you can see blow.
 

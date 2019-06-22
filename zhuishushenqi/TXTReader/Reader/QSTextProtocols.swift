@@ -11,14 +11,14 @@ import UIKit
 
 //MARK: Wireframe -
 protocol QSTextWireframeProtocol: class {
-    weak var viewController: UIViewController? { get set }
+    var viewController: UIViewController? { get set }
     func presentDetails(_ novel:QSRankModel)
     func presentCategory(book:BookDetail,books:[String:Any])
 }
 
 //MARK: Presenter -
 protocol QSTextPresenterProtocol: class {
-    weak var view: QSTextViewProtocol?{ get set }
+    var view: QSTextViewProtocol?{ get set }
     var interactor: QSTextInteractorProtocol{ get set }
     var router: QSTextWireframeProtocol{ get set }
     func viewDidLoad(bookDetail:BookDetail)

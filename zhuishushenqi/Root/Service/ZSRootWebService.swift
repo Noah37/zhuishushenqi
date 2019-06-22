@@ -46,7 +46,7 @@ final class ZSRootWebService:ZSBaseService {
     }
     
     func fetchShelvesMsg() -> Observable<ZSShelfMessage>{
-        let shelfApi = ZSAPI.shelfMSG()
+        let shelfApi = ZSAPI.shelfMSG("" as AnyObject)
         return requestJSON(.get, shelfApi.path, parameters: shelfApi.parameters)
             .observeOn(ConcurrentDispatchQueueScheduler(qos:.background))
             .map{ (_,responseData) in

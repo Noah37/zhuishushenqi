@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2018, Deusty, LLC
+// Copyright (c) 2010-2016, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -21,9 +21,6 @@
 #endif
 // DD_LEGACY_MACROS is checked in the file itself
 #import "DDLegacyMacros.h"
-
-// Names of loggers.
-#import "DDLoggerNames.h"
 
 #if OS_OBJECT_USE_OBJC
     #define DISPATCH_QUEUE_REFERENCE_TYPE strong
@@ -334,7 +331,7 @@ FOUNDATION_EXTERN NSString * __nullable DDExtractFileNameWithoutExtension(const 
 /**
  * Logging Primitive.
  *
- * This method can be used if you manually prepared DDLogMessage.
+ * This method can be used if you manualy prepared DDLogMessage.
  *
  *  @param asynchronous YES if the logging is done async, NO if you want to force sync
  *  @param logMessage   the log message stored in a `DDLogMessage` model object
@@ -345,7 +342,7 @@ FOUNDATION_EXTERN NSString * __nullable DDExtractFileNameWithoutExtension(const 
 /**
  * Logging Primitive.
  *
- * This method can be used if you manually prepared DDLogMessage.
+ * This method can be used if you manualy prepared DDLogMessage.
  *
  *  @param asynchronous YES if the logging is done async, NO if you want to force sync
  *  @param logMessage   the log message stored in a `DDLogMessage` model object
@@ -609,13 +606,13 @@ FOUNDATION_EXTERN NSString * __nullable DDExtractFileNameWithoutExtension(const 
 - (void)didAddLoggerInQueue:(dispatch_queue_t)queue;
 
 /**
- *  See the above description for `didAddLogger`
+ *  See the above description for `didAddLoger`
  */
 - (void)willRemoveLogger;
 
 /**
  * Some loggers may buffer IO for optimization purposes.
- * For example, a database logger may only save occasionally as the disk IO is slow.
+ * For example, a database logger may only save occasionaly as the disk IO is slow.
  * In such loggers, this method should be implemented to flush any pending IO.
  *
  * This allows invocations of DDLog's flushLog method to be propogated to loggers that need it.
@@ -638,7 +635,7 @@ FOUNDATION_EXTERN NSString * __nullable DDExtractFileNameWithoutExtension(const 
  * The created queue will receive its name from this method.
  * This may be helpful for debugging or profiling reasons.
  **/
-@property (copy, nonatomic, readonly) DDLoggerName loggerName;
+@property (nonatomic, readonly) NSString *loggerName;
 
 @end
 
@@ -858,10 +855,10 @@ typedef NS_OPTIONS(NSInteger, DDLogMessageOptions){
  * The `DDLogger` protocol specifies that an optional formatter can be added to a logger.
  * Most (but not all) loggers will want to support formatters.
  *
- * However, writing getters and setters in a thread safe manner,
+ * However, writting getters and setters in a thread safe manner,
  * while still maintaining maximum speed for the logging process, is a difficult task.
  *
- * To do it right, the implementation of the getter/setter has strict requirements:
+ * To do it right, the implementation of the getter/setter has strict requiremenets:
  * - Must NOT require the `logMessage:` method to acquire a lock.
  * - Must NOT require the `logMessage:` method to access an atomic property (also a lock of sorts).
  *

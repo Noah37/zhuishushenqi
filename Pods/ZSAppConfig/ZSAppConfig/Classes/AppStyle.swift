@@ -12,11 +12,11 @@ let nightKey = "light.key"
 let fontSizeKey = "fontSize.key"
 let animationStyleKey = "animationStyle.key"
 
-struct AppStyle {
+public struct AppStyle {
     
-    static var shared = AppStyle()
+    public static var shared = AppStyle()
     
-    var readFontSize:Int {
+    public var readFontSize:Int {
         set {
             UserDefaults.standard.set(newValue, forKey: fontSizeKey)
         }
@@ -29,13 +29,13 @@ struct AppStyle {
         }
     }
     
-    var reader:Reader = AppStyle.getReader() {
+    public var reader:Reader = AppStyle.getReader() {
         didSet{
             AppStyle.setReader(reader)
         }
     }
     
-    var theme:Theme = UserDefaults.standard.bool(forKey: nightKey) ? .night : .day {
+    public var theme:Theme = UserDefaults.standard.bool(forKey: nightKey) ? .night : .day {
         didSet{
             UserDefaults.standard.set(theme == .night, forKey: nightKey)
         }
@@ -43,7 +43,7 @@ struct AppStyle {
     
     private init(){}
     
-    static func getReader()->Reader{
+    public static func getReader()->Reader{
         let value = UserDefaults.standard.integer(forKey: readerKey)
         switch value {
         case 1:
@@ -55,7 +55,7 @@ struct AppStyle {
         }
     }
     
-    static func setReader(_ reader:Reader){
+    public static func setReader(_ reader:Reader){
         var value = 0
         switch reader {
         case .yellow:

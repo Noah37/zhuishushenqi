@@ -10,7 +10,7 @@ import Foundation
 
 let readerKey = "reader.key"
 
-enum Theme {
+public enum Theme {
     case day
     case night
 }
