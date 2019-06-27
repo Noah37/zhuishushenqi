@@ -1,6 +1,0 @@
-framework module ZSAppConfig {
-  umbrella header "ZSAppConfig-umbrella.h"
-
-  export *
-  module * { export * }
-}

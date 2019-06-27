@@ -64,35 +64,6 @@ PODS:
   - YYText (1.0.7)
   - Zip (1.1.0)
   - ZSAPI (0.1.9)
-  - ZSAppConfig (1.0.3)
-  - ZSBaseUI (1.0.6):
-    - HandyJSON
-    - MJRefresh
-    - RxCocoa (~> 5)
-    - RxSwift (~> 5)
-    - SnapKit
-    - Then
-    - ZSAPI
-    - ZSExtension
-  - ZSBookShelf (0.1.4):
-    - ZSBaseUI
-    - ZSExtension
-  - ZSBookStore (0.1.1):
-    - ZSBaseUI
-  - ZSCommunity (0.1.1):
-    - ZSBaseUI
-  - ZSDiscover (0.1.1):
-    - ZSBaseUI
-  - ZSExtension (1.0.2):
-    - Alamofire
-    - Kingfisher
-    - MBProgressHUD
-    - PKHUD (= 5.2.1)
-    - SQLite.swift (= 0.11.5)
-    - YYCategories
-    - ZSAppConfig
-  - ZSMine (0.1.1):
-    - ZSBaseUI
 
 DEPENDENCIES:
   - Cache
@@ -106,35 +77,24 @@ DEPENDENCIES:
   - Kingfisher
   - MBProgressHUD
   - MJRefresh
-  - PKHUD
+  - PKHUD (= 5.2.1)
   - PullToRefresh (= 0.0.1)
   - QSNetwork (~> 0.0.3)
   - RxAlamofire
-  - RxCocoa
-  - RxSwift
+  - RxCocoa (~> 5)
+  - RxSwift (~> 5)
   - SnapKit
+  - SQLite.swift (= 0.11.5)
   - Then
+  - YYCategories
   - YYModel
   - YYText
   - Zip
   - ZSAPI
-  - ZSBookShelf
-  - ZSBookStore
-  - ZSCommunity
-  - ZSDiscover
-  - ZSMine
 
 SPEC REPOS:
   "git@github.com:NoryCao/cjspecs.git":
     - ZSAPI
-    - ZSAppConfig
-    - ZSBaseUI
-    - ZSBookShelf
-    - ZSBookStore
-    - ZSCommunity
-    - ZSDiscover
-    - ZSExtension
-    - ZSMine
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - BSBacktraceLogger
@@ -197,15 +157,7 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
   ZSAPI: e0277317da5f773b7be682bbe83e237fe31b858e
-  ZSAppConfig: 36ecd23fe41b3d04cdfbaa8d0ae6dadd33bffa5d
-  ZSBaseUI: fcda68072a7a50042e5944d59eac393d4c24cdc5
-  ZSBookShelf: 1ac2fa8c9012968c6db319326e87cbf02b77ca96
-  ZSBookStore: 5dcd43e5beb9a420bcb4d16eee9347f2d700b9bc
-  ZSCommunity: 32eacf076441779f71e3b75c698deef4b12aac74
-  ZSDiscover: 1d6999f4c91a887636a87c7505e8085b6598f1eb
-  ZSExtension: df21f0843c30de746f027d5acb54a42af6d19e14
-  ZSMine: 319d538dfd6ad463844a3fdb360834b3c9df0809
 
-PODFILE CHECKSUM: 13cc28c52f70cddb667bc34b781b274a9be73afc
+PODFILE CHECKSUM: 0169c75c05d1ae1f11a84b32aeea4567a0304ff0
 
 COCOAPODS: 1.6.1

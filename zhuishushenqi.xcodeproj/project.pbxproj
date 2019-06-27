@@ -39,6 +39,12 @@
 		3D3AB5E0214E9ABD00E9C246 /* ltt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */; };
 		3D3BA0002160C5D700B0C80E /* speaker.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D3B9FFF2160C5D700B0C80E /* speaker.json */; };
 		3D3BA0042160C77E00B0C80E /* speakers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D3BA0032160C77E00B0C80E /* speakers.plist */; };
+		3D448E5822C501C40099B6E8 /* ZSBookShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D448E5622C501C40099B6E8 /* ZSBookShelfViewController.swift */; };
+		3D448E5922C501C40099B6E8 /* HomeNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D448E5722C501C40099B6E8 /* HomeNavView.swift */; };
+		3D448E5B22C501CC0099B6E8 /* ZSBookStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D448E5A22C501CC0099B6E8 /* ZSBookStoreViewController.swift */; };
+		3D448E5D22C501DA0099B6E8 /* ZSCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D448E5C22C501DA0099B6E8 /* ZSCommunityViewController.swift */; };
+		3D448E5F22C501E10099B6E8 /* ZSDiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D448E5E22C501E10099B6E8 /* ZSDiscoverViewController.swift */; };
+		3D448E6122C501E90099B6E8 /* ZSMineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D448E6022C501E90099B6E8 /* ZSMineViewController.swift */; };
 		3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */; };
 		3D5671FC2174CADD0049B2FF /* ZSBookCTLayoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5671FB2174CADD0049B2FF /* ZSBookCTLayoutModel.swift */; };
 		3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */; };
@@ -553,6 +559,12 @@
 		3D3AB5DF214E9ABD00E9C246 /* ltt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ltt.ttf; sourceTree = "<group>"; };
 		3D3B9FFF2160C5D700B0C80E /* speaker.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = speaker.json; sourceTree = "<group>"; };
 		3D3BA0032160C77E00B0C80E /* speakers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = speakers.plist; sourceTree = "<group>"; };
+		3D448E5622C501C40099B6E8 /* ZSBookShelfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSBookShelfViewController.swift; sourceTree = "<group>"; };
+		3D448E5722C501C40099B6E8 /* HomeNavView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNavView.swift; sourceTree = "<group>"; };
+		3D448E5A22C501CC0099B6E8 /* ZSBookStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSBookStoreViewController.swift; sourceTree = "<group>"; };
+		3D448E5C22C501DA0099B6E8 /* ZSCommunityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSCommunityViewController.swift; sourceTree = "<group>"; };
+		3D448E5E22C501E10099B6E8 /* ZSDiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSDiscoverViewController.swift; sourceTree = "<group>"; };
+		3D448E6022C501E90099B6E8 /* ZSMineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSMineViewController.swift; sourceTree = "<group>"; };
 		3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumViewController.swift; sourceTree = "<group>"; };
 		3D5671FB2174CADD0049B2FF /* ZSBookCTLayoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCTLayoutModel.swift; sourceTree = "<group>"; };
 		3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSProtocol.swift; sourceTree = "<group>"; };
@@ -1214,6 +1226,47 @@
 			path = SwiftStdlib;
 			sourceTree = "<group>";
 		};
+		3D448E5122C501490099B6E8 /* BookShelf */ = {
+			isa = PBXGroup;
+			children = (
+				3D448E5722C501C40099B6E8 /* HomeNavView.swift */,
+				3D448E5622C501C40099B6E8 /* ZSBookShelfViewController.swift */,
+			);
+			path = BookShelf;
+			sourceTree = "<group>";
+		};
+		3D448E5222C501550099B6E8 /* BookStore */ = {
+			isa = PBXGroup;
+			children = (
+				3D448E5A22C501CC0099B6E8 /* ZSBookStoreViewController.swift */,
+			);
+			path = BookStore;
+			sourceTree = "<group>";
+		};
+		3D448E5322C5015D0099B6E8 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				3D448E5C22C501DA0099B6E8 /* ZSCommunityViewController.swift */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
+		3D448E5422C501660099B6E8 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				3D448E5E22C501E10099B6E8 /* ZSDiscoverViewController.swift */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		3D448E5522C5016F0099B6E8 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				3D448E6022C501E90099B6E8 /* ZSMineViewController.swift */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
 		3D5671FA2174CABA0049B2FF /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1644,6 +1697,11 @@
 		B2091C2A22B158F500AD550A /* NewVersion */ = {
 			isa = PBXGroup;
 			children = (
+				3D448E5522C5016F0099B6E8 /* Mine */,
+				3D448E5422C501660099B6E8 /* Discover */,
+				3D448E5322C5015D0099B6E8 /* Community */,
+				3D448E5222C501550099B6E8 /* BookStore */,
+				3D448E5122C501490099B6E8 /* BookShelf */,
 				3DABFC2922B9182000ECB5E3 /* Tabbar */,
 			);
 			path = NewVersion;
@@ -2967,14 +3025,6 @@
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
 				"${BUILT_PRODUCTS_DIR}/ZSAPI/ZSAPI.framework",
-				"${BUILT_PRODUCTS_DIR}/ZSAppConfig/ZSAppConfig.framework",
-				"${BUILT_PRODUCTS_DIR}/ZSBaseUI/ZSBaseUI.framework",
-				"${BUILT_PRODUCTS_DIR}/ZSBookShelf/ZSBookShelf.framework",
-				"${BUILT_PRODUCTS_DIR}/ZSBookStore/ZSBookStore.framework",
-				"${BUILT_PRODUCTS_DIR}/ZSCommunity/ZSCommunity.framework",
-				"${BUILT_PRODUCTS_DIR}/ZSDiscover/ZSDiscover.framework",
-				"${BUILT_PRODUCTS_DIR}/ZSExtension/ZSExtension.framework",
-				"${BUILT_PRODUCTS_DIR}/ZSMine/ZSMine.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 				"${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework",
 			);
@@ -3009,14 +3059,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSAPI.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSAppConfig.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSBaseUI.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSBookShelf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSBookStore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSCommunity.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSDiscover.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSExtension.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSMine.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fishhook.framework",
 			);
@@ -3187,6 +3229,7 @@
 				B29CFB79217B21C60006F294 /* ZSMyViewModel.swift in Sources */,
 				B2B02E461EA8920F00A6880A /* QSCategoryDetailProtocols.swift in Sources */,
 				B2B02E531EA9A9F000A6880A /* ZSThemeTopicViewModel.swift in Sources */,
+				3D448E5922C501C40099B6E8 /* HomeNavView.swift in Sources */,
 				B2C0DF3620D4CB350057DC84 /* ResourceModel.swift in Sources */,
 				3DDEEAFD214A8EE1003D12DB /* ZSFontViewModel.swift in Sources */,
 				B2B02E2E1EA8505200A6880A /* QSTopicDetailRouter.swift in Sources */,
@@ -3227,6 +3270,7 @@
 				3DDB6CB52130F63300E8698D /* RegexKitLite.m in Sources */,
 				3DECC3E122464C5000EEB146 /* FMDatabaseAdditions.m in Sources */,
 				3D968CFA213396B700DF3279 /* ZSBaseSectionAdapter.swift in Sources */,
+				3D448E5B22C501CC0099B6E8 /* ZSBookStoreViewController.swift in Sources */,
 				B2C0DF2220D4CB350057DC84 /* QSTextProtocols.swift in Sources */,
 				B2C0DF5F20D4CB350057DC84 /* PageView.swift in Sources */,
 				B2C0DF3120D4CB350057DC84 /* Book.swift in Sources */,
@@ -3279,6 +3323,7 @@
 				B2B02E471EA8920F00A6880A /* QSCategoryDetailRouter.swift in Sources */,
 				3D9325E620B2C44A0049CDBF /* ZSBaseTableViewManger.swift in Sources */,
 				3DDB6CA82130F4BC00E8698D /* CoreTextUtils.m in Sources */,
+				3D448E5D22C501DA0099B6E8 /* ZSCommunityViewController.swift in Sources */,
 				3DAC239221E1DE7400E77891 /* ZSWebItem.swift in Sources */,
 				3DECC3882245379400EEB146 /* ZSFilterThemeCell.swift in Sources */,
 				B2C0DF1C20D4CB350057DC84 /* QSTextRouter.swift in Sources */,
@@ -3288,6 +3333,7 @@
 				3DECC3DF22464C5000EEB146 /* MBProgressHUD.m in Sources */,
 				3D5671FC2174CADD0049B2FF /* ZSBookCTLayoutModel.swift in Sources */,
 				B2E072781F3AD99500C63347 /* Reader.swift in Sources */,
+				3D448E6122C501E90099B6E8 /* ZSMineViewController.swift in Sources */,
 				B2C0DF2720D4CB350057DC84 /* UpdateInfo.swift in Sources */,
 				B2B4BC2A1E7EA4AB000CC201 /* SegMenu.swift in Sources */,
 				B24B3F5220E888920098ACE5 /* ZSHistoryHeaderView.swift in Sources */,
@@ -3369,6 +3415,7 @@
 				B2583CBE1EA782C2004178F3 /* QSThemeTopicViewController.swift in Sources */,
 				B2B02E571EA9A9F000A6880A /* ZSVoicePlayerCatelogHeaderView.swift in Sources */,
 				B2C0DF6320D4CB350057DC84 /* ChangeSourceViewController.swift in Sources */,
+				3D448E5F22C501E10099B6E8 /* ZSDiscoverViewController.swift in Sources */,
 				B24B3F5420E888D60098ACE5 /* ZSSearchResultViewController.swift in Sources */,
 				B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */,
 				B2C0DF6F20D4CB350057DC84 /* QSCommunityPresenter.swift in Sources */,
@@ -3435,6 +3482,7 @@
 				B22AC44F1E9F1C7D008625E6 /* ZSCatelogItemViewController.swift in Sources */,
 				B2B4BBE51E7EA4AB000CC201 /* DarkStarView.swift in Sources */,
 				3DECC3E422464C5000EEB146 /* FMResultSet.m in Sources */,
+				3D448E5822C501C40099B6E8 /* ZSBookShelfViewController.swift in Sources */,
 				3D62EE5922604768002FFA39 /* ZSVoicePlayerCatelogView.swift in Sources */,
 				B2C0DF4120D4CB350057DC84 /* ToolBar.swift in Sources */,
 				B2583CB21EA78280004178F3 /* ZSFilterThemeViewController.swift in Sources */,

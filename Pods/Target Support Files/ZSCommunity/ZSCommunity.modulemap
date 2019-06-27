@@ -1,6 +1,0 @@
-framework module ZSCommunity {
-  umbrella header "ZSCommunity-umbrella.h"
-
-  export *
-  module * { export * }
-}

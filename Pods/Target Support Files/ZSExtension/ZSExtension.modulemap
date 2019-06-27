@@ -1,6 +1,0 @@
-framework module ZSExtension {
-  umbrella header "ZSExtension-umbrella.h"
-
-  export *
-  module * { export * }
-}

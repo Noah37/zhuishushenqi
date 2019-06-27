@@ -7,11 +7,6 @@
 //
 
 import UIKit
-import ZSBookShelf
-import ZSBookStore
-import ZSCommunity
-import ZSDiscover
-import ZSMine
 
 class ZSTabBarController: UITabBarController,UITabBarControllerDelegate {
 

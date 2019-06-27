@@ -1,0 +1,61 @@
+{
+  "name": "ZSThirdPartSDK",
+  "version": "0.0.1",
+  "summary": "ZSThirdPartSDK.",
+  "description": "third part login sdk.",
+  "homepage": "https://github.com/norycao/ZSThirdPartSDK",
+  "license": "MIT",
+  "authors": {
+    "norycao": "2252055382@qq.com"
+  },
+  "source": {
+    "git": ".",
+    "tag": "0.0.1"
+  },
+  "source_files": [
+    "ZSThirdPartSDK",
+    "ZSThirdPartSDK/**/*"
+  ],
+  "resource_bundles": {
+    "ZSThirdPartSDK": [
+      "ZSThirdPartSDK/Assets/*.png"
+    ]
+  },
+  "vendored_frameworks": "ZSThirdPartSDK/Classes/*.framework",
+  "vendored_libraries": "ZSThirdPartSDK/Classes/**/*.a",
+  "frameworks": [
+    "UIKit",
+    "SystemConfiguration",
+    "Security",
+    "CoreTelephony",
+    "CFNetwork",
+    "CoreGraphics",
+    "Photos"
+  ],
+  "libraries": [
+    "z",
+    "sqlite3.0",
+    "c++"
+  ],
+  "swift_version": "5.0",
+  "dependencies": {
+    "HandyJSON": [
+
+    ],
+    "ZSAPI": [
+
+    ],
+    "ZSAppConfig": [
+
+    ],
+    "ZSExtension": [
+      "~>1.0.2"
+    ]
+  },
+  "platforms": {
+    "osx": null,
+    "ios": null,
+    "tvos": null,
+    "watchos": null
+  }
+}
