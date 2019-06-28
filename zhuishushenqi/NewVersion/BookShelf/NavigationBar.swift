@@ -7,21 +7,35 @@
 
 import UIKit
 
-public class HomeNavView: UIView {
+protocol NavigationBarDelegate:class {
+    func navView(navView:NavigationBar, didSelect at:Int)
+}
+
+class NavigationBar: UIView {
     
-    var logoView:UIImageView!
-    var navButtons:[UIButton] = []
+    private var logoView:UIImageView!
+    private var navButtons:[UIButton] = []
+    private var navImages:[UIImage] = []
+    
+    weak var delegate:NavigationBarDelegate?
+    
+    init(navImages:[UIImage], delegate:NavigationBarDelegate?) {
+        super.init(frame: CGRect.zero)
+        self.navImages = navImages
+        self.delegate = delegate
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         logoView = UIImageView(image: UIImage(named: ""))
         addSubview(logoView)
-        
-//        let navImages = ZSLogin.share().hasLogin() ? ["","",""]:["", "", "", ""]
-        let navImages = [""]
+        configureNavButtons()
+    }
+    
+    private func configureNavButtons() {
         for image in navImages {
             let btn = UIButton(type: .custom)
-            btn.setImage(UIImage(named: image), for: .normal)
+            btn.setImage(image, for: .normal)
             btn.addTarget(self, action: #selector(navAction(btn:)), for: .touchUpInside)
             addSubview(btn)
             navButtons.append(btn)
@@ -30,7 +44,14 @@ public class HomeNavView: UIView {
     
     @objc
     private func navAction(btn:UIButton) {
-        
+        var index = 0
+        for button in navButtons {
+            if button == btn {
+                break
+            }
+            index += 1
+        }
+        delegate?.navView(navView: self, didSelect: index)
     }
     
     required init?(coder aDecoder: NSCoder) {
