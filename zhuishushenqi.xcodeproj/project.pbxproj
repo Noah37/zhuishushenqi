@@ -256,6 +256,7 @@
 		B2683CF522C8FD6500FE9CF0 /* ZSWebContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2683CF422C8FD6500FE9CF0 /* ZSWebContext.swift */; };
 		B2683CF722C8FE4E00FE9CF0 /* ZSWebBIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2683CF622C8FE4E00FE9CF0 /* ZSWebBIHandler.swift */; };
 		B2683CF922C8FE8A00FE9CF0 /* ZSWebSpeakHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2683CF822C8FE8A00FE9CF0 /* ZSWebSpeakHandler.swift */; };
+		B2683CFB22C9111600FE9CF0 /* ZSConfigUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2683CFA22C9111600FE9CF0 /* ZSConfigUtil.swift */; };
 		B278AA661F3954FF000A0D55 /* QSAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA651F3954FF000A0D55 /* QSAPI.swift */; };
 		B278AA8C1F395F30000A0D55 /* LookBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA8A1F395F30000A0D55 /* LookBookViewController.swift */; };
 		B278AA8D1F395F30000A0D55 /* ReadHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA8B1F395F30000A0D55 /* ReadHistoryViewController.swift */; };
@@ -872,6 +873,7 @@
 		B2683CF422C8FD6500FE9CF0 /* ZSWebContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebContext.swift; sourceTree = "<group>"; };
 		B2683CF622C8FE4E00FE9CF0 /* ZSWebBIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebBIHandler.swift; sourceTree = "<group>"; };
 		B2683CF822C8FE8A00FE9CF0 /* ZSWebSpeakHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebSpeakHandler.swift; sourceTree = "<group>"; };
+		B2683CFA22C9111600FE9CF0 /* ZSConfigUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSConfigUtil.swift; sourceTree = "<group>"; };
 		B278AA651F3954FF000A0D55 /* QSAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSAPI.swift; sourceTree = "<group>"; };
 		B278AA8A1F395F30000A0D55 /* LookBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookBookViewController.swift; sourceTree = "<group>"; };
 		B278AA8B1F395F30000A0D55 /* ReadHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadHistoryViewController.swift; sourceTree = "<group>"; };
@@ -2358,6 +2360,7 @@
 				B2683CF622C8FE4E00FE9CF0 /* ZSWebBIHandler.swift */,
 				B2683CF822C8FE8A00FE9CF0 /* ZSWebSpeakHandler.swift */,
 				B2683CF422C8FD6500FE9CF0 /* ZSWebContext.swift */,
+				B2683CFA22C9111600FE9CF0 /* ZSConfigUtil.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3448,6 +3451,7 @@
 				B29CFAE62179B6E50006F294 /* ZSLoginService.swift in Sources */,
 				3DECC3E922467F9B00EEB146 /* ZSVoiceSegmentView.swift in Sources */,
 				B2A7CD85217F36B20067D25B /* ZSThirdLoginView.swift in Sources */,
+				B2683CFB22C9111600FE9CF0 /* ZSConfigUtil.swift in Sources */,
 				B2C0DF3820D4CB350057DC84 /* BookDetail.swift in Sources */,
 				3D08F244212C2DFC007B3D19 /* ZSDiscussWebService.swift in Sources */,
 				3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */,
