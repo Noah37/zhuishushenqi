@@ -22,6 +22,17 @@ class ZSWebViewController: BaseViewController {
         }
     }
     
+    var navBarRightItems:[ZSWebItem] = []
+    
+    var jumpHandler:ZSWebJumpHandler?
+    var userHandler:ZSWebUserHandler?
+    var toolHandler:ZSWebToolHandler?
+    var biHandler:ZSWebBIHandler?
+    var speakHandler:ZSWebSpeakHandler?
+    
+    
+    weak var delegate:ZSWebViewControllerDelegate?
+    
     var currentUrlStr:String = ""
 
     override func viewDidLoad() {
@@ -142,42 +153,118 @@ class ZSWebViewController: BaseViewController {
         guard let webItem = matchedResultWithLink(link: replaceStr) else { return false }
         let funcName = webItem.funcName
         var result = true
-        if !isBlankString(str: funcName) {
-            if funcName! == "jump" {
-                perform(#selector(jumpToViewWithItem(item:)), with: webItem)
-                result = false
-            } else if funcName! == "getUserInfo" {
-                let queryDict = webItem.queryDic
-                let callback = queryDict?["callback"]
-                result = false
-            } else if funcName! == "login" {
-                loginWithWebItem(item: webItem)
-            } else if funcName! == "copyBoard" {
-                triggerCopyBoardWithItem(item: webItem)
-            } else if funcName! == "pop" {
-                let jsStr = jsStrFromWebItem(item: webItem)
-                // webViewHandlePopEventWithCallBack:jsstr
-                self.navigationController?.popViewController(animated: true)
-            } else if funcName! == "backEvent" {
-                setBackEventItem(item: webItem)
-            } else if funcName! == "setUserBehavior" {
-                handleBuryPointsWithJSItem(item: webItem)
-            } else if funcName! == "openTaobaoDetail" {
-                ZSYJSchemeHandle.handleTaobaoUrl(url: webItem.callbackParamStr ?? "")
-            } else if funcName! == "baseRecharge" {
-                
-            }
-            else {
-                if funcName! != "openBookstore" {
-                    if funcName! == "openBookshelf" {
-                        
-                    } else if funcName! == "openBindPhone" {
-                        
-                    }
+        if isBlankString(str: funcName) {
+            result = true
+//            if funcName! == "jump" {
+//                perform(#selector(jumpToViewWithItem(item:)), with: webItem)
+//                result = false
+//            } else if funcName! == "getUserInfo" {
+//                let queryDict = webItem.queryDic
+//                let callback = queryDict?["callback"]
+//                result = false
+//            } else if funcName! == "login" {
+//                loginWithWebItem(item: webItem)
+//            } else if funcName! == "copyBoard" {
+//                triggerCopyBoardWithItem(item: webItem)
+//            } else if funcName! == "pop" {
+//                let jsStr = jsStrFromWebItem(item: webItem)
+//                // webViewHandlePopEventWithCallBack:jsstr
+//                self.navigationController?.popViewController(animated: true)
+//            } else if funcName! == "backEvent" {
+//                setBackEventItem(item: webItem)
+//            } else if funcName! == "setUserBehavior" {
+//                handleBuryPointsWithJSItem(item: webItem)
+//            } else if funcName! == "openTaobaoDetail" {
+//                ZSYJSchemeHandle.handleTaobaoUrl(url: webItem.callbackParamStr ?? "")
+//            } else if funcName! == "baseRecharge" {
+//
+//            }
+//            else {
+//                if funcName! != "openBookstore" {
+//                    if funcName! == "openBookshelf" {
+//
+//                    } else if funcName! == "openBindPhone" {
+//
+//                    }
+//                }
+//            }
+        } else {
+            result = handleWebItem(item: webItem)
+        }
+        return result
+    }
+    
+    func handleWebItem(item:ZSWebItem) ->Bool {
+        var result:Bool = false
+        if item.funcName != "setBounces" {
+            if item.funcName == "setNavigationBar" {
+                setNavigtionBarItems(item: item)
+            } else if item.funcName == "backEvent" {
+                setBackEventItem(item: item)
+            } else if ZSWebJumpHandler.canHandleWebItem(item: item) {
+                if self.jumpHandler == nil {
+                    self.jumpHandler = ZSWebJumpHandler()
                 }
+            } else if ZSWebUserHandler.canHandleWebItem(item: item) {
+                if self.userHandler == nil {
+                    self.userHandler = ZSWebUserHandler()
+                }
+            } else if ZSWebToolHandler.canHandleWebItem(item: item) {
+                if self.toolHandler == nil {
+                    self.toolHandler = ZSWebToolHandler()
+                }
+            } else if ZSWebBIHandler.canHandleWebItem(item: item) {
+                if self.biHandler == nil {
+                    self.biHandler = ZSWebBIHandler()
+                }
+            } else if ZSWebSpeakHandler.canHandleWebItem(item: item) {
+                let context = ZSWebContext()
+                context.fromVC = self
+                context.delegate = self.delegate
+                if self.speakHandler == nil {
+                    self.speakHandler = ZSWebSpeakHandler()
+                }
+                self.speakHandler?.handleWebItem(item: item, context: context, block: { [weak self] (result) in
+                    self?.runJavaScriptMethodWithName(name: result)
+                })
+            }
+            result = true
+        } else {
+            result = false
+            let paramDic = item.paramDic
+            if let enabled = paramDic?["enabled"] as? Bool {
+                self.webView.scrollView.bounces = enabled
             }
         }
         return result
+    }
+    
+    func setBackEventItem(item:ZSWebItem) {
+        
+        
+    }
+    
+    func runJavaScriptMethodWithName(name:String) {
+        
+    }
+    
+    func setNavigtionBarItems(item:ZSWebItem) {
+        let paramDic = item.paramDic
+        if let navItems = paramDic?["setNavigationItems"] as? [[String:Any]] {
+            var index = navItems.count - 1
+            while index >= 0 {
+                let item = navItems[index]
+                let webItem = ZSWebItem()
+                var dic:[String:Any] = [:]
+                dic["jumpType"] = "webview"
+                dic["title"] = item["title"] ?? ""
+                dic["link"] = item["link"] ?? ""
+                dic["itemType"] = item["itemType"] ?? ""
+                webItem.paramDic = dic
+                navBarRightItems.append(webItem)
+                index -= 1
+            }
+        }
     }
     
     @objc func jumpToViewWithItem(item:ZSWebItem) {
@@ -248,10 +335,6 @@ class ZSWebViewController: BaseViewController {
     }
     
     @objc func jsStrFromWebItem(item:ZSWebItem) {
-        
-    }
-    
-    @objc func setBackEventItem(item:ZSWebItem) {
         
     }
     

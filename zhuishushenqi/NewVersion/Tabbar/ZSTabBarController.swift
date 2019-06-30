@@ -55,9 +55,9 @@ class ZSTabBarController: UITabBarController,UITabBarControllerDelegate {
         viewControllers = [homeNav, channelNav, dynamicNav, vipNav, mineNav]
         for (_, item) in tabBar.items!.enumerated() {
             let normalAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 0.48, green: 0.48, blue: 0.48, alpha: 1.0)]
-            let selectedAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 0.98, green: 0.45, blue: 0.60, alpha: 1.0)]
+            let selectedAttributes = [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#A70B0B")]
             item.setTitleTextAttributes(normalAttributes, for: .normal)
-            item.setTitleTextAttributes(selectedAttributes, for: .selected)
+            item.setTitleTextAttributes(selectedAttributes as [NSAttributedString.Key : Any], for: .selected)
         }
     }
     

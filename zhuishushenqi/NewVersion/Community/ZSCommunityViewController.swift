@@ -7,9 +7,9 @@
 
 import UIKit
 
-open class ZSCommunityViewController: UIViewController {
+class ZSCommunityViewController: BaseViewController {
 
-    override open func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.

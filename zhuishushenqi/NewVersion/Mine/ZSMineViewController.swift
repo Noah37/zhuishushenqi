@@ -7,9 +7,9 @@
 
 import UIKit
 
-open class ZSMineViewController: UIViewController {
+class ZSMineViewController: BaseViewController {
 
-    override open func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.

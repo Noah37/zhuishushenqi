@@ -1,6 +1,6 @@
-source 'git@github.com:NoryCao/cjspecs.git'
+#source 'git@github.com:NoryCao/cjspecs.git'
 source 'https://github.com/CocoaPods/Specs.git'
-source 'https://github.com/sinaweibosdk/weibo_ios_sdk.git'
+#source 'https://github.com/sinaweibosdk/weibo_ios_sdk.git'
 
 # 对于Swift应用来说下面两句是必须的
 platform :ios, '9.0'
@@ -15,6 +15,7 @@ pod 'Kingfisher'
 pod 'PullToRefresh','0.0.1'
 pod 'YYText'
 pod 'YYModel'
+pod 'YYImage'
 pod 'SnapKit'
 pod 'MBProgressHUD'
 pod 'QSNetwork', '~>0.0.3'
@@ -51,10 +52,10 @@ pod 'Cache'
 #pod 'ZSDiscover'
 #pod 'ZSMine'
 
-pod 'DoraemonKit/Core', '~> 1.1.6', :configurations => ['Debug']
+#pod 'DoraemonKit/Core', '~> 1.1.6', :configurations => ['Debug']
 #pod 'DoraemonKit/WithLogger', '~> 1.1.6', :configurations => ['Debug']
-pod 'DoraemonKit/WithGPS', '~> 1.1.6', :configurations => ['Debug']
-pod 'DoraemonKit/WithLoad', '~> 1.1.6', :configurations => ['Debug']
+#pod 'DoraemonKit/WithGPS', '~> 1.1.6', :configurations => ['Debug']
+#pod 'DoraemonKit/WithLoad', '~> 1.1.6', :configurations => ['Debug']
 #pod 'AFNetworking'
 #pod 'Realm', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true
 #pod 'RealmSwift', git: 'git@github.com:realm/realm-cocoa.git', branch: branch, submodules: true

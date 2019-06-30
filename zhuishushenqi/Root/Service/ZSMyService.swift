@@ -9,7 +9,7 @@
 import UIKit
 import ZSAPI
 
-class ZSMyService: NSObject {
+class ZSMyService {
     
     func fetchAccount(token:String ,completion:@escaping ZSBaseCallback<ZSAccount>) {
         let api = ZSAPI.account(token: token)

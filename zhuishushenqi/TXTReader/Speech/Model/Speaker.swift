@@ -11,7 +11,7 @@ import HandyJSON
 
 //https://ttsh5.openspeech.cn/tts-h5/speaker/list
 
-class Speaker : NSObject, HandyJSON {
+class Speaker: HandyJSON {
     
     var accent = "普通话"
     var age = 25
@@ -47,5 +47,5 @@ class Speaker : NSObject, HandyJSON {
     var downloadUrl = "http://iflytek.bjdn.openstorage.cn/tts/87d/resource/xiaoxi.zip"
     var prelisten = "https://bj.openstorage.cn/v1/iflytek/tts/common/listen/xiaoxi.mp3"
 
-    required override init() {}
+    required init() {}
 }

@@ -10,7 +10,7 @@ import UIKit
 import HandyJSON
 import QSNetwork
 
-class ZSLoginService: NSObject {
+class ZSLoginService {
     
     func QQLogin(url:String, parameter:[String:Any]?,completion:@escaping ZSBaseCallback<ZSQQLoginResponse>) {
         zs_post(url, parameters: parameter) { (json) in

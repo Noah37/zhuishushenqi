@@ -222,4 +222,7 @@
 + (NSString *)hmsFormat;
 + (NSString *)ymdHmsFormat;
 
+
++ (NSDate*)getDateWithYear:(NSString *)year month:(NSString *)month day:(NSString *)day hour:(NSString *)hour mimute:(NSString *)minute second:(NSString*)second;
+
 @end

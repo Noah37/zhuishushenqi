@@ -9,7 +9,7 @@
 import Foundation
 
 // 书籍信息保存类
-public class ZSBookManager:NSObject {
+public class ZSBookManager {
     
     // 策略
     // 书架信息:保存书架书籍的所有id的list到本地
@@ -59,8 +59,7 @@ public class ZSBookManager:NSObject {
     
     static let shared = ZSBookManager()
     
-    private override init() {
-        super.init()
+    private init() {
         ZSBookManager.calTime {
             ZSBookManager._ids = ZSBookManager._ids.filterDuplicates({$0})
             let ids = ZSBookManager._ids
@@ -357,7 +356,7 @@ public class ZSBookManager:NSObject {
 // 根据_id从本地保存的数据中取出NSDictionary
 // 每 一本书籍单独保存，避免读取时影响速度
 // 该类为书架书籍管理类，管理书架上的书籍的信息，缓存等
-public class BookManager:NSObject {
+public class BookManager {
     let bookshelfSaveKey = "bookshelfSaveKey"
     let readHistorySaveKey = "readHistorySaveKey"
     
@@ -368,8 +367,7 @@ public class BookManager:NSObject {
     
     static let shared = BookManager()
     
-    private override init() {
-        super.init()
+    private init() {
         
         BookManager.calTime {
             //在这写入要计算时间的代码

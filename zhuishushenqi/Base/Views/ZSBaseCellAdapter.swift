@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ZSBaseCellAdapter:NSObject,ZSCellAdapterProtocol {
+class ZSBaseCellAdapter:NSObject ,ZSCellAdapterProtocol {
 
     var dataSource:[Any] = []
     

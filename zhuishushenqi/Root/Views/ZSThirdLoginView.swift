@@ -37,15 +37,19 @@ class ZSThirdLoginView: UIView {
     }
     
     private func setupSubviews() {
-        leftLineLabel = UILabel(frame: CGRect(x: 40, y: 115, width: 100, height: 0.5))
+        var topMargin:CGFloat = 115
+        if UIScreen.main.bounds.height <= 1136 {
+            topMargin = 30
+        }
+        leftLineLabel = UILabel(frame: CGRect(x: 40, y: topMargin, width: 100, height: 0.5))
         leftLineLabel.backgroundColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.7)
         addSubview(leftLineLabel)
 
-        rightLineLabel = UILabel(frame: CGRect(x: self.bounds.width - 140, y: 115, width: 100, height: 0.5))
+        rightLineLabel = UILabel(frame: CGRect(x: self.bounds.width - 140, y: topMargin, width: 100, height: 0.5))
         rightLineLabel.backgroundColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.7)
         addSubview(rightLineLabel)
         
-        loginTypeLabel = UILabel(frame: CGRect(x: 0, y: 100, width: 200, height: 30))
+        loginTypeLabel = UILabel(frame: CGRect(x: 0, y: topMargin - 15, width: 200, height: 30))
         loginTypeLabel.text = "选择登录方式"
         loginTypeLabel.textColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.7)
         loginTypeLabel.font = UIFont.systemFont(ofSize: 11)

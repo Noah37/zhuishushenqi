@@ -123,12 +123,6 @@
 		3DECC39422461E4900EEB146 /* ZSVoicePlayProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC39322461E4900EEB146 /* ZSVoicePlayProgressView.swift */; };
 		3DECC3962246298300EEB146 /* ZSVoicePlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3952246298300EEB146 /* ZSVoicePlayViewModel.swift */; };
 		3DECC3DE22464C4F00EEB146 /* libXMOpenPlatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DECC39822464C4E00EEB146 /* libXMOpenPlatform.a */; };
-		3DECC3DF22464C5000EEB146 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3C322464C4E00EEB146 /* MBProgressHUD.m */; };
-		3DECC3E022464C5000EEB146 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3C922464C4F00EEB146 /* FMDatabaseQueue.m */; };
-		3DECC3E122464C5000EEB146 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3CC22464C4F00EEB146 /* FMDatabaseAdditions.m */; };
-		3DECC3E222464C5000EEB146 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3CD22464C4F00EEB146 /* FMDatabase.m */; };
-		3DECC3E322464C5000EEB146 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3D022464C4F00EEB146 /* FMDatabasePool.m */; };
-		3DECC3E422464C5000EEB146 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3D122464C4F00EEB146 /* FMResultSet.m */; };
 		3DECC3E522464C5000EEB146 /* XMResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3DECC3D322464C4F00EEB146 /* XMResource.bundle */; };
 		3DECC3E722464F9300EEB146 /* ZSVoiceBookCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3E622464F9300EEB146 /* ZSVoiceBookCategoryViewController.swift */; };
 		3DECC3E922467F9B00EEB146 /* ZSVoiceSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3E822467F9A00EEB146 /* ZSVoiceSegmentView.swift */; };
@@ -256,6 +250,12 @@
 		B263E2E9211EBFEC001819FB /* SQLite+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263E2E8211EBFEC001819FB /* SQLite+Extension.swift */; };
 		B2662EBC21A7DAC5008AD5C6 /* ZSDBPropertyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2662EBB21A7DAC5008AD5C6 /* ZSDBPropertyModel.m */; };
 		B266C66A21A6FCC3006B5A15 /* ZSDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B266C66921A6FCC3006B5A15 /* ZSDBManager.m */; };
+		B2683CD922C8F65300FE9CF0 /* ZSWebJumpHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2683CD822C8F65300FE9CF0 /* ZSWebJumpHandler.swift */; };
+		B2683CF122C8FC4C00FE9CF0 /* ZSWebUserHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2683CF022C8FC4C00FE9CF0 /* ZSWebUserHandler.swift */; };
+		B2683CF322C8FCE900FE9CF0 /* ZSWebToolHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2683CF222C8FCE900FE9CF0 /* ZSWebToolHandler.swift */; };
+		B2683CF522C8FD6500FE9CF0 /* ZSWebContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2683CF422C8FD6500FE9CF0 /* ZSWebContext.swift */; };
+		B2683CF722C8FE4E00FE9CF0 /* ZSWebBIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2683CF622C8FE4E00FE9CF0 /* ZSWebBIHandler.swift */; };
+		B2683CF922C8FE8A00FE9CF0 /* ZSWebSpeakHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2683CF822C8FE8A00FE9CF0 /* ZSWebSpeakHandler.swift */; };
 		B278AA661F3954FF000A0D55 /* QSAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA651F3954FF000A0D55 /* QSAPI.swift */; };
 		B278AA8C1F395F30000A0D55 /* LookBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA8A1F395F30000A0D55 /* LookBookViewController.swift */; };
 		B278AA8D1F395F30000A0D55 /* ReadHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278AA8B1F395F30000A0D55 /* ReadHistoryViewController.swift */; };
@@ -278,6 +278,7 @@
 		B27D7E9D1F4D320400866341 /* QSSegmentProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27D7E991F4D320400866341 /* QSSegmentProtocols.swift */; };
 		B27D7E9E1F4D320400866341 /* QSSegmentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27D7E9A1F4D320400866341 /* QSSegmentRouter.swift */; };
 		B27D7EA11F4D593D00866341 /* UIScrollView+StateView.m in Sources */ = {isa = PBXBuildFile; fileRef = B27D7EA01F4D593D00866341 /* UIScrollView+StateView.m */; };
+		B2840F3422C85B75009C9116 /* ZSBookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2840F3322C85B75009C9116 /* ZSBookShelfViewModel.swift */; };
 		B286F01A202981DD0069565B /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B286F019202981DD0069565B /* NSObject+Extension.swift */; };
 		B28FFC861EAFAED600C27FF9 /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = B28FFC851EAFAED600C27FF9 /* NSString+Encode.m */; };
 		B28FFC921EB03EA300C27FF9 /* QSHomeDeleteBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28FFC911EB03EA300C27FF9 /* QSHomeDeleteBtn.swift */; };
@@ -363,7 +364,6 @@
 		B2B4BBF11E7EA4AB000CC201 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2B4BA101E7EA4A8000CC201 /* Main.storyboard */; };
 		B2B4BBF31E7EA4AB000CC201 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA141E7EA4A8000CC201 /* Date+Extension.swift */; };
 		B2B4BBF41E7EA4AB000CC201 /* DateIntervalFormatter+formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA151E7EA4A8000CC201 /* DateIntervalFormatter+formatter.swift */; };
-		B2B4BBF51E7EA4AB000CC201 /* NSDate+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA171E7EA4A8000CC201 /* NSDate+Date.m */; };
 		B2B4BBF61E7EA4AB000CC201 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA191E7EA4A8000CC201 /* NSDate+Extension.m */; };
 		B2B4BBF71E7EA4AB000CC201 /* String+QSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA1A1E7EA4A8000CC201 /* String+QSExtension.swift */; };
 		B2B4BBF81E7EA4AB000CC201 /* UIImageView+zhuishu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BA1B1E7EA4A8000CC201 /* UIImageView+zhuishu.swift */; };
@@ -402,6 +402,10 @@
 		B2B4BD091E7EA4AC000CC201 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BBDC1E7EA4AB000CC201 /* ViewController.swift */; };
 		B2B4BD771E7ECEE0000CC201 /* RootViewController+Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BD761E7ECEE0000CC201 /* RootViewController+Subviews.swift */; };
 		B2B4BD7A1E7EE2B1000CC201 /* QSNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4BD791E7EE2B1000CC201 /* QSNetworkManager.swift */; };
+		B2B8A21422C70515005527C8 /* ZSRefreshTextHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B8A21322C70515005527C8 /* ZSRefreshTextHeader.swift */; };
+		B2B8A21722C70C07005527C8 /* mj_refresh_loading@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = B2B8A21622C70C07005527C8 /* mj_refresh_loading@2x.gif */; };
+		B2B8A21922C71641005527C8 /* mjRefreshHeadTitle.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2B8A21822C71641005527C8 /* mjRefreshHeadTitle.plist */; };
+		B2B8A21B22C71A23005527C8 /* ZSBookShelfHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B8A21A22C71A23005527C8 /* ZSBookShelfHeaderView.swift */; };
 		B2BB5BAF1D8BDF8E00379217 /* zhuishushenqiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5BAE1D8BDF8E00379217 /* zhuishushenqiTests.swift */; };
 		B2BB5BBA1D8BDF8E00379217 /* zhuishushenqiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BB5BB91D8BDF8E00379217 /* zhuishushenqiUITests.swift */; };
 		B2C0DF1C20D4CB350057DC84 /* QSTextRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DEAD20D4CB340057DC84 /* QSTextRouter.swift */; };
@@ -697,19 +701,7 @@
 		3DECC3BF22464C4E00EEB146 /* XMColumnEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMColumnEditor.h; sourceTree = "<group>"; };
 		3DECC3C022464C4E00EEB146 /* XMRelatedProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMRelatedProgram.h; sourceTree = "<group>"; };
 		3DECC3C122464C4E00EEB146 /* XMAnnouncerCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMAnnouncerCategory.h; sourceTree = "<group>"; };
-		3DECC3C322464C4E00EEB146 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		3DECC3C422464C4E00EEB146 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		3DECC3C622464C4E00EEB146 /* XMReqMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMReqMgr.h; sourceTree = "<group>"; };
-		3DECC3C822464C4E00EEB146 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		3DECC3C922464C4F00EEB146 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
-		3DECC3CA22464C4F00EEB146 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		3DECC3CB22464C4F00EEB146 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
-		3DECC3CC22464C4F00EEB146 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		3DECC3CD22464C4F00EEB146 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		3DECC3CE22464C4F00EEB146 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
-		3DECC3CF22464C4F00EEB146 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		3DECC3D022464C4F00EEB146 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
-		3DECC3D122464C4F00EEB146 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		3DECC3D322464C4F00EEB146 /* XMResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = XMResource.bundle; sourceTree = "<group>"; };
 		3DECC3D522464C4F00EEB146 /* XMLYAuthorize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLYAuthorize.h; sourceTree = "<group>"; };
 		3DECC3D722464C4F00EEB146 /* XMSDKPlayerDataCollector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMSDKPlayerDataCollector.h; sourceTree = "<group>"; };
@@ -874,6 +866,12 @@
 		B2662EBB21A7DAC5008AD5C6 /* ZSDBPropertyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSDBPropertyModel.m; sourceTree = "<group>"; };
 		B266C66821A6FCC3006B5A15 /* ZSDBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSDBManager.h; sourceTree = "<group>"; };
 		B266C66921A6FCC3006B5A15 /* ZSDBManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSDBManager.m; sourceTree = "<group>"; };
+		B2683CD822C8F65300FE9CF0 /* ZSWebJumpHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebJumpHandler.swift; sourceTree = "<group>"; };
+		B2683CF022C8FC4C00FE9CF0 /* ZSWebUserHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebUserHandler.swift; sourceTree = "<group>"; };
+		B2683CF222C8FCE900FE9CF0 /* ZSWebToolHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebToolHandler.swift; sourceTree = "<group>"; };
+		B2683CF422C8FD6500FE9CF0 /* ZSWebContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebContext.swift; sourceTree = "<group>"; };
+		B2683CF622C8FE4E00FE9CF0 /* ZSWebBIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebBIHandler.swift; sourceTree = "<group>"; };
+		B2683CF822C8FE8A00FE9CF0 /* ZSWebSpeakHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebSpeakHandler.swift; sourceTree = "<group>"; };
 		B278AA651F3954FF000A0D55 /* QSAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSAPI.swift; sourceTree = "<group>"; };
 		B278AA8A1F395F30000A0D55 /* LookBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookBookViewController.swift; sourceTree = "<group>"; };
 		B278AA8B1F395F30000A0D55 /* ReadHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadHistoryViewController.swift; sourceTree = "<group>"; };
@@ -903,6 +901,7 @@
 		B27D7E9A1F4D320400866341 /* QSSegmentRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSegmentRouter.swift; sourceTree = "<group>"; };
 		B27D7E9F1F4D593D00866341 /* UIScrollView+StateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+StateView.h"; sourceTree = "<group>"; };
 		B27D7EA01F4D593D00866341 /* UIScrollView+StateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+StateView.m"; sourceTree = "<group>"; };
+		B2840F3322C85B75009C9116 /* ZSBookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookShelfViewModel.swift; sourceTree = "<group>"; };
 		B286F019202981DD0069565B /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
 		B28FFC841EAFAED600C27FF9 /* NSString+Encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encode.h"; sourceTree = "<group>"; };
 		B28FFC851EAFAED600C27FF9 /* NSString+Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encode.m"; sourceTree = "<group>"; };
@@ -993,8 +992,6 @@
 		B2B4BA111E7EA4A8000CC201 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B2B4BA141E7EA4A8000CC201 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		B2B4BA151E7EA4A8000CC201 /* DateIntervalFormatter+formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateIntervalFormatter+formatter.swift"; sourceTree = "<group>"; };
-		B2B4BA161E7EA4A8000CC201 /* NSDate+Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Date.h"; sourceTree = "<group>"; };
-		B2B4BA171E7EA4A8000CC201 /* NSDate+Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Date.m"; sourceTree = "<group>"; };
 		B2B4BA181E7EA4A8000CC201 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		B2B4BA191E7EA4A8000CC201 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		B2B4BA1A1E7EA4A8000CC201 /* String+QSExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "String+QSExtension.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -1037,6 +1034,10 @@
 		B2B4BBDD1E7EA4AB000CC201 /* zhuishushenqi-Bridge-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "zhuishushenqi-Bridge-Header.h"; sourceTree = "<group>"; };
 		B2B4BD761E7ECEE0000CC201 /* RootViewController+Subviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+Subviews.swift"; sourceTree = "<group>"; };
 		B2B4BD791E7EE2B1000CC201 /* QSNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSNetworkManager.swift; sourceTree = "<group>"; };
+		B2B8A21322C70515005527C8 /* ZSRefreshTextHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZSRefreshTextHeader.swift; path = zhuishushenqi/NewVersion/ZSBaseUIExt/ZSBaseUIExt/Classes/ZSRefreshTextHeader.swift; sourceTree = SOURCE_ROOT; };
+		B2B8A21622C70C07005527C8 /* mj_refresh_loading@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "mj_refresh_loading@2x.gif"; sourceTree = "<group>"; };
+		B2B8A21822C71641005527C8 /* mjRefreshHeadTitle.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = mjRefreshHeadTitle.plist; sourceTree = "<group>"; };
+		B2B8A21A22C71A23005527C8 /* ZSBookShelfHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookShelfHeaderView.swift; sourceTree = "<group>"; };
 		B2BB5B961D8BDF8E00379217 /* zhuishushenqi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zhuishushenqi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2BB5BAA1D8BDF8E00379217 /* zhuishushenqiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = zhuishushenqiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2BB5BAE1D8BDF8E00379217 /* zhuishushenqiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zhuishushenqiTests.swift; sourceTree = "<group>"; };
@@ -1229,7 +1230,12 @@
 		3D448E5122C501490099B6E8 /* BookShelf */ = {
 			isa = PBXGroup;
 			children = (
+				B2B8A21622C70C07005527C8 /* mj_refresh_loading@2x.gif */,
+				B2B8A21822C71641005527C8 /* mjRefreshHeadTitle.plist */,
+				B2B8A21322C70515005527C8 /* ZSRefreshTextHeader.swift */,
+				B2B8A21A22C71A23005527C8 /* ZSBookShelfHeaderView.swift */,
 				3D448E5722C501C40099B6E8 /* NavigationBar.swift */,
+				B2840F3322C85B75009C9116 /* ZSBookShelfViewModel.swift */,
 				3D448E5622C501C40099B6E8 /* ZSBookShelfViewController.swift */,
 			);
 			path = BookShelf;
@@ -1466,9 +1472,7 @@
 			children = (
 				3DECC39A22464C4E00EEB146 /* Downloader */,
 				3DECC39C22464C4E00EEB146 /* Model */,
-				3DECC3C222464C4E00EEB146 /* MBProgressHUD */,
 				3DECC3C522464C4E00EEB146 /* Request */,
-				3DECC3C722464C4E00EEB146 /* FMDB */,
 				3DECC3D222464C4F00EEB146 /* Resource */,
 				3DECC3D422464C4F00EEB146 /* Authorization */,
 				3DECC3D622464C4F00EEB146 /* Player */,
@@ -1529,38 +1533,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		3DECC3C222464C4E00EEB146 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				3DECC3C322464C4E00EEB146 /* MBProgressHUD.m */,
-				3DECC3C422464C4E00EEB146 /* MBProgressHUD.h */,
-			);
-			path = MBProgressHUD;
-			sourceTree = "<group>";
-		};
 		3DECC3C522464C4E00EEB146 /* Request */ = {
 			isa = PBXGroup;
 			children = (
 				3DECC3C622464C4E00EEB146 /* XMReqMgr.h */,
 			);
 			path = Request;
-			sourceTree = "<group>";
-		};
-		3DECC3C722464C4E00EEB146 /* FMDB */ = {
-			isa = PBXGroup;
-			children = (
-				3DECC3C822464C4E00EEB146 /* FMDatabase.h */,
-				3DECC3C922464C4F00EEB146 /* FMDatabaseQueue.m */,
-				3DECC3CA22464C4F00EEB146 /* FMResultSet.h */,
-				3DECC3CB22464C4F00EEB146 /* FMDatabasePool.h */,
-				3DECC3CC22464C4F00EEB146 /* FMDatabaseAdditions.m */,
-				3DECC3CD22464C4F00EEB146 /* FMDatabase.m */,
-				3DECC3CE22464C4F00EEB146 /* FMDatabaseQueue.h */,
-				3DECC3CF22464C4F00EEB146 /* FMDatabaseAdditions.h */,
-				3DECC3D022464C4F00EEB146 /* FMDatabasePool.m */,
-				3DECC3D122464C4F00EEB146 /* FMResultSet.m */,
-			);
-			path = FMDB;
 			sourceTree = "<group>";
 		};
 		3DECC3D222464C4F00EEB146 /* Resource */ = {
@@ -2089,8 +2067,6 @@
 				B2F778BB1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift */,
 				B2B4BA141E7EA4A8000CC201 /* Date+Extension.swift */,
 				B2B4BA151E7EA4A8000CC201 /* DateIntervalFormatter+formatter.swift */,
-				B2B4BA161E7EA4A8000CC201 /* NSDate+Date.h */,
-				B2B4BA171E7EA4A8000CC201 /* NSDate+Date.m */,
 				B25EB93321949C0F000D3657 /* NSData+Base64.h */,
 				B25EB93421949C0F000D3657 /* NSData+Base64.m */,
 				B2B4BA181E7EA4A8000CC201 /* NSDate+Extension.h */,
@@ -2376,6 +2352,12 @@
 				3DAC23CD21E32DA500E77891 /* ZSYJSchemeHandle.swift */,
 				3D850DFD21E61C9800F23DDB /* ZSVoucher.swift */,
 				3DC93D54224A6264004FC392 /* ZSVoiceAlbum.swift */,
+				B2683CD822C8F65300FE9CF0 /* ZSWebJumpHandler.swift */,
+				B2683CF022C8FC4C00FE9CF0 /* ZSWebUserHandler.swift */,
+				B2683CF222C8FCE900FE9CF0 /* ZSWebToolHandler.swift */,
+				B2683CF622C8FE4E00FE9CF0 /* ZSWebBIHandler.swift */,
+				B2683CF822C8FE8A00FE9CF0 /* ZSWebSpeakHandler.swift */,
+				B2683CF422C8FD6500FE9CF0 /* ZSWebContext.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2944,6 +2926,7 @@
 				B2C0DF4520D4CB350057DC84 /* ChangeSourceCell.xib in Resources */,
 				B2EE7CF41F3BFC7B00BE997C /* Localizable.strings in Resources */,
 				B2C0DF7A20D4CB6D0057DC84 /* TXTReader.storyboard in Resources */,
+				B2B8A21722C70C07005527C8 /* mj_refresh_loading@2x.gif in Resources */,
 				B2C0DF4B20D4CB350057DC84 /* BookCommentViewCell.xib in Resources */,
 				B20D74171EED83690034516F /* QSLastIntroduceCell.xib in Resources */,
 				3D3AB5D2214E98AC00E9C246 /* hylst.ttf in Resources */,
@@ -2958,6 +2941,7 @@
 				B252D4C7210F163C0091858E /* txt.jpeg in Resources */,
 				3D3AB5DE214E9A8300E9C246 /* fz-kt.ttf in Resources */,
 				B200D2001EEDB1FE003A42E3 /* QSIntroduceReadCell.xib in Resources */,
+				B2B8A21922C71641005527C8 /* mjRefreshHeadTitle.plist in Resources */,
 				3D3AB5DC214E99FE00E9C246 /* fz-wbt.ttf in Resources */,
 				B2C0DF4620D4CB350057DC84 /* UserfulCell.xib in Resources */,
 				B2B4BBEA1E7EA4AB000CC201 /* EmptyView.xib in Resources */,
@@ -2997,19 +2981,15 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/BSBacktraceLogger/BSBacktraceLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/DoraemonKit/DoraemonKit.framework",
-				"${PODS_ROOT}/DoraemonKit/iOS/DoraemonKit/Framework/DoraemonLoadAnalyze.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/PNChart/PNChart.framework",
 				"${BUILT_PRODUCTS_DIR}/PullToRefresh/PullToRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/QSNetwork/QSNetwork.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
@@ -3019,31 +2999,25 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
-				"${BUILT_PRODUCTS_DIR}/UICountingLabel/UICountingLabel.framework",
-				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
+				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
 				"${BUILT_PRODUCTS_DIR}/ZSAPI/ZSAPI.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
-				"${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSBacktraceLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoraemonKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoraemonLoadAnalyze.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PNChart.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PullToRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QSNetwork.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
@@ -3053,14 +3027,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICountingLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSAPI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fishhook.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3126,15 +3098,18 @@
 				B2583CBC1EA782C2004178F3 /* QSThemeTopicProtocols.swift in Sources */,
 				B2C0DF4420D4CB350057DC84 /* QSBatteryView.swift in Sources */,
 				B2C0DF6C20D4CB350057DC84 /* QSCommunityViewController.swift in Sources */,
+				B2683CD922C8F65300FE9CF0 /* ZSWebJumpHandler.swift in Sources */,
 				B2C0DF6020D4CB350057DC84 /* QSBookDetailRouter.swift in Sources */,
 				B252D48B210EF3960091858E /* HTTPRedirectResponse.m in Sources */,
 				3D31FFB12216E1850011D275 /* ZSChapterPayView.swift in Sources */,
 				B29CFB6B217A3D8F0006F294 /* ZSLogin.swift in Sources */,
+				B2B8A21B22C71A23005527C8 /* ZSBookShelfHeaderView.swift in Sources */,
 				3DFCF6F421E9984100D3A8EC /* ZSSwipeCell.swift in Sources */,
 				B26286CA1EEA46DD005A1A8A /* QSIntroducePage.swift in Sources */,
 				B22AC4591E9F6767008625E6 /* ZSCatelogParameterModel.swift in Sources */,
 				B22AC45B1E9F6774008625E6 /* ZSRankDetailWebService.swift in Sources */,
 				B286F01A202981DD0069565B /* NSObject+Extension.swift in Sources */,
+				B2683CF122C8FC4C00FE9CF0 /* ZSWebUserHandler.swift in Sources */,
 				B2C0DF5720D4CB350057DC84 /* CategoryTableViewCell.swift in Sources */,
 				3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */,
 				B2B02E2B1EA8505200A6880A /* QSTopicDetailInteractor.swift in Sources */,
@@ -3202,7 +3177,6 @@
 				B222A2C31EEE6EE9007CD57F /* QSLaunchRecView.swift in Sources */,
 				B252D488210EF3960091858E /* HTTPDynamicFileResponse.m in Sources */,
 				B22AC4511E9F1C8C008625E6 /* ZSRankViewModel.swift in Sources */,
-				3DECC3E222464C5000EEB146 /* FMDatabase.m in Sources */,
 				B2B4BC241E7EA4AB000CC201 /* RightViewController.swift in Sources */,
 				B2C0DF6420D4CB350057DC84 /* QSCategoryProtocols.swift in Sources */,
 				B2C0DF2A20D4CB350057DC84 /* BookComment.swift in Sources */,
@@ -3240,7 +3214,6 @@
 				B2B4BD771E7ECEE0000CC201 /* RootViewController+Subviews.swift in Sources */,
 				B2A02F7C20F337C20034DC64 /* ZSHorizonalMoveViewController.swift in Sources */,
 				B263ACDF1EE679830096CE80 /* HomeListViewCell.swift in Sources */,
-				B2B4BBF51E7EA4AB000CC201 /* NSDate+Date.m in Sources */,
 				B2C0DF2C20D4CB350057DC84 /* BookShelfInfo.swift in Sources */,
 				B278AA981F396073000A0D55 /* ReadHistoryCell.swift in Sources */,
 				B2B4BC141E7EA4AB000CC201 /* SearchView.swift in Sources */,
@@ -3258,7 +3231,6 @@
 				B2583CBB1EA782C2004178F3 /* QSThemeTopicPresenter.swift in Sources */,
 				3D2330E021F6F05A00EFE522 /* ZSAppInfo.swift in Sources */,
 				B2583CB41EA78280004178F3 /* TopicDetailViewController.swift in Sources */,
-				3DECC3E022464C5000EEB146 /* FMDatabaseQueue.m in Sources */,
 				B2C0DF4D20D4CB350057DC84 /* UserfulCell.swift in Sources */,
 				3D9325E120B2BCFB0049CDBF /* ZSRootViewController.swift in Sources */,
 				B2C0DF2920D4CB350057DC84 /* BookCommentDetail.swift in Sources */,
@@ -3268,7 +3240,6 @@
 				B2C0DF7820D4CB6D0057DC84 /* QSBookCommentPresenter.swift in Sources */,
 				B2B4BBE31E7EA4AB000CC201 /* XYCBaseModel.m in Sources */,
 				3DDB6CB52130F63300E8698D /* RegexKitLite.m in Sources */,
-				3DECC3E122464C5000EEB146 /* FMDatabaseAdditions.m in Sources */,
 				3D968CFA213396B700DF3279 /* ZSBaseSectionAdapter.swift in Sources */,
 				3D448E5B22C501CC0099B6E8 /* ZSBookStoreViewController.swift in Sources */,
 				B2C0DF2220D4CB350057DC84 /* QSTextProtocols.swift in Sources */,
@@ -3324,13 +3295,13 @@
 				3D9325E620B2C44A0049CDBF /* ZSBaseTableViewManger.swift in Sources */,
 				3DDB6CA82130F4BC00E8698D /* CoreTextUtils.m in Sources */,
 				3D448E5D22C501DA0099B6E8 /* ZSCommunityViewController.swift in Sources */,
+				B2B8A21422C70515005527C8 /* ZSRefreshTextHeader.swift in Sources */,
 				3DAC239221E1DE7400E77891 /* ZSWebItem.swift in Sources */,
 				3DECC3882245379400EEB146 /* ZSFilterThemeCell.swift in Sources */,
 				B2C0DF1C20D4CB350057DC84 /* QSTextRouter.swift in Sources */,
 				B25EB93521949C0F000D3657 /* NSData+Base64.m in Sources */,
 				B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */,
 				B2662EBC21A7DAC5008AD5C6 /* ZSDBPropertyModel.m in Sources */,
-				3DECC3DF22464C5000EEB146 /* MBProgressHUD.m in Sources */,
 				3D5671FC2174CADD0049B2FF /* ZSBookCTLayoutModel.swift in Sources */,
 				B2E072781F3AD99500C63347 /* Reader.swift in Sources */,
 				3D448E6122C501E90099B6E8 /* ZSMineViewController.swift in Sources */,
@@ -3343,6 +3314,8 @@
 				B203BB591E9E0F4400F9C052 /* QSSearchViewController+SearchBar.swift in Sources */,
 				B252D4AD210EFA660091858E /* ZSHTTPTool.m in Sources */,
 				B252D490210EF3960091858E /* MultipartFormDataParser.m in Sources */,
+				B2840F3422C85B75009C9116 /* ZSBookShelfViewModel.swift in Sources */,
+				B2683CF722C8FE4E00FE9CF0 /* ZSWebBIHandler.swift in Sources */,
 				B2B4BBF81E7EA4AB000CC201 /* UIImageView+zhuishu.swift in Sources */,
 				B2B4BBFB1E7EA4AB000CC201 /* UITableView+QSGeneric.swift in Sources */,
 				B2ACA02221217DFB0032305E /* ZSRankService.swift in Sources */,
@@ -3391,6 +3364,7 @@
 				3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */,
 				B2A7CDF1218469860067D25B /* ZSFeelingView.swift in Sources */,
 				3D2330E521F9CC6F00EFE522 /* IntExtensions.swift in Sources */,
+				B2683CF522C8FD6500FE9CF0 /* ZSWebContext.swift in Sources */,
 				3D2330DE21F5F04700EFE522 /* ZSBookDownloader.swift in Sources */,
 				B2B4BC0A1E7EA4AB000CC201 /* CategoryCell.swift in Sources */,
 				3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */,
@@ -3402,6 +3376,7 @@
 				B2B02E561EA9A9F000A6880A /* ZSVoiceBookSegmentViewController.swift in Sources */,
 				B2C0DF6220D4CB350057DC84 /* QSBookDetailPresenter.swift in Sources */,
 				3D31FFAF2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift in Sources */,
+				B2683CF322C8FCE900FE9CF0 /* ZSWebToolHandler.swift in Sources */,
 				B2583CBA1EA782C2004178F3 /* QSThemeTopicInteractor.swift in Sources */,
 				B2B4BBE61E7EA4AB000CC201 /* DarkView.swift in Sources */,
 				B252D489210EF3960091858E /* HTTPFileResponse.m in Sources */,
@@ -3425,7 +3400,6 @@
 				B29B4F9D1E821E61008852E3 /* UIImage+QSData.swift in Sources */,
 				3DFBDEDD21F1A7ED00AED519 /* ZSCacheHelper.swift in Sources */,
 				B2580E1B1E9B236000455AFE /* QSSearchInteractor.swift in Sources */,
-				3DECC3E322464C5000EEB146 /* FMDatabasePool.m in Sources */,
 				B27D7EA11F4D593D00866341 /* UIScrollView+StateView.m in Sources */,
 				B2B4BC181E7EA4AB000CC201 /* ThemeTopicModel.swift in Sources */,
 				B2B4BC201E7EA4AB000CC201 /* TopicDetailHeaderCell.swift in Sources */,
@@ -3481,7 +3455,7 @@
 				B203BB651E9E119400F9C052 /* QSSearchViewController+Transition.swift in Sources */,
 				B22AC44F1E9F1C7D008625E6 /* ZSCatelogItemViewController.swift in Sources */,
 				B2B4BBE51E7EA4AB000CC201 /* DarkStarView.swift in Sources */,
-				3DECC3E422464C5000EEB146 /* FMResultSet.m in Sources */,
+				B2683CF922C8FE8A00FE9CF0 /* ZSWebSpeakHandler.swift in Sources */,
 				3D448E5822C501C40099B6E8 /* ZSBookShelfViewController.swift in Sources */,
 				3D62EE5922604768002FFA39 /* ZSVoicePlayerCatelogView.swift in Sources */,
 				B2C0DF4120D4CB350057DC84 /* ToolBar.swift in Sources */,

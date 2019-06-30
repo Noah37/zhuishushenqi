@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import ZSAPI
 
-class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
+class ZSShelfViewModel:ZSRefreshProtocol {
     
     internal var refreshStatus: Variable<ZSRefreshStatus> = Variable(.none)
     
@@ -42,8 +42,7 @@ class ZSShelfViewModel:NSObject,ZSRefreshProtocol {
     
     let helper = MonitorFileChangeHelp()
 
-    override init() {
-        super.init()
+    init() {
         
         let path = "\(NSHomeDirectory())/Documents/Inbox/"
         scanPath(path: path)

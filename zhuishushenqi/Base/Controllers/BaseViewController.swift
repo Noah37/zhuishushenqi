@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias ZSBaseHandler = (_ result:Bool)->Void
+
 class BaseViewController: UIViewController, IndicatableView {
 
     override func viewDidLoad() {
@@ -66,6 +68,18 @@ class BaseViewController: UIViewController, IndicatableView {
     func hideProgress() {
         self.indicatorView.stopAnimating()
         self.indicatorView.removeFromSuperview()
+    }
+    
+    func login(success:@escaping ZSBaseHandler) {
+        if ZSLogin.share.hasLogin() {
+            success(true)
+            return
+        }
+        let loginVC = ZSLoginViewController()
+        loginVC.loginResultHandler = { result in
+            success(result)
+        }
+        present(loginVC, animated: true, completion: nil)
     }
     
     lazy var indicatorView:UIActivityIndicatorView = {

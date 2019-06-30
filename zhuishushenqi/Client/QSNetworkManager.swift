@@ -8,10 +8,10 @@
 
 import UIKit
 
-class QSNetworkManager: NSObject {
+class QSNetworkManager {
     
     static let shared = QSNetworkManager()
-    private override init(){
-        super.init()
+    private init(){
+
     }
 }

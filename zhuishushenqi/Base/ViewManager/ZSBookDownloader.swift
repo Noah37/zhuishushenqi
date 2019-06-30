@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZSBookDownloader: NSObject {
+class ZSBookDownloader {
     
     private var semaphore = DispatchSemaphore(value: 5)
     private var group = DispatchGroup()
@@ -18,7 +18,7 @@ class ZSBookDownloader: NSObject {
     private var chapterInfo:[String:String] = [:]
     
     static let shared = ZSBookDownloader()
-    private override init() {
+    private init() {
         
     }
     

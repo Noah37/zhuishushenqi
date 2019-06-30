@@ -7,9 +7,9 @@
 
 import UIKit
 
-open class ZSBookStoreViewController: UIViewController {
+class ZSBookStoreViewController: BaseViewController {
 
-    override open func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.

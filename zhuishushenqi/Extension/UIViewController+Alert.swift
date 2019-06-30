@@ -24,18 +24,22 @@ extension UIViewController{
     
     func alert(with title:String?,message:String?,okTitle:String?,cancelTitle:String?,okAction:AlertCallback?,cancelAction:AlertCallback?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: okTitle, style: .default) { (alertAction) in
-            if let action = okAction {
-                action(alertAction)
+        if let title = okTitle {
+            let ok = UIAlertAction(title: title, style: .default) { (alertAction) in
+                if let action = okAction {
+                    action(alertAction)
+                }
             }
+            alert.addAction(ok)
         }
-        let cancel = UIAlertAction(title: cancelTitle, style: .default) { (alertAction) in
-            if let action = cancelAction {
-                action(alertAction)
+        if let title = cancelTitle {
+            let cancel = UIAlertAction(title: title, style: .default) { (alertAction) in
+                if let action = cancelAction {
+                    action(alertAction)
+                }
             }
+            alert.addAction(cancel)
         }
-        alert.addAction(ok)
-        alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
     }
     

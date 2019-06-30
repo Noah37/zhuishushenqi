@@ -7,8 +7,8 @@
 
 import UIKit
 
-open class ZSDiscoverViewController: UIViewController {
-    override open func viewDidLoad() {
+class ZSDiscoverViewController: BaseViewController {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.

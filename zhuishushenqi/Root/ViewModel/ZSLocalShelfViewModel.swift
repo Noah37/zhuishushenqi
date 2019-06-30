@@ -9,14 +9,13 @@
 import Foundation
 
 
-class ZSLocalShelfViewModel: NSObject {
+class ZSLocalShelfViewModel {
     
     
     var books:[String:BookDetail] = [:]
     var paths:[String] = []
     
-    override init() {
-        super.init()
+    init() {
         scanPath()
     }
     

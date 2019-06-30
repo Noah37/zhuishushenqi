@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QSSearchItem: NSObject {
+class QSSearchItem {
 
     var title:String = ""
 }

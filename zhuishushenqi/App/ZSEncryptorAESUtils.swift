@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZSEncryptorAESUtils: NSObject {
+class ZSEncryptorAESUtils {
     
     func getDecryptedStr(key:String, cipherText:String) {
         let keyData = Data(base64Encoded: key, options: Data.Base64DecodingOptions(rawValue: 0))

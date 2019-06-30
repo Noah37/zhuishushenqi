@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZSMobileLogin: NSObject {
+class ZSMobileLogin {
     
     let tencentCaptChaAppID = "2061491951"
     
@@ -20,8 +20,7 @@ class ZSMobileLogin: NSObject {
     let MobileLoginLastLoginTypeKey = "MobileLoginLastLoginTypeKey"
     
     static let share = ZSMobileLogin()
-    private override init() {
-        super.init()
+    private init() {
         let user = self.localUserInfo()
         self.userInfo = user
     }

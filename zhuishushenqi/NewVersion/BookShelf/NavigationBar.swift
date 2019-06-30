@@ -13,29 +13,34 @@ protocol NavigationBarDelegate:class {
 
 class NavigationBar: UIView {
     
-    private var logoView:UIImageView!
+    private lazy var logoView:UIImageView = {
+        let imageView = UIImageView(frame: CGRect.zero)
+        imageView.image = UIImage(named: "bookshelf_bg_logo_80_19_80x19_")
+        return imageView
+    }()
     private var navButtons:[UIButton] = []
-    private var navImages:[UIImage] = []
+    private var navImages:[ShelfNav] = []
     
     weak var delegate:NavigationBarDelegate?
     
-    init(navImages:[UIImage], delegate:NavigationBarDelegate?) {
-        super.init(frame: CGRect.zero)
+    convenience init(navImages:[ShelfNav], delegate:NavigationBarDelegate?) {
+        self.init(frame: CGRect.zero)
         self.navImages = navImages
         self.delegate = delegate
+        configureNavButtons()
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        logoView = UIImageView(image: UIImage(named: ""))
         addSubview(logoView)
+        self.backgroundColor = UIColor.init(hexString: "#A70A0B")
         configureNavButtons()
     }
     
     private func configureNavButtons() {
         for image in navImages {
             let btn = UIButton(type: .custom)
-            btn.setImage(image, for: .normal)
+            btn.setImage(image.image, for: .normal)
             btn.addTarget(self, action: #selector(navAction(btn:)), for: .touchUpInside)
             addSubview(btn)
             navButtons.append(btn)
@@ -64,7 +69,7 @@ class NavigationBar: UIView {
         var index = navButtons.count - 1
         while index >= 0 {
             let btn = navButtons[index]
-            let originX = self.bounds.width - CGFloat(navButtons.count - index - 1) * 42 - 13
+            let originX = self.bounds.width - CGFloat(navButtons.count - index) * 42 - 13
             btn.frame = CGRect(x: originX, y: 21, width: 42, height: 42)
             index -= 1
         }

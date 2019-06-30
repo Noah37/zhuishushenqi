@@ -9,7 +9,7 @@
 import UIKit
 import Cache
 
-class ZSCacheHelper: NSObject {
+class ZSCacheHelper {
     
     static let bookshelfPath = "/ZSBookShelf"
     static let bookshelfBooksPath = "/ZSBookShelf/Books"
@@ -22,8 +22,8 @@ class ZSCacheHelper: NSObject {
     var storeKey:String?
     
     static let shared = ZSCacheHelper()
-    private override init() {
-        super.init()
+    private init() {
+        
     }
     
     // MARK: - get

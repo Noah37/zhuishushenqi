@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZSLogin: NSObject {
+class ZSLogin {
     
     var token:String = ""
     
@@ -17,8 +17,7 @@ class ZSLogin: NSObject {
     var mobileLogin:Bool = false
     
     static let share = ZSLogin()
-    private override init() {
-        super.init()
+    private init() {
         if let token =  ZSThirdLogin.share.userInfo?.token {
             self.token = token
         } else if let token = ZSMobileLogin.share.userInfo?.token {

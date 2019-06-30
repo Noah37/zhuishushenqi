@@ -392,7 +392,7 @@ class ZSThirdLoginStorage: NSObject {
     }
 }
 
-class SSDKCredential: NSObject {
+class SSDKCredential {
     var expirationDate:Date?
     var openId:String = ""
     var available:Bool = false
@@ -404,7 +404,7 @@ class SSDKCredential: NSObject {
 
 }
 
-class SSDKQQData: NSObject,HandyJSON {
+class SSDKQQData:HandyJSON {
     var pf:String = ""
     var pfkey:String = ""
     var access_token:String = ""
@@ -416,10 +416,10 @@ class SSDKQQData: NSObject,HandyJSON {
     var encrytoken:String = ""
     var expires_in:TimeInterval = 7776000
     
-    required override init() {}
+    required init() {}
 }
 
-class ZSWXAccessTokenResp: NSObject ,HandyJSON, NSCoding{
+class ZSWXAccessTokenResp: HandyJSON, NSCoding{
     var openid:String = ""
     var scope:String = ""
     var expires_in:Float = 0
@@ -427,7 +427,7 @@ class ZSWXAccessTokenResp: NSObject ,HandyJSON, NSCoding{
     var unionid:String = ""
     var refresh_token:String = ""
     
-    required override init() {}
+    required init() {}
     
     required init?(coder aDecoder: NSCoder) {
         aDecoder.decodeObject(forKey: "openid")

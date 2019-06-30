@@ -86,7 +86,7 @@ class ZSSearchViewController: ZSBaseTableViewController {
             self.searchController.searchBar.text = self.searchViewModel.keywords
             searchViewModel.fetchAutoComplete(key: searchController.searchBar.text ?? "") { (books) in
                 self.autoCompleteController.books = books ?? []
-                let indexPath = IndexPath(row: 0, section: 0)
+                _ = IndexPath(row: 0, section: 0)
                 if self.autoCompleteController.books.count > 0 {
                     self.resultViewController.view.origin.y = self.searchBarHeight
                     self.resultViewController.view.size.height = ScreenHeight - self.searchBarHeight - kNavgationBarHeight
