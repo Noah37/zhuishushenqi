@@ -20,9 +20,7 @@ class ZSWebJumpHandler: ZSWebEventHandlerProtocol {
     
     
     static func canHandleWebItem(item:ZSWebItem) ->Bool {
-        
-        
-        return true
-    }
+        let items = ["jump","pop","openTaobaoDetail","baseRecharge","openBookstore","openBookshelf","openBindPhone","openBookReview","openSupport","openPayForSignin","jumpToReader","openVideoAd", "openWinMoney"]
+        return items.contains(item.funcName ?? "")    }
 
 }

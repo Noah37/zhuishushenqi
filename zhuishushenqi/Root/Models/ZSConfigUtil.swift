@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import YYCategories
+import AdSupport
 
 class ZSConfigUtil: NSObject {
     
@@ -34,6 +36,13 @@ class ZSConfigUtil: NSObject {
         return ""
     }
     
+    static func platformString() ->String {
+        return UIDevice.current.machineModelName ?? UIDevice.current.model
+    }
     
+    static func uniquelIdfa() ->String {
+        let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        return idfa
+    }
 
 }

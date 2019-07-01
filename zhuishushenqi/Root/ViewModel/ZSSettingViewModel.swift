@@ -12,7 +12,15 @@ class ZSSettingViewModel: NSObject {
 
     var sections:[[String:Any]] = []
     
+    let webService = ZSMyService()
+    
     func fetchSetting(){
         
+    }
+    
+    func fetchLogout(token:String, completion:@escaping ZSBaseCallback<[String:Any]>) {
+        webService.fetchLogout(token: token) { (json) in
+            completion(json)
+        }
     }
 }

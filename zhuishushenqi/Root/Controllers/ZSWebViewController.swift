@@ -210,9 +210,15 @@ class ZSWebViewController: BaseViewController {
                     self.userHandler = ZSWebUserHandler()
                 }
             } else if ZSWebToolHandler.canHandleWebItem(item: item) {
+                let context = ZSWebContext()
+                context.fromVC = self
+                context.delegate = self.delegate
                 if self.toolHandler == nil {
                     self.toolHandler = ZSWebToolHandler()
                 }
+                self.toolHandler?.handleWebItem(item: item, context: context, block: { [weak self] (result) in
+                    self?.runJavaScriptMethodWithName(name: result)
+                })
             } else if ZSWebBIHandler.canHandleWebItem(item: item) {
                 if self.biHandler == nil {
                     self.biHandler = ZSWebBIHandler()
@@ -245,7 +251,9 @@ class ZSWebViewController: BaseViewController {
     }
     
     func runJavaScriptMethodWithName(name:String) {
-        
+        self.webView.evaluateJavaScript(name) { (result, error) in
+            
+        }
     }
     
     func setNavigtionBarItems(item:ZSWebItem) {

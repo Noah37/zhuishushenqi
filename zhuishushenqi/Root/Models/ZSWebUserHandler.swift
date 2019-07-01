@@ -15,8 +15,7 @@ class ZSWebUserHandler: ZSWebEventHandlerProtocol {
     
     
     static func canHandleWebItem(item:ZSWebItem) ->Bool {
-        
-        
-        return true
+        let items = ["getUserInfo","login","syncContacts","updateUserPreference","handleBookShelf","isWinMoneyOpen","recharge"]
+        return items.contains(item.funcName ?? "")
     }
 }

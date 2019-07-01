@@ -8,9 +8,11 @@
 
 import UIKit
 
-class ZSSettingViewController: UIViewController {
+class ZSSettingViewController: BaseViewController {
     
     var tableView:UITableView!
+    
+    var viewModel:ZSSettingViewModel = ZSSettingViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +36,7 @@ class ZSSettingViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.qs_registerCellClass(UITableViewCell.self)
+        tableView.qs_registerHeaderFooterClass(ZSMyFooterView.self)
         view.addSubview(tableView)
     }
 }
@@ -57,7 +60,23 @@ extension ZSSettingViewController:UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return nil
+        let footer = tableView.qs_dequeueReusableHeaderFooterView(ZSMyFooterView.self)
+        footer?.footerHandler = {
+            self.view.showProgress()
+            self.viewModel.fetchLogout(token: ZSLogin.share.token , completion: { (json) in
+                self.hideProgress()
+                if let ok = json?["ok"] as? Bool {
+                    if ok {
+                        ZSLogin.share.logout()
+                        //退出登录成功,关闭菜单
+                        self.navigationController?.popViewController(animated: false)
+                    } else {
+                        self.view.showTip(tip: "退出登录失败,请稍后再试")
+                    }
+                }
+            })
+        }
+        return footer
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -69,6 +88,6 @@ extension ZSSettingViewController:UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 44
+        return 100
     }
 }
