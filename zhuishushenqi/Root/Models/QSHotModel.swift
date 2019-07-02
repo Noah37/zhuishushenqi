@@ -47,10 +47,22 @@ class QSHotTweet: NSObject ,HandyJSON{
     var retweeted:Int = 0
     var type:String = ""
     var created:String = ""
+    var book:ZSHotBook?
     
-    required override init() {
-        
-    }
+    required override init() {}
+}
+
+struct ZSHotBook:HandyJSON {
+    var _id:String = ""
+    var author:String = ""
+    var title:String = ""
+    var cover:String = ""
+    var allowFree:Bool = false
+    var apptype:[Int] = []
+    var allowMonthly:Bool = false
+    var wordCount:Int = 0
+    
+    init() {}
 }
 
 @objcMembers

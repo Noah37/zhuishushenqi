@@ -78,6 +78,14 @@
 		3DAC23CE21E32DA500E77891 /* ZSYJSchemeHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAC23CD21E32DA500E77891 /* ZSYJSchemeHandle.swift */; };
 		3DB24B5D2240F5F100DCE8B2 /* ZSCatelogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB24B5C2240F5F100DCE8B2 /* ZSCatelogCell.swift */; };
 		3DB24B622243CBD200DCE8B2 /* ZSCatelogHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB24B612243CBD200DCE8B2 /* ZSCatelogHeaderView.swift */; };
+		3DBC088F22CB02030004B3F4 /* ZSCommunityNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC088E22CB02030004B3F4 /* ZSCommunityNavigationBar.swift */; };
+		3DBC089122CB37C10004B3F4 /* ZSDiscoverNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC089022CB37C00004B3F4 /* ZSDiscoverNavigationBar.swift */; };
+		3DBC089322CB54DD0004B3F4 /* ZSCommunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC089222CB54DD0004B3F4 /* ZSCommunityCell.swift */; };
+		3DBC089522CB56C60004B3F4 /* ZSInsertedBookScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC089422CB56C60004B3F4 /* ZSInsertedBookScoreView.swift */; };
+		3DBC089722CB78DB0004B3F4 /* ZSCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC089622CB78DB0004B3F4 /* ZSCommunityViewModel.swift */; };
+		3DBC089B22CB7F140004B3F4 /* ZSAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBC089A22CB7F130004B3F4 /* ZSAPI.framework */; };
+		3DBC089C22CB7F140004B3F4 /* ZSAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBC089A22CB7F130004B3F4 /* ZSAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3DBC089F22CB80DB0004B3F4 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC089E22CB80DB0004B3F4 /* UIButton+Extension.swift */; };
 		3DC93D55224A6264004FC392 /* ZSVoiceAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC93D54224A6264004FC392 /* ZSVoiceAlbum.swift */; };
 		3DD08407215698E5008E3B4A /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD08406215698E5008E3B4A /* iflyMSC.framework */; };
 		3DD0840B21569902008E3B4A /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0840A21569902008E3B4A /* Speaker.swift */; };
@@ -532,6 +540,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3DBC089D22CB7F150004B3F4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3DBC089C22CB7F140004B3F4 /* ZSAPI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussViewModel.swift; sourceTree = "<group>"; };
 		3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussWebService.swift; sourceTree = "<group>"; };
@@ -606,6 +628,14 @@
 		3DAC23CD21E32DA500E77891 /* ZSYJSchemeHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSYJSchemeHandle.swift; sourceTree = "<group>"; };
 		3DB24B5C2240F5F100DCE8B2 /* ZSCatelogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCatelogCell.swift; sourceTree = "<group>"; };
 		3DB24B612243CBD200DCE8B2 /* ZSCatelogHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCatelogHeaderView.swift; sourceTree = "<group>"; };
+		3DBC088E22CB02030004B3F4 /* ZSCommunityNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCommunityNavigationBar.swift; sourceTree = "<group>"; };
+		3DBC089022CB37C00004B3F4 /* ZSDiscoverNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscoverNavigationBar.swift; sourceTree = "<group>"; };
+		3DBC089222CB54DD0004B3F4 /* ZSCommunityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCommunityCell.swift; sourceTree = "<group>"; };
+		3DBC089422CB56C60004B3F4 /* ZSInsertedBookScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSInsertedBookScoreView.swift; sourceTree = "<group>"; };
+		3DBC089622CB78DB0004B3F4 /* ZSCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCommunityViewModel.swift; sourceTree = "<group>"; };
+		3DBC089822CB79830004B3F4 /* ZSAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZSAPI.framework; path = Carthage/Build/iOS/ZSAPI.framework; sourceTree = "<group>"; };
+		3DBC089A22CB7F130004B3F4 /* ZSAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZSAPI.framework; path = Carthage/Build/iOS/ZSAPI.framework; sourceTree = "<group>"; };
+		3DBC089E22CB80DB0004B3F4 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		3DC93D54224A6264004FC392 /* ZSVoiceAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVoiceAlbum.swift; sourceTree = "<group>"; };
 		3DD08406215698E5008E3B4A /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iflyMSC.framework; sourceTree = "<group>"; };
 		3DD0840A21569902008E3B4A /* Speaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
@@ -1192,6 +1222,7 @@
 				B22182C31DA40566002458D2 /* ImageIO.framework in Frameworks */,
 				B22182BF1DA40558002458D2 /* CoreImage.framework in Frameworks */,
 				B22182BD1DA40550002458D2 /* CoreGraphics.framework in Frameworks */,
+				3DBC089B22CB7F140004B3F4 /* ZSAPI.framework in Frameworks */,
 				B22182BB1DA40548002458D2 /* CoreFoundation.framework in Frameworks */,
 				B22182B91DA40540002458D2 /* CoreText.framework in Frameworks */,
 				48103378801B43EB177B7D8A /* Pods_zhuishushenqi.framework in Frameworks */,
@@ -1261,6 +1292,10 @@
 			isa = PBXGroup;
 			children = (
 				3D448E5C22C501DA0099B6E8 /* ZSCommunityViewController.swift */,
+				3DBC088E22CB02030004B3F4 /* ZSCommunityNavigationBar.swift */,
+				3DBC089222CB54DD0004B3F4 /* ZSCommunityCell.swift */,
+				3DBC089422CB56C60004B3F4 /* ZSInsertedBookScoreView.swift */,
+				3DBC089622CB78DB0004B3F4 /* ZSCommunityViewModel.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -1269,6 +1304,7 @@
 			isa = PBXGroup;
 			children = (
 				3D448E5E22C501E10099B6E8 /* ZSDiscoverViewController.swift */,
+				3DBC089022CB37C00004B3F4 /* ZSDiscoverNavigationBar.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -1654,6 +1690,7 @@
 		96FE9B86D6BF6F1F079B71F4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3DBC089822CB79830004B3F4 /* ZSAPI.framework */,
 				B2A7CD82217F33230067D25B /* Photos.framework */,
 				3DD0843B2157C135008E3B4A /* Contacts.framework */,
 				3DD084392157C124008E3B4A /* AddressBook.framework */,
@@ -2088,6 +2125,7 @@
 				B251F89B2030350E004AAF95 /* Dictionary+QSExtension.swift */,
 				B24B3F5520ECA04B0098ACE5 /* Array+ZSExtension.swift */,
 				B2B4BA1B1E7EA4A8000CC201 /* UIImageView+zhuishu.swift */,
+				3DBC089E22CB80DB0004B3F4 /* UIButton+Extension.swift */,
 				B2B4BA1C1E7EA4A8000CC201 /* UILabel+zhuishu.swift */,
 				B2B4BA1D1E7EA4A8000CC201 /* UINavigationItem+BackItem.h */,
 				B2B4BA1E1E7EA4A8000CC201 /* UINavigationItem+BackItem.m */,
@@ -2438,6 +2476,7 @@
 		B2BB5B8D1D8BDF8E00379217 = {
 			isa = PBXGroup;
 			children = (
+				3DBC089A22CB7F130004B3F4 /* ZSAPI.framework */,
 				B2EE7CFD1F3C0C3400BE997C /* Script.sh */,
 				B2B4B9F61E7EA4A8000CC201 /* zhuishushenqi */,
 				B2BB5BAD1D8BDF8E00379217 /* zhuishushenqiTests */,
@@ -2795,6 +2834,7 @@
 				B2BB5B941D8BDF8E00379217 /* Resources */,
 				1031C96B74D74AC62BE49F90 /* [CP] Embed Pods Frameworks */,
 				B2EE7CE81F3BEEE000BE997C /* ShellScript */,
+				3DBC089D22CB7F150004B3F4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3015,7 +3055,6 @@
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
-				"${BUILT_PRODUCTS_DIR}/ZSAPI/ZSAPI.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -3043,7 +3082,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSAPI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3102,6 +3140,7 @@
 				B2C0DF4A20D4CB350057DC84 /* QSRecommendCell.swift in Sources */,
 				B2B4BC1C1E7EA4AB000CC201 /* ThemeTopicCell.swift in Sources */,
 				3D1F67A3217DBA94000FB968 /* ZSLoginView.swift in Sources */,
+				3DBC089322CB54DD0004B3F4 /* ZSCommunityCell.swift in Sources */,
 				B20D74161EED83690034516F /* QSLastIntroduceCell.swift in Sources */,
 				B2B4BBEC1E7EA4AB000CC201 /* LightView.swift in Sources */,
 				B29CFB77217B1FEC0006F294 /* ZSCoin.swift in Sources */,
@@ -3171,6 +3210,7 @@
 				B2580E1E1E9B236000455AFE /* QSSearchRouter.swift in Sources */,
 				B2B4BC0E1E7EA4AB000CC201 /* QSRankModel.swift in Sources */,
 				3D998939223FEA0400EA33D5 /* ZSCatelogViewModel.swift in Sources */,
+				3DBC089F22CB80DB0004B3F4 /* UIButton+Extension.swift in Sources */,
 				B252D487210EF3960091858E /* HTTPDataResponse.m in Sources */,
 				B2B4BBE01E7EA4AB000CC201 /* BaseViewController.swift in Sources */,
 				B2414D9C1EA602ED005A5758 /* UIViewController+Alert.swift in Sources */,
@@ -3328,6 +3368,7 @@
 				B203BB591E9E0F4400F9C052 /* QSSearchViewController+SearchBar.swift in Sources */,
 				B252D4AD210EFA660091858E /* ZSHTTPTool.m in Sources */,
 				B252D490210EF3960091858E /* MultipartFormDataParser.m in Sources */,
+				3DBC089722CB78DB0004B3F4 /* ZSCommunityViewModel.swift in Sources */,
 				B2840F3422C85B75009C9116 /* ZSBookShelfViewModel.swift in Sources */,
 				B2683CF722C8FE4E00FE9CF0 /* ZSWebBIHandler.swift in Sources */,
 				B2B4BBF81E7EA4AB000CC201 /* UIImageView+zhuishu.swift in Sources */,
@@ -3394,6 +3435,7 @@
 				B2583CBA1EA782C2004178F3 /* QSThemeTopicInteractor.swift in Sources */,
 				B2B4BBE61E7EA4AB000CC201 /* DarkView.swift in Sources */,
 				B252D489210EF3960091858E /* HTTPFileResponse.m in Sources */,
+				3DBC088F22CB02030004B3F4 /* ZSCommunityNavigationBar.swift in Sources */,
 				B2B4BBEB1E7EA4AB000CC201 /* LightStarView.swift in Sources */,
 				B28FFC921EB03EA300C27FF9 /* QSHomeDeleteBtn.swift in Sources */,
 				B252D49A210EF3960091858E /* PUTResponse.m in Sources */,
@@ -3408,6 +3450,7 @@
 				B24B3F5420E888D60098ACE5 /* ZSSearchResultViewController.swift in Sources */,
 				B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */,
 				B2C0DF6F20D4CB350057DC84 /* QSCommunityPresenter.swift in Sources */,
+				3DBC089522CB56C60004B3F4 /* ZSInsertedBookScoreView.swift in Sources */,
 				B252D48F210EF3960091858E /* MultipartMessageHeaderField.m in Sources */,
 				3D1F67A5217DCE9B000FB968 /* ZSLeftViewCell.swift in Sources */,
 				B29CFB81217B395D0006F294 /* ZSUserBindCell.swift in Sources */,
@@ -3469,6 +3512,7 @@
 				3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */,
 				B2A02F8020F33F710034DC64 /* ZSReaderManager.swift in Sources */,
 				B203BB651E9E119400F9C052 /* QSSearchViewController+Transition.swift in Sources */,
+				3DBC089122CB37C10004B3F4 /* ZSDiscoverNavigationBar.swift in Sources */,
 				B22AC44F1E9F1C7D008625E6 /* ZSCatelogItemViewController.swift in Sources */,
 				B2B4BBE51E7EA4AB000CC201 /* DarkStarView.swift in Sources */,
 				B2683CF922C8FE8A00FE9CF0 /* ZSWebSpeakHandler.swift in Sources */,
@@ -3682,6 +3726,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/zhuishushenqi/TXTReader/Speech/Model",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -3733,6 +3778,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/zhuishushenqi/TXTReader/Speech/Model",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

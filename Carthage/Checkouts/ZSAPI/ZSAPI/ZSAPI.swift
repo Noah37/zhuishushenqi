@@ -115,10 +115,12 @@ public enum ZSAPI {
     ///追书券列表
     case voucherList(token:String, type:String, start:Int, limit:Int)
     ///有声书分类列表
-//    case voiceCategory()
-//    https://apidian2.lnk.la/system/rule?type=test&version=not_found&juhe=1
+    //    case voiceCategory()
+    //    https://apidian2.lnk.la/system/rule?type=test&version=not_found&juhe=1
     // 第三方书籍来源接口
     case thirdPartSource(type:String, version:String,juhe:Int)
+    // 社区
+    case userTwitter(_ placeHolder:AnyObject)
 }
 //https://api.ximalaya.com/openapi-gateway-app/v2/albums/list?access_token=906bbf257eddd7ba84ceec277bdef5b5&app_key=e31646fa4555ea3472d4114921ee192e&client_os_type=1&device=iPhone&device_id=F6F542A1-1676-4D28-96C2-CF9D2F52F5FD&pack_id=com.ifmoc.ZhuiShuShenQi&sdk_version=5.4.7&calc_dimension=1&category_id=3&count=20&page=1&tag_name=%E8%A8%80%E6%83%85&type=0&sig=8db40bb73de647a3baba9afb4635eb8e&
 
@@ -247,14 +249,14 @@ extension ZSAPI:ZSTargetType{
             pathComponent = "/user/change-nickname"
             break
         case let .blessing_bag(token):
-//            https://goldcoin.zhuishushenqi.com/tasks/blessing-bag/detail?token=WupdmBZpkuzehCqdtDZF9IJR
+            //            https://goldcoin.zhuishushenqi.com/tasks/blessing-bag/detail?token=WupdmBZpkuzehCqdtDZF9IJR
             pathComponent = "/tasks/blessing-bag/detail?token=\(token)"
             break
-//    https://api.zhuishushenqi.com/user/v2/judgeSignIn?token=Abrv3NbHCuKKJSVzeSglLXns
+        //    https://api.zhuishushenqi.com/user/v2/judgeSignIn?token=Abrv3NbHCuKKJSVzeSglLXns
         case .judgeSignIn(_):
             pathComponent = "/user/v2/judgeSignIn"
             break
-            //    https://api.zhuishushenqi.com/user/signIn?token=Abrv3NbHCuKKJSVzeSglLXns&activityId=57eb9278b7b0f6fc1f2e1bc0&version=2&type=2
+        //    https://api.zhuishushenqi.com/user/signIn?token=Abrv3NbHCuKKJSVzeSglLXns&activityId=57eb9278b7b0f6fc1f2e1bc0&version=2&type=2
         case .signIn(_, _, _, _):
             pathComponent = "/user/signIn"
             break
@@ -263,11 +265,11 @@ extension ZSAPI:ZSTargetType{
             pathComponent = "/post/review/\(id)/comment"
             break
         case let .boughtChapters(id,_):
- //    https://api.zhuishushenqi.com/v2/purchase/book/5b10fd1b5d144d1b68581805/chapters/bought?token=rPcCW1GGh1hFPnSRJDjkwjtS
+            //    https://api.zhuishushenqi.com/v2/purchase/book/5b10fd1b5d144d1b68581805/chapters/bought?token=rPcCW1GGh1hFPnSRJDjkwjtS
             pathComponent = "/v2/purchase/book/\(id)/chapters/bought"
             break
         case .bookshelfdiff(_, _):
-//            https://api.zhuishushenqi.com/v3/user/bookshelf/diff
+            //            https://api.zhuishushenqi.com/v3/user/bookshelf/diff
             pathComponent = "/v3/user/bookshelf/diff"
             break
         case .voucherList(_, _, _, _):
@@ -276,10 +278,13 @@ extension ZSAPI:ZSTargetType{
         case .thirdPartSource(_, _, _):
             pathComponent = "/system/rule"
             break
+        case .userTwitter(_):
+            pathComponent = "/user/twitter/hottweets"
+            break
         }
         return "\(baseURLString)\(pathComponent)"
     }
-
+    
     public var baseURLString: String{
         var urlString = "http://api.zhuishushenqi.com"
         switch self {
@@ -378,15 +383,15 @@ extension ZSAPI:ZSTargetType{
                     "content":content]
         case let .boughtChapters(_, token):
             return ["token":token,
-                    ]
+            ]
         case let .bookshelfdiff(books, token):
             return ["books":books,
                     "token":token]
         case let .voucherList(token, type, start, limit):
             return ["token":token,
                     "type":"\(type)",
-                    "start":"\(start)",
-                    "limit":"\(limit)"]
+                "start":"\(start)",
+                "limit":"\(limit)"]
         case let .thirdPartSource(type, version, juhe):
             return ["type":type,
                     "version":version,

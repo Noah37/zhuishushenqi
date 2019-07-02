@@ -9,6 +9,11 @@
 import UIKit
 import SnapKit
 
+enum SegmentType {
+    case bottom
+    case bigselect
+}
+
 protocol ZSVoiceSegmentProtocol {
     func titlesForSegment(segmentView:ZSVoiceSegmentView) ->[String]
     func didSelect(segment:ZSVoiceSegmentView, at index:Int)
@@ -21,6 +26,8 @@ class ZSVoiceSegmentView: UIView {
     var delegate:ZSVoiceSegmentProtocol?
     
     var selectedIndex = 0
+    
+    var type:SegmentType = .bottom { didSet { change(type: type) } }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,6 +57,10 @@ class ZSVoiceSegmentView: UIView {
         
         collectionView.frame = self.bounds
     }
+    
+    private func change(type:SegmentType) {
+        self.collectionView.reloadData()
+    }
 }
 
 extension ZSVoiceSegmentView:UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -67,19 +78,37 @@ extension ZSVoiceSegmentView:UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.qs_dequeueReusableCell(ZSVoiceSegmentCell.self, for: indexPath)
-        cell.backgroundColor = UIColor.white
+        cell.backgroundColor = type == .bigselect ? UIColor.clear:UIColor.white
         
-        cell.selectedView.isHidden = (indexPath.item != selectedIndex)
+        cell.selectedView.isHidden = (indexPath.item != selectedIndex) || (type == .bigselect)
         
         if let rows = self.delegate?.titlesForSegment(segmentView: self) {
             cell.titleLabel.text = rows[indexPath.row]
         }
+        cell.titleLabel.font = (type == .bigselect && indexPath.item == selectedIndex) ? UIFont.systemFont(ofSize: 20):UIFont.systemFont(ofSize: 15)
+        cell.titleLabel.textColor = type == .bigselect ? UIColor.white:UIColor.gray
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if type == .bigselect {
+            return CGSize(width: 48, height: 30)
+        }
+        return CGSize(width: 80, height: 30)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if type == .bigselect {
+            return 0.01
+        }
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndex = indexPath.item
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        if type == .bottom {
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
         collectionView.reloadData()
     }
 }

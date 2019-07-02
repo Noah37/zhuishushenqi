@@ -43,7 +43,6 @@ PODS:
   - YYModel (1.0.4)
   - YYText (1.0.7)
   - Zip (1.1.0)
-  - ZSAPI (0.1.9)
 
 DEPENDENCIES:
   - Cache
@@ -68,11 +67,8 @@ DEPENDENCIES:
   - YYModel
   - YYText
   - Zip
-  - ZSAPI
 
 SPEC REPOS:
-  "git@github.com:NoryCao/cjspecs":
-    - ZSAPI
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Cache
@@ -124,8 +120,7 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
-  ZSAPI: e0277317da5f773b7be682bbe83e237fe31b858e
 
-PODFILE CHECKSUM: 67f6033bcd500ec701568de1fd26eca7c04d62d0
+PODFILE CHECKSUM: 83e159755baa71d7fed9d31b66ab8d36a1708cd7
 
 COCOAPODS: 1.6.1

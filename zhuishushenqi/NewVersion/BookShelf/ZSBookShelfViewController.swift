@@ -15,6 +15,10 @@ enum ShelfNav:Int {
     case history
     case more
     
+    // community
+    case mine
+    case notification
+    
     var image:UIImage? {
         switch self {
         case .gift:
@@ -25,6 +29,10 @@ enum ShelfNav:Int {
             return UIImage(named: "bookshelf_icon_history_34_34")
         case .more:
             return UIImage(named: "bookshelf_icon_more_34_34")
+        case .mine:
+            return UIImage(named: "bbs_icon_personal_34_34_34x34_")
+        case .notification:
+            return UIImage(named: "bbs_icon_message_34_34_34x34_")
         }
     }
     
@@ -38,6 +46,10 @@ enum ShelfNav:Int {
             return false
         case .more:
             return false
+        case .mine:
+            return true
+        case .notification:
+            return true
         }
     }
 }
@@ -176,6 +188,8 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
             break
         case .more:
             alert(with: "提示", message: "该功能待上线,请更新版本后再次尝试!", okTitle: "确定")
+            break
+        default:
             break
         }
     }
