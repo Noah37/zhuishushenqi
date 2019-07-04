@@ -37,8 +37,8 @@ class TopicDetailHeaderCell: UITableViewCell {
             let url = URL(string: urlString)
             if let urlstring = url {
                 let resource:QSResource = QSResource(url: urlstring)
-                self.icon.kf.setImage(with: resource, placeholder: UIImage(named: "default_avatar_light"), options: nil, progressBlock: nil, completionHandler: nil)
-                self.iconRect.kf.setImage(with: resource, placeholder: UIImage(named: "default_avatar_light"), options: nil, progressBlock: nil, completionHandler: nil)
+                self.icon.kf.setImage(with: resource, placeholder: UIImage(named: "default_avatar_light"))
+                self.iconRect.kf.setImage(with: resource, placeholder: UIImage(named: "default_avatar_light"))
 
             }
         }

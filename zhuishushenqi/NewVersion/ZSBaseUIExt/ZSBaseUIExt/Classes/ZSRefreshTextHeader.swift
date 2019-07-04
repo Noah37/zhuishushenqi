@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import MJRefresh
-import YYImage
+//import MJRefresh
+//import YYImage
 
 open class ZSRefreshTextHeader: MJRefreshHeader {
 

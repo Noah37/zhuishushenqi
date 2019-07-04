@@ -202,7 +202,7 @@ class ZSVoiceBookCategoryViewController: BaseViewController ,XMReqDelegate, UITa
         if let albums = albums[safe: indexPath.section] {
             if let voiceAlbum:XMAlbum = albums[safe: indexPath.row] {
                 if let url = URL(string: voiceAlbum.coverUrlLarge) {
-                    cell?.imageView?.kf.setImage(with: QSResource(url: url), placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+                    cell?.imageView?.kf.setImage(with: QSResource(url: url))
                 }
                 cell?.textLabel?.text = voiceAlbum.albumTitle;
                 cell?.detailTextLabel?.text = voiceAlbum.albumIntro

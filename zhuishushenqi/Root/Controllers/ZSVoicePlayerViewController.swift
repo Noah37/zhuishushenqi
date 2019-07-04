@@ -90,7 +90,7 @@ class ZSVoicePlayerViewController: UIViewController {
         let coverUrlLarge = track.coverUrlLarge ?? ""
         if let url = URL(string: coverUrlLarge) {
             let resource = QSResource(url: url)
-            self.imageView.kf.setImage(with: resource, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+            self.imageView.kf.setImage(with: resource)
             self.descLabel.text = track.trackTitle
             self.sourceLabel.text = "内容来自喜马拉雅FM"
         }

@@ -1,6 +1,4 @@
 PODS:
-  - Alamofire (4.8.2)
-  - Cache (5.2.0)
   - CocoaAsyncSocket (7.6.3)
   - CocoaLumberjack (3.4.2):
     - CocoaLumberjack/Default (= 3.4.2)
@@ -11,29 +9,8 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - HandyJSON (5.0.0)
-  - Kingfisher (4.10.1)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.2.0)
-  - PKHUD (5.2.1)
-  - PullToRefresh (0.0.1)
-  - QSNetwork (0.0.3)
-  - RxAlamofire (5.0.0):
-    - RxAlamofire/Core (= 5.0.0)
-  - RxAlamofire/Core (5.0.0):
-    - Alamofire (~> 4.8)
-    - RxSwift (~> 5.0)
-  - RxCocoa (5.0.0):
-    - RxRelay (~> 5)
-    - RxSwift (~> 5)
-  - RxRelay (5.0.0):
-    - RxSwift (~> 5)
-  - RxSwift (5.0.0)
-  - SnapKit (4.2.0)
-  - SQLite.swift (0.11.5):
-    - SQLite.swift/standard (= 0.11.5)
-  - SQLite.swift/standard (0.11.5)
-  - Then (2.5.0)
   - YYCategories (1.0.4):
     - YYCategories/no-arc (= 1.0.4)
   - YYCategories/no-arc (1.0.4)
@@ -42,85 +19,41 @@ PODS:
   - YYImage/Core (1.0.4)
   - YYModel (1.0.4)
   - YYText (1.0.7)
-  - Zip (1.1.0)
 
 DEPENDENCIES:
-  - Cache
   - CocoaAsyncSocket
   - CocoaLumberjack (= 3.4.2)
   - FMDB
-  - HandyJSON
-  - Kingfisher
   - MBProgressHUD
   - MJRefresh
-  - PKHUD (= 5.2.1)
-  - PullToRefresh (= 0.0.1)
-  - QSNetwork (~> 0.0.3)
-  - RxAlamofire
-  - RxCocoa (~> 5)
-  - RxSwift (~> 5)
-  - SnapKit
-  - SQLite.swift (= 0.11.5)
-  - Then
   - YYCategories
   - YYImage
   - YYModel
   - YYText
-  - Zip
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Alamofire
-    - Cache
     - CocoaAsyncSocket
     - CocoaLumberjack
     - FMDB
-    - HandyJSON
-    - Kingfisher
     - MBProgressHUD
     - MJRefresh
-    - PKHUD
-    - PullToRefresh
-    - QSNetwork
-    - RxAlamofire
-    - RxCocoa
-    - RxRelay
-    - RxSwift
-    - SnapKit
-    - SQLite.swift
-    - Then
     - YYCategories
     - YYImage
     - YYModel
     - YYText
-    - Zip
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  HandyJSON: 992f2d661716d6a91de82d0056927bc7813b5770
-  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
-  PKHUD: 4e6162c4c39ac367c6934e9855c6b4762ee16256
-  PullToRefresh: 718b902fea1e8db4390bee24d515a37fd49bdbd7
-  QSNetwork: a5b174e074386cdf8a3c1d604cbe55b4cbc0d731
-  RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
-  RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
-  RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
-  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
-  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
-  SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
-  Then: 0157115e883545c77967b452fe74a1d25fb796e1
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
-  Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 83e159755baa71d7fed9d31b66ab8d36a1708cd7
+PODFILE CHECKSUM: 60ad1e147301ff60f3d42664092a4b0c2233c796
 
 COCOAPODS: 1.6.1

@@ -1,1 +1,13 @@
 Github "zssq/ZSAPI"
+GitHub "Alamofire/Alamofire"
+github "hyperoslo/Cache"
+GitHub "alibaba/HandyJSON"
+GitHub "onevcat/Kingfisher"
+Github "pkluz/PKHUD"
+
+GitHub "SnapKit/SnapKit"
+GitHub "stephencelis/SQLite.swift"
+github  "NoryCao/Then"
+github "marmelroy/Zip"
+Github "norycao/QSNetwork"
+github "RxSwiftCommunity/RxAlamofire" ~> 5.0

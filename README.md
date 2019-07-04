@@ -57,6 +57,18 @@
 
 Main development of zhuishushenqi olny support Swift 5.0+.
 
+## Install
+
+请执行以下两步操作，确保所有的依赖库安装完成后使用.
+
+**CocoaPods:**
+
+`$ pod install`
+
+**Carthage:**
+
+`$ carthage update --platform iOS`
+
 ###Here you can see blow.
 
 

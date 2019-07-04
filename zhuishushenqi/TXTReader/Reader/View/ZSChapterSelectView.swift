@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import YYText
-import YYCategories
+//import YYText
+//import YYCategories
 
 class ZSChapterSelectView: UICollectionView {
     

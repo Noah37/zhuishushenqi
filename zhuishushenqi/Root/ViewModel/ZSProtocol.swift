@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import MJRefresh
+//import MJRefresh
 
 enum ZSRefreshStatus {
     case none

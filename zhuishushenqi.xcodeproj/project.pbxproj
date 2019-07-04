@@ -83,8 +83,6 @@
 		3DBC089322CB54DD0004B3F4 /* ZSCommunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC089222CB54DD0004B3F4 /* ZSCommunityCell.swift */; };
 		3DBC089522CB56C60004B3F4 /* ZSInsertedBookScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC089422CB56C60004B3F4 /* ZSInsertedBookScoreView.swift */; };
 		3DBC089722CB78DB0004B3F4 /* ZSCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC089622CB78DB0004B3F4 /* ZSCommunityViewModel.swift */; };
-		3DBC089B22CB7F140004B3F4 /* ZSAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBC089A22CB7F130004B3F4 /* ZSAPI.framework */; };
-		3DBC089C22CB7F140004B3F4 /* ZSAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBC089A22CB7F130004B3F4 /* ZSAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DBC089F22CB80DB0004B3F4 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC089E22CB80DB0004B3F4 /* UIButton+Extension.swift */; };
 		3DC93D55224A6264004FC392 /* ZSVoiceAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC93D54224A6264004FC392 /* ZSVoiceAlbum.swift */; };
 		3DD08407215698E5008E3B4A /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD08406215698E5008E3B4A /* iflyMSC.framework */; };
@@ -142,7 +140,7 @@
 		3DFBDEDD21F1A7ED00AED519 /* ZSCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFBDEDC21F1A7EC00AED519 /* ZSCacheHelper.swift */; };
 		3DFCF6EF21E6470000D3A8EC /* ZSVoucherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCF6EE21E6470000D3A8EC /* ZSVoucherView.swift */; };
 		3DFCF6F421E9984100D3A8EC /* ZSSwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCF6F321E9984000D3A8EC /* ZSSwipeCell.swift */; };
-		48103378801B43EB177B7D8A /* Pods_zhuishushenqi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D606ED88FDF674D404EC160E /* Pods_zhuishushenqi.framework */; };
+		44AAC09673FD79492D5A8AD3 /* libPods-zhuishushenqi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B709FADDF3063B2AB6FD926 /* libPods-zhuishushenqi.a */; };
 		B200D1FF1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200D1FD1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift */; };
 		B200D2001EEDB1FE003A42E3 /* QSIntroduceReadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B200D1FE1EEDB1FE003A42E3 /* QSIntroduceReadCell.xib */; };
 		B200D2221EEE44AB003A42E3 /* QSLaunchRecView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B200D2211EEE44AB003A42E3 /* QSLaunchRecView.xib */; };
@@ -540,20 +538,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		3DBC089D22CB7F150004B3F4 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				3DBC089C22CB7F140004B3F4 /* ZSAPI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussViewModel.swift; sourceTree = "<group>"; };
 		3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussWebService.swift; sourceTree = "<group>"; };
@@ -634,7 +618,6 @@
 		3DBC089422CB56C60004B3F4 /* ZSInsertedBookScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSInsertedBookScoreView.swift; sourceTree = "<group>"; };
 		3DBC089622CB78DB0004B3F4 /* ZSCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCommunityViewModel.swift; sourceTree = "<group>"; };
 		3DBC089822CB79830004B3F4 /* ZSAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZSAPI.framework; path = Carthage/Build/iOS/ZSAPI.framework; sourceTree = "<group>"; };
-		3DBC089A22CB7F130004B3F4 /* ZSAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZSAPI.framework; path = Carthage/Build/iOS/ZSAPI.framework; sourceTree = "<group>"; };
 		3DBC089E22CB80DB0004B3F4 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		3DC93D54224A6264004FC392 /* ZSVoiceAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVoiceAlbum.swift; sourceTree = "<group>"; };
 		3DD08406215698E5008E3B4A /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iflyMSC.framework; sourceTree = "<group>"; };
@@ -754,6 +737,7 @@
 		3DFBDEDC21F1A7EC00AED519 /* ZSCacheHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCacheHelper.swift; sourceTree = "<group>"; };
 		3DFCF6EE21E6470000D3A8EC /* ZSVoucherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVoucherView.swift; sourceTree = "<group>"; };
 		3DFCF6F321E9984000D3A8EC /* ZSSwipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSwipeCell.swift; sourceTree = "<group>"; };
+		7B709FADDF3063B2AB6FD926 /* libPods-zhuishushenqi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-zhuishushenqi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B08901F972525F29A370AA86 /* Pods-zhuishushenqi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zhuishushenqi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi.debug.xcconfig"; sourceTree = "<group>"; };
 		B200D1FD1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroduceReadCell.swift; sourceTree = "<group>"; };
 		B200D1FE1EEDB1FE003A42E3 /* QSIntroduceReadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSIntroduceReadCell.xib; sourceTree = "<group>"; };
@@ -1188,7 +1172,6 @@
 		B2FCAA8A1E9C82CE0064837C /* QSSearchItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchItem.swift; sourceTree = "<group>"; };
 		B2FCAA8C1E9C85600064837C /* QSHistoryHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHistoryHeaderView.swift; sourceTree = "<group>"; };
 		C17F4CC59FFA95D661BDB3BB /* Pods-zhuishushenqi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zhuishushenqi.release.xcconfig"; path = "Pods/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi.release.xcconfig"; sourceTree = "<group>"; };
-		D606ED88FDF674D404EC160E /* Pods_zhuishushenqi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_zhuishushenqi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1222,10 +1205,9 @@
 				B22182C31DA40566002458D2 /* ImageIO.framework in Frameworks */,
 				B22182BF1DA40558002458D2 /* CoreImage.framework in Frameworks */,
 				B22182BD1DA40550002458D2 /* CoreGraphics.framework in Frameworks */,
-				3DBC089B22CB7F140004B3F4 /* ZSAPI.framework in Frameworks */,
 				B22182BB1DA40548002458D2 /* CoreFoundation.framework in Frameworks */,
 				B22182B91DA40540002458D2 /* CoreText.framework in Frameworks */,
-				48103378801B43EB177B7D8A /* Pods_zhuishushenqi.framework in Frameworks */,
+				44AAC09673FD79492D5A8AD3 /* libPods-zhuishushenqi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1715,7 +1697,7 @@
 				B22182BC1DA40550002458D2 /* CoreGraphics.framework */,
 				B22182BA1DA40548002458D2 /* CoreFoundation.framework */,
 				B22182B81DA40540002458D2 /* CoreText.framework */,
-				D606ED88FDF674D404EC160E /* Pods_zhuishushenqi.framework */,
+				7B709FADDF3063B2AB6FD926 /* libPods-zhuishushenqi.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2476,7 +2458,6 @@
 		B2BB5B8D1D8BDF8E00379217 = {
 			isa = PBXGroup;
 			children = (
-				3DBC089A22CB7F130004B3F4 /* ZSAPI.framework */,
 				B2EE7CFD1F3C0C3400BE997C /* Script.sh */,
 				B2B4B9F61E7EA4A8000CC201 /* zhuishushenqi */,
 				B2BB5BAD1D8BDF8E00379217 /* zhuishushenqiTests */,
@@ -2832,9 +2813,9 @@
 				B2BB5B921D8BDF8E00379217 /* Sources */,
 				B2BB5B931D8BDF8E00379217 /* Frameworks */,
 				B2BB5B941D8BDF8E00379217 /* Resources */,
-				1031C96B74D74AC62BE49F90 /* [CP] Embed Pods Frameworks */,
 				B2EE7CE81F3BEEE000BE997C /* ShellScript */,
-				3DBC089D22CB7F150004B3F4 /* Embed Frameworks */,
+				3DA90F2B22CDDC1E000306DA /* Embed Frameworks from Carthage */,
+				7DA515E8AF9C0CFD3E8EE750 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -3025,69 +3006,38 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1031C96B74D74AC62BE49F90 /* [CP] Embed Pods Frameworks */ = {
+		3DA90F2B22CDDC1E000306DA /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
-				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/PullToRefresh/PullToRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/QSNetwork/QSNetwork.framework",
-				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
-				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
-				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
-				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
-				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
-				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
+			inputFileListPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/ZSAPI.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Cache.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/HandyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PKHUD.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SQLite.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Then.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Zip.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/QSNetwork.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxAlamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
+			);
+			name = "Embed Frameworks from Carthage";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PullToRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QSNetwork.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "/usr/local/bin/Carthage copy-frameworks\n";
 		};
 		40CCB42994AEB110993A582E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3105,6 +3055,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7DA515E8AF9C0CFD3E8EE750 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi-resources.sh",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B2EE7CE81F3BEEE000BE997C /* ShellScript */ = {
@@ -3737,7 +3709,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = zhuishushenqi/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3785,7 +3757,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = zhuishushenqi/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

@@ -9,16 +9,14 @@
 import UIKit
 import HandyJSON
 
-@objc(QSHotModel)
-class QSHotModel: NSObject,HandyJSON {
+class QSHotModel:HandyJSON {
     var user:QSHotUser = QSHotUser()
     var tweet:QSHotTweet = QSHotTweet()
     
-    required override init() {}
+    required init() {}
 }
 
-@objc(QSHotUser)
-class QSHotUser: NSObject, HandyJSON{
+class QSHotUser:HandyJSON{
     var _id:String = ""
     var avatar:String = ""
     var nickname:String = ""
@@ -27,12 +25,12 @@ class QSHotUser: NSObject, HandyJSON{
     var lv:Int = 0
     var gender:String = ""
     
-    required override init() {
+    required init() {
         
     }
 }
-@objc(QSHotTweet)
-class QSHotTweet: NSObject ,HandyJSON{
+
+class QSHotTweet: HandyJSON{
     var _id:String = ""
     var title:String = ""
     var content:String = ""
@@ -49,7 +47,7 @@ class QSHotTweet: NSObject ,HandyJSON{
     var created:String = ""
     var book:ZSHotBook?
     
-    required override init() {}
+    required init() {}
 }
 
 struct ZSHotBook:HandyJSON {

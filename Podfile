@@ -4,35 +4,22 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 # 对于Swift应用来说下面两句是必须的
 platform :ios, '9.0'
-use_frameworks!
+#use_frameworks!
 branch = ENV['sha']
 
 # target的名字一般与你的项目名字相同
 target 'zhuishushenqi' do
 project './zhuishushenqi.xcodeproj'
 
-pod 'Kingfisher'
-pod 'PullToRefresh','0.0.1'
 pod 'YYText'
 pod 'YYModel'
 pod 'YYImage'
-pod 'SnapKit'
 pod 'MBProgressHUD'
-pod 'QSNetwork', '~>0.0.3'
-pod 'RxSwift', '~> 5'
-pod 'RxCocoa', '~> 5'
-pod 'RxAlamofire'
-pod 'Then'
 pod 'MJRefresh'
-pod 'HandyJSON'
 pod 'CocoaAsyncSocket'
 pod 'CocoaLumberjack', '3.4.2'
 pod 'YYCategories'
-pod 'SQLite.swift', '0.11.5'
-pod 'Zip'
 pod 'FMDB'
-pod 'PKHUD', '5.2.1'
-pod 'Cache'
 #pod 'WechatOpenSDK'
 #pod 'Weibo_SDK'
 
