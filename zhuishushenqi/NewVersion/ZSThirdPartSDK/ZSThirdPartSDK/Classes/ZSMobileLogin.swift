@@ -65,7 +65,7 @@ public class ZSMobileLogin: NSObject {
     public func saveUserInfo(userInfo:ZSQQLoginResponse) {
         let filePath = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/\(MobileLoginQQUserFilePathKey.md5())"
         NSKeyedArchiver.archiveRootObject(userInfo, toFile: filePath)
-        UserDefaults.standard.setValue("mobile", forKey: MobileLoginLastLoginTypeKey.md5())
+        UserDefaults.standard.setValue("mobile", forKey: MobileLoginLastLoginTypeKey.md5() ?? "")
         UserDefaults.standard.synchronize()
     }
     

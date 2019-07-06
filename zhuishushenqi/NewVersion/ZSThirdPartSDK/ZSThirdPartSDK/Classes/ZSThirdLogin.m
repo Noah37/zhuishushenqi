@@ -12,7 +12,7 @@
 #import "WechatAuthSDK.h"
 #import "TencentOpenAPI/QQApiInterface.h"
 #import "TencentOpenAPI/TencentOAuth.h"
-#import <ZSThirdPartSDK/ZSThirdPartSDK-Swift.h>
+#import <ZSThirdPartSDK-Swift.h>
 #import <AdSupport/AdSupport.h>
 #import "ZSLogin.h"
 #import "WXApiRequestHandler.h"

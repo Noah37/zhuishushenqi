@@ -155,7 +155,7 @@ open class ZSThirdLoginStorage: NSObject {
     private override init() {
         super.init()
         
-        let lastTypeObj = UserDefaults.standard.integer(forKey: ThirdLoginLastLoginTypeKey.md5())
+        let lastTypeObj = UserDefaults.standard.integer(forKey: ThirdLoginLastLoginTypeKey.md5() ?? "")
         self.lastLoginType = ThirdLoginType(rawValue: lastTypeObj ) ?? .None
     }
     
@@ -212,13 +212,13 @@ open class ZSThirdLoginStorage: NSObject {
         
         switch type {
         case .QQ:
-            UserDefaults.standard.setValue(ThirdLoginType.QQ.rawValue, forKey: ThirdLoginLastLoginTypeKey.md5())
+            UserDefaults.standard.setValue(ThirdLoginType.QQ.rawValue, forKey: ThirdLoginLastLoginTypeKey.md5() ?? "")
             UserDefaults.standard.synchronize()
             break
         case .WX:
             // 要自己保存微信登录成功拿到的token信息
 //            saveWXToken(wxTokenResp: ZSThirdLogin.share.wxTokenResp)
-            UserDefaults.standard.setValue(ThirdLoginType.WX.rawValue, forKey: ThirdLoginLastLoginTypeKey.md5())
+            UserDefaults.standard.setValue(ThirdLoginType.WX.rawValue, forKey: ThirdLoginLastLoginTypeKey.md5() ?? "")
             UserDefaults.standard.synchronize()
             break
         case .WB:

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDelegate {
     
@@ -79,6 +80,10 @@ class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDel
         }
         tableView.mj_header = mj_header
         mj_header?.beginRefreshing()
+        
+        let mj_footer = MJRefreshAutoStateFooter(refreshingTarget: self, refreshingAction: #selector(loadAction))
+        mj_footer?.isAutomaticallyRefresh = false
+        tableView.mj_footer = mj_footer
     }
     
     @objc
@@ -86,10 +91,16 @@ class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDel
         self.viewModel.requestCommunity()
     }
     
+    @objc
+    private func loadAction() {
+        self.viewModel.requestMore()
+    }
+    
     private func observe() {
         self.viewModel.reloadBlock = {
             DispatchQueue.main.async {
                 self.tableView.mj_header.endRefreshing()
+                self.tableView.mj_footer.endRefreshing()
                 self.tableView.reloadData()
             }
         }
@@ -116,8 +127,8 @@ extension ZSCommunityViewController:UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let model = self.viewModel.twitters[indexPath.row]
-        if let _ = model.tweet.book {
-            return 382
+        if let book = model.tweet.book {
+            return book.title.count == 0 ? (382 - 125):382
         }
         return 382 - 125
     }
@@ -132,6 +143,7 @@ extension ZSCommunityViewController:UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.qs_dequeueReusableCell(ZSCommunityCell.self)
+        cell?.selectionStyle = .none
         cell?.congfigure(model: self.viewModel.twitters[indexPath.row])
         return cell!
     }

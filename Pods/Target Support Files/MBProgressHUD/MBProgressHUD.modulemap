@@ -1,4 +1,4 @@
-framework module MBProgressHUD {
+module MBProgressHUD {
   umbrella header "MBProgressHUD-umbrella.h"
 
   export *

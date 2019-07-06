@@ -28,7 +28,7 @@ zhuishushenqi baseui module.
   s.source           = { :git => 'https://github.com/zssq/ZSBaseUIExt.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/norycao'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   
   s.swift_version = '5.0'
 
@@ -59,8 +59,8 @@ zhuishushenqi baseui module.
 #s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
 s.dependency 'ZSThirdPartSDK'
-s.dependency 'RxCocoa', '~> 5'
-s.dependency 'RxSwift', '~> 5'
+s.dependency 'RxCocoa'
+s.dependency 'RxSwift'
 s.dependency 'Then'
 s.dependency 'YYCategories'
 s.dependency 'MJRefresh'
@@ -74,6 +74,7 @@ s.dependency 'Alamofire'
 s.dependency 'ZSExtension'
 s.dependency 'ZSAppConfig'
 s.dependency 'SnapKit'
+s.dependency 'YYImage'
 
 
 end

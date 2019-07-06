@@ -7,7 +7,7 @@
 //
 
 #import "ZSLogin.h"
-#import <ZSThirdPartSDK/ZSThirdPartSDK-Swift.h>
+#import "ZSThirdPartSDK-Swift.h"
 
 @interface ZSLogin ()
 

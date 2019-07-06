@@ -1,4 +1,4 @@
-framework module YYImage {
+module YYImage {
   umbrella header "YYImage-umbrella.h"
 
   export *

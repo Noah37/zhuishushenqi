@@ -29,8 +29,34 @@ class ZSCommunityViewModel {
         }
     }
     
+    func requestMore() {
+        guard let model = twitters.last else {
+            self.reloadBlock()
+            return
+        }
+        requestMore(model: model) { [weak self] in
+            self?.reloadBlock()
+        }
+    }
+    
+    func requestMore(model:QSHotModel,completion:@escaping()->Void) {
+        let api = ZSAPI.userTwitter("\(model.tweet._id)")
+        zs_get(api.path, parameters: api.parameters) { [weak self] (json) in
+            guard let tweets = json?["tweets"] as? [Any] else {
+                completion()
+                return
+            }
+            if let twitters = [QSHotModel].deserialize(from: tweets) as? [QSHotModel] {
+                self?.twitters.append(contentsOf: twitters)
+                completion()
+            } else {
+                completion()
+            }
+        }
+    }
+    
     func requestCommunity(completion:@escaping()->Void) {
-        let api = ZSAPI.userTwitter("" as AnyObject)
+        let api = ZSAPI.userTwitter("")
         zs_get(api.path) { [weak self] (json) in
             guard let tweets = json?["tweets"] as? [Any] else {
                 completion()

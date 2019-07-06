@@ -8,6 +8,9 @@
   "authors": {
     "norycao": "2252055382@qq.com"
   },
+  "platforms": {
+    "ios": "9.0"
+  },
   "source": {
     "git": ".",
     "tag": "0.0.1"
@@ -49,13 +52,7 @@
 
     ],
     "ZSExtension": [
-      "~>1.0.2"
+
     ]
-  },
-  "platforms": {
-    "osx": null,
-    "ios": null,
-    "tvos": null,
-    "watchos": null
   }
 }

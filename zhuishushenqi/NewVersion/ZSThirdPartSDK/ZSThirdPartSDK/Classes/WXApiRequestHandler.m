@@ -8,9 +8,7 @@
 
 #import "WXApiRequestHandler.h"
 #import "ZSThirdLogin.h"
-#import <ZSExtension/ZSExtension-Swift.h>
-#import <ZSAppConfig/ZSAppConfig-Swift.h>
-#import <ZSThirdPartSDK/ZSThirdPartSDK-Swift.h>
+#import "ZSThirdPartSDK-Swift.h"
 
 @implementation WXApiRequestHandler
 

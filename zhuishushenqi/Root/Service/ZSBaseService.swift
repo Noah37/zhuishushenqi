@@ -13,7 +13,7 @@ import RxAlamofire
 import Alamofire
 import HandyJSON
 
-typealias ZSBaseCallback<T> = (T?)->Void
+public typealias ZSBaseCallback<T> = (T?)->Void
 
 class ZSBaseService {
     

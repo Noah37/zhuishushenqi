@@ -1,4 +1,4 @@
-framework module FMDB {
+module FMDB {
   umbrella header "FMDB-umbrella.h"
 
   export *

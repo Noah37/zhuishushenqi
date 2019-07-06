@@ -7,6 +7,34 @@
 //
 
 import UIKit
+import HandyJSON
+
+enum UserType: String,HandyJSONEnum  {
+    case none = ""
+    case normal = "normal"
+    case official = "official"
+    case commentator = "commentator"
+    case moderator = "moderator"
+    case doyen = "doyen"
+    case author = "author"
+    
+    var image:UIImage? {
+        switch self {
+        case .official:
+            return UIImage(named: "f_official_icon_12x12_")
+        case .commentator:
+            return UIImage(named: "f_commentator_icon_14x14_")
+        case .moderator:
+            return UIImage(named: "f_moderator_icon_14x14_")
+        case .author:
+            return UIImage(named: "f_author_icon_14x14_")
+        case .doyen:
+            return UIImage(named: "f_doyen_icon_12x12_")
+        default:
+            return nil
+        }
+    }
+}
 
 class ZSCommunityCell: UITableViewCell {
     
@@ -32,6 +60,10 @@ class ZSCommunityCell: UITableViewCell {
         let label = UILabel(frame: .zero)
         label.textColor = UIColor.init(red: 0.64, green: 0.64, blue: 0.64, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 9)
+        label.textAlignment = .center
+        label.layer.cornerRadius = 6.5
+        label.layer.borderColor = UIColor.darkGray.cgColor
+        label.layer.borderWidth = 0.5
         return label
     }()
     
@@ -40,6 +72,12 @@ class ZSCommunityCell: UITableViewCell {
         label.textColor = UIColor.init(red: 0.54, green: 0.54, blue: 0.56, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12)
         return label
+    }()
+    
+    lazy var forumImageView:UIImageView = {
+        let imageView = UIImageView(frame: .zero)
+        imageView.image = UIImage(named: "forum_image_15x13_")
+        return imageView
     }()
     
     lazy var titleLabel:UILabel = {
@@ -111,6 +149,7 @@ class ZSCommunityCell: UITableViewCell {
         contentView.addSubview(tagView)
         contentView.addSubview(levelLabel)
         contentView.addSubview(timeLabel)
+        contentView.addSubview(forumImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(contentLabel)
         contentView.addSubview(insertedScoreView)
@@ -143,14 +182,19 @@ class ZSCommunityCell: UITableViewCell {
         iconButton.frame = CGRect(x: 15, y: 25, width: 35, height: 35)
         let nickNameWidth = nickNameLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 18)).width
         nickNameLabel.frame = CGRect(x: 58, y: 23, width: nickNameWidth, height: 18)
-        tagView.frame = CGRect(x: nickNameLabel.frame.maxX + 5, y: 26, width: 12, height: 12)
+        var tagViewWidth:CGFloat = 0
+        if let _ = tagView.image {
+            tagViewWidth = 12
+        }
+        tagView.frame = CGRect(x: nickNameLabel.frame.maxX + 2, y: 26, width: tagViewWidth, height: 12)
         let levelWith = levelLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 13)).width
-        levelLabel.frame = CGRect(x: tagView.frame.maxX + 5, y: 26, width: levelWith, height: 13)
+        levelLabel.frame = CGRect(x: tagView.frame.maxX + 2, y: 26, width: levelWith * 2, height: 13)
         timeLabel.frame = CGRect(x: 58, y: 45, width: 100, height: 13)
+        forumImageView.frame = CGRect(x: 15, y: 84, width: 19, height: 16)
         titleLabel.frame = CGRect(x: 15, y: 80, width: bounds.width - 30, height: 25)
         contentLabel.frame = CGRect(x: 15, y: 118, width: bounds.width - 30, height: 79)
         insertedScoreView.frame = CGRect(x: 15, y: 205, width: bounds.width - 30, height: 125)
-        insertedScoreView.height = model?.tweet.book == nil ? 0:125
+        insertedScoreView.height = (model?.tweet.book == nil || model?.tweet.book?.title.count == 0) ? 0:125
         msgLabel.frame = CGRect(x: bounds.width/2 - 40 - 17.5, y: insertedScoreView.frame.maxY + 19, width: 40, height: 17)
         msgButton.frame = CGRect(x: msgLabel.frame.minX - 26 - 10, y: insertedScoreView.frame.maxY + 14, width: 26, height: 26)
         
@@ -167,11 +211,14 @@ class ZSCommunityCell: UITableViewCell {
         self.model = model
         self.iconButton.qs_setAvatarWithURLString(urlString: model.user.avatar)
         self.nickNameLabel.text = "\(model.user.nickname)"
+        self.tagView.image = model.user.type.image
         self.levelLabel.text = "lv.\(model.user.lv)"
         self.timeLabel.qs_setCreateTime(createTime: "\(model.tweet.created)", append: "")
-        self.titleLabel.text = "\(model.tweet.title)"
+        self.forumImageView.isHidden = !model.tweet.haveImage
+        let titlePrefixString = self.forumImageView.isHidden ? "":"\u{fff9}     "
+        self.titleLabel.text = "\(titlePrefixString)\(model.tweet.title)"
         self.contentLabel.text = "\(model.tweet.content)"
-        self.insertedScoreView.configure(model: model.tweet.book)
+        self.insertedScoreView.configure(model: model.tweet.book, rate:model.tweet.score)
         self.msgLabel.text = "\(model.tweet.commented)"
         self.shareLabel.text = "\(model.tweet.retweeted)"
         setNeedsLayout()

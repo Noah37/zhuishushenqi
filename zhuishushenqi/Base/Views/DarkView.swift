@@ -9,6 +9,8 @@
 import UIKit
 
 class DarkView: UIView {
+    
+    var darkStarViews:[DarkStarView] = []
 
     init(frame: CGRect,image:UIImage?) {
         super.init(frame: frame)
@@ -27,15 +29,19 @@ class DarkView: UIView {
             let width = self.bounds.width/5 - 10/5
             let height = self.bounds.height
             let lightStarView = DarkStarView(frame: CGRect(x: CGFloat(1) + CGFloat(index)*width + CGFloat(2*index), y: 0, width: width, height: height), image: image)
+            darkStarViews.append(lightStarView)
             addSubview(lightStarView)
         }
     }
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        for index in 0..<5 {
+            let width = self.bounds.height
+            let height = self.bounds.height
+            let lightStarView = darkStarViews[index]
+            lightStarView.frame = CGRect(x: CGFloat(1) + CGFloat(index)*width + CGFloat(2*index), y: 0, width: width, height: height)
+        }
     }
-    */
 
 }

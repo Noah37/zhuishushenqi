@@ -44,6 +44,11 @@ class ZSInsertedBookScoreView: UIView {
         return view
     }()
     
+    lazy var rateView:RateView = {
+        let rateView = RateView(frame: .zero, darkImage: UIImage(named: "details_icon_star_n_32_32_32x32_"), lightImage: UIImage(named: "community_star_p_32x32_"))
+        return rateView
+    }()
+    
     lazy var touchableView:UIControl = {
         let control = UIControl(frame: .zero)
         control.addTarget(self, action: #selector(touchAction(control:)), for: .touchUpInside)
@@ -59,6 +64,7 @@ class ZSInsertedBookScoreView: UIView {
         addSubview(bookNameLabel)
         addSubview(scoreLabel)
         addSubview(scoreView)
+        addSubview(rateView)
         addSubview(touchableView)
         isUserInteractionEnabled = true
         self.layer.masksToBounds = true
@@ -74,16 +80,18 @@ class ZSInsertedBookScoreView: UIView {
         bookIconView.frame = CGRect(x: 20, y: 14, width: 68, height: 93)
         bookNameLabel.frame = CGRect(x: 102, y: 14, width: bounds.width - 102 - 10, height: 24)
         scoreLabel.frame = CGRect(x: 102, y: 53, width: bounds.width - 102 - 10, height: 20)
-        scoreView.frame = CGRect(x: 102, y: 81.5, width: 150, height: 25)
+//        scoreView.frame = CGRect(x: 102, y: 81.5, width: 150, height: 25)
+        rateView.frame = CGRect(x: 102, y: 81.5, width: 150, height: 25)
         touchableView.frame = self.bounds
     }
     
-    func configure(model:ZSHotBook?) {
+    func configure(model:ZSHotBook?, rate:Int = 0) {
         if let book = model {
             self.bookIconView.qs_setBookCoverWithURLString(urlString: book.cover)
             self.bookNameLabel.text = "\(book.title)"
             self.scoreLabel.text = "楼主打分"
             self.scoreView.image = UIImage(named: "")
+            self.rateView.rate = rate
         }
         
     }

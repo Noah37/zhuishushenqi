@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 @discardableResult
-func zs_get(_ urlStr: String,parameters: Parameters? = nil) -> DataRequest {
+public func zs_get(_ urlStr: String,parameters: Parameters? = nil) -> DataRequest {
     return zs_get(urlStr, parameters: parameters, nil)
 }
 
@@ -19,7 +19,7 @@ public func zs_post(_ urlStr: String,parameters: Parameters? = nil) -> DataReque
 }
 
 @discardableResult
-func zs_post(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
+public func zs_post(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
     var headers = SessionManager.defaultHTTPHeaders
     headers["User-Agent"] = YouShaQiUserAgent
     let req = request(urlStr, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
@@ -35,7 +35,7 @@ func zs_post(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCall
 }
 
 @discardableResult
-func zs_put(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
+public func zs_put(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
     var headers = SessionManager.defaultHTTPHeaders
     headers["User-Agent"] = YouShaQiUserAgent
     let req = request(urlStr, method: .put, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
@@ -50,10 +50,10 @@ func zs_put(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallb
     return req
 }
 
-let YouShaQiUserAgent = "YouShaQi/4.4.4 (iPhone; iOS 12.0; Scale/3.00)"
+public let YouShaQiUserAgent = "YouShaQi/4.4.4 (iPhone; iOS 12.0; Scale/3.00)"
 
 @discardableResult
-func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
+public func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
     var headers = SessionManager.defaultHTTPHeaders
     headers["User-Agent"] = YouShaQiUserAgent
     let req = request(urlStr, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
@@ -69,7 +69,7 @@ func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallb
 }
 
 @discardableResult
-func zs_delete(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
+public func zs_delete(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
     var headers = SessionManager.defaultHTTPHeaders
     headers["User-Agent"] = YouShaQiUserAgent
     let req = request(urlStr, method: .delete, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
@@ -84,7 +84,7 @@ func zs_delete(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCa
     return req
 }
 
-func zs_download(urlString:String, filePath:String, handler:ZSBaseCallback<Any>?) {
+public func zs_download(urlString:String, filePath:String, handler:ZSBaseCallback<Any>?) {
     let pathURL = URL(fileURLWithPath: filePath, isDirectory: true)
     do {
         try FileManager.default.createDirectory(at: pathURL, withIntermediateDirectories: true, attributes: nil)
@@ -108,7 +108,7 @@ func zs_download(urlString:String, filePath:String, handler:ZSBaseCallback<Any>?
 }
 
 @discardableResult
-func zs_download(url:String, parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DownloadRequest {
+public func zs_download(url:String, parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DownloadRequest {
     let destination = DownloadRequest.suggestedDownloadDestination()
     let downloadRequest = download(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil, to: destination).response { (response) in
         QSLog(response.destinationURL)
@@ -127,7 +127,7 @@ func zs_download(url:String, parameters: Parameters? = nil,_ handler:ZSBaseCallb
     return downloadRequest
 }
 
-func downloadFile(urlString:String, handler:NetworkHandler<Any>?) {
+public func downloadFile(urlString:String, handler:NetworkHandler<Any>?) {
     let pathURL = URL(fileURLWithPath: filePath, isDirectory: true)
     do {
         try FileManager.default.createDirectory(at: pathURL, withIntermediateDirectories: true, attributes: nil)

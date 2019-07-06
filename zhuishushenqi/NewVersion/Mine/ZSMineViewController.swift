@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class ZSMineViewController: BaseViewController, ZSMineNavigationBarDelegate {
 

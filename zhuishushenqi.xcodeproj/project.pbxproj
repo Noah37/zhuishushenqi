@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D08F242212C2DC6007B3D19 /* ZSDiscussViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */; };
 		3D08F244212C2DFC007B3D19 /* ZSDiscussWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */; };
+		3D096BF722CF76A70005C9EA /* ZSRefreshFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D096BF622CF76A70005C9EA /* ZSRefreshFooter.swift */; };
 		3D1F679E217DB3D7000FB968 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D1F679A217DB3D7000FB968 /* WeiboSDK.bundle */; };
 		3D1F679F217DB3D7000FB968 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1F679B217DB3D7000FB968 /* libWeiboSDK.a */; };
 		3D1F67A1217DBA1B000FB968 /* ZSLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F67A0217DBA1B000FB968 /* ZSLoginViewController.swift */; };
@@ -253,7 +254,6 @@
 		B25EB92C2194986C000D3657 /* ZSEncryptorAESUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92B2194986C000D3657 /* ZSEncryptorAESUtils.swift */; };
 		B25EB92F2194999E000D3657 /* FBEncryptorAESUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.m */; };
 		B25EB93221949AF1000D3657 /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = B25EB93121949AF1000D3657 /* FBEncryptorAES.m */; };
-		B25EB93521949C0F000D3657 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B25EB93421949C0F000D3657 /* NSData+Base64.m */; };
 		B26286CA1EEA46DD005A1A8A /* QSIntroducePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26286C91EEA46DD005A1A8A /* QSIntroducePage.swift */; };
 		B263ACDF1EE679830096CE80 /* HomeListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263ACDD1EE679830096CE80 /* HomeListViewCell.swift */; };
 		B263E2E9211EBFEC001819FB /* SQLite+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263E2E8211EBFEC001819FB /* SQLite+Extension.swift */; };
@@ -541,6 +541,7 @@
 /* Begin PBXFileReference section */
 		3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussViewModel.swift; sourceTree = "<group>"; };
 		3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussWebService.swift; sourceTree = "<group>"; };
+		3D096BF622CF76A70005C9EA /* ZSRefreshFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRefreshFooter.swift; sourceTree = "<group>"; };
 		3D1F679A217DB3D7000FB968 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
 		3D1F679B217DB3D7000FB968 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
 		3D1F679C217DB3D7000FB968 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
@@ -878,8 +879,6 @@
 		B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAESUtils.m; sourceTree = "<group>"; };
 		B25EB93021949AF1000D3657 /* FBEncryptorAES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAES.h; sourceTree = "<group>"; };
 		B25EB93121949AF1000D3657 /* FBEncryptorAES.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
-		B25EB93321949C0F000D3657 /* NSData+Base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		B25EB93421949C0F000D3657 /* NSData+Base64.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		B26286C91EEA46DD005A1A8A /* QSIntroducePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroducePage.swift; sourceTree = "<group>"; };
 		B263ACDD1EE679830096CE80 /* HomeListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeListViewCell.swift; sourceTree = "<group>"; };
 		B263E2E8211EBFEC001819FB /* SQLite+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQLite+Extension.swift"; sourceTree = "<group>"; };
@@ -1277,6 +1276,7 @@
 				3DBC088E22CB02030004B3F4 /* ZSCommunityNavigationBar.swift */,
 				3DBC089222CB54DD0004B3F4 /* ZSCommunityCell.swift */,
 				3DBC089422CB56C60004B3F4 /* ZSInsertedBookScoreView.swift */,
+				3D096BF622CF76A70005C9EA /* ZSRefreshFooter.swift */,
 				3DBC089622CB78DB0004B3F4 /* ZSCommunityViewModel.swift */,
 			);
 			path = Community;
@@ -2097,8 +2097,6 @@
 				B2F778BB1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift */,
 				B2B4BA141E7EA4A8000CC201 /* Date+Extension.swift */,
 				B2B4BA151E7EA4A8000CC201 /* DateIntervalFormatter+formatter.swift */,
-				B25EB93321949C0F000D3657 /* NSData+Base64.h */,
-				B25EB93421949C0F000D3657 /* NSData+Base64.m */,
 				B2B4BA181E7EA4A8000CC201 /* NSDate+Extension.h */,
 				B2B4BA191E7EA4A8000CC201 /* NSDate+Extension.m */,
 				3DDEEB00214B5D59003D12DB /* UIFont+ZSExtension.h */,
@@ -3014,21 +3012,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/ZSAPI.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Cache.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/HandyJSON.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/PKHUD.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SQLite.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Then.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Zip.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/QSNetwork.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxAlamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputFileListPaths = (
@@ -3067,12 +3051,24 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/PKHUD/PKHUDResources.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/ZSAPI/ZSAPI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/ZSAppConfig/ZSAppConfig.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/ZSBaseUIExt/ZSBaseUIExt.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/ZSExtension/ZSExtension.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/ZSThirdPartSDK/ZSThirdPartSDK.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PKHUDResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSAPI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSAppConfig.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSBaseUIExt.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSExtension.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSThirdPartSDK.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3325,7 +3321,6 @@
 				3DAC239221E1DE7400E77891 /* ZSWebItem.swift in Sources */,
 				3DECC3882245379400EEB146 /* ZSFilterThemeCell.swift in Sources */,
 				B2C0DF1C20D4CB350057DC84 /* QSTextRouter.swift in Sources */,
-				B25EB93521949C0F000D3657 /* NSData+Base64.m in Sources */,
 				B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */,
 				B2662EBC21A7DAC5008AD5C6 /* ZSDBPropertyModel.m in Sources */,
 				3D5671FC2174CADD0049B2FF /* ZSBookCTLayoutModel.swift in Sources */,
@@ -3443,6 +3438,7 @@
 				B25EB92F2194999E000D3657 /* FBEncryptorAESUtils.m in Sources */,
 				B252D493210EF3960091858E /* DDNumber.m in Sources */,
 				B27D7E961F4D1F8600866341 /* QSSegmentViewController.swift in Sources */,
+				3D096BF722CF76A70005C9EA /* ZSRefreshFooter.swift in Sources */,
 				B2FCAA8B1E9C82CE0064837C /* QSSearchItem.swift in Sources */,
 				B2C0DF6E20D4CB350057DC84 /* QSCommunityInteractor.swift in Sources */,
 				3D99893B223FEC5900EA33D5 /* ZSCatelogModel.swift in Sources */,
@@ -3694,7 +3690,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/YYKit/Vendor",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/zhuishushenqi/TXTReader/Speech/Model",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK",
@@ -3746,7 +3741,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/YYKit/Vendor",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/zhuishushenqi/TXTReader/Speech/Model",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK",

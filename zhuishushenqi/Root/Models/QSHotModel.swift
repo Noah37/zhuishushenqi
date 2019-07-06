@@ -21,7 +21,7 @@ class QSHotUser:HandyJSON{
     var avatar:String = ""
     var nickname:String = ""
     var activityAvatar:String = ""
-    var type:String = ""
+    var type:UserType = .none
     var lv:Int = 0
     var gender:String = ""
     
@@ -46,6 +46,7 @@ class QSHotTweet: HandyJSON{
     var type:String = ""
     var created:String = ""
     var book:ZSHotBook?
+    var haveImage:Bool = false
     
     required init() {}
 }

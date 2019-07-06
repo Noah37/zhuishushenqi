@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import Zip
 
-typealias NetworkHandler<T> = (T?)->Void
+public typealias NetworkHandler<T> = (T?)->Void
 
 //let filePath = "\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "")/speakerres/3589709422/"
 

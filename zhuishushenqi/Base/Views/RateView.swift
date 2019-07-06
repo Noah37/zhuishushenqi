@@ -13,8 +13,8 @@ class RateView: UIView {
     //rate 0-5
     var rate:Int = 0 {
         didSet{
-            let width =  1 + 10*rate + 2*(rate - 1)
-            lightView?.frame = CGRect(x: 0, y: 0, width: width, height: Int(self.bounds.height))
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     
@@ -31,6 +31,14 @@ class RateView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        darkView?.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
+        
+        let width:CGFloat =  (self.bounds.height + 2) * CGFloat(rate)
+        lightView?.frame = CGRect(x: 0, y: 0, width: width + 1, height: self.bounds.height)
     }
 
 }

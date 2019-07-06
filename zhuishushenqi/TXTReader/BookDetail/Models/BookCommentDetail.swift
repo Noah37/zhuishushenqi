@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import YYText
+import YYText
 import HandyJSON
 
 @objc(BookCommentDetail)

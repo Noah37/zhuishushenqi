@@ -1,4 +1,4 @@
-framework module CocoaLumberjack {
+module CocoaLumberjack {
   umbrella header "CocoaLumberjack-umbrella.h"
 
   export *

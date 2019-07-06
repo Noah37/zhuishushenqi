@@ -16,7 +16,7 @@
     "tag": "1.0.15"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "swift_version": "5.0",
   "source_files": "ZSBaseUIExt/Classes/**/*",
@@ -30,10 +30,10 @@
 
     ],
     "RxCocoa": [
-      "~> 5"
+
     ],
     "RxSwift": [
-      "~> 5"
+
     ],
     "Then": [
 
@@ -69,6 +69,9 @@
 
     ],
     "SnapKit": [
+
+    ],
+    "YYImage": [
 
     ]
   }

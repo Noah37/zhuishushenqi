@@ -12,6 +12,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import Then
+import YYCategories
 
 class ZSSearchViewController: ZSBaseTableViewController {
     

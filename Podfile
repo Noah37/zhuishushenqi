@@ -1,10 +1,13 @@
-#source 'git@github.com:NoryCao/cjspecs.git'
+source 'git@github.com:NoryCao/cjspecs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 #source 'https://github.com/sinaweibosdk/weibo_ios_sdk.git'
 
 # 对于Swift应用来说下面两句是必须的
 platform :ios, '9.0'
 #use_frameworks!
+# Swift静态库方式
+use_modular_headers!
+inhibit_all_warnings!
 branch = ENV['sha']
 
 # target的名字一般与你的项目名字相同
@@ -23,14 +26,30 @@ pod 'FMDB'
 #pod 'WechatOpenSDK'
 #pod 'Weibo_SDK'
 
+# swift libraries
+pod 'Alamofire'
+pod 'Cache'
+pod 'HandyJSON'
+pod 'Kingfisher'
+pod 'PKHUD'
+pod 'SnapKit'
+pod 'SQLite.swift'
+pod 'Then'
+pod 'Zip'
+pod 'RxAlamofire'
+pod 'RxCocoa'
+
 # local pods
-#pod 'ZSThirdPartSDK', :path => "zhuishushenqi/NewVersion/ZSThirdPartSDK"
+pod 'ZSThirdPartSDK', :path => "zhuishushenqi/NewVersion/ZSThirdPartSDK"
 #pod 'ZSBookShelf', :path => "zhuishushenqi/NewVersion/ZSBookShelf"
 #pod 'ZSBookStore', :path => "zhuishushenqi/NewVersion/ZSBookStore"
 #pod 'ZSCommunity', :path => "zhuishushenqi/NewVersion/ZSCommunity"
-#pod 'ZSDiscover', :path => "zhuishushenqi/NewVersion/ZSDiscover"
-#pod 'ZSMine', :path => "zhuishushenqi/NewVersion/ZSMine"
-#pod 'ZSBaseUIExt', :path => "zhuishushenqi/NewVersion/ZSBaseUIExt"
+pod 'ZSAPI', :path => "zhuishushenqi/NewVersion/ZSAPI"
+pod 'ZSAppConfig', :path => "zhuishushenqi/NewVersion/ZSAppConfig"
+pod 'ZSBaseUIExt', :path => "zhuishushenqi/NewVersion/ZSBaseUIExt"
+pod 'ZSExtension', :path => "zhuishushenqi/NewVersion/ZSExtension"
+pod 'ZSDiscover', :path => "zhuishushenqi/NewVersion/ZSDiscover"
+pod 'ZSMine', :path => "zhuishushenqi/NewVersion/ZSMine"
 
 #pod 'ZSBookShelf'
 #pod 'ZSBookStore'
