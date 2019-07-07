@@ -57,7 +57,7 @@ class ZSCommunityNavigationBar: UIView, ZSVoiceSegmentProtocol {
         while index >= 0 {
             let btn = navButtons[index]
             let originX = self.bounds.width - CGFloat(navButtons.count - index) * 42 - 13
-            btn.frame = CGRect(x: originX, y: 21, width: 42, height: 42)
+            btn.frame = CGRect(x: originX, y: kNavgationBarHeight - 44, width: 42, height: 42)
             index -= 1
         }
     }

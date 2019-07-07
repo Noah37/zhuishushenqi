@@ -36,6 +36,13 @@ enum UserType: String,HandyJSONEnum  {
     }
 }
 
+protocol ZSCommunityCellDelegate:class {
+    func community(cell:ZSCommunityCell, clickIcon:UIButton)
+    func community(cell:ZSCommunityCell, clickFocus:UIButton)
+    func community(cell:ZSCommunityCell, clickMsg:UIButton)
+    func community(cell:ZSCommunityCell, clickShare:UIButton)
+}
+
 class ZSCommunityCell: UITableViewCell {
     
     lazy var iconButton:UIButton = {
@@ -110,7 +117,7 @@ class ZSCommunityCell: UITableViewCell {
     lazy var shareButton:UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "bbs_icon_share_26_26_26x26_"), for: .normal)
-        button.addTarget(self, action: #selector(commentAction(btn:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(shareAction(btn:)), for: .touchUpInside)
         return button
     }()
     
@@ -135,11 +142,21 @@ class ZSCommunityCell: UITableViewCell {
         button.backgroundColor = UIColor.init(red: 0.93, green: 0.28, blue: 0.27, alpha: 1)
         button.setTitle("关注", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        button.addTarget(self, action: #selector(commentAction(btn:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(focusAction(btn:)), for: .touchUpInside)
         return button
     }()
     
     var model:QSHotModel?
+    
+    var tweet:ZSDynamicTweet?
+    
+    var focusState:Bool = false {
+        didSet {
+            focusState ? focusSelected():focusUnSelected()
+        }
+    }
+    
+    weak var delegate:ZSCommunityCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -209,6 +226,12 @@ class ZSCommunityCell: UITableViewCell {
     
     func congfigure(model:QSHotModel) {
         self.model = model
+        focusState = false
+        for item in ZSLogin.share.followings ?? [] {
+            if item._id == model.user._id {
+                focusState = true
+            }
+        }
         self.iconButton.qs_setAvatarWithURLString(urlString: model.user.avatar)
         self.nickNameLabel.text = "\(model.user.nickname)"
         self.tagView.image = model.user.type.image
@@ -225,13 +248,59 @@ class ZSCommunityCell: UITableViewCell {
         layoutIfNeeded()
     }
     
+    func congfigure(mo:ZSDynamicTweet) {
+        self.tweet = mo
+        self.focusButton.isHidden = true
+        self.iconButton.qs_setAvatarWithURLString(urlString: mo.user?.avatar ?? "")
+        self.nickNameLabel.text = "\(mo.user?.nickname ?? "")"
+        self.tagView.image = mo.user?.type.image
+        self.levelLabel.text = "lv.\(mo.user?.lv ?? 0)"
+        self.timeLabel.qs_setCreateTime(createTime: "\(mo.created)", append: "")
+        self.forumImageView.isHidden = !mo.haveImage
+        let titlePrefixString = self.forumImageView.isHidden ? "":"\u{fff9}     "
+        if mo.type == .retweet {
+            self.titleLabel.text = "\(titlePrefixString)\(mo.refTweet?.title ?? "")"
+            self.contentLabel.text = "\(mo.refTweet?.content ?? "")"
+        } else {
+            self.titleLabel.text = "\(titlePrefixString)\(mo.title)"
+            self.contentLabel.text = "\(mo.content)"
+        }
+        self.insertedScoreView.configure(mo: mo.book, rate:mo.score)
+        self.msgLabel.text = "\(mo.commented)"
+        self.shareLabel.text = "\(mo.retweeted)"
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+    
+    private func focusSelected() {
+        self.focusButton.setTitle("已关注", for: .normal)
+        self.focusButton.setTitleColor(UIColor(red: 0.94, green: 0.94, blue: 0.95, alpha: 1), for: .normal)
+        self.focusButton.backgroundColor = UIColor(red: 0.75, green: 0.75, blue: 0.76, alpha: 1)
+    }
+    
+    private func focusUnSelected() {
+        self.focusButton.setTitle("关注", for: .normal)
+        self.focusButton.setTitleColor(UIColor.white, for: .normal)
+        self.focusButton.backgroundColor = UIColor.init(red: 0.93, green: 0.28, blue: 0.27, alpha: 1)
+    }
+    
     @objc
     private func iconAction(btn:UIButton) {
-        
+        delegate?.community(cell: self, clickIcon: btn)
     }
 
     @objc
     private func commentAction(btn:UIButton) {
-        
+        delegate?.community(cell: self, clickMsg: btn)
+    }
+    
+    @objc
+    private func focusAction(btn:UIButton) {
+        delegate?.community(cell: self, clickFocus: btn)
+    }
+    
+    @objc
+    private func shareAction(btn:UIButton) {
+        delegate?.community(cell: self, clickShare: btn)
     }
 }

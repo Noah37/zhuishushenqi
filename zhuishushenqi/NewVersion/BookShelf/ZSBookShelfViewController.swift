@@ -181,7 +181,9 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
             navigationController?.pushViewController(webVC, animated: true)
             break
         case .search:
-            alert(with: "提示", message: "该功能待上线,请更新版本后再次尝试!", okTitle: "确定")
+            let searchVC = ZSSearchViewController()
+            searchVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(searchVC, animated: true)
             break
         case .history:
             alert(with: "提示", message: "该功能待上线,请更新版本后再次尝试!", okTitle: "确定")

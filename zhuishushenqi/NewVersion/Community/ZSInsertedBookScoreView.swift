@@ -96,6 +96,17 @@ class ZSInsertedBookScoreView: UIView {
         
     }
     
+    func configure(mo:ZSDynamicTweetBook?, rate:Int = 0) {
+        if let book = mo {
+            self.bookIconView.qs_setBookCoverWithURLString(urlString: book.cover)
+            self.bookNameLabel.text = "\(book.title)"
+            self.scoreLabel.text = "楼主打分"
+            self.scoreView.image = UIImage(named: "")
+            self.rateView.rate = rate
+        }
+        
+    }
+    
     @objc
     private func touchAction(control:UIControl) {
         touchHandler?()

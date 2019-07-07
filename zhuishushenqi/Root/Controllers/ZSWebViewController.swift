@@ -126,6 +126,8 @@ class ZSWebViewController: BaseViewController {
     
     func loadWebPage() {
         if url != "" {
+            // complete url
+            
             if let url = URL(string: self.url) {
                 let request = URLRequest(url: url)
                 webView.load(request)
@@ -205,6 +207,12 @@ class ZSWebViewController: BaseViewController {
                 if self.jumpHandler == nil {
                     self.jumpHandler = ZSWebJumpHandler()
                 }
+                let context = ZSWebContext()
+                context.fromVC = self
+                context.delegate = self.delegate
+                self.jumpHandler?.handleWebItem(item: item, context: context, block: { (result) in
+                    
+                })
             } else if ZSWebUserHandler.canHandleWebItem(item: item) {
                 if self.userHandler == nil {
                     self.userHandler = ZSWebUserHandler()

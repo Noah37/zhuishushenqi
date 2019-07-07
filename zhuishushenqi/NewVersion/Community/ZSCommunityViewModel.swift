@@ -70,4 +70,28 @@ class ZSCommunityViewModel {
             }
         }
     }
+    
+    func focus(id:String, completion:@escaping(_ success:Bool)->Void) {
+        let api = ZSAPI.focus(token: ZSLogin.share.token, followeeId: id)
+        zs_post(api.path, parameters: api.parameters) { (json) in
+            if let result = json?["ok"] as? Bool {
+                ZSLogin.share.fetchFollowings()
+                completion(result)
+            } else {
+                completion(false)
+            }
+        }
+    }
+    
+    func unFocus(id:String, completion:@escaping(_ success:Bool)->Void) {
+        let api = ZSAPI.unFocus(token: ZSLogin.share.token, followeeId: id)
+        zs_post(api.path, parameters: api.parameters) { (json) in
+            if let result = json?["ok"] as? Bool {
+                ZSLogin.share.fetchFollowings()
+                completion(result)
+            } else {
+                completion(false)
+            }
+        }
+    }
 }

@@ -121,6 +121,24 @@ public enum ZSAPI {
     case thirdPartSource(type:String, version:String,juhe:Int)
     // 社区
     case userTwitter(_ last:String)
+    // 关注
+    case userFollowings(_ id:String)
+    // 粉丝
+    case userFollowers(_ id:String)
+    // 社区用户动态
+    case userTwitters(_ id:String, last:String)
+    // 关注用户
+    case focus(token:String, followeeId:String)
+    // 取消关注
+    case unFocus(token:String, followeeId:String)
+    // 通知阅读
+    case readImportant(token:String)
+    // 重要通知
+    case important(token:String)
+    // 不重要通知阅读
+    case readUnimportant(token:String)
+    // 不重要通知
+    case unimportant(token:String)
 }
 //https://api.ximalaya.com/openapi-gateway-app/v2/albums/list?access_token=906bbf257eddd7ba84ceec277bdef5b5&app_key=e31646fa4555ea3472d4114921ee192e&client_os_type=1&device=iPhone&device_id=F6F542A1-1676-4D28-96C2-CF9D2F52F5FD&pack_id=com.ifmoc.ZhuiShuShenQi&sdk_version=5.4.7&calc_dimension=1&category_id=3&count=20&page=1&tag_name=%E8%A8%80%E6%83%85&type=0&sig=8db40bb73de647a3baba9afb4635eb8e&
 
@@ -281,6 +299,36 @@ extension ZSAPI:ZSTargetType{
         case .userTwitter(_):
             pathComponent = "/user/twitter/hottweets"
             break
+        case let .userFollowings(id):
+            pathComponent = "/user/followings/\(id)"
+            break
+        case let .userFollowers(id):
+            pathComponent = "/user/followers/\(id)"
+            break
+        case let .userTwitters(id, _):
+            pathComponent = "/user/\(id)/twitter"
+            break
+        case .focus(_, _):
+            pathComponent = "/user/follow"
+            break
+        case .unFocus(_, _):
+            pathComponent = "/user/unfollow"
+            break
+        case .readImportant(_):
+            pathComponent = "/user/notification/read-important"
+            break
+        case .important(_):
+            pathComponent = "/user/notification/important"
+            break
+        case .readImportant(_):
+            pathComponent = "/user/notification/read-unimportant"
+            break
+        case .unimportant(_):
+            pathComponent = "/user/notification/unimportant"
+            break
+        default:
+            pathComponent = ""
+            break
         }
         return "\(baseURLString)\(pathComponent)"
     }
@@ -301,6 +349,10 @@ extension ZSAPI:ZSTargetType{
             urlString = "https://goldcoin.zhuishushenqi.com"
         case .thirdPartSource(_, _, _):
             urlString = "https://apidian2.lnk.la"
+        case .readImportant(_):
+            urlString = "https://api.zhuishushenqi.com"
+        case .important(_):
+            urlString = "https://api.zhuishushenqi.com"
         default:
             urlString = "http://api.zhuishushenqi.com"
         }
@@ -401,6 +453,25 @@ extension ZSAPI:ZSTargetType{
                 return nil
             }
             return ["last":last]
+        case let .userTwitters(_, last):
+            if last.count == 0 {
+                return nil
+            }
+            return ["last":last]
+        case let .focus(token, followeeId):
+            return ["token":"\(token)",
+                "followeeId":"\(followeeId)"]
+        case let .unFocus(token, followeeId):
+            return ["token":"\(token)",
+                "followeeId":"\(followeeId)"]
+        case let .readImportant(token):
+            return ["token":"\(token)"]
+        case let .important(token):
+            return ["token":"\(token)"]
+        case let .readUnimportant(token):
+            return ["token":"\(token)"]
+        case let .unimportant(token):
+            return ["token":"\(token)"]
         default:
             return nil
         }

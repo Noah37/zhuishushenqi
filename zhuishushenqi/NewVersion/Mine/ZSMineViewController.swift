@@ -27,7 +27,7 @@ class ZSMineViewController: BaseViewController, ZSMineNavigationBarDelegate {
             tableView.contentInsetAdjustmentBehavior = .never
         }
         tableView.qs_registerCellClass(ZSDetailButtonCell.self)
-        tableView.qs_registerHeaderFooterClass(ZSBookShelfHeaderView.self)
+        tableView.qs_registerHeaderFooterClass(ZSMineHeaderView.self)
         let blurEffect = UIBlurEffect(style: .extraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         tableView.backgroundView = blurEffectView
@@ -35,6 +35,8 @@ class ZSMineViewController: BaseViewController, ZSMineNavigationBarDelegate {
     }()
     
     var menus:[ZSMineMenuItem] = []
+    
+    var viewModel:ZSMineViewModel = ZSMineViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,9 +47,11 @@ class ZSMineViewController: BaseViewController, ZSMineNavigationBarDelegate {
             make.height.equalTo(kNavgationBarHeight)
         }
         tableView.snp.remakeConstraints { (make) in
-            make.left.right.bottom.equalToSuperview()
-            make.top.equalTo(self.navigationBar.snp_bottom)
+            make.left.right.equalToSuperview()
+            make.top.equalTo(kNavgationBarHeight)
+            make.height.equalTo(ScreenHeight - kNavgationBarHeight - kTabbarBlankHeight - FOOT_BAR_Height)
         }
+        observe()
         setupMenu()
     }
     
@@ -55,6 +59,7 @@ class ZSMineViewController: BaseViewController, ZSMineNavigationBarDelegate {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         navigationBar.loginState(state: ZSLogin.share.hasLogin() ? .login:.logout, title: ZSThirdLogin.share.userInfo?.user?.nickname, icon: ZSThirdLogin.share.userInfo?.user?.avatar)
+        tableView.reloadData()
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -93,6 +98,15 @@ class ZSMineViewController: BaseViewController, ZSMineNavigationBarDelegate {
         
     }
     
+    private func observe() {
+        self.viewModel.reloadBlock = {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        viewModel.requestAccount()
+    }
+    
     //MARK: - ZSMineNavigationBarDelegate
     func navigationBar(navigationBar: ZSMineNavigationBar, didClickLogin: UIButton) {
         login { (result) in
@@ -122,6 +136,26 @@ extension ZSMineViewController:UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if ZSLogin.share.hasLogin() {
+            return 55
+        }
+        return 0.01
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if ZSLogin.share.hasLogin() {
+            let headerView = tableView.qs_dequeueReusableHeaderFooterView(ZSMineHeaderView.self)
+            headerView?.configure(account: viewModel.account)
+            return headerView
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

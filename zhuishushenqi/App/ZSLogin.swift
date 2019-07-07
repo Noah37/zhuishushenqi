@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZSAPI
 
 class ZSLogin {
     
@@ -16,6 +17,10 @@ class ZSLogin {
     
     var mobileLogin:Bool = false
     
+    // 登录用户的关注与被关注者
+    var followings:[ZSFollowings]?
+    var followers:[ZSFollowings]?
+    
     static let share = ZSLogin()
     private init() {
         if let token =  ZSThirdLogin.share.userInfo?.token {
@@ -24,6 +29,10 @@ class ZSLogin {
             self.mobileLogin = true
             self.token = token
         }
+        if self.token.count > 0 {
+            fetchFollowings()
+            fetchFollowers()
+        }
     }
     
     func hasLogin() ->Bool {
@@ -31,6 +40,15 @@ class ZSLogin {
             return true
         }
         return false
+    }
+    
+    func userInfo() ->ZSQQLoginResponse? {
+        if let userInfo = ZSThirdLogin.share.userInfo {
+            return userInfo
+        } else if let userInfo = ZSMobileLogin.share.userInfo {
+            return userInfo
+        }
+        return nil
     }
     
     func logout() {
@@ -42,5 +60,30 @@ class ZSLogin {
 
     func login() {
         
+    }
+    
+    
+    func fetchFollowings() {
+        let api = ZSAPI.userFollowings("\(self.userInfo()?.user?._id ?? "")")
+        zs_get(api.path) { (json) in
+            guard let followings = json?["followings"] as? [Any] else {
+                return
+            }
+            if let followingModels = [ZSFollowings].deserialize(from: followings) as? [ZSFollowings] {
+                self.followings = followingModels
+            }
+        }
+    }
+    
+    func fetchFollowers() {
+        let api = ZSAPI.userFollowers("\(self.userInfo()?.user?._id ?? "")")
+        zs_get(api.path) { (json) in
+            guard let followers = json?["followers"] as? [Any] else {
+                return
+            }
+            if let followingModels = [ZSFollowings].deserialize(from: followers) as? [ZSFollowings] {
+                self.followers = followingModels
+            }
+        }
     }
 }

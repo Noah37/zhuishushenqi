@@ -65,12 +65,12 @@ class NavigationBar: UIView {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        logoView.frame = CGRect(x: 20, y: 34, width: 80, height: 19)
+        logoView.frame = CGRect(x: 20, y: kNavgationBarHeight - 44 + 12.5, width: 80, height: 19)
         var index = navButtons.count - 1
         while index >= 0 {
             let btn = navButtons[index]
             let originX = self.bounds.width - CGFloat(navButtons.count - index) * 42 - 13
-            btn.frame = CGRect(x: originX, y: 21, width: 42, height: 42)
+            btn.frame = CGRect(x: originX, y: kNavgationBarHeight - 44, width: 42, height: 42)
             index -= 1
         }
     }

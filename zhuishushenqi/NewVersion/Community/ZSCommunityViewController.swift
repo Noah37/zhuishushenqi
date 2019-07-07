@@ -8,7 +8,7 @@
 import UIKit
 import MJRefresh
 
-class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDelegate {
+class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDelegate, ZSCommunityCellDelegate {
     
     lazy var navImages:[ShelfNav] = {
         var images:[ShelfNav] = []
@@ -72,7 +72,7 @@ class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDel
         tableView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(self.navigationBar.snp_bottom)
-            make.bottom.equalToSuperview()
+            make.height.equalTo(ScreenHeight - kNavgationBarHeight - kTabbarBlankHeight - FOOT_BAR_Height)
         }
         let mj_header = ZSRefreshTextHeader(refreshingTarget: self, refreshingAction: #selector(refreshAction))
         mj_header?.endRefreshingCompletionBlock = { [weak mj_header] in
@@ -108,10 +108,56 @@ class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDel
     
     //MARK: - ZSCommunityNavigationBarDelegate
     func navView(navView: ZSCommunityNavigationBar, didSelectRight at: Int) {
-        
+        if at == 0 {
+            let dynamicVC = ZSUserDynamicViewController()
+            dynamicVC.id = ZSLogin.share.userInfo()?.user?._id ?? ""
+            dynamicVC.type = .mine
+            dynamicVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(dynamicVC, animated: true)
+        } else if at == 1 {
+            let notiVC = ZSNotificationViewController()
+            notiVC.hidesBottomBarWhenPushed = true
+            notiVC.type = .message
+            navigationController?.pushViewController(notiVC, animated: true)
+        }
     }
     
     func navView(navView: ZSCommunityNavigationBar, didSelectLeft at: Int) {
+        
+    }
+    
+    //MARK: - ZSCommunityCellDelegate
+    func community(cell: ZSCommunityCell, clickIcon: UIButton) {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        let dynamicVC = ZSUserDynamicViewController()
+        dynamicVC.id = viewModel.twitters[indexPath.row].user._id
+        dynamicVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(dynamicVC, animated: true)
+    }
+    
+    func community(cell: ZSCommunityCell, clickFocus: UIButton) {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        let id = self.viewModel.twitters[indexPath.row].user._id
+        if cell.focusState == false {
+            self.viewModel.focus(id: id) { [weak cell] (result) in
+                cell?.focusState = result ? !cell!.focusState:cell!.focusState
+            }
+        } else {
+            self.viewModel.unFocus(id: id) { [weak cell] (result) in
+                cell?.focusState = result ? !cell!.focusState:cell!.focusState
+            }
+        }
+    }
+    
+    func community(cell: ZSCommunityCell, clickMsg: UIButton) {
+        
+    }
+    
+    func community(cell: ZSCommunityCell, clickShare: UIButton) {
         
     }
 }
@@ -145,6 +191,7 @@ extension ZSCommunityViewController:UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.qs_dequeueReusableCell(ZSCommunityCell.self)
         cell?.selectionStyle = .none
         cell?.congfigure(model: self.viewModel.twitters[indexPath.row])
+        cell?.delegate = self
         return cell!
     }
 }

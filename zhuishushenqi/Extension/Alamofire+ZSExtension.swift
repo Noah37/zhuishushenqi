@@ -26,6 +26,8 @@ public func zs_post(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSB
         if let data = response.data {
             if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
                 handler?(json)
+            } else {
+                handler?([:])
             }
         } else {
             handler?([:])
@@ -42,6 +44,8 @@ public func zs_put(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBa
         if let data = response.data {
             if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
                 handler?(json)
+            } else {
+                handler?([:])
             }
         } else {
             handler?([:])
@@ -60,6 +64,8 @@ public func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBa
         if let data = response.data {
             if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
                 handler?(json)
+            } else {
+                handler?([:])
             }
         } else {
             handler?([:])
@@ -76,6 +82,8 @@ public func zs_delete(_ urlStr: String,parameters: Parameters? = nil,_ handler:Z
         if let data = response.data {
             if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
                 handler?(json)
+            } else {
+                handler?([:])
             }
         } else {
             handler?([:])

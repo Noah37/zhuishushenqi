@@ -14,7 +14,7 @@ protocol ZSDiscoverNavigationBarDelegate:class {
 
 class ZSDiscoverNavigationBar: UIView {
     
-    private lazy var titleLabel:UILabel = {
+    lazy var titleLabel:UILabel = {
         let label = UILabel(frame: .zero)
         label.textColor = UIColor.white
         label.font = UIFont.systemFont(ofSize: 20)

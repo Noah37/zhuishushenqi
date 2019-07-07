@@ -48,12 +48,12 @@ let BOUNDS = UIScreen.main.bounds
 let ScreenWidth = UIScreen.main.bounds.size.width
 let ScreenHeight = UIScreen.main.bounds.size.height
 let SCALE = (ScreenWidth / 320.0)
-let TOP_BAR_Height = 64
-let FOOT_BAR_Height = 49
+let TOP_BAR_Height:CGFloat = 64
+let FOOT_BAR_Height:CGFloat = 49
 let STATEBARHEIGHT = UIApplication.shared.statusBarFrame.height
 let kNavgationBarHeight:CGFloat = (IPHONEX ? 88:64)
-let kTabbarBlankHeight  = (IPHONEX ? 34:0)
-let kQSReaderTopMargin = (IPHONEX ? 30:0)
+let kTabbarBlankHeight:CGFloat  = (IPHONEX ? 34:0)
+let kQSReaderTopMargin:CGFloat = (IPHONEX ? 30:0)
 
 //区分屏幕
 let IPHONE4 = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 640, height: 960).equalTo((UIScreen.main.currentMode?.size)!) : false
