@@ -10,6 +10,9 @@
 		3D08F242212C2DC6007B3D19 /* ZSDiscussViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */; };
 		3D08F244212C2DFC007B3D19 /* ZSDiscussWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */; };
 		3D096BF722CF76A70005C9EA /* ZSRefreshFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D096BF622CF76A70005C9EA /* ZSRefreshFooter.swift */; };
+		3D17A02722D47364001FAC0C /* ZSReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17A02622D47364001FAC0C /* ZSReaderController.swift */; };
+		3D17A02922D47426001FAC0C /* ZSPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17A02822D47426001FAC0C /* ZSPageViewController.swift */; };
+		3D17A02B22D474A7001FAC0C /* ZSHorizonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17A02A22D474A7001FAC0C /* ZSHorizonalViewController.swift */; };
 		3D1F679E217DB3D7000FB968 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D1F679A217DB3D7000FB968 /* WeiboSDK.bundle */; };
 		3D1F679F217DB3D7000FB968 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1F679B217DB3D7000FB968 /* libWeiboSDK.a */; };
 		3D1F67A1217DBA1B000FB968 /* ZSLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F67A0217DBA1B000FB968 /* ZSLoginViewController.swift */; };
@@ -47,6 +50,9 @@
 		3D448E5F22C501E10099B6E8 /* ZSDiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D448E5E22C501E10099B6E8 /* ZSDiscoverViewController.swift */; };
 		3D448E6122C501E90099B6E8 /* ZSMineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D448E6022C501E90099B6E8 /* ZSMineViewController.swift */; };
 		3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */; };
+		3D55F4D922D47B3800AE0E2B /* ZSVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D55F4D822D47B3800AE0E2B /* ZSVerticalViewController.swift */; };
+		3D55F4DB22D47CAD00AE0E2B /* ZSReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D55F4DA22D47CAD00AE0E2B /* ZSReader.swift */; };
+		3D55F4DD22D47CEF00AE0E2B /* ZSNormalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D55F4DC22D47CEF00AE0E2B /* ZSNormalViewController.swift */; };
 		3D5671FC2174CADD0049B2FF /* ZSBookCTLayoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5671FB2174CADD0049B2FF /* ZSBookCTLayoutModel.swift */; };
 		3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */; };
 		3D62EE5922604768002FFA39 /* ZSVoicePlayerCatelogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D62EE5822604768002FFA39 /* ZSVoicePlayerCatelogView.swift */; };
@@ -556,6 +562,9 @@
 		3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussViewModel.swift; sourceTree = "<group>"; };
 		3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussWebService.swift; sourceTree = "<group>"; };
 		3D096BF622CF76A70005C9EA /* ZSRefreshFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRefreshFooter.swift; sourceTree = "<group>"; };
+		3D17A02622D47364001FAC0C /* ZSReaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderController.swift; sourceTree = "<group>"; };
+		3D17A02822D47426001FAC0C /* ZSPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSPageViewController.swift; sourceTree = "<group>"; };
+		3D17A02A22D474A7001FAC0C /* ZSHorizonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHorizonalViewController.swift; sourceTree = "<group>"; };
 		3D1F679A217DB3D7000FB968 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
 		3D1F679B217DB3D7000FB968 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
 		3D1F679C217DB3D7000FB968 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
@@ -595,6 +604,9 @@
 		3D448E5E22C501E10099B6E8 /* ZSDiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSDiscoverViewController.swift; sourceTree = "<group>"; };
 		3D448E6022C501E90099B6E8 /* ZSMineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSMineViewController.swift; sourceTree = "<group>"; };
 		3D5280DF20C8D2BB00252D67 /* ZSForumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumViewController.swift; sourceTree = "<group>"; };
+		3D55F4D822D47B3800AE0E2B /* ZSVerticalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVerticalViewController.swift; sourceTree = "<group>"; };
+		3D55F4DA22D47CAD00AE0E2B /* ZSReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReader.swift; sourceTree = "<group>"; };
+		3D55F4DC22D47CEF00AE0E2B /* ZSNormalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSNormalViewController.swift; sourceTree = "<group>"; };
 		3D5671FB2174CADD0049B2FF /* ZSBookCTLayoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCTLayoutModel.swift; sourceTree = "<group>"; };
 		3D58635E20CE1C96002AD3CC /* ZSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSProtocol.swift; sourceTree = "<group>"; };
 		3D62EE5822604768002FFA39 /* ZSVoicePlayerCatelogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVoicePlayerCatelogView.swift; sourceTree = "<group>"; };
@@ -1255,6 +1267,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D17A02522D47331001FAC0C /* Reader */ = {
+			isa = PBXGroup;
+			children = (
+				3D17A02622D47364001FAC0C /* ZSReaderController.swift */,
+				3D17A02822D47426001FAC0C /* ZSPageViewController.swift */,
+				3D17A02A22D474A7001FAC0C /* ZSHorizonalViewController.swift */,
+				3D55F4D822D47B3800AE0E2B /* ZSVerticalViewController.swift */,
+				3D55F4DC22D47CEF00AE0E2B /* ZSNormalViewController.swift */,
+				3D55F4DA22D47CAD00AE0E2B /* ZSReader.swift */,
+			);
+			path = Reader;
+			sourceTree = "<group>";
+		};
 		3D1F6799217DB3D7000FB968 /* libWeiboSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1747,6 +1772,7 @@
 		B2091C2A22B158F500AD550A /* NewVersion */ = {
 			isa = PBXGroup;
 			children = (
+				3D17A02522D47331001FAC0C /* Reader */,
 				3D448E5522C5016F0099B6E8 /* Mine */,
 				3D448E5422C501660099B6E8 /* Discover */,
 				3D448E5322C5015D0099B6E8 /* Community */,
@@ -3245,6 +3271,7 @@
 				B2C0DF2A20D4CB350057DC84 /* BookComment.swift in Sources */,
 				B2C0DF7F20D4CC480057DC84 /* ZSBookCommentService.swift in Sources */,
 				B2C0DF2F20D4CB350057DC84 /* QSReaderSetting.swift in Sources */,
+				3D55F4DD22D47CEF00AE0E2B /* ZSNormalViewController.swift in Sources */,
 				B22AC4611E9F695D008625E6 /* ZSRankViewController.swift in Sources */,
 				B2C0DF7720D4CB6D0057DC84 /* QSBookCommentViewController.swift in Sources */,
 				B2C0DF5D20D4CB350057DC84 /* QSBookDetailContentView.swift in Sources */,
@@ -3264,6 +3291,7 @@
 				3DF2D27820EB5773004E73B6 /* ZSChapterInfo.swift in Sources */,
 				B2C0DF2420D4CB350057DC84 /* TXTReaderViewController.swift in Sources */,
 				3DDB6CB02130F4BC00E8698D /* CoreTextLinkData.m in Sources */,
+				3D17A02B22D474A7001FAC0C /* ZSHorizonalViewController.swift in Sources */,
 				B29CFB79217B21C60006F294 /* ZSMyViewModel.swift in Sources */,
 				B2B02E461EA8920F00A6880A /* QSCategoryDetailProtocols.swift in Sources */,
 				B2B02E531EA9A9F000A6880A /* ZSThemeTopicViewModel.swift in Sources */,
@@ -3275,6 +3303,7 @@
 				3DDEEAFF214B5D3A003D12DB /* UIFont+Extension.swift in Sources */,
 				3D82F9EF22CA01A100F035CB /* ZSMineMenuItem.swift in Sources */,
 				B28FFC861EAFAED600C27FF9 /* NSString+Encode.m in Sources */,
+				3D55F4D922D47B3800AE0E2B /* ZSVerticalViewController.swift in Sources */,
 				B2A7CDEB2184526D0067D25B /* ZSBookReviewViewController.swift in Sources */,
 				B255707E1F3A075600C35A34 /* AppDelegate.swift in Sources */,
 				B2B4BD771E7ECEE0000CC201 /* RootViewController+Subviews.swift in Sources */,
@@ -3348,6 +3377,7 @@
 				3D998937223FDFB900EA33D5 /* ZSSegmentBaseViewModel.swift in Sources */,
 				B278AAD71F396773000A0D55 /* YTKKeyValueStore.m in Sources */,
 				B25570811F3A07BB00C35A34 /* AppStyle.swift in Sources */,
+				3D17A02722D47364001FAC0C /* ZSReaderController.swift in Sources */,
 				B2C0DF3920D4CB350057DC84 /* BookShelf.swift in Sources */,
 				B2683CFD22D0811000FE9CF0 /* ZSUserDynamicViewController.swift in Sources */,
 				B2C0DF2620D4CB350057DC84 /* QSInterestedViewController.swift in Sources */,
@@ -3358,6 +3388,7 @@
 				B2C0DF2D20D4CB350057DC84 /* QSRecord.swift in Sources */,
 				B29CFB7F217B37DC0006F294 /* ZSUserInfoViewController.swift in Sources */,
 				3DD084322157A14C008E3B4A /* PcmPlayer.m in Sources */,
+				3D55F4DB22D47CAD00AE0E2B /* ZSReader.swift in Sources */,
 				B27D7E9D1F4D320400866341 /* QSSegmentProtocols.swift in Sources */,
 				B2B02E471EA8920F00A6880A /* QSCategoryDetailRouter.swift in Sources */,
 				3D9325E620B2C44A0049CDBF /* ZSBaseTableViewManger.swift in Sources */,
@@ -3440,6 +3471,7 @@
 				3D2330DE21F5F04700EFE522 /* ZSBookDownloader.swift in Sources */,
 				B2B4BC0A1E7EA4AB000CC201 /* CategoryCell.swift in Sources */,
 				3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */,
+				3D17A02922D47426001FAC0C /* ZSPageViewController.swift in Sources */,
 				3DC93D55224A6264004FC392 /* ZSVoiceAlbum.swift in Sources */,
 				B29CFAE82179B7270006F294 /* ZSQQUser.swift in Sources */,
 				B2B4BD091E7EA4AC000CC201 /* ViewController.swift in Sources */,
