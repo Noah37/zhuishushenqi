@@ -36,7 +36,7 @@ class QSHotTweet: HandyJSON{
     var content:String = ""
     var __v:Int = 0
     var hotAt:String = ""
-    var post:[String:Any] = [:]
+    var post:ZSHotTweetPost = ZSHotTweetPost()
     var votes:[Any] = []
     var deleted:Bool = false
     var isHot:Bool = false
@@ -60,6 +60,13 @@ struct ZSHotBook:HandyJSON {
     var apptype:[Int] = []
     var allowMonthly:Bool = false
     var wordCount:Int = 0
+    
+    init() {}
+}
+
+struct ZSHotTweetPost:HandyJSON {
+    var _id:String = ""
+    var block:String = ""
     
     init() {}
 }

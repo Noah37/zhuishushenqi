@@ -28,7 +28,7 @@ zhuishushenqi baseui module.
   s.source           = { :git => 'https://github.com/zssq/ZSExtension.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/norycao'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
   
   s.swift_version = '5.0'
 

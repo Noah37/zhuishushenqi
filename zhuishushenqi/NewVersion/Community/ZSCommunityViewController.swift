@@ -194,4 +194,12 @@ extension ZSCommunityViewController:UITableViewDataSource, UITableViewDelegate {
         cell?.delegate = self
         return cell!
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = self.viewModel.twitters[indexPath.row]
+        let forumVC = ZSForumPageViewController()
+        forumVC.hidesBottomBarWhenPushed = true
+        forumVC.viewModel.id = model.tweet.post._id
+        self.navigationController?.pushViewController(forumVC, animated: true)
+    }
 }

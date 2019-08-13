@@ -193,6 +193,9 @@
 		B24B3F5220E888920098ACE5 /* ZSHistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24B3F5120E888920098ACE5 /* ZSHistoryHeaderView.swift */; };
 		B24B3F5420E888D60098ACE5 /* ZSSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24B3F5320E888D60098ACE5 /* ZSSearchResultViewController.swift */; };
 		B24B3F5620ECA04B0098ACE5 /* Array+ZSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24B3F5520ECA04B0098ACE5 /* Array+ZSExtension.swift */; };
+		B24BED4E2301692800CF8C4D /* ZSForumToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24BED4D2301692700CF8C4D /* ZSForumToolBar.swift */; };
+		B24BED5023017CB500CF8C4D /* ZSForumPageFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24BED4F23017CB500CF8C4D /* ZSForumPageFooterView.swift */; };
+		B24BED522301865400CF8C4D /* ZSForumComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24BED512301865400CF8C4D /* ZSForumComment.swift */; };
 		B251228D1DB3291A0040CAD3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B251228C1DB3291A0040CAD3 /* CFNetwork.framework */; };
 		B251F89C2030350E004AAF95 /* Dictionary+QSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B251F89B2030350E004AAF95 /* Dictionary+QSExtension.swift */; };
 		B252D487210EF3960091858E /* HTTPDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = B252D45D210EF3960091858E /* HTTPDataResponse.m */; };
@@ -256,6 +259,18 @@
 		B2583CBD1EA782C2004178F3 /* QSThemeTopicRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB81EA782C2004178F3 /* QSThemeTopicRouter.swift */; };
 		B2583CBE1EA782C2004178F3 /* QSThemeTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2583CB91EA782C2004178F3 /* QSThemeTopicViewController.swift */; };
 		B258BB241EA4B201006E5802 /* UIView+ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B258BB231EA4B201006E5802 /* UIView+ScreenShot.swift */; };
+		B25CEFEE22F9268A002ABE30 /* MarkupParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CEFEA22F92688002ABE30 /* MarkupParser.swift */; };
+		B25CEFEF22F9268A002ABE30 /* ZSDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CEFEB22F92689002ABE30 /* ZSDisplayView.swift */; };
+		B25CEFF022F9268A002ABE30 /* CTSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CEFEC22F92689002ABE30 /* CTSettings.swift */; };
+		B25CEFF122F9268A002ABE30 /* ZSTouchAnchorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CEFED22F9268A002ABE30 /* ZSTouchAnchorView.swift */; };
+		B25CEFF422F92AE4002ABE30 /* ZSForumPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CEFF322F92AE4002ABE30 /* ZSForumPageViewController.swift */; };
+		B25CEFF622F92C5E002ABE30 /* ZSForumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CEFF522F92C5E002ABE30 /* ZSForumViewModel.swift */; };
+		B25CEFF822F97937002ABE30 /* ZSForumPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CEFF722F97937002ABE30 /* ZSForumPageHeaderView.swift */; };
+		B25CEFFA22FA7BB2002ABE30 /* ZSPostReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CEFF922FA7BB2002ABE30 /* ZSPostReview.swift */; };
+		B25CF00822FAA732002ABE30 /* ZSPostReviewAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CF00522FAA731002ABE30 /* ZSPostReviewAuthor.swift */; };
+		B25CF00922FAA732002ABE30 /* ZSPostReviewHelpful.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CF00622FAA732002ABE30 /* ZSPostReviewHelpful.swift */; };
+		B25CF00A22FAA732002ABE30 /* ZSPostReviewBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CF00722FAA732002ABE30 /* ZSPostReviewBook.swift */; };
+		B25D1AD9230293BB00B1F786 /* ZSForumPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25D1AD8230293BB00B1F786 /* ZSForumPageCell.swift */; };
 		B25EB92A21933A6D000D3657 /* ZSWriteReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92921933A6D000D3657 /* ZSWriteReview.swift */; };
 		B25EB92C2194986C000D3657 /* ZSEncryptorAESUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92B2194986C000D3657 /* ZSEncryptorAESUtils.swift */; };
 		B25EB92F2194999E000D3657 /* FBEncryptorAESUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.m */; };
@@ -811,6 +826,9 @@
 		B24B3F5120E888920098ACE5 /* ZSHistoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHistoryHeaderView.swift; sourceTree = "<group>"; };
 		B24B3F5320E888D60098ACE5 /* ZSSearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSearchResultViewController.swift; sourceTree = "<group>"; };
 		B24B3F5520ECA04B0098ACE5 /* Array+ZSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+ZSExtension.swift"; sourceTree = "<group>"; };
+		B24BED4D2301692700CF8C4D /* ZSForumToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumToolBar.swift; sourceTree = "<group>"; };
+		B24BED4F23017CB500CF8C4D /* ZSForumPageFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumPageFooterView.swift; sourceTree = "<group>"; };
+		B24BED512301865400CF8C4D /* ZSForumComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumComment.swift; sourceTree = "<group>"; };
 		B251228C1DB3291A0040CAD3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B251F89B2030350E004AAF95 /* Dictionary+QSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+QSExtension.swift"; sourceTree = "<group>"; };
 		B252D456210EF3960091858E /* HTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPConnection.h; sourceTree = "<group>"; };
@@ -899,6 +917,18 @@
 		B2583CB81EA782C2004178F3 /* QSThemeTopicRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSThemeTopicRouter.swift; sourceTree = "<group>"; };
 		B2583CB91EA782C2004178F3 /* QSThemeTopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSThemeTopicViewController.swift; sourceTree = "<group>"; };
 		B258BB231EA4B201006E5802 /* UIView+ScreenShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ScreenShot.swift"; sourceTree = "<group>"; };
+		B25CEFEA22F92688002ABE30 /* MarkupParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupParser.swift; sourceTree = "<group>"; };
+		B25CEFEB22F92689002ABE30 /* ZSDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSDisplayView.swift; sourceTree = "<group>"; };
+		B25CEFEC22F92689002ABE30 /* CTSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTSettings.swift; sourceTree = "<group>"; };
+		B25CEFED22F9268A002ABE30 /* ZSTouchAnchorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSTouchAnchorView.swift; sourceTree = "<group>"; };
+		B25CEFF322F92AE4002ABE30 /* ZSForumPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumPageViewController.swift; sourceTree = "<group>"; };
+		B25CEFF522F92C5E002ABE30 /* ZSForumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumViewModel.swift; sourceTree = "<group>"; };
+		B25CEFF722F97937002ABE30 /* ZSForumPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumPageHeaderView.swift; sourceTree = "<group>"; };
+		B25CEFF922FA7BB2002ABE30 /* ZSPostReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSPostReview.swift; sourceTree = "<group>"; };
+		B25CF00522FAA731002ABE30 /* ZSPostReviewAuthor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSPostReviewAuthor.swift; sourceTree = "<group>"; };
+		B25CF00622FAA732002ABE30 /* ZSPostReviewHelpful.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSPostReviewHelpful.swift; sourceTree = "<group>"; };
+		B25CF00722FAA732002ABE30 /* ZSPostReviewBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSPostReviewBook.swift; sourceTree = "<group>"; };
+		B25D1AD8230293BB00B1F786 /* ZSForumPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSForumPageCell.swift; sourceTree = "<group>"; };
 		B25EB92921933A6D000D3657 /* ZSWriteReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWriteReview.swift; sourceTree = "<group>"; };
 		B25EB92B2194986C000D3657 /* ZSEncryptorAESUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSEncryptorAESUtils.swift; sourceTree = "<group>"; };
 		B25EB92D2194999E000D3657 /* FBEncryptorAESUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAESUtils.h; sourceTree = "<group>"; };
@@ -1772,6 +1802,8 @@
 		B2091C2A22B158F500AD550A /* NewVersion */ = {
 			isa = PBXGroup;
 			children = (
+				B25CEFF222F92917002ABE30 /* Comment */,
+				B25CEFE922F9265F002ABE30 /* CoreText */,
 				3D17A02522D47331001FAC0C /* Reader */,
 				3D448E5522C5016F0099B6E8 /* Mine */,
 				3D448E5422C501660099B6E8 /* Discover */,
@@ -1979,6 +2011,35 @@
 				B22AC45C1E9F678D008625E6 /* ZSRankDetailViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B25CEFE922F9265F002ABE30 /* CoreText */ = {
+			isa = PBXGroup;
+			children = (
+				B25CEFEC22F92689002ABE30 /* CTSettings.swift */,
+				B25CEFEA22F92688002ABE30 /* MarkupParser.swift */,
+				B25CEFEB22F92689002ABE30 /* ZSDisplayView.swift */,
+				B25CEFED22F9268A002ABE30 /* ZSTouchAnchorView.swift */,
+			);
+			path = CoreText;
+			sourceTree = "<group>";
+		};
+		B25CEFF222F92917002ABE30 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				B25CEFF322F92AE4002ABE30 /* ZSForumPageViewController.swift */,
+				B25CEFF722F97937002ABE30 /* ZSForumPageHeaderView.swift */,
+				B24BED4F23017CB500CF8C4D /* ZSForumPageFooterView.swift */,
+				B25D1AD8230293BB00B1F786 /* ZSForumPageCell.swift */,
+				B24BED4D2301692700CF8C4D /* ZSForumToolBar.swift */,
+				B25CEFF522F92C5E002ABE30 /* ZSForumViewModel.swift */,
+				B24BED512301865400CF8C4D /* ZSForumComment.swift */,
+				B25CEFF922FA7BB2002ABE30 /* ZSPostReview.swift */,
+				B25CF00522FAA731002ABE30 /* ZSPostReviewAuthor.swift */,
+				B25CF00722FAA732002ABE30 /* ZSPostReviewBook.swift */,
+				B25CF00622FAA732002ABE30 /* ZSPostReviewHelpful.swift */,
+			);
+			path = Comment;
 			sourceTree = "<group>";
 		};
 		B26286BE1EEA46C7005A1A8A /* IntroducePage */ = {
@@ -3114,29 +3175,19 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PKHUD/PKHUDResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ZSAPI/ZSAPI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ZSAppConfig/ZSAppConfig.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ZSBaseUIExt/ZSBaseUIExt.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ZSExtension/ZSExtension.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ZSThirdPartSDK/ZSThirdPartSDK.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PKHUDResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSAPI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSAppConfig.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSBaseUIExt.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSExtension.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSThirdPartSDK.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3237,6 +3288,7 @@
 				B278AB081F398926000A0D55 /* NSMutableAttributedString+M80.m in Sources */,
 				B2C0DF4020D4CB350057DC84 /* QSBookDetailInteractor.swift in Sources */,
 				B29CFB75217B1DAB0006F294 /* ZSAccount.swift in Sources */,
+				B25CF00922FAA732002ABE30 /* ZSPostReviewHelpful.swift in Sources */,
 				3DD0840B21569902008E3B4A /* Speaker.swift in Sources */,
 				3D65504D21957B410064BA0C /* ZSChapterSelectView.swift in Sources */,
 				3DE393EB21A3EB2D00890488 /* ZSJSON.swift in Sources */,
@@ -3304,7 +3356,9 @@
 				3D82F9EF22CA01A100F035CB /* ZSMineMenuItem.swift in Sources */,
 				B28FFC861EAFAED600C27FF9 /* NSString+Encode.m in Sources */,
 				3D55F4D922D47B3800AE0E2B /* ZSVerticalViewController.swift in Sources */,
+				B25CF00A22FAA732002ABE30 /* ZSPostReviewBook.swift in Sources */,
 				B2A7CDEB2184526D0067D25B /* ZSBookReviewViewController.swift in Sources */,
+				B25CEFF422F92AE4002ABE30 /* ZSForumPageViewController.swift in Sources */,
 				B255707E1F3A075600C35A34 /* AppDelegate.swift in Sources */,
 				B2B4BD771E7ECEE0000CC201 /* RootViewController+Subviews.swift in Sources */,
 				B2A02F7C20F337C20034DC64 /* ZSHorizonalMoveViewController.swift in Sources */,
@@ -3314,7 +3368,9 @@
 				B2B4BC141E7EA4AB000CC201 /* SearchView.swift in Sources */,
 				B2C0DF2520D4CB350057DC84 /* PageViewController.swift in Sources */,
 				3DDB6CAC2130F4BC00E8698D /* CoreTextData.m in Sources */,
+				B25CEFEE22F9268A002ABE30 /* MarkupParser.swift in Sources */,
 				B2683D0722D17FCD00FE9CF0 /* ZSNotificationViewController.swift in Sources */,
+				B25D1AD9230293BB00B1F786 /* ZSForumPageCell.swift in Sources */,
 				B2CA942B1EB331DC00D60BF2 /* UIColor+Theme.swift in Sources */,
 				B2B4BC291E7EA4AB000CC201 /* RootNavigationView.swift in Sources */,
 				B2C0DF6920D4CB350057DC84 /* CategoryViewController.swift in Sources */,
@@ -3377,6 +3433,7 @@
 				3D998937223FDFB900EA33D5 /* ZSSegmentBaseViewModel.swift in Sources */,
 				B278AAD71F396773000A0D55 /* YTKKeyValueStore.m in Sources */,
 				B25570811F3A07BB00C35A34 /* AppStyle.swift in Sources */,
+				B24BED5023017CB500CF8C4D /* ZSForumPageFooterView.swift in Sources */,
 				3D17A02722D47364001FAC0C /* ZSReaderController.swift in Sources */,
 				B2C0DF3920D4CB350057DC84 /* BookShelf.swift in Sources */,
 				B2683CFD22D0811000FE9CF0 /* ZSUserDynamicViewController.swift in Sources */,
@@ -3411,6 +3468,7 @@
 				B2B02E2F1EA8505200A6880A /* QSTopicDetailViewController.swift in Sources */,
 				B2C0DF8520D7C1D30057DC84 /* ZSHottwitterViewController.swift in Sources */,
 				B203BB591E9E0F4400F9C052 /* QSSearchViewController+SearchBar.swift in Sources */,
+				B24BED4E2301692800CF8C4D /* ZSForumToolBar.swift in Sources */,
 				B252D4AD210EFA660091858E /* ZSHTTPTool.m in Sources */,
 				B252D490210EF3960091858E /* MultipartFormDataParser.m in Sources */,
 				3DBC089722CB78DB0004B3F4 /* ZSCommunityViewModel.swift in Sources */,
@@ -3422,14 +3480,17 @@
 				B2C0DF3D20D4CB350057DC84 /* ChapterInfo.swift in Sources */,
 				B2C0DF5420D4CB350057DC84 /* QSBookDetailTagsView.swift in Sources */,
 				B2B4BBF71E7EA4AB000CC201 /* String+QSExtension.swift in Sources */,
+				B24BED522301865400CF8C4D /* ZSForumComment.swift in Sources */,
 				3D850E0021E61E1800F23DDB /* ZSVoucherViewController.swift in Sources */,
 				3DDB6CAB2130F4BC00E8698D /* CTFrameParserConfig.m in Sources */,
 				B2C0DF2020D4CB350057DC84 /* QSTextReaderController.swift in Sources */,
+				B25CEFF122F9268A002ABE30 /* ZSTouchAnchorView.swift in Sources */,
 				B29CFB7B217B2F3A0006F294 /* ZSUserDetail.swift in Sources */,
 				B2B4BC271E7EA4AB000CC201 /* BarButton.swift in Sources */,
 				B2C0DF2820D4CB350057DC84 /* QSReaderParse.swift in Sources */,
 				B29CFB71217AE84B0006F294 /* ZSMyHeaderView.swift in Sources */,
 				B22AC44D1E9F1C62008625E6 /* ZSBaseSegmentItemViewController.swift in Sources */,
+				B25CEFF822F97937002ABE30 /* ZSForumPageHeaderView.swift in Sources */,
 				B2B4BBF91E7EA4AB000CC201 /* UILabel+zhuishu.swift in Sources */,
 				B252D491210EF3960091858E /* MultipartMessageHeader.m in Sources */,
 				B252D4DE211006670091858E /* Alamofire+ZSExtension.swift in Sources */,
@@ -3444,7 +3505,9 @@
 				3DDB6CA92130F4BC00E8698D /* CTFrameParser.m in Sources */,
 				3DB24B622243CBD200DCE8B2 /* ZSCatelogHeaderView.swift in Sources */,
 				B2C0DF7D20D4CB6D0057DC84 /* QSBookCommentProtocols.swift in Sources */,
+				B25CEFF622F92C5E002ABE30 /* ZSForumViewModel.swift in Sources */,
 				B252D48A210EF3960091858E /* HTTPAsyncFileResponse.m in Sources */,
+				B25CEFEF22F9268A002ABE30 /* ZSDisplayView.swift in Sources */,
 				B29B4FA21E8257BC008852E3 /* DynamicCell.swift in Sources */,
 				B22AC44B1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift in Sources */,
 				B278AA931F395FA4000A0D55 /* QSHelpViewCell.swift in Sources */,
@@ -3473,10 +3536,12 @@
 				3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */,
 				3D17A02922D47426001FAC0C /* ZSPageViewController.swift in Sources */,
 				3DC93D55224A6264004FC392 /* ZSVoiceAlbum.swift in Sources */,
+				B25CEFFA22FA7BB2002ABE30 /* ZSPostReview.swift in Sources */,
 				B29CFAE82179B7270006F294 /* ZSQQUser.swift in Sources */,
 				B2B4BD091E7EA4AC000CC201 /* ViewController.swift in Sources */,
 				B2A7CD89218017380067D25B /* ZSMobileLogin.swift in Sources */,
 				B263E2E9211EBFEC001819FB /* SQLite+Extension.swift in Sources */,
+				B25CEFF022F9268A002ABE30 /* CTSettings.swift in Sources */,
 				B2B02E561EA9A9F000A6880A /* ZSVoiceBookSegmentViewController.swift in Sources */,
 				B2C0DF6220D4CB350057DC84 /* QSBookDetailPresenter.swift in Sources */,
 				3D31FFAF2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift in Sources */,
@@ -3497,6 +3562,7 @@
 				B2C0DF6320D4CB350057DC84 /* ChangeSourceViewController.swift in Sources */,
 				3D448E5F22C501E10099B6E8 /* ZSDiscoverViewController.swift in Sources */,
 				B24B3F5420E888D60098ACE5 /* ZSSearchResultViewController.swift in Sources */,
+				B25CF00822FAA732002ABE30 /* ZSPostReviewAuthor.swift in Sources */,
 				B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */,
 				B2C0DF6F20D4CB350057DC84 /* QSCommunityPresenter.swift in Sources */,
 				3DBC089522CB56C60004B3F4 /* ZSInsertedBookScoreView.swift in Sources */,

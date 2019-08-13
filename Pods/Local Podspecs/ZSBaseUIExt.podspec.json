@@ -18,7 +18,7 @@
   "platforms": {
     "ios": "9.0"
   },
-  "swift_version": "5.0",
+  "swift_versions": "5.0",
   "source_files": "ZSBaseUIExt/Classes/**/*",
   "resource_bundles": {
     "ZSBaseUIExt": [
@@ -74,5 +74,6 @@
     "YYImage": [
 
     ]
-  }
+  },
+  "swift_version": "5.0"
 }

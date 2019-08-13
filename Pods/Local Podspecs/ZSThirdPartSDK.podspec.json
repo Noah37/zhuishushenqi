@@ -40,7 +40,7 @@
     "sqlite3.0",
     "c++"
   ],
-  "swift_version": "5.0",
+  "swift_versions": "5.0",
   "dependencies": {
     "HandyJSON": [
 
@@ -54,5 +54,6 @@
     "ZSExtension": [
 
     ]
-  }
+  },
+  "swift_version": "5.0"
 }

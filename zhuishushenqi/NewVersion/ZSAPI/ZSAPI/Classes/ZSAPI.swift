@@ -139,6 +139,8 @@ public enum ZSAPI {
     case readUnimportant(token:String)
     // 不重要通知
     case unimportant(token:String)
+    // 社区tweet详情
+    case post(key:String)
 }
 //https://api.ximalaya.com/openapi-gateway-app/v2/albums/list?access_token=906bbf257eddd7ba84ceec277bdef5b5&app_key=e31646fa4555ea3472d4114921ee192e&client_os_type=1&device=iPhone&device_id=F6F542A1-1676-4D28-96C2-CF9D2F52F5FD&pack_id=com.ifmoc.ZhuiShuShenQi&sdk_version=5.4.7&calc_dimension=1&category_id=3&count=20&page=1&tag_name=%E8%A8%80%E6%83%85&type=0&sig=8db40bb73de647a3baba9afb4635eb8e&
 
@@ -325,6 +327,9 @@ extension ZSAPI:ZSTargetType{
             break
         case .unimportant(_):
             pathComponent = "/user/notification/unimportant"
+            break
+        case let .post(key):
+            pathComponent = "/post/\(key)?keepImage=1"
             break
         default:
             pathComponent = ""

@@ -3,7 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 #source 'https://github.com/sinaweibosdk/weibo_ios_sdk.git'
 
 # 对于Swift应用来说下面两句是必须的
-platform :ios, '9.0'
+platform :ios, '10.0'
 #use_frameworks!
 # Swift静态库方式
 use_modular_headers!
@@ -40,22 +40,23 @@ pod 'RxAlamofire'
 pod 'RxCocoa'
 
 # local pods
-pod 'ZSThirdPartSDK', :path => "zhuishushenqi/NewVersion/ZSThirdPartSDK"
+#pod 'ZSThirdPartSDK', :path => "zhuishushenqi/NewVersion/ZSThirdPartSDK"
 #pod 'ZSBookShelf', :path => "zhuishushenqi/NewVersion/ZSBookShelf"
 #pod 'ZSBookStore', :path => "zhuishushenqi/NewVersion/ZSBookStore"
 #pod 'ZSCommunity', :path => "zhuishushenqi/NewVersion/ZSCommunity"
 pod 'ZSAPI', :path => "zhuishushenqi/NewVersion/ZSAPI"
-pod 'ZSAppConfig', :path => "zhuishushenqi/NewVersion/ZSAppConfig"
-pod 'ZSBaseUIExt', :path => "zhuishushenqi/NewVersion/ZSBaseUIExt"
+#pod 'ZSAppConfig', :path => "zhuishushenqi/NewVersion/ZSAppConfig"
+#pod 'ZSBaseUIExt', :path => "zhuishushenqi/NewVersion/ZSBaseUIExt"
 pod 'ZSExtension', :path => "zhuishushenqi/NewVersion/ZSExtension"
-pod 'ZSDiscover', :path => "zhuishushenqi/NewVersion/ZSDiscover"
-pod 'ZSMine', :path => "zhuishushenqi/NewVersion/ZSMine"
+#pod 'ZSDiscover', :path => "zhuishushenqi/NewVersion/ZSDiscover"
+#pod 'ZSMine', :path => "zhuishushenqi/NewVersion/ZSMine"
 
 #pod 'ZSBookShelf'
 #pod 'ZSBookStore'
 #pod 'ZSCommunity'
 #pod 'ZSDiscover'
 #pod 'ZSMine'
+#pod 'ZSAPI'
 
 #pod 'DoraemonKit/Core', '~> 1.1.6', :configurations => ['Debug']
 #pod 'DoraemonKit/WithLogger', '~> 1.1.6', :configurations => ['Debug']

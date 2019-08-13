@@ -54,7 +54,7 @@ public func zs_put(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBa
     return req
 }
 
-public let YouShaQiUserAgent = "YouShaQi/4.4.4 (iPhone; iOS 12.0; Scale/3.00)"
+public let YouShaQiUserAgent = "YouShaQi/4.6.2 (iPhone; iOS 12.0; Scale/3.00)"
 
 @discardableResult
 public func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {

@@ -118,7 +118,7 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
         tableView.deselectRow(at: indexPath, animated: true)
         let model = self.timeline?[indexPath.row]
         let comment = BookComment()
-        comment._id = (model?.tweet.post["_id"] as? String) ?? ""
+        comment._id = (model?.tweet.post._id) ?? ""
         let commentVC = ZSBookCommentViewController(style: .grouped)
         commentVC.viewModel.model = comment
         self.navigationController?.pushViewController(commentVC, animated: true)

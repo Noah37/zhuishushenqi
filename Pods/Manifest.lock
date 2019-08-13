@@ -12,7 +12,7 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - HandyJSON (5.0.0)
-  - Kingfisher (4.10.1)
+  - Kingfisher (5.7.0)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.2.0)
   - PKHUD (5.3.0)
@@ -42,26 +42,7 @@ PODS:
   - YYText (1.0.7)
   - Zip (1.1.0)
   - ZSAPI (1.0.15)
-  - ZSAppConfig (1.0.15)
-  - ZSBaseUIExt (1.0.15):
-    - Alamofire
-    - HandyJSON
-    - Kingfisher
-    - MJRefresh
-    - PKHUD
-    - RxCocoa
-    - RxSwift
-    - SnapKit
-    - SQLite.swift
-    - Then
-    - YYCategories
-    - YYImage
-    - ZSAPI
-    - ZSAppConfig
-    - ZSExtension
-    - ZSThirdPartSDK
-  - ZSDiscover (0.0.1):
-    - ZSMine
+  - ZSAppConfig (1.0.3)
   - ZSExtension (1.0.15):
     - Alamofire
     - HandyJSON
@@ -72,12 +53,6 @@ PODS:
     - YYCategories
     - Zip
     - ZSAppConfig
-  - ZSMine (0.0.1)
-  - ZSThirdPartSDK (0.0.1):
-    - HandyJSON
-    - ZSAPI
-    - ZSAppConfig
-    - ZSExtension
 
 DEPENDENCIES:
   - Alamofire
@@ -101,14 +76,11 @@ DEPENDENCIES:
   - YYText
   - Zip
   - ZSAPI (from `zhuishushenqi/NewVersion/ZSAPI`)
-  - ZSAppConfig (from `zhuishushenqi/NewVersion/ZSAppConfig`)
-  - ZSBaseUIExt (from `zhuishushenqi/NewVersion/ZSBaseUIExt`)
-  - ZSDiscover (from `zhuishushenqi/NewVersion/ZSDiscover`)
   - ZSExtension (from `zhuishushenqi/NewVersion/ZSExtension`)
-  - ZSMine (from `zhuishushenqi/NewVersion/ZSMine`)
-  - ZSThirdPartSDK (from `zhuishushenqi/NewVersion/ZSThirdPartSDK`)
 
 SPEC REPOS:
+  "git@github.com:NoryCao/cjspecs":
+    - ZSAppConfig
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Cache
@@ -136,18 +108,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   ZSAPI:
     :path: zhuishushenqi/NewVersion/ZSAPI
-  ZSAppConfig:
-    :path: zhuishushenqi/NewVersion/ZSAppConfig
-  ZSBaseUIExt:
-    :path: zhuishushenqi/NewVersion/ZSBaseUIExt
-  ZSDiscover:
-    :path: zhuishushenqi/NewVersion/ZSDiscover
   ZSExtension:
     :path: zhuishushenqi/NewVersion/ZSExtension
-  ZSMine:
-    :path: zhuishushenqi/NewVersion/ZSMine
-  ZSThirdPartSDK:
-    :path: zhuishushenqi/NewVersion/ZSThirdPartSDK
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -156,7 +118,7 @@ SPEC CHECKSUMS:
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   HandyJSON: 992f2d661716d6a91de82d0056927bc7813b5770
-  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
@@ -172,14 +134,10 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
-  ZSAPI: 02012dc6988ccb1bce6807f65802808811cff194
-  ZSAppConfig: d6b5114b339aa24471554ced706e9df2f25d7041
-  ZSBaseUIExt: 084bdc11a6c741b2e4444a20d91c75fe29affe45
-  ZSDiscover: ad93651ee25e4b968e9c18782d05f1c8c797fc85
-  ZSExtension: f385572661c9b8488e955b75c8c9aaf8df429d5b
-  ZSMine: 1b14956fd951ae2b6761356e88dbf85157cc6c12
-  ZSThirdPartSDK: 1c023782e9240e0eb7eed7e494eecaa381d1f4ba
+  ZSAPI: 8b37ed8f4203d5fd9209dc7911024edcaee68a8f
+  ZSAppConfig: 36ecd23fe41b3d04cdfbaa8d0ae6dadd33bffa5d
+  ZSExtension: 040334c0092668a134ecdc621c6ea129eb1faf40
 
-PODFILE CHECKSUM: 14651fd7e36c45851687166da8f7e68fa302a5f0
+PODFILE CHECKSUM: 6d952ec3b1ed7549f05f86c6d5c3679d6cffea6d
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.5
