@@ -72,7 +72,7 @@ class MarkupParser: NSObject {
     }
     
     // MARK: - zssq parse
-    func parseContent(_ content: String) {
+    func parseContent(_ content: String, settings:CTSettings) {
         attrString = NSMutableAttributedString(string: "")
         let pattern = "\(kBookNamePattern)|\(kBookJumpPattern)|\(kTextLinkPattern)"
         do {
@@ -102,7 +102,6 @@ class MarkupParser: NSObject {
                         imageData.position = attrString.length
                         imageData.parse = imageModel
                         images.append(imageData)
-                        let settings = CTSettings()
                         var width: CGFloat = imageData.parse?.size.width ?? 0
                         var height: CGFloat = imageData.parse?.size.height ?? 0
                         if width > settings.pageRect.width {
@@ -134,7 +133,6 @@ class MarkupParser: NSObject {
                 }
             }
             let framesetter = CTFramesetterCreateWithAttributedString(attrString as CFAttributedString)
-            let settings = CTSettings()
             let textSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), nil, CGSize(width: settings.pageRect.width, height: CGFloat.greatestFiniteMagnitude), nil)
 
             var coreData = ZSTextData()

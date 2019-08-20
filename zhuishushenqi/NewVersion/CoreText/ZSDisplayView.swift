@@ -283,11 +283,10 @@ class ZSDisplayView: UIView {
         return touchRange
     }
     
-    func buildContent(attr:NSAttributedString, andImages:[ZSImageData]) {
+    func buildContent(attr:NSAttributedString, andImages:[ZSImageData] , settings:CTSettings) {
         attributeString = NSMutableAttributedString(attributedString: attr)
         imageIndex = 0
         let framesetter = CTFramesetterCreateWithAttributedString(attr as CFAttributedString)
-        let settings = CTSettings()
         
         let textSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), nil, CGSize(width: settings.pageRect.size.width, height: CGFloat.greatestFiniteMagnitude), nil)
 
@@ -305,7 +304,7 @@ class ZSDisplayView: UIView {
         imageIndex = 0
         //4
         let framesetter = CTFramesetterCreateWithAttributedString(attrString as CFAttributedString)
-        let settings = CTSettings()
+        let settings = CTSettings.shared
         
         let textSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), nil, CGSize(width: settings.pageRect.size.width, height: CGFloat.greatestFiniteMagnitude), nil)
         self.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: textSize.height)

@@ -25,6 +25,7 @@ class ZSForumPageViewController: BaseViewController {
         tableView.qs_registerCellClass(ZSForumPageCell.self)
         tableView.qs_registerHeaderFooterClass(ZSForumPageHeaderView.self)
         tableView.qs_registerHeaderFooterClass(ZSForumPageFooterView.self)
+        tableView.qs_registerHeaderFooterClass(ZSForumPageTitleHeaderView.self)
         return tableView
     }()
     
@@ -85,22 +86,42 @@ class ZSForumPageViewController: BaseViewController {
 
 extension ZSForumPageViewController:UITableViewDataSource , UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return viewModel.numberOfSections()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return viewModel.numberOfRowsInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.qs_dequeueReusableCell(ZSForumPageCell.self)
+        cell?.selectionStyle = .none
+        cell?.configure(model: viewModel.cellModel(for: indexPath))
         return cell!
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.qs_dequeueReusableHeaderFooterView(ZSForumPageHeaderView.self)
-        headerView?.configure(review: viewModel.review)
-        return headerView
+        if section == 0 {
+            let headerView = tableView.qs_dequeueReusableHeaderFooterView(ZSForumPageHeaderView.self)
+            headerView?.configure(review: viewModel.review)
+            return headerView
+        } else if section == 1 {
+            if viewModel.haveBest() {
+                let headerView = tableView.qs_dequeueReusableHeaderFooterView(ZSForumPageTitleHeaderView.self)
+                headerView?.titleLabel.text = "仰望神评论"
+                return headerView
+            } else if viewModel.haveNormal() {
+                let headerView = tableView.qs_dequeueReusableHeaderFooterView(ZSForumPageTitleHeaderView.self)
+                headerView?.titleLabel.text = "最新评论"
+                return headerView
+            }
+        } else if section == 2 {
+            let headerView = tableView.qs_dequeueReusableHeaderFooterView(ZSForumPageTitleHeaderView.self)
+            headerView?.titleLabel.text = "最新评论"
+            headerView?.totalLabel.text = "共\(viewModel.review?.commentCount ?? 0)条评论"
+            return headerView
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -109,5 +130,16 @@ extension ZSForumPageViewController:UITableViewDataSource , UITableViewDelegate 
             return footerView
         }
         return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return UITableView.automaticDimension
+        } else if viewModel.haveBest() {
+            return 50
+        } else if viewModel.haveNormal() {
+            return 50
+        }
+        return 0.01
     }
 }

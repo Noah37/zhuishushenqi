@@ -48,6 +48,8 @@ class CTSettings {
     var pageRect: CGRect!
     var columnRect: CGRect!
     
+    static let shared = CTSettings()
+    
     // MARK: - Initializers
     init() {
         //2

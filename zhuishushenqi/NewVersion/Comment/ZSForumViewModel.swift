@@ -32,6 +32,60 @@ class ZSForumViewModel {
         }
     }
     
+    func haveFooter() ->Bool {
+        return bestComment.count == 0 && comments.count == 0
+    }
+    
+    func haveBest() ->Bool {
+        return bestComment.count != 0
+    }
+    
+    func haveNormal() ->Bool {
+        return comments.count != 0
+    }
+    
+    func numberOfSections() ->Int {
+        var sections = 1
+        if bestComment.count > 0 {
+            sections += 1
+        }
+        if comments.count > 0 {
+            sections += 1
+        }
+        return sections
+    }
+    
+    func numberOfRowsInSection(section:Int) ->Int {
+        var rows = 0
+        if section == 1 {
+            if bestComment.count > 0 {
+                rows = bestComment.count
+            } else if comments.count > 0 {
+                rows = comments.count
+            }
+        } else if section == 2 {
+            rows = comments.count
+        }
+        return rows
+    }
+    
+    func cellModel(for indexPath:IndexPath) -> ZSForumComment{
+        var model:ZSForumComment = ZSForumComment()
+        if indexPath.section == 1 {
+            if bestComment.count > 0 {
+                model = bestComment[indexPath.row]
+            } else if comments.count > 0 {
+                model = comments[indexPath.row]
+            }
+        } else {
+            if comments.count > 0 {
+                model = comments[indexPath.row]
+            }
+        }
+        return model
+    }
+
+    //MARK: - request
     func request() {
         requestDetail { [weak self] in
             self?.reloadBlock()
@@ -51,10 +105,6 @@ class ZSForumViewModel {
         }
     }
     
-    func haveFooter() ->Bool {
-        return bestComment.count == 0 && comments.count == 0
-    }
-
     private func requestDetail(completion:@escaping()->Void) {
         let api = ZSAPI.post(key: id)
         zs_get(api.path) { [weak self](json) in

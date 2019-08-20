@@ -143,11 +143,11 @@ class ZSForumPageHeaderView: UITableViewHeaderFooterView, ZSForumToolBarDelegate
         timeLabel.qs_setCreateTime(createTime: postReview.created, append: "")
         titleLabel.text = postReview.title
         let parser = MarkupParser()
-        parser.parseContent(postReview.content)
+        parser.parseContent(postReview.content, settings: CTSettings.shared)
         displayView.snp.updateConstraints { (make) in
             make.height.equalTo(parser.coreData?.height ?? 0)
         }
-        displayView.buildContent(attr: parser.attrString, andImages: parser.coreData?.images ?? [])
+        displayView.buildContent(attr: parser.attrString, andImages: parser.coreData?.images ?? [], settings: CTSettings.shared)
         tagView.image = postReview.author.type.image
         if let _ = tagView.image {
             tagView.snp.updateConstraints { (make) in

@@ -115,45 +115,45 @@ class ZSForumPageCell: UITableViewCell {
             make.left.equalTo(self.nicknameLabel.snp_right).offset(5)
             make.top.equalTo(20)
             make.height.equalTo(14)
-            make.width.equalTo(80)
+            make.width.equalTo(40)
         }
         displayView.snp.makeConstraints { [unowned self](make) in
             make.left.equalTo(self.nicknameLabel.snp_left)
             make.top.equalTo(self.nicknameLabel.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
             make.height.equalTo(0)
         }
         timeLabel.snp.makeConstraints { [unowned self](make) in
             make.left.equalTo(self.displayView.snp_left)
-            make.top.equalTo(self.displayView.snp_bottom).offset(10)
             make.height.equalTo(14)
             make.width.equalTo(0)
+            make.bottom.equalToSuperview().offset(-14)
         }
         floorLabel.snp.makeConstraints { [unowned self](make) in
-            make.left.equalTo(self.timeLabel.snp_right)
-            make.top.equalTo(self.timeLabel.snp_top)
+            make.left.equalTo(self.timeLabel.snp_right).offset(10)
             make.height.equalTo(self.timeLabel.snp_height)
             make.width.equalTo(0)
+            make.bottom.equalToSuperview().offset(-14)
         }
         
         moreButton.snp.makeConstraints { [unowned self](make) in
             make.right.equalToSuperview().offset(-20)
             make.top.equalTo(self.displayView.snp_bottom).offset(10)
-            make.width.equalTo(52)
-            make.height.equalTo(52)
-            make.bottom.equalToSuperview().offset(-20)
+            make.width.equalTo(26)
+            make.height.equalTo(26)
+            make.bottom.equalToSuperview().offset(-10)
         }
         
         messageCountLabel.snp.makeConstraints { [unowned self](make) in
-            make.right.equalTo(self.moreButton.snp_left).offset(-10)
-            make.width.equalTo(60)
-            make.height.equalTo(52)
-            make.top.equalTo(self.moreButton.snp_top)
+            make.right.equalTo(self.moreButton.snp_left).offset(0)
+            make.width.equalTo(30)
+            make.height.equalTo(14)
+            make.bottom.equalTo(self.moreButton.snp_bottom).offset(-2)
         }
         
         likeButton.snp.makeConstraints { [unowned self](make) in
-            make.right.equalTo(self.messageCountLabel.snp_left).offset(-5)
-            make.width.height.equalTo(52)
+            make.right.equalTo(self.messageCountLabel.snp_left).offset(0)
+            make.width.height.equalTo(26)
             make.top.equalTo(self.moreButton.snp_top)
         }
     }
@@ -174,7 +174,32 @@ class ZSForumPageCell: UITableViewCell {
     }
     
     func configure(model:ZSForumComment) {
-        
+        self.avatarView.qs_setAvatarWithURLString(urlString: model.author.avatar)
+        self.nicknameLabel.text = model.author.nickname
+        let size = self.nicknameLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 14))
+        nicknameLabel.snp.updateConstraints { (make) in
+            make.width.equalTo(size.width)
+        }
+        self.levelLabel.text = "lv.\(model.author.lv)"
+        let parser = MarkupParser()
+        let settings = CTSettings()
+        settings.pageRect = CGRect(x: settings.pageRect.origin.x, y: settings.pageRect.origin.y, width: self.displayView.bounds.width, height: settings.pageRect.height)
+        parser.parseContent(model.content, settings: settings)
+        displayView.snp.updateConstraints { (make) in
+            make.height.equalTo(parser.coreData?.height ?? 0)
+        }
+        displayView.buildContent(attr: parser.attrString, andImages: parser.coreData?.images ?? [], settings: settings)
+        timeLabel.qs_setCreateTime(createTime: model.created, append: "")
+        let timeSize = timeLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 14))
+        timeLabel.snp.updateConstraints { (make) in
+            make.width.equalTo(timeSize.width)
+        }
+        floorLabel.text = "\(model.floor)楼"
+        let floorSize = floorLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 14))
+        floorLabel.snp.updateConstraints { (make) in
+            make.width.equalTo(floorSize.width)
+        }
+        messageCountLabel.text = "\(model.likeCount)"
     }
     
     @objc
