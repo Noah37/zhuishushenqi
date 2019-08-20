@@ -3186,6 +3186,7 @@
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PKHUD/PKHUDResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ZSAPI/ZSAPI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/ZSAppConfig/ZSAppConfig.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ZSExtension/ZSExtension.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3193,6 +3194,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PKHUDResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSAPI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSAppConfig.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSExtension.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

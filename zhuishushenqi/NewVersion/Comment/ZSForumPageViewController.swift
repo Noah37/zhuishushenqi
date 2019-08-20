@@ -29,6 +29,11 @@ class ZSForumPageViewController: BaseViewController {
         return tableView
     }()
     
+    private lazy var textView:ZSForumTextView = {
+        let textView = ZSForumTextView(frame: .zero)
+        return textView
+    }()
+    
     var viewModel:ZSForumViewModel = ZSForumViewModel()
 
     override func viewDidLoad() {
@@ -53,9 +58,15 @@ class ZSForumPageViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        view.addSubview(textView)
         view.addSubview(tableView)
-        tableView.snp.remakeConstraints { (make) in
-            make.left.right.top.bottom.equalToSuperview()
+        textView.snp.remakeConstraints { (make) in
+            make.bottom.left.right.equalToSuperview()
+            make.height.equalTo(52)
+        }
+        tableView.snp.remakeConstraints { [unowned self](make) in
+            make.bottom.equalTo(self.textView.snp.top)
+            make.left.right.top.equalToSuperview()
         }
     }
     
