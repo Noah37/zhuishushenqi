@@ -8,15 +8,67 @@
 
 import UIKit
 
+enum ZSReaderType {
+    case normal
+    case vertical
+    case horizonal
+    case pageCurl
+}
+
+struct ZSReaderPref {
+    var type:ZSReaderType = .normal
+    var readerVC:ZSReaderVCProtocol? {
+        switch type {
+        case .normal:
+            return ZSNormalViewController.pageViewController()
+        case .vertical:
+            
+            break
+        case .horizonal:
+            
+            break
+        case .pageCurl:
+            
+            break
+        }
+        return nil
+    }
+}
+
 class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
+    var pref:ZSReaderPref = ZSReaderPref()
+    var viewModel:ZSReaderBaseViewModel = ZSReaderBaseViewModel()
     var reader = ZSReader()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        changeReaderType()
+        request()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        navigationController?.isNavigationBarHidden = true
+        if let vc = pref.readerVC as? UIViewController {
+            vc.view.bounds = view.bounds
+        }
     }
 
+    private func request() {
+        viewModel.fetchAllResource { (resource) in
+
+        }
+    }
+
+    private func changeReaderType() {
+        if let vc = pref.readerVC as? UIViewController {
+            if let _ = vc.view.superview {
+                return
+            }
+            view.addSubview(vc.view)
+        }
+    }
     
     //MARK: - UIPageViewControllerDataSource
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

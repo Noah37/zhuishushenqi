@@ -244,7 +244,7 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
 
 extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return ZSBookManager.shared.books.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -269,7 +269,17 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(UITableViewCell.self)", for: indexPath)
         cell.selectionStyle = .none
-        cell.textLabel?.text = "\(indexPath.row)"
+        let id = ZSBookManager.shared.ids[indexPath.row]
+        let book = ZSBookManager.shared.books[id]
+        cell.textLabel?.text = "\(book?.title)"
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let readerVC = ZSReaderController()
+        let id = ZSBookManager.shared.ids[indexPath.row]
+        readerVC.viewModel.book = ZSBookManager.shared.books[id]
+        readerVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(readerVC, animated: true)
     }
 }
