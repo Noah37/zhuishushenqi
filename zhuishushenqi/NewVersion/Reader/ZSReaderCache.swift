@@ -37,9 +37,35 @@ class ZSReaderCache {
                     return
                 }
                 // 如果缓存中已经存在，则取缓存
-                
+                if let _ = self.cachedChapter[chapter.link] {
+                    callback?(nil)
+                } else {
+                    // 不存在缓存,开始下载
+                    self.webService.fetchChapter(key: chapter.link, { (body) in
+                        guard let chapterBody = body else { return }
+                        self.storeChapter(body: chapterBody, index: self.initialChapterIndex(chapters: self.book.chaptersInfo))
+                        callback?(nil)
+                    })
+                }
             })
         }
+    }
+    
+    func load() ->QSPage {
+        // 章节数与页数默认-1
+        let page = QSPage()
+        let chapterIndex = initialChapterIndex(chapters: self.book.chaptersInfo)
+        if chapterIndex < (self.book.chaptersInfo?.count ?? 0){
+            if let chapterInfo = self.book.chaptersInfo?[chapterIndex] {
+                if let chapter = cachedChapter[chapterInfo.link] {
+                    let pageIndex = initialPageIndex(chapters: self.book.chaptersInfo)
+                    if pageIndex < chapter.pages.count {
+                        return chapter.pages[pageIndex]
+                    }
+                }
+            }
+        }
+        return page
     }
     
     private func fetch(chapter:ZSChapterInfo) {
@@ -56,50 +82,23 @@ class ZSReaderCache {
         return chapters?.first
     }
     
-//    func fetchInitialChapter(_ callback:ZSSearchWebAnyCallback<QSPage>?){
-//        if let record = book?.record {
-//            fetchPreChapter(record: record, chapterOffset: 0)
-//            if let chapter = record.chapterModel {
-//                let chapterIndex = record.chapter
-//                // 换源时有可能超出章节
-//                if let chapters = book?.chaptersInfo {
-//                    var linkIndex = chapterIndex
-//                    if chapterIndex >= chapters.count {
-//                        linkIndex = chapters.count - 1
-//                    }
-//                    guard let link = chapters[safe: linkIndex]?.link else { return }
-//                    cachedChapter[link] = chapter
-//                }
-//            } else {
-//                fetchNewChapter(chapterOffset: 0, record: record, chaptersInfo: book?.chaptersInfo) { (page) in
-//                    callback?(page)
-//                }
-//            }
-//        }
-//    }
+    private func initialChapterIndex(chapters:[ZSChapterInfo]?) ->Int {
+        if let record = book.record {
+            if record.chapter < (chapters?.count ?? 0) {
+                return record.chapter
+            }
+        }
+        return 0
+    }
     
-//    func fetchNewChapter(chapterOffset:Int,record:QSRecord,chaptersInfo:[ZSChapterInfo]?,callback:ZSSearchWebAnyCallback<QSPage>?){
-//        let chapter = record.chapter + chapterOffset
-//        if chapter >= 0 && chapter < (chaptersInfo?.count ?? 0) {
-//            if let chapterInfo = chaptersInfo?[safe: chapter] {
-//                let link = chapterInfo.link
-//                // 内存缓存
-//                if let model =  cachedChapter[link] {
-//                    let page =  chapterOffset > 0 ? 0: model.pages.count - 1
-//                    callback?(model.pages[safe: page])
-//                } else {
-//                    self.fetchChapter(key: link, { (body) in
-//                        if let bodyInfo = body {
-//                            if let network = self.cacheChapter(body: bodyInfo, index: chapter) {
-//                                // 请求新章节成功后不一定是当前的章节
-//                                callback?(network.pages.first)
-//                            }
-//                        }
-//                    })
-//                }
-//            }
-//        }
-//    }
+    private func initialPageIndex(chapters:[ZSChapterInfo]?) ->Int {
+        if let record = book.record {
+            if record.chapter < (chapters?.count ?? 0) {
+                return record.page
+            }
+        }
+        return 0
+    }
     
     private func fetchResources(_ callback:ZSBaseCallback<[ResourceModel]>?){
         let key = book._id
@@ -147,4 +146,28 @@ class ZSReaderCache {
         return index
     }
     
+    // 将新获取的章节信息存入chapterDict中
+    @discardableResult
+    private func storeChapter(body:ZSChapterBody,index:Int)->QSChapter? {
+        let chapterModel = self.book?.chaptersInfo?[safe: index]
+        let qsChapter = QSChapter()
+        if let link = chapterModel?.link {
+            qsChapter.link = link
+            // 如果使用追书正版书源，取的字段应该是cpContent，需要根据当前选择的源进行判断
+            qsChapter.isVip = chapterModel?.isVip ?? false
+            qsChapter.order = chapterModel?.order ?? 0
+            qsChapter.currency = chapterModel?.currency ?? 0
+            qsChapter.cpContent = body.cpContent
+            qsChapter.id = body.id
+            qsChapter.content = body.body
+            if let title = chapterModel?.title {
+                qsChapter.title = title
+            }
+            qsChapter.curChapter = index
+            qsChapter.getPages() // 直接计算page
+            cachedChapter[link] = qsChapter
+            return qsChapter
+        }
+        return nil
+    }
 }

@@ -56,9 +56,13 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
     }
 
     private func request() {
-        viewModel.fetchAllResource { (resource) in
-
+        viewModel.request { (_) in
+            self.load()
         }
+    }
+    
+    private func load() {
+        
     }
 
     private func changeReaderType() {
