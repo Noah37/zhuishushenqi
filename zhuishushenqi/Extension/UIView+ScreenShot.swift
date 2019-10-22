@@ -131,4 +131,10 @@ extension UIView {
         layer.masksToBounds = false
         self.layer.insertSublayer(layer, below: backgroundView.layer)
     }
+    
+    func removeSubviews() {
+        for subview in self.subviews {
+            subview.removeFromSuperview()
+        }
+    }
 }

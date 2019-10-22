@@ -226,6 +226,9 @@ extension String {
         }
         return nil
     }
+    var nsString:NSString {
+        return (self as NSString)
+    }
 }
 
 extension Optional {

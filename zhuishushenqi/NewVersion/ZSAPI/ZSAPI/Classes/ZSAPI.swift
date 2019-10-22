@@ -28,6 +28,8 @@ public enum ZSAPI {
     case update(id:String)
     ///热门搜索
     case hotwords(_ placeHolder:AnyObject)
+    ///搜索热词
+    case searchHotwords(_ placeHolder:AnyObject)
     ///联想搜索
     case autoComplete(query:String)
     ///搜索书籍
@@ -159,6 +161,9 @@ extension ZSAPI:ZSTargetType{
             break
         case .hotwords(_):
             pathComponent = "/book/hot-word"
+            break
+        case .searchHotwords(_):
+            pathComponent = "/book/search-hotwords"
             break
         case .autoComplete(_):
             pathComponent = "/book/auto-complete"
