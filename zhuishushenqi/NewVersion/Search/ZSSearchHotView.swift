@@ -65,11 +65,11 @@ class ZSSearchHotCell: UIView {
     
     convenience init(title:String, maxSize:CGSize) {
         self.init()
+        addSubview(self.titleLabel)
         self.titleLabel.text = title
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.titleLabel.frame = self.bounds
     }
 }
