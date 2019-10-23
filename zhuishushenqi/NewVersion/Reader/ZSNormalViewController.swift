@@ -23,6 +23,14 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         return shared
     }
     
+    func load() {
+        let page = ZSReaderCache.shared.load()
+        let pageVC = PageViewController()
+        pageVC.page = page
+        addChild(pageVC)
+        view.addSubview(pageVC.view)
+    }
+    
     func pageViewController(_ pageViewController: PageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
     }

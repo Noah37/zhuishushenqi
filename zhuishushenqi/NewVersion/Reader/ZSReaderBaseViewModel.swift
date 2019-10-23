@@ -15,11 +15,10 @@ class ZSReaderBaseViewModel {
     fileprivate var webService = ZSReaderWebService()
 
     //MARK: - fetch network resource
-    func fetchAllResource(_ callback:ZSBaseCallback<[ResourceModel]>?){
-        let key = book?._id ?? ""
-        webService.fetchAllResource(key: key) { (resources) in
-            self.book?.resources = resources
-            callback?(resources)
+    func request(_ callback:ZSBaseCallback<Void>?){
+        guard let model = book else { return }
+        ZSReaderCache.shared.request(book: model) { (_) in
+            callback?(nil)
         }
     }
     
