@@ -67,6 +67,8 @@
 		3D63E177235F03C40015B7D3 /* ZSSearchBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D63E176235F03C40015B7D3 /* ZSSearchBookViewModel.swift */; };
 		3D63E179235F14BF0015B7D3 /* ZSSearchHotwords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D63E178235F14BF0015B7D3 /* ZSSearchHotwords.swift */; };
 		3D63E17B235F18F40015B7D3 /* ZSHotWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D63E17A235F18F40015B7D3 /* ZSHotWord.swift */; };
+		3D63E18F23603CD80015B7D3 /* ZSSearchRecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D63E18E23603CD80015B7D3 /* ZSSearchRecommendView.swift */; };
+		3D63E191236043250015B7D3 /* ZSHeaderSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D63E190236043250015B7D3 /* ZSHeaderSearch.swift */; };
 		3D65504B219577DC0064BA0C /* ZSMultiplePayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D65504A219577DB0064BA0C /* ZSMultiplePayView.swift */; };
 		3D65504D21957B410064BA0C /* ZSChapterSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D65504C21957B410064BA0C /* ZSChapterSelectView.swift */; };
 		3D82F9EB22C9DD5D00F035CB /* ZSMineNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82F9EA22C9DD5D00F035CB /* ZSMineNavigationBar.swift */; };
@@ -650,6 +652,8 @@
 		3D63E176235F03C40015B7D3 /* ZSSearchBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSearchBookViewModel.swift; sourceTree = "<group>"; };
 		3D63E178235F14BF0015B7D3 /* ZSSearchHotwords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSearchHotwords.swift; sourceTree = "<group>"; };
 		3D63E17A235F18F40015B7D3 /* ZSHotWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHotWord.swift; sourceTree = "<group>"; };
+		3D63E18E23603CD80015B7D3 /* ZSSearchRecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSearchRecommendView.swift; sourceTree = "<group>"; };
+		3D63E190236043250015B7D3 /* ZSHeaderSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHeaderSearch.swift; sourceTree = "<group>"; };
 		3D65504A219577DB0064BA0C /* ZSMultiplePayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSMultiplePayView.swift; sourceTree = "<group>"; };
 		3D65504C21957B410064BA0C /* ZSChapterSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSChapterSelectView.swift; sourceTree = "<group>"; };
 		3D82F9EA22C9DD5D00F035CB /* ZSMineNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSMineNavigationBar.swift; sourceTree = "<group>"; };
@@ -1446,10 +1450,12 @@
 				3D63E16E235EF9E60015B7D3 /* ZSSearchResultView.swift */,
 				3D63E172235F021F0015B7D3 /* ZSHeaderSearchCell.swift */,
 				3D63E174235F02670015B7D3 /* ZSSearchHotView.swift */,
+				3D63E18E23603CD80015B7D3 /* ZSSearchRecommendView.swift */,
 				3D63E170235EFAE70015B7D3 /* ZSTopSearchBar.swift */,
 				3D63E176235F03C40015B7D3 /* ZSSearchBookViewModel.swift */,
 				3D63E178235F14BF0015B7D3 /* ZSSearchHotwords.swift */,
 				3D63E17A235F18F40015B7D3 /* ZSHotWord.swift */,
+				3D63E190236043250015B7D3 /* ZSHeaderSearch.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3531,6 +3537,7 @@
 				3DBC089722CB78DB0004B3F4 /* ZSCommunityViewModel.swift in Sources */,
 				B2840F3422C85B75009C9116 /* ZSBookShelfViewModel.swift in Sources */,
 				B2683CF722C8FE4E00FE9CF0 /* ZSWebBIHandler.swift in Sources */,
+				3D63E18F23603CD80015B7D3 /* ZSSearchRecommendView.swift in Sources */,
 				B2B4BBF81E7EA4AB000CC201 /* UIImageView+zhuishu.swift in Sources */,
 				B2B4BBFB1E7EA4AB000CC201 /* UITableView+QSGeneric.swift in Sources */,
 				B2ACA02221217DFB0032305E /* ZSRankService.swift in Sources */,
@@ -3725,6 +3732,7 @@
 				B29CFB7D217B35EA0006F294 /* ZSUserBind.swift in Sources */,
 				3DE393DB219D514100890488 /* ZSBookBoughtViewModel.swift in Sources */,
 				B22AC4551E9F1E8F008625E6 /* QSRankViewController.swift in Sources */,
+				3D63E191236043250015B7D3 /* ZSHeaderSearch.swift in Sources */,
 				B252D499210EF3960091858E /* DAVResponse.m in Sources */,
 				B2C0DF3320D4CB350057DC84 /* QSReaderViewFlowLayout.swift in Sources */,
 				3D28402A2284267C009463A3 /* ZSDetailInfoCell.swift in Sources */,
