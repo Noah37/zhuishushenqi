@@ -53,6 +53,7 @@ class ZSHeaderSearchCell: UITableViewCell {
     }
 
     private func reloadData() {
+        removeOtherSubview()
         switch self.type {
         case .hot:
             showHotView()
@@ -64,12 +65,21 @@ class ZSHeaderSearchCell: UITableViewCell {
     }
     
     private func showHotView() {
-        let hotView = ZSSearchHotView(frame: .zero)
-        
+        let hotView = ZSSearchHotView(frame: CGRect(x: 0, y: 55, width: self.contentView.bounds.width, height: (model?.height ?? 0) - 55))
+        hotView.cellsFrame = model?.items as! [ZSSearchHotwords]
+        self.contentView.addSubview(hotView)
     }
     
     private func showRecommendView() {
         
+    }
+    
+    private func removeOtherSubview() {
+        for subview in self.contentView.subviews {
+            if !subview.isKind(of: ZSHeaderSearchTopView.self) {
+                subview.removeFromSuperview()
+            }
+        }
     }
 }
 

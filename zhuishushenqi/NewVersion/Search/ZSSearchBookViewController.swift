@@ -93,11 +93,11 @@ extension ZSSearchBookViewController:UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.searchHotwords.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = self.viewModel.searchHotwords[indexPath.row]
+        
         
         return 100
     }

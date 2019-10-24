@@ -23,6 +23,21 @@ class ZSSearchBookViewModel {
         }
     }
     
+    func height(for row:Int) ->CGFloat {
+        if row == 0 {
+            var marginX:CGFloat = 20
+            var marginY:CGFloat = 20
+            var spaceX:CGFloat = 15
+            var spaceY:CGFloat = 10
+            var index:Int = 0
+            for hotword in searchHotwords {
+                
+                index += 1
+            }
+        }
+        return 100
+    }
+    
     func request() {
         requestSearchHotwords { [weak self] in
             self?.reloadBlock()
