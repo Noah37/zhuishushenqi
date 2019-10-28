@@ -81,7 +81,7 @@ extension ZSSearchInfoViewController:UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.qs_dequeueReusableCell(UITableViewCell.self)
         cell?.selectionStyle = .none
-        if let dict = self.model?.chaptersModel as? [String:Any] {
+        if let dict = self.model?.chaptersModel[indexPath.row] as? [String:Any] {
             cell?.textLabel?.text = dict["chapterName"] as? String
         }
         return cell!
