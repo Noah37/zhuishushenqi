@@ -7,117 +7,108 @@
 //
 
 import UIKit
-import MJRefresh
 
-class ZSSearchBookViewController: BaseViewController {
+class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
     
     var viewModel = ZSSearchBookViewModel()
     
     lazy var topBar:ZSTopSearchBar = {
         let bar = ZSTopSearchBar(frame: .zero)
+        bar.delegate = self
         return bar
     }()
     
-    lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.sectionHeaderHeight = 0.01
-        tableView.sectionFooterHeight = 0.01
-        if #available(iOS 11, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
+    lazy var bookView:ZSSearchBookView = {
+        let view = ZSSearchBookView(frame: .zero)
+        view.viewModel = self.viewModel
+        view.clickHandler = { [weak self] model in
+            self?.searchHotClick(model: model)
         }
-        tableView.qs_registerCellClass(ZSHeaderSearchCell.self)
-        let blurEffect = UIBlurEffect(style: .extraLight)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        tableView.backgroundView = blurEffectView
-        return tableView
+        return view
+    }()
+    
+    lazy var resultView:ZSSearchResultView = {
+        let view = ZSSearchResultView(frame: .zero)
+        view.resultHandler = { [weak self] model in
+            self?.resultClick(model: model)
+        }
+        return view
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        observe()
+        
         setupSubviews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     func setupSubviews() {
         view.addSubview(topBar)
-        view.addSubview(tableView)
+        view.addSubview(bookView)
+        view.addSubview(resultView)
         topBar.snp.remakeConstraints { (make) in
             make.left.right.top.equalToSuperview()
-            make.height.equalTo(kNavgationBarHeight)
+            make.height.equalTo(kNavgationBarHeight + 22)
         }
-        tableView.snp.remakeConstraints { (make) in
+        bookView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(self.topBar.snp_bottom)
-            make.height.equalTo(ScreenHeight - kNavgationBarHeight - kTabbarBlankHeight - FOOT_BAR_Height)
+            make.height.equalTo(ScreenHeight - kNavgationBarHeight - 22)
         }
-        let mj_header = ZSRefreshTextHeader(refreshingTarget: self, refreshingAction: #selector(refreshAction))
-        mj_header?.endRefreshingCompletionBlock = { [weak mj_header] in
-            mj_header?.changeText()
+        resultView.snp.remakeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(self.topBar.snp_bottom)
+            make.height.equalTo(ScreenHeight - kNavgationBarHeight - 22)
         }
-        tableView.mj_header = mj_header
-        mj_header?.beginRefreshing()
-        
-        let mj_footer = MJRefreshAutoStateFooter(refreshingTarget: self, refreshingAction: #selector(loadAction))
-        mj_footer?.isAutomaticallyRefresh = false
-        tableView.mj_footer = mj_footer
+        resultView.isHidden = true
     }
     
-    @objc
-    private func refreshAction() {
-        
+    func searchHotClick(model:ZSSearchHotwords) {
+        topBar.textfield.text = model.word
+        request(text: model.word)
     }
     
-    @objc
-    private func loadAction() {
-        
+    func resultClick(model:AikanParserModel) {
+        let infoVC = ZSSearchInfoViewController()
+        infoVC.model = model
+        self.navigationController?.pushViewController(infoVC, animated: true)
     }
     
-    private func observe() {
-        self.viewModel.reloadBlock = {
-            DispatchQueue.main.async {
-                self.tableView.mj_header.endRefreshing()
-                self.tableView.mj_footer.endRefreshing()
-                self.tableView.reloadData()
-            }
+    func request(text:String) {
+        viewModel.startRequestBooks()
+        viewModel.request(text: text) { [weak self] (book) in
+            self?.resultView.isHidden = false
+            self?.resultView.addBook(book: book)
         }
     }
-
-}
-
-extension ZSSearchBookViewController:UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        
-        return 100
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.qs_dequeueReusableCell(ZSHeaderSearchCell.self)
-        cell?.selectionStyle = .none
-
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //MARK: - ZSTopSearchBarProtocol
+    func zsTopSearchBar(topSearchBar: ZSTopSearchBar, searchTextFieldShouldBeginEditing text: String) {
         
     }
+    
+    func zsTopSearchBar(topSearchBar: ZSTopSearchBar, searchTextFieldEditChanged text: String) {
+        if text.length == 0 {
+            self.resultView.isHidden = true
+            self.viewModel.stopRequestBooks()
+            self.resultView.clearBooks()
+            self.view.endEditing(true)
+        }
+    }
+    
+    func zsTopSearchBar(topSearchBar: ZSTopSearchBar, searchTextFieldReturn text: String) {
+        if text.length > 0 {
+            self.view.endEditing(true)
+            request(text: text)
+        }
+    }
+    
+    func zsTopSearchBarCancelButtonClick(topSearchBar: ZSTopSearchBar) {
+        self.navigationController?.popViewController(animated: false)
+    }
+
 }

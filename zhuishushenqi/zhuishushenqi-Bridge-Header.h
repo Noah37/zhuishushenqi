@@ -35,5 +35,7 @@
 #import "ZSDBManager.h"
 #import "XMReqMgr.h"
 #import "XMSDKPlayer.h"
+#import "AikanParserModel.h"
+#import "AikanHtmlParser.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */

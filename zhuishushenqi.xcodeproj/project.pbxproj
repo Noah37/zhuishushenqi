@@ -173,6 +173,27 @@
 		B20D74091EED7D250034516F /* QSIntroduceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B20D74071EED7D250034516F /* QSIntroduceCell.xib */; };
 		B20D74161EED83690034516F /* QSLastIntroduceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20D74141EED83690034516F /* QSLastIntroduceCell.swift */; };
 		B20D74171EED83690034516F /* QSLastIntroduceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B20D74151EED83690034516F /* QSLastIntroduceCell.xib */; };
+		B21C732B2365774B00E9D148 /* ZSSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21C732A2365774B00E9D148 /* ZSSearchResultCell.swift */; };
+		B21C735123657ACF00E9D148 /* string_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C732E23657ACE00E9D148 /* string_buffer.c */; };
+		B21C735223657ACF00E9D148 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C733123657ACE00E9D148 /* util.c */; };
+		B21C735323657ACF00E9D148 /* char_ref.rl in Resources */ = {isa = PBXBuildFile; fileRef = B21C733223657ACE00E9D148 /* char_ref.rl */; };
+		B21C735423657ACF00E9D148 /* vector.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C733523657ACE00E9D148 /* vector.c */; };
+		B21C735523657ACF00E9D148 /* attribute.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C733623657ACE00E9D148 /* attribute.c */; };
+		B21C735623657ACF00E9D148 /* char_ref.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C733723657ACE00E9D148 /* char_ref.c */; };
+		B21C735723657ACF00E9D148 /* utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C733923657ACE00E9D148 /* utf8.c */; };
+		B21C735823657ACF00E9D148 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C733F23657ACE00E9D148 /* error.c */; };
+		B21C735923657ACF00E9D148 /* tag.in in Resources */ = {isa = PBXBuildFile; fileRef = B21C734023657ACE00E9D148 /* tag.in */; };
+		B21C735A23657ACF00E9D148 /* tag.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C734223657ACE00E9D148 /* tag.c */; };
+		B21C735B23657ACF00E9D148 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C734623657ACE00E9D148 /* parser.c */; };
+		B21C735C23657ACF00E9D148 /* tokenizer.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C734A23657ACE00E9D148 /* tokenizer.c */; };
+		B21C735D23657ACF00E9D148 /* string_piece.c in Sources */ = {isa = PBXBuildFile; fileRef = B21C734B23657ACE00E9D148 /* string_piece.c */; };
+		B21C735E23657ACF00E9D148 /* OCGumbo+Query.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C734F23657ACE00E9D148 /* OCGumbo+Query.m */; };
+		B21C735F23657ACF00E9D148 /* OCGumbo.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C735023657ACE00E9D148 /* OCGumbo.m */; };
+		B21C736223657B1200E9D148 /* AikanParserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C736023657B1100E9D148 /* AikanParserModel.m */; };
+		B21C736523657B3F00E9D148 /* AikanHtmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C736423657B3F00E9D148 /* AikanHtmlParser.m */; };
+		B21C736723657E1400E9D148 /* HtmlParserModelData.dat in Resources */ = {isa = PBXBuildFile; fileRef = B21C736623657E1400E9D148 /* HtmlParserModelData.dat */; };
+		B21C736923672D6400E9D148 /* ZSSearchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21C736823672D6400E9D148 /* ZSSearchInfoViewController.swift */; };
+		B21C736B2367304800E9D148 /* ZSBookInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21C736A2367304800E9D148 /* ZSBookInfoHeaderView.swift */; };
 		B22182B91DA40540002458D2 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B22182B81DA40540002458D2 /* CoreText.framework */; };
 		B22182BB1DA40548002458D2 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B22182BA1DA40548002458D2 /* CoreFoundation.framework */; };
 		B22182BD1DA40550002458D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B22182BC1DA40550002458D2 /* CoreGraphics.framework */; };
@@ -822,6 +843,49 @@
 		B20D74071EED7D250034516F /* QSIntroduceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSIntroduceCell.xib; sourceTree = "<group>"; };
 		B20D74141EED83690034516F /* QSLastIntroduceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSLastIntroduceCell.swift; sourceTree = "<group>"; };
 		B20D74151EED83690034516F /* QSLastIntroduceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSLastIntroduceCell.xib; sourceTree = "<group>"; };
+		B21C732A2365774B00E9D148 /* ZSSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSearchResultCell.swift; sourceTree = "<group>"; };
+		B21C732E23657ACE00E9D148 /* string_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string_buffer.c; sourceTree = "<group>"; };
+		B21C732F23657ACE00E9D148 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		B21C733023657ACE00E9D148 /* tag_enum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tag_enum.h; sourceTree = "<group>"; };
+		B21C733123657ACE00E9D148 /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		B21C733223657ACE00E9D148 /* char_ref.rl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = char_ref.rl; sourceTree = "<group>"; };
+		B21C733323657ACE00E9D148 /* insertion_mode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = insertion_mode.h; sourceTree = "<group>"; };
+		B21C733423657ACE00E9D148 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
+		B21C733523657ACE00E9D148 /* vector.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vector.c; sourceTree = "<group>"; };
+		B21C733623657ACE00E9D148 /* attribute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = attribute.c; sourceTree = "<group>"; };
+		B21C733723657ACE00E9D148 /* char_ref.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = char_ref.c; sourceTree = "<group>"; };
+		B21C733823657ACE00E9D148 /* tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenizer.h; sourceTree = "<group>"; };
+		B21C733923657ACE00E9D148 /* utf8.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf8.c; sourceTree = "<group>"; };
+		B21C733A23657ACE00E9D148 /* string_piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_piece.h; sourceTree = "<group>"; };
+		B21C733B23657ACE00E9D148 /* tokenizer_states.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenizer_states.h; sourceTree = "<group>"; };
+		B21C733C23657ACE00E9D148 /* token_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = token_type.h; sourceTree = "<group>"; };
+		B21C733D23657ACE00E9D148 /* tag_gperf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tag_gperf.h; sourceTree = "<group>"; };
+		B21C733E23657ACE00E9D148 /* string_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_buffer.h; sourceTree = "<group>"; };
+		B21C733F23657ACE00E9D148 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		B21C734023657ACE00E9D148 /* tag.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tag.in; sourceTree = "<group>"; };
+		B21C734123657ACE00E9D148 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		B21C734223657ACE00E9D148 /* tag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tag.c; sourceTree = "<group>"; };
+		B21C734323657ACE00E9D148 /* char_ref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = char_ref.h; sourceTree = "<group>"; };
+		B21C734423657ACE00E9D148 /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
+		B21C734523657ACE00E9D148 /* attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = attribute.h; sourceTree = "<group>"; };
+		B21C734623657ACE00E9D148 /* parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; };
+		B21C734723657ACE00E9D148 /* tag_sizes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tag_sizes.h; sourceTree = "<group>"; };
+		B21C734823657ACE00E9D148 /* tag_strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tag_strings.h; sourceTree = "<group>"; };
+		B21C734923657ACE00E9D148 /* utf8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf8.h; sourceTree = "<group>"; };
+		B21C734A23657ACE00E9D148 /* tokenizer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tokenizer.c; sourceTree = "<group>"; };
+		B21C734B23657ACE00E9D148 /* string_piece.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string_piece.c; sourceTree = "<group>"; };
+		B21C734C23657ACE00E9D148 /* gumbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gumbo.h; sourceTree = "<group>"; };
+		B21C734D23657ACE00E9D148 /* OCGumbo+Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCGumbo+Query.h"; sourceTree = "<group>"; };
+		B21C734E23657ACE00E9D148 /* OCGumbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCGumbo.h; sourceTree = "<group>"; };
+		B21C734F23657ACE00E9D148 /* OCGumbo+Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCGumbo+Query.m"; sourceTree = "<group>"; };
+		B21C735023657ACE00E9D148 /* OCGumbo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCGumbo.m; sourceTree = "<group>"; };
+		B21C736023657B1100E9D148 /* AikanParserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AikanParserModel.m; sourceTree = "<group>"; };
+		B21C736123657B1200E9D148 /* AikanParserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AikanParserModel.h; sourceTree = "<group>"; };
+		B21C736323657B3F00E9D148 /* AikanHtmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AikanHtmlParser.h; sourceTree = "<group>"; };
+		B21C736423657B3F00E9D148 /* AikanHtmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AikanHtmlParser.m; sourceTree = "<group>"; };
+		B21C736623657E1400E9D148 /* HtmlParserModelData.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = HtmlParserModelData.dat; sourceTree = "<group>"; };
+		B21C736823672D6400E9D148 /* ZSSearchInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSearchInfoViewController.swift; sourceTree = "<group>"; };
+		B21C736A2367304800E9D148 /* ZSBookInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookInfoHeaderView.swift; sourceTree = "<group>"; };
 		B22182B81DA40540002458D2 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		B22182BA1DA40548002458D2 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		B22182BC1DA40550002458D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1446,16 +1510,24 @@
 			isa = PBXGroup;
 			children = (
 				3D63E16A235EF9550015B7D3 /* ZSSearchBookViewController.swift */,
+				B21C736823672D6400E9D148 /* ZSSearchInfoViewController.swift */,
 				3D63E16C235EF9B80015B7D3 /* ZSSearchBookView.swift */,
 				3D63E16E235EF9E60015B7D3 /* ZSSearchResultView.swift */,
 				3D63E172235F021F0015B7D3 /* ZSHeaderSearchCell.swift */,
+				B21C732A2365774B00E9D148 /* ZSSearchResultCell.swift */,
 				3D63E174235F02670015B7D3 /* ZSSearchHotView.swift */,
 				3D63E18E23603CD80015B7D3 /* ZSSearchRecommendView.swift */,
 				3D63E170235EFAE70015B7D3 /* ZSTopSearchBar.swift */,
+				B21C736A2367304800E9D148 /* ZSBookInfoHeaderView.swift */,
 				3D63E176235F03C40015B7D3 /* ZSSearchBookViewModel.swift */,
 				3D63E178235F14BF0015B7D3 /* ZSSearchHotwords.swift */,
 				3D63E17A235F18F40015B7D3 /* ZSHotWord.swift */,
 				3D63E190236043250015B7D3 /* ZSHeaderSearch.swift */,
+				B21C736123657B1200E9D148 /* AikanParserModel.h */,
+				B21C736023657B1100E9D148 /* AikanParserModel.m */,
+				B21C736323657B3F00E9D148 /* AikanHtmlParser.h */,
+				B21C736423657B3F00E9D148 /* AikanHtmlParser.m */,
+				B21C736623657E1400E9D148 /* HtmlParserModelData.dat */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1869,6 +1941,56 @@
 			path = NewVersion;
 			sourceTree = "<group>";
 		};
+		B21C732C23657ACE00E9D148 /* OCGumbo */ = {
+			isa = PBXGroup;
+			children = (
+				B21C732D23657ACE00E9D148 /* gumbo */,
+				B21C734D23657ACE00E9D148 /* OCGumbo+Query.h */,
+				B21C734E23657ACE00E9D148 /* OCGumbo.h */,
+				B21C734F23657ACE00E9D148 /* OCGumbo+Query.m */,
+				B21C735023657ACE00E9D148 /* OCGumbo.m */,
+			);
+			path = OCGumbo;
+			sourceTree = "<group>";
+		};
+		B21C732D23657ACE00E9D148 /* gumbo */ = {
+			isa = PBXGroup;
+			children = (
+				B21C732E23657ACE00E9D148 /* string_buffer.c */,
+				B21C732F23657ACE00E9D148 /* error.h */,
+				B21C733023657ACE00E9D148 /* tag_enum.h */,
+				B21C733123657ACE00E9D148 /* util.c */,
+				B21C733223657ACE00E9D148 /* char_ref.rl */,
+				B21C733323657ACE00E9D148 /* insertion_mode.h */,
+				B21C733423657ACE00E9D148 /* parser.h */,
+				B21C733523657ACE00E9D148 /* vector.c */,
+				B21C733623657ACE00E9D148 /* attribute.c */,
+				B21C733723657ACE00E9D148 /* char_ref.c */,
+				B21C733823657ACE00E9D148 /* tokenizer.h */,
+				B21C733923657ACE00E9D148 /* utf8.c */,
+				B21C733A23657ACE00E9D148 /* string_piece.h */,
+				B21C733B23657ACE00E9D148 /* tokenizer_states.h */,
+				B21C733C23657ACE00E9D148 /* token_type.h */,
+				B21C733D23657ACE00E9D148 /* tag_gperf.h */,
+				B21C733E23657ACE00E9D148 /* string_buffer.h */,
+				B21C733F23657ACE00E9D148 /* error.c */,
+				B21C734023657ACE00E9D148 /* tag.in */,
+				B21C734123657ACE00E9D148 /* util.h */,
+				B21C734223657ACE00E9D148 /* tag.c */,
+				B21C734323657ACE00E9D148 /* char_ref.h */,
+				B21C734423657ACE00E9D148 /* vector.h */,
+				B21C734523657ACE00E9D148 /* attribute.h */,
+				B21C734623657ACE00E9D148 /* parser.c */,
+				B21C734723657ACE00E9D148 /* tag_sizes.h */,
+				B21C734823657ACE00E9D148 /* tag_strings.h */,
+				B21C734923657ACE00E9D148 /* utf8.h */,
+				B21C734A23657ACE00E9D148 /* tokenizer.c */,
+				B21C734B23657ACE00E9D148 /* string_piece.c */,
+				B21C734C23657ACE00E9D148 /* gumbo.h */,
+			);
+			path = gumbo;
+			sourceTree = "<group>";
+		};
 		B22204961EE8FC45008E1902 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -2115,6 +2237,7 @@
 		B278AA9F1F396773000A0D55 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				B21C732C23657ACE00E9D148 /* OCGumbo */,
 				3DECC39722464C4E00EEB146 /* XimalayaSDK_iOS_5.5.1 */,
 				B2CA80E821797B9C007A3EE7 /* ThirdLoginSDK */,
 				B252D454210EF3960091858E /* CocoaHTTPServer */,
@@ -3139,9 +3262,11 @@
 				B2ACA06C212915AC0032305E /* ZSReviewsCell.xib in Resources */,
 				B2C0DF4C20D4CB350057DC84 /* BookCommentCell.xib in Resources */,
 				B2B4BBF01E7EA4AB000CC201 /* LaunchScreen.storyboard in Resources */,
+				B21C736723657E1400E9D148 /* HtmlParserModelData.dat in Resources */,
 				B2C0DF4520D4CB350057DC84 /* ChangeSourceCell.xib in Resources */,
 				B2EE7CF41F3BFC7B00BE997C /* Localizable.strings in Resources */,
 				B2C0DF7A20D4CB6D0057DC84 /* TXTReader.storyboard in Resources */,
+				B21C735923657ACF00E9D148 /* tag.in in Resources */,
 				B2B8A21722C70C07005527C8 /* mj_refresh_loading@2x.gif in Resources */,
 				B2C0DF4B20D4CB350057DC84 /* BookCommentViewCell.xib in Resources */,
 				B20D74171EED83690034516F /* QSLastIntroduceCell.xib in Resources */,
@@ -3154,6 +3279,7 @@
 				B2C0DF5820D4CB350057DC84 /* HotCommentCell.xib in Resources */,
 				B278AA991F396074000A0D55 /* ReadHistoryCell.xib in Resources */,
 				B252D4C3210F0B990091858E /* bg.png in Resources */,
+				B21C735323657ACF00E9D148 /* char_ref.rl in Resources */,
 				B252D4C7210F163C0091858E /* txt.jpeg in Resources */,
 				3D3AB5DE214E9A8300E9C246 /* fz-kt.ttf in Resources */,
 				B200D2001EEDB1FE003A42E3 /* QSIntroduceReadCell.xib in Resources */,
@@ -3307,6 +3433,7 @@
 				B286F01A202981DD0069565B /* NSObject+Extension.swift in Sources */,
 				B2683CF122C8FC4C00FE9CF0 /* ZSWebUserHandler.swift in Sources */,
 				B2C0DF5720D4CB350057DC84 /* CategoryTableViewCell.swift in Sources */,
+				B21C735B23657ACF00E9D148 /* parser.c in Sources */,
 				3D5280E020C8D2BB00252D67 /* ZSForumViewController.swift in Sources */,
 				B2B02E2B1EA8505200A6880A /* QSTopicDetailInteractor.swift in Sources */,
 				B255707F1F3A075600C35A34 /* Config.swift in Sources */,
@@ -3322,6 +3449,7 @@
 				B24B3F5620ECA04B0098ACE5 /* Array+ZSExtension.swift in Sources */,
 				B24B3F5020E8885A0098ACE5 /* ZSSearchHeaderView.swift in Sources */,
 				3DB1FDB12334A8BE00CAC8C0 /* ZSReaderCache.swift in Sources */,
+				B21C735623657ACF00E9D148 /* char_ref.c in Sources */,
 				3DDEEAFB214A8EC8003D12DB /* ZSFontService.swift in Sources */,
 				3D1F67A1217DBA1B000FB968 /* ZSLoginViewController.swift in Sources */,
 				3DD0842D2157604D008E3B4A /* ZSSpeechView.swift in Sources */,
@@ -3334,6 +3462,7 @@
 				B2C0DF1F20D4CB350057DC84 /* QSReaderBackgroundViewController.swift in Sources */,
 				B2683D0122D089FE00FE9CF0 /* ZSDynamicHeaderView.swift in Sources */,
 				B2FCAA8D1E9C85600064837C /* QSHistoryHeaderView.swift in Sources */,
+				B21C735A23657ACF00E9D148 /* tag.c in Sources */,
 				B2C0DF6A20D4CB350057DC84 /* QSCategoryInteractor.swift in Sources */,
 				B2C0DF5A20D4CB350057DC84 /* BookCommentCell.swift in Sources */,
 				B27D7E861F4BE04300866341 /* UICollectionView+QSExtension.swift in Sources */,
@@ -3400,6 +3529,7 @@
 				B2580E231E9B284900455AFE /* QSHotwords.swift in Sources */,
 				3DECC39222461E1900EEB146 /* ZSVoicePlayerView.swift in Sources */,
 				B2C0DF4820D4CB350057DC84 /* BookCommentViewCell.swift in Sources */,
+				B21C736523657B3F00E9D148 /* AikanHtmlParser.m in Sources */,
 				3DF2D27820EB5773004E73B6 /* ZSChapterInfo.swift in Sources */,
 				B2C0DF2420D4CB350057DC84 /* TXTReaderViewController.swift in Sources */,
 				3DDB6CB02130F4BC00E8698D /* CoreTextLinkData.m in Sources */,
@@ -3414,12 +3544,16 @@
 				3D82F9EB22C9DD5D00F035CB /* ZSMineNavigationBar.swift in Sources */,
 				3DDEEAFF214B5D3A003D12DB /* UIFont+Extension.swift in Sources */,
 				3D82F9EF22CA01A100F035CB /* ZSMineMenuItem.swift in Sources */,
+				B21C736223657B1200E9D148 /* AikanParserModel.m in Sources */,
 				B28FFC861EAFAED600C27FF9 /* NSString+Encode.m in Sources */,
 				3D55F4D922D47B3800AE0E2B /* ZSVerticalViewController.swift in Sources */,
 				B25CF00A22FAA732002ABE30 /* ZSPostReviewBook.swift in Sources */,
 				B2A7CDEB2184526D0067D25B /* ZSBookReviewViewController.swift in Sources */,
 				B25CEFF422F92AE4002ABE30 /* ZSForumPageViewController.swift in Sources */,
 				B255707E1F3A075600C35A34 /* AppDelegate.swift in Sources */,
+				B21C735C23657ACF00E9D148 /* tokenizer.c in Sources */,
+				B21C736B2367304800E9D148 /* ZSBookInfoHeaderView.swift in Sources */,
+				B21C735D23657ACF00E9D148 /* string_piece.c in Sources */,
 				B2B4BD771E7ECEE0000CC201 /* RootViewController+Subviews.swift in Sources */,
 				B2A02F7C20F337C20034DC64 /* ZSHorizonalMoveViewController.swift in Sources */,
 				B263ACDF1EE679830096CE80 /* HomeListViewCell.swift in Sources */,
@@ -3429,6 +3563,7 @@
 				B2C0DF2520D4CB350057DC84 /* PageViewController.swift in Sources */,
 				3DDB6CAC2130F4BC00E8698D /* CoreTextData.m in Sources */,
 				B25CEFEE22F9268A002ABE30 /* MarkupParser.swift in Sources */,
+				B21C735423657ACF00E9D148 /* vector.c in Sources */,
 				B2683D0722D17FCD00FE9CF0 /* ZSNotificationViewController.swift in Sources */,
 				B25D1AD9230293BB00B1F786 /* ZSForumPageCell.swift in Sources */,
 				B2CA942B1EB331DC00D60BF2 /* UIColor+Theme.swift in Sources */,
@@ -3460,6 +3595,7 @@
 				B252D495210EF3960091858E /* DDRange.m in Sources */,
 				B251F89C2030350E004AAF95 /* Dictionary+QSExtension.swift in Sources */,
 				B22AC4531E9F1CA8008625E6 /* ZSCatelogDetailViewModel.swift in Sources */,
+				B21C735E23657ACF00E9D148 /* OCGumbo+Query.m in Sources */,
 				B2B4BC101E7EA4AB000CC201 /* TopDetailCell.swift in Sources */,
 				3DECC3962246298300EEB146 /* ZSVoicePlayViewModel.swift in Sources */,
 				B2B4BC0F1E7EA4AB000CC201 /* RankingViewCell.swift in Sources */,
@@ -3521,6 +3657,7 @@
 				B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */,
 				B2662EBC21A7DAC5008AD5C6 /* ZSDBPropertyModel.m in Sources */,
 				3D5671FC2174CADD0049B2FF /* ZSBookCTLayoutModel.swift in Sources */,
+				B21C735123657ACF00E9D148 /* string_buffer.c in Sources */,
 				B2E072781F3AD99500C63347 /* Reader.swift in Sources */,
 				3D448E6122C501E90099B6E8 /* ZSMineViewController.swift in Sources */,
 				B2C0DF2720D4CB350057DC84 /* UpdateInfo.swift in Sources */,
@@ -3546,6 +3683,7 @@
 				B2B4BBF71E7EA4AB000CC201 /* String+QSExtension.swift in Sources */,
 				B24BED522301865400CF8C4D /* ZSForumComment.swift in Sources */,
 				3D850E0021E61E1800F23DDB /* ZSVoucherViewController.swift in Sources */,
+				B21C736923672D6400E9D148 /* ZSSearchInfoViewController.swift in Sources */,
 				3DDB6CAB2130F4BC00E8698D /* CTFrameParserConfig.m in Sources */,
 				B2C0DF2020D4CB350057DC84 /* QSTextReaderController.swift in Sources */,
 				B25CEFF122F9268A002ABE30 /* ZSTouchAnchorView.swift in Sources */,
@@ -3588,9 +3726,11 @@
 				B2B02E481EA8920F00A6880A /* ZSCategoryDetailViewController.swift in Sources */,
 				B2BCE0C42306530A00E52903 /* ZSForumPageTitleHeaderView.swift in Sources */,
 				B2683D1522D1CDA900FE9CF0 /* ZSMineViewModel.swift in Sources */,
+				B21C735523657ACF00E9D148 /* attribute.c in Sources */,
 				3DAC238E21E1D66A00E77891 /* ZSWebStoreViewController.swift in Sources */,
 				B2F778BC1EAF31DB004B4362 /* UITableView+FINAutomaticHeightCell.swift in Sources */,
 				B25EB93221949AF1000D3657 /* FBEncryptorAES.m in Sources */,
+				B21C732B2365774B00E9D148 /* ZSSearchResultCell.swift in Sources */,
 				3DDEEAF9214A8E3F003D12DB /* ZSFontViewController.swift in Sources */,
 				B25570891F3A96E500C35A34 /* BookManager.swift in Sources */,
 				3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */,
@@ -3622,6 +3762,7 @@
 				B28FFC921EB03EA300C27FF9 /* QSHomeDeleteBtn.swift in Sources */,
 				B252D49A210EF3960091858E /* PUTResponse.m in Sources */,
 				3D9325EE20B2E07F0049CDBF /* Value.swift in Sources */,
+				B21C735823657ACF00E9D148 /* error.c in Sources */,
 				B252D4E4211037380091858E /* ZSShelfViewController.swift in Sources */,
 				B2C0DF8120D4CC5A0057DC84 /* ZSBaseService.swift in Sources */,
 				B2B02E2D1EA8505200A6880A /* QSTopicDetailProtocols.swift in Sources */,
@@ -3691,6 +3832,7 @@
 				3DECC39422461E4900EEB146 /* ZSVoicePlayProgressView.swift in Sources */,
 				B2683D0522D0977C00FE9CF0 /* ZSFollowings.swift in Sources */,
 				3D2B4D0320EB616D008E3E81 /* ZSReaderViewController.swift in Sources */,
+				B21C735223657ACF00E9D148 /* util.c in Sources */,
 				B2683D0D22D1911900FE9CF0 /* ZSNotificationViewModel.swift in Sources */,
 				B2C0DF3720D4CB350057DC84 /* PageInfo.swift in Sources */,
 				B2B02E3D1EA891E700A6880A /* ZSDetailViewController.swift in Sources */,
@@ -3718,6 +3860,7 @@
 				B2C0DF6620D4CB350057DC84 /* QSCategoryPresenter.swift in Sources */,
 				B2A02F7E20F33A1A0034DC64 /* ZSHorizonalMoveCell.swift in Sources */,
 				B29CFB6F217ADA690006F294 /* ZSMyCell.swift in Sources */,
+				B21C735723657ACF00E9D148 /* utf8.c in Sources */,
 				B2683D1322D1C57800FE9CF0 /* ZSMineHeaderView.swift in Sources */,
 				3DDEEB02214B5D59003D12DB /* UIFont+ZSExtension.m in Sources */,
 				3D58635F20CE1C96002AD3CC /* ZSProtocol.swift in Sources */,
@@ -3740,6 +3883,7 @@
 				3DDB6CAE2130F4BC00E8698D /* UIView+frameAdjust.m in Sources */,
 				3D2B4D0720EB68AC008E3E81 /* ZSReaderProtocol.swift in Sources */,
 				3D865B55219B1975001294EB /* ZSChapterSelectModel.swift in Sources */,
+				B21C735F23657ACF00E9D148 /* OCGumbo.m in Sources */,
 				B252D48D210EF3960091858E /* HTTPConnection.m in Sources */,
 				B2C0DF1E20D4CB350057DC84 /* QSReaderViewController.swift in Sources */,
 				B278AB051F398926000A0D55 /* M80AttributedLabel.m in Sources */,

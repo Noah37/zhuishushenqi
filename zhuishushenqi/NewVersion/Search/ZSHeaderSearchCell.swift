@@ -15,15 +15,19 @@ enum ZSHeaderSearchType {
 
 class ZSHeaderSearchCell: UITableViewCell {
     
+    var clickHandler:ZSSearchHotHandler?
+    
     private var type:ZSHeaderSearchType = .hot { didSet { reloadData() } }
     
     private var model:ZSHeaderSearch?
     
     private var topView:ZSHeaderSearchTopView = ZSHeaderSearchTopView(frame: .zero)
     
+    private var hotView:ZSSearchHotView?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        contentView.addSubview(topView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,7 +48,7 @@ class ZSHeaderSearchCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.topView.frame = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: 55)
-        
+        hotView?.frame = CGRect(x: 0, y: 55, width: self.contentView.bounds.width, height: self.contentView.bounds.height - 55)
     }
     
     func configure(model:ZSHeaderSearch) {
@@ -65,8 +69,14 @@ class ZSHeaderSearchCell: UITableViewCell {
     }
     
     private func showHotView() {
-        let hotView = ZSSearchHotView(frame: CGRect(x: 0, y: 55, width: self.contentView.bounds.width, height: (model?.height ?? 0) - 55))
+        let hotView = ZSSearchHotView(frame: CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: (model?.height ?? 0)))
         hotView.cellsFrame = model?.items as! [ZSSearchHotwords]
+        hotView.clickHandler = { [unowned self] model in
+            self.clickHandler?(model)
+        }
+        self.hotView = hotView
+        topView.titleLabel.text = model?.headerTitle
+        topView.detailButton.setTitle(model?.headerDetail ?? "", for: .normal)
         self.contentView.addSubview(hotView)
     }
     

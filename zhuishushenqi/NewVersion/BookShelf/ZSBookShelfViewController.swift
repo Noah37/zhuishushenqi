@@ -181,7 +181,7 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
             navigationController?.pushViewController(webVC, animated: true)
             break
         case .search:
-            let searchVC = ZSSearchViewController()
+            let searchVC = ZSSearchBookViewController()
             searchVC.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(searchVC, animated: true)
             break

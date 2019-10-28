@@ -19,15 +19,16 @@ protocol ZSTopSearchBarProtocol:class {
 
 class ZSTopSearchBar: UIView, UITextFieldDelegate {
 
-    lazy var textfield:UITextField = {
-        let tf = UITextField(frame: CGRect.zero)
+    lazy var textfield:ZSTopSearchTextField = {
+        let tf = ZSTopSearchTextField(frame: CGRect.zero)
         tf.placeholder = "请输入书名、作者或者分类"
         tf.font = UIFont.systemFont(ofSize: 13)
         tf.textColor = UIColor.gray
         tf.backgroundColor = UIColor(red:0.92, green:0.92, blue:0.93, alpha:1.00)
-        tf.layer.cornerRadius = 5
+        tf.layer.cornerRadius = 10
         tf.layer.masksToBounds = true
         tf.delegate = self
+        tf.clearButtonMode = .always
         return tf
     }()
     
@@ -44,7 +45,7 @@ class ZSTopSearchBar: UIView, UITextFieldDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        backgroundColor = UIColor.white
         addSubview(self.textfield)
         addSubview(self.cancelButton)
     }
@@ -85,4 +86,16 @@ class ZSTopSearchBar: UIView, UITextFieldDelegate {
         return true
     }
     
+}
+
+class ZSTopSearchTextField:UITextField {
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.textRect(forBounds: bounds)
+        return CGRect(x: rect.origin.x + 10, y: rect.origin.y, width: rect.width, height: rect.height)
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.editingRect(forBounds: bounds)
+        return CGRect(x: rect.origin.x + 10, y: rect.origin.y, width: rect.width, height: rect.height)
+    }
 }

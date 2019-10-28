@@ -8,9 +8,13 @@
 
 import UIKit
 
+typealias ZSSearchHotHandler = (_ hotword:ZSSearchHotwords)->Void
+
 class ZSSearchHotView: UIView {
     
     var cellsFrame:[ZSSearchHotwords] = [] { didSet { reloadData() } }
+    
+    var clickHandler:ZSSearchHotHandler?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,30 +31,25 @@ class ZSSearchHotView: UIView {
     
     func reloadData() {
         removeAllSubviews()
-        let marginX:CGFloat = 20
-        let marginY:CGFloat = 15
-        let cellHeight:CGFloat = 28
-        let spaceX:CGFloat = 15
-        let spaceY:CGFloat = 20
-        var cellX = marginX
-        var cellY = marginY
-        var index = 0
-        for cell in cellsFrame {
-            let cellWidth = cell.word.qs_width(13, height: cellHeight/2)
-            let cell = ZSSearchHotCell(title: cell.word, maxSize: CGSize(width: cellWidth, height: cellHeight))
-            if (cellX + cellWidth + marginX + spaceX) > UIScreen.main.bounds.width {
-                cellY += (cellHeight + spaceY)
-                cellX = 0
-            } else if index != 0 {
-                cellX += spaceX
-            }
-            cell.frame = CGRect(x: cellX, y: cellY, width: cellWidth, height: cellHeight)
+        
+        for cellModel in cellsFrame {
+            let cell = ZSSearchHotCell(title: cellModel.word, maxSize: cellModel.frame.size)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+            cell.addGestureRecognizer(tap)
+            cell.frame = cellModel.frame
             addSubview(cell)
-            cellX += cellWidth
-            index += 1
         }
     }
     
+    @objc
+    private func tapAction(tap:UITapGestureRecognizer) {
+        for cellModel in cellsFrame {
+            if cellModel.frame.contains(tap.location(in: self)) {
+                clickHandler?(cellModel)
+                break
+            }
+        }
+    }
 }
 
 class ZSSearchHotCell: UIView {
@@ -60,6 +59,9 @@ class ZSSearchHotCell: UIView {
         lb.textColor = UIColor.gray
         lb.font = UIFont.systemFont(ofSize: 13)
         lb.textAlignment = .center
+        lb.layer.borderWidth = 0.3
+        lb.layer.borderColor = UIColor.gray.cgColor
+        lb.layer.cornerRadius = 14
         return lb
     }()
     
@@ -67,6 +69,7 @@ class ZSSearchHotCell: UIView {
         self.init()
         addSubview(self.titleLabel)
         self.titleLabel.text = title
+        self.titleLabel.frame = CGRect(x: 0, y: 0, width: maxSize.width, height: maxSize.height)
     }
     
     override func layoutSubviews() {
