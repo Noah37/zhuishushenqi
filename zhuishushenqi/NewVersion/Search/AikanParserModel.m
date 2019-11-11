@@ -76,4 +76,35 @@
 
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    AikanParserModel * model = [[AikanParserModel alloc] init];
+    model.books = self.books;
+    model.errDate = self.errDate;
+    model.name = self.name;
+    model.type = self.type;
+    model.enabled = self.enabled;
+    model.checked = self.checked;
+    model.searchUrl = self.searchUrl;
+    model.searchEncoding = self.searchEncoding;
+    model.host = self.host;
+    model.contentReplace = self.contentReplace;
+    model.contentRemove = self.contentRemove;
+    model.content = self.content;
+    model.chaptersReverse = self.chaptersReverse;
+    model.chapterUrl = self.chapterUrl;
+    model.chapterName = self.chapterName;
+    model.chapters = self.chapters;
+    model.detailBookIcon = self.detailBookIcon;
+    model.detailChaptersUrl = self.detailChaptersUrl;
+    model.bookLastChapterName = self.bookLastChapterName;
+    model.bookUpdateTime = self.bookUpdateTime;
+    model.bookUrl = self.bookUrl;
+    model.bookIcon = self.bookIcon;
+    model.bookDesc = self.bookDesc;
+    model.bookCategory = self.bookCategory;
+    model.bookAuthor = self.bookAuthor;
+    model.bookName = self.bookName;
+    return model;
+}
+
 @end

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AikanParserModel : NSObject<NSCoding>
+@interface AikanParserModel : NSObject<NSCoding, NSCopying>
 
 @property(retain, nonatomic) NSDate *errDate; // @synthesize errDate=_errDate;
 @property(copy, nonatomic) NSString *searchUrl; // @synthesize searchUrl=_searchUrl;

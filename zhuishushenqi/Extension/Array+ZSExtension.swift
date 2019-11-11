@@ -46,4 +46,10 @@ extension Collection where Index:Comparable {
     }
 }
 
+extension Array where Element:NSCopying {
+    var copy:[Element] {
+        return self.map { $0.copy(with: nil) as! Element };
+    }
+}
+
 

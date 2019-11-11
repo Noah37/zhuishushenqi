@@ -12,11 +12,14 @@ class ZSSettingViewController: BaseViewController {
     
     var tableView:UITableView!
     
+    var menu:[ZSMineMenuItem] = []
+    
     var viewModel:ZSSettingViewModel = ZSSettingViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupMenu()
         setupSubviews()
     }
     
@@ -30,12 +33,17 @@ class ZSSettingViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setupMenu() {
+        let source = ZSMineMenuItem(type: .account, disclosureType: .controllerWithTitle,cellType: .indicator, isSwitchOn: false, title: "书源设置", icon: "personal_icon_account_24_24_24x24_", detailTitle: nil, disclosureText: nil)
+        menu.append(source)
+    }
+    
     func setupSubviews(){
         title = "设置"
         tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.qs_registerCellClass(UITableViewCell.self)
+        tableView.qs_registerCellClass(ZSDetailButtonCell.self)
         tableView.qs_registerHeaderFooterClass(ZSMyFooterView.self)
         view.addSubview(tableView)
     }
@@ -47,11 +55,23 @@ extension ZSSettingViewController:UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return menu.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.qs_dequeueReusableCell(UITableViewCell.self)
+        let cell = tableView.qs_dequeueReusableCell(ZSDetailButtonCell.self)
+        let item = menu[indexPath.row]
+        cell?.type = item.cellType
+        cell?.configure(title: item.title ?? "", icon: item.icon ?? "", detail: item.detailTitle, detailButtonText: item.disclosureText)
+        cell?.detailHandler = {
+            
+        }
+        cell?.detailTextHandler = {
+            
+        }
+        cell?.switchHandler = { isOn in
+            
+        }
         return cell!
     }
     
@@ -89,5 +109,18 @@ extension ZSSettingViewController:UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = menu[indexPath.row]
+        switch item.type {
+        case .account:
+            let addSourceVC = ZSSourcesViewController()
+            addSourceVC.title = item.title
+            self.navigationController?.pushViewController(addSourceVC, animated: true)
+            break
+        default:
+            break
+        }
     }
 }
