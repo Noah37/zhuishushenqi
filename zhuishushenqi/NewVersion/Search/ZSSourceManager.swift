@@ -26,8 +26,14 @@ class ZSSourceManager {
         }
     }
     
+    private func save() {
+        let filePath = Bundle(for: ZSSourceManager.self).path(forResource: "HtmlParserModelData_edit.dat", ofType: nil) ?? ""
+        NSKeyedArchiver.archiveRootObject(self.sources, toFile: filePath)
+    }
+    
     func add(source:AikanParserModel) {
         sources.append(source)
+        save()
     }
     
     func modify(source:AikanParserModel) {

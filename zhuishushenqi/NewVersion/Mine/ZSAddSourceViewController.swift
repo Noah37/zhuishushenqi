@@ -165,6 +165,17 @@ class ZSAddSourceViewController: BaseViewController {
         super.viewDidLoad()
 
         self.title = "添加来源"
+        
+        setupSubviews()
+        setupNavItem()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        scrollView.contentSize = CGSize(width: self.view.bounds.width, height: 18 * 50 + 16*10 + kNavgationBarHeight + 20)
+    }
+    
+    private func setupSubviews() {
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -172,7 +183,7 @@ class ZSAddSourceViewController: BaseViewController {
         scrollView.addSubview(self.booksTF)
         booksTF.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(20)
-            make.top.equalTo(kNavgationBarHeight + 20)
+            make.top.equalTo(20)
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(50)
         }
@@ -295,8 +306,36 @@ class ZSAddSourceViewController: BaseViewController {
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.contentSize = CGSize(width: self.view.bounds.width, height: 18 * 50 + 16*10 + kNavgationBarHeight + 20)
-
+    }
+    
+    private func setupNavItem() {
+        let addItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(addAction))
+        self.navigationItem.rightBarButtonItem = addItem
+    }
+    
+    @objc
+    private func addAction() {
+        // save
+        let model = AikanParserModel()
+        model.books = booksTF.text
+        model.bookName = bookNameTF.text
+        model.bookAuthor = bookAuthorTF.text
+        model.bookCategory = bookCategoryTF.text
+        model.bookDesc = bookDescTF.text
+        model.bookIcon = bookIconTF.text
+        model.bookUrl = bookUrlTF.text
+        model.bookUpdateTime = bookUpdateTimeTF.text
+        model.bookLastChapterName = bookLastChapterNameTF.text
+        model.detailChaptersUrl = detailChaptersUrlTF.text
+        model.detailBookIcon = detailBookIconTF.text
+        model.chapters = chaptersTF.text
+        model.chapterName = chapterNameTF.text
+        model.chapterUrl = chapterUrlTF.text
+        model.content = contentTF.text
+        model.host = hostTF.text
+        model.name = nameTF.text
+        model.searchUrl = searchUrlTF.text
+        ZSSourceManager.share.add(source: model)
     }
     
 }

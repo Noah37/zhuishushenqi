@@ -18,6 +18,11 @@ class ZSSourcesViewController: ZSBaseTableViewController {
         setupNavBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
+    }
+    
     private func setupNavBar() {
         let addItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAction))
         self.navigationItem.rightBarButtonItem = addItem
