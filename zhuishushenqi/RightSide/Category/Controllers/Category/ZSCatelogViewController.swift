@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSNetwork
 
 class ZSCatelogViewController:BaseViewController {
     

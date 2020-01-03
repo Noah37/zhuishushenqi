@@ -8,7 +8,6 @@
 
 import UIKit
 import HandyJSON
-import QSNetwork
 
 class ZSLoginService {
     

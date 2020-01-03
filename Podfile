@@ -1,5 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
-#source 'https://github.com/sinaweibosdk/weibo_ios_sdk.git'
+source 'https://github.com/sinaweibosdk/weibo_ios_sdk.git'
 
 # 对于Swift应用来说下面两句是必须的
 platform :ios, '10.0'
@@ -22,8 +22,9 @@ pod 'CocoaAsyncSocket'
 pod 'CocoaLumberjack', '3.4.2'
 pod 'YYCategories'
 pod 'FMDB'
-#pod 'WechatOpenSDK'
+pod 'WechatOpenSDK', '1.8.3'
 #pod 'Weibo_SDK'
+pod 'FLEX', :configurations => ['Debug']
 
 # swift libraries
 pod 'Alamofire'
@@ -33,7 +34,7 @@ pod 'Kingfisher'
 pod 'PKHUD'
 pod 'SnapKit', '5.0.0'
 pod 'SQLite.swift'
-pod 'Then'
+#pod 'Then'
 pod 'Zip'
 pod 'RxAlamofire'
 pod 'RxCocoa'

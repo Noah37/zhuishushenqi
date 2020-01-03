@@ -8,6 +8,7 @@ PODS:
   - CocoaLumberjack/Default (3.4.2)
   - CocoaLumberjack/Extensions (3.4.2):
     - CocoaLumberjack/Default
+  - FLEX (3.1.2)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -31,7 +32,7 @@ PODS:
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
   - SQLite.swift/standard (0.12.2)
-  - Then (2.5.0)
+  - WechatOpenSDK (1.8.3)
   - YYCategories (1.0.4):
     - YYCategories/no-arc (= 1.0.4)
   - YYCategories/no-arc (1.0.4)
@@ -59,6 +60,7 @@ DEPENDENCIES:
   - Cache
   - CocoaAsyncSocket
   - CocoaLumberjack (= 3.4.2)
+  - FLEX
   - FMDB
   - HandyJSON
   - Kingfisher
@@ -69,7 +71,7 @@ DEPENDENCIES:
   - RxCocoa
   - SnapKit (= 5.0.0)
   - SQLite.swift
-  - Then
+  - WechatOpenSDK (= 1.8.3)
   - YYCategories
   - YYImage
   - YYModel
@@ -85,6 +87,7 @@ SPEC REPOS:
     - Cache
     - CocoaAsyncSocket
     - CocoaLumberjack
+    - FLEX
     - FMDB
     - HandyJSON
     - Kingfisher
@@ -97,7 +100,7 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - SQLite.swift
-    - Then
+    - WechatOpenSDK
     - YYCategories
     - YYImage
     - YYModel
@@ -117,6 +120,7 @@ SPEC CHECKSUMS:
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
+  FLEX: e13e805fc3eec8732cc227d1f7508770d46e9587
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   HandyJSON: 992f2d661716d6a91de82d0056927bc7813b5770
   Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
@@ -129,7 +133,7 @@ SPEC CHECKSUMS:
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
-  Then: 0157115e883545c77967b452fe74a1d25fb796e1
+  WechatOpenSDK: 3117412f8aafde4758cac1e8d20b93c67cafcfef
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
@@ -139,6 +143,6 @@ SPEC CHECKSUMS:
   ZSAppConfig: d6b5114b339aa24471554ced706e9df2f25d7041
   ZSExtension: 064094b6a1125306b59c3f69dcc3d40e85ecf90a
 
-PODFILE CHECKSUM: 4f938822b5dcc2d24d4d5172c900b504de2d4349
+PODFILE CHECKSUM: db9bcce3f0f800913ae3f8327ee2b41a5f3dfeab
 
 COCOAPODS: 1.6.1

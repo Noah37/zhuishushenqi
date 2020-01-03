@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSNetwork
 
 typealias SelectAction = (_ index:Int,_ resources:[ResourceModel]?)->Void
 
@@ -56,9 +55,9 @@ class ChangeSourceViewController: BaseViewController ,UITableViewDataSource,UITa
 //        http://api.zhuishushenqi.com/toc?view=summary&book=57e0dac5de88e4e83c6c5297
         let urlString = "\(BASEURL)/toc"
         let param = ["view":"summary","book":"\(id)"]
-        QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
-            QSLog(response.json)
-            if let resources:[Any] = response.json as? [Any]  {
+        zs_get(urlString, parameters: param) { (response) in
+            QSLog(response)
+            if let resources:[Any] = response as? [Any]  {
                 if let models = [ResourceModel].deserialize(from: resources) as? [ResourceModel] {
                     self.viewModel.book?.resources = models
                 }

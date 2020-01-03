@@ -15,6 +15,9 @@ class ZSSearchBookView: UIView {
     
     var clickHandler:ZSSearchHotHandler?
     
+    var recClickHandler:ZSSearchRecHandler?
+
+    
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
@@ -25,6 +28,7 @@ class ZSSearchBookView: UIView {
             tableView.contentInsetAdjustmentBehavior = .never
         }
         tableView.qs_registerCellClass(ZSHeaderSearchCell.self)
+        tableView.qs_registerCellClass(UITableViewCell.self)
         let blurEffect = UIBlurEffect(style: .extraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         tableView.backgroundView = blurEffectView
@@ -40,21 +44,11 @@ class ZSSearchBookView: UIView {
         }
         tableView.mj_header = mj_header
         mj_header?.beginRefreshing()
-        
-        let mj_footer = MJRefreshAutoStateFooter(refreshingTarget: self, refreshingAction: #selector(loadAction))
-        mj_footer?.isAutomaticallyRefresh = false
-        tableView.mj_footer = mj_footer
-        
     }
     
     @objc
     private func refreshAction() {
         viewModel?.request()
-    }
-    
-    @objc
-    private func loadAction() {
-        
     }
     
     @objc
@@ -68,7 +62,6 @@ class ZSSearchBookView: UIView {
         self.viewModel?.reloadBlock = {
             DispatchQueue.main.async {
                 self.tableView.mj_header.endRefreshing()
-                self.tableView.mj_footer.endRefreshing()
                 self.tableView.reloadData()
             }
         }
@@ -87,10 +80,16 @@ class ZSSearchBookView: UIView {
 
 extension ZSSearchBookView:UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        
+        return viewModel?.numberOfSections() ?? 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let model = viewModel?.model(for: section) {
+            if model.type == .history {
+                return model.items.count
+            }
+        }
         return 1
     }
     
@@ -108,18 +107,39 @@ extension ZSSearchBookView:UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.qs_dequeueReusableCell(ZSHeaderSearchCell.self)
-        cell?.selectionStyle = .none
-        if let model = viewModel?.model(for: indexPath.row) {
-            cell?.configure(model: model)
-        }
-        cell?.clickHandler = { [weak self] model in
-            self?.clickHandler?(model)
+        let cell = tableView.qs_dequeueReusableCell(UITableViewCell.self)
+        if let model = viewModel?.model(for: indexPath.section) {
+            if model.type == .hot ||  model.type == .recommend {
+                let cell = tableView.qs_dequeueReusableCell(ZSHeaderSearchCell.self)
+                cell?.selectionStyle = .none
+                cell?.configure(model: model)
+                cell?.clickHandler = { [weak self] model in
+                    self?.viewModel?.wordClick(word: model.word)
+                    self?.clickHandler?(model)
+                }
+                cell?.recHandler = { [weak self] model in
+                    self?.viewModel?.wordClick(word: model.word)
+                    self?.recClickHandler?(model)
+                }
+                return cell!
+            } else {
+                if indexPath.row < model.items.count {
+                    if let history = model.items[indexPath.row] as? ZSSearchHistory {
+                        cell?.textLabel?.text = history.word
+                    }
+                }
+            }
         }
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let model = viewModel?.model(for: indexPath.section) {
+            if model.type == .history {
+                if let history = model.items[indexPath.row] as? ZSSearchHistory {
+                    viewModel?.wordClick(word: history.word)
+                }
+            }
+        }
     }
 }

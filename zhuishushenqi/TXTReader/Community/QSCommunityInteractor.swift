@@ -9,7 +9,6 @@
 //
 
 import UIKit
-import QSNetwork
 
 class QSCommunityInteractor: QSCommunityInteractorProtocol {
 
@@ -32,8 +31,8 @@ class QSCommunityInteractor: QSCommunityInteractorProtocol {
     func request(){
 //        http://api.zhuishushenqi.com/post/by-book?book=51d11e782de6405c45000068&sort=updated&type=normal,vote&start=0&limit=20
         let url = "\(BASEURL)/post/by-book?book=\(model._id)&sort=updated&type=normal,vote&start=\(postStart)&limit=20"
-        QSNetwork.request(url) { (response) in
-            if let json = response.json?["posts"] as? NSArray {
+        zs_get(url) { (response) in
+            if let json = response?["posts"] as? NSArray {
                 if let posts = [BookComment].deserialize(from: json as? [Any]) as? [BookComment] {
                     if self.postStart == 0{
                         self.posts = posts
@@ -71,8 +70,8 @@ class QSCommunityInteractor: QSCommunityInteractorProtocol {
     func requestComments(){
 //        http://api.zhuishushenqi.com/post/review/by-book?book=51d11e782de6405c45000068&sort=updated&start=0&limit=20
         let url = "\(BASEURL)/post/review/by-book?book=\(model._id)&sort=updated&start=\(commentStart)&limit=20"
-        QSNetwork.request(url) { (response) in
-            if let json = response.json?["reviews"] as? NSArray {
+        zs_get(url) { (response) in
+            if let json = response?["reviews"] as? NSArray {
                 
                 if let posts = [BookComment].deserialize(from: json as? [Any]) as? [BookComment] {
                     if self.commentStart == 0{

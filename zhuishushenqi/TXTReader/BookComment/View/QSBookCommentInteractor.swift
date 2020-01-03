@@ -9,7 +9,6 @@
 //
 
 import UIKit
-import QSNetwork
 import ZSAPI
 
 class QSBookCommentInteractor: QSBookCommentInteractorProtocol {
@@ -28,8 +27,8 @@ class QSBookCommentInteractor: QSBookCommentInteractorProtocol {
     
     func requestHot(){
         let best = "\(BASEURL)/post/\(model._id)/comment/best"
-        QSNetwork.request(best) { (response) in
-            if let books = response.json?.object(forKey: "comments")  {
+        zs_get(best) { (response) in
+            if let books = response?["comments"] {
                 if let magicComments = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
                     self.hotComments = magicComments
                     self.output?.fetchHotSuccess(hots: self.hotComments)
@@ -44,8 +43,8 @@ class QSBookCommentInteractor: QSBookCommentInteractorProtocol {
     
     func requestNormal(){
         let comment = getCommentURL(type: .normal)
-        QSNetwork.request(comment, method: HTTPMethodType.get, parameters: self.param, headers: nil) { (response) in
-            if let books = response.json?.object(forKey: "comments")  {
+        zs_get(comment, parameters: self.param) { (response) in
+            if let books = response?["comments"]  {
                 
                 if let models = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
                     self.normalComments.append(contentsOf: models)
@@ -62,9 +61,9 @@ class QSBookCommentInteractor: QSBookCommentInteractorProtocol {
 
     func requestDetail(){
         let urlString = self.getDetailURL(type: .normal)
-        QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
-            QSLog(response.json)
-            if let reader = response.json?.object(forKey: "review") {
+        zs_get(urlString, parameters: nil) { (response) in
+            QSLog(response)
+            if let reader = response?["review"] {
                 if let detail = BookComment.deserialize(from: reader as? NSDictionary) {
                     self.output?.fetchDetailSuccess(detail: detail)
                 }else{

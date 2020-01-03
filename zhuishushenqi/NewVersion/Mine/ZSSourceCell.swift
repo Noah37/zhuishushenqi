@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ZSSourceCellDelegate:class {
-    func cellDidClickCheck(cell:ZSSourceCell)
+    func cellDidClickCheck(cell:ZSSourceCell, checked:Bool)
     func cellDidClickDelete(cell:ZSSourceCell)
 }
 
@@ -73,7 +73,7 @@ class ZSSourceCell: UITableViewCell {
     private func checkAction(btn:UIButton) {
         btn.isSelected = !btn.isSelected
         self.source?.checked = btn.isSelected
-        self.delegate?.cellDidClickCheck(cell: self)
+        self.delegate?.cellDidClickCheck(cell: self, checked: btn.isSelected)
     }
     
     @objc

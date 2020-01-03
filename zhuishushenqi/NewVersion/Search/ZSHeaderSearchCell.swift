@@ -11,11 +11,13 @@ import UIKit
 enum ZSHeaderSearchType {
     case hot
     case recommend
+    case history
 }
 
 class ZSHeaderSearchCell: UITableViewCell {
     
     var clickHandler:ZSSearchHotHandler?
+    var recHandler:ZSSearchRecHandler?
     
     private var type:ZSHeaderSearchType = .hot { didSet { reloadData() } }
     
@@ -24,6 +26,8 @@ class ZSHeaderSearchCell: UITableViewCell {
     private var topView:ZSHeaderSearchTopView = ZSHeaderSearchTopView(frame: .zero)
     
     private var hotView:ZSSearchHotView?
+    private var recView:ZSSearchRecommendView?
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,6 +53,7 @@ class ZSHeaderSearchCell: UITableViewCell {
         super.layoutSubviews()
         self.topView.frame = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: 55)
         hotView?.frame = CGRect(x: 0, y: 55, width: self.contentView.bounds.width, height: self.contentView.bounds.height - 55)
+        recView?.frame = CGRect(x: 0, y: 55, width: self.contentView.bounds.width, height: self.contentView.bounds.height - 55)
     }
     
     func configure(model:ZSHeaderSearch) {
@@ -81,7 +86,15 @@ class ZSHeaderSearchCell: UITableViewCell {
     }
     
     private func showRecommendView() {
-        
+       let hotView = ZSSearchRecommendView(frame: CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: (model?.height ?? 0)))
+       hotView.cellsFrame = model?.items as! [ZSHotWord]
+       hotView.clickHandler = { [unowned self] model in
+           self.recHandler?(model)
+       }
+       self.recView = hotView
+       topView.titleLabel.text = model?.headerTitle
+       topView.detailButton.setTitle(model?.headerDetail ?? "", for: .normal)
+       self.contentView.addSubview(hotView)
     }
     
     private func removeOtherSubview() {
@@ -121,6 +134,7 @@ class ZSHeaderSearchTopView:UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.titleLabel.frame = CGRect(x: 20, y: 20, width: 200, height: 21)
-        self.detailButton.frame = CGRect(x: self.bounds.width - 100, y: 0, width: 100, height: 55)
+        let width = self.detailButton.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 55)).width
+        self.detailButton.frame = CGRect(x: self.bounds.width - 100, y: 0, width: width, height: 55)
     }
 }

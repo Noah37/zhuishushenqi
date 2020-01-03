@@ -45,26 +45,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = sideNavVC
             window?.makeKeyAndVisible()
             
-            let splash = QSSplashScreen()
-            let disposeBag = DisposeBag()
-            splash.show {
-                // 新版本特性
-                let firstRun = USER_DEFAULTS.object(forKey: "FIRSTRUN") as? Bool
-                if firstRun == nil {
-                    USER_DEFAULTS.set(false, forKey: "FIRSTRUN")
-                    let introduce = QSIntroducePage()
-                    introduce.show(completion: {
-                        // 根据性别推荐书籍(第一次安装才会出现) 由home页面自己发起
-                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue:SHOW_RECOMMEND)))
-                    })
-                }else{
-                    let mainWindow:UIWindow? = (UIApplication.shared.delegate?.window)!
-                    mainWindow?.makeKeyAndVisible()
-                }
-            }
-            splash.subject.subscribe { (event) in
-                
-                }.disposed(by: disposeBag)
+//            let splash = QSSplashScreen()
+//            let disposeBag = DisposeBag()
+//            splash.show {
+//                // 新版本特性
+//                let firstRun = USER_DEFAULTS.object(forKey: "FIRSTRUN") as? Bool
+//                if firstRun == nil {
+//                    USER_DEFAULTS.set(false, forKey: "FIRSTRUN")
+//                    let introduce = QSIntroducePage()
+//                    introduce.show(completion: {
+//                        // 根据性别推荐书籍(第一次安装才会出现) 由home页面自己发起
+//                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue:SHOW_RECOMMEND)))
+//                    })
+//                }else{
+//                    let mainWindow:UIWindow? = (UIApplication.shared.delegate?.window)!
+//                    mainWindow?.makeKeyAndVisible()
+//                }
+//            }
+//            splash.subject.subscribe { (event) in
+//
+//                }.disposed(by: disposeBag)
         }
         
         UIApplication.shared.setStatusBarHidden(false, with: .fade)
@@ -109,8 +109,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ZSBookManager.shared
         
-        WeiboSDK.enableDebugMode(true)
-        WeiboSDK.registerApp(ZSThirdLogin.WBAppID)
+//        WeiboSDK.enableDebugMode(false)
+//        WeiboSDK.registerApp(ZSThirdLogin.WBAppID)
         
         // database
         /*测试代码

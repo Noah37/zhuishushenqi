@@ -52,8 +52,12 @@ class ZSSourcesViewController: ZSBaseTableViewController {
 }
 
 extension ZSSourcesViewController:ZSSourceCellDelegate {
-    func cellDidClickCheck(cell:ZSSourceCell) {
-        
+    func cellDidClickCheck(cell:ZSSourceCell, checked:Bool) {
+        if checked {
+            ZSSourceManager.share.select(source: cell.source!)
+        } else {
+            ZSSourceManager.share.unselect(source: cell.source!)
+        }
     }
     
     func cellDidClickDelete(cell:ZSSourceCell) {

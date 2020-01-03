@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import QSNetwork
 import ZSAPI
 
 extension RootViewController{
@@ -16,8 +15,8 @@ extension RootViewController{
         autoreleasepool {
             self.bookShelfLB.text = USER_DEFAULTS.object(forKey: PostLink) as? String ?? ""
             let shelfApi = ZSAPI.shelfMSG("" as AnyObject)
-            QSNetwork.request(shelfApi.path, method: HTTPMethodType.get, parameters: shelfApi.parameters, headers: nil) { (response) in
-                if let json = response.json {
+            zs_get(shelfApi.path, parameters: shelfApi.parameters) { (response) in
+                if let json = response {
                     let message = json["message"] as? NSDictionary
                     if let msg = message{
                         let postLink = msg.object(forKey: "postLink") as? String
@@ -63,12 +62,12 @@ extension RootViewController{
         let ids = self.booksID(books: self.bookshelf)
         
         let api = ZSAPI.update(id: ids)
-        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
+        zs_get(api.path, parameters: api.parameters) { (response) in
             self.tableView.mj_header.endRefreshing()
             self.tableView.mj_footer.endRefreshing()
             // 防止返回时卡顿，采用子线程
             DispatchQueue.global().async {
-                if let json:[Any] = response.json as? [Any] {
+                if let json:[Any] = response as? [Any] {
                     if let models = [BookShelf].deserialize(from: json) as? [BookShelf] {
                         BookManager.shared.updateToModel(updateModels: models)
                         DispatchQueue.main.async {

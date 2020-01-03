@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Then
 import SnapKit
 
 @objcMembers class ZSSearchHeaderView: UIView {
@@ -22,19 +21,23 @@ import SnapKit
                                 UIColor(red: 0.75, green: 0.41, blue: 0.82, alpha: 1.0)]
     
     fileprivate var activity:UIActivityIndicatorView!
-    fileprivate var titleLabel = UILabel().then {
-        $0.text = "大家都在搜"
-        $0.font = UIFont.systemFont(ofSize: 13)
-        $0.textColor = UIColor.black
-    }
+    fileprivate lazy var titleLabel:UILabel = {
+        let lb = UILabel()
+        lb.text = "大家都在搜"
+        lb.font = UIFont.systemFont(ofSize: 13)
+        lb.textColor = UIColor.black
+        return lb
+    }()
     
-    fileprivate var refreshButton = UIButton(type: .custom).then {
-        $0.setTitle("换一批", for: .normal)
-        $0.setTitleColor(UIColor.gray, for: .normal)
-        $0.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-        $0.setImage(UIImage(named:"actionbar_refresh"), for: .normal)
-        $0.addTarget(self, action: #selector(changeHotWord(btn:)), for: .touchUpInside)
-    }
+    fileprivate lazy var refreshButton:UIButton = {
+        let bt = UIButton(type: .custom)
+        bt.setTitle("换一批", for: .normal)
+        bt.setTitleColor(UIColor.gray, for: .normal)
+        bt.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        bt.setImage(UIImage(named:"actionbar_refresh"), for: .normal)
+        bt.addTarget(self, action: #selector(changeHotWord(btn:)), for: .touchUpInside)
+        return bt
+    }()
     
     var hotwords:[String] = [] {
         didSet {

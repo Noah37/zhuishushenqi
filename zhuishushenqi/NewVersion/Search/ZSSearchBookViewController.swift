@@ -24,6 +24,9 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
         view.clickHandler = { [weak self] model in
             self?.searchHotClick(model: model)
         }
+        view.recClickHandler = { [weak self] model in
+            self?.searchRecClick(model: model)
+        }
         return view
     }()
     
@@ -56,18 +59,23 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
         }
         bookView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.top.equalTo(self.topBar.snp_bottom)
+            make.top.equalTo(self.topBar.snp.bottom)
             make.height.equalTo(ScreenHeight - kNavgationBarHeight - 22)
         }
         resultView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.top.equalTo(self.topBar.snp_bottom)
+            make.top.equalTo(self.topBar.snp.bottom)
             make.height.equalTo(ScreenHeight - kNavgationBarHeight - 22)
         }
         resultView.isHidden = true
     }
     
     func searchHotClick(model:ZSSearchHotwords) {
+        topBar.textfield.text = model.word
+        request(text: model.word)
+    }
+    
+    func searchRecClick(model:ZSHotWord) {
         topBar.textfield.text = model.word
         request(text: model.word)
     }

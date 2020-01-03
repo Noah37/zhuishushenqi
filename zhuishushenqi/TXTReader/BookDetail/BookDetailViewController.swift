@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSNetwork
 
 class BookDetailViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
 
@@ -294,13 +293,8 @@ class BookDetailViewController: BaseViewController,UITableViewDataSource,UITable
     
     func requestAllChapters(withUrl url:String,param:[String:Any]){
         //先查询书籍来源，根据来源返回的id再查询所有章节
-        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
-//            var res:[ResourceModel] = []
-//            if let resources = response.json  {
-//                res = try? XYCBaseModel.model(withModleClass: ResourceModel.self, withJsArray: resources as! [Any]) as? [ResourceModel] ?? []
-//            }
-            
-            if let _:NSDictionary = (response.json as? NSArray)?.object(at: 1) as? NSDictionary {
+        zs_get(url, parameters: param) { (response) in
+            if let _:NSDictionary = (response as? NSArray)?.object(at: 1) as? NSDictionary {
                 self.present(QSTextRouter.createModule(bookDetail:self.bookModel!,callback: {(book:BookDetail) in
                     
                 }), animated: true, completion: nil)

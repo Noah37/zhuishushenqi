@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSNetwork
 //import YTKKeyValueStore
 
 class SearchDetailViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate,UISearchResultsUpdating,UISearchControllerDelegate,UISearchBarDelegate,SearchViewDelegate {
@@ -81,9 +80,9 @@ class SearchDetailViewController: BaseViewController,UITableViewDataSource,UITab
 //        http://api.zhuishushenqi.com/book/fuzzy-search?query=偷&start=0&limit=100
         let urlString = "\(BASEURL)/book/fuzzy-search"
         let param = ["query":self.searchWords,"start":"0","limit":"100"]
-        QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
-            QSLog(response.json)
-            if let books = response.json?.object(forKey: "books") {
+        zs_get(urlString, parameters: param) { (response) in
+            QSLog(response)
+            if let books = response?["books"] {
                 if let models = [Book].deserialize(from: books as? [Any]) as? [Book] {
                     self.books = models
                 }
@@ -98,9 +97,9 @@ class SearchDetailViewController: BaseViewController,UITableViewDataSource,UITab
     func requestHot() -> Void {
         //        http://api.zhuishushenqi.com/book/hot-word
         let urlString = "\(BASEURL)/book/hot-word"
-        QSNetwork.request(urlString) { (response) in
-            QSLog(response.json)
-            if let json = response.json {
+        zs_get(urlString, parameters: nil) { (response) in
+            QSLog(response)
+            if let json = response {
                 DispatchQueue.main.async {
                     self.searchView.hotWords = json["hotWords"] as? [String] ?? [""]
                     self.view.addSubview(self.searchView)

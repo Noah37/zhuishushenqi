@@ -8,9 +8,13 @@
 
 import UIKit
 
+typealias ZSSearchRecHandler = (_ hotword:ZSHotWord)->Void
+
 class ZSSearchRecommendView: UIView {
     
     var cellsFrame:[ZSHotWord] = [] { didSet { reloadData() } }
+    
+    var clickHandler:ZSSearchRecHandler?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,10 +31,22 @@ class ZSSearchRecommendView: UIView {
     
     func reloadData() {
         removeAllSubviews()
-        for cell in cellsFrame {
-            let cell = ZSSearchRecommendCell(title: cell.word, maxSize: cell.frame.size)
-            cell.frame = cell.frame
+        for cellModel in cellsFrame {
+            let cell = ZSSearchRecommendCell(title: cellModel.word, maxSize: cellModel.frame.size)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+            cell.addGestureRecognizer(tap)
+            cell.frame = cellModel.frame
             addSubview(cell)
+        }
+    }
+    
+    @objc
+    func tapAction(tap:UITapGestureRecognizer) {
+        for cellModel in cellsFrame {
+            if cellModel.frame.contains(tap.location(in: self)) {
+                clickHandler?(cellModel)
+                break
+            }
         }
     }
     
@@ -42,7 +58,7 @@ class ZSSearchRecommendCell: UIView {
         let lb = UILabel(frame: .zero)
         lb.textColor = UIColor.gray
         lb.font = UIFont.systemFont(ofSize: 13)
-        lb.textAlignment = .center
+        lb.textAlignment = .left
         return lb
     }()
     

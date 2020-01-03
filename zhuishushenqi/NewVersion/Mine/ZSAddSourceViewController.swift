@@ -182,128 +182,128 @@ class ZSAddSourceViewController: BaseViewController {
         }
         scrollView.addSubview(self.booksTF)
         booksTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
+            make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(20)
-            make.right.equalToSuperview().offset(-20)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.bookNameTF)
         bookNameTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.booksTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.booksTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.bookAuthorTF)
         bookAuthorTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.bookNameTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.bookNameTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.bookCategoryTF)
         bookCategoryTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.bookAuthorTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.bookAuthorTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.bookDescTF)
         bookDescTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.bookCategoryTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.bookCategoryTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.bookIconTF)
         bookIconTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.bookDescTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.bookDescTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.bookUrlTF)
         bookUrlTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.bookIconTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.bookIconTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.bookUpdateTimeTF)
         bookUpdateTimeTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.bookUrlTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.bookUrlTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.bookLastChapterNameTF)
         bookLastChapterNameTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.bookUpdateTimeTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.bookUpdateTimeTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.detailChaptersUrlTF)
         detailChaptersUrlTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.bookLastChapterNameTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.bookLastChapterNameTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.detailBookIconTF)
         detailBookIconTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.detailChaptersUrlTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.detailChaptersUrlTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.chaptersTF)
         chaptersTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.detailBookIconTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.detailBookIconTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.chapterNameTF)
         chapterNameTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.chaptersTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.chaptersTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.chapterUrlTF)
         chapterUrlTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.chapterNameTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.chapterNameTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.contentTF)
         contentTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.chapterUrlTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.chapterUrlTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.hostTF)
         hostTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.contentTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.contentTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.nameTF)
         nameTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.hostTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.hostTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
         scrollView.addSubview(self.searchUrlTF)
         searchUrlTF.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalTo(self.nameTF.snp_bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.nameTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
     }
@@ -377,14 +377,14 @@ class ZSAddLineView: UIView, UITextFieldDelegate {
         self.addSubview(titleLabel)
         self.addSubview(textField)
 //        self.titleLabel.snp.makeConstraints { (make) in
-//            make.left.equalToSuperview().offset(20)
+//            make.left.equalTo(self.view.snp.left).offset(20)
 //            make.width.equalTo(100)
 //            make.top.height.equalToSuperview()
 //        }
 //        self.textField.snp.makeConstraints { (make) in
 //            make.left.equalTo(self.titleLabel.snp_right).offset(10)
 //            make.top.height.equalToSuperview()
-//            make.right.equalToSuperview().offset(-20)
+//            make.right.equalTo(self.view.snp.right).offset(-20)
 //        }
     }
     

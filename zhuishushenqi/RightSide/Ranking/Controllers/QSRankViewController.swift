@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSNetwork
 
 class QSRankViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
     

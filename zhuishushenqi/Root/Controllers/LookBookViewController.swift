@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSNetwork
 import MJRefresh
 import RxSwift
 import SnapKit
@@ -540,8 +539,8 @@ class ZSBookReviewViewController:BaseViewController,UITableViewDataSource,UITabl
         
         
         let urlString = getURLString(selectIndexs: selectIndexs)
-        QSNetwork.request(urlString) { (response) in
-            let helps = response.json?["reviews"] as? [[String:Any]]
+        zs_get(urlString, parameters: nil) { (response) in
+            let helps = response?["reviews"] as? [[String:Any]]
             if let commnets = [BookComment].deserialize(from: helps) as? [BookComment] {
                 self.models = commnets
                 self.tableView.reloadData()
@@ -741,8 +740,8 @@ class ZSFemaleViewController:BaseViewController,UITableViewDataSource,UITableVie
 //        http://api.zhuishushenqi.com/post/by-block?block=girl&distillate=true&duration=all&sort=comment-count&start=0&limit=20
         
         let urlString = getURLString(selectIndexs: selectIndexs)
-        QSNetwork.request(urlString) { (response) in
-            let helps = response.json?["posts"] as? [[String:Any]]
+        zs_get(urlString, parameters: nil) { (response) in
+            let helps = response?["posts"] as? [[String:Any]]
             if let commnets = [BookComment].deserialize(from: helps) as? [BookComment] {
                 self.models = commnets
                 self.tableView.reloadData()
@@ -890,8 +889,8 @@ class LookBookViewController: BaseViewController,UITableViewDataSource,UITableVi
         
         
         let urlString = getURLString(selectIndexs: selectIndexs)
-        QSNetwork.request(urlString) { (response) in
-            let helps = response.json?["helps"] as? [[String:Any]]
+        zs_get(urlString, parameters: nil) { (response) in
+            let helps = response?["helps"] as? [[String:Any]]
             if let commnets = [BookComment].deserialize(from: helps) as? [BookComment] {
                 self.models = commnets
                 self.tableView.reloadData()

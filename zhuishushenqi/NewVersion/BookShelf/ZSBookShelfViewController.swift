@@ -129,13 +129,13 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     func setupSubviews() {
         view.addSubview(navView)
         view.addSubview(tableView)
-        navView.snp.remakeConstraints { (make) in
+        navView.snp.makeConstraints { (make) in
             make.left.top.right.equalToSuperview()
             make.height.equalTo(kNavgationBarHeight)
         }
-        tableView.snp.remakeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.top.equalTo(self.navView.snp_bottom)
+            make.top.equalTo(self.navView.snp.bottom)
             make.bottom.equalToSuperview()
         }
         let mj_header = ZSRefreshTextHeader(refreshingTarget: self, refreshingAction: #selector(refreshAction))

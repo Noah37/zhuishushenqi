@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSNetwork
 
 class DynamicViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate ,Refreshable{
 
@@ -78,9 +77,9 @@ class DynamicViewController: BaseViewController,UITableViewDataSource,UITableVie
     func requestData(){
         self.showProgress()
         let urlString = "\(BASEURL)/user/twitter/hottweets"
-        QSNetwork.request(urlString) { (response) in
+        zs_get(urlString, parameters: nil) { (response) in
             self.hideProgress()
-            if let hottweets = response.json?["tweets"] as? [Any] {
+            if let hottweets = response?["tweets"] as? [Any] {
                 if let time = [QSHotModel].deserialize(from: hottweets) as? [QSHotModel] {
                     self.timeline = time
                     self.tableView.reloadData()

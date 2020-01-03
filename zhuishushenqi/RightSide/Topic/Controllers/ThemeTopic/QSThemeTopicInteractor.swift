@@ -9,7 +9,6 @@
 //
 
 import UIKit
-import QSNetwork
 import ZSAPI
 
 class QSThemeTopicInteractor: QSThemeTopicInteractorProtocol {
@@ -76,9 +75,9 @@ class QSThemeTopicInteractor: QSThemeTopicInteractorProtocol {
         var sorts:[String] = ["collectorCount","created","collectorCount"]
         var durations:[String] = ["last-seven-days","all","all"]
         let api = ZSAPI.themeTopic(sort: sorts[index], duration: durations[index], start: "0", gender: gender, tag: tag)
-        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            QSLog(response.json)
-            if let books = response.json?.object(forKey: "bookLists") {
+        zs_get(api.path, parameters: api.parameters) { (response) in
+            QSLog(response)
+            if let books = response?["bookLists"] {
                 if let models = [ThemeTopicModel].deserialize(from: books as? [Any]) as? [ThemeTopicModel] {
                     self.models[index] = models
                     self.output.fetchModelSuccess(models: models)

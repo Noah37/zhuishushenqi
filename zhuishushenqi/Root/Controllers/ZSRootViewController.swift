@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Then
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -16,10 +15,12 @@ class ZSRootViewController: BaseViewController,UITableViewDelegate,UICollectionV
     
     static let kCellHeight:CGFloat = 60
 
-    var tableView = UITableView(frame: CGRect.zero, style: .grouped).then {
-        $0.estimatedRowHeight = kCellHeight
-        $0.rowHeight = UITableView.automaticDimension
-    }
+    lazy var tableView:UITableView = {
+        let table = UITableView(frame: CGRect.zero, style: .grouped)
+        table.estimatedRowHeight = ZSRootViewController.kCellHeight
+        table.rowHeight = UITableView.automaticDimension
+        return table
+    }()
     
     var collectionView:UICollectionView!
     var segMenu:SegMenu!

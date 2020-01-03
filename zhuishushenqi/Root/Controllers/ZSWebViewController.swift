@@ -43,7 +43,7 @@ class ZSWebViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        layoutSubview()
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -51,9 +51,9 @@ class ZSWebViewController: BaseViewController {
     }
     
     private func layoutSubview() {
-        webView.snp.remakeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
+//        webView.snp.remakeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -79,14 +79,16 @@ class ZSWebViewController: BaseViewController {
             let configuration = WKWebViewConfiguration()
             configuration.userContentController = userContent
             userContent.add(self, name: "ZssqApi")
-            
-            if let tmpWebView = createWebViewWithCustomUserAgentWithConfiguratuion(configuration: configuration) {
-                webView = tmpWebView
-                webView.navigationDelegate = self
-                webView.uiDelegate = self
-                view.addSubview(webView)
-                loadWebPage()
+            if let tmpWebView = self.createWebViewWithCustomUserAgentWithConfiguratuion(configuration: configuration) {
+                self.webView = tmpWebView
+                self.webView.navigationDelegate = self
+                self.webView.uiDelegate = self
+                self.view.addSubview(self.webView)
+                self.loadWebPage()
             }
+        }
+        webView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
     }
     
@@ -104,19 +106,21 @@ class ZSWebViewController: BaseViewController {
     
     func createWebViewWithCustomUserAgentWithConfiguratuion(configuration:WKWebViewConfiguration) ->WKWebView? {
         let webView = UIWebView(frame: self.view.bounds)
-        var userAgent = webView.stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
-        if userAgent.count > 0 {
-            if canUAAppendYouShaQi() {
-                let containYouShaQi = userAgent.contains("/YouShaQi")
-                if !containYouShaQi {
-                    userAgent.append("/YouShaQi")
-                    let userAgentDict = ["UserAgent":userAgent]
-                    UserDefaults.standard.register(defaults: userAgentDict)
+            var userAgent = webView.stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
+            if userAgent.count > 0 {
+                if self.canUAAppendYouShaQi() {
+                    let containYouShaQi = userAgent.contains("/YouShaQi")
+                    if !containYouShaQi {
+                        userAgent.append("/YouShaQi")
+                        let userAgentDict = ["UserAgent":userAgent]
+                        DispatchQueue.global().async {
+                            UserDefaults.standard.register(defaults: userAgentDict)
+                        }
+                    }
+                    let webView = WKWebView(frame: self.view.frame, configuration: configuration)
+                    return webView
                 }
-                let webView = WKWebView(frame: self.view.frame, configuration: configuration)
-                return webView
             }
-        }
         return nil
     }
     

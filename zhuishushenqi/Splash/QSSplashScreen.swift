@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSNetwork
 import RxSwift
 import RxCocoa
 
@@ -71,35 +70,38 @@ class QSSplashScreen: NSObject {
         }
         
         // request splash image
-        QSNetwork.request(splashURL) { (response) in
-            let splash =  response.json?["splash"] as? [[String:Any]]
-            if (splash?.count ?? 0) > 0{
-                if let splashInfo = splash?[0] {
-                    // save splash info,download image and save it
-                    self.splashInfo = splashInfo
-                    self.downloadSplashImage()
-                }else{
-                    self.hide()
-                }
-            }else {
-                self.hide()
-            }
-        }
+//        QSNetwork.request(splashURL) { (response) in
+//            let splash =  response.json?["splash"] as? [[String:Any]]
+//            if (splash?.count ?? 0) > 0{
+//                if let splashInfo = splash?[0] {
+//                    // save splash info,download image and save it
+//                    self.splashInfo = splashInfo
+//                    self.downloadSplashImage()
+//                }else{
+//                    self.hide()
+//                }
+//            }else {
+//            }
+//        }
+        self.hide()
     }
     
     func downloadSplashImage(){
         let urlString = getSplashURLString()
-        QSNetwork.download(urlString) { (fileURL, response, error) in
-            QSLog("\(fileURL?.path ?? "")")
-            let splashImage = UIImage(contentsOfFile: fileURL?.path ?? "")
-            self.splashInfo[self.splashImageNameKey] = fileURL?.lastPathComponent ?? ""
-            let path = "/ZSSQ/Splash"
-            ZSCacheHelper.shared.storage(obj: self.splashInfo, for: self.splashInfoKey, cachePath: path)
-            self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
-            if let image  = splashImage {
-                self.splashRootVC?.setSplashImage(image: image)
-            }
+        zs_download(url: urlString) { (response) in
+            
         }
+//        QSNetwork.download(urlString) { (fileURL, response, error) in
+//            QSLog("\(fileURL?.path ?? "")")
+//            let splashImage = UIImage(contentsOfFile: fileURL?.path ?? "")
+//            self.splashInfo[self.splashImageNameKey] = fileURL?.lastPathComponent ?? ""
+//            let path = "/ZSSQ/Splash"
+//            ZSCacheHelper.shared.storage(obj: self.splashInfo, for: self.splashInfoKey, cachePath: path)
+//            self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
+//            if let image  = splashImage {
+//                self.splashRootVC?.setSplashImage(image: image)
+//            }
+//        }
     }
     
     @objc func showSplash(){

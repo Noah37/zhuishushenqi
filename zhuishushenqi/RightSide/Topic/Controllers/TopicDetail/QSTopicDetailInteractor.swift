@@ -9,7 +9,6 @@
 //
 
 import UIKit
-import QSNetwork
 import ZSAPI
 
 class QSTopicDetailInteractor: QSTopicDetailInteractorProtocol {
@@ -21,10 +20,9 @@ class QSTopicDetailInteractor: QSTopicDetailInteractorProtocol {
     func requestDetail(){
         //        http://api.zhuishushenqi.com/book-list/58b782f5a7674a5f67618731
         let api = ZSAPI.themeDetail(key: id)
-        //        QSNetwork.setDefaultURL(url: BASEURL)
-        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
-            QSLog(response.json)
-            if let bookList = response.json?.object(forKey: "bookList") as? [AnyHashable : Any], let books = (response.json?.object(forKey: "bookList") as AnyObject).object(forKey:"books"){
+        zs_get(api.path, parameters: nil) { (response) in
+            QSLog(response)
+            if let bookList = response?["bookList"] as? [AnyHashable : Any], let books = (response?["bookList"] as AnyObject).object(forKey:"books"){
                 if let headerModel = TopicDetailHeader.deserialize(from: bookList as? [String:Any]) ,let booksModel =  [TopicDetailModel].deserialize(from: books as? [Any]) as? [TopicDetailModel] {
                     self.output?.fetchListSuccess(list: booksModel, header: headerModel)
 

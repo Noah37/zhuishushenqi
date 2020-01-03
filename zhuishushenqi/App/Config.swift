@@ -60,7 +60,10 @@ let IPHONE4 = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMod
 let IPHONE5 = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 640, height: 1136).equalTo((UIScreen.main.currentMode?.size)!) : false
 let IPHONE6 = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 750, height: 1334).equalTo((UIScreen.main.currentMode?.size)!) : false
 let IPHONE6Plus = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 1242, height: 2208).equalTo((UIScreen.main.currentMode?.size)!) : false
-let IPHONEX = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 1125, height: 2436).height <= (UIScreen.main.currentMode?.size.height)! : false
+let IPHONEX_SMALL = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 828, height: 1792).equalTo((UIScreen.main.currentMode?.size)!) : false
+let IPHONEX_MID = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 1125, height: 2436).equalTo((UIScreen.main.currentMode?.size)!) : false
+let IPHONEX_BIG = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 1242, height: 2688).equalTo((UIScreen.main.currentMode?.size)!) : false
+let IPHONEX = IPHONEX_SMALL || IPHONEX_MID || IPHONEX_BIG
 
 
 //根据系统判断 获取iPad的屏幕尺寸
@@ -121,5 +124,12 @@ func QSLog<T>(_ message:T,fileName:String = #file,lineName:Int = #line,funcName:
     #if DEBUG
         print("QSLog:\((fileName as NSString).lastPathComponent)[\(lineName)]\(funcName):\n\(message)\n")
     #endif
+}
+
+func calTime(_ action: @escaping () ->Void){
+    let startTime = CFAbsoluteTimeGetCurrent()
+    action()
+    let linkTime = (CFAbsoluteTimeGetCurrent() - startTime)
+    QSLog("Linked in \(linkTime * 1000.0) ms")
 }
 

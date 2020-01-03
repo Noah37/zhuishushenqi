@@ -15,9 +15,13 @@ class ZSSearchBookViewModel {
     var viewDidLoad: ()->() = {}
     var reloadBlock: ()->() = {}
     
-    var searchHotwords:[ZSSearchHotwords] = [] { didSet {} }
+    var searchHotwords:[ZSSearchHotwords] = []
     var hotword:[ZSHotWord] = []
     
+    var searchHotHeader:ZSHeaderSearch = ZSHeaderSearch()
+    var searchRecHeader:ZSHeaderSearch = ZSHeaderSearch()
+    var historyHeader:ZSHeaderSearch = ZSHeaderSearch()
+
     var source:[AikanParserModel] = []
     
     private var stopBooks:Bool = false
@@ -26,10 +30,15 @@ class ZSSearchBookViewModel {
         viewDidLoad = { [weak self] in
             self?.request()
         }
-        let filePath = Bundle(for: ZSSearchBookViewModel.self).path(forResource: "HtmlParserModelData.dat", ofType: nil) ?? ""
-        if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? [AikanParserModel] {
-            self.source = objs
-        }
+        self.source = ZSSourceManager.share.sources.filter({ (model) -> Bool in
+            return model.checked
+        })
+        historyHeader.type = .hot
+        historyHeader.items = ZSHistoryManager.share.historyList
+        historyHeader.headerTitle = "搜索历史"
+        historyHeader.headerDetail = "删除历史"
+        historyHeader.height = 44
+        historyHeader.headerIcon = ""
     }
     
     func stopRequestBooks() {
@@ -40,38 +49,113 @@ class ZSSearchBookViewModel {
         stopBooks = false
     }
     
+    private func calHotSearch(hot:[ZSSearchHotwords]) {
+        var hotSearchs = hot
+        let words = hotSearchs.filter { (word) -> Bool in
+            if let index = hotSearchs.firstIndex(of: word) {
+                return index < 8
+            }
+            return true
+        }
+        hotSearchs = words
+        let marginX:CGFloat = 20
+        let marginY:CGFloat = 10
+        let cellHeight:CGFloat = 28
+        let spaceX:CGFloat = 15
+        let spaceY:CGFloat = 20
+        var cellX = marginX
+        var cellY = marginY
+        var index = 0
+        for hotword in words {
+            var cell = hotword
+            let cellWidth = hotword.word.qs_width(13, height: cellHeight/2) + 20
+            if (cellX + cellWidth + marginX + spaceX) > UIScreen.main.bounds.width {
+                cellY += (cellHeight + spaceY)
+                cellX = marginX
+            } else if index != 0 {
+                cellX += spaceX
+            }
+            cell.frame = CGRect(x: cellX, y: cellY, width: cellWidth, height: cellHeight)
+            cellX += cellWidth
+            hotSearchs[index] = cell
+            index += 1
+        }
+        let hotHeight = cellY + cellHeight + 55 + 10
+        searchHotHeader.type = .hot
+        searchHotHeader.items = hotSearchs
+        searchHotHeader.headerTitle = "搜索热词"
+        searchHotHeader.headerDetail = "查看更多"
+        searchHotHeader.height = hotHeight
+        searchHotHeader.headerIcon = ""
+        self.searchHotwords = hotSearchs
+    }
+    
+    private func calRecSearch(rec:[ZSHotWord]) {
+        var recs:[ZSHotWord] = rec
+        let words = recs.filter { (word) -> Bool in
+            if let index = recs.firstIndex(of: word) {
+                return index < 8
+            }
+            return true
+        }
+        recs = words
+        let marginX:CGFloat = 20
+        let marginY:CGFloat = 10
+        let cellHeight:CGFloat = 28
+        let spaceX:CGFloat = 0
+        let spaceY:CGFloat = 10
+        var cellX = marginX
+        var cellY = marginY
+        var index = 0
+        for hot in words {
+            var cell = hot
+            let cellWidth = (UIScreen.main.bounds.width - 40)/2
+            cellY = CGFloat(index/2) * (cellHeight + spaceY)
+            cell.frame = CGRect(x: cellX, y: cellY, width: cellWidth, height: cellHeight)
+            cellX += spaceX
+            cellX += cellWidth
+            if cellX + cellWidth + spaceX + marginX > UIScreen.main.bounds.width {
+                cellX = marginX
+            }
+            recs[index] = cell
+            index += 1
+        }
+        let recHeight = cellY + cellHeight + 55 + 10
+        searchRecHeader.type = .recommend
+        searchRecHeader.items = recs
+        searchRecHeader.headerTitle = "热门推荐"
+        searchRecHeader.headerDetail = "换一批"
+        searchRecHeader.height = recHeight
+        searchRecHeader.headerIcon = ""
+    }
+    
+    func numberOfSections() ->Int {
+        if historyHeader.items.count > 0 {
+            return 3
+        }
+        return 2
+    }
+    
     func model(for row:Int) ->ZSHeaderSearch {
-        let search = ZSHeaderSearch(type: .hot, items: searchHotwords as! [Any], height: 0, headerTitle: "搜索热词", headerDetail: "查看更多", headerIcon: "")
-        return search
+        if row == 0 {
+            return searchHotHeader
+        } else if row == 1 {
+            return searchRecHeader
+        }
+        return historyHeader
     }
     
     func height(for row:Int) ->CGFloat {
-        if row == 0 {
-            let marginX:CGFloat = 20
-            let marginY:CGFloat = 15
-            let cellHeight:CGFloat = 28
-            let spaceX:CGFloat = 15
-            let spaceY:CGFloat = 20
-            var cellX = marginX
-            var cellY = marginY
-            var index = 0
-            for hotword in searchHotwords {
-                var cell = hotword
-                let cellWidth = hotword.word.qs_width(13, height: cellHeight/2) + 20
-                if (cellX + cellWidth + marginX + spaceX) > UIScreen.main.bounds.width {
-                    cellY += (cellHeight + spaceY)
-                    cellX = marginX
-                } else if index != 0 {
-                    cellX += spaceX
-                }
-                cell.frame = CGRect(x: cellX, y: cellY, width: cellWidth, height: cellHeight)
-                cellX += cellWidth
-                searchHotwords[index] = cell
-                index += 1
-            }
-            return cellY + cellHeight + 55
-        }
-        return 100
+        let header = model(for: row)
+        return header.height
+    }
+    
+    func wordClick(word:String) {
+        ZSHistoryManager.share.add(word: word)
+    }
+    
+    func delete(word:String) {
+        ZSHistoryManager.share.remove(word: word)
     }
     
     func request() {
@@ -194,6 +278,7 @@ class ZSSearchBookViewModel {
                 return
             }
             self?.searchHotwords = searchModels
+            self?.calHotSearch(hot: searchModels)
             completion()
         }
     }
@@ -210,6 +295,7 @@ class ZSSearchBookViewModel {
                 return
             }
             self?.hotword = searchModels
+            self?.calRecSearch(rec: searchModels)
             completion()
         }
     }

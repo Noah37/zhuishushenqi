@@ -9,7 +9,6 @@
 //
 
 import UIKit
-import QSNetwork
 import ZSAPI
 
 class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
@@ -23,8 +22,8 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     
     func requestData(id:String){
         let api = ZSAPI.book(key: id)
-        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
-            if let json = response.json as? [AnyHashable : Any]{
+        zs_get(api.path, parameters: nil) { (response) in
+            if let json = response as? [AnyHashable : Any]{
                 if let book = BookDetail.deserialize(from: json as NSDictionary) {
                     self.bookDetail = book
                     self.requestHot(id: id)
@@ -39,9 +38,8 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     
     func requestHot(id:String){
         let api = ZSAPI.bookHot(key: id)
-        QSNetwork.request(api.path) { (response) in
-            
-            if let json = response.json?["reviews"] as? [Any] {
+        zs_get(api.path) { (response) in
+            if let json = response?["reviews"] as? [Any] {
                 if let hot = [BookComment].deserialize(from: json) as? [BookComment] {
                     self.hotComment = hot
                     self.output.fetchBookSuccess(bookDetail:self.bookDetail,ranks: self.hotComment)
@@ -58,8 +56,8 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     
     func requestAllChapters(withUrl url:String,param:[String:Any]){
         //先查询书籍来源，根据来源返回的id再查询所有章节
-        QSNetwork.request(url, method: HTTPMethodType.get, parameters: param, headers: nil) { (response) in
-            if let resources = response.json  {
+        zs_get(url, parameters: param) { (response) in
+            if let resources = response  {
                 
                 if let res = [ResourceModel].deserialize(from: resources as? [Any]) as? [ResourceModel] {
                     self.output.fetchAllChapterSuccess(bookDetail: self.bookDetail, res: res)
@@ -77,8 +75,8 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     func requestRecommend(){
         //        http://api.zhuishushenqi.com/book/51d11e782de6405c45000068/recommend
         let url = "\(BASEURL)/book/\(bookDetail._id)/recommend"
-        QSNetwork.request(url) { (response) in
-            let books = response.json?["books"] as? NSArray
+        zs_get(url) { (response) in
+            let books = response?["books"] as? NSArray
             if let bookList = books {
                 if let booklist = [Book].deserialize(from: bookList as? [Any]) as? [Book] {
                     self.recList = booklist
@@ -95,8 +93,8 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     func requestRecList(){
         //        http://api.zhuishushenqi.com/book-list/51d11e782de6405c45000068/recommend?limit=3
         let url = "\(BASEURL)/book-list/\(bookDetail._id)/recommend?limit=3"
-        QSNetwork.request(url) { (response) in
-            let books = response.json?["booklists"] as? NSArray
+        zs_get(url) { (response) in
+            let books = response?["booklists"] as? NSArray
             if let bookList = books {
                 if let booklist = [QSBookList].deserialize(from: bookList as?  [Any]) as? [QSBookList] {
                     self.bookList = booklist

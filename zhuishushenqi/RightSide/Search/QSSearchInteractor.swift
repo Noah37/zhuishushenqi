@@ -9,7 +9,6 @@
 //
 
 import UIKit
-import QSNetwork
 //import YTKKeyValueStore
 import ZSAPI
 
@@ -22,9 +21,9 @@ class ZSSearchWebService {
     //NARK: - webserver data
     func fetchHotwords (_ callback: ZSSearchWebCallback?){
         let api = ZSAPI.hotwords("" as AnyObject)
-        QSNetwork.request(api.path) { (response) in
-            QSLog(response.json)
-            if let hotwords:[String] = response.json?["hotWords"] as? [String] {
+        zs_get(api.path, parameters: nil) { (response) in
+            QSLog(response)
+            if let hotwords:[String] = response?["hotWords"] as? [String] {
                 callback?(hotwords)
             }else{
                 callback?(nil)
@@ -34,8 +33,8 @@ class ZSSearchWebService {
     
     func fetchAutoComplete(key:String,_ callback:ZSSearchWebCallback?){
         let api = ZSAPI.autoComplete(query: key)
-        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            if let keywords = response.json?["keywords"] as? [String] {
+        zs_get(api.path, parameters: api.parameters) { (response) in
+            if let keywords = response?["keywords"] as? [String] {
                 callback?(keywords)
             } else {
                 callback?(nil)
@@ -45,8 +44,8 @@ class ZSSearchWebService {
     
     func fetchBooks( key:String, start:Int, limit:Int, _ callback:ZSSearchWebAnyCallback<[Book]>?){
         let api = ZSAPI.searchBook(id: key, start: "\(start)", limit: "\(limit)")
-        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            if let books = response.json?.object(forKey: "books") {
+        zs_get(api.path, parameters: api.parameters) { (response) in
+            if let books = response?["books"] {
                 if let models = [Book].deserialize(from: books as? [Any]) as? [Book] {
                     callback?(models)
                 } else {
@@ -69,9 +68,9 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
 
     func fetchHotwords(){
         let api = ZSAPI.hotwords("" as AnyObject)
-        QSNetwork.request(api.path) { (response) in
-            QSLog(response.json)
-            if let hotwords:[String] = response.json?["hotWords"] as? [String] {
+        zs_get(api.path, parameters: nil) { (response) in
+            QSLog(response)
+            if let hotwords:[String] = response?["hotWords"] as? [String] {
                 self.hotwords = hotwords
                 self.output.fetchHotwordsSuccess(hotwords: self.subWords())
             }else{
@@ -100,8 +99,8 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
     
     func autoComplete(key:String){
         let api = ZSAPI.autoComplete(query: key)
-        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            guard let keywords = response.json?["keywords"] as? [String] else {
+        zs_get(api.path, parameters: api.parameters) { (response) in
+            guard let keywords = response?["keywords"] as? [String] else {
                 return
             }
             self.output.fetchAutoComplete(keys: keywords)
@@ -124,8 +123,8 @@ class QSSearchInteractor: QSSearchInteractorProtocol {
     
     func fetchBooks(key:String){
         let api = ZSAPI.searchBook(id: key, start: "0", limit: "100")
-        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            if let books = response.json?.object(forKey: "books") {
+        zs_get(api.path, parameters: api.parameters) { (response) in
+            if let books = response?["books"] {
                 if let models = [Book].deserialize(from: books as? [Any]) as? [Book] {
                     self.output.fetchBooksSuccess(books: models,key:key)
                 } else {

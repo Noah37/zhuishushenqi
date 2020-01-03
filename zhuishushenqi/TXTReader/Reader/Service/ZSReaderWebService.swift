@@ -22,7 +22,6 @@
  */
 
 import Foundation
-import QSNetwork
 import HandyJSON
 import ZSAPI
 
@@ -31,13 +30,9 @@ class ZSReaderWebService:ZSBaseService {
     //MARK: - 请求所有的来源,key为book的id
     func fetchAllResource(key:String,_ callback:ZSBaseCallback<[ResourceModel]>?){
         let api = ZSAPI.allResource(key: key)
-        QSNetwork.request(api.path, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            if let resource = response.json {
-                if let resources  = [ResourceModel].deserialize(from: resource as? [Any]) as? [ResourceModel] {
-                    callback?(resources)
-                }else{
-                    callback?(nil)
-                }
+        zs_get(api.path, parameters: api.parameters) { (response) in
+            if let resources  = [ResourceModel].deserialize(from: response as? [Any]) as? [ResourceModel] {
+                callback?(resources)
             }else{
                 callback?(nil)
             }
@@ -48,9 +43,8 @@ class ZSReaderWebService:ZSBaseService {
     func fetchAllChapters(key:String,_ callback:ZSBaseCallback<[ZSChapterInfo]>?){
         let api = ZSAPI.allChapters(key: key)
         let url:String = api.path
-        QSNetwork.request(url, method: HTTPMethodType.get, parameters: api.parameters, headers: nil) { (response) in
-            QSLog("JSON:\(String(describing: response.json))")
-            if let chapters =  [ZSChapterInfo].deserialize(from: response.json?["chapters"] as? [Any]) as? [ZSChapterInfo]{
+        zs_get(url, parameters: api.parameters) { (response) in
+            if let chapters =  [ZSChapterInfo].deserialize(from: response?["chapters"] as? [Any]) as? [ZSChapterInfo]{
                 QSLog("Chapters:\(chapters)")
                 callback?(chapters)
             }else{
@@ -64,9 +58,9 @@ class ZSReaderWebService:ZSBaseService {
         var link:NSString = key as NSString
         link = link.urlEncode() as NSString
         let api = ZSAPI.chapter(key: link as String, type: .chapter)
-        QSNetwork.request(api.path) { (response) in
-            QSLog("JSON:\(String(describing: response.json))")
-            if let body = ZSChapterBody.deserialize(from: response.json?["chapter"] as? NSDictionary) {
+        zs_get(api.path) { (response) in
+            QSLog("JSON:\(String(describing: response))")
+            if let body = ZSChapterBody.deserialize(from: response?["chapter"] as? NSDictionary) {
                 callback?(body)
             } else {
                 callback?(nil)

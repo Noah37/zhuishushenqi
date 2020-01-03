@@ -9,7 +9,6 @@
 import UIKit
 import RxCocoa
 import RxSwift
-import Then
 import SnapKit
 
 class ZSForumViewController: BaseViewController,UITableViewDelegate, UITableViewDataSource {
@@ -29,9 +28,11 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate, UITableView
         ["title":"浏览记录","image":"f_invent_icon"],
         ["title":"导入本地书籍","image":"f_invent_icon"]]
     
-    var tableView:UITableView = UITableView(frame: CGRect.zero, style: .grouped).then {
-        $0.qs_registerCellClass(ZSForumCell.self)
-    }
+    lazy var tableView:UITableView = {
+        let table =  UITableView(frame: CGRect.zero, style: .grouped)
+        table.qs_registerCellClass(ZSForumCell.self)
+        return table
+    }()
     
     let disposeBag = DisposeBag()
     

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSNetwork
 
 let AllChapterUrl = "http://api.zhuishushenqi.com/ctoc/57df797cb061df9e19b8b030"
 
@@ -148,8 +147,8 @@ class RootViewController: UIViewController {
     func fetchRecList(index:Int){
         let gender = ["male","female"]
         let recURL = "\(BASEURL)/book/recommend?gender=\(gender[index])"
-        QSNetwork.request(recURL) { (response) in
-            if let books = response.json?["books"] {
+        zs_get(recURL, parameters: nil) { (response) in
+            if let books = response?["books"] {
                 if let models = [BookDetail].deserialize(from: books as? [Any]) as? [BookDetail] {
                     ZSBookManager.shared.addBooks(books: models)
                     BookManager.shared.modifyBookshelf(books: models)
@@ -370,9 +369,9 @@ extension RootViewController:SwipableCellDelegate{
         var link:NSString = "\(chapters?[index].object(forKey: "link") ?? "")" as NSString
         link = link.urlEncode() as NSString
         let url = "\(CHAPTERURL)/\(link)?k=22870c026d978c75&t=1489933049"
-        QSNetwork.request(url) { (response) in
+        zs_get(url, parameters: nil) { (response) in
             DispatchQueue.global().async {
-                if let json = response.json as? Dictionary<String, Any> {
+                if let json = response as? Dictionary<String, Any> {
                     QSLog("JSON:\(json)")
                     if let chapter = json["chapter"] as?  Dictionary<String, Any> {
                         self.cacheSuccessHandler(chapterIndex: index, chapter: chapter, bookDetail: bookDetail,indexPath: indexPath)

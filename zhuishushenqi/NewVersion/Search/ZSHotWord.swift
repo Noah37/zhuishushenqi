@@ -9,7 +9,7 @@
 import UIKit
 import HandyJSON
 
-struct ZSHotWord:HandyJSON {
+struct ZSHotWord:HandyJSON,Equatable {
 
     var word:String = ""
     var book:String = ""

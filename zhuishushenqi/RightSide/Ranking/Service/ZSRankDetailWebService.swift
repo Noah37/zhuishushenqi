@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import QSNetwork
 import HandyJSON
 import ZSAPI
 

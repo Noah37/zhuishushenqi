@@ -11,21 +11,21 @@
 import UIKit
 import RxCocoa
 import RxSwift
-import Then
 import YYCategories
 
 class ZSSearchViewController: ZSBaseTableViewController {
     
     fileprivate let searchBarHeight:CGFloat = 56
     var searchViewModel:ZSSearchViewModel = ZSSearchViewModel()
-    fileprivate var searchHeaderView = ZSSearchHeaderView(frame:CGRect.zero).then { (header) in
-    }
+    fileprivate var searchHeaderView = ZSSearchHeaderView(frame:CGRect.zero)
     fileprivate var historyHeaderView = QSHistoryHeaderView()
     fileprivate var resultViewController = ZSSearchResultViewController()
     fileprivate var autoCompleteController = ZSSearchAutoCompleteController()
-    fileprivate var searchBackgroundView = UIView().then { (background) in
-        background.isUserInteractionEnabled = true
-    }
+    fileprivate lazy var searchBackgroundView:UIView = {
+        let view = UIView()
+        view.isUserInteractionEnabled = true
+        return view
+    }()
     fileprivate lazy var searchController:UISearchController = {
         let searchVC:UISearchController = UISearchController(searchResultsController: self.autoCompleteController)
         searchVC.searchBar.placeholder = "输入书名或作者名"
@@ -256,9 +256,7 @@ class QSSearchViewController: ZSBaseTableViewController{
     var autoCompleteTable:QSSearchAutoCompleteTable!
     
     // new
-    var searchHeaderView:ZSSearchHeaderView = ZSSearchHeaderView().then {
-        $0
-    }
+    var searchHeaderView:ZSSearchHeaderView = ZSSearchHeaderView()
 
     lazy var searchController:UISearchController = {
         let searchVC:UISearchController = UISearchController(searchResultsController: nil)

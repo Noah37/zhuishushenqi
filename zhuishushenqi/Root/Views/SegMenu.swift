@@ -9,7 +9,6 @@
 import UIKit
 import RxCocoa
 import RxSwift
-import Then
 
 protocol SegMenuDelegate {
     func didSelectAtIndex(_ index:Int)
@@ -24,10 +23,12 @@ class SegMenu: UIView {
     private let btnBaseTag = 1414
     private var lastSelectedBtn:UIButton!
     private let disposeBag = DisposeBag()
-    private let bottomLine = UILabel().then {
-        $0.frame = CGRect.zero
-        $0.backgroundColor = UIColor.gray
-    }
+    private lazy var bottomLine : UILabel = {
+        let lb = UILabel()
+        lb.frame = CGRect.zero
+        lb.backgroundColor = UIColor.gray
+        return lb
+    }()
 
     init(frame:CGRect, WithTitles _titles:[String]){
         super.init(frame: frame)
@@ -108,16 +109,16 @@ class SegMenu: UIView {
     }
     
     private func create(_ title:String,_ tag:Int) ->UIButton{
-        let btn = UIButton(type: .custom).then {
-            $0.setTitle(title, for: .normal)
-            $0.setTitleColor(UIColor.gray, for: .normal)
-            $0.setBackgroundImage(UIImage(named: "new_nav_normal"), for: .normal)
-            $0.setBackgroundImage(UIImage(named: "new_nav_selected"), for: .selected)
-            $0.adjustsImageWhenHighlighted = false
-            $0.frame = CGRect.zero
-            $0.tag = tag
-            $0.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-        }
+        let btn = UIButton(type: .custom)
+        btn.setTitle(title, for: .normal)
+        btn.setTitleColor(UIColor.gray, for: .normal)
+        btn.setBackgroundImage(UIImage(named: "new_nav_normal"), for: .normal)
+        btn.setBackgroundImage(UIImage(named: "new_nav_selected"), for: .selected)
+        btn.adjustsImageWhenHighlighted = false
+        btn.frame = CGRect.zero
+        btn.tag = tag
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        
         return btn
     }
     

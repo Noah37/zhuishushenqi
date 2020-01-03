@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QSNetwork
 
 enum QSBookCommentType {
     case normal
@@ -80,9 +79,9 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
     fileprivate func requestDetail(idString:String){
         
         let urlString = self.getDetailURL(type: commentType)
-        QSNetwork.request(urlString, method: HTTPMethodType.get, parameters: nil, headers: nil) { (response) in
-            QSLog(response.json)
-            if let reader = response.json?.object(forKey: "review") {
+        zs_get(urlString, parameters: nil) { (response) in
+            QSLog(response)
+            if let reader = response?["review"] {
                  self.readerModel = BookComment.deserialize(from: reader as! [String : Any])
             }
             DispatchQueue.main.async {
@@ -96,8 +95,8 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
     func requestBest(){
         //http://api.zhuishushenqi.com/post/530a26522852d5280e04c19c/comment/best
         let best = "\(BASEURL)/post/\(self.id)/comment/best"
-        QSNetwork.request(best) { (response) in
-            if let books = response.json?.object(forKey: "comments")  {
+        zs_get(best, parameters: nil) { (response) in
+            if let books = response?["comments"]  {
                 if let models = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
                     self.magicComments = models
                 }
@@ -112,25 +111,25 @@ class BookCommentViewController: BaseViewController,UITableViewDataSource,UITabl
     
     func requestMore(){
         let comment = getCommentURL(type: self.commentType)
-        QSNetwork.request(comment, method: HTTPMethodType.get, parameters: self.param, headers: nil) { (response) in
-            if let books = response.json?.object(forKey: "comments")  {
-                if let normalComment = self.normalComments {
-                    if let models = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
-                        self.normalComments = models + normalComment
-                    }
-                }else{
-                    if let models = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
-                        self.normalComments = models
-                    }
-                }
-            }
-            DispatchQueue.main.async {
-                self.tableView.removeFromSuperview()
-                self.view.addSubview(self.tableView)
-                self.tableView.reloadData()
-//                self.tableView.mj_header.endRefreshing()
-                self.tableView.mj_footer.endRefreshing()
-            }
+        zs_get(comment, parameters: nil) { (response) in
+            if let books = response?["comments"]  {
+                            if let normalComment = self.normalComments {
+                                if let models = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
+                                    self.normalComments = models + normalComment
+                                }
+                            }else{
+                                if let models = [BookCommentDetail].deserialize(from: books as? [Any]) as? [BookCommentDetail] {
+                                    self.normalComments = models
+                                }
+                            }
+                        }
+                        DispatchQueue.main.async {
+                            self.tableView.removeFromSuperview()
+                            self.view.addSubview(self.tableView)
+                            self.tableView.reloadData()
+            //                self.tableView.mj_header.endRefreshing()
+                            self.tableView.mj_footer.endRefreshing()
+                        }
         }
     }
     

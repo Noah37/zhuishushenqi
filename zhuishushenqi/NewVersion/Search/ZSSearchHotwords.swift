@@ -9,7 +9,7 @@
 import UIKit
 import HandyJSON
 
-struct ZSSearchHotwords:HandyJSON {
+struct ZSSearchHotwords:HandyJSON, Equatable {
     
     var word:String = ""
     var times:Int = 0

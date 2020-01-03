@@ -25,15 +25,16 @@ class ZSBookStoreViewController: BaseViewController,ZSDiscoverNavigationBarDeleg
         let timeInterval = Date().timeIntervalSince1970
         webViewController.url = "https://h5.zhuishushenqi.com/v2/index3.html?id=e5fe6058afa449e4a8b9b3fb843c2bcd&posCode=B1&timestamp=\(timeInterval)&gender=male&version=14&platform=ios&packageName=com.ifmoc.ZhuiShuShenQi"
         webViewController.delegate = self
-        view.addSubview(navgationBar)
-        view.addSubview(webViewController.view)
-        navgationBar.snp.remakeConstraints { (make) in
+        view.addSubview(self.navgationBar)
+        view.addSubview(self.webViewController.view)
+//        addChild(self.webViewController)
+        navgationBar.snp.makeConstraints { (make) in
             make.left.top.right.equalToSuperview()
             make.height.equalTo(kNavgationBarHeight)
         }
-        webViewController.view.snp.remakeConstraints { (make) in
+        webViewController.view.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.top.equalTo(self.navgationBar.snp_bottom)
+            make.top.equalTo(self.navgationBar.snp.bottom)
             make.height.equalTo(ScreenHeight - kNavgationBarHeight - FOOT_BAR_Height - kTabbarBlankHeight)
         }
     }

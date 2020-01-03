@@ -73,16 +73,13 @@ class ZSTabBarController: UITabBarController,UITabBarControllerDelegate {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         lastSelectedIndex = selectedIndex
-        if let index = tabBar.items?.index(of: item) {
+        if let index = tabBar.items?.firstIndex(of: item) {
             guard let navController = viewControllers?[index] as? UINavigationController else {
                 return
             }
-            guard let viewController = navController.topViewController as? BaseViewController else {
+            guard let _ = navController.topViewController as? BaseViewController else {
                 return
             }
-//            if viewController.needsLogin {
-//
-//            }
         }
     }
 
