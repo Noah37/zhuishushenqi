@@ -41,9 +41,13 @@ class ZSSourceManager {
     }
     
     func add(source:AikanParserModel) {
-        sources.append(source)
-        DispatchQueue.global().async {
-            self.save()
+        if sources.contains(source) {
+            modify(source: source)
+        } else {
+            sources.append(source)
+            DispatchQueue.global().async {
+                self.save()
+            }
         }
     }
     

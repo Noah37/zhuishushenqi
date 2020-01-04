@@ -65,7 +65,7 @@ class ZSSearchResultCell: UITableViewCell {
     func configure(model:AikanParserModel) {
         let resource = QSResource(url: URL(string: "\(model.bookIcon)") ?? URL(string: "www.baidu.com")!)
         self.bookIconView.kf.setImage(with: resource)
-        self.bookDescLB.text = model.bookDesc
+        self.bookDescLB.text = model.bookDesc.length != 0 ? model.bookDesc:model.detailBookDesc
         self.sourceLB.text = model.name
         self.authorLB.text = model.bookAuthor
         self.bookNameLB.text = model.bookName
