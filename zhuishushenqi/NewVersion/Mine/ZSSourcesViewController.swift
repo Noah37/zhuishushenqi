@@ -46,6 +46,14 @@ class ZSSourcesViewController: ZSBaseTableViewController {
         return cell!
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let source = sources[indexPath.row]
+        let addVC = ZSAddSourceViewController()
+        addVC.source = source
+        self.navigationController?.pushViewController(addVC, animated: true)
+    }
+    
     override func registerCellClasses() -> Array<AnyClass> {
         return [ZSSourceCell.self]
     }
@@ -61,7 +69,10 @@ extension ZSSourcesViewController:ZSSourceCellDelegate {
     }
     
     func cellDidClickDelete(cell:ZSSourceCell) {
-        
+        alert(with: "提醒", message: "确认删除吗，删除后不可恢复？", okTitle: "确认", cancelTitle: "取消", okAction: { [weak self] (action) in
+            ZSSourceManager.share.delete(source: cell.source!)
+            self?.tableView.reloadData()
+        }, cancelAction: nil)
     }
 }
 

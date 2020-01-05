@@ -11,6 +11,8 @@ import SnapKit
 
 class ZSAddSourceViewController: BaseViewController {
     
+    var source:AikanParserModel? { didSet { reloadData() } }
+    
     lazy var booksTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
@@ -151,6 +153,14 @@ class ZSAddSourceViewController: BaseViewController {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
         tf.text = "bookName"
+        tf.delegate = self
+        return tf
+    }()
+    
+    lazy var detailBookDescTF:ZSAddLineView = {
+        let tf = ZSAddLineView(frame: .zero)
+        tf.placeholder = "请输入"
+        tf.text = "detailBookDesc"
         tf.delegate = self
         return tf
     }()
@@ -306,6 +316,13 @@ class ZSAddSourceViewController: BaseViewController {
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
+        scrollView.addSubview(self.detailBookDescTF)
+        detailBookDescTF.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.searchUrlTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
+            make.height.equalTo(50)
+        }
     }
     
     private func setupNavItem() {
@@ -313,29 +330,57 @@ class ZSAddSourceViewController: BaseViewController {
         self.navigationItem.rightBarButtonItem = addItem
     }
     
+    private func reloadData() {
+        guard let model = source else { return }
+        booksTF.tfText = model.books
+        bookCategoryTF.tfText = model.bookCategory
+        bookNameTF.tfText = model.bookName
+        bookAuthorTF.tfText = model.bookAuthor
+        bookDescTF.tfText = model.bookDesc
+        bookIconTF.tfText = model.bookIcon
+        bookUrlTF.tfText = model.bookUrl
+        bookUpdateTimeTF.tfText = model.bookUpdateTime
+        bookLastChapterNameTF.tfText = model.bookLastChapterName
+        detailChaptersUrlTF.tfText = model.detailChaptersUrl
+        detailBookIconTF.tfText = model.detailBookIcon
+        chaptersTF.tfText = model.chapters
+        chapterNameTF.tfText = model.chapterName
+        chapterUrlTF.tfText = model.chapterUrl
+        contentTF.tfText = model.content
+        hostTF.tfText = model.host
+        nameTF.tfText = model.name
+        searchUrlTF.tfText = model.searchUrl
+        detailBookDescTF.tfText = model.detailBookDesc
+    }
+    
     @objc
     private func addAction() {
-        // save
-        let model = AikanParserModel()
-        model.books = booksTF.text
-        model.bookName = bookNameTF.text
-        model.bookAuthor = bookAuthorTF.text
-        model.bookCategory = bookCategoryTF.text
-        model.bookDesc = bookDescTF.text
-        model.bookIcon = bookIconTF.text
-        model.bookUrl = bookUrlTF.text
-        model.bookUpdateTime = bookUpdateTimeTF.text
-        model.bookLastChapterName = bookLastChapterNameTF.text
-        model.detailChaptersUrl = detailChaptersUrlTF.text
-        model.detailBookIcon = detailBookIconTF.text
-        model.chapters = chaptersTF.text
-        model.chapterName = chapterNameTF.text
-        model.chapterUrl = chapterUrlTF.text
-        model.content = contentTF.text
-        model.host = hostTF.text
-        model.name = nameTF.text
-        model.searchUrl = searchUrlTF.text
+        if booksTF.text.length == 0 {
+            alert(with: "提醒", message: "books不能为空", okTitle: "确定")
+            return
+        }
+        let model:AikanParserModel = source == nil ? AikanParserModel():source!
+        model.books = booksTF.textField.text ?? ""
+        model.bookName = bookNameTF.textField.text ?? ""
+        model.bookAuthor = bookAuthorTF.textField.text ?? ""
+        model.bookCategory = bookCategoryTF.textField.text ?? ""
+        model.bookDesc = bookDescTF.textField.text ?? ""
+        model.bookIcon = bookIconTF.textField.text ?? ""
+        model.bookUrl = bookUrlTF.textField.text ?? ""
+        model.bookUpdateTime = bookUpdateTimeTF.textField.text ?? ""
+        model.bookLastChapterName = bookLastChapterNameTF.textField.text ?? ""
+        model.detailChaptersUrl = detailChaptersUrlTF.textField.text ?? ""
+        model.detailBookIcon = detailBookIconTF.textField.text ?? ""
+        model.chapters = chaptersTF.textField.text ?? ""
+        model.chapterName = chapterNameTF.textField.text ?? ""
+        model.chapterUrl = chapterUrlTF.textField.text ?? ""
+        model.content = contentTF.textField.text ?? ""
+        model.host = hostTF.textField.text ?? ""
+        model.name = nameTF.textField.text ?? ""
+        model.searchUrl = searchUrlTF.textField.text ?? ""
+        model.detailBookDesc = detailBookDescTF.textField.text ?? ""
         ZSSourceManager.share.add(source: model)
+        navigationController?.popViewController(animated: true)
     }
     
 }
@@ -351,7 +396,8 @@ protocol ZSAddLineViewDelegate:UITextFieldDelegate {
 class ZSAddLineView: UIView, UITextFieldDelegate {
     var placeholder:String = "" { didSet { textField.placeholder = placeholder } }
     var text:String = "" { didSet { titleLabel.text = text } }
-    
+    var tfText:String = "" { didSet { textField.text = tfText } }
+
     weak var delegate:ZSAddLineViewDelegate? { didSet { textField.delegate = delegate }  }
     
     lazy var titleLabel:UILabel = {
@@ -367,6 +413,7 @@ class ZSAddLineView: UIView, UITextFieldDelegate {
         tf.layer.borderWidth = 0.3
         tf.layer.cornerRadius = 5
         tf.layer.masksToBounds = true
+        tf.font = UIFont.systemFont(ofSize: 13)
         tf.borderStyle = .roundedRect
         tf.placeholder = "请输入"
         return tf
@@ -395,6 +442,6 @@ class ZSAddLineView: UIView, UITextFieldDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.titleLabel.frame = CGRect(x: 0, y: 0, width: 100, height: self.bounds.height)
-        self.textField.frame = CGRect(x: 120, y: 5, width: 200, height: self.bounds.height - 10)
+        self.textField.frame = CGRect(x: 120, y: 5, width: self.width - 140, height: self.bounds.height - 10)
     }
 }

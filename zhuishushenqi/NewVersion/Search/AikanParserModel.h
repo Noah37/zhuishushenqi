@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy, nonatomic) NSArray *chaptersModel; // @synthesize chapters=_chapters;
 @property(copy, nonatomic) NSString *detailBookIcon; // @synthesize detailBookIcon=_detailBookIcon;
 @property(copy, nonatomic) NSString *detailChaptersUrl; // @synthesize detailChaptersUrl=_detailChaptersUrl;
+@property(copy, nonatomic) NSString *detailBookDesc; // @synthesize bookDesc=_bookDesc;
 @property(copy, nonatomic) NSString *bookLastChapterName; // @synthesize bookLastChapterName=_bookLastChapterName;
 @property(copy, nonatomic) NSString *bookUpdateTime; // @synthesize bookUpdateTime=_bookUpdateTime;
 @property(copy, nonatomic) NSString *bookUrl; // @synthesize bookUrl=_bookUrl;

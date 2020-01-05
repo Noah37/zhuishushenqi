@@ -197,7 +197,7 @@ class ZSSearchBookViewModel {
             var bookName = parse.string(withGumboNode: obj[index], withAikanString: src.bookName, withText: true)
             var bookDesc = parse.string(withGumboNode: obj[index], withAikanString: src.bookDesc, withText: true)
             var bookUrl = parse.string(withGumboNode: obj[index], withAikanString: src.bookUrl, withText: false)
-            if bookAuthor.length == 0 && bookName.length == 0 {
+            if bookAuthor.length == 0 && bookName.length == 0 || bookUrl.length == 0 {
                 continue
             }
             if !bookUrl.hasPrefix("http") {
@@ -214,7 +214,7 @@ class ZSSearchBookViewModel {
             bookAuthor = bookAuthor.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             bookName = bookName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             bookDesc = bookDesc.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            getChapter(src: src, bookUrl: bookUrl) { (chapters) in
+            getChapter(src: src, bookUrl: bookUrl) { (chapters, bookDetailInfo) in
                 let book = AikanParserModel()
                 book.bookAuthor = bookAuthor
                 book.bookIcon = bookIcon
@@ -223,46 +223,83 @@ class ZSSearchBookViewModel {
                 book.bookUrl = bookUrl
                 book.name = src.name
                 book.chaptersModel = chapters
+                book.detailBookDesc = bookDetailInfo["detailBookDesc"] ?? ""
+                book.detailBookIcon = bookDetailInfo["detailBookIcon"] ?? ""
+                book.bookLastChapterName = bookDetailInfo["bookLastChapterName"] ?? ""
+                book.bookUpdateTime = bookDetailInfo["bookUpdateTime"] ?? ""
                 completion(book)
             }
         }
     }
     
-    private func getChapter(src:AikanParserModel, bookUrl:String, completion:@escaping(_ chapters:[[String:Any]])->Void) {
+    private func getChapter(src:AikanParserModel, bookUrl:String, completion:@escaping(_ chapters:[[String:Any]], _ bookDetailInfo:[String:String])->Void) {
         var headers = SessionManager.defaultHTTPHeaders
         headers["User-Agent"] = YouShaQiUserAgent
+        let manager = SessionManager.default
+        manager.delegate.sessionDidReceiveChallenge = {
+            session,challenge in
+            return  (URLSession.AuthChallengeDisposition.useCredential,URLCredential(trust:challenge.protectionSpace.serverTrust!))
+        }
         Alamofire.request(bookUrl, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData { (data) in
             if let htmlData = data.data {
                 let htmlString = String(data: htmlData, encoding: .utf8) ?? ""
                 guard let document = OCGumboDocument(htmlString: htmlString) else { return }
-                let reg = src.detailChaptersUrl
-                let parse = AikanHtmlParser()
-                var chapterDir = parse.string(withGumboNode: document, withAikanString: reg, withText: false)
-                if !chapterDir.hasPrefix("http") {
-                    if chapterDir.hasPrefix("/") && src.host.hasSuffix("/") {
-                        let host = src.host.qs_subStr(start: 0, length: src.host.length - 1)
-                        chapterDir = "\(host)\(chapterDir)"
-                    } else {
-                        chapterDir = "\(src.host)\(chapterDir)"
-                    }
-                }
-                Alamofire.request(chapterDir, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData(completionHandler: { (data) in
-                    guard let htmlData = data.data else { return }
-                    let htmlString = String(data: htmlData, encoding: .utf8) ?? ""
-                    guard let document = OCGumboDocument(htmlString: htmlString) else { return }
+                // 如果detailChaptersUrl不存在，则直接去chapters
+                var reg = src.detailChaptersUrl
+                if reg.length > 0 {
                     let parse = AikanHtmlParser()
-                    let chalters = parse.elementArray(with: document, withRegexString: src.chapters)
+                    var chapterDir = parse.string(withGumboNode: document, withAikanString: reg, withText: false)
+                    if !chapterDir.hasPrefix("http") {
+                        if chapterDir.hasPrefix("/") && src.host.hasSuffix("/") {
+                            let host = src.host.qs_subStr(start: 0, length: src.host.length - 1)
+                            chapterDir = "\(host)\(chapterDir)"
+                        } else {
+                            chapterDir = "\(src.host)\(chapterDir)"
+                        }
+                    }
+                    Alamofire.request(chapterDir, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData(completionHandler: { (data) in
+                        guard let htmlData = data.data else { return }
+                        let htmlString = String(data: htmlData, encoding: .utf8) ?? ""
+                        guard let document = OCGumboDocument(htmlString: htmlString) else { return }
+                        let parse = AikanHtmlParser()
+                        let chalters = parse.elementArray(with: document, withRegexString: src.chapters)
+                        var chaptersArr:[[String:Any]] = []
+                        for node in chalters {
+                            let chapterUrl = parse.string(withGumboNode: node, withAikanString: src.chapterUrl, withText: false)
+                            let chapterTitle = parse.string(withGumboNode: node, withAikanString: src.chapterName, withText: true)
+                            chaptersArr.append(["chapterUrl":chapterUrl,
+                                                "chapterName":chapterTitle])
+                        }
+                        if !self.stopBooks {
+                            completion(chaptersArr,[:])
+                        }
+                    })
+                } else {
+                    reg = src.chapters
+                    let parse = AikanHtmlParser()
+                    let detailBookDesc = parse.string(withGumboNode: document, withAikanString: src.detailBookDesc, withText: false)
+                    let detailBookIcon = parse.string(withGumboNode: document, withAikanString: src.detailBookIcon, withText: false)
+                    let bookLastChapterName = parse.string(withGumboNode: document, withAikanString: src.bookLastChapterName, withText: true)
+                    let bookUpdateTime = parse.string(withGumboNode: document, withAikanString: src.bookUpdateTime, withText: true)
+                    let bookDetailInfo:[String:String] = ["detailDesc":detailBookDesc,
+                                                          "detailBookIcon":detailBookIcon,
+                                                          "bookLastChapterName":bookLastChapterName,
+                                                          "bookUpdateTime":bookUpdateTime]
+                    let obj = parse.elementArray(with: document, withRegexString: reg)
                     var chaptersArr:[[String:Any]] = []
-                    for node in chalters {
-                        let chapterUrl = parse.string(withGumboNode: node, withAikanString: src.chapterUrl, withText: false)
-                        let chapterTitle = parse.string(withGumboNode: node, withAikanString: src.chapterName, withText: true)
+                    for index in 0..<obj.count {
+                        var chapterUrl = parse.string(withGumboNode: obj[index], withAikanString: src.chapterUrl, withText: false)
+                        if chapterUrl.length > 0 && !chapterUrl.hasPrefix("http") {
+                            chapterUrl = bookUrl + chapterUrl
+                        }
+                        let chapterName = parse.string(withGumboNode: obj[index], withAikanString: src.chapterName, withText: true)
                         chaptersArr.append(["chapterUrl":chapterUrl,
-                                            "chapterName":chapterTitle])
+                        "chapterName":chapterName])
                     }
                     if !self.stopBooks {
-                        completion(chaptersArr)
+                        completion(chaptersArr,bookDetailInfo)
                     }
-                })
+                }
             }
         }
     }

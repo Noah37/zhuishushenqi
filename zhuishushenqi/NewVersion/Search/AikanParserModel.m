@@ -31,6 +31,7 @@
         self.chapterName = [coder decodeObjectForKey:@"chapterName"];
         self.chapters = [coder decodeObjectForKey:@"chapters"];
         self.detailBookIcon = [coder decodeObjectForKey:@"detailBookIcon"];
+        self.detailBookDesc = [coder decodeObjectForKey:@"detailBookDesc"];
         self.detailChaptersUrl = [coder decodeObjectForKey:@"detailChaptersUrl"];
         self.bookLastChapterName = [coder decodeObjectForKey:@"bookLastChapterName"];
         self.bookUpdateTime = [coder decodeObjectForKey:@"bookUpdateTime"];
@@ -64,6 +65,7 @@
     [coder encodeObject:self.chapterName forKey:@"chapterName"];
     [coder encodeObject:self.chapters forKey:@"chapters"];
     [coder encodeObject:self.detailBookIcon forKey:@"detailBookIcon"];
+    [coder encodeObject:self.detailBookDesc forKey:@"detailBookDesc"];
     [coder encodeObject:self.detailChaptersUrl forKey:@"detailChaptersUrl"];
     [coder encodeObject:self.bookLastChapterName forKey:@"bookLastChapterName"];
     [coder encodeObject:self.bookUpdateTime forKey:@"bookUpdateTime"];
