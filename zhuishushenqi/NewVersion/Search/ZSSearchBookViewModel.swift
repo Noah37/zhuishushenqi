@@ -33,7 +33,7 @@ class ZSSearchBookViewModel {
         self.source = ZSSourceManager.share.sources.filter({ (model) -> Bool in
             return model.checked
         })
-        historyHeader.type = .hot
+        historyHeader.type = .history
         historyHeader.items = ZSHistoryManager.share.historyList
         historyHeader.headerTitle = "搜索历史"
         historyHeader.headerDetail = "删除历史"
@@ -110,7 +110,7 @@ class ZSSearchBookViewModel {
         for hot in words {
             var cell = hot
             let cellWidth = (UIScreen.main.bounds.width - 40)/2
-            cellY = CGFloat(index/2) * (cellHeight + spaceY)
+            cellY = CGFloat(index/2) * (cellHeight + spaceY) + marginY
             cell.frame = CGRect(x: cellX, y: cellY, width: cellWidth, height: cellHeight)
             cellX += spaceX
             cellX += cellWidth
@@ -142,6 +142,7 @@ class ZSSearchBookViewModel {
         } else if row == 1 {
             return searchRecHeader
         }
+        historyHeader.items = ZSHistoryManager.share.historyList
         return historyHeader
     }
     

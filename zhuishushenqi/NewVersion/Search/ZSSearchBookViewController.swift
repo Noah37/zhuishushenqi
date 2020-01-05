@@ -21,11 +21,8 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
     lazy var bookView:ZSSearchBookView = {
         let view = ZSSearchBookView(frame: .zero)
         view.viewModel = self.viewModel
-        view.clickHandler = { [weak self] model in
-            self?.searchHotClick(model: model)
-        }
-        view.recClickHandler = { [weak self] model in
-            self?.searchRecClick(model: model)
+        view.clickHandler = { [weak self] word in
+            self?.searchHotClick(word: word)
         }
         return view
     }()
@@ -70,14 +67,9 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
         resultView.isHidden = true
     }
     
-    func searchHotClick(model:ZSSearchHotwords) {
-        topBar.textfield.text = model.word
-        request(text: model.word)
-    }
-    
-    func searchRecClick(model:ZSHotWord) {
-        topBar.textfield.text = model.word
-        request(text: model.word)
+    func searchHotClick(word:String) {
+        topBar.textfield.text = word
+        request(text: word)
     }
     
     func resultClick(model:AikanParserModel) {
@@ -87,6 +79,8 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
     }
     
     func request(text:String) {
+        viewModel.wordClick(word: text)
+        bookView.tableView.reloadData()
         viewModel.startRequestBooks()
         viewModel.request(text: text) { [weak self] (book) in
             self?.resultView.isHidden = false

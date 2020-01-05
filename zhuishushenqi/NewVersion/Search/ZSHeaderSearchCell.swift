@@ -16,8 +16,7 @@ enum ZSHeaderSearchType {
 
 class ZSHeaderSearchCell: UITableViewCell {
     
-    var clickHandler:ZSSearchHotHandler?
-    var recHandler:ZSSearchRecHandler?
+    var clickHandler:ZSSearchClickHandler?
     
     private var type:ZSHeaderSearchType = .hot { didSet { reloadData() } }
     
@@ -88,8 +87,8 @@ class ZSHeaderSearchCell: UITableViewCell {
     private func showRecommendView() {
        let hotView = ZSSearchRecommendView(frame: CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: (model?.height ?? 0)))
        hotView.cellsFrame = model?.items as! [ZSHotWord]
-       hotView.clickHandler = { [unowned self] model in
-           self.recHandler?(model)
+       hotView.clickHandler = { [unowned self] word in
+           self.clickHandler?(word)
        }
        self.recView = hotView
        topView.titleLabel.text = model?.headerTitle

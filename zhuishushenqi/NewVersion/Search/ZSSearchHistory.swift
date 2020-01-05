@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZSSearchHistory:Equatable , NSCoding{
+class ZSSearchHistory:NSObject , NSCoding{
     
     var word:String = ""
     var timeInterval:TimeInterval = 0
@@ -18,7 +18,7 @@ class ZSSearchHistory:Equatable , NSCoding{
         coder.encode(timeInterval, forKey: "timeInterval")
     }
     
-    init() {
+    override init() {
         
     }
 
@@ -45,6 +45,9 @@ class ZSHistoryManager {
     }
     
     func add(word:String) {
+        if word.length == 0 {
+            return
+        }
         let date = Date().timeIntervalSince1970
         let history = ZSSearchHistory()
         history.word = word
@@ -52,11 +55,9 @@ class ZSHistoryManager {
         if historyList.contains(where: { (model) -> Bool in
             return model.word == history.word
         }) {
-            if let index = historyList.firstIndex(of: history) {
-                historyList.remove(at: index)
-            }
+            remove(word: word)
         }
-        historyList.append(history)
+        historyList.insert(history, at: 0)
         DispatchQueue.global().async {
             self.pack()
         }
@@ -67,12 +68,22 @@ class ZSHistoryManager {
         let history = ZSSearchHistory()
         history.word = word
         history.timeInterval = date
-        if let index = historyList.firstIndex(of: history) {
-            historyList.remove(at: index)
-            DispatchQueue.global().async {
-                self.pack()
-            }
+        let i = index(of: history)
+        historyList.remove(at: i)
+        DispatchQueue.global().async {
+            self.pack()
         }
+    }
+    
+    private func index(of: ZSSearchHistory)->Int {
+        var index = 0
+        for item in historyList {
+            if item.word == of.word {
+                break
+            }
+            index += 1
+        }
+        return index
     }
     
     private func unpack() {

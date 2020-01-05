@@ -23,7 +23,7 @@ pod 'CocoaLumberjack', '3.4.2'
 pod 'YYCategories'
 pod 'FMDB'
 pod 'WechatOpenSDK', '1.8.3'
-#pod 'Weibo_SDK'
+pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 pod 'FLEX', :configurations => ['Debug']
 
 # swift libraries

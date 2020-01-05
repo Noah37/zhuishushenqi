@@ -10,11 +10,13 @@ import UIKit
 
 typealias ZSSearchRecHandler = (_ hotword:ZSHotWord)->Void
 
+typealias ZSSearchHistoryHandler = (_ history:ZSSearchHistory)->Void
+
 class ZSSearchRecommendView: UIView {
     
     var cellsFrame:[ZSHotWord] = [] { didSet { reloadData() } }
     
-    var clickHandler:ZSSearchRecHandler?
+    var clickHandler:ZSSearchClickHandler?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,7 +46,7 @@ class ZSSearchRecommendView: UIView {
     func tapAction(tap:UITapGestureRecognizer) {
         for cellModel in cellsFrame {
             if cellModel.frame.contains(tap.location(in: self)) {
-                clickHandler?(cellModel)
+                clickHandler?(cellModel.word)
                 break
             }
         }

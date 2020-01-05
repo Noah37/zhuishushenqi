@@ -99,6 +99,7 @@ EOM
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/PKHUD/PKHUDResources.bundle"
+  install_resource "${PODS_ROOT}/Weibo_SDK/libWeiboSDK/WeiboSDK.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/ZSAPI/ZSAPI.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/ZSAppConfig/ZSAppConfig.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/ZSExtension/ZSExtension.bundle"
@@ -106,6 +107,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/PKHUD/PKHUDResources.bundle"
+  install_resource "${PODS_ROOT}/Weibo_SDK/libWeiboSDK/WeiboSDK.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/ZSAPI/ZSAPI.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/ZSAppConfig/ZSAppConfig.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/ZSExtension/ZSExtension.bundle"

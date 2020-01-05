@@ -13,10 +13,7 @@ class ZSSearchBookView: UIView {
     
     var viewModel:ZSSearchBookViewModel? { didSet { reloadData() } }
     
-    var clickHandler:ZSSearchHotHandler?
-    
-    var recClickHandler:ZSSearchRecHandler?
-
+    var clickHandler:ZSSearchClickHandler?
     
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -95,7 +92,7 @@ extension ZSSearchBookView:UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return viewModel?.height(for: indexPath.row) ?? 0
+        return viewModel?.height(for: indexPath.section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -113,13 +110,10 @@ extension ZSSearchBookView:UITableViewDataSource, UITableViewDelegate {
                 let cell = tableView.qs_dequeueReusableCell(ZSHeaderSearchCell.self)
                 cell?.selectionStyle = .none
                 cell?.configure(model: model)
-                cell?.clickHandler = { [weak self] model in
-                    self?.viewModel?.wordClick(word: model.word)
-                    self?.clickHandler?(model)
-                }
-                cell?.recHandler = { [weak self] model in
-                    self?.viewModel?.wordClick(word: model.word)
-                    self?.recClickHandler?(model)
+                cell?.clickHandler = { [weak self] word in
+                    self?.viewModel?.wordClick(word: word)
+                    self?.tableView.reloadData()
+                    self?.clickHandler?(word)
                 }
                 return cell!
             } else {
@@ -138,6 +132,8 @@ extension ZSSearchBookView:UITableViewDataSource, UITableViewDelegate {
             if model.type == .history {
                 if let history = model.items[indexPath.row] as? ZSSearchHistory {
                     viewModel?.wordClick(word: history.word)
+                    tableView.reloadData()
+                    clickHandler?(history.word)
                 }
             }
         }

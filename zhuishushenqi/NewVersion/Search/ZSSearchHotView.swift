@@ -8,13 +8,13 @@
 
 import UIKit
 
-typealias ZSSearchHotHandler = (_ hotword:ZSSearchHotwords)->Void
+typealias ZSSearchClickHandler = (_ hotword:String)->Void
 
 class ZSSearchHotView: UIView {
     
     var cellsFrame:[ZSSearchHotwords] = [] { didSet { reloadData() } }
     
-    var clickHandler:ZSSearchHotHandler?
+    var clickHandler:ZSSearchClickHandler?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,7 +45,7 @@ class ZSSearchHotView: UIView {
     private func tapAction(tap:UITapGestureRecognizer) {
         for cellModel in cellsFrame {
             if cellModel.frame.contains(tap.location(in: self)) {
-                clickHandler?(cellModel)
+                clickHandler?(cellModel.word)
                 break
             }
         }
