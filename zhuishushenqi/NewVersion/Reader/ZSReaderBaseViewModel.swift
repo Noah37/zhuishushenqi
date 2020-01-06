@@ -55,4 +55,10 @@ class ZSReaderBaseViewModel {
             }
         }
     }
+    
+    func request(chapter:ZSBookChapter, callback:ZSBaseCallback<ZSBookChapter>) {
+        ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
+            
+        }
+    }
 }

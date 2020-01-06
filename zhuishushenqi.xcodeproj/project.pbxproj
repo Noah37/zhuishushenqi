@@ -3263,7 +3263,6 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/QSNetwork.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputFileListPaths = (

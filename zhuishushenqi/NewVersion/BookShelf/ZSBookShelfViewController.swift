@@ -278,7 +278,7 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let readerVC = ZSReaderController()
         let id = ZSBookManager.shared.ids[indexPath.row]
-        readerVC.viewModel.book = ZSBookManager.shared.books[id]
+//        readerVC.viewModel.book = ZSBookManager.shared.books[id]
         readerVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(readerVC, animated: true)
     }
