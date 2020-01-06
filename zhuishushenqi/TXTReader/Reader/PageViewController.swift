@@ -39,6 +39,13 @@ class PageViewController: UIViewController {
             refreshView()
         }
     }
+    
+    var newPage:ZSBookPage? {
+        didSet {
+            self.view.alpha = 1.0
+            refreshView()
+        }
+    }
     lazy var batteryView:QSBatteryView = {
         let batteryView = QSBatteryView(frame: CGRect(x: 15, y: self.view.bounds.height - 20, width: 25, height: 10))
         batteryView.batteryLevel = CGFloat(UIDevice.current.batteryLevel)
@@ -220,6 +227,14 @@ class PageViewController: UIViewController {
             pageView.attributedText = page.content
             pageLabel.text = "第\((page.curPage + 1))/\(page.totalPages)页"
             titleLabel.text = page.title
+            titleLabel.textColor = AppStyle.shared.reader.textColor
+            pageLabel.textColor = AppStyle.shared.reader.textColor
+            timeLabel.textColor = AppStyle.shared.reader.textColor
+            batteryView.batteryColor = AppStyle.shared.reader.batteryColor
+        } else if let page = self.newPage {
+            pageView.attributedText = page.content
+            pageLabel.text = "第\((page.pageIndex + 1))/\(page.totalPages)页"
+            titleLabel.text = page.chapterName
             titleLabel.textColor = AppStyle.shared.reader.textColor
             pageLabel.textColor = AppStyle.shared.reader.textColor
             timeLabel.textColor = AppStyle.shared.reader.textColor

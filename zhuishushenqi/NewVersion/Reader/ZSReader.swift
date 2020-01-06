@@ -48,6 +48,9 @@ func getRectValue(for key:String) ->CGRect {
 }
 
 struct ZSReader {
+    
+    static let share = ZSReader()
+    
     var pageStyle:ZSReaderPageStyle = .pageCurl {
         didSet {
             cache(value: pageStyle.rawValue, for: "\(ZSReader.self).\(ZSReaderPageStyle.self)")
@@ -77,11 +80,26 @@ struct ZSReader {
     var didChangeBookStyle: (ZSReaderBookStyle) ->Void = { _ in }
     var didChangeTheme: (ZSReaderTheme) ->Void = { _ in }
     
-    init() {
+    private init() {
         pageStyle = ZSReaderPageStyle.init(rawValue: getValue(for: "\(ZSReader.self).\(ZSReaderPageStyle.self)")) ?? .pageCurl
         contentFrame = getRectValue(for: "\(ZSReader.self).contentFrame")
         bookStyle = ZSReaderBookStyle.init(rawValue: getValue(for:
             "\(ZSReader.self).\(ZSReaderBookStyle.self)")) ?? .online
+    }
+    
+    public func attributes() -> [NSAttributedString.Key:Any]{
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        
+        paragraphStyle.lineSpacing = theme.lineSpace
+        
+        paragraphStyle.paragraphSpacing = theme.paragraphSpace
+        
+        let font = UIFont.systemFont(ofSize: theme.fontSize.size)
+        
+        let attributes = [NSAttributedString.Key.font:font,
+                          NSAttributedString.Key.paragraphStyle:paragraphStyle] as [NSAttributedString.Key : Any]
+        return attributes
     }
 }
 

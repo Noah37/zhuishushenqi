@@ -15,6 +15,11 @@ class ZSReaderBaseViewModel {
     var originalChapter:ZSBookChapter?
     var preRequestChapterCount = 5
     
+    var reader = ZSReader.share
+    
+    // 阅读历史
+    var readHistory:ZSReadHistory?
+    
     var chapters:[ZSBookChapter] {
         get {
             return model?.chaptersModel as? [ZSBookChapter] ?? []
@@ -22,6 +27,16 @@ class ZSReaderBaseViewModel {
     }
     
     fileprivate var webService = ZSReaderWebService()
+    
+    init() {
+        reader.didChangeContentFrame = { frame in
+            
+        }
+        
+        reader.theme.didChangeFontSize = { fontSize in
+            
+        }
+    }
 
     func request(callback:ZSBaseCallback<Void>?) {
         if let chapter = originalChapter, chapter.chapterContent.length == 0 {
@@ -43,11 +58,11 @@ class ZSReaderBaseViewModel {
             var index = 0
             for chapter in chapters {
                 if index <= chapter.chapterIndex && index > chapter.chapterIndex - preRequestChapterCount {
-                    ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
+                    self.request(chapter: chapter) { (chapter) in
                         
                     }
                 } else if index > chapter.chapterIndex && index < chapter.chapterIndex + preRequestChapterCount {
-                    ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
+                    self.request(chapter: chapter) { (chapter) in
                         
                     }
                 }
@@ -56,9 +71,9 @@ class ZSReaderBaseViewModel {
         }
     }
     
-    func request(chapter:ZSBookChapter, callback:ZSBaseCallback<ZSBookChapter>) {
+    func request(chapter:ZSBookChapter, callback:@escaping ZSBaseCallback<ZSBookChapter>) {
         ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
-            
+            callback(chapter)
         }
     }
 }

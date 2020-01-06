@@ -63,28 +63,74 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     }
     
     func setupGesture(){
-            let pan = UIPanGestureRecognizer(target: self, action: #selector(panAction))
-            view.addGestureRecognizer(pan)
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(panAction))
+        view.addGestureRecognizer(pan)
+    }
+            
+    @objc func panAction(pan:UIPanGestureRecognizer){
+        // x方向滑动超过20就翻页
+        let translation:CGPoint = pan.translation(in: self.view)
+        
+        if pan.state == .changed && !changedPage {
+            let offsetX = translation.x
+            if offsetX < -20 {
+                // 在本次手势结束前都不再响应
+                changedPage = true
+                nextPage()
+            } else if (offsetX > 20) {
+                // 在本次手势结束前都不再响应
+                changedPage = true
+                lastPage()
+            }
+        } else if pan.state == .ended {
+            changedPage = false
         }
-            
-        @objc func panAction(pan:UIPanGestureRecognizer){
-            // x方向滑动超过20就翻页
-            let translation:CGPoint = pan.translation(in: self.view)
-            
-            if pan.state == .changed && !changedPage {
-                let offsetX = translation.x
-                if offsetX < -20 {
-                    // 在本次手势结束前都不再响应
-                    changedPage = true
-//                    getNextPage()
-                } else if (offsetX > 20) {
-                    // 在本次手势结束前都不再响应
-                    changedPage = true
-//                    getLastPage()
-                }
-            } else if pan.state == .ended {
-                changedPage = false
+    }
+    
+    func nextPage() {
+        let chapter = currentChapter()
+        guard let history = viewModel?.readHistory else { return }
+        guard let page = history.page else { return }
+        if let nextP = chapter.getNextPage(page: page) {
+            self.pageViewController.page = nextP
+        } else {
+            if let nextC = nextChapter() {
+                viewModel?.request(chapter: nextC, callback: { (chapter) in
+                    
+                })
             }
         }
+    }
     
+    func lastPage() {
+        
+    }
+    
+    func nextChapter() -> ZSBookChapter? {
+        
+        return nil
+    }
+    
+    func lastChapter() ->ZSBookChapter? {
+        return nil
+    }
+    
+    func currentChapter() ->ZSBookChapter {
+        guard let chapters = viewModel?.model?.chaptersModel as? [ZSBookChapter], chapters.count > 0 else {
+            return ZSBookChapter()
+        }
+        if let history = viewModel?.readHistory {
+            if let chapter = history.chapter {
+                return chapter
+            }
+        }
+        let chapter = chapters.first!
+        if chapter.pages.count == 0 {
+            chapter.calPages()
+        }
+        let history = ZSReadHistory()
+        history.chapter = chapter
+        history.page = chapter.pages.first
+        return chapter
+    }
 }

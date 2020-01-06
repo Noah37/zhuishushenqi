@@ -19,25 +19,47 @@ class ZSBookChapter:NSObject, NSCoding {
     // 每页的范围
     var ranges:[NSRange] = []
     
-    var reader = ZSReader()
+    var pages:[ZSBookPage] = []
     
     override init() {
         
     }
     
-    private func calPages() {
+    // 不存在则不是当前chapter
+    func getNextPage(page:ZSBookPage) ->ZSBookPage? {
+        if (page.pageIndex + 1) < self.pages.count {
+            return self.pages[page.pageIndex + 1]
+        }
+        return nil
+    }
+    
+    func getLastPage(page:ZSBookPage) ->ZSBookPage? {
+        if page.pageIndex - 1 > 0 {
+            return self.pages[page.pageIndex - 1]
+        }
+        return nil
+    }
+    
+    func calPages() {
         if chapterContent.length == 0 {
             return
         }
-        reader.didChangeContentFrame = { frame in
-            
-        }
-        reader.didChangeTheme = { theme in
-            
-        }
-        let size = reader.contentFrame
-        let attributes = QSReaderSetting.shared.attributes()
+        let size = ZSReader.share.contentFrame
+        let attributes = ZSReader.share.attributes()
         self.ranges = QSReaderParse.pageWithAttributes(attrubutes: attributes, constrainedToFrame: size, string: self.chapterContent)
+        var pages:[ZSBookPage] = []
+        for item in 0..<ranges.count {
+            let range:NSRange =  ranges[item]
+            let page = ZSBookPage()
+            page.content = (chapterContent as NSString).substring(with: range)
+            page.chapterIndex = chapterIndex
+            page.chapterName = chapterName
+            page.chapterUrl = chapterUrl
+            page.pageIndex = item
+            page.totalPages = ranges.count
+            pages.append(page)
+        }
+        self.pages = pages
     }
     
     required init?(coder: NSCoder) {
@@ -62,6 +84,7 @@ class ZSBookPage:NSObject, NSCoding {
     var chapterUrl:String = ""
     var chapterIndex:Int = 0
     var pageIndex:Int = 0
+    var totalPages:Int = 0
     
     override init() {
         
@@ -73,6 +96,7 @@ class ZSBookPage:NSObject, NSCoding {
         self.content = coder.decodeObject(forKey: "content") as? String ?? ""
         self.chapterIndex = coder.decodeInteger(forKey: "chapterIndex")
         self.pageIndex = coder.decodeInteger(forKey: "pageIndex")
+        self.totalPages = coder.decodeInteger(forKey: "totalPages")
     }
     
     func encode(with coder: NSCoder) {
@@ -81,5 +105,7 @@ class ZSBookPage:NSObject, NSCoding {
         coder.encode(self.content, forKey: "content")
         coder.encode(self.chapterIndex, forKey: "chapterIndex")
         coder.encode(self.pageIndex, forKey: "pageIndex")
+        coder.encode(self.totalPages, forKey: "totalPages")
+
     }
 }

@@ -214,6 +214,7 @@
 		B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22204A11EE9284F008E1902 /* QSSplashScreen.swift */; };
 		B222A2C31EEE6EE9007CD57F /* QSLaunchRecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B222A2C21EEE6EE9007CD57F /* QSLaunchRecView.swift */; };
 		B222C08A23C1CAA800D66E3C /* ZSSearchInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B222C08923C1CAA800D66E3C /* ZSSearchInfoTableViewCell.swift */; };
+		B222C08C23C379E000D66E3C /* ZSReadHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B222C08B23C379E000D66E3C /* ZSReadHistory.swift */; };
 		B22AC43A1E9E6626008625E6 /* QSSearchResultTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4391E9E6626008625E6 /* QSSearchResultTable.swift */; };
 		B22AC44B1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44A1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift */; };
 		B22AC44D1E9F1C62008625E6 /* ZSBaseSegmentItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44C1E9F1C62008625E6 /* ZSBaseSegmentItemViewController.swift */; };
@@ -897,6 +898,7 @@
 		B22204A11EE9284F008E1902 /* QSSplashScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSplashScreen.swift; sourceTree = "<group>"; };
 		B222A2C21EEE6EE9007CD57F /* QSLaunchRecView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSLaunchRecView.swift; sourceTree = "<group>"; };
 		B222C08923C1CAA800D66E3C /* ZSSearchInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSearchInfoTableViewCell.swift; sourceTree = "<group>"; };
+		B222C08B23C379E000D66E3C /* ZSReadHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReadHistory.swift; sourceTree = "<group>"; };
 		B22AC4391E9E6626008625E6 /* QSSearchResultTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchResultTable.swift; sourceTree = "<group>"; };
 		B22AC44A1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchAutoCompleteTable.swift; sourceTree = "<group>"; };
 		B22AC44C1E9F1C62008625E6 /* ZSBaseSegmentItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSBaseSegmentItemViewController.swift; sourceTree = "<group>"; };
@@ -1389,6 +1391,7 @@
 				B2C63A3323C1A57A0083C987 /* ZSBookMemoryCache.swift */,
 				B2C63A3723C1ABA60083C987 /* ZSBookDiskCache.swift */,
 				B2C63A3523C1A6C80083C987 /* ZSBookChapter.swift */,
+				B222C08B23C379E000D66E3C /* ZSReadHistory.swift */,
 			);
 			path = Reader;
 			sourceTree = "<group>";
@@ -3637,6 +3640,7 @@
 				B29CFB71217AE84B0006F294 /* ZSMyHeaderView.swift in Sources */,
 				B22AC44D1E9F1C62008625E6 /* ZSBaseSegmentItemViewController.swift in Sources */,
 				B25CEFF822F97937002ABE30 /* ZSForumPageHeaderView.swift in Sources */,
+				B222C08C23C379E000D66E3C /* ZSReadHistory.swift in Sources */,
 				B2B4BBF91E7EA4AB000CC201 /* UILabel+zhuishu.swift in Sources */,
 				B252D491210EF3960091858E /* MultipartMessageHeader.m in Sources */,
 				B252D4DE211006670091858E /* Alamofire+ZSExtension.swift in Sources */,
