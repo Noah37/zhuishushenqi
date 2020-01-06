@@ -160,8 +160,6 @@
 		3DECC3E522464C5000EEB146 /* XMResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3DECC3D322464C4F00EEB146 /* XMResource.bundle */; };
 		3DECC3E722464F9300EEB146 /* ZSVoiceBookCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3E622464F9300EEB146 /* ZSVoiceBookCategoryViewController.swift */; };
 		3DECC3E922467F9B00EEB146 /* ZSVoiceSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC3E822467F9A00EEB146 /* ZSVoiceSegmentView.swift */; };
-		3DEFD98E23BDB01200116ECD /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3DEFD98823BDB01200116ECD /* WeiboSDK.bundle */; };
-		3DEFD98F23BDB01200116ECD /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEFD98923BDB01200116ECD /* libWeiboSDK.a */; };
 		3DEFD99123BDB12200116ECD /* ZSRefreshTextHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD99023BDB12200116ECD /* ZSRefreshTextHeader.swift */; };
 		3DF2D27820EB5773004E73B6 /* ZSChapterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2D27720EB5773004E73B6 /* ZSChapterInfo.swift */; };
 		3DF2D27A20EB5C1C004E73B6 /* ZSChapterBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2D27920EB5C1C004E73B6 /* ZSChapterBody.swift */; };
@@ -215,6 +213,7 @@
 		B22182CF1DA40594002458D2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B22182CE1DA40594002458D2 /* libz.tbd */; };
 		B22204A21EE9284F008E1902 /* QSSplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22204A11EE9284F008E1902 /* QSSplashScreen.swift */; };
 		B222A2C31EEE6EE9007CD57F /* QSLaunchRecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B222A2C21EEE6EE9007CD57F /* QSLaunchRecView.swift */; };
+		B222C08A23C1CAA800D66E3C /* ZSSearchInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B222C08923C1CAA800D66E3C /* ZSSearchInfoTableViewCell.swift */; };
 		B22AC43A1E9E6626008625E6 /* QSSearchResultTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC4391E9E6626008625E6 /* QSSearchResultTable.swift */; };
 		B22AC44B1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44A1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift */; };
 		B22AC44D1E9F1C62008625E6 /* ZSBaseSegmentItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22AC44C1E9F1C62008625E6 /* ZSBaseSegmentItemViewController.swift */; };
@@ -571,6 +570,11 @@
 		B2C0DF7F20D4CC480057DC84 /* ZSBookCommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF7E20D4CC480057DC84 /* ZSBookCommentService.swift */; };
 		B2C0DF8120D4CC5A0057DC84 /* ZSBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF8020D4CC5A0057DC84 /* ZSBaseService.swift */; };
 		B2C0DF8520D7C1D30057DC84 /* ZSHottwitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C0DF8420D7C1D30057DC84 /* ZSHottwitterViewController.swift */; };
+		B2C63A3223C1A44B0083C987 /* ZSReaderDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C63A3123C1A44B0083C987 /* ZSReaderDownloader.swift */; };
+		B2C63A3423C1A57A0083C987 /* ZSBookMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C63A3323C1A57A0083C987 /* ZSBookMemoryCache.swift */; };
+		B2C63A3623C1A6C80083C987 /* ZSBookChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C63A3523C1A6C80083C987 /* ZSBookChapter.swift */; };
+		B2C63A3823C1ABA60083C987 /* ZSBookDiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C63A3723C1ABA60083C987 /* ZSBookDiskCache.swift */; };
+		B2C63A3B23C1ADC50083C987 /* ZSBookCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C63A3A23C1ADC50083C987 /* ZSBookCache.swift */; };
 		B2CA80F021797EA2007A3EE7 /* ZSThirdLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA80EF21797EA2007A3EE7 /* ZSThirdLogin.swift */; };
 		B2CA942B1EB331DC00D60BF2 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */; };
 		B2E072781F3AD99500C63347 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E072771F3AD99500C63347 /* Reader.swift */; };
@@ -816,10 +820,6 @@
 		3DECC3DD22464C4F00EEB146 /* XMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMSDK.h; sourceTree = "<group>"; };
 		3DECC3E622464F9300EEB146 /* ZSVoiceBookCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVoiceBookCategoryViewController.swift; sourceTree = "<group>"; };
 		3DECC3E822467F9A00EEB146 /* ZSVoiceSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVoiceSegmentView.swift; sourceTree = "<group>"; };
-		3DEFD98823BDB01200116ECD /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
-		3DEFD98923BDB01200116ECD /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
-		3DEFD98A23BDB01200116ECD /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
-		3DEFD98B23BDB01200116ECD /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 		3DEFD99023BDB12200116ECD /* ZSRefreshTextHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSRefreshTextHeader.swift; sourceTree = "<group>"; };
 		3DF2D27720EB5773004E73B6 /* ZSChapterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSChapterInfo.swift; sourceTree = "<group>"; };
 		3DF2D27920EB5C1C004E73B6 /* ZSChapterBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSChapterBody.swift; sourceTree = "<group>"; };
@@ -896,6 +896,7 @@
 		B22182CE1DA40594002458D2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B22204A11EE9284F008E1902 /* QSSplashScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSplashScreen.swift; sourceTree = "<group>"; };
 		B222A2C21EEE6EE9007CD57F /* QSLaunchRecView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSLaunchRecView.swift; sourceTree = "<group>"; };
+		B222C08923C1CAA800D66E3C /* ZSSearchInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSearchInfoTableViewCell.swift; sourceTree = "<group>"; };
 		B22AC4391E9E6626008625E6 /* QSSearchResultTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchResultTable.swift; sourceTree = "<group>"; };
 		B22AC44A1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchAutoCompleteTable.swift; sourceTree = "<group>"; };
 		B22AC44C1E9F1C62008625E6 /* ZSBaseSegmentItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSBaseSegmentItemViewController.swift; sourceTree = "<group>"; };
@@ -1299,6 +1300,11 @@
 		B2C0DF7E20D4CC480057DC84 /* ZSBookCommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCommentService.swift; sourceTree = "<group>"; };
 		B2C0DF8020D4CC5A0057DC84 /* ZSBaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseService.swift; sourceTree = "<group>"; };
 		B2C0DF8420D7C1D30057DC84 /* ZSHottwitterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHottwitterViewController.swift; sourceTree = "<group>"; };
+		B2C63A3123C1A44B0083C987 /* ZSReaderDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderDownloader.swift; sourceTree = "<group>"; };
+		B2C63A3323C1A57A0083C987 /* ZSBookMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookMemoryCache.swift; sourceTree = "<group>"; };
+		B2C63A3523C1A6C80083C987 /* ZSBookChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookChapter.swift; sourceTree = "<group>"; };
+		B2C63A3723C1ABA60083C987 /* ZSBookDiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookDiskCache.swift; sourceTree = "<group>"; };
+		B2C63A3A23C1ADC50083C987 /* ZSBookCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookCache.swift; sourceTree = "<group>"; };
 		B2CA80EF21797EA2007A3EE7 /* ZSThirdLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSThirdLogin.swift; sourceTree = "<group>"; };
 		B2CA942A1EB331DC00D60BF2 /* UIColor+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
 		B2E072771F3AD99500C63347 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
@@ -1327,7 +1333,6 @@
 				3DD084382157C101008E3B4A /* AudioToolbox.framework in Frameworks */,
 				B2FB92111EB1EEDF000C990A /* CoreTelephony.framework in Frameworks */,
 				3DD084362157C0ED008E3B4A /* libc++.tbd in Frameworks */,
-				3DEFD98F23BDB01200116ECD /* libWeiboSDK.a in Frameworks */,
 				3DDB6CB72130F73000E8698D /* libicucore.tbd in Frameworks */,
 				3DECC3DE22464C4F00EEB146 /* libXMOpenPlatform.a in Frameworks */,
 				B252D4A2210EF4600091858E /* libxml2.2.tbd in Frameworks */,
@@ -1379,6 +1384,11 @@
 				3D29C7AC23347E6900113A25 /* ZSReaderBaseViewModel.swift */,
 				3DB1FDB02334A8BE00CAC8C0 /* ZSReaderCache.swift */,
 				3D55F4DA22D47CAD00AE0E2B /* ZSReader.swift */,
+				B2C63A3123C1A44B0083C987 /* ZSReaderDownloader.swift */,
+				B2C63A3A23C1ADC50083C987 /* ZSBookCache.swift */,
+				B2C63A3323C1A57A0083C987 /* ZSBookMemoryCache.swift */,
+				B2C63A3723C1ABA60083C987 /* ZSBookDiskCache.swift */,
+				B2C63A3523C1A6C80083C987 /* ZSBookChapter.swift */,
 			);
 			path = Reader;
 			sourceTree = "<group>";
@@ -1481,6 +1491,7 @@
 				3D63E16C235EF9B80015B7D3 /* ZSSearchBookView.swift */,
 				3D63E16E235EF9E60015B7D3 /* ZSSearchResultView.swift */,
 				3D63E172235F021F0015B7D3 /* ZSHeaderSearchCell.swift */,
+				B222C08923C1CAA800D66E3C /* ZSSearchInfoTableViewCell.swift */,
 				B21C732A2365774B00E9D148 /* ZSSearchResultCell.swift */,
 				3D63E174235F02670015B7D3 /* ZSSearchHotView.swift */,
 				3D63E18E23603CD80015B7D3 /* ZSSearchRecommendView.swift */,
@@ -1773,17 +1784,6 @@
 				3DECC3DD22464C4F00EEB146 /* XMSDK.h */,
 			);
 			path = Utility;
-			sourceTree = "<group>";
-		};
-		3DEFD98723BDB01200116ECD /* libWeiboSDK */ = {
-			isa = PBXGroup;
-			children = (
-				3DEFD98823BDB01200116ECD /* WeiboSDK.bundle */,
-				3DEFD98923BDB01200116ECD /* libWeiboSDK.a */,
-				3DEFD98A23BDB01200116ECD /* WBHttpRequest.h */,
-				3DEFD98B23BDB01200116ECD /* WeiboSDK.h */,
-			);
-			path = libWeiboSDK;
 			sourceTree = "<group>";
 		};
 		3DF2D27320EB375A004E73B6 /* View */ = {
@@ -3029,7 +3029,6 @@
 		B2CA80E821797B9C007A3EE7 /* ThirdLoginSDK */ = {
 			isa = PBXGroup;
 			children = (
-				3DEFD98723BDB01200116ECD /* libWeiboSDK */,
 				B29CFAE32179A0DF0006F294 /* TencentOpenAPI.framework */,
 			);
 			path = ThirdLoginSDK;
@@ -3207,7 +3206,6 @@
 				B21C736723657E1400E9D148 /* HtmlParserModelData.dat in Resources */,
 				B2C0DF4520D4CB350057DC84 /* ChangeSourceCell.xib in Resources */,
 				B2EE7CF41F3BFC7B00BE997C /* Localizable.strings in Resources */,
-				3DEFD98E23BDB01200116ECD /* WeiboSDK.bundle in Resources */,
 				B2C0DF7A20D4CB6D0057DC84 /* TXTReader.storyboard in Resources */,
 				B21C735923657ACF00E9D148 /* tag.in in Resources */,
 				B2B8A21722C70C07005527C8 /* mj_refresh_loading@2x.gif in Resources */,
@@ -3473,6 +3471,7 @@
 				3DEFD99123BDB12200116ECD /* ZSRefreshTextHeader.swift in Sources */,
 				B2B4BC261E7EA4AB000CC201 /* RootViewController.swift in Sources */,
 				B2580E231E9B284900455AFE /* QSHotwords.swift in Sources */,
+				B2C63A3223C1A44B0083C987 /* ZSReaderDownloader.swift in Sources */,
 				3DECC39222461E1900EEB146 /* ZSVoicePlayerView.swift in Sources */,
 				B2C0DF4820D4CB350057DC84 /* BookCommentViewCell.swift in Sources */,
 				B21C736523657B3F00E9D148 /* AikanHtmlParser.m in Sources */,
@@ -3485,6 +3484,7 @@
 				3D448E5922C501C40099B6E8 /* NavigationBar.swift in Sources */,
 				B2C0DF3620D4CB350057DC84 /* ResourceModel.swift in Sources */,
 				3DDEEAFD214A8EE1003D12DB /* ZSFontViewModel.swift in Sources */,
+				B2C63A3423C1A57A0083C987 /* ZSBookMemoryCache.swift in Sources */,
 				B2B02E2E1EA8505200A6880A /* QSTopicDetailRouter.swift in Sources */,
 				3D82F9EB22C9DD5D00F035CB /* ZSMineNavigationBar.swift in Sources */,
 				3DDEEAFF214B5D3A003D12DB /* UIFont+Extension.swift in Sources */,
@@ -3596,6 +3596,7 @@
 				3DAC239221E1DE7400E77891 /* ZSWebItem.swift in Sources */,
 				3DECC3882245379400EEB146 /* ZSFilterThemeCell.swift in Sources */,
 				B2C0DF1C20D4CB350057DC84 /* QSTextRouter.swift in Sources */,
+				B2C63A3623C1A6C80083C987 /* ZSBookChapter.swift in Sources */,
 				B29B4F9F1E822992008852E3 /* QSHotModel.swift in Sources */,
 				B2662EBC21A7DAC5008AD5C6 /* ZSDBPropertyModel.m in Sources */,
 				3D5671FC2174CADD0049B2FF /* ZSBookCTLayoutModel.swift in Sources */,
@@ -3609,6 +3610,7 @@
 				3D65504B219577DC0064BA0C /* ZSMultiplePayView.swift in Sources */,
 				B2B02E2F1EA8505200A6880A /* QSTopicDetailViewController.swift in Sources */,
 				B2C0DF8520D7C1D30057DC84 /* ZSHottwitterViewController.swift in Sources */,
+				B2C63A3823C1ABA60083C987 /* ZSBookDiskCache.swift in Sources */,
 				B203BB591E9E0F4400F9C052 /* QSSearchViewController+SearchBar.swift in Sources */,
 				B24BED4E2301692800CF8C4D /* ZSForumToolBar.swift in Sources */,
 				B252D4AD210EFA660091858E /* ZSHTTPTool.m in Sources */,
@@ -3655,6 +3657,7 @@
 				B25CEFEF22F9268A002ABE30 /* ZSDisplayView.swift in Sources */,
 				B29B4FA21E8257BC008852E3 /* DynamicCell.swift in Sources */,
 				B22AC44B1E9F0AE7008625E6 /* QSSearchAutoCompleteTable.swift in Sources */,
+				B222C08A23C1CAA800D66E3C /* ZSSearchInfoTableViewCell.swift in Sources */,
 				B278AA931F395FA4000A0D55 /* QSHelpViewCell.swift in Sources */,
 				B2B4BC1E1E7EA4AB000CC201 /* TopicDetailCell.swift in Sources */,
 				3DECC3E722464F9300EEB146 /* ZSVoiceBookCategoryViewController.swift in Sources */,
@@ -3705,6 +3708,7 @@
 				B28FFC921EB03EA300C27FF9 /* QSHomeDeleteBtn.swift in Sources */,
 				B252D49A210EF3960091858E /* PUTResponse.m in Sources */,
 				3D9325EE20B2E07F0049CDBF /* Value.swift in Sources */,
+				B2C63A3B23C1ADC50083C987 /* ZSBookCache.swift in Sources */,
 				B21C735823657ACF00E9D148 /* error.c in Sources */,
 				B252D4E4211037380091858E /* ZSShelfViewController.swift in Sources */,
 				B2C0DF8120D4CC5A0057DC84 /* ZSBaseService.swift in Sources */,

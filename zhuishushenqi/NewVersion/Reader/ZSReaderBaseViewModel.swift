@@ -11,31 +11,48 @@ import UIKit
 class ZSReaderBaseViewModel {
     
 
-    var book:BookDetail?
+    var model:AikanParserModel?
+    var originalChapter:ZSBookChapter?
+    var preRequestChapterCount = 5
+    
+    var chapters:[ZSBookChapter] {
+        get {
+            return model?.chaptersModel as? [ZSBookChapter] ?? []
+        }
+    }
+    
     fileprivate var webService = ZSReaderWebService()
 
-    //MARK: - fetch network resource
-    func request(_ callback:ZSBaseCallback<Void>?){
-        guard let model = book else { return }
-        ZSReaderCache.shared.request(book: model) { (_) in
-            callback?(nil)
-        }
-    }
-    
-    func fetchAllChapters(_ callback:ZSBaseCallback<[ZSChapterInfo]>?){
-        
-    }
-    
-    func fetchSourceIndex() ->Int? {
-        guard let source = self.book?.record?.source else { return nil }
-        guard let resources = self.book?.resources else { return nil }
-        var index = 0
-        for model in resources {
-            if model._id.isEqual(to: source._id) {
-                break
+    func request(callback:ZSBaseCallback<Void>?) {
+        if let chapter = originalChapter, chapter.chapterContent.length == 0 {
+            ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
+                callback?(nil)
             }
-            index += 1
+            preRequest(chapter: chapter)
+        } else if let chapters = model?.chaptersModel as? [ZSBookChapter], chapters.count > 0 {
+            ZSReaderDownloader.share.download(chapter: chapters.first!, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
+                callback?(nil)
+            }
+            preRequest(chapter: chapters.first!)
         }
-        return index
+    }
+    
+    // 预加载章节, 前后章节各 preRequestChapterCount
+    func preRequest(chapter:ZSBookChapter) {
+        if let chapters = model?.chaptersModel as? [ZSBookChapter] {
+            var index = 0
+            for chapter in chapters {
+                if index <= chapter.chapterIndex && index > chapter.chapterIndex - preRequestChapterCount {
+                    ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
+                        
+                    }
+                } else if index > chapter.chapterIndex && index < chapter.chapterIndex + preRequestChapterCount {
+                    ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
+                        
+                    }
+                }
+                index += 1
+            }
+        }
     }
 }

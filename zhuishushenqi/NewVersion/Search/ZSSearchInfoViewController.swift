@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class ZSSearchInfoViewController: BaseViewController {
+class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellDelegate {
     
     var model:AikanParserModel? { didSet { } }
     
@@ -22,7 +22,7 @@ class ZSSearchInfoViewController: BaseViewController {
         if #available(iOS 11, *) {
             tableView.contentInsetAdjustmentBehavior = .never
         }
-        tableView.qs_registerCellClass(UITableViewCell.self)
+        tableView.qs_registerCellClass(ZSSearchInfoTableViewCell.self)
         tableView.qs_registerHeaderFooterClass(ZSBookInfoHeaderView.self)
         let blurEffect = UIBlurEffect(style: .extraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -34,6 +34,7 @@ class ZSSearchInfoViewController: BaseViewController {
         super.viewDidLoad()
 
         setupSubview()
+        setupNavItem()
     }
     
     private func setupSubview() {
@@ -45,7 +46,30 @@ class ZSSearchInfoViewController: BaseViewController {
             make.height.equalTo(ScreenHeight - kNavgationBarHeight)
         }
     }
+    
+    private func setupNavItem() {
+        let addItem = UIBarButtonItem(title: "缓存全本", style: UIBarButtonItem.Style.done, target: self, action: #selector(downloadAll))
+        self.navigationItem.rightBarButtonItem = addItem
+    }
+    
+    @objc
+    private func downloadAll() {
+        guard let book = model else { return }
+        ZSReaderDownloader.share.download(book: book, start: 0) { [weak self] (finished) in
+            self?.tableView.reloadData()
+        }
+    }
 
+    func infoCell(cell:ZSSearchInfoTableViewCell,click download:UIButton) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        if let chapter = self.model!.chaptersModel[indexPath.row] as? ZSBookChapter {
+            ZSReaderDownloader.share.download(chapter: chapter,book:model!.bookName, reg: model!.content) { [weak self] (chapter) in
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            }
+        }
+    }
 }
 
 extension ZSSearchInfoViewController:UITableViewDataSource, UITableViewDelegate {
@@ -63,6 +87,9 @@ extension ZSSearchInfoViewController:UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let book = model {
+            return ZSBookInfoHeaderView.height(for: book)
+        }
         return 200
     }
     
@@ -79,10 +106,17 @@ extension ZSSearchInfoViewController:UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.qs_dequeueReusableCell(UITableViewCell.self)
+        let cell = tableView.qs_dequeueReusableCell(ZSSearchInfoTableViewCell.self)
+        cell?.delegate = self
         cell?.selectionStyle = .none
-        if let dict = self.model?.chaptersModel[indexPath.row] as? [String:Any] {
-            cell?.textLabel?.text = dict["chapterName"] as? String
+        cell?.accessoryType = .disclosureIndicator
+        if let dict = self.model?.chaptersModel[indexPath.row] as? ZSBookChapter {
+            cell?.textLabel?.text = dict.chapterName
+            if let chapter = ZSBookMemoryCache.share.content(for: dict.chapterUrl) {
+                if chapter.chapterContent.length > 0 {
+                    cell?.downloadFinish()
+                }
+            }
         }
         return cell!
     }
@@ -91,4 +125,6 @@ extension ZSSearchInfoViewController:UITableViewDataSource, UITableViewDelegate 
         
     }
 }
+
+
 

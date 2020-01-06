@@ -41,6 +41,11 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
     var viewModel:ZSReaderBaseViewModel = ZSReaderBaseViewModel()
     var reader = ZSReader()
     
+    convenience init(chapter:ZSBookChapter) {
+        self.init()
+        viewModel.originalChapter = chapter
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         changeReaderType()
@@ -56,8 +61,9 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
     }
 
     private func request() {
+        // 请求当前章节
         viewModel.request { (_) in
-            self.load()
+            
         }
     }
     
@@ -72,6 +78,7 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
             }
             view.addSubview(vc.view)
         }
+        pref.readerVC?.bind(viewModel: viewModel)
     }
     
     //MARK: - UIPageViewControllerDataSource

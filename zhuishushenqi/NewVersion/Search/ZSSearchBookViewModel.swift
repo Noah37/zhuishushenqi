@@ -80,7 +80,7 @@ class ZSSearchBookViewModel {
             hotSearchs[index] = cell
             index += 1
         }
-        let hotHeight = cellY + cellHeight + 55 + 10
+        let hotHeight = cellY + cellHeight + 10
         searchHotHeader.type = .hot
         searchHotHeader.items = hotSearchs
         searchHotHeader.headerTitle = "搜索热词"
@@ -120,7 +120,7 @@ class ZSSearchBookViewModel {
             recs[index] = cell
             index += 1
         }
-        let recHeight = cellY + cellHeight + 55 + 10
+        let recHeight = cellY + cellHeight + 10
         searchRecHeader.type = .recommend
         searchRecHeader.items = recs
         searchRecHeader.headerTitle = "热门推荐"
@@ -215,7 +215,7 @@ class ZSSearchBookViewModel {
             bookName = bookName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             bookDesc = bookDesc.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             getChapter(src: src, bookUrl: bookUrl) { (chapters, bookDetailInfo) in
-                let book = AikanParserModel()
+                let book = src.copy() as! AikanParserModel
                 book.bookAuthor = bookAuthor
                 book.bookIcon = bookIcon
                 book.bookName = bookName
@@ -232,7 +232,7 @@ class ZSSearchBookViewModel {
         }
     }
     
-    private func getChapter(src:AikanParserModel, bookUrl:String, completion:@escaping(_ chapters:[[String:Any]], _ bookDetailInfo:[String:String])->Void) {
+    private func getChapter(src:AikanParserModel, bookUrl:String, completion:@escaping(_ chapters:[ZSBookChapter], _ bookDetailInfo:[String:String])->Void) {
         var headers = SessionManager.defaultHTTPHeaders
         headers["User-Agent"] = YouShaQiUserAgent
         let manager = SessionManager.default
@@ -263,12 +263,14 @@ class ZSSearchBookViewModel {
                         guard let document = OCGumboDocument(htmlString: htmlString) else { return }
                         let parse = AikanHtmlParser()
                         let chalters = parse.elementArray(with: document, withRegexString: src.chapters)
-                        var chaptersArr:[[String:Any]] = []
+                        var chaptersArr:[ZSBookChapter] = []
                         for node in chalters {
                             let chapterUrl = parse.string(withGumboNode: node, withAikanString: src.chapterUrl, withText: false)
                             let chapterTitle = parse.string(withGumboNode: node, withAikanString: src.chapterName, withText: true)
-                            chaptersArr.append(["chapterUrl":chapterUrl,
-                                                "chapterName":chapterTitle])
+                            var info:ZSBookChapter = ZSBookChapter()
+                            info.chapterUrl = chapterUrl
+                            info.chapterName = chapterTitle
+                            chaptersArr.append(info)
                         }
                         if !self.stopBooks {
                             completion(chaptersArr,[:])
@@ -286,15 +288,22 @@ class ZSSearchBookViewModel {
                                                           "bookLastChapterName":bookLastChapterName,
                                                           "bookUpdateTime":bookUpdateTime]
                     let obj = parse.elementArray(with: document, withRegexString: reg)
-                    var chaptersArr:[[String:Any]] = []
+                    var chaptersArr:[ZSBookChapter] = []
                     for index in 0..<obj.count {
                         var chapterUrl = parse.string(withGumboNode: obj[index], withAikanString: src.chapterUrl, withText: false)
                         if chapterUrl.length > 0 && !chapterUrl.hasPrefix("http") {
-                            chapterUrl = bookUrl + chapterUrl
+                            if src.host.hasSuffix("/") && chapterUrl.hasPrefix("/") {
+                                chapterUrl = src.host + (chapterUrl.substingInRange(1..<chapterUrl.length) ?? chapterUrl)
+                            } else {
+                                chapterUrl = src.host + chapterUrl
+                            }
                         }
                         let chapterName = parse.string(withGumboNode: obj[index], withAikanString: src.chapterName, withText: true)
-                        chaptersArr.append(["chapterUrl":chapterUrl,
-                        "chapterName":chapterName])
+                        let info:ZSBookChapter = ZSBookChapter()
+                        info.chapterUrl = chapterUrl
+                        info.chapterName = chapterName
+                        info.chapterIndex = index
+                        chaptersArr.append(info)
                     }
                     if !self.stopBooks {
                         completion(chaptersArr,bookDetailInfo)

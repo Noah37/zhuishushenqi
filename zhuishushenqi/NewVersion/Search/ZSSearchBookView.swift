@@ -26,6 +26,7 @@ class ZSSearchBookView: UIView {
         }
         tableView.qs_registerCellClass(ZSHeaderSearchCell.self)
         tableView.qs_registerCellClass(UITableViewCell.self)
+        tableView.qs_registerHeaderFooterClass(ZSHeaderSearchTopView.self)
         let blurEffect = UIBlurEffect(style: .extraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         tableView.backgroundView = blurEffectView
@@ -96,11 +97,20 @@ extension ZSSearchBookView:UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
+        return 55
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.qs_dequeueReusableHeaderFooterView(ZSHeaderSearchTopView.self)
+        if let model = viewModel?.model(for: section) {
+            headerView?.titleLabel.text = model.headerTitle
+            headerView?.detailButton.setTitle(model.headerDetail, for: .normal)
+        }
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -120,6 +130,7 @@ extension ZSSearchBookView:UITableViewDataSource, UITableViewDelegate {
                 if indexPath.row < model.items.count {
                     if let history = model.items[indexPath.row] as? ZSSearchHistory {
                         cell?.textLabel?.text = history.word
+                        cell?.textLabel?.textColor = UIColor.gray
                     }
                 }
             }

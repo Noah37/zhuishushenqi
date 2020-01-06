@@ -17,6 +17,7 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
     lazy var authorLabel:UILabel = {
         let lb = UILabel(frame: .zero)
         lb.textColor = UIColor.red
+        lb.numberOfLines = 0
         lb.font = UIFont.systemFont(ofSize: 15)
         return lb
     }()
@@ -48,6 +49,7 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
         contentView.addSubview(contentLabel)
         contentView.addSubview(iconView)
         contentView.addSubview(lastUpdateTimeBT)
+        contentView.backgroundColor = UIColor.white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,10 +59,27 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.iconView.frame = CGRect(x: 15, y: 15, width: 70, height: 100)
-        self.authorLabel.frame = CGRect(x: self.iconView.frame.maxX + 15, y: 15, width: self.contentView.bounds.width - self.iconView.frame.maxX - 30, height: 15)
-        self.lastUpdateTimeBT.frame = CGRect(x: 15, y: self.iconView.frame.maxY + 10, width: self.contentView.bounds.width - 30, height: 40)
+        self.authorLabel.frame = CGRect(x: self.iconView.frame.maxX + 15, y: 15, width: self.contentView.bounds.width - self.iconView.frame.maxX - 30, height: 40)
+        if lastUpdateTimeBT.titleLabel?.text?.length ?? 0 > 0 {
+            
+            self.lastUpdateTimeBT.frame = CGRect(x: 15, y: self.iconView.frame.maxY + 10, width: self.contentView.bounds.width - 30, height: 40)
+        } else {
+            self.lastUpdateTimeBT.frame = CGRect(x: 15, y: self.iconView.frame.maxY + 10, width: self.contentView.bounds.width - 30, height: 0)
+
+        }
         let contentSize = self.contentLabel.sizeThatFits(CGSize(width: self.contentView.bounds.width - 30, height: CGFloat.greatestFiniteMagnitude))
         self.contentLabel.frame = CGRect(x: 15, y: self.lastUpdateTimeBT.frame.maxY + 10, width: self.contentView.bounds.width - 30, height:contentSize.height)
+    }
+    
+    static func height(for model:AikanParserModel) ->CGFloat {
+        let headerView = ZSBookInfoHeaderView(reuseIdentifier: "\(ZSBookInfoHeaderView.self)")
+        headerView.configure(model: model)
+        let contentSize = headerView.contentLabel.sizeThatFits(CGSize(width: ScreenWidth - 30, height: CGFloat.greatestFiniteMagnitude))
+        if headerView.lastUpdateTimeBT.titleLabel?.text?.length ?? 0 > 0 {
+            return 190 + contentSize.height
+        } else {
+            return 150 + contentSize.height
+        }
     }
     
     @objc
@@ -74,6 +93,7 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
         let resource = QSResource(url: URL(string: "\(model.bookIcon)") ?? URL(string: "www.baidu.com")!)
         self.iconView.kf.setImage(with: resource)
         self.authorLabel.text = model.bookAuthor
-        self.contentLabel.text = model.bookDesc
+        self.contentLabel.text = model.detailBookDesc.length != 0 ? model.detailBookDesc:model.bookDesc
+        self.lastUpdateTimeBT.setTitle(model.bookUpdateTime, for: .normal)
     }
 }

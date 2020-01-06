@@ -22,15 +22,13 @@ class ZSHeaderSearchCell: UITableViewCell {
     
     private var model:ZSHeaderSearch?
     
-    private var topView:ZSHeaderSearchTopView = ZSHeaderSearchTopView(frame: .zero)
-    
     private var hotView:ZSSearchHotView?
     private var recView:ZSSearchRecommendView?
 
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(topView)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,9 +48,8 @@ class ZSHeaderSearchCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.topView.frame = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: 55)
-        hotView?.frame = CGRect(x: 0, y: 55, width: self.contentView.bounds.width, height: self.contentView.bounds.height - 55)
-        recView?.frame = CGRect(x: 0, y: 55, width: self.contentView.bounds.width, height: self.contentView.bounds.height - 55)
+        hotView?.frame = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
+        recView?.frame = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
     }
     
     func configure(model:ZSHeaderSearch) {
@@ -79,8 +76,6 @@ class ZSHeaderSearchCell: UITableViewCell {
             self.clickHandler?(model)
         }
         self.hotView = hotView
-        topView.titleLabel.text = model?.headerTitle
-        topView.detailButton.setTitle(model?.headerDetail ?? "", for: .normal)
         self.contentView.addSubview(hotView)
     }
     
@@ -91,8 +86,6 @@ class ZSHeaderSearchCell: UITableViewCell {
            self.clickHandler?(word)
        }
        self.recView = hotView
-       topView.titleLabel.text = model?.headerTitle
-       topView.detailButton.setTitle(model?.headerDetail ?? "", for: .normal)
        self.contentView.addSubview(hotView)
     }
     
@@ -105,7 +98,7 @@ class ZSHeaderSearchCell: UITableViewCell {
     }
 }
 
-class ZSHeaderSearchTopView:UIView {
+class ZSHeaderSearchTopView:UITableViewHeaderFooterView {
     lazy var titleLabel:UILabel = {
         let lb = UILabel(frame: .zero)
         lb.textColor = UIColor.black
@@ -120,10 +113,12 @@ class ZSHeaderSearchTopView:UIView {
         return bt
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(self.titleLabel)
-        addSubview(self.detailButton)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(self.titleLabel)
+        contentView.addSubview(self.detailButton)
+        backgroundColor = UIColor.white
+        contentView.backgroundColor = UIColor.white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -134,6 +129,6 @@ class ZSHeaderSearchTopView:UIView {
         super.layoutSubviews()
         self.titleLabel.frame = CGRect(x: 20, y: 20, width: 200, height: 21)
         let width = self.detailButton.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 55)).width
-        self.detailButton.frame = CGRect(x: self.bounds.width - 100, y: 0, width: width, height: 55)
+        self.detailButton.frame = CGRect(x: self.bounds.width - width - 20, y: 0, width: width, height: 55)
     }
 }

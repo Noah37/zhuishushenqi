@@ -13,6 +13,7 @@ class ZSCacheHelper {
     
     static let bookshelfPath = "/ZSBookShelf"
     static let bookshelfBooksPath = "/ZSBookShelf/Books"
+    static let bookshelfDownloadPath = "/ZSBookShelf/Download"
     static let historyPath = "/History"
     
     private let path:String = "/Documents"
