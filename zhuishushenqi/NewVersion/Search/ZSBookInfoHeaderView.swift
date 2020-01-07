@@ -90,7 +90,7 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
     }
     
     func configure(model:AikanParserModel) {
-        let resource = QSResource(url: URL(string: "\(model.bookIcon)") ?? URL(string: "www.baidu.com")!)
+        let resource = QSResource(url: URL(string: "\(model.bookIcon)") ?? URL(string: "\(model.detailBookIcon )")!)
         self.iconView.kf.setImage(with: resource)
         self.authorLabel.text = model.bookAuthor
         self.contentLabel.text = model.detailBookDesc.length != 0 ? model.detailBookDesc:model.bookDesc

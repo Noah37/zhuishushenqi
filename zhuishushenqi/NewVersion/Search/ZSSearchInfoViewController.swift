@@ -63,7 +63,7 @@ class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellD
     func infoCell(cell:ZSSearchInfoTableViewCell,click download:UIButton) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let chapter = self.model!.chaptersModel[indexPath.row] as? ZSBookChapter {
-            ZSReaderDownloader.share.download(chapter: chapter,book:model!.bookName, reg: model!.content) { [weak self] (chapter) in
+            ZSReaderDownloader.share.download(chapter: chapter,book:model!, reg: model!.content) { [weak self] (chapter) in
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }

@@ -39,7 +39,7 @@ class ZSReaderDownloader {
                 let timeouts = timeout.flatMap { DispatchTime.now() + $0 }
                     ?? DispatchTime.distantFuture
                 _ = self.semaphore.wait(timeout: timeouts)
-                self.download(chapter: chapter,book: book.bookName, reg: book.content) { (chapter) in
+                self.download(chapter: chapter,book: book, reg: book.content) { (chapter) in
                     self.semaphore.signal()
                 }
             }
@@ -49,19 +49,19 @@ class ZSReaderDownloader {
         }
     }
     
-    func download(chapter:ZSBookChapter, book:String, reg:String,_ handler:@escaping ZSBaseCallback<ZSBookChapter>) {
+    func download(chapter:ZSBookChapter, book:AikanParserModel, reg:String,_ handler:@escaping ZSBaseCallback<ZSBookChapter>) {
         let key = chapter.chapterUrl
         download(for: key,book:book, reg: reg) { (contentString) in
             if let content = contentString, content.length > 0 {
                 chapter.chapterContent = content
-                ZSBookCache.share.cacheContent(content: chapter, for: book)
+                ZSBookCache.share.cacheContent(content: chapter, for: book.bookName)
                 handler(chapter)
             } else {
                 handler(chapter)
             }
         }
     }
-    private func download(for key:String, book:String, reg:String,_ handler:@escaping ZSBaseCallback<String>) {
+    private func download(for key:String, book:AikanParserModel, reg:String,_ handler:@escaping ZSBaseCallback<String>) {
         let link = key
         var headers = SessionManager.defaultHTTPHeaders
         headers["User-Agent"] = YouShaQiUserAgent
@@ -73,7 +73,7 @@ class ZSReaderDownloader {
         Alamofire.request(link, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData { (data) in
 
             if let htmlData = data.data {
-                let htmlString = String(data: htmlData, encoding: .utf8) ?? ""
+                let htmlString = String(data: htmlData, encoding: String.Encoding.zs_encoding(str: book.searchEncoding)) ?? ""
                 guard let document = OCGumboDocument(htmlString: htmlString) else { return }
                 let parse = AikanHtmlParser()
                 let contentString = parse.string(withGumboNode: document, withAikanString: reg, withText: true)

@@ -280,6 +280,7 @@ class ZSSearchBookViewModel {
                         let parse = AikanHtmlParser()
                         let chalters = parse.elementArray(with: document, withRegexString: src.chapters)
                         var chaptersArr:[ZSBookChapter] = []
+                        var index = 0
                         for node in chalters {
                             var chapterUrl = parse.string(withGumboNode: node, withAikanString: src.chapterUrl, withText: false)
                             let chapterTitle = parse.string(withGumboNode: node, withAikanString: src.chapterName, withText: true)
@@ -294,7 +295,9 @@ class ZSSearchBookViewModel {
                             let info:ZSBookChapter = ZSBookChapter()
                             info.chapterUrl = chapterUrl
                             info.chapterName = chapterTitle
+                            info.chapterIndex = index
                             chaptersArr.append(info)
+                            index += 1
                         }
                         if !(self?.stopBooks ?? false) {
                             completion(chaptersArr,bookDetailInfo)

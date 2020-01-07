@@ -31,7 +31,7 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         super.viewWillDisappear(animated)
     }
     
-    var viewModel:ZSReaderBaseViewModel?
+    var viewModel:ZSReaderBaseViewModel!
     
     fileprivate var changedPage = false
     
@@ -43,11 +43,16 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     }
     
     func load() {
-        if let pages = viewModel?.originalChapter?.pages, pages.count > 0 {
-            pageViewController.newPage = pages.first
+        guard let oriChapter = viewModel?.originalChapter else { return }
+        if oriChapter.pages.count > 0 {
+            pageViewController.newPage = oriChapter.pages.first
+            initialHistory(chapter: oriChapter)
         } else {
             viewModel?.request(callback: { [weak self] (chapter) in
                 self?.pageViewController.newPage = chapter?.pages.first
+                if let c = chapter {
+                    self?.initialHistory(chapter: c)
+                }
             })
         }
     }
@@ -164,7 +169,7 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         guard let chapters = viewModel?.model?.chaptersModel as? [ZSBookChapter], chapters.count > 0 else {
             return ZSBookChapter()
         }
-        if let history = viewModel?.readHistory {
+        if let history = viewModel.readHistory {
             if let chapter = history.chapter {
                 return chapter
             }
@@ -176,8 +181,21 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         let history = ZSReadHistory()
         history.chapter = chapter
         history.page = chapter.pages.first
-        viewModel?.readHistory = history
+        viewModel.readHistory = history
         return chapter
+    }
+    
+    func initialHistory(chapter:ZSBookChapter) {
+        if let history = viewModel.readHistory {
+            history.chapter = chapter
+            history.page = chapter.pages.first
+            viewModel.readHistory = history
+        } else {
+            let history = ZSReadHistory()
+            history.chapter = chapter
+            history.page = chapter.pages.first
+            viewModel.readHistory = history
+        }
     }
     
     func destroy() {

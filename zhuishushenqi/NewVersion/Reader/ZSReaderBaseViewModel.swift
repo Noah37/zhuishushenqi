@@ -40,12 +40,12 @@ class ZSReaderBaseViewModel {
 
     func request(callback:ZSBaseCallback<ZSBookChapter>?) {
         if let chapter = originalChapter, chapter.chapterContent.length == 0 {
-            ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
+            ZSReaderDownloader.share.download(chapter: chapter, book: model!, reg: model?.content ?? "") { (chapter) in
                 callback?(chapter)
             }
             preRequest(chapter: chapter)
         } else if let chapters = model?.chaptersModel as? [ZSBookChapter], chapters.count > 0 {
-            ZSReaderDownloader.share.download(chapter: chapters.first!, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
+            ZSReaderDownloader.share.download(chapter: chapters.first!, book: model!, reg: model?.content ?? "") { (chapter) in
                 callback?(chapter)
             }
             preRequest(chapter: chapters.first!)
@@ -81,7 +81,7 @@ class ZSReaderBaseViewModel {
                 return
             }
         }
-        ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
+        ZSReaderDownloader.share.download(chapter: chapter, book: model!, reg: model?.content ?? "") { (chapter) in
             callback(chapter)
         }
     }
