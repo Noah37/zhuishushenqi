@@ -18,6 +18,8 @@ protocol ZSReaderVCProtocol {
     
     func load()
     
+    func destroy()
+    
     @available(iOS 5.0, *)
     func pageViewController(_ pageViewController: PageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?
     

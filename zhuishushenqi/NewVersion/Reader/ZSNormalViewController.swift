@@ -16,7 +16,20 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         
     }
     
-    static let shared = ZSNormalViewController()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.pageViewController.view.superview != self.view {
+            self.pageViewController.view.removeFromSuperview()
+            self.addChild(self.pageViewController)
+            self.view.addSubview(self.pageViewController.view)
+            self.pageViewController.didMove(toParent: self)
+            self.setupGesture()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
     
     var viewModel:ZSReaderBaseViewModel?
     
@@ -26,19 +39,17 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
 
     //MARK: - ZSReaderVCProtocol
     static func pageViewController() -> ZSReaderVCProtocol? {
-        if shared.pageViewController.view.superview != shared.view {
-            shared.pageViewController.view.removeFromSuperview()
-            shared.view.addSubview(shared.pageViewController.view)
-        }
-        return shared
+        return nil
     }
     
     func load() {
-        let page = ZSReaderCache.shared.load()
-        let pageVC = PageViewController()
-        pageVC.page = page
-        addChild(pageVC)
-        view.addSubview(pageVC.view)
+        if let pages = viewModel?.originalChapter?.pages, pages.count > 0 {
+            pageViewController.newPage = pages.first
+        } else {
+            viewModel?.request(callback: { [weak self] (chapter) in
+                self?.pageViewController.newPage = chapter?.pages.first
+            })
+        }
     }
     
     func bind(viewModel: ZSReaderBaseViewModel) {
@@ -92,26 +103,60 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         guard let history = viewModel?.readHistory else { return }
         guard let page = history.page else { return }
         if let nextP = chapter.getNextPage(page: page) {
-            self.pageViewController.page = nextP
-        } else {
+            self.pageViewController.newPage = nextP
+            history.page = nextP
+        } else { // 新章节
             if let nextC = nextChapter() {
-                viewModel?.request(chapter: nextC, callback: { (chapter) in
-                    
+                viewModel?.request(chapter: nextC, callback: { [weak self](chapter) in
+                    self?.pageViewController.newPage = chapter?.pages.first
+                    history.chapter = chapter
+                    if chapter?.pages.count ?? 0 > 0 {
+                        history.page = chapter!.pages.first
+                    }
                 })
             }
         }
     }
     
     func lastPage() {
-        
+        let chapter = currentChapter()
+        guard let history = viewModel?.readHistory else { return }
+        guard let page = history.page else { return }
+        if let lastP = chapter.getLastPage(page: page) {
+            self.pageViewController.newPage = lastP
+            history.page = lastP
+        } else {
+            if let lastC = lastChapter() {
+                viewModel?.request(chapter: lastC, callback: { [weak self] (chapter) in
+                    self?.pageViewController.newPage = chapter?.pages.last
+                    history.chapter = chapter
+                    if chapter?.pages.count ?? 0 > 0 {
+                        history.page = chapter!.pages.last
+                    }
+                })
+            }
+        }
     }
     
     func nextChapter() -> ZSBookChapter? {
-        
+        guard let book = viewModel?.model else { return nil }
+        guard let chapters = book.chaptersModel as? [ZSBookChapter] else { return nil }
+        let currentC = currentChapter()
+        let chapterIndex = currentC.chapterIndex
+        if chapterIndex + 1 < chapters.count {
+            return chapters[chapterIndex + 1]
+        }
         return nil
     }
     
     func lastChapter() ->ZSBookChapter? {
+        guard let book = viewModel?.model else { return nil }
+        guard let chapters = book.chaptersModel as? [ZSBookChapter] else { return nil }
+        let currentC = currentChapter()
+        let chapterIndex = currentC.chapterIndex
+        if (chapterIndex - 1) < chapters.count && (chapterIndex - 1 >= 0) {
+            return chapters[chapterIndex - 1]
+        }
         return nil
     }
     
@@ -131,6 +176,15 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         let history = ZSReadHistory()
         history.chapter = chapter
         history.page = chapter.pages.first
+        viewModel?.readHistory = history
         return chapter
+    }
+    
+    func destroy() {
+        pageViewController.destroy()
+    }
+    
+    deinit {
+        
     }
 }

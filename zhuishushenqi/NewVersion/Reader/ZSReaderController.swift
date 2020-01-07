@@ -16,11 +16,11 @@ enum ZSReaderType {
 }
 
 struct ZSReaderPref {
-    var type:ZSReaderType = .normal
-    var readerVC:ZSReaderVCProtocol? {
+    
+    init() {
         switch type {
         case .normal:
-            return ZSNormalViewController.pageViewController()
+            readerVC = ZSNormalViewController()
         case .vertical:
             
             break
@@ -31,19 +31,22 @@ struct ZSReaderPref {
             
             break
         }
-        return nil
     }
+    
+    var type:ZSReaderType = .normal
+    var readerVC:ZSReaderVCProtocol?
 }
 
 class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
     var pref:ZSReaderPref = ZSReaderPref()
     var viewModel:ZSReaderBaseViewModel = ZSReaderBaseViewModel()
-    var reader = ZSReader()
+    var reader = ZSReader.share
     
-    convenience init(chapter:ZSBookChapter) {
+    convenience init(chapter:ZSBookChapter,_ model:AikanParserModel?) {
         self.init()
         viewModel.originalChapter = chapter
+        viewModel.model = model
     }
     
     override func viewDidLoad() {
@@ -57,6 +60,16 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
 //        navigationController?.isNavigationBarHidden = true
         if let vc = pref.readerVC as? UIViewController {
             vc.view.bounds = view.bounds
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        pref.readerVC?.destroy()
+        if let vc = pref.readerVC as? UIViewController {
+            vc.willMove(toParent: self)
+            vc.view.removeFromSuperview()
+            vc.removeFromParent()
         }
     }
 
@@ -76,9 +89,12 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
             if let _ = vc.view.superview {
                 return
             }
+            addChild(vc)
             view.addSubview(vc.view)
+            vc.didMove(toParent: self)
         }
         pref.readerVC?.bind(viewModel: viewModel)
+        pref.readerVC?.load()
     }
     
     //MARK: - UIPageViewControllerDataSource
@@ -97,6 +113,10 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
     
     // Sent when a gesture-initiated transition ends. The 'finished' parameter indicates whether the animation finished, while the 'completed' parameter indicates whether the transition completed or bailed out (if the user let go early).
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
+    }
+    
+    deinit {
         
     }
 }

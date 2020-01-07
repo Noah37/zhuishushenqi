@@ -43,20 +43,20 @@ class ZSLoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.thirdLoginView.thirdLoginHandler = { type in
-            self.thirdLogin(type: type)
+        self.thirdLoginView.thirdLoginHandler = { [weak self] type in
+            self?.thirdLogin(type: type)
         }
-        self.thirdLoginView.closeHandler = {
-            self.closeLoginView()
+        self.thirdLoginView.closeHandler = { [weak self] in
+            self?.closeLoginView()
         }
-        self.thirdLoginView.userProtocolHandler = {
-            self.userProtocolAction()
+        self.thirdLoginView.userProtocolHandler = { [weak self] in
+            self?.userProtocolAction()
         }
-        self.loginView.getSMSCodeHandler = {
-            self.getSMSCodeVerify()
+        self.loginView.getSMSCodeHandler = { [weak self] in
+            self?.getSMSCodeVerify()
         }
-        self.loginView.loginHandler = {
-            self.login()
+        self.loginView.loginHandler = { [weak self] in
+            self?.login()
         }
         self.phoneImageView.centerX = self.view.centerX
         self.view.addSubview(self.phoneImageView)
@@ -72,11 +72,13 @@ class ZSLoginViewController: BaseViewController {
     
     override func popAction() {
         backHandler?()
+        self.loginView.destroy()
         super.popAction()
     }
     
     private func closeLoginView() {
         backHandler?()
+        self.loginView.destroy()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -90,20 +92,20 @@ class ZSLoginViewController: BaseViewController {
     private func thirdLogin(type:ThirdLoginType) {
         switch type {
         case .QQ:
-            ZSThirdLogin.share.loginResultHandler = { success in
-                self.loginResultHandle(success: success, type: .QQ)
+            ZSThirdLogin.share.loginResultHandler = { [weak self] success in
+                self?.loginResultHandle(success: success, type: .QQ)
             }
             ZSThirdLogin.share.QQAuth()
             break
         case .WX:
-            ZSThirdLogin.share.loginResultHandler = { success in
-                self.loginResultHandle(success: success, type: .WX)
+            ZSThirdLogin.share.loginResultHandler = { [weak self] success in
+                self?.loginResultHandle(success: success, type: .WX)
             }
             ZSThirdLogin.share.WXAuth()
             break
         case .WB:
-            ZSThirdLogin.share.loginResultHandler = { success in
-                self.loginResultHandle(success: success, type: .WB)
+            ZSThirdLogin.share.loginResultHandler = { [weak self] success in
+                self?.loginResultHandle(success: success, type: .WB)
             }
             ZSThirdLogin.share.WBAuth()
             break
@@ -117,13 +119,13 @@ class ZSLoginViewController: BaseViewController {
     }
     
     private func getSMSCode(param:[String:String]) {
-        viewModel.fetchSMSCode(param: param) { (json) in
+        viewModel.fetchSMSCode(param: param) { [weak self] (json) in
             if json?["ok"] as? Bool == true {
                 // 获取验证码成功,开始计时
-                self.loginView.fire()
-                self.loginVerifyView.removeFromSuperview()
+                self?.loginView.fire()
+                self?.loginVerifyView.removeFromSuperview()
             } else {
-                self.loginVerifyView.removeFromSuperview()
+                self?.loginVerifyView.removeFromSuperview()
             }
         }
     }
@@ -143,11 +145,11 @@ class ZSLoginViewController: BaseViewController {
         ZSMobileLogin.share.mobile = mobile
         
         loginVerifyView = ZSLoginVerifyView(frame: self.view.bounds)
-        loginVerifyView.resultHandler = { (ret, param) in
+        loginVerifyView.resultHandler = { [weak self] (ret, param) in
             if ret == 0 {
-                self.getSMSCode(param: param)
+                self?.getSMSCode(param: param)
             } else {
-                self.view.showTip(tip: "验证失败")
+                self?.view.showTip(tip: "验证失败")
             }
         }
         self.view.addSubview(loginVerifyView)
@@ -173,19 +175,19 @@ class ZSLoginViewController: BaseViewController {
             return
         }
         self.view.showProgress()
-        viewModel.mobileLogin(mobile: mobile, smsCode: smsCode) { (json) in
-            self.view.hideProgress()
+        viewModel.mobileLogin(mobile: mobile, smsCode: smsCode) { [weak self] (json) in
+            self?.view.hideProgress()
             if let user = json {
                 if user.ok == true {
                     ZSMobileLogin.share.userInfo = user
-                    self.view.showTip(tip: "登录成功")
+                    self?.view.showTip(tip: "登录成功")
                     NotificationCenter.qs_postNotification(name: LoginSuccess, obj: nil)
                     ZSLogin.share.token = ZSMobileLogin.share.userInfo?.token ?? ""
                     ZSThirdLoginStorage.share.saveUserInfo(userInfo: user, type: .WX)
-                    self.backHandler?()
-                    self.dismiss(animated: true, completion: nil)
+                    self?.backHandler?()
+                    self?.dismiss(animated: true, completion: nil)
                 } else {
-                    self.view.showTip(tip: user.code)
+                    self?.view.showTip(tip: user.code)
                 }
             }
         }

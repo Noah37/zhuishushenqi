@@ -33,9 +33,6 @@ class PageViewController: UIViewController {
     }()
     var page:QSPage? {
         didSet {
-            // 为了让控制器先走viewDidLoad的无奈之举
-//            QSLog("\(self.view)");
-            self.view.alpha = 1.0
             refreshView()
         }
     }
@@ -142,15 +139,17 @@ class PageViewController: UIViewController {
         
         view.addSubview(batteryView)
         
+        view.addSubview(pageView)
+        
         payView = ZSChapterPayView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 0))
         payView.isHidden = true
         view.addSubview(payView)
         
         UIDevice.current.isBatteryMonitoringEnabled = true
-        NotificationCenter.default.addObserver(forName: UIDevice.batteryLevelDidChangeNotification, object: nil, queue: OperationQueue.main) { (notification) in
+        NotificationCenter.default.addObserver(forName: UIDevice.batteryLevelDidChangeNotification, object: nil, queue: OperationQueue.main) { [weak self] (notification) in
             let level = UIDevice.current.batteryLevel
             QSLog("电池电量：\(level)）")
-            self.batteryView.batteryLevel = CGFloat(level)
+            self?.batteryView.batteryLevel = CGFloat(level)
         }
     
         // Fallback on earlier versions
@@ -175,14 +174,6 @@ class PageViewController: UIViewController {
         payView.isHidden = true
     }
     
-    func qs_removeObserver() -> Void {
-        // 无法释放，将时间与电量的监控放到textreaderVC中，这样pageVC就可以释放了
-//        timer = nil
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil)
-//        NotificationCenter.default.removeObserver(self)
-
-    }
-    
     @objc func getTime(time:Timer){
         self.timeLabel.text = self.getCurrentTime()
     }
@@ -204,9 +195,6 @@ class PageViewController: UIViewController {
     }
     
     public func setPage(tmpPage:QSPage?){
-//        QSLog("self.pageView.attributedText:\(self.pageView.attributedText)")
-//        QSLog("self.pageLabel.text:\(String(describing: self.pageLabel.text))")
-//        QSLog("self.titleLabel.text:\(self.titleLabel.text ?? "")")
         if let realPage = tmpPage {
             page = realPage
         } else {
@@ -267,6 +255,11 @@ class PageViewController: UIViewController {
             // 发送tap事件给其它的在意者
             NotificationCenter.qs_postNotification(name: PageViewDidTap, obj: nil)
         }
+    }
+    
+    func destroy() {
+        timer.invalidate()
+        timer = nil
     }
 
     deinit {

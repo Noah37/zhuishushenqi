@@ -169,6 +169,14 @@ class ZSSearchBookViewModel {
     }
     
     func request(text:String,completion:@escaping(_ book:AikanParserModel)->Void) {
+        let htmlText = "<ul class=\"list-group\"><li class=\"list-group-item active\">章节目录</li><li class=\"list-group-item\"><a href=\"/book/81837/169064600.html\">咳咳，假酒喝多了，请个假</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169056339.html\">第1429章 地狱归来</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169056338.html\">第1428章 相隔一个世纪的返航</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169041719.html\">第1427章 远方的故人</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169041712.html\">第1426章 天宫！</a></li><li class=\"list-group-item tac\"><a href=\"/book/81837/\"><strong>查看全部章节</strong></a></li></ul>"
+        if let document = OCGumboDocument(htmlString: htmlText) {
+            let parse = AikanHtmlParser()
+            let objs = parse.string(withGumboNode: document, withAikanString: "@.list-group li a@12@abs:href", withText: false)
+            print(objs)
+        }
+        
+        
         for src in self.source {
             var searchUrl = src.searchUrl.replacingOccurrences(of: "%@", with: text)
             let character = CharacterSet.urlQueryAllowed
@@ -177,7 +185,7 @@ class ZSSearchBookViewModel {
             headers["User-Agent"] = YouShaQiUserAgent
             Alamofire.request(searchUrl, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData { [weak self] (data) in
                 if let htmlData = data.data {
-                    let htmlString = String(data: htmlData, encoding: .utf8) ?? ""
+                    let htmlString = String(data: htmlData, encoding: String.Encoding.zs_encoding(str: src.searchEncoding )) ?? ""
                     self?.getBooks(src: src, htmlString: htmlString, completion: { (book) in
                         completion(book)
                     })
@@ -240,14 +248,22 @@ class ZSSearchBookViewModel {
             session,challenge in
             return  (URLSession.AuthChallengeDisposition.useCredential,URLCredential(trust:challenge.protectionSpace.serverTrust!))
         }
-        Alamofire.request(bookUrl, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData { (data) in
+        Alamofire.request(bookUrl, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData { [weak self] (data) in
             if let htmlData = data.data {
-                let htmlString = String(data: htmlData, encoding: .utf8) ?? ""
+                let htmlString = String(data: htmlData, encoding: String.Encoding.zs_encoding(str: src.searchEncoding)) ?? ""
                 guard let document = OCGumboDocument(htmlString: htmlString) else { return }
                 // 如果detailChaptersUrl不存在，则直接去chapters
                 var reg = src.detailChaptersUrl
                 if reg.length > 0 {
                     let parse = AikanHtmlParser()
+                    let detailBookDesc = parse.string(withGumboNode: document, withAikanString: src.detailBookDesc, withText: false)
+                    let detailBookIcon = parse.string(withGumboNode: document, withAikanString: src.detailBookIcon, withText: false)
+                    let bookLastChapterName = parse.string(withGumboNode: document, withAikanString: src.bookLastChapterName, withText: true)
+                    let bookUpdateTime = parse.string(withGumboNode: document, withAikanString: src.bookUpdateTime, withText: true)
+                    let bookDetailInfo:[String:String] = ["detailDesc":detailBookDesc,
+                                                          "detailBookIcon":detailBookIcon,
+                                                          "bookLastChapterName":bookLastChapterName,
+                                                          "bookUpdateTime":bookUpdateTime]
                     var chapterDir = parse.string(withGumboNode: document, withAikanString: reg, withText: false)
                     if !chapterDir.hasPrefix("http") {
                         if chapterDir.hasPrefix("/") && src.host.hasSuffix("/") {
@@ -259,21 +275,29 @@ class ZSSearchBookViewModel {
                     }
                     Alamofire.request(chapterDir, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData(completionHandler: { (data) in
                         guard let htmlData = data.data else { return }
-                        let htmlString = String(data: htmlData, encoding: .utf8) ?? ""
+                        let htmlString = String(data: htmlData, encoding: String.Encoding.zs_encoding(str: src.searchEncoding)) ?? ""
                         guard let document = OCGumboDocument(htmlString: htmlString) else { return }
                         let parse = AikanHtmlParser()
                         let chalters = parse.elementArray(with: document, withRegexString: src.chapters)
                         var chaptersArr:[ZSBookChapter] = []
                         for node in chalters {
-                            let chapterUrl = parse.string(withGumboNode: node, withAikanString: src.chapterUrl, withText: false)
+                            var chapterUrl = parse.string(withGumboNode: node, withAikanString: src.chapterUrl, withText: false)
                             let chapterTitle = parse.string(withGumboNode: node, withAikanString: src.chapterName, withText: true)
-                            var info:ZSBookChapter = ZSBookChapter()
+                            if !chapterUrl.hasPrefix("http") {
+                                if chapterUrl.hasPrefix("/") && src.host.hasSuffix("/") {
+                                   let host = src.host.qs_subStr(start: 0, length: src.host.length - 1)
+                                   chapterUrl = "\(host)\(chapterUrl)"
+                               } else {
+                                   chapterUrl = "\(src.host)\(chapterUrl)"
+                               }
+                            }
+                            let info:ZSBookChapter = ZSBookChapter()
                             info.chapterUrl = chapterUrl
                             info.chapterName = chapterTitle
                             chaptersArr.append(info)
                         }
-                        if !self.stopBooks {
-                            completion(chaptersArr,[:])
+                        if !(self?.stopBooks ?? false) {
+                            completion(chaptersArr,bookDetailInfo)
                         }
                     })
                 } else {
@@ -305,7 +329,7 @@ class ZSSearchBookViewModel {
                         info.chapterIndex = index
                         chaptersArr.append(info)
                     }
-                    if !self.stopBooks {
+                    if !(self?.stopBooks ?? false) {
                         completion(chaptersArr,bookDetailInfo)
                     }
                 }
@@ -347,3 +371,5 @@ class ZSSearchBookViewModel {
         }
     }
 }
+
+

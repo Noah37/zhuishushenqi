@@ -165,6 +165,14 @@ class ZSAddSourceViewController: BaseViewController {
         return tf
     }()
     
+    lazy var searchEncodingTF:ZSAddLineView = {
+        let tf = ZSAddLineView(frame: .zero)
+        tf.placeholder = "请输入"
+        tf.text = "searchEncoding"
+        tf.delegate = self
+        return tf
+    }()
+    
     lazy var scrollView:UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.backgroundColor = UIColor.white
@@ -323,6 +331,13 @@ class ZSAddSourceViewController: BaseViewController {
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
+        scrollView.addSubview(self.searchEncodingTF)
+        searchEncodingTF.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.detailBookDescTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
+            make.height.equalTo(50)
+        }
     }
     
     private func setupNavItem() {
@@ -351,6 +366,7 @@ class ZSAddSourceViewController: BaseViewController {
         nameTF.tfText = model.name
         searchUrlTF.tfText = model.searchUrl
         detailBookDescTF.tfText = model.detailBookDesc
+        searchEncodingTF.tfText = model.searchEncoding
     }
     
     @objc
@@ -379,6 +395,7 @@ class ZSAddSourceViewController: BaseViewController {
         model.name = nameTF.textField.text ?? ""
         model.searchUrl = searchUrlTF.textField.text ?? ""
         model.detailBookDesc = detailBookDescTF.textField.text ?? ""
+        model.searchEncoding = searchEncodingTF.textField.text ?? ""
         ZSSourceManager.share.add(source: model)
         navigationController?.popViewController(animated: true)
     }

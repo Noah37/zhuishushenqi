@@ -8,6 +8,7 @@ PODS:
   - CocoaLumberjack/Default (3.4.2)
   - CocoaLumberjack/Extensions (3.4.2):
     - CocoaLumberjack/Default
+  - FBRetainCycleDetector (0.1.4)
   - FLEX (3.1.2)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -16,6 +17,8 @@ PODS:
   - Kingfisher (5.7.1)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.2.0)
+  - MLeaksFinder (1.0.0):
+    - FBRetainCycleDetector
   - PKHUD (5.3.0)
   - RxAlamofire (5.0.0):
     - RxAlamofire/Core (= 5.0.0)
@@ -61,12 +64,14 @@ DEPENDENCIES:
   - Cache
   - CocoaAsyncSocket
   - CocoaLumberjack (= 3.4.2)
+  - FBRetainCycleDetector
   - FLEX
   - FMDB
   - HandyJSON
   - Kingfisher
   - MBProgressHUD
   - MJRefresh
+  - MLeaksFinder
   - PKHUD
   - RxAlamofire
   - RxCocoa
@@ -89,12 +94,14 @@ SPEC REPOS:
     - Cache
     - CocoaAsyncSocket
     - CocoaLumberjack
+    - FBRetainCycleDetector
     - FLEX
     - FMDB
     - HandyJSON
     - Kingfisher
     - MBProgressHUD
     - MJRefresh
+    - MLeaksFinder
     - PKHUD
     - RxAlamofire
     - RxCocoa
@@ -129,12 +136,14 @@ SPEC CHECKSUMS:
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
+  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FLEX: e13e805fc3eec8732cc227d1f7508770d46e9587
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   HandyJSON: 992f2d661716d6a91de82d0056927bc7813b5770
   Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
+  MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
@@ -153,6 +162,6 @@ SPEC CHECKSUMS:
   ZSAppConfig: d6b5114b339aa24471554ced706e9df2f25d7041
   ZSExtension: 064094b6a1125306b59c3f69dcc3d40e85ecf90a
 
-PODFILE CHECKSUM: 0ac7aadac5cc36503ebd16e5e425b24d5db5c112
+PODFILE CHECKSUM: 781cb013f45cdb4bf359d0aa1ea73163fbae6b1c
 
 COCOAPODS: 1.6.1

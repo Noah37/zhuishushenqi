@@ -10,9 +10,9 @@ import UIKit
 
 class ZSReadHistory:NSObject, NSCoding {
     // 记录当前章节
-    var chapter:ZSBookChapter?
+    var chapter:ZSBookChapter!
     // 记录当前页码
-    var page:ZSBookPage?
+    var page:ZSBookPage!
     
     override init() {
         

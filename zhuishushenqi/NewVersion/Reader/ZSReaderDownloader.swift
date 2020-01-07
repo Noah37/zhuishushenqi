@@ -71,6 +71,7 @@ class ZSReaderDownloader {
             return  (URLSession.AuthChallengeDisposition.useCredential,URLCredential(trust:challenge.protectionSpace.serverTrust!))
         }
         Alamofire.request(link, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData { (data) in
+
             if let htmlData = data.data {
                 let htmlString = String(data: htmlData, encoding: .utf8) ?? ""
                 guard let document = OCGumboDocument(htmlString: htmlString) else { return }

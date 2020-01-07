@@ -113,6 +113,11 @@ class ZSLoginView: UIView {
         RunLoop.current.add(timer, forMode: .common)
     }
     
+    func destroy() {
+        timer.invalidate()
+        timer = nil
+    }
+    
     func getSecondsLeft() ->Int {
         return self.secondsCount
     }

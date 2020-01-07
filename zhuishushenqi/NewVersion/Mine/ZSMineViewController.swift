@@ -99,9 +99,9 @@ class ZSMineViewController: BaseViewController, ZSMineNavigationBarDelegate {
     }
     
     private func observe() {
-        self.viewModel.reloadBlock = {
+        self.viewModel.reloadBlock = { [weak self] in
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self?.tableView.reloadData()
             }
         }
         viewModel.requestAccount()

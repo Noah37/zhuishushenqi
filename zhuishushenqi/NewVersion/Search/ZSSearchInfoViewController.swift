@@ -70,6 +70,10 @@ class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellD
             }
         }
     }
+    
+    deinit {
+        
+    }
 }
 
 extension ZSSearchInfoViewController:UITableViewDataSource, UITableViewDelegate {
@@ -122,7 +126,11 @@ extension ZSSearchInfoViewController:UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard let chapters = model?.chaptersModel as? [ZSBookChapter] else {
+            return
+        }
+        let pageVC = ZSReaderController(chapter: chapters[indexPath.row], model)
+        self.navigationController?.pushViewController(pageVC, animated: true)
     }
 }
 

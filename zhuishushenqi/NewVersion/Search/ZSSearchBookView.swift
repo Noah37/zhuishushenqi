@@ -57,10 +57,10 @@ class ZSSearchBookView: UIView {
     }
     
     private func observe() {
-        self.viewModel?.reloadBlock = {
+        self.viewModel?.reloadBlock = { [weak self] in
             DispatchQueue.main.async {
-                self.tableView.mj_header.endRefreshing()
-                self.tableView.reloadData()
+                self?.tableView.mj_header.endRefreshing()
+                self?.tableView.reloadData()
             }
         }
     }

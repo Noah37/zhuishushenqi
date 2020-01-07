@@ -38,15 +38,15 @@ class ZSReaderBaseViewModel {
         }
     }
 
-    func request(callback:ZSBaseCallback<Void>?) {
+    func request(callback:ZSBaseCallback<ZSBookChapter>?) {
         if let chapter = originalChapter, chapter.chapterContent.length == 0 {
             ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
-                callback?(nil)
+                callback?(chapter)
             }
             preRequest(chapter: chapter)
         } else if let chapters = model?.chaptersModel as? [ZSBookChapter], chapters.count > 0 {
             ZSReaderDownloader.share.download(chapter: chapters.first!, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
-                callback?(nil)
+                callback?(chapter)
             }
             preRequest(chapter: chapters.first!)
         }
@@ -56,13 +56,13 @@ class ZSReaderBaseViewModel {
     func preRequest(chapter:ZSBookChapter) {
         if let chapters = model?.chaptersModel as? [ZSBookChapter] {
             var index = 0
-            for chapter in chapters {
-                if index <= chapter.chapterIndex && index > chapter.chapterIndex - preRequestChapterCount {
-                    self.request(chapter: chapter) { (chapter) in
+            for cp in chapters {
+                if  index > chapter.chapterIndex - preRequestChapterCount && index < chapter.chapterIndex {
+                    self.request(chapter: cp) { (chapter) in
                         
                     }
                 } else if index > chapter.chapterIndex && index < chapter.chapterIndex + preRequestChapterCount {
-                    self.request(chapter: chapter) { (chapter) in
+                    self.request(chapter: cp) { (chapter) in
                         
                     }
                 }
@@ -72,6 +72,15 @@ class ZSReaderBaseViewModel {
     }
     
     func request(chapter:ZSBookChapter, callback:@escaping ZSBaseCallback<ZSBookChapter>) {
+        // 是否存在缓存了
+        guard let book = model else { return }
+        let exist = ZSBookCache.share.isContentExist(chapter.chapterUrl, book: book.bookName)
+        if exist {
+            if let chapter = ZSBookCache.share.content(for: chapter.chapterUrl, book: book.bookName) {
+                callback(chapter)
+                return
+            }
+        }
         ZSReaderDownloader.share.download(chapter: chapter, book: model?.bookName ?? "", reg: model?.content ?? "") { (chapter) in
             callback(chapter)
         }

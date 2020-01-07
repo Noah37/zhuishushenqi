@@ -234,3 +234,21 @@ extension String {
 extension Optional {
     
 }
+
+extension String.Encoding {
+    static var gbk:String.Encoding {
+        let encode = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
+        return String.Encoding(rawValue: encode)
+    }
+    
+    static func zs_encoding(str:String)->String.Encoding {
+        switch str {
+        case ".utf8":
+            return .utf8
+        case ".gbk":
+            return gbk
+        default:
+            return .utf8
+        }
+    }
+}

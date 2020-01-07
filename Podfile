@@ -25,6 +25,8 @@ pod 'FMDB'
 pod 'WechatOpenSDK', '1.8.3'
 pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 pod 'FLEX', :configurations => ['Debug']
+pod 'MLeaksFinder'
+pod 'FBRetainCycleDetector'
 
 # swift libraries
 pod 'Alamofire'

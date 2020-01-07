@@ -34,15 +34,16 @@ class ZSBookChapter:NSObject, NSCoding {
     }
     
     func getLastPage(page:ZSBookPage) ->ZSBookPage? {
-        if page.pageIndex - 1 > 0 {
+        if page.pageIndex - 1 >= 0 {
             return self.pages[page.pageIndex - 1]
         }
         return nil
     }
     
     func calPages() {
-        if chapterContent.length == 0 {
-            return
+        var content = chapterContent
+        if content.length == 0 {
+            content = "正在获数据，请稍候..."
         }
         let size = ZSReader.share.contentFrame
         let attributes = ZSReader.share.attributes()
@@ -67,6 +68,8 @@ class ZSBookChapter:NSObject, NSCoding {
         self.chapterName = coder.decodeObject(forKey: "chapterName") as? String ?? ""
         self.chapterContent = coder.decodeObject(forKey: "chapterContent") as? String ?? ""
         self.chapterIndex = coder.decodeInteger(forKey: "chapterIndex")
+        self.ranges = coder.decodeObject(forKey: "ranges") as? [NSRange] ?? []
+        self.pages = coder.decodeObject(forKey: "pages") as? [ZSBookPage] ?? []
     }
     
     func encode(with coder: NSCoder) {
@@ -74,6 +77,8 @@ class ZSBookChapter:NSObject, NSCoding {
         coder.encode(self.chapterName, forKey: "chapterName")
         coder.encode(self.chapterContent, forKey: "chapterContent")
         coder.encode(self.chapterIndex, forKey: "chapterIndex")
+        coder.encode(self.ranges, forKey: "ranges")
+        coder.encode(self.pages, forKey: "pages")
     }
 }
 
