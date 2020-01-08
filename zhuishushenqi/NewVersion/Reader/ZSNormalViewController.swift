@@ -33,6 +33,8 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     
     var viewModel:ZSReaderBaseViewModel!
     
+    var toolBar:ZSReaderToolbar!
+    
     fileprivate var changedPage = false
     
     fileprivate var pageViewController:PageViewController = PageViewController()
@@ -61,6 +63,10 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         self.viewModel = viewModel
     }
     
+    func bind(toolBar: ZSReaderToolbar) {
+        self.toolBar = toolBar
+    }
+    
     func pageViewController(_ pageViewController: PageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
     }
@@ -81,6 +87,10 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     func setupGesture(){
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panAction))
         view.addGestureRecognizer(pan)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        toolBar.show(inView: self.view)
     }
             
     @objc func panAction(pan:UIPanGestureRecognizer){

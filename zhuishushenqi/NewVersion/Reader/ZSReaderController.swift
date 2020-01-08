@@ -37,16 +37,18 @@ struct ZSReaderPref {
     var readerVC:ZSReaderVCProtocol?
 }
 
-class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ZSReaderToolbarDelegate {
 
     var pref:ZSReaderPref = ZSReaderPref()
     var viewModel:ZSReaderBaseViewModel = ZSReaderBaseViewModel()
     var reader = ZSReader.share
+    var toolBar:ZSReaderToolbar = ZSReaderToolbar(frame: UIScreen.main.bounds)
     
     convenience init(chapter:ZSBookChapter,_ model:ZSAikanParserModel?) {
         self.init()
         viewModel.originalChapter = chapter
         viewModel.model = model
+        toolBar.delegate = self
     }
     
     override func viewDidLoad() {
@@ -57,7 +59,7 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
         if let vc = pref.readerVC as? UIViewController {
             vc.view.bounds = view.bounds
         }
@@ -94,6 +96,7 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
             vc.didMove(toParent: self)
         }
         pref.readerVC?.bind(viewModel: viewModel)
+        pref.readerVC?.bind(toolBar: toolBar)
         pref.readerVC?.load()
     }
     
@@ -114,6 +117,11 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
     // Sent when a gesture-initiated transition ends. The 'finished' parameter indicates whether the animation finished, while the 'completed' parameter indicates whether the transition completed or bailed out (if the user let go early).
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
+    }
+    
+    //MARK: - ZSReaderToolbarDelegate
+    func toolBar(toolBar: ZSReaderToolbar, clickBack: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
     
     deinit {

@@ -8,14 +8,42 @@
 
 import UIKit
 
+protocol ZSReaderTopbarDelegate:class {
+    func topBar(topBar:ZSReaderTopbar, clickBack:UIButton)
+}
+
 class ZSReaderTopbar: UIView {
+    
+    weak var delegate:ZSReaderTopbarDelegate?
+    
+    lazy var backButton:UIButton = {
+        let bt = UIButton(type: .custom)
+        bt.setTitle("返回", for: .normal)
+        bt.setTitleColor(UIColor.white, for: .normal)
+        bt.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        bt.setImage(UIImage(named: "bg_back_white"), for: .normal)
+        bt.addTarget(self, action: #selector(backAction(bt:)), for: .touchUpInside)
+        return bt
+    }()
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(backButton)
+        backgroundColor = UIColor.black
     }
-    */
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let statusHeight = UIApplication.shared.statusBarFrame.height
+        backButton.frame = CGRect(x: 10, y: statusHeight + 5, width: 60, height: 30)
+    }
+    
+    @objc
+    private func backAction(bt:UIButton) {
+        delegate?.topBar(topBar: self, clickBack: bt)
+    }
 }

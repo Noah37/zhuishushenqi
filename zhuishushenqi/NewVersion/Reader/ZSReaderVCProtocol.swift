@@ -13,6 +13,8 @@ protocol ZSReaderVCProtocol {
     
     func bind(viewModel:ZSReaderBaseViewModel)
     
+    func bind(toolBar:ZSReaderToolbar)
+    
     @available(iOS 5.0, *)
     static func pageViewController() ->ZSReaderVCProtocol?
     
