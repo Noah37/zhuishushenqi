@@ -22,7 +22,7 @@ class ZSSearchBookViewModel {
     var searchRecHeader:ZSHeaderSearch = ZSHeaderSearch()
     var historyHeader:ZSHeaderSearch = ZSHeaderSearch()
 
-    var source:[AikanParserModel] = []
+    var source:[ZSAikanParserModel] = []
     
     private var stopBooks:Bool = false
 
@@ -168,10 +168,11 @@ class ZSSearchBookViewModel {
         }
     }
     
-    func request(text:String,completion:@escaping(_ book:AikanParserModel)->Void) {
+    func request(text:String,completion:@escaping(_ book:ZSAikanParserModel)->Void) {
         let htmlText = "<ul class=\"list-group\"><li class=\"list-group-item active\">章节目录</li><li class=\"list-group-item\"><a href=\"/book/81837/169064600.html\">咳咳，假酒喝多了，请个假</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169056339.html\">第1429章 地狱归来</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169056338.html\">第1428章 相隔一个世纪的返航</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169041719.html\">第1427章 远方的故人</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169041712.html\">第1426章 天宫！</a></li><li class=\"list-group-item tac\"><a href=\"/book/81837/\"><strong>查看全部章节</strong></a></li></ul>"
         if let document = OCGumboDocument(htmlString: htmlText) {
             let parse = AikanHtmlParser()
+//            let objs = ZSAikanHtmlParser.string(node: document, aikanString: "@.list-group li a@12@abs:href", text: false)
             let objs = parse.string(withGumboNode: document, withAikanString: "@.list-group li a@12@abs:href", withText: false)
             print(objs)
         }
@@ -194,17 +195,24 @@ class ZSSearchBookViewModel {
         }
     }
     
-    private func getBooks(src:AikanParserModel, htmlString:String, completion:@escaping(_ book:AikanParserModel)->Void) {
+    private func getBooks(src:ZSAikanParserModel, htmlString:String, completion:@escaping(_ book:ZSAikanParserModel)->Void) {
         guard let document = OCGumboDocument(htmlString: htmlString) else { return }
         let reg = src.books
         let parse = AikanHtmlParser()
         let obj = parse.elementArray(with: document, withRegexString: reg)
+//        let obj = ZSAikanHtmlParser.elementArray(node: document, regexString: reg)
         for index in 0..<obj.count {
             var bookAuthor = parse.string(withGumboNode: obj[index], withAikanString: src.bookAuthor, withText: true)
             var bookIcon = parse.string(withGumboNode: obj[index], withAikanString: src.bookIcon, withText: false)
             var bookName = parse.string(withGumboNode: obj[index], withAikanString: src.bookName, withText: true)
             var bookDesc = parse.string(withGumboNode: obj[index], withAikanString: src.bookDesc, withText: true)
             var bookUrl = parse.string(withGumboNode: obj[index], withAikanString: src.bookUrl, withText: false)
+//            var bookAuthor = ZSAikanHtmlParser.string(node: obj[index] as! OCGumboNode, aikanString: src.bookAuthor, text: true)
+//            var bookIcon = ZSAikanHtmlParser.string(node: obj[index] as! OCGumboNode, aikanString: src.bookIcon, text: false)
+//            var bookName = ZSAikanHtmlParser.string(node: obj[index] as! OCGumboNode, aikanString: src.bookName, text: true)
+//            var bookDesc = ZSAikanHtmlParser.string(node: obj[index] as! OCGumboNode, aikanString: src.bookDesc, text: true)
+//            var bookUrl = ZSAikanHtmlParser.string(node: obj[index] as! OCGumboNode, aikanString: src.bookUrl, text: false)
+
             if bookAuthor.length == 0 && bookName.length == 0 || bookUrl.length == 0 {
                 continue
             }
@@ -223,7 +231,7 @@ class ZSSearchBookViewModel {
             bookName = bookName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             bookDesc = bookDesc.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             getChapter(src: src, bookUrl: bookUrl) { (chapters, bookDetailInfo) in
-                let book = src.copy() as! AikanParserModel
+                let book = src 
                 book.bookAuthor = bookAuthor
                 book.bookIcon = bookIcon
                 book.bookName = bookName
@@ -240,7 +248,7 @@ class ZSSearchBookViewModel {
         }
     }
     
-    private func getChapter(src:AikanParserModel, bookUrl:String, completion:@escaping(_ chapters:[ZSBookChapter], _ bookDetailInfo:[String:String])->Void) {
+    private func getChapter(src:ZSAikanParserModel, bookUrl:String, completion:@escaping(_ chapters:[ZSBookChapter], _ bookDetailInfo:[String:String])->Void) {
         var headers = SessionManager.defaultHTTPHeaders
         headers["User-Agent"] = YouShaQiUserAgent
         let manager = SessionManager.default
@@ -256,14 +264,20 @@ class ZSSearchBookViewModel {
                 var reg = src.detailChaptersUrl
                 if reg.length > 0 {
                     let parse = AikanHtmlParser()
+//                    let detailBookDesc = ZSAikanHtmlParser.string(node: document, aikanString: src.detailBookDesc, text: false)
+//                    let detailBookIcon = ZSAikanHtmlParser.string(node: document, aikanString: src.detailBookIcon, text: false)
+//                    let bookLastChapterName = ZSAikanHtmlParser.string(node: document, aikanString: src.bookLastChapterName, text: true)
+//                    let bookUpdateTime = ZSAikanHtmlParser.string(node: document, aikanString: src.bookUpdateTime, text: true)
+
                     let detailBookDesc = parse.string(withGumboNode: document, withAikanString: src.detailBookDesc, withText: false)
                     let detailBookIcon = parse.string(withGumboNode: document, withAikanString: src.detailBookIcon, withText: false)
                     let bookLastChapterName = parse.string(withGumboNode: document, withAikanString: src.bookLastChapterName, withText: true)
                     let bookUpdateTime = parse.string(withGumboNode: document, withAikanString: src.bookUpdateTime, withText: true)
-                    let bookDetailInfo:[String:String] = ["detailDesc":detailBookDesc,
+                    let bookDetailInfo:[String:String] = ["detailBookDesc":detailBookDesc,
                                                           "detailBookIcon":detailBookIcon,
                                                           "bookLastChapterName":bookLastChapterName,
                                                           "bookUpdateTime":bookUpdateTime]
+//                    var chapterDir = ZSAikanHtmlParser.string(node: document, aikanString: reg, text: false)
                     var chapterDir = parse.string(withGumboNode: document, withAikanString: reg, withText: false)
                     if !chapterDir.hasPrefix("http") {
                         if chapterDir.hasPrefix("/") && src.host.hasSuffix("/") {
@@ -279,9 +293,12 @@ class ZSSearchBookViewModel {
                         guard let document = OCGumboDocument(htmlString: htmlString) else { return }
                         let parse = AikanHtmlParser()
                         let chalters = parse.elementArray(with: document, withRegexString: src.chapters)
+//                        let chalters = ZSAikanHtmlParser.elementArray(node: document, regexString: src.chapters)
                         var chaptersArr:[ZSBookChapter] = []
                         var index = 0
                         for node in chalters {
+//                            var chapterUrl = ZSAikanHtmlParser.string(node: node as! OCGumboNode, aikanString: src.chapterUrl, text: false)
+//                            let chapterTitle = ZSAikanHtmlParser.string(node: node as! OCGumboNode, aikanString: src.chapterName, text: true)
                             var chapterUrl = parse.string(withGumboNode: node, withAikanString: src.chapterUrl, withText: false)
                             let chapterTitle = parse.string(withGumboNode: node, withAikanString: src.chapterName, withText: true)
                             if !chapterUrl.hasPrefix("http") {
@@ -306,17 +323,24 @@ class ZSSearchBookViewModel {
                 } else {
                     reg = src.chapters
                     let parse = AikanHtmlParser()
+//                    let detailBookDesc = ZSAikanHtmlParser.string(node: document, aikanString: src.detailBookDesc, text: false)
+//                    let detailBookIcon = ZSAikanHtmlParser.string(node: document, aikanString: src.detailBookIcon, text: false)
+//                    let bookLastChapterName = ZSAikanHtmlParser.string(node: document, aikanString: src.bookLastChapterName, text: true)
+//                    let bookUpdateTime = ZSAikanHtmlParser.string(node: document, aikanString: src.bookUpdateTime, text: true)
+
                     let detailBookDesc = parse.string(withGumboNode: document, withAikanString: src.detailBookDesc, withText: false)
                     let detailBookIcon = parse.string(withGumboNode: document, withAikanString: src.detailBookIcon, withText: false)
                     let bookLastChapterName = parse.string(withGumboNode: document, withAikanString: src.bookLastChapterName, withText: true)
                     let bookUpdateTime = parse.string(withGumboNode: document, withAikanString: src.bookUpdateTime, withText: true)
-                    let bookDetailInfo:[String:String] = ["detailDesc":detailBookDesc,
+                    let bookDetailInfo:[String:String] = ["detailBookDesc":detailBookDesc,
                                                           "detailBookIcon":detailBookIcon,
                                                           "bookLastChapterName":bookLastChapterName,
                                                           "bookUpdateTime":bookUpdateTime]
+//                    let obj = ZSAikanHtmlParser.elementArray(node: document, regexString: reg)
                     let obj = parse.elementArray(with: document, withRegexString: reg)
                     var chaptersArr:[ZSBookChapter] = []
                     for index in 0..<obj.count {
+//                        var chapterUrl = ZSAikanHtmlParser.string(node: obj[index] as! OCGumboNode, aikanString: src.chapterUrl, text: false)
                         var chapterUrl = parse.string(withGumboNode: obj[index], withAikanString: src.chapterUrl, withText: false)
                         if chapterUrl.length > 0 && !chapterUrl.hasPrefix("http") {
                             if src.host.hasSuffix("/") && chapterUrl.hasPrefix("/") {
@@ -325,6 +349,7 @@ class ZSSearchBookViewModel {
                                 chapterUrl = src.host + chapterUrl
                             }
                         }
+//                        let chapterName = ZSAikanHtmlParser.string(node: obj[index] as! OCGumboNode, aikanString: src.chapterName, text: true)
                         let chapterName = parse.string(withGumboNode: obj[index], withAikanString: src.chapterName, withText: true)
                         let info:ZSBookChapter = ZSBookChapter()
                         info.chapterUrl = chapterUrl

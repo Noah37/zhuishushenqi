@@ -10,7 +10,7 @@ import UIKit
 
 class ZSSourceManager {
     
-    var sources:[AikanParserModel] = []
+    var sources:[ZSAikanParserModel] = []
     
     static let selectedSourceKey = "selectedSourceKey"
     
@@ -22,12 +22,54 @@ class ZSSourceManager {
     private func unpack() {
         let modifyfilePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!.appending("/source/HtmlParserModelData_edit.dat")
         let originialfilePath = Bundle(for: ZSSourceManager.self).path(forResource: "HtmlParserModelData.dat", ofType: nil) ?? ""
-        if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: modifyfilePath) as? [AikanParserModel] {
+        if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: modifyfilePath) as? [ZSAikanParserModel] {
             self.sources = objs
-        } else if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: originialfilePath) as? [AikanParserModel] {
+        } else if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: modifyfilePath) as? [AikanParserModel] {
+            self.sources = self.transform(models: objs)
+        } else if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: originialfilePath) as? [ZSAikanParserModel] {
             self.sources = objs
             save()
+        } else if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: originialfilePath) as? [AikanParserModel] {
+            self.sources = self.transform(models: objs)
+            save()
         }
+    }
+    
+    private func transform(models:[AikanParserModel]) ->[ZSAikanParserModel] {
+        var aikans:[ZSAikanParserModel] = []
+        for model in models {
+            let aikan = ZSAikanParserModel()
+//            aikan.errDate = model.errDate
+            aikan.searchUrl = model.searchUrl
+            aikan.name = model.name
+            aikan.type = Int64(model.type)
+            aikan.enabled = model.enabled
+            aikan.checked = model.checked
+            aikan.searchEncoding = model.searchEncoding
+            aikan.host = model.host
+            aikan.contentReplace = model.contentReplace
+            aikan.contentRemove = model.contentRemove
+            aikan.content = model.content
+            aikan.chapterUrl = model.chapterUrl
+            aikan.chapterName = model.chapterName
+            aikan.chapters = model.chapters
+            aikan.chaptersModel = model.chaptersModel as? [ZSBookChapter] ?? []
+            aikan.detailBookIcon = model.detailBookIcon
+            aikan.detailChaptersUrl = model.detailChaptersUrl
+            aikan.bookLastChapterName = model.bookLastChapterName
+            aikan.bookUpdateTime = model.bookUpdateTime
+            aikan.bookUrl = model.bookUrl
+            aikan.bookIcon = model.bookIcon
+            aikan.bookDesc = model.bookDesc
+            aikan.bookCategory = model.bookCategory
+            aikan.bookAuthor = model.bookAuthor
+            aikan.bookName = model.bookName
+            aikan.books = model.books
+            aikan.chaptersReverse = model.chaptersReverse
+            aikan.detailBookDesc = model.detailBookDesc
+            aikans.append(aikan)
+        }
+        return aikans
     }
     
     private func save() {
@@ -40,7 +82,7 @@ class ZSSourceManager {
         NSKeyedArchiver.archiveRootObject(self.sources, toFile: filePath)
     }
     
-    func add(source:AikanParserModel) {
+    func add(source:ZSAikanParserModel) {
         if sources.contains(source) {
             modify(source: source)
         } else {
@@ -51,9 +93,9 @@ class ZSSourceManager {
         }
     }
     
-    func modify(source:AikanParserModel) {
+    func modify(source:ZSAikanParserModel) {
         var index = 0
-        let ts = sources.copy
+        let ts = sources
         for ss in ts {
             if ss.host == source.host {
                 sources[index] = source
@@ -66,9 +108,9 @@ class ZSSourceManager {
         }
     }
     
-    func delete(source:AikanParserModel) {
+    func delete(source:ZSAikanParserModel) {
         var index = 0
-        let ts = sources.copy
+        let ts = sources
         for ss in ts {
             if ss.host == source.host {
                 sources.remove(at: index)
@@ -81,7 +123,7 @@ class ZSSourceManager {
         }
     }
     
-    func select(source:AikanParserModel) {
+    func select(source:ZSAikanParserModel) {
         source.checked = true
         replace(source: source)
         DispatchQueue.global().async {
@@ -89,7 +131,7 @@ class ZSSourceManager {
         }
     }
 
-    func unselect(source:AikanParserModel) {
+    func unselect(source:ZSAikanParserModel) {
         source.checked = false
         replace(source: source)
         DispatchQueue.global().async {
@@ -97,9 +139,9 @@ class ZSSourceManager {
         }
     }
     
-    private func replace(source:AikanParserModel) {
+    private func replace(source:ZSAikanParserModel) {
         var index = 0
-        let ts = sources.copy
+        let ts = sources
         for ss in ts {
             if ss.host == source.host {
                 sources[index] = source

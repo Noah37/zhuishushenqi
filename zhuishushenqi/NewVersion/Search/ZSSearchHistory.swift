@@ -100,6 +100,6 @@ class ZSHistoryManager {
         if !FileManager.default.fileExists(atPath: savePath, isDirectory: nil) {
             try? FileManager.default.createDirectory(atPath: savePath, withIntermediateDirectories: true, attributes: nil)
         }
-//        NSKeyedArchiver.archiveRootObject(historyList, toFile: saveFilePath)
+        NSKeyedArchiver.archiveRootObject(historyList, toFile: saveFilePath)
     }
 }

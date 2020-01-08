@@ -244,7 +244,7 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
 
 extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ZSBookManager.shared.books.count
+        return ZSShelfManager.share.books.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -269,17 +269,20 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(UITableViewCell.self)", for: indexPath)
         cell.selectionStyle = .none
-        let id = ZSBookManager.shared.ids[indexPath.row]
-        let book = ZSBookManager.shared.books[id]
-        cell.textLabel?.text = "\(book?.title)"
+        let book = ZSShelfManager.share.books[indexPath.row]
+        cell.textLabel?.text = "\(book.bookName)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let readerVC = ZSReaderController()
-        let id = ZSBookManager.shared.ids[indexPath.row]
-//        readerVC.viewModel.book = ZSBookManager.shared.books[id]
-        readerVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(readerVC, animated: true)
+        let book = ZSShelfManager.share.books[indexPath.row]
+        guard let aikan = ZSShelfManager.share.aikan(book) else { return }
+        if aikan.chaptersModel.count > 0 {
+            let readerVC = ZSReaderController(chapter: aikan.chaptersModel[0], aikan)
+            readerVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(readerVC, animated: true)
+        } else {
+            alert(with: "提示", message: "找不到该书籍", okTitle: "确定")
+        }
     }
 }

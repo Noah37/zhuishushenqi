@@ -72,7 +72,7 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
         request(text: word)
     }
     
-    func resultClick(model:AikanParserModel) {
+    func resultClick(model:ZSAikanParserModel) {
         let infoVC = ZSSearchInfoViewController()
         infoVC.model = model
         self.navigationController?.pushViewController(infoVC, animated: true)

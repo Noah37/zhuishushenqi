@@ -33,7 +33,7 @@ class ZSSourceCell: UITableViewCell {
         return bt
     }()
     
-    var source:AikanParserModel?
+    var source:ZSAikanParserModel?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -50,7 +50,7 @@ class ZSSourceCell: UITableViewCell {
         // Initialization code
     }
     
-    func configure(source:AikanParserModel) {
+    func configure(source:ZSAikanParserModel) {
         self.source = source
         self.textLabel?.text = source.name
         self.checkButton.isSelected = source.checked

@@ -9,9 +9,9 @@
 import UIKit
 import SnapKit
 
-class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellDelegate {
+class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellDelegate, ZSSearchInfoBottomViewDelegate {
     
-    var model:AikanParserModel? { didSet { } }
+    var model:ZSAikanParserModel? { didSet { } }
     
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -29,6 +29,12 @@ class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellD
         tableView.backgroundView = blurEffectView
         return tableView
     }()
+    
+    lazy var bottomView:ZSSearchInfoBottomView = {
+        let view = ZSSearchInfoBottomView(frame: .zero)
+        view.delegate = self
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +46,16 @@ class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellD
     private func setupSubview() {
         title = model?.bookName
         view.addSubview(tableView)
+        view.addSubview(bottomView)
         tableView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(kNavgationBarHeight)
-            make.height.equalTo(ScreenHeight - kNavgationBarHeight)
+            make.height.equalTo(ScreenHeight - kNavgationBarHeight - kTabbarBlankHeight - 60)
+        }
+        bottomView.snp.makeConstraints { (make) in
+            let height = kTabbarBlankHeight + 60
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(height)
         }
     }
     
@@ -68,6 +80,31 @@ class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellD
                     self?.tableView.reloadData()
                 }
             }
+        }
+    }
+    
+    //MARK: - ZSSearchInfoBottomViewDelegate
+    func bottomView(bottomView: ZSSearchInfoBottomView, clickAdd: UIButton) {
+        let selected = clickAdd.isSelected
+        if selected {
+            if let book = self.model {
+                ZSShelfManager.share.addAikan(book)
+            }
+        } else {
+            if let book = self.model {
+                ZSShelfManager.share.removeAikan(book)
+            }
+        }
+    }
+    
+    func bottomView(bottomView: ZSSearchInfoBottomView, clickRead: UIButton) {
+        guard let book = self.model else { return }
+        if book.chaptersModel.count > 0 {
+            let readerVC = ZSReaderController(chapter: book.chaptersModel[0], book)
+            readerVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(readerVC, animated: true)
+        } else {
+            alert(with: "提示", message: "找不到该书籍", okTitle: "确定")
         }
     }
     

@@ -43,7 +43,7 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
     var viewModel:ZSReaderBaseViewModel = ZSReaderBaseViewModel()
     var reader = ZSReader.share
     
-    convenience init(chapter:ZSBookChapter,_ model:AikanParserModel?) {
+    convenience init(chapter:ZSBookChapter,_ model:ZSAikanParserModel?) {
         self.init()
         viewModel.originalChapter = chapter
         viewModel.model = model

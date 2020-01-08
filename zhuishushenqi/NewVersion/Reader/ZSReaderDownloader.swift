@@ -22,7 +22,7 @@ class ZSReaderDownloader {
         
     }
     
-    func download(book:AikanParserModel, start:Int, handler:@escaping ZSBaseCallback<Bool>) {
+    func download(book:ZSAikanParserModel, start:Int, handler:@escaping ZSBaseCallback<Bool>) {
         guard let chaptersInfo = book.chaptersModel as? [ZSBookChapter] else { return }
         let totalChapterCount = chaptersInfo.count
         if start > totalChapterCount {
@@ -49,7 +49,7 @@ class ZSReaderDownloader {
         }
     }
     
-    func download(chapter:ZSBookChapter, book:AikanParserModel, reg:String,_ handler:@escaping ZSBaseCallback<ZSBookChapter>) {
+    func download(chapter:ZSBookChapter, book:ZSAikanParserModel, reg:String,_ handler:@escaping ZSBaseCallback<ZSBookChapter>) {
         let key = chapter.chapterUrl
         download(for: key,book:book, reg: reg) { (contentString) in
             if let content = contentString, content.length > 0 {
@@ -61,7 +61,7 @@ class ZSReaderDownloader {
             }
         }
     }
-    private func download(for key:String, book:AikanParserModel, reg:String,_ handler:@escaping ZSBaseCallback<String>) {
+    private func download(for key:String, book:ZSAikanParserModel, reg:String,_ handler:@escaping ZSBaseCallback<String>) {
         let link = key
         var headers = SessionManager.defaultHTTPHeaders
         headers["User-Agent"] = YouShaQiUserAgent
@@ -76,6 +76,7 @@ class ZSReaderDownloader {
                 let htmlString = String(data: htmlData, encoding: String.Encoding.zs_encoding(str: book.searchEncoding)) ?? ""
                 guard let document = OCGumboDocument(htmlString: htmlString) else { return }
                 let parse = AikanHtmlParser()
+//                let contentString = ZSAikanHtmlParser.string(node: document, aikanString: reg, text: true)
                 let contentString = parse.string(withGumboNode: document, withAikanString: reg, withText: true)
                 handler(contentString)
             } else {

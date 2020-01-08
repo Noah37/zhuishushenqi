@@ -11,7 +11,7 @@ import UIKit
 class ZSReaderBaseViewModel {
     
 
-    var model:AikanParserModel?
+    var model:ZSAikanParserModel?
     var originalChapter:ZSBookChapter?
     var preRequestChapterCount = 5
     

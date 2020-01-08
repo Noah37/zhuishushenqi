@@ -11,7 +11,7 @@ import SnapKit
 
 class ZSAddSourceViewController: BaseViewController {
     
-    var source:AikanParserModel? { didSet { reloadData() } }
+    var source:ZSAikanParserModel? { didSet { reloadData() } }
     
     lazy var booksTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
@@ -375,7 +375,7 @@ class ZSAddSourceViewController: BaseViewController {
             alert(with: "提醒", message: "books不能为空", okTitle: "确定")
             return
         }
-        let model:AikanParserModel = source == nil ? AikanParserModel():source!
+        let model:ZSAikanParserModel = source == nil ? ZSAikanParserModel():source!
         model.books = booksTF.textField.text ?? ""
         model.bookName = bookNameTF.textField.text ?? ""
         model.bookAuthor = bookAuthorTF.textField.text ?? ""

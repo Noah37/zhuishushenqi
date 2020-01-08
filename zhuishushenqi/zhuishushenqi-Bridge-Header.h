@@ -37,5 +37,7 @@
 #import "XMSDKPlayer.h"
 #import "AikanParserModel.h"
 #import "AikanHtmlParser.h"
+#import "OCGumbo.h"
+#import "OCGumbo+Query.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */

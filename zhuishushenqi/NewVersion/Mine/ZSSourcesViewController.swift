@@ -10,7 +10,7 @@ import UIKit
 
 class ZSSourcesViewController: ZSBaseTableViewController {
     
-    var sources:[AikanParserModel] { return ZSSourceManager.share.sources }
+    var sources:[ZSAikanParserModel] { return ZSSourceManager.share.sources }
 
     override func viewDidLoad() {
         super.viewDidLoad()

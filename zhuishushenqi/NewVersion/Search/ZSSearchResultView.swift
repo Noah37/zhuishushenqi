@@ -8,11 +8,11 @@
 
 import UIKit
 
-typealias ZSSearchResultHander = (_ model:AikanParserModel)->Void
+typealias ZSSearchResultHander = (_ model:ZSAikanParserModel)->Void
 
 class ZSSearchResultView: UIView {
     
-    var books:[AikanParserModel] = []
+    var books:[ZSAikanParserModel] = []
     
     var resultHandler:ZSSearchResultHander?
 
@@ -43,7 +43,7 @@ class ZSSearchResultView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addBook(book:AikanParserModel) {
+    func addBook(book:ZSAikanParserModel) {
         DispatchQueue.main.async {
             if self.books.count != 0 {
                 self.books.append(book)

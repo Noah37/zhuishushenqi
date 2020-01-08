@@ -62,8 +62,9 @@ class ZSSearchResultCell: UITableViewCell {
         self.bookDescLB.frame = CGRect(x: self.bookIconView.frame.maxX + 20, y: self.authorLB.frame.maxY + 5, width: self.contentView.bounds.width - self.bookIconView.frame.maxX - 20 - 20, height: 45)
     }
     
-    func configure(model:AikanParserModel) {
-        let resource = QSResource(url: URL(string: "\(model.bookIcon)") ?? URL(string: "www.baidu.com")!)
+    func configure(model:ZSAikanParserModel) {
+        let icon = model.bookIcon.length != 0 ? model.bookIcon:model.detailBookIcon
+        let resource = QSResource(url: URL(string: "\(icon)") ?? URL(string: "www.baidu.com")!)
         self.bookIconView.kf.setImage(with: resource)
         self.bookDescLB.text = model.bookDesc.length != 0 ? model.bookDesc:model.detailBookDesc
         self.sourceLB.text = model.name

@@ -71,7 +71,7 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
         self.contentLabel.frame = CGRect(x: 15, y: self.lastUpdateTimeBT.frame.maxY + 10, width: self.contentView.bounds.width - 30, height:contentSize.height)
     }
     
-    static func height(for model:AikanParserModel) ->CGFloat {
+    static func height(for model:ZSAikanParserModel) ->CGFloat {
         let headerView = ZSBookInfoHeaderView(reuseIdentifier: "\(ZSBookInfoHeaderView.self)")
         headerView.configure(model: model)
         let contentSize = headerView.contentLabel.sizeThatFits(CGSize(width: ScreenWidth - 30, height: CGFloat.greatestFiniteMagnitude))
@@ -89,8 +89,9 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    func configure(model:AikanParserModel) {
-        let resource = QSResource(url: URL(string: "\(model.bookIcon)") ?? URL(string: "\(model.detailBookIcon )")!)
+    func configure(model:ZSAikanParserModel) {
+        let icon = model.bookIcon.length > 0 ? model.bookIcon:model.detailBookIcon
+        let resource = QSResource(url: URL(string: icon) ?? URL(string: "www.baidu.com")!)
         self.iconView.kf.setImage(with: resource)
         self.authorLabel.text = model.bookAuthor
         self.contentLabel.text = model.detailBookDesc.length != 0 ? model.detailBookDesc:model.bookDesc
