@@ -45,7 +45,15 @@ class ZSBookChapter:NSObject, NSCoding {
         if content.length == 0 {
             content = "正在获数据，请稍候..."
         }
-        let size = ZSReader.share.contentFrame
+        var size = ZSReader.share.contentFrame
+        var top:CGFloat = 0
+        var bottom:CGFloat = 30
+        let orientation = UIApplication.shared.statusBarOrientation
+        if orientation.isPortrait && IPHONEX {
+            top = 30
+        }
+        top += 30
+        size = CGRect(x: size.origin.x, y: top, width: size.width, height: UIScreen.main.bounds.height - top - bottom)
         let attributes = ZSReader.share.attributes()
         self.ranges = QSReaderParse.pageWithAttributes(attrubutes: attributes, constrainedToFrame: size, string: self.chapterContent)
         var pages:[ZSBookPage] = []

@@ -21,14 +21,15 @@ class PageView: CTDisplayView {
     }
     
     func refresh() {
-        let fontSize = QSReaderSetting.shared.fontSize
-        let lineSpace = QSReaderSetting.shared.lineSpace
+        let fontSize = ZSReader.share.theme.fontSize.size
+        let lineSpace = ZSReader.share.theme.lineSpace
         let config = CTFrameParserConfig()
         config.fontSize = CGFloat(fontSize)
         config.textColor = AppStyle.shared.reader.textColor
-        config.width = self.bounds.width
+        config.width = ZSReader.share.contentFrame.width
         config.lineSpace = lineSpace
-        config.paragraphSpace = QSReaderSetting.shared.paragraphSpace
+        config.paragraphSpace = ZSReader.share.theme.paragraphSpace
+        config.textFont = UIFont.systemFont(ofSize: fontSize)
         //            attribute = CTFrameParser.attributes(with: config)
         let data:CoreTextData = CTFrameParser.parseContent(attributedText, config: config)
         self.data = data

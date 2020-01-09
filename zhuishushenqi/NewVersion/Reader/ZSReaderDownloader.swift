@@ -53,7 +53,9 @@ class ZSReaderDownloader {
         let key = chapter.chapterUrl
         download(for: key,book:book, reg: reg) { (contentString) in
             if let content = contentString, content.length > 0 {
-                chapter.chapterContent = content
+                let brContent = content.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                let noBrContent = brContent.replacingOccurrences(of: "<br/>", with: "\n")
+                chapter.chapterContent = noBrContent
                 ZSBookCache.share.cacheContent(content: chapter, for: book.bookName)
                 handler(chapter)
             } else {
@@ -77,7 +79,7 @@ class ZSReaderDownloader {
                 guard let document = OCGumboDocument(htmlString: htmlString) else { return }
                 let parse = AikanHtmlParser()
 //                let contentString = ZSAikanHtmlParser.string(node: document, aikanString: reg, text: true)
-                let contentString = parse.string(withGumboNode: document, withAikanString: reg, withText: true)
+                let contentString = parse.string(withGumboNode: document, withAikanString: reg, withText: false)
                 handler(contentString)
             } else {
                 handler("")

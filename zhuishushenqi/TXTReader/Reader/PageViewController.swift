@@ -232,7 +232,7 @@ class PageViewController: UIViewController {
     
     lazy var pageView:PageView = {
         let pageView = PageView()
-        pageView.frame = QSReaderFrame
+        pageView.frame = ZSReader.share.contentFrame
         pageView.backgroundColor = UIColor.clear
         return pageView
     }()

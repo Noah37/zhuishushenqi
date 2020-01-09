@@ -22,6 +22,14 @@ protocol ZSReaderVCProtocol {
     
     func destroy()
     
+    func nextChapter()
+    
+    func lastChapter()
+    
+    func currentChapter() ->ZSBookChapter?
+    
+    func chapter(chapter:ZSBookChapter)
+    
     @available(iOS 5.0, *)
     func pageViewController(_ pageViewController: PageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?
     

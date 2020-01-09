@@ -16,6 +16,8 @@
 		3D08F242212C2DC6007B3D19 /* ZSDiscussViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */; };
 		3D08F244212C2DFC007B3D19 /* ZSDiscussWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */; };
 		3D096BF722CF76A70005C9EA /* ZSRefreshFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D096BF622CF76A70005C9EA /* ZSRefreshFooter.swift */; };
+		3D1330CB23C6FA9200D81EF4 /* ZSReaderTouchArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1330CA23C6FA9200D81EF4 /* ZSReaderTouchArea.swift */; };
+		3D1330CD23C7239000D81EF4 /* ZSReaderCatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1330CC23C7239000D81EF4 /* ZSReaderCatalogViewController.swift */; };
 		3D17A02722D47364001FAC0C /* ZSReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17A02622D47364001FAC0C /* ZSReaderController.swift */; };
 		3D17A02922D47426001FAC0C /* ZSPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17A02822D47426001FAC0C /* ZSPageViewController.swift */; };
 		3D17A02B22D474A7001FAC0C /* ZSHorizonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17A02A22D474A7001FAC0C /* ZSHorizonalViewController.swift */; };
@@ -620,6 +622,8 @@
 		3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussViewModel.swift; sourceTree = "<group>"; };
 		3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussWebService.swift; sourceTree = "<group>"; };
 		3D096BF622CF76A70005C9EA /* ZSRefreshFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRefreshFooter.swift; sourceTree = "<group>"; };
+		3D1330CA23C6FA9200D81EF4 /* ZSReaderTouchArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderTouchArea.swift; sourceTree = "<group>"; };
+		3D1330CC23C7239000D81EF4 /* ZSReaderCatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderCatalogViewController.swift; sourceTree = "<group>"; };
 		3D17A02622D47364001FAC0C /* ZSReaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderController.swift; sourceTree = "<group>"; };
 		3D17A02822D47426001FAC0C /* ZSPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSPageViewController.swift; sourceTree = "<group>"; };
 		3D17A02A22D474A7001FAC0C /* ZSHorizonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSHorizonalViewController.swift; sourceTree = "<group>"; };
@@ -1394,9 +1398,11 @@
 				3D17A02A22D474A7001FAC0C /* ZSHorizonalViewController.swift */,
 				3D55F4D822D47B3800AE0E2B /* ZSVerticalViewController.swift */,
 				3D55F4DC22D47CEF00AE0E2B /* ZSNormalViewController.swift */,
+				3D1330CC23C7239000D81EF4 /* ZSReaderCatalogViewController.swift */,
 				3D05BCB323C592E2001EAB2A /* ZSReaderToolbar.swift */,
 				3D05BCB523C592FE001EAB2A /* ZSReaderTopbar.swift */,
 				3D05BCB723C59314001EAB2A /* ZSReaderBottomBar.swift */,
+				3D1330CA23C6FA9200D81EF4 /* ZSReaderTouchArea.swift */,
 				3D29C7AA233381A600113A25 /* ZSReaderVCProtocol.swift */,
 				3D29C7AC23347E6900113A25 /* ZSReaderBaseViewModel.swift */,
 				3DB1FDB02334A8BE00CAC8C0 /* ZSReaderCache.swift */,
@@ -3759,6 +3765,7 @@
 				3D9D857C20CA439D003FEDFE /* ZSShelfMessage.swift in Sources */,
 				3D63E17B235F18F40015B7D3 /* ZSHotWord.swift in Sources */,
 				B2B02E551EA9A9F000A6880A /* ZSVoiceCategoryCell.swift in Sources */,
+				3D1330CB23C6FA9200D81EF4 /* ZSReaderTouchArea.swift in Sources */,
 				3D05BCB423C592E2001EAB2A /* ZSReaderToolbar.swift in Sources */,
 				B2683CFF22D083B200FE9CF0 /* ZSNoNetworkView.swift in Sources */,
 				B2B4BBF61E7EA4AB000CC201 /* NSDate+Extension.m in Sources */,
@@ -3825,6 +3832,7 @@
 				B2683D0B22D188A600FE9CF0 /* ZSNotification.swift in Sources */,
 				3D63E179235F14BF0015B7D3 /* ZSSearchHotwords.swift in Sources */,
 				B2C0DF6620D4CB350057DC84 /* QSCategoryPresenter.swift in Sources */,
+				3D1330CD23C7239000D81EF4 /* ZSReaderCatalogViewController.swift in Sources */,
 				B2A02F7E20F33A1A0034DC64 /* ZSHorizonalMoveCell.swift in Sources */,
 				B29CFB6F217ADA690006F294 /* ZSMyCell.swift in Sources */,
 				B21C735723657ACF00E9D148 /* utf8.c in Sources */,

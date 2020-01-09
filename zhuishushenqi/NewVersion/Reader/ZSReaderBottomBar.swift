@@ -8,12 +8,25 @@
 
 import UIKit
 
+protocol ZSReaderBottomBarDelegate:class {
+    func bottomBar(bottomBar:ZSReaderBottomBar, clickLast:UIButton)
+    func bottomBar(bottomBar:ZSReaderBottomBar, clickNext:UIButton)
+    func bottomBar(bottomBar:ZSReaderBottomBar, clickCatalog:UIButton)
+    func bottomBar(bottomBar:ZSReaderBottomBar, clickDark:UIButton)
+    func bottomBar(bottomBar:ZSReaderBottomBar, clickSetting:UIButton)
+    func bottomBar(bottomBar:ZSReaderBottomBar, progress:Float)
+
+}
+
 class ZSReaderBottomBar: UIView {
+    
+    weak var delegate:ZSReaderBottomBarDelegate?
 
     lazy var progressBar:UISlider = {
         let bar = UISlider(frame: UIScreen.main.bounds)
         bar.minimumTrackTintColor = UIColor.white
         bar.maximumTrackTintColor = UIColor.gray
+        bar.addTarget(self, action: #selector(sliderAction(slider:)), for: .valueChanged)
         return bar
     }()
     
@@ -23,6 +36,7 @@ class ZSReaderBottomBar: UIView {
         bt.setTitleColor(UIColor.white, for: .normal)
         bt.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         bt.setImage(UIImage(named: "icon_tools_menu_30x30_"), for: .normal)
+        bt.addTarget(self, action: #selector(catalogAction(bt:)), for: .touchUpInside)
         return bt
     }()
     
@@ -34,6 +48,7 @@ class ZSReaderBottomBar: UIView {
         bt.setImage(UIImage(named: "pic_day_46x46_"), for: .selected)
         bt.setImage(UIImage(named: "pic_night_46x46_"), for: .normal)
         bt.setTitleColor(UIColor.white, for: .normal)
+        bt.addTarget(self, action: #selector(darkAction(bt:)), for: .touchUpInside)
         return bt
     }()
     
@@ -43,6 +58,7 @@ class ZSReaderBottomBar: UIView {
         bt.setTitleColor(UIColor.white, for: .normal)
         bt.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         bt.setImage(UIImage(named: "icon_tools_setting_30x30_"), for: .normal)
+        bt.addTarget(self, action: #selector(settingAction(bt:)), for: .touchUpInside)
         return bt
     }()
     
@@ -50,6 +66,7 @@ class ZSReaderBottomBar: UIView {
         let bt = UIButton(type: .custom)
         bt.setTitle("上一章", for: .normal)
         bt.setTitleColor(UIColor.white, for: .normal)
+        bt.addTarget(self, action: #selector(lastAction(bt:)), for: .touchUpInside)
         return bt
     }()
     
@@ -57,6 +74,7 @@ class ZSReaderBottomBar: UIView {
         let bt = UIButton(type: .custom)
         bt.setTitle("下一章", for: .normal)
         bt.setTitleColor(UIColor.white, for: .normal)
+        bt.addTarget(self, action: #selector(nextAction(bt:)), for: .touchUpInside)
         return bt
     }()
     
@@ -90,6 +108,35 @@ class ZSReaderBottomBar: UIView {
 
     }
     
+    @objc
+    private func lastAction(bt:UIButton) {
+        delegate?.bottomBar(bottomBar: self, clickLast: bt)
+    }
+    
+    @objc
+    private func nextAction(bt:UIButton) {
+        delegate?.bottomBar(bottomBar: self, clickNext: bt)
+    }
+    
+    @objc
+    private func catalogAction(bt:UIButton) {
+        delegate?.bottomBar(bottomBar: self, clickCatalog: bt)
+    }
+    
+    @objc
+    private func darkAction(bt:UIButton) {
+        delegate?.bottomBar(bottomBar: self, clickDark: bt)
+    }
+    
+    @objc
+    private func settingAction(bt:UIButton) {
+        delegate?.bottomBar(bottomBar: self, clickSetting: bt)
+    }
+    
+    @objc
+    private func sliderAction(slider:UISlider) {
+        delegate?.bottomBar(bottomBar: self, progress: slider.value)
+    }
 }
 
 class ZSReaderMenuButton:UIButton {

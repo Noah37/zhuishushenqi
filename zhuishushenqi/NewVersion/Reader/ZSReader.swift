@@ -57,7 +57,7 @@ struct ZSReader {
             self.didChangePageStyle(pageStyle)
         }
     }
-    var contentFrame = UIScreen.main.bounds {
+    var contentFrame = CGRect(x: 10, y: STATEBARHEIGHT, width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height - STATEBARHEIGHT - 30) {
         didSet {
             cache(value: contentFrame, for: "\(ZSReader.self).contentFrame")
             self.didChangeContentFrame(contentFrame)
@@ -82,7 +82,7 @@ struct ZSReader {
     
     private init() {
         pageStyle = ZSReaderPageStyle.init(rawValue: getValue(for: "\(ZSReader.self).\(ZSReaderPageStyle.self)")) ?? .pageCurl
-        contentFrame = getRectValue(for: "\(ZSReader.self).contentFrame").equalTo(CGRect.zero) ? UIScreen.main.bounds:getRectValue(for: "\(ZSReader.self).contentFrame")
+//        contentFrame = getRectValue(for: "\(ZSReader.self).contentFrame").equalTo(CGRect.zero) ? UIScreen.main.bounds:getRectValue(for: "\(ZSReader.self).contentFrame")
         bookStyle = ZSReaderBookStyle.init(rawValue: getValue(for:
             "\(ZSReader.self).\(ZSReaderBookStyle.self)")) ?? .online
     }
@@ -95,7 +95,7 @@ struct ZSReader {
         
         paragraphStyle.paragraphSpacing = theme.paragraphSpace
         
-        let font = UIFont.systemFont(ofSize: theme.fontSize.size)
+        let font = UIFont(name: "ArialMT", size: theme.fontSize.size) ?? UIFont.systemFont(ofSize: theme.fontSize.size)
         
         let attributes = [NSAttributedString.Key.font:font,
                           NSAttributedString.Key.paragraphStyle:paragraphStyle] as [NSAttributedString.Key : Any]

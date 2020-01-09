@@ -46,8 +46,10 @@ static CGFloat widthCallback(void* ref){
 
 + (NSMutableDictionary *)attributesWithConfig:(CTFrameParserConfig *)config {
     CGFloat fontSize = config.fontSize;
-    CTFontRef fontRef = CTFontCreateWithName((CFStringRef)config.textFont.fontName, fontSize, NULL);
-//    CTFontRef fontRef = CTFontCreateWithName((CFStringRef)@"ArialMT", fontSize, NULL);
+//    CTFontCreateUIFontForLanguage(kCTFontUIFontSystem, fontSize, <#CFStringRef  _Nullable language#>)
+//    CTFontRef fontRef = (__bridge CTFontRef)config.textFont;
+//    CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)@"", fontSize, NULL);
+    CTFontRef fontRef = CTFontCreateWithName((CFStringRef)@"ArialMT", fontSize, NULL);
     CGFloat lineSpacing = config.lineSpace;
     const CFIndex kNumberOfSettings = 3;
     CTParagraphStyleSetting theSettings[kNumberOfSettings] = {

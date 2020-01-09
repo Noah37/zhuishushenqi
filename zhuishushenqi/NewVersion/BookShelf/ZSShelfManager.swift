@@ -102,7 +102,7 @@ class ZSShelfManager {
     
     func aikan(_ shelf:ZSShelfModel) ->ZSAikanParserModel? {
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksPath = documentPath.appending("/\(shelfBooksPath)/)")
+        let booksPath = documentPath.appending("/\(shelfBooksPath)/")
         let bookUrl = shelf.bookUrl
         let aikanFileName = bookUrl.md5()
         let aikanFilePath = booksPath.appending(aikanFileName)
@@ -114,7 +114,7 @@ class ZSShelfManager {
     
     private func saveAikan(_ book:ZSAikanParserModel) {
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksPath = documentPath.appending("/\(shelfBooksPath)/)")
+        let booksPath = documentPath.appending("/\(shelfBooksPath)/")
         let bookUrl = book.bookUrl
         let aikanFileName = bookUrl.md5()
         let aikanFilePath = booksPath.appending(aikanFileName)
@@ -151,7 +151,7 @@ class ZSShelfManager {
     private func createPath() {
         let fileManager = FileManager.default
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksPath = documentPath.appending("/\(shelfBooksPath)/)")
+        let booksPath = documentPath.appending("/\(shelfBooksPath)/")
         var pointer:UnsafeMutablePointer<ObjCBool>?
         if !fileManager.fileExists(atPath: booksPath, isDirectory: pointer) {
             try? fileManager.createDirectory(atPath: booksPath, withIntermediateDirectories: true, attributes: nil)

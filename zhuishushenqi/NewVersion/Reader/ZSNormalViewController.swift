@@ -67,6 +67,48 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         self.toolBar = toolBar
     }
     
+    func nextChapter() {
+        guard let history = viewModel?.readHistory else { return }
+        if let nextC = zs_nextChapter() {
+            viewModel?.request(chapter: nextC, callback: { [weak self](chapter) in
+                self?.pageViewController.newPage = chapter?.pages.first
+                history.chapter = chapter
+                if chapter?.pages.count ?? 0 > 0 {
+                    history.page = chapter!.pages.first
+                }
+            })
+        }
+    }
+    
+    func lastChapter() {
+        guard let history = viewModel?.readHistory else { return }
+        if let lastC = zs_lastChapter() {
+            viewModel?.request(chapter: lastC, callback: { [weak self] (chapter) in
+                self?.pageViewController.newPage = chapter?.pages.last
+                history.chapter = chapter
+                if chapter?.pages.count ?? 0 > 0 {
+                    history.page = chapter!.pages.last
+                }
+            })
+        }
+    }
+    
+    func currentChapter() ->ZSBookChapter? {
+        let chapter = zs_currentChapter()
+        return chapter
+    }
+    
+    func chapter(chapter:ZSBookChapter) {
+        guard let history = viewModel?.readHistory else { return }
+        viewModel?.request(chapter: chapter, callback: { [weak self] (cp) in
+            self?.pageViewController.newPage = cp?.pages.first
+            history.chapter = cp
+            if cp?.pages.count ?? 0 > 0 {
+                history.page = cp!.pages.first
+            }
+        })
+    }
+    
     func pageViewController(_ pageViewController: PageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
     }
@@ -87,10 +129,16 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     func setupGesture(){
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panAction))
         view.addGestureRecognizer(pan)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+        tap.numberOfTouchesRequired = 1
+        tap.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tap)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        toolBar.show(inView: self.view)
+    @objc
+    private func tapAction(tap:UITapGestureRecognizer) {
+        toolBar.show(inView: self.view, true)
     }
             
     @objc func panAction(pan:UIPanGestureRecognizer){
@@ -114,14 +162,14 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     }
     
     func nextPage() {
-        let chapter = currentChapter()
+        let chapter = zs_currentChapter()
         guard let history = viewModel?.readHistory else { return }
         guard let page = history.page else { return }
         if let nextP = chapter.getNextPage(page: page) {
             self.pageViewController.newPage = nextP
             history.page = nextP
         } else { // 新章节
-            if let nextC = nextChapter() {
+            if let nextC = zs_nextChapter() {
                 viewModel?.request(chapter: nextC, callback: { [weak self](chapter) in
                     self?.pageViewController.newPage = chapter?.pages.first
                     history.chapter = chapter
@@ -134,14 +182,14 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     }
     
     func lastPage() {
-        let chapter = currentChapter()
+        let chapter = zs_currentChapter()
         guard let history = viewModel?.readHistory else { return }
         guard let page = history.page else { return }
         if let lastP = chapter.getLastPage(page: page) {
             self.pageViewController.newPage = lastP
             history.page = lastP
         } else {
-            if let lastC = lastChapter() {
+            if let lastC = zs_lastChapter() {
                 viewModel?.request(chapter: lastC, callback: { [weak self] (chapter) in
                     self?.pageViewController.newPage = chapter?.pages.last
                     history.chapter = chapter
@@ -153,10 +201,10 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         }
     }
     
-    func nextChapter() -> ZSBookChapter? {
+    private func zs_nextChapter() -> ZSBookChapter? {
         guard let book = viewModel?.model else { return nil }
-        guard let chapters = book.chaptersModel as? [ZSBookChapter] else { return nil }
-        let currentC = currentChapter()
+        let chapters = book.chaptersModel
+        let currentC = zs_currentChapter()
         let chapterIndex = currentC.chapterIndex
         if chapterIndex + 1 < chapters.count {
             return chapters[chapterIndex + 1]
@@ -164,10 +212,10 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         return nil
     }
     
-    func lastChapter() ->ZSBookChapter? {
+    private func zs_lastChapter() ->ZSBookChapter? {
         guard let book = viewModel?.model else { return nil }
-        guard let chapters = book.chaptersModel as? [ZSBookChapter] else { return nil }
-        let currentC = currentChapter()
+        let chapters = book.chaptersModel
+        let currentC = zs_currentChapter()
         let chapterIndex = currentC.chapterIndex
         if (chapterIndex - 1) < chapters.count && (chapterIndex - 1 >= 0) {
             return chapters[chapterIndex - 1]
@@ -175,8 +223,8 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         return nil
     }
     
-    func currentChapter() ->ZSBookChapter {
-        guard let chapters = viewModel?.model?.chaptersModel as? [ZSBookChapter], chapters.count > 0 else {
+    private func zs_currentChapter() ->ZSBookChapter {
+        guard let chapters = viewModel?.model?.chaptersModel, chapters.count > 0 else {
             return ZSBookChapter()
         }
         if let history = viewModel.readHistory {
