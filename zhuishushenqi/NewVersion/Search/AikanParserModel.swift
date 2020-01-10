@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ZSAikanParserModel: NSObject, NSCoding {
+class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
+    
     
     var errDate:Date?
     var searchUrl:String = ""
@@ -103,5 +104,38 @@ class ZSAikanParserModel: NSObject, NSCoding {
         aCoder.encode(self.chaptersModel, forKey: "chaptersModel")
         aCoder.encode(self.detailBookDesc, forKey: "detailBookDesc")
 
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copyModel = ZSAikanParserModel()
+        copyModel.errDate = self.errDate
+        copyModel.searchUrl = self.searchUrl
+        copyModel.name = self.name
+        copyModel.type = self.type
+        copyModel.enabled = self.enabled
+        copyModel.checked = self.checked
+        copyModel.searchEncoding = self.searchEncoding
+        copyModel.host = self.host
+        copyModel.contentReplace = self.contentReplace
+        copyModel.contentRemove = self.contentRemove
+        copyModel.content = self.content
+        copyModel.chapterUrl = self.chapterUrl
+        copyModel.chapterName = self.chapterName
+        copyModel.chapters = self.chapters
+        copyModel.detailBookIcon = self.detailBookIcon
+        copyModel.detailChaptersUrl = self.detailChaptersUrl
+        copyModel.bookLastChapterName = self.bookLastChapterName
+        copyModel.bookUpdateTime = self.bookUpdateTime
+        copyModel.bookUrl = self.bookUrl
+        copyModel.bookIcon = self.bookIcon
+        copyModel.bookDesc = self.bookDesc
+        copyModel.bookCategory = self.bookCategory
+        copyModel.bookAuthor = self.bookAuthor
+        copyModel.bookName = self.bookName
+        copyModel.books = self.books
+        copyModel.chaptersReverse = self.chaptersReverse
+        copyModel.chaptersModel = self.chaptersModel
+        copyModel.detailBookDesc = self.detailBookDesc
+        return copyModel
     }
 }

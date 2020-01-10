@@ -43,6 +43,11 @@ class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellD
         setupNavItem()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     private func setupSubview() {
         title = model?.bookName
         view.addSubview(tableView)

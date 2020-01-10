@@ -21,12 +21,20 @@ class ZSSourceManager {
     
     private func unpack() {
         let modifyfilePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!.appending("/source/HtmlParserModelData_edit.dat")
+        let originialfilePath_edit = Bundle(for: ZSSourceManager.self).path(forResource: "HtmlParserModelData_edit.dat", ofType: nil) ?? ""
         let originialfilePath = Bundle(for: ZSSourceManager.self).path(forResource: "HtmlParserModelData.dat", ofType: nil) ?? ""
         if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: modifyfilePath) as? [ZSAikanParserModel] {
             self.sources = objs
         } else if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: modifyfilePath) as? [AikanParserModel] {
             self.sources = self.transform(models: objs)
-        } else if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: originialfilePath) as? [ZSAikanParserModel] {
+        } else if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: originialfilePath_edit) as? [ZSAikanParserModel] {
+            self.sources = objs
+            save()
+        } else if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: originialfilePath_edit) as? [AikanParserModel] {
+            self.sources = self.transform(models: objs)
+            save()
+        }
+        else if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: originialfilePath) as? [ZSAikanParserModel] {
             self.sources = objs
             save()
         } else if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: originialfilePath) as? [AikanParserModel] {

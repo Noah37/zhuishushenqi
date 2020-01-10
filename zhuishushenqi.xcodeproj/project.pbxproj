@@ -16,6 +16,7 @@
 		3D08F242212C2DC6007B3D19 /* ZSDiscussViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */; };
 		3D08F244212C2DFC007B3D19 /* ZSDiscussWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */; };
 		3D096BF722CF76A70005C9EA /* ZSRefreshFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D096BF622CF76A70005C9EA /* ZSRefreshFooter.swift */; };
+		3D0D709D23C88B30006902E8 /* HtmlParserModelData_edit.dat in Resources */ = {isa = PBXBuildFile; fileRef = 3D0D709C23C88B30006902E8 /* HtmlParserModelData_edit.dat */; };
 		3D1330CB23C6FA9200D81EF4 /* ZSReaderTouchArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1330CA23C6FA9200D81EF4 /* ZSReaderTouchArea.swift */; };
 		3D1330CD23C7239000D81EF4 /* ZSReaderCatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1330CC23C7239000D81EF4 /* ZSReaderCatalogViewController.swift */; };
 		3D17A02722D47364001FAC0C /* ZSReaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17A02622D47364001FAC0C /* ZSReaderController.swift */; };
@@ -622,6 +623,7 @@
 		3D08F241212C2DC6007B3D19 /* ZSDiscussViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussViewModel.swift; sourceTree = "<group>"; };
 		3D08F243212C2DFC007B3D19 /* ZSDiscussWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDiscussWebService.swift; sourceTree = "<group>"; };
 		3D096BF622CF76A70005C9EA /* ZSRefreshFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRefreshFooter.swift; sourceTree = "<group>"; };
+		3D0D709C23C88B30006902E8 /* HtmlParserModelData_edit.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = HtmlParserModelData_edit.dat; sourceTree = "<group>"; };
 		3D1330CA23C6FA9200D81EF4 /* ZSReaderTouchArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderTouchArea.swift; sourceTree = "<group>"; };
 		3D1330CC23C7239000D81EF4 /* ZSReaderCatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderCatalogViewController.swift; sourceTree = "<group>"; };
 		3D17A02622D47364001FAC0C /* ZSReaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderController.swift; sourceTree = "<group>"; };
@@ -1534,6 +1536,7 @@
 				B21C736323657B3F00E9D148 /* AikanHtmlParser.h */,
 				B21C736423657B3F00E9D148 /* AikanHtmlParser.m */,
 				3D05BCBD23C5D424001EAB2A /* AikanParserModel.swift */,
+				3D0D709C23C88B30006902E8 /* HtmlParserModelData_edit.dat */,
 				B21C736623657E1400E9D148 /* HtmlParserModelData.dat */,
 			);
 			path = Search;
@@ -3250,6 +3253,7 @@
 				B252D4C7210F163C0091858E /* txt.jpeg in Resources */,
 				3D3AB5DE214E9A8300E9C246 /* fz-kt.ttf in Resources */,
 				B200D2001EEDB1FE003A42E3 /* QSIntroduceReadCell.xib in Resources */,
+				3D0D709D23C88B30006902E8 /* HtmlParserModelData_edit.dat in Resources */,
 				B2B8A21922C71641005527C8 /* mjRefreshHeadTitle.plist in Resources */,
 				3D3AB5DC214E99FE00E9C246 /* fz-wbt.ttf in Resources */,
 				B2C0DF4620D4CB350057DC84 /* UserfulCell.xib in Resources */,

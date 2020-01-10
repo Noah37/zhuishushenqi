@@ -231,7 +231,7 @@ class ZSSearchBookViewModel {
             bookName = bookName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             bookDesc = bookDesc.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             getChapter(src: src, bookUrl: bookUrl) { (chapters, bookDetailInfo) in
-                let book = src 
+                let book = src.copy() as! ZSAikanParserModel
                 book.bookAuthor = bookAuthor
                 book.bookIcon = bookIcon
                 book.bookName = bookName

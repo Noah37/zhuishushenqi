@@ -83,6 +83,16 @@ class ZSSearchResultCell: UITableViewCell {
 
     }
     
+    override func prepareForReuse() {
+
+        let resource = QSResource(url: URL(string: "") ?? URL(string: "www.baidu.com")!)
+        self.bookIconView.kf.setImage(with: resource)
+        self.bookDescLB.text = ""
+        self.sourceLB.text = ""
+        self.authorLB.text = ""
+        self.bookNameLB.text = ""
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
