@@ -25,6 +25,7 @@
 		3D1F67A1217DBA1B000FB968 /* ZSLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F67A0217DBA1B000FB968 /* ZSLoginViewController.swift */; };
 		3D1F67A3217DBA94000FB968 /* ZSLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F67A2217DBA94000FB968 /* ZSLoginView.swift */; };
 		3D1F67A5217DCE9B000FB968 /* ZSLeftViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F67A4217DCE9B000FB968 /* ZSLeftViewCell.swift */; };
+		3D1FFDEE23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDED23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift */; };
 		3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */; };
 		3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */; };
 		3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */; };
@@ -632,6 +633,7 @@
 		3D1F67A0217DBA1B000FB968 /* ZSLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLoginViewController.swift; sourceTree = "<group>"; };
 		3D1F67A2217DBA94000FB968 /* ZSLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLoginView.swift; sourceTree = "<group>"; };
 		3D1F67A4217DCE9B000FB968 /* ZSLeftViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLeftViewCell.swift; sourceTree = "<group>"; };
+		3D1FFDED23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSShelfTableViewCell.swift; sourceTree = "<group>"; };
 		3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderBaseViewController.swift; sourceTree = "<group>"; };
 		3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerViewController.swift; sourceTree = "<group>"; };
 		3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerCell.swift; sourceTree = "<group>"; };
@@ -1439,6 +1441,7 @@
 				3D05BCBF23C5EAFE001EAB2A /* ZSShelfManager.swift */,
 				B2840F3322C85B75009C9116 /* ZSBookShelfViewModel.swift */,
 				3D448E5622C501C40099B6E8 /* ZSBookShelfViewController.swift */,
+				3D1FFDED23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift */,
 			);
 			path = BookShelf;
 			sourceTree = "<group>";
@@ -3646,6 +3649,7 @@
 				B2C63A3823C1ABA60083C987 /* ZSBookDiskCache.swift in Sources */,
 				B203BB591E9E0F4400F9C052 /* QSSearchViewController+SearchBar.swift in Sources */,
 				B24BED4E2301692800CF8C4D /* ZSForumToolBar.swift in Sources */,
+				3D1FFDEE23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift in Sources */,
 				B252D4AD210EFA660091858E /* ZSHTTPTool.m in Sources */,
 				B252D490210EF3960091858E /* MultipartFormDataParser.m in Sources */,
 				3DBC089722CB78DB0004B3F4 /* ZSCommunityViewModel.swift in Sources */,

@@ -56,6 +56,11 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         bgView.addGestureRecognizer(tap)
     }
     
+    func progress(minValue:Float,maxValue:Float) {
+        bottomBar.progressBar.minimumValue = minValue
+        bottomBar.progressBar.maximumValue = maxValue
+    }
+    
     func show(inView:UIView,_ animated:Bool) {
         if animated {
             self.delegate?.toolBarWillShow(toolBar: self)

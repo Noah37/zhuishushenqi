@@ -33,7 +33,7 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     
     var viewModel:ZSReaderBaseViewModel!
     
-    var toolBar:ZSReaderToolbar!
+    weak var toolBar:ZSReaderToolbar?
     
     fileprivate var changedPage = false
     
@@ -138,7 +138,7 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     
     @objc
     private func tapAction(tap:UITapGestureRecognizer) {
-        toolBar.show(inView: self.view, true)
+        toolBar?.show(inView: self.view, true)
     }
             
     @objc func panAction(pan:UIPanGestureRecognizer){

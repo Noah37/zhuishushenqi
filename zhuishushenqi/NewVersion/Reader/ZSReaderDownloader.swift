@@ -18,18 +18,27 @@ class ZSReaderDownloader {
     
     static let share = ZSReaderDownloader()
     
+    private var cancel = false
+    
     private init() {
         
     }
     
+    func cancelDownload() {
+        cancel = true
+    }
+    
     func download(book:ZSAikanParserModel, start:Int, handler:@escaping ZSBaseCallback<Bool>) {
-        guard let chaptersInfo = book.chaptersModel as? [ZSBookChapter] else { return }
+        let chaptersInfo = book.chaptersModel
         let totalChapterCount = chaptersInfo.count
         if start > totalChapterCount {
             return
         }
         queue.async(group: group) {
             for index in start..<totalChapterCount {
+                if self.cancel {
+                    break
+                }
                 let chapter = chaptersInfo[index]
                 let key = chapter.chapterUrl
                 if ZSBookCache.share.isContentExist(key, book: book.bookName) {

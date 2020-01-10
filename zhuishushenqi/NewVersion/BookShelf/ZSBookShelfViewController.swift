@@ -90,7 +90,7 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
         if #available(iOS 11, *) {
             tableView.contentInsetAdjustmentBehavior = .never
         }
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "\(UITableViewCell.self)")
+        tableView.register(ZSShelfTableViewCell.self, forCellReuseIdentifier: "\(ZSShelfTableViewCell.self)")
         tableView.qs_registerHeaderFooterClass(ZSBookShelfHeaderView.self)
         let blurEffect = UIBlurEffect(style: .extraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -259,6 +259,10 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
         return 0.01
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.qs_dequeueReusableHeaderFooterView(ZSBookShelfHeaderView.self)
         headerView?.delegate = self
@@ -267,11 +271,11 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "\(UITableViewCell.self)", for: indexPath)
-        cell.selectionStyle = .none
+        let cell = tableView.qs_dequeueReusableCell(ZSShelfTableViewCell.self)
+        cell?.selectionStyle = .none
         let book = ZSShelfManager.share.books[indexPath.row]
-        cell.textLabel?.text = "\(book.bookName)"
-        return cell
+        cell?.configure(model: book)
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

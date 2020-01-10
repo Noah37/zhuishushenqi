@@ -81,7 +81,7 @@ class ZSUserDynamicViewController: BaseViewController, ZSCommunityCellDelegate,Z
         super.viewWillAppear(animated)
         errView.isHidden = ZSLogin.share.hasLogin()
         tableView.isHidden = !ZSLogin.share.hasLogin()
-
+        navigationController?.isNavigationBarHidden = false
     }
     
     private func observe() {

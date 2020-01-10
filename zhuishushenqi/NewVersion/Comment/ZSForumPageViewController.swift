@@ -68,15 +68,16 @@ class ZSForumPageViewController: BaseViewController {
             make.bottom.equalTo(self.textView.snp.top)
             make.left.right.top.equalToSuperview()
         }
+        navigationController?.isNavigationBarHidden = false
     }
     
     private func observe() {
-        self.viewModel.reloadBlock = {
+        self.viewModel.reloadBlock = { [weak self] in
             DispatchQueue.main.async { [unowned self] in
-                self.tableView.mj_header.endRefreshing()
-                self.tableView.reloadData()
-                if self.viewModel.noMoreData {
-                    self.tableView.mj_footer.state = MJRefreshState.noMoreData
+                self?.tableView.mj_header.endRefreshing()
+                self?.tableView.reloadData()
+                if self?.viewModel.noMoreData == true {
+                    self?.tableView.mj_footer.state = MJRefreshState.noMoreData
                 }
             }
         }

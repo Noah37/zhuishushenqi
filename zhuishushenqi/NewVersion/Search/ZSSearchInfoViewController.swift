@@ -48,6 +48,11 @@ class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellD
         navigationController?.isNavigationBarHidden = false
     }
     
+    override func popAction() {
+        ZSReaderDownloader.share.cancelDownload()
+        super.popAction()
+    }
+    
     private func setupSubview() {
         title = model?.bookName
         view.addSubview(tableView)

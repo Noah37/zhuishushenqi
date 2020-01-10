@@ -25,6 +25,7 @@ class ZSSettingViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
         tableView.frame = view.bounds
     }
 
@@ -81,17 +82,17 @@ extension ZSSettingViewController:UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = tableView.qs_dequeueReusableHeaderFooterView(ZSMyFooterView.self)
-        footer?.footerHandler = {
-            self.view.showProgress()
-            self.viewModel.fetchLogout(token: ZSLogin.share.token , completion: { (json) in
-                self.hideProgress()
+        footer?.footerHandler = { [weak self] in
+            self?.view.showProgress()
+            self?.viewModel.fetchLogout(token: ZSLogin.share.token , completion: { [weak self] (json) in
+                self?.hideProgress()
                 if let ok = json?["ok"] as? Bool {
                     if ok {
                         ZSLogin.share.logout()
                         //退出登录成功,关闭菜单
-                        self.navigationController?.popViewController(animated: false)
+                        self?.navigationController?.popViewController(animated: false)
                     } else {
-                        self.view.showTip(tip: "退出登录失败,请稍后再试")
+                        self?.view.showTip(tip: "退出登录失败,请稍后再试")
                     }
                 }
             })

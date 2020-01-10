@@ -50,6 +50,7 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
         self.init()
         viewModel.originalChapter = chapter
         viewModel.model = model
+        toolBar.progress(minValue: 0, maxValue: Float(model?.chaptersModel.count ?? 0))
         toolBar.delegate = self
     }
     
@@ -128,7 +129,7 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
     
     //MARK: - ZSReaderToolbarDelegate
     func toolBar(toolBar: ZSReaderToolbar, clickBack: UIButton) {
-        navigationController?.popViewController(animated: true)
+        popAction()
     }
     
     func toolBarWillShow(toolBar: ZSReaderToolbar) {
@@ -179,7 +180,12 @@ class ZSReaderController: BaseViewController, UIPageViewControllerDataSource, UI
     }
     
     func toolBar(toolBar:ZSReaderToolbar, progress:Float) {
-        
+        guard let chapterModels = viewModel.model?.chaptersModel else { return }
+        let chapterIndex = Int(progress)
+        if chapterIndex >= 0 && chapterIndex < chapterModels.count {
+            let chapter = chapterModels[chapterIndex]
+            pref.readerVC?.chapter(chapter: chapter)
+        }
     }
     
     //MARK: - ZSReaderCatalogViewControllerDelegate

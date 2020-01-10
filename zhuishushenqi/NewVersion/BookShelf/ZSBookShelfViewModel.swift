@@ -30,8 +30,8 @@ class ZSBookShelfViewModel {
     }
     
     func requestMsg(completion: @escaping()->Void) {
-        shelvesWebService.fetchShelfMsg { (message) in
-            self.shelfMsg = message
+        shelvesWebService.fetchShelfMsg { [weak self] (message) in
+            self?.shelfMsg = message
             completion()
         }
     }
