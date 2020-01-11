@@ -142,7 +142,7 @@ class ZSReaderBottomBar: UIView {
 class ZSReaderMenuButton:UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView?.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.width)
+        imageView?.frame = CGRect(x: self.bounds.width/2 - 15, y: 0, width: 30, height: 30)
         titleLabel?.frame = CGRect(x: 0, y: (imageView?.frame.maxY ?? 30), width: self.bounds.width, height: 20)
         titleLabel?.textAlignment = .center
         

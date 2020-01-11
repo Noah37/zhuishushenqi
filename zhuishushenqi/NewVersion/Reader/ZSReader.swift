@@ -229,7 +229,7 @@ enum ZSReaderStyle:Int {
     case white
     case yellow
     case green
-    case blackgreen
+//    case blackgreen
     case pink
     case sheepskin
     case violet
@@ -237,6 +237,13 @@ enum ZSReaderStyle:Int {
     case weekGreen
     case weekPink
     case coffee
+    case night
+    
+    static let count: Int = {
+        var max: Int = 0
+        while let _ = ZSReaderStyle(rawValue: max) { max += 1 }
+        return max
+    }()
     
     var backgroundImage:UIImage {
         switch self {
@@ -246,8 +253,8 @@ enum ZSReaderStyle:Int {
             return #imageLiteral(resourceName: "white_mode_bg")
         case .green:
             return #imageLiteral(resourceName: "green_mode_bg")
-        case .blackgreen:
-            return #imageLiteral(resourceName: "new_nav_night_normal")
+//        case .blackgreen:
+//            return #imageLiteral(resourceName: "new_nav_night_normal")
         case .pink:
             return #imageLiteral(resourceName: "violet_mode_bg")
         case .sheepskin:
@@ -262,6 +269,8 @@ enum ZSReaderStyle:Int {
             return #imageLiteral(resourceName: "violet_mode_bg")
         case .coffee:
             return #imageLiteral(resourceName: "pf_header_bg")
+        case .night:
+            return UIImage(named: "slice_bg_night_88x32_")!
         default:
             return #imageLiteral(resourceName: "violet_mode_bg")
         }
@@ -271,7 +280,7 @@ enum ZSReaderStyle:Int {
         switch self {
         case .yellow,.white,.green:
             return UIColor.black
-        case .blackgreen,.coffee:
+        case .coffee:
             return UIColor.white
         default:
             return UIColor.black
@@ -282,10 +291,19 @@ enum ZSReaderStyle:Int {
         switch self {
         case .yellow,.white,.green:
             return UIColor.darkGray
-        case .blackgreen,.coffee:
+        case .coffee:
             return UIColor.white
         default:
             return UIColor.darkGray
+        }
+    }
+    
+    var borderColor:UIColor {
+        switch self {
+        case .white:
+            return UIColor.black
+        default:
+            return UIColor.black
         }
     }
 }

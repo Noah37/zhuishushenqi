@@ -26,6 +26,8 @@
 		3D1F67A3217DBA94000FB968 /* ZSLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F67A2217DBA94000FB968 /* ZSLoginView.swift */; };
 		3D1F67A5217DCE9B000FB968 /* ZSLeftViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F67A4217DCE9B000FB968 /* ZSLeftViewCell.swift */; };
 		3D1FFDEE23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDED23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift */; };
+		3D1FFDF023C9A68F0017ECE7 /* ZSReaderBottomBigBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDEF23C9A68F0017ECE7 /* ZSReaderBottomBigBar.swift */; };
+		3D1FFDF223C9A9600017ECE7 /* ZSReaderThemeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDF123C9A9600017ECE7 /* ZSReaderThemeSelectionView.swift */; };
 		3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */; };
 		3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */; };
 		3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */; };
@@ -634,6 +636,8 @@
 		3D1F67A2217DBA94000FB968 /* ZSLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLoginView.swift; sourceTree = "<group>"; };
 		3D1F67A4217DCE9B000FB968 /* ZSLeftViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSLeftViewCell.swift; sourceTree = "<group>"; };
 		3D1FFDED23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSShelfTableViewCell.swift; sourceTree = "<group>"; };
+		3D1FFDEF23C9A68F0017ECE7 /* ZSReaderBottomBigBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderBottomBigBar.swift; sourceTree = "<group>"; };
+		3D1FFDF123C9A9600017ECE7 /* ZSReaderThemeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderThemeSelectionView.swift; sourceTree = "<group>"; };
 		3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderBaseViewController.swift; sourceTree = "<group>"; };
 		3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerViewController.swift; sourceTree = "<group>"; };
 		3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerCell.swift; sourceTree = "<group>"; };
@@ -1406,6 +1410,8 @@
 				3D05BCB323C592E2001EAB2A /* ZSReaderToolbar.swift */,
 				3D05BCB523C592FE001EAB2A /* ZSReaderTopbar.swift */,
 				3D05BCB723C59314001EAB2A /* ZSReaderBottomBar.swift */,
+				3D1FFDEF23C9A68F0017ECE7 /* ZSReaderBottomBigBar.swift */,
+				3D1FFDF123C9A9600017ECE7 /* ZSReaderThemeSelectionView.swift */,
 				3D1330CA23C6FA9200D81EF4 /* ZSReaderTouchArea.swift */,
 				3D29C7AA233381A600113A25 /* ZSReaderVCProtocol.swift */,
 				3D29C7AC23347E6900113A25 /* ZSReaderBaseViewModel.swift */,
@@ -3391,6 +3397,7 @@
 				B20D74161EED83690034516F /* QSLastIntroduceCell.swift in Sources */,
 				B2B4BBEC1E7EA4AB000CC201 /* LightView.swift in Sources */,
 				B29CFB77217B1FEC0006F294 /* ZSCoin.swift in Sources */,
+				3D1FFDF023C9A68F0017ECE7 /* ZSReaderBottomBigBar.swift in Sources */,
 				B2B02E2C1EA8505200A6880A /* QSTopicDetailPresenter.swift in Sources */,
 				B2C0DF2B20D4CB350057DC84 /* QSHotComment.swift in Sources */,
 				B2583CBC1EA782C2004178F3 /* QSThemeTopicProtocols.swift in Sources */,
@@ -3467,6 +3474,7 @@
 				3D64030623BF5E8500D4B9EB /* ZSSearchHistory.swift in Sources */,
 				3DBC089F22CB80DB0004B3F4 /* UIButton+Extension.swift in Sources */,
 				3D05BCBA23C5ACE8001EAB2A /* ZSSearchInfoBottomView.swift in Sources */,
+				3D1FFDF223C9A9600017ECE7 /* ZSReaderThemeSelectionView.swift in Sources */,
 				B252D487210EF3960091858E /* HTTPDataResponse.m in Sources */,
 				B2B4BBE01E7EA4AB000CC201 /* BaseViewController.swift in Sources */,
 				B2414D9C1EA602ED005A5758 /* UIViewController+Alert.swift in Sources */,

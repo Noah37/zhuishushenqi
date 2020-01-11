@@ -28,6 +28,7 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     weak var delegate:ZSReaderToolbarDelegate?
     
     private let bottomBarHeight:CGFloat = 140
+    private let bottomBarBigHeight:CGFloat = 250
     
     lazy var bgView:UIView = {
         let view = UIView(frame: UIScreen.main.bounds)
@@ -47,11 +48,18 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         return bar
     }()
     
+    lazy var bottomBigBar:ZSReaderBottomBigBar = {
+        let bar = ZSReaderBottomBigBar(frame: CGRect(x: 0, y: self.bounds.height - bottomBarBigHeight - kTabbarBlankHeight, width: self.bounds.width, height: bottomBarBigHeight + kTabbarBlankHeight))
+        bar.isHidden = true
+        return bar
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(bgView)
         addSubview(topBar)
         addSubview(bottomBar)
+        addSubview(bottomBigBar)
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
         bgView.addGestureRecognizer(tap)
     }
@@ -62,6 +70,8 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     }
     
     func show(inView:UIView,_ animated:Bool) {
+        bottomBar.isHidden = false
+        bottomBigBar.isHidden = true
         if animated {
             self.delegate?.toolBarWillShow(toolBar: self)
             UIView.animate(withDuration: 0.5, animations: {
@@ -129,6 +139,8 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     
     func bottomBar(bottomBar:ZSReaderBottomBar, clickSetting:UIButton) {
         delegate?.toolBar(toolBar: self, clickSetting: clickSetting)
+        bottomBar.isHidden = true
+        bottomBigBar.isHidden = false
     }
     
     func bottomBar(bottomBar:ZSReaderBottomBar, progress:Float) {

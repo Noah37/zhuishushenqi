@@ -84,10 +84,10 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         guard let history = viewModel?.readHistory else { return }
         if let lastC = zs_lastChapter() {
             viewModel?.request(chapter: lastC, callback: { [weak self] (chapter) in
-                self?.pageViewController.newPage = chapter?.pages.last
+                self?.pageViewController.newPage = chapter?.pages.first
                 history.chapter = chapter
                 if chapter?.pages.count ?? 0 > 0 {
-                    history.page = chapter!.pages.last
+                    history.page = chapter!.pages.first
                 }
             })
         }

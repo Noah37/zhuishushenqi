@@ -60,6 +60,7 @@ class ZSShelfTableViewCell: UITableViewCell {
         imageView?.frame = CGRect(x: 20, y: 10, width: 60, height: bounds.height - 20)
         booknameLB.frame = CGRect(x: (imageView?.frame.maxX ?? 0) + 10, y: 10, width: 200, height: 20)
         authorLB.frame = CGRect(x: (imageView?.frame.maxX ?? 0) + 10, y: bounds.height - 30, width: 200, height: 20)
+        separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20)
     }
 
 }
