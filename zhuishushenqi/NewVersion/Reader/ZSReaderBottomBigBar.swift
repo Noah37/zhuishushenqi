@@ -8,12 +8,24 @@
 
 import UIKit
 
+protocol ZSReaderBottomBigBarDelegate:class {
+    func bigBar(bigBar:ZSReaderBottomBigBar, progress:Float)
+    func bigBar(bigBar:ZSReaderBottomBigBar, readerStyle:ZSReaderStyle)
+    func bigBar(bigBar:ZSReaderBottomBigBar, fontAdd:UIButton)
+    func bigBar(bigBar:ZSReaderBottomBigBar, fontPlus:UIButton)
+}
+
 class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
+    
+    weak var delegate:ZSReaderBottomBigBarDelegate?
 
     lazy var progressBar:UISlider = {
         let bar = UISlider(frame: UIScreen.main.bounds)
         bar.minimumTrackTintColor = UIColor.white
         bar.maximumTrackTintColor = UIColor.gray
+        bar.minimumValue = 0.0
+        bar.maximumValue = 1.0
+        bar.value = 1.0
         bar.addTarget(self, action: #selector(sliderAction(slider:)), for: .valueChanged)
         return bar
     }()
@@ -85,7 +97,7 @@ class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
         bt.layer.masksToBounds = true
         bt.layer.borderColor = UIColor.white.cgColor
         bt.layer.borderWidth = 0.5
-       bt.addTarget(self, action: #selector(nextAction(bt:)), for: .touchUpInside)
+       bt.addTarget(self, action: #selector(fontAddAction(bt:)), for: .touchUpInside)
        return bt
     }()
     
@@ -99,7 +111,7 @@ class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
         bt.layer.masksToBounds = true
         bt.layer.borderColor = UIColor.white.cgColor
         bt.layer.borderWidth = 0.5
-       bt.addTarget(self, action: #selector(nextAction(bt:)), for: .touchUpInside)
+       bt.addTarget(self, action: #selector(fontPlusAction(bt:)), for: .touchUpInside)
        return bt
     }()
     
@@ -175,6 +187,16 @@ class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
     }
     
     @objc
+    private func fontAddAction(bt:UIButton) {
+        delegate?.bigBar(bigBar: self, fontAdd: bt)
+    }
+    
+    @objc
+    private func fontPlusAction(bt:UIButton) {
+        delegate?.bigBar(bigBar: self, fontPlus: bt)
+    }
+    
+    @objc
     private func nextAction(bt:UIButton) {
         
     }
@@ -201,11 +223,14 @@ class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
     
     @objc
     private func sliderAction(slider:UISlider) {
-        
+        let brightness = ZSReader.share.theme.brightness
+        let scale = 1/(brightness.maxValue - brightness.minValue)
+        let progress = brightness.maxValue - ((slider.value - slider.minimumValue) / scale + brightness.minValue)
+        delegate?.bigBar(bigBar: self, progress: progress)
     }
     
     //MARK: - ZSReaderThemeSelectionViewDelegate
     func selectionView(selectionView: ZSReaderThemeSelectionView, select: ZSReaderStyle) {
-        
+        delegate?.bigBar(bigBar: self, readerStyle: select)
     }
 }

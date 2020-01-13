@@ -9,6 +9,8 @@
 import UIKit
 
 class ZSBookChapter:NSObject, NSCoding {
+    
+    static let defaultContent = "正在获数据，请稍候..."
 
     var chapterUrl:String = ""
     var chapterName:String = ""
@@ -40,14 +42,20 @@ class ZSBookChapter:NSObject, NSCoding {
         return nil
     }
     
+    func contentNil() ->Bool {
+        return pages.count == 0 ||
+        chapterContent.length == 0 ||
+        chapterContent == ZSBookChapter.defaultContent
+    }
+    
     func calPages() {
         var content = chapterContent
         if content.length == 0 {
-            content = "正在获数据，请稍候..."
+            content = ZSBookChapter.defaultContent
         }
         var size = ZSReader.share.contentFrame
         var top:CGFloat = 0
-        var bottom:CGFloat = 30
+        let bottom:CGFloat = 30
         let orientation = UIApplication.shared.statusBarOrientation
         if orientation.isPortrait && IPHONEX {
             top = 30

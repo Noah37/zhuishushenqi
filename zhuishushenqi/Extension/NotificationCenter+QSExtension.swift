@@ -35,3 +35,12 @@ extension NotificationCenter {
         NotificationCenter.observerHandler?()
     }
 }
+
+extension Notification.Name {
+    static let ReachabilityStatusChanged = Notification.Name("ReachabilityStatusChanged")
+    static let UIKeyboardWillShow = UIResponder.keyboardWillShowNotification
+    static let DisplayThemeChanged = Notification.Name("DisplayThemeChanged")
+    static let ReaderStyleChanged = Notification.Name("ReaderStyleChanged")
+    static let ReaderFontSizeChanged = Notification.Name("ReaderFontSizeChanged")
+    static let ReaderAnimationStyleChanged = Notification.Name("ReaderAnimationStyleChanged")
+}

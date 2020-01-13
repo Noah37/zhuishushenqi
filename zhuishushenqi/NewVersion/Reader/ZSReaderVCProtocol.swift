@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias ZSReaderPageHandler = ()->Void
+
 
 protocol ZSReaderVCProtocol {
     
@@ -15,34 +17,18 @@ protocol ZSReaderVCProtocol {
     
     func bind(toolBar:ZSReaderToolbar)
     
-    @available(iOS 5.0, *)
-    static func pageViewController() ->ZSReaderVCProtocol?
-    
     func load()
     
     func destroy()
     
-    func nextChapter()
+    func changeBg(style:ZSReaderStyle)
     
-    func lastChapter()
+    func fontChange()
     
-    func currentChapter() ->ZSBookChapter?
+    // 遵循协议的子页面向reader索取page
+    var nextPageHandler:ZSReaderPageHandler? { get set }
+    var lastPageHandler:ZSReaderPageHandler? { get set }
     
-    func chapter(chapter:ZSBookChapter)
-    
-    @available(iOS 5.0, *)
-    func pageViewController(_ pageViewController: PageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?
-    
-    @available(iOS 5.0, *)
-    func pageViewController(_ pageViewController: PageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?
-    
-    
-    // Sent when a gesture-initiated transition begins.
-    @available(iOS 6.0, *)
-    func pageViewController(_ pageViewController: PageViewController, willTransitionTo pendingViewControllers: [UIViewController])
-    
-    
-    // Sent when a gesture-initiated transition ends. The 'finished' parameter indicates whether the animation finished, while the 'completed' parameter indicates whether the transition completed or bailed out (if the user let go early).
-    @available(iOS 5.0, *)
-    func pageViewController(_ pageViewController: PageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool)
+    // reader调用子页面更新page
+    func jumpPage(page:ZSBookPage)
 }

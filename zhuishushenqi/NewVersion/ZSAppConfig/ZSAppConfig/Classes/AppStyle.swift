@@ -35,7 +35,7 @@ public struct AppStyle {
         }
     }
     
-    public var theme:Theme = UserDefaults.standard.bool(forKey: nightKey) ? .night : .day {
+    public var theme:AppTheme = UserDefaults.standard.bool(forKey: nightKey) ? .night : .day {
         didSet{
             UserDefaults.standard.set(theme == .night, forKey: nightKey)
         }

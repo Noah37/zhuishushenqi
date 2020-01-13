@@ -12,6 +12,8 @@ class ZSReaderBaseViewModel {
     
 
     var model:ZSAikanParserModel?
+    
+    // 设置首次进入时指定的章节，如从详情页的目录进入
     var originalChapter:ZSBookChapter?
     var preRequestChapterCount = 5
     
@@ -38,8 +40,8 @@ class ZSReaderBaseViewModel {
         }
     }
 
-    func request(callback:ZSBaseCallback<ZSBookChapter>?) {
-        if let chapter = originalChapter, chapter.chapterContent.length == 0 {
+    func request(callback:ZSReaderBaseCallback<ZSBookChapter>?) {
+        if let chapter = originalChapter, chapter.chapterContent.length == 0 || chapter.chapterContent == ZSBookChapter.defaultContent {
             ZSReaderDownloader.share.download(chapter: chapter, book: model!, reg: model?.content ?? "") { (chapter) in
                 callback?(chapter)
             }
@@ -87,7 +89,7 @@ class ZSReaderBaseViewModel {
         }
     }
     
-    func request(chapter:ZSBookChapter, callback:@escaping ZSBaseCallback<ZSBookChapter>) {
+    func request(chapter:ZSBookChapter, callback:@escaping ZSReaderBaseCallback<ZSBookChapter>) {
         // 是否存在缓存了
         guard let book = model else { return }
         let exist = ZSBookCache.share.isContentExist(chapter.chapterUrl, book: book.bookName)

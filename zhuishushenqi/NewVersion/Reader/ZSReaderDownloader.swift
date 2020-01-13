@@ -58,7 +58,7 @@ class ZSReaderDownloader {
         }
     }
     
-    func download(chapter:ZSBookChapter, book:ZSAikanParserModel, reg:String,_ handler:@escaping ZSBaseCallback<ZSBookChapter>) {
+    func download(chapter:ZSBookChapter, book:ZSAikanParserModel, reg:String,_ handler:@escaping ZSReaderBaseCallback<ZSBookChapter>) {
         let key = chapter.chapterUrl
         download(for: key,book:book, reg: reg) { (contentString) in
             if let content = contentString, content.length > 0 {

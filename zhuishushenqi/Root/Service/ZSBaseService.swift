@@ -14,6 +14,7 @@ import Alamofire
 import HandyJSON
 
 public typealias ZSBaseCallback<T> = (T?)->Void
+public typealias ZSReaderBaseCallback<T> = (T)->Void
 
 class ZSBaseService {
     

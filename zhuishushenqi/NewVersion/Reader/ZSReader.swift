@@ -103,7 +103,7 @@ struct ZSReader {
     }
 }
 
-struct ZSReaderTheme {
+class ZSReaderTheme {
     var readerStyle:ZSReaderStyle = .white {
         didSet {
             cache(value: readerStyle.rawValue, for: "\(ZSReaderTheme.self).\(ZSReaderStyle.self)")
@@ -142,7 +142,7 @@ struct ZSReaderTheme {
     }
     var brightness:ZSReaderBrightness = ZSReaderBrightness() {
         didSet {
-            cache(value: brightness.brightness, for: "\(ZSReaderTheme.self).\(ZSReaderBrightness.self)")
+            cache(value: CGFloat(brightness.brightness), for: "\(ZSReaderTheme.self).\(ZSReaderBrightness.self)")
             self.didChangeBrightness(brightness)
         }
     }
@@ -192,13 +192,15 @@ struct ZSReaderFontSize {
 }
 
 struct ZSReaderBrightness {
-    var brightness:CGFloat = 1.0
+    var brightness:Float = 1.0
     var enableBigger:Bool = false
     var enableSmaller:Bool = true
+    var minValue:Float = 0.0
+    var maxValue:Float = 0.8
     
     init() {
-        enableSmaller = brightness > 0.1 ? true:false
-        enableBigger = brightness < 1 ? true:false
+        enableSmaller = brightness > minValue ? true:false
+        enableBigger = brightness < maxValue ? true:false
     }
     
     mutating func bigger() {
@@ -206,8 +208,8 @@ struct ZSReaderBrightness {
             return
         }
         brightness += 0.1
-        enableSmaller = brightness > 0.1 ? true:false
-        enableBigger = brightness < 1.0 ? true:false
+        enableSmaller = brightness > minValue ? true:false
+        enableBigger = brightness < maxValue ? true:false
     }
     
     mutating func smaller() {
@@ -215,8 +217,8 @@ struct ZSReaderBrightness {
             return
         }
         brightness -= 0.1
-        enableSmaller = brightness > 0.1 ? true:false
-        enableBigger = brightness < 1.0 ? true:false
+        enableSmaller = brightness > minValue ? true:false
+        enableBigger = brightness < maxValue ? true:false
     }
 }
 
@@ -238,6 +240,10 @@ enum ZSReaderStyle:Int {
     case weekPink
     case coffee
     case night
+    
+    var isNightMode:Bool {
+        return self == .night
+    }
     
     static let count: Int = {
         var max: Int = 0
@@ -270,7 +276,7 @@ enum ZSReaderStyle:Int {
         case .coffee:
             return #imageLiteral(resourceName: "pf_header_bg")
         case .night:
-            return UIImage(named: "slice_bg_night_88x32_")!
+            return #imageLiteral(resourceName: "blackGreen_mode_bg")
         default:
             return #imageLiteral(resourceName: "violet_mode_bg")
         }
@@ -304,6 +310,15 @@ enum ZSReaderStyle:Int {
             return UIColor.black
         default:
             return UIColor.black
+        }
+    }
+    
+    var current:ReaderTheme {
+        switch self {
+        case .white:
+            return WhiteTheme()
+        default:
+            return WhiteTheme()
         }
     }
 }

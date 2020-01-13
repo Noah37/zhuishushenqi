@@ -28,6 +28,10 @@
 		3D1FFDEE23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDED23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift */; };
 		3D1FFDF023C9A68F0017ECE7 /* ZSReaderBottomBigBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDEF23C9A68F0017ECE7 /* ZSReaderBottomBigBar.swift */; };
 		3D1FFDF223C9A9600017ECE7 /* ZSReaderThemeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDF123C9A9600017ECE7 /* ZSReaderThemeSelectionView.swift */; };
+		3D1FFDF423CC52D80017ECE7 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDF323CC52D70017ECE7 /* ThemeManager.swift */; };
+		3D1FFDF623CC52E10017ECE7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDF523CC52E10017ECE7 /* Color.swift */; };
+		3D1FFDF823CC586B0017ECE7 /* ReaderNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDF723CC586B0017ECE7 /* ReaderNavigationBar.swift */; };
+		3D1FFDFA23CC5B880017ECE7 /* ReaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDF923CC5B880017ECE7 /* ReaderBar.swift */; };
 		3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */; };
 		3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */; };
 		3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */; };
@@ -638,6 +642,10 @@
 		3D1FFDED23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSShelfTableViewCell.swift; sourceTree = "<group>"; };
 		3D1FFDEF23C9A68F0017ECE7 /* ZSReaderBottomBigBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderBottomBigBar.swift; sourceTree = "<group>"; };
 		3D1FFDF123C9A9600017ECE7 /* ZSReaderThemeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderThemeSelectionView.swift; sourceTree = "<group>"; };
+		3D1FFDF323CC52D70017ECE7 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		3D1FFDF523CC52E10017ECE7 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		3D1FFDF723CC586B0017ECE7 /* ReaderNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderNavigationBar.swift; sourceTree = "<group>"; };
+		3D1FFDF923CC5B880017ECE7 /* ReaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderBar.swift; sourceTree = "<group>"; };
 		3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderBaseViewController.swift; sourceTree = "<group>"; };
 		3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerViewController.swift; sourceTree = "<group>"; };
 		3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerCell.swift; sourceTree = "<group>"; };
@@ -1423,6 +1431,10 @@
 				B2C63A3723C1ABA60083C987 /* ZSBookDiskCache.swift */,
 				B2C63A3523C1A6C80083C987 /* ZSBookChapter.swift */,
 				B222C08B23C379E000D66E3C /* ZSReadHistory.swift */,
+				3D1FFDF323CC52D70017ECE7 /* ThemeManager.swift */,
+				3D1FFDF523CC52E10017ECE7 /* Color.swift */,
+				3D1FFDF723CC586B0017ECE7 /* ReaderNavigationBar.swift */,
+				3D1FFDF923CC5B880017ECE7 /* ReaderBar.swift */,
 			);
 			path = Reader;
 			sourceTree = "<group>";
@@ -3471,7 +3483,9 @@
 				B2580E1E1E9B236000455AFE /* QSSearchRouter.swift in Sources */,
 				B2B4BC0E1E7EA4AB000CC201 /* QSRankModel.swift in Sources */,
 				3D998939223FEA0400EA33D5 /* ZSCatelogViewModel.swift in Sources */,
+				3D1FFDF823CC586B0017ECE7 /* ReaderNavigationBar.swift in Sources */,
 				3D64030623BF5E8500D4B9EB /* ZSSearchHistory.swift in Sources */,
+				3D1FFDF423CC52D80017ECE7 /* ThemeManager.swift in Sources */,
 				3DBC089F22CB80DB0004B3F4 /* UIButton+Extension.swift in Sources */,
 				3D05BCBA23C5ACE8001EAB2A /* ZSSearchInfoBottomView.swift in Sources */,
 				3D1FFDF223C9A9600017ECE7 /* ZSReaderThemeSelectionView.swift in Sources */,
@@ -3588,6 +3602,7 @@
 				B2B4BC101E7EA4AB000CC201 /* TopDetailCell.swift in Sources */,
 				3DECC3962246298300EEB146 /* ZSVoicePlayViewModel.swift in Sources */,
 				B2B4BC0F1E7EA4AB000CC201 /* RankingViewCell.swift in Sources */,
+				3D1FFDF623CC52E10017ECE7 /* Color.swift in Sources */,
 				3D6CCABE237952B3004D46CE /* ZSAddSourceViewController.swift in Sources */,
 				B2CA80F021797EA2007A3EE7 /* ZSThirdLogin.swift in Sources */,
 				3D850DFE21E61C9800F23DDB /* ZSVoucher.swift in Sources */,
@@ -3699,6 +3714,7 @@
 				3DB24B622243CBD200DCE8B2 /* ZSCatelogHeaderView.swift in Sources */,
 				B2C0DF7D20D4CB6D0057DC84 /* QSBookCommentProtocols.swift in Sources */,
 				B25CEFF622F92C5E002ABE30 /* ZSForumViewModel.swift in Sources */,
+				3D1FFDFA23CC5B880017ECE7 /* ReaderBar.swift in Sources */,
 				B252D48A210EF3960091858E /* HTTPAsyncFileResponse.m in Sources */,
 				B25CEFEF22F9268A002ABE30 /* ZSDisplayView.swift in Sources */,
 				B29B4FA21E8257BC008852E3 /* DynamicCell.swift in Sources */,

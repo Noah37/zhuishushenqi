@@ -10,12 +10,12 @@ import Foundation
 
 let readerKey = "reader.key"
 
-public enum Theme {
+public enum AppTheme {
     case day
     case night
 }
 
-extension Theme {
+extension AppTheme {
 
     
 }

@@ -16,6 +16,11 @@ protocol ZSReaderToolbarDelegate:class {
     func toolBar(toolBar:ZSReaderToolbar, clickDark:UIButton)
     func toolBar(toolBar:ZSReaderToolbar, clickSetting:UIButton)
     func toolBar(toolBar:ZSReaderToolbar, progress:Float)
+    func toolBar(toolBar:ZSReaderToolbar, lightProgress:Float)
+    func toolBar(toolBar:ZSReaderToolbar, readerStyle:ZSReaderStyle)
+    func toolBar(toolBar:ZSReaderToolbar, fontAdd:UIButton)
+    func toolBar(toolBar:ZSReaderToolbar, fontPlus:UIButton)
+
     func toolBarWillShow(toolBar:ZSReaderToolbar)
     func toolBarDidShow(toolBar:ZSReaderToolbar)
     func toolBarWillHiden(toolBar:ZSReaderToolbar)
@@ -23,7 +28,7 @@ protocol ZSReaderToolbarDelegate:class {
 
 }
 
-class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate {
+class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate, ZSReaderBottomBigBarDelegate {
     
     weak var delegate:ZSReaderToolbarDelegate?
     
@@ -32,7 +37,7 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     
     lazy var bgView:UIView = {
         let view = UIView(frame: UIScreen.main.bounds)
-        view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
+        view.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
         return view
     }()
 
@@ -50,6 +55,7 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     
     lazy var bottomBigBar:ZSReaderBottomBigBar = {
         let bar = ZSReaderBottomBigBar(frame: CGRect(x: 0, y: self.bounds.height - bottomBarBigHeight - kTabbarBlankHeight, width: self.bounds.width, height: bottomBarBigHeight + kTabbarBlankHeight))
+        bar.delegate = self
         bar.isHidden = true
         return bar
     }()
@@ -62,6 +68,10 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         addSubview(bottomBigBar)
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
         bgView.addGestureRecognizer(tap)
+        let pan = UIPanGestureRecognizer { (_) in
+            
+        }
+        addGestureRecognizer(pan)
     }
     
     func progress(minValue:Float,maxValue:Float) {
@@ -77,6 +87,7 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
             UIView.animate(withDuration: 0.5, animations: {
                 self.topBar.frame.origin.y = 0
                 self.bottomBar.frame.origin.y = self.bounds.height - self.bottomBarHeight
+                self.bottomBigBar.frame.origin.y = self.bounds.height - self.bottomBarBigHeight - kTabbarBlankHeight
                 self.delegate?.toolBarDidShow(toolBar: self)
             }) { (finish) in
             }
@@ -94,6 +105,7 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
             UIView.animate(withDuration: 0.5, animations: {
                 self.topBar.frame.origin.y = -kNavgationBarHeight
                 self.bottomBar.frame.origin.y = self.bounds.height
+                self.bottomBigBar.frame.origin.y = self.bounds.height
                 self.delegate?.toolBarDidHiden(toolBar: self)
             }) { (finish) in
                 self.removeFromSuperview()
@@ -103,6 +115,15 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
             removeFromSuperview()
             self.delegate?.toolBarDidHiden(toolBar: self)
         }
+    }
+    
+    func enableFontPlus(_ enable:Bool) {
+        self.bottomBigBar.fontPlusButton.isEnabled = enable
+        self.bottomBigBar.fontSizeLabel.text = "\(ZSReader.share.theme.fontSize.size)" 
+    }
+    
+    func enablFontAdd(_ enable:Bool) {
+        self.bottomBigBar.fontAddButton.isEnabled = enable
     }
     
     required init?(coder: NSCoder) {
@@ -145,5 +166,22 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     
     func bottomBar(bottomBar:ZSReaderBottomBar, progress:Float) {
         delegate?.toolBar(toolBar: self, progress: progress)
+    }
+    
+    //MARK: - ZSReaderBottomBigBarDelegate
+    func bigBar(bigBar: ZSReaderBottomBigBar, progress: Float) {
+        delegate?.toolBar(toolBar: self, lightProgress: progress)
+    }
+    
+    func bigBar(bigBar: ZSReaderBottomBigBar, readerStyle: ZSReaderStyle) {
+        delegate?.toolBar(toolBar: self, readerStyle: readerStyle)
+    }
+    
+    func bigBar(bigBar: ZSReaderBottomBigBar, fontAdd: UIButton) {
+        delegate?.toolBar(toolBar: self, fontAdd: fontAdd)
+    }
+    
+    func bigBar(bigBar: ZSReaderBottomBigBar, fontPlus: UIButton) {
+        delegate?.toolBar(toolBar: self, fontPlus: fontPlus)
     }
 }
