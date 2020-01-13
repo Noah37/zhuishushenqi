@@ -181,8 +181,10 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
                     }
                 }
             } else {
-                history.page = lastChapter.pages.last!
+                let page = lastChapter.pages.last!
+                history.page = page
                 history.chapter = lastChapter
+                self?.pref.readerVC?.jumpPage(page: page)
             }
         }
     }
@@ -232,8 +234,10 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
                 }
             } else {
                 // 更新历史记录
-                history.page = nextChapter.pages.first!
+                let page = nextChapter.pages.first!
+                history.page = page
                 history.chapter = nextChapter
+                pref.readerVC?.jumpPage(page: page)
             }
         }
     }
