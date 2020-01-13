@@ -184,7 +184,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
                 let page = lastChapter.pages.last!
                 history.page = page
                 history.chapter = lastChapter
-                self?.pref.readerVC?.jumpPage(page: page)
+                pref.readerVC?.jumpPage(page: page)
             }
         }
     }
