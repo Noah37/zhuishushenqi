@@ -56,7 +56,7 @@ class PageViewController: UIViewController {
         timeLabel.text = getCurrentTime()
         return timeLabel
     }()
-    var timer:Timer!
+    var timer:Timer?
     
     // 正版购买信息
     var payView:ZSChapterPayView!
@@ -258,7 +258,7 @@ class PageViewController: UIViewController {
     }
     
     func destroy() {
-        timer.invalidate()
+        timer?.invalidate()
         timer = nil
     }
 

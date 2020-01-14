@@ -14,8 +14,8 @@ class ZSHorizonalViewController: BaseViewController, ZSReaderVCProtocol {
     
     weak var toolBar:ZSReaderToolbar?
     
-    var dataSource:UIPageViewControllerDataSource?
-    var delegate:UIPageViewControllerDelegate?
+    weak var dataSource:UIPageViewControllerDataSource?
+    weak var delegate:UIPageViewControllerDelegate?
     
     var nextPageHandler: ZSReaderPageHandler?
     
@@ -51,6 +51,11 @@ class ZSHorizonalViewController: BaseViewController, ZSReaderVCProtocol {
     }
     
     func destroy() {
+        if let controllers = horizonalController.viewControllers as? [PageViewController] {
+            for controller in controllers {
+                controller.destroy()
+            }
+        }
         pageVC.destroy()
     }
     
@@ -60,6 +65,7 @@ class ZSHorizonalViewController: BaseViewController, ZSReaderVCProtocol {
     
     func jumpPage(page: ZSBookPage) {
         pageVC.newPage = page
+        horizonalController.setViewControllers([pageVC], direction: UIPageViewController.NavigationDirection.forward, animated: false, completion: nil)
     }
     
     private func setupGesture() {

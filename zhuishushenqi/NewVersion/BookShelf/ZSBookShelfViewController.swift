@@ -136,7 +136,7 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
         tableView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(self.navView.snp.bottom)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-kTabbarBlankHeight - 49)
         }
         let mj_header = ZSRefreshTextHeader(refreshingTarget: self, refreshingAction: #selector(refreshAction))
         mj_header?.endRefreshingCompletionBlock = { [weak mj_header] in

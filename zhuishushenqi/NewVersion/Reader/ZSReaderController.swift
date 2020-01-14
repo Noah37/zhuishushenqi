@@ -427,12 +427,10 @@ extension ZSReaderController:UIPageViewControllerDataSource, UIPageViewControlle
         let chapter = zs_currentChapter()
         if let lastP = chapter.getLastPage(page: page) {
             showPage(chapter: chapter, lastP, true) { [weak  self] (p) in
-                self?.update(history: history, chapter: chapter, page: p)
                 pageVC.newPage = p
             }
         } else if let lastChapter = zs_lastChapter() { //新章节
             showPage(chapter: lastChapter, nil, true) { [weak  self] (p) in
-                self?.update(history: history, chapter: chapter, page: p)
                 pageVC.newPage = p
             }
         } else {
@@ -448,12 +446,10 @@ extension ZSReaderController:UIPageViewControllerDataSource, UIPageViewControlle
         let chapter = zs_currentChapter()
         if let lastP = chapter.getNextPage(page: page) {
             showPage(chapter: chapter, lastP, true) { [weak self] (p) in
-//                self?.update(history: history, chapter: chapter, page: p)
                 pageVC.newPage = p 
             }
         } else if let lastChapter = zs_nextChapter() { //新章节
             showPage(chapter: lastChapter, nil, true) { [weak self] (p) in
-//                self?.update(history: history, chapter: chapter, page: p)
                 pageVC.newPage = p
             }
         } else {
