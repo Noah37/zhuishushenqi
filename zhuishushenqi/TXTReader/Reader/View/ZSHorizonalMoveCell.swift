@@ -23,6 +23,12 @@ class ZSHorizonalMoveCell: UICollectionViewCell {
         }
     }
     
+    var newpage:ZSBookPage? {
+        didSet {
+            pageViewController.newPage = newpage
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(pageViewController.view)
@@ -36,6 +42,7 @@ class ZSHorizonalMoveCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         pageViewController.page = nil
+        pageViewController.newPage = nil
     }
     
 }

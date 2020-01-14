@@ -15,8 +15,6 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,8 +32,6 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         super.viewWillDisappear(animated)
     }
     
-    var viewModel:ZSReaderBaseViewModel!
-    
     weak var toolBar:ZSReaderToolbar?
     
     fileprivate var changedPage = false
@@ -44,36 +40,7 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
 
     //MARK: - ZSReaderVCProtocol
     func jumpPage(page: ZSBookPage) {
-        // 需要注意：1.如果是同一章节，那么page.content为空则不替换
-//        guard let newPage = pageViewController.newPage else {
-//            pageViewController.newPage = page
-//            return
-//        }
-//        if newPage.chapterUrl == page.chapterUrl && page.content.length == 0  {
-//
-//        } else {
-//            pageViewController.newPage = page
-//        }
         pageViewController.newPage = page
-
-    }
-    
-    func load() {
-//        guard let oriChapter = viewModel?.originalChapter else { return }
-//        if oriChapter.pages.count > 0 {
-//            pageViewController.newPage = oriChapter.pages.first
-//            initialHistory(chapter: oriChapter)
-//        } else {
-//            viewModel?.request(callback: { [weak self] (chapter) in
-//                self?.pageViewController.newPage = chapter.pages.first
-//                self?.initialHistory(chapter: chapter)
-//
-//            })
-//        }
-    }
-    
-    func bind(viewModel: ZSReaderBaseViewModel) {
-        self.viewModel = viewModel
     }
     
     func bind(toolBar: ZSReaderToolbar) {
@@ -82,33 +49,6 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
     
     func changeBg(style: ZSReaderStyle) {
         pageViewController.bgView.image = style.backgroundImage
-    }
-    
-    func fontChange() {
-        guard let book = viewModel.model else { return }
-        guard let currentPage = pageViewController.newPage else { return }
-        let chapterIndex = currentPage.chapterIndex
-        let pageIndex = currentPage.pageIndex
-        var chapter:ZSBookChapter?
-        if chapterIndex < book.chaptersModel.count {
-            chapter = book.chaptersModel[chapterIndex]
-            
-        } else if book.chaptersModel.count > 0 {
-            chapter = book.chaptersModel[0]
-        }
-        guard let cp = chapter else { return }
-        cp.calPages()
-        var page:ZSBookPage?
-        if pageIndex < cp.pages.count {
-            page = cp.pages[pageIndex]
-        } else if cp.pages.count > 0 {
-            page = cp.pages.first
-        }
-        guard let p = page else { return }
-        guard let history = viewModel?.readHistory else { return }
-        history.chapter = cp
-        history.page = p
-        pageViewController.newPage = p
     }
     
     func setupGesture(){

@@ -12,7 +12,11 @@ class ZSReadHistory:NSObject, NSCoding {
     // 记录当前章节
     var chapter:ZSBookChapter!
     // 记录当前页码
-    var page:ZSBookPage!
+    var page:ZSBookPage! {
+        didSet {
+            
+        }
+    }
     
     override init() {
         

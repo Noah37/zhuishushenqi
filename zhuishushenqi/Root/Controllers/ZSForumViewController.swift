@@ -26,7 +26,9 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate, UITableView
         ["title":"网文江湖","image":"wangwenv3"],
         ["title":"大话历史","image":"lishiv3"],
         ["title":"浏览记录","image":"f_invent_icon"],
-        ["title":"导入本地书籍","image":"f_invent_icon"]]
+        ["title":"导入本地书籍","image":"f_invent_icon"],
+        ["title":"切换新版","image":"f_invent_icon"]]
+    
     
     lazy var tableView:UITableView = {
         let table =  UITableView(frame: CGRect.zero, style: .grouped)
@@ -51,6 +53,26 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate, UITableView
         
         self.navigationController?.navigationBar.barTintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
 
+    }
+    
+    func showExchangeAlert() {
+        // 新版本弹窗入口
+       let alertVC = UIAlertController(title: "提示", message: "现已开发追书神器新版本，是否切换至新版[切换后无法撤销]？", preferredStyle: UIAlertController.Style.alert)
+       let okAction = UIAlertAction(title: "确定", style: UIAlertAction.Style.default) { (action) in
+           let tabVC = ZSTabBarController()
+           let delegate = UIApplication.shared.delegate as! AppDelegate
+           delegate.lastTabVC = delegate.window!.rootViewController!
+           UIView.transition(from: delegate.window!.rootViewController!.view, to: tabVC.view, duration: 1, options: UIView.AnimationOptions.transitionCrossDissolve, completion: { (finished) in
+               delegate.window?.rootViewController = tabVC
+               UserDefaults.standard.setValue(true, forKey: rootVCKey)
+           })
+       }
+       let cancelAction = UIAlertAction(title: "取消", style: UIAlertAction.Style.default) { (action) in
+           
+       }
+       alertVC.addAction(okAction)
+       alertVC.addAction(cancelAction)
+       present(alertVC, animated: true, completion: nil)
     }
     
     func configureTableDataSource(){
@@ -145,13 +167,14 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate, UITableView
                 } else if indexPath.row == 12 {
                     let importBookVC = ZSImportBookViewController()
                     SideVC.navigationController?.pushViewController(importBookVC, animated: true)
+                } else if indexPath.row == 13 {
+                self.showExchangeAlert()
                 }
                 else{
                     let dynamicVC = DynamicViewController()
                     SideVC.navigationController?.pushViewController(dynamicVC, animated: true)
-            }
-        }
-        .disposed(by: disposeBag)
+                }
+        }.disposed(by: disposeBag)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
