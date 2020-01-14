@@ -36,7 +36,7 @@ struct ZSReaderPref {
     var readerVC:ZSReaderVCProtocol?
 }
 
-class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCatalogViewControllerDelegate {
+class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCatalogViewControllerDelegate,ZSReaderTouchAreaDelegate {
     
     var pref:ZSReaderPref = ZSReaderPref()
     var viewModel:ZSReaderBaseViewModel = ZSReaderBaseViewModel()
@@ -52,6 +52,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         viewModel.model = model
         toolBar.progress(minValue: 0, maxValue: Float(model?.chaptersModel.count ?? 0))
         toolBar.delegate = self
+        touchArea.delegate = self
         load()
     }
     
@@ -124,8 +125,8 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             vc.didMove(toParent: self)
             touchArea.removeFromSuperview()
             view.addSubview(touchArea)
+            view.bringSubviewToFront(touchArea)
         }
-        view.bringSubviewToFront(touchArea)
         bind()
     }
     
@@ -175,6 +176,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     
     //MARK: - history manager
     func initialHistory(chapter:ZSBookChapter) {
+        chapter.calPages()
         if let history = viewModel.readHistory {
             history.chapter = chapter
             history.page = chapter.pages.first
@@ -268,6 +270,15 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             request(chapter: chapter) { [weak self] (cp) in
                 self?.show(chapter: cp)
             }
+        }
+    }
+    
+    //MARK: - ZSReaderTouchAreaDelegate
+    func touchAreaTapCenter(touchAres: ZSReaderTouchArea) {
+        if toolBar.isToolBarShow {
+            toolBar.hiden(true)
+        } else {
+            toolBar.show(inView: view, true)
         }
     }
     
@@ -456,9 +467,19 @@ extension ZSReaderController:UIPageViewControllerDataSource, UIPageViewControlle
             // 动画完成需要更新阅读记录
             if let pageVC = pageViewController.viewControllers?.first as? PageViewController {
                 if let page = pageVC.newPage {
+                    QSLog("\(page.chapterName),page: \(page.pageIndex)")
                     guard let history = viewModel.readHistory else { return }
-                    let chapter = zs_currentChapter()
-                    update(history: history, chapter: chapter, page: page)
+                    guard let book = viewModel.model else { return }
+                    // 获取当前章节
+                    let chapterIndex = page.chapterIndex
+                    if chapterIndex >= 0 && chapterIndex < book.chaptersModel.count {
+                        let chapter = book.chaptersModel[chapterIndex]
+                        // chapter存在会立即返回,r如果不存在，则只有一页，直接进入下一章
+                        update(history: history, chapter: chapter, page: page)
+                        request(chapter: chapter) { [weak self] (cp) in
+                            self?.update(history: history, chapter: cp, page: page)
+                        }
+                    }
                 }
             }
         }

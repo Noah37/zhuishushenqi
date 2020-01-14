@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ZSReaderTouchAreaDelegate:class {
+    func touchAreaTapCenter(touchAres:ZSReaderTouchArea)
+}
+
 class ZSReaderTouchArea: UIView {
     
     private lazy var backgroundView:UIView = {
@@ -22,11 +26,31 @@ class ZSReaderTouchArea: UIView {
             backgroundView.alpha = alpah
         }
     }
+    
+    weak var delegate:ZSReaderTouchAreaDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(backgroundView)
         isUserInteractionEnabled = false
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+        tap.numberOfTouchesRequired = 1
+        tap.numberOfTapsRequired = 1
+        addGestureRecognizer(tap)
+    }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let view = super.hitTest(point, with: event)
+//         let touchs = event?.allTouches
+//        if view == self {
+//            return self.superview
+//        }
+        return view
+    }
+    
+    @objc
+    private func tapAction(tap:UITapGestureRecognizer) {
+        delegate?.touchAreaTapCenter(touchAres: self)
     }
     
     required init?(coder: NSCoder) {

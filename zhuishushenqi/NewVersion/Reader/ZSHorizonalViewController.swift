@@ -33,7 +33,7 @@ class ZSHorizonalViewController: BaseViewController, ZSReaderVCProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +60,18 @@ class ZSHorizonalViewController: BaseViewController, ZSReaderVCProtocol {
     
     func jumpPage(page: ZSBookPage) {
         pageVC.newPage = page
+    }
+    
+    private func setupGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+        tap.numberOfTouchesRequired = 1
+        tap.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc
+    private func tapAction(tap:UITapGestureRecognizer) {
+        toolBar?.show(inView: view, true)
     }
 }
 

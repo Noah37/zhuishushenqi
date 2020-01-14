@@ -35,6 +35,10 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     private let bottomBarHeight:CGFloat = 140
     private let bottomBarBigHeight:CGFloat = 250
     
+    var isToolBarShow:Bool {
+        return topBar.frame.origin.y >= 0
+    }
+    
     lazy var bgView:UIView = {
         let view = UIView(frame: UIScreen.main.bounds)
         view.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
@@ -119,7 +123,7 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     
     func enableFontPlus(_ enable:Bool) {
         self.bottomBigBar.fontPlusButton.isEnabled = enable
-        self.bottomBigBar.fontSizeLabel.text = "\(ZSReader.share.theme.fontSize.size)" 
+        self.bottomBigBar.fontSizeLabel.text = "\(ZSReader.share.theme.fontSize.size)"
     }
     
     func enablFontAdd(_ enable:Bool) {
