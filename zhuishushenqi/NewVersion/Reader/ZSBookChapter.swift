@@ -12,6 +12,8 @@ class ZSBookChapter:NSObject, NSCoding {
     
     static let defaultContent = "正在获数据，请稍候..."
 
+    // 存储用
+    var bookUrl:String = ""
     var chapterUrl:String = ""
     var chapterName:String = ""
     var chapterContent:String = "" { didSet { calPages() } }
@@ -86,6 +88,8 @@ class ZSBookChapter:NSObject, NSCoding {
         self.chapterIndex = coder.decodeInteger(forKey: "chapterIndex")
         self.ranges = coder.decodeObject(forKey: "ranges") as? [NSRange] ?? []
         self.pages = coder.decodeObject(forKey: "pages") as? [ZSBookPage] ?? []
+        self.bookUrl = coder.decodeObject(forKey: "bookUrl") as? String ?? ""
+
     }
     
     func encode(with coder: NSCoder) {
@@ -95,6 +99,7 @@ class ZSBookChapter:NSObject, NSCoding {
         coder.encode(self.chapterIndex, forKey: "chapterIndex")
         coder.encode(self.ranges, forKey: "ranges")
         coder.encode(self.pages, forKey: "pages")
+        coder.encode(self.bookUrl, forKey: "bookUrl")
     }
 }
 

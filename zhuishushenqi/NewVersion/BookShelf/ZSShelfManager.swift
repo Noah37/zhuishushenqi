@@ -12,6 +12,7 @@ class ZSShelfManager {
     
     private let shelfBooksPath = "bookshelf"
     private let shelfBooksPathKey = "shelfBooksPathKey"
+    private let shelfBooksHistoryPath = "bookshelf/history"
     
     static let share = ZSShelfManager()
     
@@ -74,6 +75,8 @@ class ZSShelfManager {
         shelfModel.bookUrl = book.bookUrl
         if add(shelfModel) {
             saveAikan(book)
+        } else if modify(shelfModel) {
+            saveAikan(book)
         }
     }
     
@@ -106,10 +109,37 @@ class ZSShelfManager {
         let bookUrl = shelf.bookUrl
         let aikanFileName = bookUrl.md5()
         let aikanFilePath = booksPath.appending(aikanFileName)
-        if let aikanModel = try? NSKeyedUnarchiver.unarchiveObject(withFile: aikanFilePath) as? ZSAikanParserModel {
+        if let aikanModel = NSKeyedUnarchiver.unarchiveObject(withFile: aikanFilePath) as? ZSAikanParserModel {
             return aikanModel
         }
         return nil
+    }
+    
+    func history(_ bookUrl:String) ->ZSReadHistory? {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+        let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
+        let aikanFileName = bookUrl.md5()
+        let aikanFilePath = booksHistoryPath.appending(aikanFileName)
+        if let aikanModel = NSKeyedUnarchiver.unarchiveObject(withFile: aikanFilePath) as? ZSReadHistory {
+            return aikanModel
+        }
+        return nil
+    }
+    
+    func addHistory(_ history:ZSReadHistory)  {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+        let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
+        let aikanFileName = history.chapter.bookUrl.md5()
+        let aikanFilePath = booksHistoryPath.appending(aikanFileName)
+        NSKeyedArchiver.archiveRootObject(history, toFile: aikanFilePath)
+    }
+    
+    func removeHistory(_ history:ZSReadHistory) {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+        let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
+        let aikanFileName = history.chapter.bookUrl.md5()
+        let aikanFilePath = booksHistoryPath.appending(aikanFileName)
+        try? FileManager.default.removeItem(atPath: aikanFilePath)
     }
     
     private func saveAikan(_ book:ZSAikanParserModel) {
@@ -156,6 +186,11 @@ class ZSShelfManager {
         if !fileManager.fileExists(atPath: booksPath, isDirectory: pointer) {
             try? fileManager.createDirectory(atPath: booksPath, withIntermediateDirectories: true, attributes: nil)
         }
+        let historyPath = documentPath.appending("/\(shelfBooksHistoryPath)")
+        if !fileManager.fileExists(atPath: historyPath, isDirectory: pointer) {
+            try? fileManager.createDirectory(atPath: historyPath, withIntermediateDirectories: true, attributes: nil)
+        }
+        
     }
 }
 

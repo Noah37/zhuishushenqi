@@ -11,7 +11,7 @@ import UIKit
 class ZSReaderBaseViewModel {
     
 
-    var model:ZSAikanParserModel?
+    var model:ZSAikanParserModel? { didSet { bookReload() }}
     
     // 设置首次进入时指定的章节，如从详情页的目录进入
     var originalChapter:ZSBookChapter?
@@ -38,6 +38,19 @@ class ZSReaderBaseViewModel {
         reader.theme.didChangeFontSize = { fontSize in
             
         }
+    }
+    
+    func bookReload() {
+        // 阅读历史记录保存
+        guard let book = model else { return }
+        if let history = ZSShelfManager.share.history(book.bookUrl) {
+            readHistory = history
+        }
+    }
+    
+    func saveHistory() {
+        guard let history = readHistory else { return }
+        ZSShelfManager.share.addHistory(history)
     }
 
     func request(callback:ZSReaderBaseCallback<ZSBookChapter>?) {

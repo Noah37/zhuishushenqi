@@ -313,6 +313,7 @@ class ZSSearchBookViewModel {
                             info.chapterUrl = chapterUrl
                             info.chapterName = chapterTitle
                             info.chapterIndex = index
+                            info.bookUrl = bookUrl
                             chaptersArr.append(info)
                             index += 1
                         }
@@ -355,6 +356,7 @@ class ZSSearchBookViewModel {
                         info.chapterUrl = chapterUrl
                         info.chapterName = chapterName
                         info.chapterIndex = index
+                        info.bookUrl = bookUrl
                         chaptersArr.append(info)
                     }
                     if !(self?.stopBooks ?? false) {

@@ -282,7 +282,7 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
         let book = ZSShelfManager.share.books[indexPath.row]
         guard let aikan = ZSShelfManager.share.aikan(book) else { return }
         if aikan.chaptersModel.count > 0 {
-            let readerVC = ZSReaderController(chapter: aikan.chaptersModel[0], aikan)
+            let readerVC = ZSReaderController(chapter: nil, aikan)
             readerVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(readerVC, animated: true)
         } else {

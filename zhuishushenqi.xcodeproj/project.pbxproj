@@ -160,6 +160,7 @@
 		3DE393E721A3B7B600890488 /* ZSReadRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE393E621A3B7B600890488 /* ZSReadRecord.swift */; };
 		3DE393E921A3B84600890488 /* BookShelf.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DE393E821A3B84600890488 /* BookShelf.json */; };
 		3DE393EB21A3EB2D00890488 /* ZSJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE393EA21A3EB2D00890488 /* ZSJSON.swift */; };
+		3DE3AF7F23CF061A00D74C1F /* ZSPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3AF7E23CF061A00D74C1F /* ZSPageTableViewCell.swift */; };
 		3DE77D2620C8E99500A86DF0 /* ZSBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */; };
 		3DE77D2A20C90EA300A86DF0 /* ZSRootWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */; };
 		3DECC38422452F9E00EEB146 /* ZSFilterThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC38322452F9E00EEB146 /* ZSFilterThemeViewModel.swift */; };
@@ -791,6 +792,7 @@
 		3DE393E621A3B7B600890488 /* ZSReadRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReadRecord.swift; sourceTree = "<group>"; };
 		3DE393E821A3B84600890488 /* BookShelf.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = BookShelf.json; sourceTree = "<group>"; };
 		3DE393EA21A3EB2D00890488 /* ZSJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSJSON.swift; sourceTree = "<group>"; };
+		3DE3AF7E23CF061A00D74C1F /* ZSPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSPageTableViewCell.swift; sourceTree = "<group>"; };
 		3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseTableViewController.swift; sourceTree = "<group>"; };
 		3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootWebService.swift; sourceTree = "<group>"; };
 		3DECC38322452F9E00EEB146 /* ZSFilterThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSFilterThemeViewModel.swift; sourceTree = "<group>"; };
@@ -1415,6 +1417,7 @@
 				3D55F4D822D47B3800AE0E2B /* ZSVerticalViewController.swift */,
 				3D55F4DC22D47CEF00AE0E2B /* ZSNormalViewController.swift */,
 				3D1330CC23C7239000D81EF4 /* ZSReaderCatalogViewController.swift */,
+				3DE3AF7E23CF061A00D74C1F /* ZSPageTableViewCell.swift */,
 				3D05BCB323C592E2001EAB2A /* ZSReaderToolbar.swift */,
 				3D05BCB523C592FE001EAB2A /* ZSReaderTopbar.swift */,
 				3D05BCB723C59314001EAB2A /* ZSReaderBottomBar.swift */,
@@ -3580,6 +3583,7 @@
 				B2B4BC191E7EA4AB000CC201 /* TopicDetailHeader.swift in Sources */,
 				B2583CBB1EA782C2004178F3 /* QSThemeTopicPresenter.swift in Sources */,
 				3D2330E021F6F05A00EFE522 /* ZSAppInfo.swift in Sources */,
+				3DE3AF7F23CF061A00D74C1F /* ZSPageTableViewCell.swift in Sources */,
 				B2583CB41EA78280004178F3 /* TopicDetailViewController.swift in Sources */,
 				B2C0DF4D20D4CB350057DC84 /* UserfulCell.swift in Sources */,
 				3D9325E120B2BCFB0049CDBF /* ZSRootViewController.swift in Sources */,

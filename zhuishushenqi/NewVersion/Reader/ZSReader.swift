@@ -28,7 +28,7 @@ func getValue(for key:String) ->Int {
     if let value = UserDefaults.standard.value(forKey: key) as? Int {
         return value
     }
-    return 0
+    return -1
 }
 
 func getValue(for key:String) ->CGFloat {
@@ -36,7 +36,7 @@ func getValue(for key:String) ->CGFloat {
     if let value = UserDefaults.standard.value(forKey: key) as? CGFloat {
         return value
     }
-    return 0
+    return -1
 }
 
 func getRectValue(for key:String) ->CGRect {
@@ -85,6 +85,10 @@ struct ZSReader {
 //        contentFrame = getRectValue(for: "\(ZSReader.self).contentFrame").equalTo(CGRect.zero) ? UIScreen.main.bounds:getRectValue(for: "\(ZSReader.self).contentFrame")
         bookStyle = ZSReaderBookStyle.init(rawValue: getValue(for:
             "\(ZSReader.self).\(ZSReaderBookStyle.self)")) ?? .online
+        let pageStyleCacheValue:Int = getValue(for: "\(ZSReader.self).\(ZSReaderPageStyle.self)")
+        if pageStyleCacheValue >= 0 {
+            pageStyle = ZSReaderPageStyle.init(rawValue: pageStyleCacheValue) ?? .normal
+        }
     }
     
     public func attributes() -> [NSAttributedString.Key:Any]{
@@ -147,6 +151,10 @@ class ZSReaderTheme {
         }
     }
     
+    init() {
+        fontSize = ZSReaderFontSize()
+    }
+    
     var didChangeReaderStyle: (ZSReaderStyle) ->Void = { _ in }
     var didChangeFontSize: (ZSReaderFontSize) ->Void = { _ in }
     var didChangeFontStyle: (ZSReaderFont) ->Void = { _ in }
@@ -168,6 +176,10 @@ struct ZSReaderFontSize {
     var enableSmaller:Bool = false
     
     init() {
+        let pageStyleCacheValue:CGFloat = getValue(for: "\(ZSReaderTheme.self).\(ZSReaderFontSize.self)")
+        if pageStyleCacheValue >= 15 {
+            size = pageStyleCacheValue
+        }
         enableSmaller = size > 15 ? true:false
         enableBigger = size < 30 ? true:false
     }

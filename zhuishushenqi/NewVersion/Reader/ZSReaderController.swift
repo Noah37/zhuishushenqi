@@ -8,13 +8,6 @@
 
 import UIKit
 
-enum ZSReaderType {
-    case normal
-    case vertical
-    case horizonal
-    case pageCurl
-}
-
 struct ZSReaderPref {
     
     init() {
@@ -27,12 +20,12 @@ struct ZSReaderPref {
             readerVC = ZSHorizonalViewController()
             break
         case .pageCurl:
-            
+            readerVC = ZSPageViewController()
             break
         }
     }
     
-    var type:ZSReaderType = .horizonal
+    var type:ZSReaderPageStyle = ZSReader.share.pageStyle
     var readerVC:ZSReaderVCProtocol?
 }
 
@@ -46,11 +39,11 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     var statusBarHiden:Bool = true
     var touchArea:ZSReaderTouchArea = ZSReaderTouchArea(frame: UIScreen.main.bounds)
     
-    convenience init(chapter:ZSBookChapter,_ model:ZSAikanParserModel?) {
+    convenience init(chapter:ZSBookChapter?,_ model:ZSAikanParserModel) {
         self.init()
         viewModel.originalChapter = chapter
         viewModel.model = model
-        toolBar.progress(minValue: 0, maxValue: Float(model?.chaptersModel.count ?? 0))
+        toolBar.progress(minValue: 0, maxValue: Float(model.chaptersModel.count))
         toolBar.delegate = self
         touchArea.delegate = self
         load()
@@ -68,6 +61,10 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             vc.view.bounds = view.bounds
         }
         if let horVC = pref.readerVC as? ZSHorizonalViewController {
+            horVC.dataSource = self
+            horVC.delegate = self
+        }
+        if let horVC = pref.readerVC as? ZSPageViewController {
             horVC.dataSource = self
             horVC.delegate = self
         }
@@ -101,7 +98,10 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         if let oriChapter = viewModel.originalChapter,oriChapter.pages.count > 0 {
             initialHistory(chapter: oriChapter)
             pref.readerVC?.jumpPage(page: oriChapter.pages.first!)
-        } else {
+        } else if let history = viewModel.readHistory {
+            pref.readerVC?.jumpPage(page: history.page)
+        }
+        else {
             if let chapter = viewModel.model?.chaptersModel.first {
                 initialHistory(chapter: chapter)
                 if chapter.pages.count > 0 {
@@ -178,9 +178,8 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     func initialHistory(chapter:ZSBookChapter) {
         chapter.calPages()
         if let history = viewModel.readHistory {
-            history.chapter = chapter
-            history.page = chapter.pages.first
-            viewModel.readHistory = history
+            // 存在就跳转
+            pref.readerVC?.jumpPage(page: history.page)
         } else {
             let history = ZSReadHistory()
             history.chapter = chapter
@@ -210,6 +209,8 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             viewModel.readHistory = history
             return chapters.first!
         }
+        // 可能存在修改字体大小等因素，因此重新计算
+        history.chapter.calPages()
         return history.chapter
     }
     
@@ -285,6 +286,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     //MARK: - ZSReaderToolbarDelegate
     func toolBar(toolBar: ZSReaderToolbar, clickBack: UIButton) {
         popAction()
+        viewModel.saveHistory()
     }
     
     func toolBarWillShow(toolBar: ZSReaderToolbar) {
@@ -403,6 +405,8 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         if let p = page {
             handler?(p)
         } else if !chapter.contentNil(){
+            // 修改字体大小后需重新计算
+            chapter.calPages()
             let page = first ? chapter.pages.first!:chapter.pages.last!
             handler?(page)
         } else {
@@ -412,6 +416,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             let page = chapter.pages.first!
             handler?(page)
             request(chapter: chapter) { (cp) in
+                cp.calPages()
                 let p = first ? cp.pages.first!:cp.pages.last!
                 handler?(p)
             }
@@ -426,11 +431,11 @@ extension ZSReaderController:UIPageViewControllerDataSource, UIPageViewControlle
         guard let page = history.page else { return nil }
         let chapter = zs_currentChapter()
         if let lastP = chapter.getLastPage(page: page) {
-            showPage(chapter: chapter, lastP, true) { [weak  self] (p) in
+            showPage(chapter: chapter, lastP, false) { (p) in
                 pageVC.newPage = p
             }
         } else if let lastChapter = zs_lastChapter() { //新章节
-            showPage(chapter: lastChapter, nil, true) { [weak  self] (p) in
+            showPage(chapter: lastChapter, nil, false) { (p) in
                 pageVC.newPage = p
             }
         } else {
@@ -445,11 +450,11 @@ extension ZSReaderController:UIPageViewControllerDataSource, UIPageViewControlle
         guard let page = history.page else { return nil }
         let chapter = zs_currentChapter()
         if let lastP = chapter.getNextPage(page: page) {
-            showPage(chapter: chapter, lastP, true) { [weak self] (p) in
+            showPage(chapter: chapter, lastP, true) { (p) in
                 pageVC.newPage = p 
             }
         } else if let lastChapter = zs_nextChapter() { //新章节
-            showPage(chapter: lastChapter, nil, true) { [weak self] (p) in
+            showPage(chapter: lastChapter, nil, true) { (p) in
                 pageVC.newPage = p
             }
         } else {

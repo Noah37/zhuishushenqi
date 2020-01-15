@@ -8,10 +8,35 @@
 
 import UIKit
 
-class ZSVerticalViewController: BaseViewController {
+class ZSVerticalViewController: BaseViewController, ZSReaderVCProtocol {
     
-    var dataSource:UIPageViewControllerDataSource?
-    var delegate:UIPageViewControllerDelegate?
+    fileprivate var pageVC:PageViewController = PageViewController()
+    
+    weak var toolBar:ZSReaderToolbar?
+    
+    weak var dataSource:UIPageViewControllerDataSource?
+    weak var delegate:UIPageViewControllerDelegate?
+    
+    var nextPageHandler: ZSReaderPageHandler?
+    
+    var lastPageHandler: ZSReaderPageHandler?
+    
+    lazy var tableView:UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.sectionHeaderHeight = 0.01
+        tableView.sectionFooterHeight = 0.01
+        if #available(iOS 11, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
+        tableView.register(ZSShelfTableViewCell.self, forCellReuseIdentifier: "\(ZSShelfTableViewCell.self)")
+        tableView.qs_registerHeaderFooterClass(ZSBookShelfHeaderView.self)
+        let blurEffect = UIBlurEffect(style: .extraLight)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        tableView.backgroundView = blurEffectView
+        return tableView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,15 +44,44 @@ class ZSVerticalViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func bind(toolBar: ZSReaderToolbar) {
+        self.toolBar = toolBar
     }
-    */
+    
+    func destroy() {
+        pageVC.destroy()
+    }
+    
+    func changeBg(style: ZSReaderStyle) {
+        pageVC.bgView.image = style.backgroundImage
+    }
+    
+    func jumpPage(page: ZSBookPage) {
+        pageVC.newPage = page
+        tableView.beginUpdates()
+        tableView.reloadSection(UInt(page.chapterIndex), with: UITableView.RowAnimation.automatic)
+        tableView.endUpdates()
+    }
+    
+    private func setupGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+        tap.numberOfTouchesRequired = 1
+        tap.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc
+    private func tapAction(tap:UITapGestureRecognizer) {
+        toolBar?.show(inView: view, true)
+    }
+}
 
+extension ZSVerticalViewController:UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
 }
