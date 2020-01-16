@@ -165,6 +165,22 @@ class ZSAddSourceViewController: BaseViewController {
         return tf
     }()
     
+    lazy var contentRemoveTF:ZSAddLineView = {
+        let tf = ZSAddLineView(frame: .zero)
+        tf.placeholder = "请输入"
+        tf.text = "contentRemove"
+        tf.delegate = self
+        return tf
+    }()
+    
+    lazy var contentReplaceTF:ZSAddLineView = {
+        let tf = ZSAddLineView(frame: .zero)
+        tf.placeholder = "请输入"
+        tf.text = "contentReplace"
+        tf.delegate = self
+        return tf
+    }()
+    
     lazy var searchEncodingTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
@@ -190,7 +206,7 @@ class ZSAddSourceViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        scrollView.contentSize = CGSize(width: self.view.bounds.width, height: 18 * 50 + 16*10 + kNavgationBarHeight + 20)
+        scrollView.contentSize = CGSize(width: self.view.bounds.width, height: 21 * 50 + 18*10 + kNavgationBarHeight + 20)
     }
     
     private func setupSubviews() {
@@ -331,10 +347,25 @@ class ZSAddSourceViewController: BaseViewController {
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
+        scrollView.addSubview(self.contentRemoveTF)
+        contentRemoveTF.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.detailBookDescTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
+            make.height.equalTo(50)
+        }
+        
+        scrollView.addSubview(self.contentReplaceTF)
+        contentReplaceTF.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.contentRemoveTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
+            make.height.equalTo(50)
+        }
         scrollView.addSubview(self.searchEncodingTF)
         searchEncodingTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
-            make.top.equalTo(self.detailBookDescTF.snp.bottom).offset(10)
+            make.top.equalTo(self.contentReplaceTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
@@ -367,6 +398,8 @@ class ZSAddSourceViewController: BaseViewController {
         searchUrlTF.tfText = model.searchUrl
         detailBookDescTF.tfText = model.detailBookDesc
         searchEncodingTF.tfText = model.searchEncoding
+        contentRemoveTF.tfText = model.contentRemove
+        contentReplaceTF.tfText = model.contentReplace
     }
     
     @objc
@@ -396,6 +429,8 @@ class ZSAddSourceViewController: BaseViewController {
         model.searchUrl = searchUrlTF.textField.text ?? ""
         model.detailBookDesc = detailBookDescTF.textField.text ?? ""
         model.searchEncoding = searchEncodingTF.textField.text ?? ""
+        model.contentReplace = contentReplaceTF.textField.text ?? ""
+        model.contentRemove = contentRemoveTF.textField.text ?? ""
         ZSSourceManager.share.add(source: model)
         navigationController?.popViewController(animated: true)
     }
@@ -415,7 +450,7 @@ class ZSAddLineView: UIView, UITextFieldDelegate {
     var text:String = "" { didSet { titleLabel.text = text } }
     var tfText:String = "" { didSet { textField.text = tfText } }
 
-    weak var delegate:ZSAddLineViewDelegate? { didSet { textField.delegate = delegate }  }
+    weak var delegate:ZSAddLineViewDelegate? { didSet {  }  }
     
     lazy var titleLabel:UILabel = {
         let tf = UILabel(frame: .zero)

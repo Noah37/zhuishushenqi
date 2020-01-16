@@ -83,6 +83,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             vc.view.removeFromSuperview()
             vc.removeFromParent()
         }
+        ZSBookMemoryCache.share.removeAllCache()
         super.popAction()
     }
     

@@ -161,6 +161,7 @@
 		3DE393E921A3B84600890488 /* BookShelf.json in Resources */ = {isa = PBXBuildFile; fileRef = 3DE393E821A3B84600890488 /* BookShelf.json */; };
 		3DE393EB21A3EB2D00890488 /* ZSJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE393EA21A3EB2D00890488 /* ZSJSON.swift */; };
 		3DE3AF7F23CF061A00D74C1F /* ZSPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3AF7E23CF061A00D74C1F /* ZSPageTableViewCell.swift */; };
+		3DE3AF8123D0622C00D74C1F /* ZSShelfOperatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3AF8023D0622C00D74C1F /* ZSShelfOperatingView.swift */; };
 		3DE77D2620C8E99500A86DF0 /* ZSBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */; };
 		3DE77D2A20C90EA300A86DF0 /* ZSRootWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */; };
 		3DECC38422452F9E00EEB146 /* ZSFilterThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DECC38322452F9E00EEB146 /* ZSFilterThemeViewModel.swift */; };
@@ -793,6 +794,7 @@
 		3DE393E821A3B84600890488 /* BookShelf.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = BookShelf.json; sourceTree = "<group>"; };
 		3DE393EA21A3EB2D00890488 /* ZSJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSJSON.swift; sourceTree = "<group>"; };
 		3DE3AF7E23CF061A00D74C1F /* ZSPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSPageTableViewCell.swift; sourceTree = "<group>"; };
+		3DE3AF8023D0622C00D74C1F /* ZSShelfOperatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSShelfOperatingView.swift; sourceTree = "<group>"; };
 		3DE77D2520C8E99500A86DF0 /* ZSBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBaseTableViewController.swift; sourceTree = "<group>"; };
 		3DE77D2920C90EA300A86DF0 /* ZSRootWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRootWebService.swift; sourceTree = "<group>"; };
 		3DECC38322452F9E00EEB146 /* ZSFilterThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSFilterThemeViewModel.swift; sourceTree = "<group>"; };
@@ -1458,6 +1460,7 @@
 				B2B8A21822C71641005527C8 /* mjRefreshHeadTitle.plist */,
 				3DEFD99023BDB12200116ECD /* ZSRefreshTextHeader.swift */,
 				B2B8A21A22C71A23005527C8 /* ZSBookShelfHeaderView.swift */,
+				3DE3AF8023D0622C00D74C1F /* ZSShelfOperatingView.swift */,
 				3D448E5722C501C40099B6E8 /* NavigationBar.swift */,
 				3D05BCBF23C5EAFE001EAB2A /* ZSShelfManager.swift */,
 				B2840F3322C85B75009C9116 /* ZSBookShelfViewModel.swift */,
@@ -3763,6 +3766,7 @@
 				B25CEFF022F9268A002ABE30 /* CTSettings.swift in Sources */,
 				B2B02E561EA9A9F000A6880A /* ZSVoiceBookSegmentViewController.swift in Sources */,
 				B2C0DF6220D4CB350057DC84 /* QSBookDetailPresenter.swift in Sources */,
+				3DE3AF8123D0622C00D74C1F /* ZSShelfOperatingView.swift in Sources */,
 				3D31FFAF2216BDAD0011D275 /* ZSReaderViewModel+Bought.swift in Sources */,
 				B2683CF322C8FCE900FE9CF0 /* ZSWebToolHandler.swift in Sources */,
 				B2583CBA1EA782C2004178F3 /* QSThemeTopicInteractor.swift in Sources */,

@@ -92,7 +92,7 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
     func configure(model:ZSAikanParserModel) {
         let icon = model.bookIcon.length > 0 ? model.bookIcon:model.detailBookIcon
         let resource = QSResource(url: URL(string: icon) ?? URL(string: "www.baidu.com")!)
-        self.iconView.kf.setImage(with: resource)
+        self.iconView.kf.setImage(with: resource,placeholder: UIImage(named: "default_book_cover"))
         self.authorLabel.text = model.bookAuthor
         self.contentLabel.text = model.detailBookDesc.length != 0 ? model.detailBookDesc:model.bookDesc
         self.lastUpdateTimeBT.setTitle(model.bookUpdateTime, for: .normal)

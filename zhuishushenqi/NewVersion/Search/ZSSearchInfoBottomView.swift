@@ -71,6 +71,10 @@ class ZSSearchInfoBottomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(book:ZSAikanParserModel) {
+        self.addToShelfButton.isSelected = ZSShelfManager.share.exist(book.bookUrl)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         topLine.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: 0.3)

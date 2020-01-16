@@ -56,6 +56,17 @@ class ZSShelfManager {
         return false
     }
     
+    func exist(_ bookUrl:String) ->Bool {
+        var exist = false
+        for bk in self.books {
+            if bk.bookUrl == bookUrl {
+                exist = true
+                break
+            }
+        }
+        return exist
+    }
+    
     func exist(_ book:ZSShelfModel) -> Bool {
         var exist = false
         for bk in self.books {

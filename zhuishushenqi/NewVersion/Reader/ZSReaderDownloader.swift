@@ -18,6 +18,14 @@ class ZSReaderDownloader {
     
     static let share = ZSReaderDownloader()
     
+    let defaultReplaces:[String:String] = ["<br/>":"\n",
+                                                  "<p>":"",
+                                                  "</p>":"",
+                                                  "&ldquo;":"",
+                                                  "&rdquo;":"",
+                                                  "&hellip;":"",
+                                                  "</div>":""]
+    
     private var cancel = false
     
     private init() {
@@ -60,10 +68,11 @@ class ZSReaderDownloader {
     
     func download(chapter:ZSBookChapter, book:ZSAikanParserModel, reg:String,_ handler:@escaping ZSReaderBaseCallback<ZSBookChapter>) {
         let key = chapter.chapterUrl
-        download(for: key,book:book, reg: reg) { (contentString) in
+        download(for: key,book:book, reg: reg) { [unowned self] (contentString) in
             if let content = contentString, content.length > 0 {
-                let brContent = content.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                let noBrContent = brContent.replacingOccurrences(of: "<br/>", with: "\n")
+                let contentReplaceString = self.contentReplace(string: content, reg: book.contentReplace)
+                let brContent = contentReplaceString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                let noBrContent = self.defaultContentReplace(string: brContent)
                 chapter.chapterContent = noBrContent
                 ZSBookCache.share.cacheContent(content: chapter, for: book.bookName)
                 handler(chapter)
@@ -94,6 +103,42 @@ class ZSReaderDownloader {
                 handler("")
             }
         }
+    }
+    
+    private func contentReplace(string:String, reg:String) ->String {
+        var resultString = string
+        guard let data = reg.data(using: .utf8) else { return resultString }
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [[String:Any]] else {
+            return resultString
+        }
+        
+        for dict in json {
+            let first = dict["first"] as? String ?? ""
+            if let noRegular = dict["noRegular"] as? Bool {
+                if !noRegular {
+                    let regStr = try? NSRegularExpression(pattern: first, options: NSRegularExpression.Options.caseInsensitive)
+                    if let results = regStr?.matches(in: string, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, string.length)) {
+                        for result in results {
+                            let range = result.range
+                            let subString = resultString.substingInRange(range.location..<(range.location + range.length)) ?? ""
+                            resultString = resultString.replacingOccurrences(of: subString, with: "")
+                        }
+                    }
+                } else {
+                    resultString = resultString.replacingOccurrences(of: first, with: "")
+                }
+            }
+        }
+        
+        return resultString
+    }
+    
+    private func defaultContentReplace(string:String)->String {
+        var replaceString = string
+        for (key,value) in defaultReplaces {
+            replaceString = replaceString.replacingOccurrences(of: key, with: value)
+        }
+        return replaceString
     }
 
 }

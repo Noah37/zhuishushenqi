@@ -37,4 +37,8 @@ class ZSBookMemoryCache {
         let content = chapterInfo[key]
         return content != nil
     }
+    
+    func removeAllCache() {
+        chapterInfo.removeAll()
+    }
 }

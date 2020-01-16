@@ -54,7 +54,7 @@ enum ShelfNav:Int {
     }
 }
 
-class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBookShelfHeaderDelegate {
+class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBookShelfHeaderDelegate,ZSShelfTableViewCellDelegate {
     lazy var navImages:[ShelfNav] = {
         var images:[ShelfNav] = []
         let gifNav = ShelfNav(rawValue: 0)
@@ -240,6 +240,11 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     func headerView(headerView: ZSBookShelfHeaderView, didClickMsgButton: UIButton) {
         messageHandle()
     }
+    
+    //MARK: - ZSShelfTableViewCellDelegate
+    func shelfCell(cell: ZSShelfTableViewCell, clickMore: UIButton) {
+        
+    }
 }
 
 extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate {
@@ -275,6 +280,7 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
         cell?.selectionStyle = .none
         let book = ZSShelfManager.share.books[indexPath.row]
         cell?.configure(model: book)
+        cell?.delegate = self
         return cell!
     }
     

@@ -67,6 +67,7 @@ class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellD
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(height)
         }
+        bottomView.configure(book: model!)
     }
     
     private func setupNavItem() {
@@ -110,7 +111,7 @@ class ZSSearchInfoViewController: BaseViewController, ZSSearchInfoTableViewCellD
     func bottomView(bottomView: ZSSearchInfoBottomView, clickRead: UIButton) {
         guard let book = self.model else { return }
         if book.chaptersModel.count > 0 {
-            let readerVC = ZSReaderController(chapter: book.chaptersModel[0], book)
+            let readerVC = ZSReaderController(chapter: nil, book)
             readerVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(readerVC, animated: true)
         } else {
@@ -161,7 +162,7 @@ extension ZSSearchInfoViewController:UITableViewDataSource, UITableViewDelegate 
         cell?.delegate = self
         cell?.selectionStyle = .none
         cell?.accessoryType = .disclosureIndicator
-        if let dict = self.model?.chaptersModel[indexPath.row] as? ZSBookChapter {
+        if let dict = self.model?.chaptersModel[indexPath.row] {
             cell?.textLabel?.text = dict.chapterName
             if let chapter = ZSBookMemoryCache.share.content(for: dict.chapterUrl) {
                 if chapter.chapterContent.length > 0 {
