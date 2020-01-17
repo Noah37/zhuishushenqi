@@ -147,6 +147,17 @@ class ZSSourceManager {
         }
     }
     
+    func source(_ host:String) ->ZSAikanParserModel? {
+        var resultSource:ZSAikanParserModel?
+        for source in sources {
+            if host == source.host {
+                resultSource = source
+                break
+            }
+        }
+        return resultSource
+    }
+    
     private func replace(source:ZSAikanParserModel) {
         var index = 0
         let ts = sources

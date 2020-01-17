@@ -45,6 +45,19 @@ class ZSShelfManager {
     }
     
     @discardableResult
+    func remove(_ bookUrl:String) ->Bool {
+        var index = 0
+        for book in books {
+            if book.bookUrl == bookUrl {
+                books.remove(at: index)
+                break
+            }
+            index += 1
+        }
+        return true
+    }
+    
+    @discardableResult
     func modify(_ book:ZSShelfModel) ->Bool {
         let exitIndex = index(book)
         if exitIndex >= 0 && exitIndex < books.count {

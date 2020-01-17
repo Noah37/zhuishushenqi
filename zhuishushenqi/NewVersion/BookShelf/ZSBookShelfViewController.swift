@@ -54,7 +54,7 @@ enum ShelfNav:Int {
     }
 }
 
-class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBookShelfHeaderDelegate,ZSShelfTableViewCellDelegate {
+class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBookShelfHeaderDelegate,ZSShelfTableViewCellDelegate,ZSShelfOperatingViewDelegate {
     lazy var navImages:[ShelfNav] = {
         var images:[ShelfNav] = []
         let gifNav = ShelfNav(rawValue: 0)
@@ -243,6 +243,49 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     
     //MARK: - ZSShelfTableViewCellDelegate
     func shelfCell(cell: ZSShelfTableViewCell, clickMore: UIButton) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            let book = ZSShelfManager.share.books[indexPath.row]
+            guard let aikan = ZSShelfManager.share.aikan(book) else { return }
+            let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
+            opView.delegate = self
+            opView.configure(book: aikan)
+            opView.show(inView: view.window ?? view)
+        }
+    }
+    
+    //MARK: - ZSShelfOperatingViewDelegate
+    func opView(opView: ZSShelfOperatingView, clickTop: UIButton) {
+        
+    }
+    
+    func opView(opView: ZSShelfOperatingView, clickDetail: UIButton) {
+        let book = opView.book
+        let infoVC = ZSSearchInfoViewController()
+        infoVC.model = book
+        infoVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(infoVC, animated: true)
+    }
+    
+    func opView(opView: ZSShelfOperatingView, clickDelete: UIButton) {
+        if let book = opView.book {
+            if ZSShelfManager.share.remove(book.bookUrl) {
+                tableView.reloadData()
+                Toast.show(tip: "删除成功", .success, 2)
+            }
+        }
+    }
+    
+    func opView(opView: ZSShelfOperatingView, clickSource: UIButton) {
+        let book = opView.book
+        if let source = ZSSourceManager.share.source(book?.host ?? "") {
+            let addVC = ZSAddSourceViewController()
+            addVC.source = source
+            addVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(addVC, animated: true)
+        }
+    }
+    
+    func opView(opView: ZSShelfOperatingView, clickDownload: UIButton) {
         
     }
 }

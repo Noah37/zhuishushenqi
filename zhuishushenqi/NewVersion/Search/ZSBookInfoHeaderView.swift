@@ -22,6 +22,14 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
         return lb
     }()
     
+    lazy var sourceLabel:UILabel = {
+        let lb = UILabel(frame: .zero)
+        lb.textColor = UIColor.red
+        lb.numberOfLines = 1
+        lb.font = UIFont.systemFont(ofSize: 15)
+        return lb
+    }()
+    
     lazy var contentLabel:UILabel = {
         let lb = UILabel(frame: .zero)
         lb.textColor = UIColor.gray
@@ -46,6 +54,7 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         contentView.addSubview(authorLabel)
+        contentView.addSubview(sourceLabel)
         contentView.addSubview(contentLabel)
         contentView.addSubview(iconView)
         contentView.addSubview(lastUpdateTimeBT)
@@ -60,6 +69,7 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
         super.layoutSubviews()
         self.iconView.frame = CGRect(x: 15, y: 15, width: 70, height: 100)
         self.authorLabel.frame = CGRect(x: self.iconView.frame.maxX + 15, y: 15, width: self.contentView.bounds.width - self.iconView.frame.maxX - 30, height: 40)
+        self.sourceLabel.frame = CGRect(x: self.iconView.frame.maxX + 15, y: self.authorLabel.frame.maxY, width: self.contentView.bounds.width - self.iconView.frame.maxX - 30, height: 20)
         if lastUpdateTimeBT.titleLabel?.text?.length ?? 0 > 0 {
             
             self.lastUpdateTimeBT.frame = CGRect(x: 15, y: self.iconView.frame.maxY + 10, width: self.contentView.bounds.width - 30, height: 40)
@@ -94,7 +104,8 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
         let resource = QSResource(url: URL(string: icon) ?? URL(string: "www.baidu.com")!)
         self.iconView.kf.setImage(with: resource,placeholder: UIImage(named: "default_book_cover"))
         self.authorLabel.text = model.bookAuthor
+        self.sourceLabel.text = "来源：\(model.name) \(model.host)"
         self.contentLabel.text = model.detailBookDesc.length != 0 ? model.detailBookDesc:model.bookDesc
-        self.lastUpdateTimeBT.setTitle(model.bookUpdateTime, for: .normal)
+        self.lastUpdateTimeBT.setTitle("\(model.bookLastChapterName) \(model.bookUpdateTime)" , for: .normal)
     }
 }

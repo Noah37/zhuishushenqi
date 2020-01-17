@@ -207,6 +207,8 @@ class ZSSearchBookViewModel {
             var bookName = parse.string(withGumboNode: obj[index], withAikanString: src.bookName, withText: true)
             var bookDesc = parse.string(withGumboNode: obj[index], withAikanString: src.bookDesc, withText: true)
             var bookUrl = parse.string(withGumboNode: obj[index], withAikanString: src.bookUrl, withText: false)
+            var bookUpdateTime = parse.string(withGumboNode: obj[index], withAikanString: src.bookUpdateTime, withText: true)
+            var bookLastChapterName = parse.string(withGumboNode: obj[index], withAikanString: src.bookLastChapterName, withText: true)
 //            var bookAuthor = ZSAikanHtmlParser.string(node: obj[index] as! OCGumboNode, aikanString: src.bookAuthor, text: true)
 //            var bookIcon = ZSAikanHtmlParser.string(node: obj[index] as! OCGumboNode, aikanString: src.bookIcon, text: false)
 //            var bookName = ZSAikanHtmlParser.string(node: obj[index] as! OCGumboNode, aikanString: src.bookName, text: true)
@@ -241,8 +243,8 @@ class ZSSearchBookViewModel {
                 book.chaptersModel = chapters
                 book.detailBookDesc = bookDetailInfo["detailBookDesc"] ?? ""
                 book.detailBookIcon = bookDetailInfo["detailBookIcon"] ?? ""
-                book.bookLastChapterName = bookDetailInfo["bookLastChapterName"] ?? ""
-                book.bookUpdateTime = bookDetailInfo["bookUpdateTime"] ?? ""
+                book.bookLastChapterName = bookLastChapterName.length > 0 ? bookLastChapterName: bookDetailInfo["bookLastChapterName"] ?? ""
+                book.bookUpdateTime = bookUpdateTime.length > 0 ? bookUpdateTime:bookDetailInfo["bookUpdateTime"] ?? ""
                 completion(book)
             }
         }

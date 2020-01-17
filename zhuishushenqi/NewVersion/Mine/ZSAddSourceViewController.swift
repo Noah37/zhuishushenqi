@@ -198,10 +198,15 @@ class ZSAddSourceViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "添加来源"
+        self.title = (source?.host.length ?? 0) > 0 ? "修改来源": "添加来源"
         
         setupSubviews()
         setupNavItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
