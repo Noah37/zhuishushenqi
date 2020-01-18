@@ -120,6 +120,8 @@ class ZSShelfOperatingView: UIView {
     
     var book:ZSAikanParserModel!
     
+    var indexPath:IndexPath?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(backgroundView)

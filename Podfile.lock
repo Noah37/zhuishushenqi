@@ -35,6 +35,7 @@ PODS:
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
   - SQLite.swift/standard (0.12.2)
+  - UICircularProgressRing (6.4.0)
   - WechatOpenSDK (1.8.3)
   - Weibo_SDK (3.2.6)
   - YYCategories (1.0.4):
@@ -77,6 +78,7 @@ DEPENDENCIES:
   - RxCocoa
   - SnapKit (= 5.0.0)
   - SQLite.swift
+  - UICircularProgressRing
   - WechatOpenSDK (= 1.8.3)
   - Weibo_SDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
   - YYCategories
@@ -109,6 +111,7 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - SQLite.swift
+    - UICircularProgressRing
     - WechatOpenSDK
     - YYCategories
     - YYImage
@@ -151,6 +154,7 @@ SPEC CHECKSUMS:
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
+  UICircularProgressRing: 907613633e76e561b972a3868c95517d14c71006
   WechatOpenSDK: 3117412f8aafde4758cac1e8d20b93c67cafcfef
   Weibo_SDK: 13b51503b929ae645f52e5cf584093e6a269bcd9
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
@@ -162,6 +166,6 @@ SPEC CHECKSUMS:
   ZSAppConfig: d6b5114b339aa24471554ced706e9df2f25d7041
   ZSExtension: 064094b6a1125306b59c3f69dcc3d40e85ecf90a
 
-PODFILE CHECKSUM: 781cb013f45cdb4bf359d0aa1ea73163fbae6b1c
+PODFILE CHECKSUM: efed1d2b7bc43ee5411f1fb699c49889a8d67094
 
 COCOAPODS: 1.6.1

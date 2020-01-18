@@ -96,22 +96,39 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     
     private func load() {
         // 首次进入加载
-        if let oriChapter = viewModel.originalChapter,oriChapter.pages.count > 0 {
+        if let oriChapter = viewModel.originalChapter {
+            oriChapter.calPages()
             initialHistory(chapter: oriChapter)
+            update(history: viewModel.readHistory!, chapter: oriChapter, page: oriChapter.pages.first!)
             pref.readerVC?.jumpPage(page: oriChapter.pages.first!)
+            if oriChapter.contentNil() {
+                viewModel.request(chapter: oriChapter) { [unowned self] (cp) in
+                    // 比较当前章节与阅读记录中如果不同，说明请求完之前已经翻页了，不再跳转
+                    cp.calPages()
+                    if cp.chapterUrl == oriChapter.chapterUrl {
+                        self.update(history: self.viewModel.readHistory!, chapter: cp, page: cp.pages.first!)
+                        self.pref.readerVC?.jumpPage(page: cp.pages.first!)
+                    }
+                }
+            }
         } else if let history = viewModel.readHistory {
             pref.readerVC?.jumpPage(page: history.page)
         }
         else {
-            if let chapter = viewModel.model?.chaptersModel.first {
-                initialHistory(chapter: chapter)
-                if chapter.pages.count > 0 {
-                    pref.readerVC?.jumpPage(page: chapter.pages.first!)
-                }
+            guard let chapter = viewModel.model?.chaptersModel.first else { return }
+            if chapter.contentNil() {
+                chapter.calPages()
             }
-            viewModel.request { [weak self] (chapter) in
-                self?.initialHistory(chapter: chapter)
-                self?.pref.readerVC?.jumpPage(page: chapter.pages.first!)
+            initialHistory(chapter: chapter)
+            update(history: viewModel.readHistory!, chapter: chapter, page: chapter.pages.first!)
+            pref.readerVC?.jumpPage(page: chapter.pages.first!)
+            viewModel.request(chapter: chapter) { [unowned self] (cp) in
+                // 比较当前章节与阅读记录中如果不同，说明请求完之前已经翻页了，不再跳转
+                cp.calPages()
+                if cp.chapterUrl == chapter.chapterUrl {
+                    self.update(history: self.viewModel.readHistory!, chapter: cp, page: cp.pages.first!)
+                    self.pref.readerVC?.jumpPage(page: cp.pages.first!)
+                }
             }
         }
     }
@@ -178,9 +195,8 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     //MARK: - history manager
     func initialHistory(chapter:ZSBookChapter) {
         chapter.calPages()
-        if let history = viewModel.readHistory {
-            // 存在就跳转
-            pref.readerVC?.jumpPage(page: history.page)
+        if let _ = viewModel.readHistory {
+            
         } else {
             let history = ZSReadHistory()
             history.chapter = chapter

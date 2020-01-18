@@ -249,6 +249,7 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
             let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
             opView.delegate = self
             opView.configure(book: aikan)
+            opView.indexPath = indexPath
             opView.show(inView: view.window ?? view)
         }
     }
@@ -286,7 +287,16 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     }
     
     func opView(opView: ZSShelfOperatingView, clickDownload: UIButton) {
-        
+        guard let book = opView.book else { return }
+        guard let indexPath = opView.indexPath else { return }
+        ZSReaderDownloader.share.download(book: book, start: 0) { [weak self] (index) in
+            let cell = self?.tableView.cellForRow(at: indexPath) as? ZSShelfTableViewCell
+            cell?.progress(value: CGFloat(index ?? 0), max: CGFloat(book.chaptersModel.count))
+            if index == book.chaptersModel.count - 1 {
+                cell?.finish()
+                Toast.show(tip: "下载完成", .success, 1)
+            }
+        }
     }
 }
 

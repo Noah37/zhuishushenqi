@@ -36,7 +36,7 @@ class ZSReaderDownloader {
         cancel = true
     }
     
-    func download(book:ZSAikanParserModel, start:Int, handler:@escaping ZSBaseCallback<Bool>) {
+    func download(book:ZSAikanParserModel, start:Int, handler:@escaping ZSBaseCallback<Int>) {
         let chaptersInfo = book.chaptersModel
         let totalChapterCount = chaptersInfo.count
         if start > totalChapterCount {
@@ -57,11 +57,11 @@ class ZSReaderDownloader {
                     ?? DispatchTime.distantFuture
                 _ = self.semaphore.wait(timeout: timeouts)
                 self.download(chapter: chapter,book: book, reg: book.content) { (chapter) in
+                    DispatchQueue.main.async {
+                        handler(index)
+                    }
                     self.semaphore.signal()
                 }
-            }
-            DispatchQueue.main.async {
-                handler(true)
             }
         }
     }

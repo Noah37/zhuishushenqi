@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UICircularProgressRing
 
 protocol ZSShelfTableViewCellDelegate:class {
     func shelfCell(cell:ZSShelfTableViewCell, clickMore:UIButton)
@@ -39,11 +40,28 @@ class ZSShelfTableViewCell: UITableViewCell {
         return bt
     }()
     
+    lazy var darkRingBackground:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
+        view.isHidden = true
+        return view
+    }()
+    
+    lazy var progressRing:UICircularProgressRing = {
+        let ring = UICircularProgressRing()
+        ring.style = .ontop
+        ring.font = UIFont.systemFont(ofSize: 13)
+        ring.isHidden = true
+        return ring
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(booknameLB)
         contentView.addSubview(authorLB)
         contentView.addSubview(moreBT)
+        imageView?.addSubview(darkRingBackground)
+        imageView?.addSubview(progressRing)
     }
     
     required init?(coder: NSCoder) {
@@ -74,12 +92,25 @@ class ZSShelfTableViewCell: UITableViewCell {
         imageView?.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"))
     }
     
+    func progress(value:CGFloat, max:CGFloat) {
+        progressRing.isHidden = false
+        darkRingBackground.isHidden = false
+        progressRing.startProgress(to: value * 100 / max, duration: 0.3)
+    }
+    
+    func finish() {
+        progressRing.isHidden = true
+        darkRingBackground.isHidden = true
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView?.frame = CGRect(x: 20, y: 10, width: 60, height: bounds.height - 20)
+        darkRingBackground.frame = CGRect(x: 0, y: 0, width: 60, height: bounds.height - 20)
         booknameLB.frame = CGRect(x: (imageView?.frame.maxX ?? 0) + 10, y: 10, width: 200, height: 20)
         authorLB.frame = CGRect(x: (imageView?.frame.maxX ?? 0) + 10, y: bounds.height - 30, width: 200, height: 20)
         moreBT.frame = CGRect(x: bounds.width - 60, y: 10, width: 40, height: 40)
+        progressRing.frame = imageView?.bounds  ?? CGRect(x: 0, y: 0, width: 60, height: bounds.height - 20)
         separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20)
     }
 

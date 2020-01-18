@@ -40,6 +40,7 @@ pod 'SQLite.swift'
 pod 'Zip'
 pod 'RxAlamofire'
 pod 'RxCocoa'
+pod 'UICircularProgressRing'
 
 # local pods
 pod 'ZSAPI', :path => "zhuishushenqi/NewVersion/ZSAPI"
