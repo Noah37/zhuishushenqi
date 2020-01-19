@@ -98,6 +98,9 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
             inView.addSubview(self)
         } else {
             self.delegate?.toolBarWillShow(toolBar: self)
+            self.topBar.frame.origin.y = 0
+            self.bottomBar.frame.origin.y = self.bounds.height - self.bottomBarHeight
+            self.bottomBigBar.frame.origin.y = self.bounds.height - self.bottomBarBigHeight - kTabbarBlankHeight
             inView.addSubview(self)
             self.delegate?.toolBarDidShow(toolBar: self)
         }
@@ -116,6 +119,9 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
             }
         } else {
             self.delegate?.toolBarWillHiden(toolBar: self)
+            self.topBar.frame.origin.y = -kNavgationBarHeight
+            self.bottomBar.frame.origin.y = self.bounds.height
+            self.bottomBigBar.frame.origin.y = self.bounds.height
             removeFromSuperview()
             self.delegate?.toolBarDidHiden(toolBar: self)
         }
