@@ -47,7 +47,7 @@ func getRectValue(for key:String) ->CGRect {
     return CGRect.zero
 }
 
-struct ZSReader {
+class ZSReader {
     
     static let share = ZSReader()
     
@@ -357,10 +357,31 @@ enum ZSReaderFont:Int {
 }
 
 enum ZSReaderPageStyle:Int {
+    case normal
     case pageCurl
     case vertical
     case horizonal
-    case normal
+    
+    var styleName:String {
+        switch self {
+        case .normal:
+            return "无"
+        case .pageCurl:
+            return "仿真翻页"
+        case .vertical:
+            return "上下滚屏"
+        case .horizonal:
+            return "左右平移"
+        default:
+            return "无"
+        }
+    }
+    
+    static let count: Int = {
+        var max: Int = 0
+        while let _ = ZSReaderPageStyle(rawValue: max) { max += 1 }
+        return max
+    }()
     
     var pageViewControler:BaseViewController? {
         switch self {

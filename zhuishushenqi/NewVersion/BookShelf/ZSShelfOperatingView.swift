@@ -84,7 +84,7 @@ class ZSShelfOperatingView: UIView {
     
     lazy var topButton:UIButton = {
         let bt = UIButton(type: .custom)
-        bt.setTitle("置顶", for: .normal)
+        bt.setTitle("删除缓存", for: .normal)
         bt.setTitleColor(UIColor.black, for: .normal)
         bt.setImage(UIImage(named: "icon_top_selected_24x24_"), for: .normal)
         bt.titleLabel?.font = UIFont.systemFont(ofSize: 13)

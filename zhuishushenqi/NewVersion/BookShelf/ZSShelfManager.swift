@@ -18,9 +18,67 @@ class ZSShelfManager {
     
     var books:[ZSShelfModel] = []
     
+    var localBooks:[ZSShelfModel] = []
+    
+    let helper = MonitorFileChangeHelp()
+    
+    var isScanning:Bool = false
+    
     private init(){
         createPath()
         unpack()
+        local()
+    }
+    
+    func refresh() {
+        let path = "\(NSHomeDirectory())/Documents/Inbox/"
+        scanPath(path: path)
+    }
+    
+    func local() {
+        let path = "\(NSHomeDirectory())/Documents/Inbox/"
+        scanPath(path: path)
+        helper.watcher(forPath: path) { [weak self] (type) in
+            self?.scanPath(path: path)
+        }
+        NotificationCenter.default.addObserver(self, selector: #selector(localChangeNoti(noti:)), name: NSNotification.Name.LocalShelfChanged, object: nil)
+    }
+    
+    func scanPath(path:String){
+        if isScanning {
+            return
+        }
+        isScanning = true
+        guard let items = try? FileManager.default.contentsOfDirectory(atPath: path) else { return }
+        for item in items {
+            let filePath = path.appending("\(item)")
+            let txtPathExtension = ".txt"
+            if filePath.hasSuffix(txtPathExtension) {
+                let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
+                let bookUrl = "/Documents/Inbox/\(fileFullName)\(txtPathExtension)"
+                if !exist(bookUrl) {
+                    let shelf = ZSShelfModel()
+                    shelf.bookType = .local
+                    shelf.bookName = fileFullName
+                    shelf.bookUrl = bookUrl
+                    books.append(shelf)
+                }
+            }
+        }
+        localBooks.removeAll()
+        for book  in books {
+            if book.bookType == .local {
+                localBooks.append(book)
+            }
+        }
+        isScanning = false
+        NotificationCenter.default.post(name: .ShelfChanged, object: nil)
+    }
+    
+    //MARK: - local handler
+    @objc
+    private func localChangeNoti(noti:Notification) {
+        refresh()
     }
     
     @discardableResult
@@ -69,9 +127,37 @@ class ZSShelfManager {
         return false
     }
     
+    func change(from:Int, to:Int) {
+        if from >= books.count || from < 0 {
+            return
+        }
+        if to >= books.count || to < 0 {
+            return
+        }
+        if from == to {
+            return
+        }
+        let book = books[from]
+        if remove(book) {
+            books.insert(book, at: to)
+            save()
+        }
+    }
+    
     func exist(_ bookUrl:String) ->Bool {
         var exist = false
         for bk in self.books {
+            if bk.bookUrl == bookUrl {
+                exist = true
+                break
+            }
+        }
+        return exist
+    }
+    
+    func exist(_ bookUrl:String, at:[ZSShelfModel]) ->Bool {
+        var exist = false
+        for bk in at {
             if bk.bookUrl == bookUrl {
                 exist = true
                 break
@@ -97,6 +183,7 @@ class ZSShelfManager {
         shelfModel.bookName = book.bookName
         shelfModel.author = book.bookAuthor
         shelfModel.bookUrl = book.bookUrl
+        shelfModel.bookType = book.bookType
         if add(shelfModel) {
             saveAikan(book)
         } else if modify(shelfModel) {
@@ -110,10 +197,19 @@ class ZSShelfManager {
         shelfModel.bookName = book.bookName
         shelfModel.author = book.bookAuthor
         shelfModel.bookUrl = book.bookUrl
+        shelfModel.bookType = book.bookType
         if remove(shelfModel) {
             // save aikan
             saveAikan(book)
         }
+    }
+    
+    func removeAikan(bookUrl:String) {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+        let booksPath = documentPath.appending("/\(shelfBooksPath)/")
+        let aikanFileName = bookUrl.md5()
+        let aikanFilePath = booksPath.appending(aikanFileName)
+        try? FileManager.default.removeItem(atPath: aikanFilePath)
     }
     
     func modifyAikan(_ book:ZSAikanParserModel) {
@@ -122,6 +218,7 @@ class ZSShelfManager {
         shelfModel.bookName = book.bookName
         shelfModel.author = book.bookAuthor
         shelfModel.bookUrl = book.bookUrl
+        shelfModel.bookType = book.bookType
         if modify(shelfModel) {
             saveAikan(book)
         }
@@ -162,6 +259,14 @@ class ZSShelfManager {
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
         let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
         let aikanFileName = history.chapter.bookUrl.md5()
+        let aikanFilePath = booksHistoryPath.appending(aikanFileName)
+        try? FileManager.default.removeItem(atPath: aikanFilePath)
+    }
+    
+    func removeHistory(bookUrl:String) {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+        let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
+        let aikanFileName = bookUrl.md5()
         let aikanFilePath = booksHistoryPath.appending(aikanFileName)
         try? FileManager.default.removeItem(atPath: aikanFilePath)
     }
@@ -226,6 +331,9 @@ class ZSShelfModel: NSObject,NSCoding {
     // 根据url查找对应的model
     var bookUrl:String = ""
     
+    // 是否本地书籍
+    var bookType:ZSReaderBookStyle = .online
+    
     override init() {
         
     }
@@ -235,6 +343,7 @@ class ZSShelfModel: NSObject,NSCoding {
         coder.encode(self.bookName, forKey: "bookName")
         coder.encode(self.author, forKey: "author")
         coder.encode(self.bookUrl, forKey: "bookUrl")
+        coder.encode(self.bookType.rawValue, forKey: "bookType")
 
     }
     
@@ -243,8 +352,6 @@ class ZSShelfModel: NSObject,NSCoding {
         self.bookName = coder.decodeObject(forKey: "bookName") as? String ?? ""
         self.author = coder.decodeObject(forKey: "author") as? String ?? ""
         self.bookUrl = coder.decodeObject(forKey: "bookUrl") as? String ?? ""
-
+        self.bookType = ZSReaderBookStyle(rawValue: coder.decodeInteger(forKey: "bookType")) ?? .online
     }
-    
-    
 }

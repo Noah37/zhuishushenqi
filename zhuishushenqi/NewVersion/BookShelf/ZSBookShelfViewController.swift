@@ -111,6 +111,7 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
         navigationController?.isNavigationBarHidden = true
         automaticallyAdjustsScrollViewInsets = false
         self.tableView.reloadData()
+        ZSShelfManager.share.refresh()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -154,6 +155,7 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
                 self?.tableView.reloadData()
             }
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(localChangeNoti(noti:)), name: NSNotification.Name.ShelfChanged, object: nil)
     }
     
     func jumpCheck(type:ShelfNav, next:@escaping ()->Void) {
@@ -189,7 +191,9 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
             alert(with: "提示", message: "该功能待上线,请更新版本后再次尝试!", okTitle: "确定")
             break
         case .more:
-            alert(with: "提示", message: "该功能待上线,请更新版本后再次尝试!", okTitle: "确定")
+            let localVC = ZSBookLocalShelfViewController()
+            localVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(localVC, animated: true)
             break
         default:
             break
@@ -220,6 +224,18 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
                 navigationController?.pushViewController(topicVC, animated: true)
             }
         }
+    }
+    
+    //MARK: - local handler
+    @objc
+    private func localChangeNoti(noti:Notification) {
+        tableView.reloadData()
+    }
+    
+    //MARK: - changeIndex
+    private func move(from:IndexPath, to:IndexPath) {
+        ZSShelfManager.share.change(from: from.row, to: to.row)
+        tableView.reloadData()
     }
     
     //MARK: - NavigationBarDelegate
@@ -256,11 +272,20 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     
     //MARK: - ZSShelfOperatingViewDelegate
     func opView(opView: ZSShelfOperatingView, clickTop: UIButton) {
-        
+        guard let book = opView.book else { return }
+        if book.bookType == .local {
+            return
+        }
+        ZSBookCache.share.remove(book.bookName)
+        ZSShelfManager.share.removeHistory(bookUrl: book.bookUrl)
+        Toast.show(tip: "删除成功", .success, 1)
     }
     
     func opView(opView: ZSShelfOperatingView, clickDetail: UIButton) {
         let book = opView.book
+        if book?.bookType == .local {
+            return
+        }
         let infoVC = ZSSearchInfoViewController()
         infoVC.model = book
         infoVC.hidesBottomBarWhenPushed = true
@@ -270,14 +295,20 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     func opView(opView: ZSShelfOperatingView, clickDelete: UIButton) {
         if let book = opView.book {
             if ZSShelfManager.share.remove(book.bookUrl) {
+                ZSShelfManager.share.remove(book.bookUrl)
+                ZSShelfManager.share.removeAikan(bookUrl: book.bookUrl)
+                ZSBookCache.share.remove(book.bookName)
                 tableView.reloadData()
-                Toast.show(tip: "删除成功", .success, 2)
+                Toast.show(tip: "删除成功", .success, 1)
             }
         }
     }
     
     func opView(opView: ZSShelfOperatingView, clickSource: UIButton) {
         let book = opView.book
+        if book?.bookType == .local {
+            return
+        }
         if let source = ZSSourceManager.share.source(book?.host ?? "") {
             let addVC = ZSAddSourceViewController()
             addVC.source = source
@@ -289,6 +320,9 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     func opView(opView: ZSShelfOperatingView, clickDownload: UIButton) {
         guard let book = opView.book else { return }
         guard let indexPath = opView.indexPath else { return }
+        if book.bookType == .local {
+            return
+        }
         ZSReaderDownloader.share.download(book: book, start: 0) { [weak self] (index) in
             let cell = self?.tableView.cellForRow(at: indexPath) as? ZSShelfTableViewCell
             cell?.progress(value: CGFloat(index ?? 0), max: CGFloat(book.chaptersModel.count))
@@ -339,13 +373,33 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let book = ZSShelfManager.share.books[indexPath.row]
-        guard let aikan = ZSShelfManager.share.aikan(book) else { return }
-        if aikan.chaptersModel.count > 0 {
-            let readerVC = ZSReaderController(chapter: nil, aikan)
-            readerVC.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(readerVC, animated: true)
+        if book.bookType == .local {
+            Toast.showProgress(tip: "加载中", onView: view)
+            if let aikan = ZSShelfManager.share.aikan(book) {
+                jumpReader(book: aikan, indexPath: indexPath)
+            }
+            else if let shelf = QSReaderParse.parse(shelf: book) {
+                ZSShelfManager.share.addAikan(shelf)
+                jumpReader(book: shelf, indexPath: indexPath)
+            }
+            Toast.hiden()
         } else {
-            alert(with: "提示", message: "找不到该书籍", okTitle: "确定")
+            guard let aikan = ZSShelfManager.share.aikan(book) else { return }
+            if aikan.chaptersModel.count > 0 {
+                let readerVC = ZSReaderController(chapter: nil, aikan)
+                readerVC.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(readerVC, animated: true)
+                move(from: indexPath, to: IndexPath(row: 0, section: 0))
+            } else {
+                alert(with: "提示", message: "找不到该书籍", okTitle: "确定")
+            }
         }
+    }
+    
+    private func jumpReader(book:ZSAikanParserModel, indexPath:IndexPath) {
+        let readerVC = ZSReaderController(chapter: nil, book, bookType: book.bookType)
+        readerVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(readerVC, animated: true)
+        move(from: indexPath, to: IndexPath(row: 0, section: 0))
     }
 }

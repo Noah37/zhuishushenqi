@@ -34,6 +34,8 @@ class ZSShelfWebService: ZSBaseService {
                     
                     if let message = ZSShelfMessage.deserialize(from: obj["message"] as? [String:Any]) {
                         completion?(message)
+                    } else {
+                        completion?(nil)
                     }
                 } else {
                     completion?(nil)

@@ -20,6 +20,7 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
     var host:String = ""
     var contentReplace:String = ""
     var contentRemove:String = ""
+    var contentTagReplace:String = ""
     var content:String = ""
     var chapterUrl:String = ""
     var chapterName:String = ""
@@ -38,6 +39,8 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
     var books:String = ""
     var chaptersReverse:Bool = false
     var detailBookDesc:String = ""
+    
+    var bookType:ZSReaderBookStyle = .online
 
     override init() {
         
@@ -54,6 +57,7 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
         self.host = aDecoder.decodeObject(forKey: "host") as! String
         self.contentReplace = aDecoder.decodeObject(forKey: "contentReplace") as! String
         self.contentRemove = aDecoder.decodeObject(forKey: "contentRemove") as! String
+        self.contentTagReplace = aDecoder.decodeObject(forKey: "contentTagReplace") as? String ?? ""
         self.content = aDecoder.decodeObject(forKey: "content") as! String
         self.chapterUrl = aDecoder.decodeObject(forKey: "chapterUrl") as! String
         self.chapterName = aDecoder.decodeObject(forKey: "chapterName") as! String
@@ -72,6 +76,7 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
         self.books = aDecoder.decodeObject(forKey: "books") as! String
         self.chaptersReverse = aDecoder.decodeBool(forKey: "chaptersReverse")
         self.chaptersModel = aDecoder.decodeObject(forKey: "chaptersModel") as? [ZSBookChapter] ?? []
+        self.bookType = ZSReaderBookStyle(rawValue: aDecoder.decodeInteger(forKey: "bookType")) ?? ZSReaderBookStyle.online
     }
     
     func encode(with aCoder: NSCoder) {
@@ -85,6 +90,7 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
         aCoder.encode(self.host, forKey: "host")
         aCoder.encode(self.contentReplace, forKey: "contentReplace")
         aCoder.encode(self.contentRemove, forKey: "contentRemove")
+        aCoder.encode(self.contentTagReplace, forKey: "contentTagReplace")
         aCoder.encode(self.content, forKey: "content")
         aCoder.encode(self.chapterUrl, forKey: "chapterUrl")
         aCoder.encode(self.chapterName, forKey: "chapterName")
@@ -103,7 +109,7 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
         aCoder.encode(self.chaptersReverse, forKey: "chaptersReverse")
         aCoder.encode(self.chaptersModel, forKey: "chaptersModel")
         aCoder.encode(self.detailBookDesc, forKey: "detailBookDesc")
-
+        aCoder.encode(self.bookType.rawValue, forKey: "bookType")
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
@@ -118,6 +124,7 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
         copyModel.host = self.host
         copyModel.contentReplace = self.contentReplace
         copyModel.contentRemove = self.contentRemove
+        copyModel.contentTagReplace = self.contentTagReplace
         copyModel.content = self.content
         copyModel.chapterUrl = self.chapterUrl
         copyModel.chapterName = self.chapterName
@@ -136,6 +143,7 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
         copyModel.chaptersReverse = self.chaptersReverse
         copyModel.chaptersModel = self.chaptersModel
         copyModel.detailBookDesc = self.detailBookDesc
+        copyModel.bookType = self.bookType
         return copyModel
     }
 }

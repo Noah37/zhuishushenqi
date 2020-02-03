@@ -41,4 +41,8 @@ class ZSBookMemoryCache {
     func removeAllCache() {
         chapterInfo.removeAll()
     }
+    
+    func remove(_ key:String) {
+        chapterInfo.removeValue(forKey: key)
+    }
 }

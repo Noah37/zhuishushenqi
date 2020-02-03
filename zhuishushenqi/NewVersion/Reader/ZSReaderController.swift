@@ -27,6 +27,7 @@ struct ZSReaderPref {
     
     var type:ZSReaderPageStyle = ZSReader.share.pageStyle
     var readerVC:ZSReaderVCProtocol?
+    var bookType:ZSReaderBookStyle = .online
 }
 
 class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCatalogViewControllerDelegate,ZSReaderTouchAreaDelegate {
@@ -38,6 +39,17 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     var statusBarStyle:UIStatusBarStyle = .lightContent
     var statusBarHiden:Bool = true
     var touchArea:ZSReaderTouchArea = ZSReaderTouchArea(frame: UIScreen.main.bounds)
+    
+    convenience init(chapter:ZSBookChapter?,_ model:ZSAikanParserModel, bookType:ZSReaderBookStyle = .online) {
+        self.init()
+        viewModel.originalChapter = chapter
+        viewModel.model = model
+        toolBar.progress(minValue: 0, maxValue: Float(model.chaptersModel.count))
+        toolBar.delegate = self
+        touchArea.delegate = self
+        pref.bookType = bookType
+        load()
+    }
     
     convenience init(chapter:ZSBookChapter?,_ model:ZSAikanParserModel) {
         self.init()
@@ -371,6 +383,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     }
     
     func toolBar(toolBar: ZSReaderToolbar, readerStyle: ZSReaderStyle) {
+        ZSReader.share.theme.readerStyle = readerStyle
         pref.readerVC?.changeBg(style: readerStyle)
     }
     
@@ -394,6 +407,14 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         let enableFontPlus = ZSReader.share.theme.fontSize.enableSmaller
         toolBar.enablFontAdd(enableFontAdd)
         toolBar.enableFontPlus(enableFontPlus)
+    }
+    
+    func toolBar(toolBar: ZSReaderToolbar, animationStyle: UIButton) {
+
+    }
+    
+    func toolBar(toolBar:ZSReaderToolbar, select style:ZSReaderPageStyle) {
+        
     }
     
     //MARK: - ZSReaderCatalogViewControllerDelegate

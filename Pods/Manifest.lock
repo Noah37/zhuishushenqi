@@ -14,7 +14,9 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - HandyJSON (5.0.0)
-  - Kingfisher (5.7.1)
+  - Kingfisher (5.12.0):
+    - Kingfisher/Core (= 5.12.0)
+  - Kingfisher/Core (5.12.0)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.2.0)
   - MLeaksFinder (1.0.0):
@@ -69,7 +71,6 @@ DEPENDENCIES:
   - FLEX
   - FMDB
   - HandyJSON
-  - Kingfisher
   - MBProgressHUD
   - MJRefresh
   - MLeaksFinder
@@ -143,7 +144,7 @@ SPEC CHECKSUMS:
   FLEX: e13e805fc3eec8732cc227d1f7508770d46e9587
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   HandyJSON: 992f2d661716d6a91de82d0056927bc7813b5770
-  Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
+  Kingfisher: dc6e0f53bb5b12c3e75bedb0e01bbd7a640eea69
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
@@ -166,6 +167,6 @@ SPEC CHECKSUMS:
   ZSAppConfig: 52ccb894481ecaa28452d42d4d42db7a678d2786
   ZSExtension: 040334c0092668a134ecdc621c6ea129eb1faf40
 
-PODFILE CHECKSUM: efed1d2b7bc43ee5411f1fb699c49889a8d67094
+PODFILE CHECKSUM: 9b06cc976effac482394316a511e56ed879d3196
 
 COCOAPODS: 1.7.5

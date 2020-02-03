@@ -48,4 +48,12 @@ class Toast: UIView {
             break
         }
     }
+    
+    static func showProgress(tip:String, onView:UIView?, delay:TimeInterval = 1) {
+        HUD.show(.labeledProgress(title: tip, subtitle: nil), onView: onView)
+    }
+    
+    static func hiden(aniamted:Bool = true) {
+        HUD.hide(animated: aniamted)
+    }
 }

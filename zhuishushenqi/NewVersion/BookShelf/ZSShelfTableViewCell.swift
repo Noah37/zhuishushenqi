@@ -79,6 +79,11 @@ class ZSShelfTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        finish()
+    }
+    
     @objc
     private func moreAction(bt:UIButton) {
         delegate?.shelfCell(cell: self, clickMore: bt)
@@ -107,7 +112,7 @@ class ZSShelfTableViewCell: UITableViewCell {
         super.layoutSubviews()
         imageView?.frame = CGRect(x: 20, y: 10, width: 60, height: bounds.height - 20)
         darkRingBackground.frame = CGRect(x: 0, y: 0, width: 60, height: bounds.height - 20)
-        booknameLB.frame = CGRect(x: (imageView?.frame.maxX ?? 0) + 10, y: 10, width: 200, height: 20)
+        booknameLB.frame = CGRect(x: (imageView?.frame.maxX ?? 0) + 10, y: 10, width: bounds.width - 60 - (imageView?.frame.maxX ?? 0) - 10, height: 20)
         authorLB.frame = CGRect(x: (imageView?.frame.maxX ?? 0) + 10, y: bounds.height - 30, width: 200, height: 20)
         moreBT.frame = CGRect(x: bounds.width - 60, y: 10, width: 40, height: 40)
         progressRing.frame = imageView?.bounds  ?? CGRect(x: 0, y: 0, width: 60, height: bounds.height - 20)

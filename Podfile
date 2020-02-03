@@ -3,9 +3,9 @@ source 'https://github.com/sinaweibosdk/weibo_ios_sdk.git'
 
 # 对于Swift应用来说下面两句是必须的
 platform :ios, '10.0'
-#use_frameworks!
+use_frameworks!
 # Swift静态库方式
-use_modular_headers!
+#use_modular_headers!
 inhibit_all_warnings!
 branch = ENV['sha']
 
@@ -32,7 +32,7 @@ pod 'FBRetainCycleDetector'
 pod 'Alamofire'
 pod 'Cache'
 pod 'HandyJSON'
-pod 'Kingfisher'
+#pod 'Kingfisher'
 pod 'PKHUD'
 pod 'SnapKit', '5.0.0'
 pod 'SQLite.swift'

@@ -157,6 +157,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if url.isFileURL {
+            NotificationCenter.default.post(name: NSNotification.Name.LocalShelfChanged, object: nil)
+            return true
+        }
         QQApiInterface.handleOpen(url, delegate: ZSThirdLogin.share)
         if TencentOAuth.canHandleOpen(url) {
             return TencentOAuth.handleOpen(url)

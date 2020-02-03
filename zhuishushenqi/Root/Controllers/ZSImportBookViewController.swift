@@ -69,8 +69,7 @@ class ZSImportBookViewController: BaseViewController {
     }
     
     func setupNoti(){
-        NotificationCenter.qs_addObserver(observer: self, selector: #selector(uploadFinished(noti:)), name: ZSHTTPConnectionUploadFileFinished, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(uploadFinished(noti:)), name: NSNotification.Name.init(rawValue: ZSHTTPConnectionUploadFileFinished), object: nil)
     }
     
     @objc func uploadFinished(noti:Notification){

@@ -1,4 +1,4 @@
-module YYText {
+framework module YYText {
   umbrella header "YYText-umbrella.h"
 
   export *

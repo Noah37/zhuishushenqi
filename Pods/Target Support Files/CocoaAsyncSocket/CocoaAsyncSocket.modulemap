@@ -1,4 +1,4 @@
-module CocoaAsyncSocket {
+framework module CocoaAsyncSocket {
   umbrella header "CocoaAsyncSocket-umbrella.h"
 
   export *

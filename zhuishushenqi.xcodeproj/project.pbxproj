@@ -185,7 +185,7 @@
 		3DFBDEDD21F1A7ED00AED519 /* ZSCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFBDEDC21F1A7EC00AED519 /* ZSCacheHelper.swift */; };
 		3DFCF6EF21E6470000D3A8EC /* ZSVoucherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCF6EE21E6470000D3A8EC /* ZSVoucherView.swift */; };
 		3DFCF6F421E9984100D3A8EC /* ZSSwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCF6F321E9984000D3A8EC /* ZSSwipeCell.swift */; };
-		44AAC09673FD79492D5A8AD3 /* libPods-zhuishushenqi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B709FADDF3063B2AB6FD926 /* libPods-zhuishushenqi.a */; };
+		567D4C5122D3A2E149B8AD65 /* Pods_zhuishushenqi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DD667D5A369B09442DE895 /* Pods_zhuishushenqi.framework */; };
 		B200D1FF1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200D1FD1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift */; };
 		B200D2001EEDB1FE003A42E3 /* QSIntroduceReadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B200D1FE1EEDB1FE003A42E3 /* QSIntroduceReadCell.xib */; };
 		B200D2221EEE44AB003A42E3 /* QSLaunchRecView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B200D2211EEE44AB003A42E3 /* QSLaunchRecView.xib */; };
@@ -193,6 +193,7 @@
 		B203BB651E9E119400F9C052 /* QSSearchViewController+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B203BB641E9E119400F9C052 /* QSSearchViewController+Transition.swift */; };
 		B203BB681E9E142C00F9C052 /* QSHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B203BB661E9E142C00F9C052 /* QSHistoryCell.swift */; };
 		B203BB691E9E142C00F9C052 /* QSHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B203BB671E9E142C00F9C052 /* QSHistoryCell.xib */; };
+		B209975123DBFA2D00E37FD3 /* ZSBookLocalShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B209975023DBFA2D00E37FD3 /* ZSBookLocalShelfViewController.swift */; };
 		B20D74081EED7D250034516F /* QSIntroduceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20D74061EED7D250034516F /* QSIntroduceCell.swift */; };
 		B20D74091EED7D250034516F /* QSIntroduceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B20D74071EED7D250034516F /* QSIntroduceCell.xib */; };
 		B20D74161EED83690034516F /* QSLastIntroduceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20D74141EED83690034516F /* QSLastIntroduceCell.swift */; };
@@ -378,6 +379,7 @@
 		B27D7EA11F4D593D00866341 /* UIScrollView+StateView.m in Sources */ = {isa = PBXBuildFile; fileRef = B27D7EA01F4D593D00866341 /* UIScrollView+StateView.m */; };
 		B2840F3422C85B75009C9116 /* ZSBookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2840F3322C85B75009C9116 /* ZSBookShelfViewModel.swift */; };
 		B286F01A202981DD0069565B /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B286F019202981DD0069565B /* NSObject+Extension.swift */; };
+		B289DD7C23E5C51A004ED039 /* ZSReaderStyleSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289DD7B23E5C51A004ED039 /* ZSReaderStyleSelectionView.swift */; };
 		B28FFC861EAFAED600C27FF9 /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = B28FFC851EAFAED600C27FF9 /* NSString+Encode.m */; };
 		B28FFC921EB03EA300C27FF9 /* QSHomeDeleteBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28FFC911EB03EA300C27FF9 /* QSHomeDeleteBtn.swift */; };
 		B29A6D032029C5B400AC4C73 /* NotificationCenter+QSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29A6D022029C5B400AC4C73 /* NotificationCenter+QSExtension.swift */; };
@@ -865,7 +867,6 @@
 		3DFBDEDC21F1A7EC00AED519 /* ZSCacheHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCacheHelper.swift; sourceTree = "<group>"; };
 		3DFCF6EE21E6470000D3A8EC /* ZSVoucherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVoucherView.swift; sourceTree = "<group>"; };
 		3DFCF6F321E9984000D3A8EC /* ZSSwipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSwipeCell.swift; sourceTree = "<group>"; };
-		7B709FADDF3063B2AB6FD926 /* libPods-zhuishushenqi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-zhuishushenqi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B08901F972525F29A370AA86 /* Pods-zhuishushenqi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zhuishushenqi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi.debug.xcconfig"; sourceTree = "<group>"; };
 		B200D1FD1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroduceReadCell.swift; sourceTree = "<group>"; };
 		B200D1FE1EEDB1FE003A42E3 /* QSIntroduceReadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSIntroduceReadCell.xib; sourceTree = "<group>"; };
@@ -874,6 +875,7 @@
 		B203BB641E9E119400F9C052 /* QSSearchViewController+Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QSSearchViewController+Transition.swift"; sourceTree = "<group>"; };
 		B203BB661E9E142C00F9C052 /* QSHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHistoryCell.swift; sourceTree = "<group>"; };
 		B203BB671E9E142C00F9C052 /* QSHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSHistoryCell.xib; sourceTree = "<group>"; };
+		B209975023DBFA2D00E37FD3 /* ZSBookLocalShelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookLocalShelfViewController.swift; sourceTree = "<group>"; };
 		B20D74061EED7D250034516F /* QSIntroduceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroduceCell.swift; sourceTree = "<group>"; };
 		B20D74071EED7D250034516F /* QSIntroduceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSIntroduceCell.xib; sourceTree = "<group>"; };
 		B20D74141EED83690034516F /* QSLastIntroduceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSLastIntroduceCell.swift; sourceTree = "<group>"; };
@@ -1117,6 +1119,7 @@
 		B27D7EA01F4D593D00866341 /* UIScrollView+StateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+StateView.m"; sourceTree = "<group>"; };
 		B2840F3322C85B75009C9116 /* ZSBookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSBookShelfViewModel.swift; sourceTree = "<group>"; };
 		B286F019202981DD0069565B /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		B289DD7B23E5C51A004ED039 /* ZSReaderStyleSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderStyleSelectionView.swift; sourceTree = "<group>"; };
 		B28FFC841EAFAED600C27FF9 /* NSString+Encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encode.h"; sourceTree = "<group>"; };
 		B28FFC851EAFAED600C27FF9 /* NSString+Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encode.m"; sourceTree = "<group>"; };
 		B28FFC911EB03EA300C27FF9 /* QSHomeDeleteBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHomeDeleteBtn.swift; sourceTree = "<group>"; };
@@ -1358,6 +1361,7 @@
 		B2FCAA8A1E9C82CE0064837C /* QSSearchItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSSearchItem.swift; sourceTree = "<group>"; };
 		B2FCAA8C1E9C85600064837C /* QSHistoryHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSHistoryHeaderView.swift; sourceTree = "<group>"; };
 		C17F4CC59FFA95D661BDB3BB /* Pods-zhuishushenqi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zhuishushenqi.release.xcconfig"; path = "Pods/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi.release.xcconfig"; sourceTree = "<group>"; };
+		E6DD667D5A369B09442DE895 /* Pods_zhuishushenqi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_zhuishushenqi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1391,7 +1395,7 @@
 				B22182BD1DA40550002458D2 /* CoreGraphics.framework in Frameworks */,
 				B22182BB1DA40548002458D2 /* CoreFoundation.framework in Frameworks */,
 				B22182B91DA40540002458D2 /* CoreText.framework in Frameworks */,
-				44AAC09673FD79492D5A8AD3 /* libPods-zhuishushenqi.a in Frameworks */,
+				567D4C5122D3A2E149B8AD65 /* Pods_zhuishushenqi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1427,6 +1431,7 @@
 				3D05BCB723C59314001EAB2A /* ZSReaderBottomBar.swift */,
 				3D1FFDEF23C9A68F0017ECE7 /* ZSReaderBottomBigBar.swift */,
 				3D1FFDF123C9A9600017ECE7 /* ZSReaderThemeSelectionView.swift */,
+				B289DD7B23E5C51A004ED039 /* ZSReaderStyleSelectionView.swift */,
 				3D1330CA23C6FA9200D81EF4 /* ZSReaderTouchArea.swift */,
 				3D29C7AA233381A600113A25 /* ZSReaderVCProtocol.swift */,
 				3D29C7AC23347E6900113A25 /* ZSReaderBaseViewModel.swift */,
@@ -1467,6 +1472,7 @@
 				3D05BCBF23C5EAFE001EAB2A /* ZSShelfManager.swift */,
 				B2840F3322C85B75009C9116 /* ZSBookShelfViewModel.swift */,
 				3D448E5622C501C40099B6E8 /* ZSBookShelfViewController.swift */,
+				B209975023DBFA2D00E37FD3 /* ZSBookLocalShelfViewController.swift */,
 				3D1FFDED23C89A4E0017ECE7 /* ZSShelfTableViewCell.swift */,
 				3D1E315423D1B30700A2359E /* ZSToast.swift */,
 			);
@@ -1937,7 +1943,7 @@
 				B22182BC1DA40550002458D2 /* CoreGraphics.framework */,
 				B22182BA1DA40548002458D2 /* CoreFoundation.framework */,
 				B22182B81DA40540002458D2 /* CoreText.framework */,
-				7B709FADDF3063B2AB6FD926 /* libPods-zhuishushenqi.a */,
+				E6DD667D5A369B09442DE895 /* Pods_zhuishushenqi.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3125,6 +3131,7 @@
 				B2EE7CE81F3BEEE000BE997C /* ShellScript */,
 				3DA90F2B22CDDC1E000306DA /* Embed Frameworks from Carthage */,
 				7DA515E8AF9C0CFD3E8EE750 /* [CP] Copy Pods Resources */,
+				FD524380448A2648D747098B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3359,21 +3366,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi-resources.sh",
-				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/PKHUD/PKHUDResources.bundle",
 				"${PODS_ROOT}/Weibo_SDK/libWeiboSDK/WeiboSDK.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ZSAPI/ZSAPI.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ZSAppConfig/ZSAppConfig.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ZSExtension/ZSExtension.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PKHUDResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WeiboSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSAPI.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSAppConfig.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZSExtension.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3393,6 +3390,78 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n# Localizable.strings文件路径\nlocalizableFile=\"${SRCROOT}/en.lproj/Localizable.strings\"\n# 生成的swift文件路径（根据个人习惯修改）\nlocalizedFile=\"${SRCROOT}/${PROJECT_NAME}/Extension/LocalizedUtils.swift\"\n# 将localizable.strings中的文本转为swift格式的常量，存入一个临时文件\nsed \"s/^\\\"/  static var localized_/g\" \"${localizableFile}\" | sed \"s/\\\" = \\\"/: String { return \\\"/g\" | sed \"s/;$/.localized }/g\" > \"${localizedFile}.tmp\"\n# 先将localized作为计算属性输出到目标文件\necho -e \"import Foundation\\n\\nextension String {\\n  var localized: String { return NSLocalizedString(self, comment: self) }\" > \"${localizedFile}\"\n# 再将临时文件中的常量增量输出到目标文件\ncat \"${localizedFile}.tmp\" >> \"${localizedFile}\"\n# 最后增量输出一个\"}\"到目标文件，完成输出\necho -e \"\\n}\" >> \"${localizedFile}\"\n# 删除临时文件\nrm \"${localizedFile}.tmp\"\n\n";
+		};
+		FD524380448A2648D747098B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/FBRetainCycleDetector/FBRetainCycleDetector.framework",
+				"${BUILT_PRODUCTS_DIR}/FLEX/FLEX.framework",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
+				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/MLeaksFinder/MLeaksFinder.framework",
+				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
+				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
+				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
+				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSAPI/ZSAPI.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSAppConfig/ZSAppConfig.framework",
+				"${BUILT_PRODUCTS_DIR}/ZSExtension/ZSExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBRetainCycleDetector.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLEX.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MLeaksFinder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSAPI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSAppConfig.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3572,6 +3641,7 @@
 				B2C0DF2C20D4CB350057DC84 /* BookShelfInfo.swift in Sources */,
 				B278AA981F396073000A0D55 /* ReadHistoryCell.swift in Sources */,
 				B2B4BC141E7EA4AB000CC201 /* SearchView.swift in Sources */,
+				B209975123DBFA2D00E37FD3 /* ZSBookLocalShelfViewController.swift in Sources */,
 				B2C0DF2520D4CB350057DC84 /* PageViewController.swift in Sources */,
 				3DDB6CAC2130F4BC00E8698D /* CoreTextData.m in Sources */,
 				B25CEFEE22F9268A002ABE30 /* MarkupParser.swift in Sources */,
@@ -3787,6 +3857,7 @@
 				B252D4E4211037380091858E /* ZSShelfViewController.swift in Sources */,
 				B2C0DF8120D4CC5A0057DC84 /* ZSBaseService.swift in Sources */,
 				B2B02E2D1EA8505200A6880A /* QSTopicDetailProtocols.swift in Sources */,
+				B289DD7C23E5C51A004ED039 /* ZSReaderStyleSelectionView.swift in Sources */,
 				B2583CBE1EA782C2004178F3 /* QSThemeTopicViewController.swift in Sources */,
 				B2B02E571EA9A9F000A6880A /* ZSVoicePlayerCatelogHeaderView.swift in Sources */,
 				B2C0DF6320D4CB350057DC84 /* ChangeSourceViewController.swift in Sources */,

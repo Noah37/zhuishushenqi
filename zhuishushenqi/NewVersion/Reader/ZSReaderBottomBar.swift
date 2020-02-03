@@ -26,7 +26,9 @@ class ZSReaderBottomBar: UIView {
         let bar = UISlider(frame: UIScreen.main.bounds)
         bar.minimumTrackTintColor = UIColor.white
         bar.maximumTrackTintColor = UIColor.gray
-        bar.addTarget(self, action: #selector(sliderAction(slider:)), for: .valueChanged)
+        bar.addTarget(self, action: #selector(sliderAction(slider:)), for: .touchUpInside)
+        bar.addTarget(self, action: #selector(sliderAction(slider:)), for: .touchUpOutside)
+        bar.addTarget(self, action: #selector(sliderAction(slider:)), for: .touchCancel)
         return bar
     }()
     

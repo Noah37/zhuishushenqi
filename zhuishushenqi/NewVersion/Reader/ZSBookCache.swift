@@ -43,4 +43,13 @@ class ZSBookCache {
         return false
     }
 
+    func remove(_ key:String, book:String) {
+        ZSBookMemoryCache.share.remove(key)
+        ZSBookDiskCache.share.remove(key, book: book)
+    }
+    
+    func remove(_ book:String) {
+        ZSBookMemoryCache.share.removeAllCache()
+        ZSBookDiskCache.share.remove(book)
+    }
 }

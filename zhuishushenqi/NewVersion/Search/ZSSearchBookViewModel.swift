@@ -261,7 +261,9 @@ class ZSSearchBookViewModel {
         Alamofire.request(bookUrl, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData { [weak self] (data) in
             if let htmlData = data.data {
                 let htmlString = String(data: htmlData, encoding: String.Encoding.zs_encoding(str: src.searchEncoding)) ?? ""
-                guard let document = OCGumboDocument(htmlString: htmlString) else { return }
+                let tagRemove = self?.contentTagRemove(string: htmlString, reg: src.contentTagReplace, encoding: src.searchEncoding) ?? htmlString
+
+                guard let document = OCGumboDocument(htmlString: tagRemove) else { return }
                 // 如果detailChaptersUrl不存在，则直接去chapters
                 var reg = src.detailChaptersUrl
                 if reg.length > 0 {
@@ -367,6 +369,33 @@ class ZSSearchBookViewModel {
                 }
             }
         }
+    }
+    
+    private func contentTagRemove(string:String, reg:String, encoding:String) ->String {
+        var resultString = string
+        guard let data = reg.data(using: .utf8) else { return resultString }
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [[String:Any]] else {
+            return resultString
+        }
+        for regInfo in json {
+            let noRegular = regInfo["noRegular"] as? Bool ?? false
+            let regString = regInfo["reg"] as? String ?? ""
+            if noRegular {
+                resultString = resultString.replacingOccurrences(of: regString, with: "")
+            } else {
+                let reg = try? NSRegularExpression(pattern: regString, options: NSRegularExpression.Options.allowCommentsAndWhitespace)
+                let subString = resultString.nsString.substring(with: NSMakeRange(0, resultString.nsString.length))
+                print(subString)
+                if let results = reg?.matches(in: resultString, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, resultString.nsString.length)) {
+                    for result in results {
+                        if let subString = resultString.substingInRange(result.range.location..<(result.range.location + result.range.length)) {
+                            resultString = resultString.replacingOccurrences(of: subString, with: "")
+                        }
+                    }
+                }
+            }
+        }
+        return resultString
     }
     
     private func requestSearchHotwords(completion:@escaping()->Void) {

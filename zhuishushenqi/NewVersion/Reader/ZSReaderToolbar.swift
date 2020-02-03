@@ -20,6 +20,8 @@ protocol ZSReaderToolbarDelegate:class {
     func toolBar(toolBar:ZSReaderToolbar, readerStyle:ZSReaderStyle)
     func toolBar(toolBar:ZSReaderToolbar, fontAdd:UIButton)
     func toolBar(toolBar:ZSReaderToolbar, fontPlus:UIButton)
+    func toolBar(toolBar:ZSReaderToolbar, animationStyle:UIButton)
+    func toolBar(toolBar:ZSReaderToolbar, select style:ZSReaderPageStyle)
 
     func toolBarWillShow(toolBar:ZSReaderToolbar)
     func toolBarDidShow(toolBar:ZSReaderToolbar)
@@ -28,7 +30,7 @@ protocol ZSReaderToolbarDelegate:class {
 
 }
 
-class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate, ZSReaderBottomBigBarDelegate {
+class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate, ZSReaderBottomBigBarDelegate,ZSReaderStyleSelectionViewDelegate {
     
     weak var delegate:ZSReaderToolbarDelegate?
     
@@ -64,12 +66,19 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         return bar
     }()
     
+    lazy var readerStyleView:ZSReaderStyleSelectionView = {
+        let view = ZSReaderStyleSelectionView(frame: CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 375))
+        view.delegate = self
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(bgView)
         addSubview(topBar)
         addSubview(bottomBar)
         addSubview(bottomBigBar)
+        addSubview(readerStyleView)
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
         bgView.addGestureRecognizer(tap)
         let pan = UIPanGestureRecognizer { (_) in
@@ -86,6 +95,7 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     func show(inView:UIView,_ animated:Bool) {
         bottomBar.isHidden = false
         bottomBigBar.isHidden = true
+        readerStyleView.isHidden = true
         if animated {
             self.delegate?.toolBarWillShow(toolBar: self)
             UIView.animate(withDuration: 0.5, animations: {
@@ -113,6 +123,7 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
                 self.topBar.frame.origin.y = -kNavgationBarHeight
                 self.bottomBar.frame.origin.y = self.bounds.height
                 self.bottomBigBar.frame.origin.y = self.bounds.height
+                self.readerStyleView.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 375)
                 self.delegate?.toolBarDidHiden(toolBar: self)
             }) { (finish) in
                 self.removeFromSuperview()
@@ -122,6 +133,7 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
             self.topBar.frame.origin.y = -kNavgationBarHeight
             self.bottomBar.frame.origin.y = self.bounds.height
             self.bottomBigBar.frame.origin.y = self.bounds.height
+            self.readerStyleView.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 375)
             removeFromSuperview()
             self.delegate?.toolBarDidHiden(toolBar: self)
         }
@@ -144,6 +156,15 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     private func tapAction() {
         hiden(true)
     }
+    
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        let view = super.hitTest(point, with: event)
+////        let readerPoint = self.convert(point, to: readerStyleView)
+//        if readerStyleView.frame.contains(point) {
+//            return readerStyleView
+//        }
+//        return view
+//    }
     
     //MARK: - ZSReaderTopbarDelegate
     func topBar(topBar: ZSReaderTopbar, clickBack: UIButton) {
@@ -193,5 +214,19 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     
     func bigBar(bigBar: ZSReaderBottomBigBar, fontPlus: UIButton) {
         delegate?.toolBar(toolBar: self, fontPlus: fontPlus)
+    }
+    
+    func bigBar(bigBar: ZSReaderBottomBigBar, animationStyle: UIButton) {
+        delegate?.toolBar(toolBar: self, animationStyle: animationStyle)
+        readerStyleView.isHidden = false
+        bottomBar.isHidden = true
+        bigBar.isHidden = true
+        readerStyleView.frame = CGRect(x: 0, y: self.bounds.height - 375, width: self.bounds.width, height: 375)
+        readerStyleView.tableView.reloadData()
+    }
+    
+    //MARK: - ZSReaderStyleSelectionViewDelegate
+    func style(selectionView:ZSReaderStyleSelectionView, select style:ZSReaderPageStyle) {
+        delegate?.toolBar(toolBar: self, select: style)
     }
 }

@@ -1,4 +1,4 @@
-module YYModel {
+framework module YYModel {
   umbrella header "YYModel-umbrella.h"
 
   export *

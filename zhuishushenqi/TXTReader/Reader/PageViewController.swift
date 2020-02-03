@@ -239,7 +239,7 @@ class PageViewController: UIViewController {
 
     lazy var bgView:UIImageView = {
         let bgView:UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
-        bgView.image = AppStyle.shared.reader.backgroundImage
+        bgView.image = ZSReader.share.theme.readerStyle.backgroundImage
         bgView.backgroundColor = UIColor.white
         bgView.isUserInteractionEnabled = true
         return bgView

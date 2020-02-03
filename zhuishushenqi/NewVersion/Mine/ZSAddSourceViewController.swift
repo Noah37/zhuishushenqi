@@ -181,6 +181,14 @@ class ZSAddSourceViewController: BaseViewController {
         return tf
     }()
     
+    lazy var contentTagRemoveTF:ZSAddLineView = {
+        let tf = ZSAddLineView(frame: .zero)
+        tf.placeholder = "请输入"
+        tf.text = "contentTagRemove"
+        tf.delegate = self
+        return tf
+    }()
+    
     lazy var searchEncodingTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
@@ -211,7 +219,7 @@ class ZSAddSourceViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        scrollView.contentSize = CGSize(width: self.view.bounds.width, height: 21 * 50 + 18*10 + kNavgationBarHeight + 20)
+        scrollView.contentSize = CGSize(width: self.view.bounds.width, height: 22 * 50 + 19*10 + kNavgationBarHeight + 20)
     }
     
     private func setupSubviews() {
@@ -367,10 +375,18 @@ class ZSAddSourceViewController: BaseViewController {
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
+        
+        scrollView.addSubview(self.contentTagRemoveTF)
+        contentTagRemoveTF.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.snp.left).offset(20)
+            make.top.equalTo(self.contentReplaceTF.snp.bottom).offset(10)
+            make.right.equalTo(self.view.snp.right).offset(-20)
+            make.height.equalTo(50)
+        }
         scrollView.addSubview(self.searchEncodingTF)
         searchEncodingTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
-            make.top.equalTo(self.contentReplaceTF.snp.bottom).offset(10)
+            make.top.equalTo(self.contentTagRemoveTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
@@ -405,6 +421,7 @@ class ZSAddSourceViewController: BaseViewController {
         searchEncodingTF.tfText = model.searchEncoding
         contentRemoveTF.tfText = model.contentRemove
         contentReplaceTF.tfText = model.contentReplace
+        contentTagRemoveTF.tfText = model.contentTagReplace
     }
     
     @objc
@@ -436,6 +453,7 @@ class ZSAddSourceViewController: BaseViewController {
         model.searchEncoding = searchEncodingTF.textField.text ?? ""
         model.contentReplace = contentReplaceTF.textField.text ?? ""
         model.contentRemove = contentRemoveTF.textField.text ?? ""
+        model.contentTagReplace = contentTagRemoveTF.textField.text ?? ""
         ZSSourceManager.share.add(source: model)
         navigationController?.popViewController(animated: true)
     }

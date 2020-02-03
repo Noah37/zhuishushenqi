@@ -80,6 +80,10 @@ class ZSPageViewController: BaseViewController, ZSReaderVCProtocol {
     private func tapAction(tap:UITapGestureRecognizer) {
         toolBar?.show(inView: view, true)
     }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
 }
 
 extension ZSPageViewController:UIPageViewControllerDataSource, UIPageViewControllerDelegate {

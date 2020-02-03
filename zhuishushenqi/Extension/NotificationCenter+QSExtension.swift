@@ -43,4 +43,6 @@ extension Notification.Name {
     static let ReaderStyleChanged = Notification.Name("ReaderStyleChanged")
     static let ReaderFontSizeChanged = Notification.Name("ReaderFontSizeChanged")
     static let ReaderAnimationStyleChanged = Notification.Name("ReaderAnimationStyleChanged")
+    static let LocalShelfChanged = Notification.Name("LocalShelfChanged")
+    static let ShelfChanged = Notification.Name("ShelfChanged")
 }

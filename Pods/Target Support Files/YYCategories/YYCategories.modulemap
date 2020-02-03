@@ -1,4 +1,4 @@
-module YYCategories {
+framework module YYCategories {
   umbrella header "YYCategories-umbrella.h"
 
   export *

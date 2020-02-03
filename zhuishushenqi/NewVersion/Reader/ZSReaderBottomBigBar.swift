@@ -13,6 +13,7 @@ protocol ZSReaderBottomBigBarDelegate:class {
     func bigBar(bigBar:ZSReaderBottomBigBar, readerStyle:ZSReaderStyle)
     func bigBar(bigBar:ZSReaderBottomBigBar, fontAdd:UIButton)
     func bigBar(bigBar:ZSReaderBottomBigBar, fontPlus:UIButton)
+    func bigBar(bigBar:ZSReaderBottomBigBar, animationStyle:UIButton)
 }
 
 class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
@@ -218,7 +219,7 @@ class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
     
     @objc
     private func catalogAction(bt:UIButton) {
-        
+        delegate?.bigBar(bigBar: self, animationStyle: bt)
     }
     
     @objc
