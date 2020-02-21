@@ -56,7 +56,7 @@ class ZSVerticalViewController: BaseViewController, ZSReaderVCProtocol {
         pageVC.bgView.image = style.backgroundImage
     }
     
-    func jumpPage(page: ZSBookPage) {
+    func jumpPage(page: ZSBookPage,_ animated:Bool, _ direction:UIPageViewController.NavigationDirection = .forward) {
         pageVC.newPage = page
         tableView.beginUpdates()
         tableView.reloadSection(UInt(page.chapterIndex), with: UITableView.RowAnimation.automatic)

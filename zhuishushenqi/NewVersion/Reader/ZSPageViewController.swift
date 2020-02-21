@@ -34,7 +34,7 @@ class ZSPageViewController: BaseViewController, ZSReaderVCProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGesture()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,25 +64,14 @@ class ZSPageViewController: BaseViewController, ZSReaderVCProtocol {
         pageVC.bgView.image = style.backgroundImage
     }
     
-    func jumpPage(page: ZSBookPage) {
+    func jumpPage(page: ZSBookPage,_ animated:Bool = false,_ direction:UIPageViewController.NavigationDirection = .forward) {
         pageVC.newPage = page
-        horizonalController.setViewControllers([pageVC], direction: UIPageViewController.NavigationDirection.forward, animated: false, completion: nil)
-    }
-    
-    private func setupGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
-        tap.numberOfTouchesRequired = 1
-        tap.numberOfTapsRequired = 1
-        view.addGestureRecognizer(tap)
+        horizonalController.setViewControllers([pageVC], direction: UIPageViewController.NavigationDirection.forward, animated: animated, completion: nil)
     }
     
     @objc
     private func tapAction(tap:UITapGestureRecognizer) {
         toolBar?.show(inView: view, true)
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
     }
 }
 
