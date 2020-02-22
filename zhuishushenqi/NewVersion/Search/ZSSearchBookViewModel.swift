@@ -333,7 +333,7 @@ class ZSSearchBookViewModel {
 //                    let bookLastChapterName = ZSAikanHtmlParser.string(node: document, aikanString: src.bookLastChapterName, text: true)
 //                    let bookUpdateTime = ZSAikanHtmlParser.string(node: document, aikanString: src.bookUpdateTime, text: true)
 
-                    let detailBookDesc = parse.string(withGumboNode: document, withAikanString: src.detailBookDesc, withText: false)
+                    let detailBookDesc = parse.string(withGumboNode: document, withAikanString: src.detailBookDesc, withText: true)
                     let detailBookIcon = parse.string(withGumboNode: document, withAikanString: src.detailBookIcon, withText: false)
                     let bookLastChapterName = parse.string(withGumboNode: document, withAikanString: src.bookLastChapterName, withText: true)
                     let bookUpdateTime = parse.string(withGumboNode: document, withAikanString: src.bookUpdateTime, withText: true)
