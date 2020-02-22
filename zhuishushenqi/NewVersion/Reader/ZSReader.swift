@@ -81,7 +81,7 @@ class ZSReader {
     var didChangeTheme: (ZSReaderTheme) ->Void = { _ in }
     
     private init() {
-        pageStyle = ZSReaderPageStyle.init(rawValue: getValue(for: "\(ZSReader.self).\(ZSReaderPageStyle.self)")) ?? .pageCurl
+//        pageStyle = ZSReaderPageStyle.init(rawValue: getValue(for: "\(ZSReader.self).\(ZSReaderPageStyle.self)")) ?? .pageCurl
 //        contentFrame = getRectValue(for: "\(ZSReader.self).contentFrame").equalTo(CGRect.zero) ? UIScreen.main.bounds:getRectValue(for: "\(ZSReader.self).contentFrame")
         bookStyle = ZSReaderBookStyle.init(rawValue: getValue(for:
             "\(ZSReader.self).\(ZSReaderBookStyle.self)")) ?? .online

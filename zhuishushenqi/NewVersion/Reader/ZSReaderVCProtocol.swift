@@ -24,5 +24,5 @@ protocol ZSReaderVCProtocol {
     func changeBg(style:ZSReaderStyle)
     
     // reader调用子页面更新page
-    func jumpPage(page:ZSBookPage)
+    func jumpPage(page:ZSBookPage,_ animated:Bool,_ direction:UIPageViewController.NavigationDirection)
 }

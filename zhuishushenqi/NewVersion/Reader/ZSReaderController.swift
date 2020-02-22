@@ -10,6 +10,12 @@ import UIKit
 
 struct ZSReaderPref {
     
+    static let leftFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height)
+    static let centerFrame = CGRect(x: UIScreen.main.bounds.width/3, y: 0, width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height)
+
+    static let rightFrame = CGRect(x: UIScreen.main.bounds.width*2.0/3, y: 0, width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height)
+
+    
     init() {
         switch type {
         case .normal:
@@ -25,12 +31,30 @@ struct ZSReaderPref {
         }
     }
     
-    var type:ZSReaderPageStyle = ZSReader.share.pageStyle
+    var type:ZSReaderPageStyle {
+        get {
+            return ZSReader.share.pageStyle
+        }
+    }
     var readerVC:ZSReaderVCProtocol?
     var bookType:ZSReaderBookStyle = .online
+    mutating func change() {
+        switch type {
+        case .normal:
+            readerVC = ZSNormalViewController()
+        case .vertical:
+            break
+        case .horizonal:
+            readerVC = ZSHorizonalViewController()
+            break
+        case .pageCurl:
+            readerVC = ZSPageViewController()
+            break
+        }
+    }
 }
 
-class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCatalogViewControllerDelegate,ZSReaderTouchAreaDelegate {
+class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCatalogViewControllerDelegate,ZSReaderTouchAreaDelegate, UIGestureRecognizerDelegate {
     
     var pref:ZSReaderPref = ZSReaderPref()
     var viewModel:ZSReaderBaseViewModel = ZSReaderBaseViewModel()
@@ -63,6 +87,8 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tapGesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+        view.addGestureRecognizer(tapGesture)
         changeReaderType()
     }
     
@@ -112,19 +138,19 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             oriChapter.calPages()
             initialHistory(chapter: oriChapter)
             update(history: viewModel.readHistory!, chapter: oriChapter, page: oriChapter.pages.first!)
-            pref.readerVC?.jumpPage(page: oriChapter.pages.first!)
+            pref.readerVC?.jumpPage(page: oriChapter.pages.first!, false, .forward)
             if oriChapter.contentNil() {
-                viewModel.request(chapter: oriChapter) { [unowned self] (cp) in
+                viewModel.request(chapter: oriChapter) { [unowned self] (cp,type) in
                     // 比较当前章节与阅读记录中如果不同，说明请求完之前已经翻页了，不再跳转
                     cp.calPages()
                     if cp.chapterUrl == oriChapter.chapterUrl {
                         self.update(history: self.viewModel.readHistory!, chapter: cp, page: cp.pages.first!)
-                        self.pref.readerVC?.jumpPage(page: cp.pages.first!)
+                        self.pref.readerVC?.jumpPage(page: cp.pages.first!,false, .forward)
                     }
                 }
             }
         } else if let history = viewModel.readHistory {
-            pref.readerVC?.jumpPage(page: history.page)
+            pref.readerVC?.jumpPage(page: history.page, false, .forward)
         }
         else {
             guard let chapter = viewModel.model?.chaptersModel.first else { return }
@@ -133,19 +159,33 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             }
             initialHistory(chapter: chapter)
             update(history: viewModel.readHistory!, chapter: chapter, page: chapter.pages.first!)
-            pref.readerVC?.jumpPage(page: chapter.pages.first!)
-            viewModel.request(chapter: chapter) { [unowned self] (cp) in
+            pref.readerVC?.jumpPage(page: chapter.pages.first!, false, .forward)
+            viewModel.request(chapter: chapter) { [unowned self] (cp,type) in
                 // 比较当前章节与阅读记录中如果不同，说明请求完之前已经翻页了，不再跳转
                 cp.calPages()
                 if cp.chapterUrl == chapter.chapterUrl {
                     self.update(history: self.viewModel.readHistory!, chapter: cp, page: cp.pages.first!)
-                    self.pref.readerVC?.jumpPage(page: cp.pages.first!)
+                    self.pref.readerVC?.jumpPage(page: cp.pages.first!, false, .forward)
                 }
             }
         }
     }
     
-    private func changeReaderType() {
+    private func changeReaderType(_ change:Bool=false) {
+        if change {
+            pref.change()
+            if let history = viewModel.readHistory {
+                pref.readerVC?.jumpPage(page: history.page, false, .forward)
+            }
+            if let horVC = pref.readerVC as? ZSHorizonalViewController {
+                horVC.dataSource = self
+                horVC.delegate = self
+            }
+            if let horVC = pref.readerVC as? ZSPageViewController {
+                horVC.dataSource = self
+                horVC.delegate = self
+            }
+        }
         if let vc = pref.readerVC as? UIViewController {
             if let _ = vc.view.superview {
                 return
@@ -156,8 +196,22 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             touchArea.removeFromSuperview()
             view.addSubview(touchArea)
             view.bringSubviewToFront(touchArea)
+            vc.view.bounds = view.bounds
         }
         bind()
+    }
+    
+    @objc
+    private func tapAction(tap:UITapGestureRecognizer) {
+        let point = tap.location(in: view)
+        let windowPoint = view.convert(point, to: view.window!)
+        if ZSReaderPref.leftFrame.contains(windowPoint) {
+            showLastPage()
+        } else if ZSReaderPref.rightFrame.contains(windowPoint) {
+            showNextPage()
+        } else {
+            toolBar.show(inView: view.window!, true)
+        }
     }
     
     //MARK: -  page manager
@@ -170,10 +224,10 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         }
     }
     
-    func request(chapter:ZSBookChapter, callback:ZSReaderBaseCallback<ZSBookChapter>?) {
-        viewModel.request(chapter: chapter) { (cp) in
+    func request(chapter:ZSBookChapter, callback:ZSReaderTypeCallback<ZSBookChapter, ZSChapterType>?) {
+        viewModel.request(chapter: chapter) { (cp, type) in
             if cp.pages.count > 0 {
-                callback?(cp)
+                callback?(cp, type)
             }
         }
     }
@@ -272,33 +326,64 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         show(chapter: chapter, nil)
     }
     
-    func show(chapter:ZSBookChapter) {
+    func showLastPage() {
         guard let history = viewModel.readHistory else { return }
-        if chapter.pages.count > 0 {
-            update(history: history, chapter: chapter, page: chapter.pages.first!)
-            pref.readerVC?.jumpPage(page: chapter.pages.first!)
+        let chapter = zs_currentChapter()
+        if let lastPage = chapter.getLastPage(page: history.page) {
+            if let _ = pref.readerVC as? ZSPageViewController {
+                pref.readerVC?.jumpPage(page: lastPage, false, .reverse)
+            } else if let _ = pref.readerVC as? ZSHorizonalViewController {
+                pref.readerVC?.jumpPage(page: lastPage, true, .reverse)
+            }
+            update(history: history, chapter: chapter, page: lastPage)
+        } else if let lastChapter = zs_lastChapter() { // 新章节
+            show(chapter: lastChapter, nil, false, true, .reverse)
+        }
+    }
+ 
+    func showNextPage() {
+        guard let history = viewModel.readHistory else { return }
+        let chapter = zs_currentChapter()
+        if let nextPage = chapter.getNextPage(page: history.page) {
+            update(history: history, chapter: chapter, page: nextPage)
+            if let _ = pref.readerVC as? ZSPageViewController {
+                pref.readerVC?.jumpPage(page: nextPage, false, .forward)
+            } else if let _ = pref.readerVC as? ZSHorizonalViewController {
+                pref.readerVC?.jumpPage(page: nextPage, true, .forward)
+            }
+        } else if let nextChapter = zs_nextChapter() { // 新章节
+            show(chapter: nextChapter, nil, true, true, .forward)
         }
     }
     
-    func show(chapter:ZSBookChapter,_ page:ZSBookPage? = nil,_ first:Bool = true) {
+    func show(chapter:ZSBookChapter,_ direction:UIPageViewController.NavigationDirection = .forward,_ first:Bool = true) {
         guard let history = viewModel.readHistory else { return }
-        if let p = page {
-            update(history: history, chapter: chapter, page: p)
-            pref.readerVC?.jumpPage(page: p)
-        } else if !chapter.contentNil(){
+        if chapter.pages.count > 0 {
             let page = first ? chapter.pages.first!:chapter.pages.last!
             update(history: history, chapter: chapter, page: page)
-            pref.readerVC?.jumpPage(page: page)
+            pref.readerVC?.jumpPage(page: page, false, direction)
+        }
+    }
+    
+    func show(chapter:ZSBookChapter,_ page:ZSBookPage? = nil,_ next:Bool = true,_ animated:Bool = false,_ direction:UIPageViewController.NavigationDirection = .forward) {
+        guard let history = viewModel.readHistory else { return }
+        if let p = page {
+            pref.readerVC?.jumpPage(page: p, animated, direction)
+            update(history: history, chapter: chapter, page: p)
+        } else if !chapter.contentNil(){
+            let page = next ? chapter.pages.first!:chapter.pages.last!
+            pref.readerVC?.jumpPage(page: page, animated, direction)
+            update(history: history, chapter: chapter, page: page)
         } else {
             // 计算
             chapter.calPages()
             // 更新历史记录
             let page = chapter.pages.first!
-            history.page = page
-            history.chapter = chapter
-            pref.readerVC?.jumpPage(page: page)
-            request(chapter: chapter) { [weak self] (cp) in
-                self?.show(chapter: cp)
+            pref.readerVC?.jumpPage(page: page, animated, direction)
+            update(history: history, chapter: chapter, page: page)
+            request(chapter: chapter) { [weak self] (cp,type) in
+                let first = next ? true:(type == .online ? true:false)
+                self?.show(chapter: cp, direction, first)
             }
         }
     }
@@ -414,7 +499,11 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     }
     
     func toolBar(toolBar:ZSReaderToolbar, select style:ZSReaderPageStyle) {
-        
+        changeReaderType(true)
+    }
+    
+    func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        return nil
     }
     
     //MARK: - ZSReaderCatalogViewControllerDelegate
@@ -453,7 +542,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             // 更新历史记录
             let page = chapter.pages.first!
             handler?(page)
-            request(chapter: chapter) { (cp) in
+            request(chapter: chapter) { (cp,type) in
                 cp.calPages()
                 let p = first ? cp.pages.first!:cp.pages.last!
                 handler?(p)
@@ -515,7 +604,7 @@ extension ZSReaderController:UIPageViewControllerDataSource, UIPageViewControlle
                         let chapter = book.chaptersModel[chapterIndex]
                         // chapter存在会立即返回,r如果不存在，则只有一页，直接进入下一章
                         update(history: history, chapter: chapter, page: page)
-                        request(chapter: chapter) { [weak self] (cp) in
+                        request(chapter: chapter) { [weak self] (cp,type) in
                             self?.update(history: history, chapter: cp, page: page)
                         }
                     }

@@ -27,6 +27,8 @@ protocol ZSReaderToolbarDelegate:class {
     func toolBarDidShow(toolBar:ZSReaderToolbar)
     func toolBarWillHiden(toolBar:ZSReaderToolbar)
     func toolBarDidHiden(toolBar:ZSReaderToolbar)
+    
+    func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?
 
 }
 
@@ -157,14 +159,17 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         hiden(true)
     }
     
-//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//        let view = super.hitTest(point, with: event)
-////        let readerPoint = self.convert(point, to: readerStyleView)
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let view = super.hitTest(point, with: event)
+//        let readerPoint = self.convert(point, to: readerStyleView)
 //        if readerStyleView.frame.contains(point) {
 //            return readerStyleView
 //        }
-//        return view
-//    }
+        if let other = delegate?.hitTest(point, with: event) {
+            return other
+        }
+        return view
+    }
     
     //MARK: - ZSReaderTopbarDelegate
     func topBar(topBar: ZSReaderTopbar, clickBack: UIButton) {

@@ -33,7 +33,7 @@ class ZSHorizonalViewController: BaseViewController, ZSReaderVCProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGesture()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,21 +63,30 @@ class ZSHorizonalViewController: BaseViewController, ZSReaderVCProtocol {
         pageVC.bgView.image = style.backgroundImage
     }
     
-    func jumpPage(page: ZSBookPage) {
-        pageVC.newPage = page
-        horizonalController.setViewControllers([pageVC], direction: UIPageViewController.NavigationDirection.forward, animated: false, completion: nil)
-    }
-    
-    private func setupGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
-        tap.numberOfTouchesRequired = 1
-        tap.numberOfTapsRequired = 1
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc
-    private func tapAction(tap:UITapGestureRecognizer) {
-        toolBar?.show(inView: view, true)
+    func jumpPage(page: ZSBookPage,_ animated:Bool = false,_ direction:UIPageViewController.NavigationDirection = .forward) {
+        if horizonalController.viewControllers?.count == 0 {
+            return
+        }
+        if animated {
+            if direction == .forward {
+                if let vc = pageViewController(horizonalController, viewControllerAfter: horizonalController.viewControllers![0]) as? PageViewController {
+                    vc.newPage = page
+                    horizonalController.setViewControllers([vc], direction: direction, animated: animated) { [weak self] (finished) in
+                        self?.pageVC = vc
+                    }
+                }
+            } else {
+               if let vc = pageViewController(horizonalController, viewControllerBefore: horizonalController.viewControllers![0]) as? PageViewController {
+                    vc.newPage = page
+                    horizonalController.setViewControllers([vc], direction: direction, animated: animated) { [weak self] (finished) in
+                        self?.pageVC = vc
+                    }
+                }
+            }
+        } else {
+            pageVC = horizonalController.viewControllers![0] as! PageViewController
+            pageVC.newPage = page
+        }
     }
 }
 

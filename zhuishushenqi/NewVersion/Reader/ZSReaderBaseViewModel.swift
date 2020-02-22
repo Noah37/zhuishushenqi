@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum ZSChapterType {
+    case online
+    case memory
+    case disk
+}
+
 class ZSReaderBaseViewModel {
     
 
@@ -102,19 +108,19 @@ class ZSReaderBaseViewModel {
         }
     }
     
-    func request(chapter:ZSBookChapter, callback:@escaping ZSReaderBaseCallback<ZSBookChapter>) {
+    func request(chapter:ZSBookChapter, callback:@escaping ZSReaderTypeCallback<ZSBookChapter,ZSChapterType>) {
         // 是否存在缓存了
         guard let book = model else { return }
         let exist = ZSBookCache.share.isContentExist(chapter.chapterUrl, book: book.bookName)
         if exist {
             if let chapter = ZSBookCache.share.content(for: chapter.chapterUrl, book: book.bookName) {
-                callback(chapter)
+                callback(chapter, .memory)
                 self.preRequest(chapter: chapter)
                 return
             }
         }
         ZSReaderDownloader.share.download(chapter: chapter, book: model!, reg: model?.content ?? "") { (cp) in
-            callback(cp)
+            callback(cp, .online)
             self.preRequest(chapter: chapter)
         }
     }
