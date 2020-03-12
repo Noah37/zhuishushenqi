@@ -5,6 +5,8 @@
 [![Language](https://img.shields.io/badge/language-Swift-brightgreen.svg?style=flat)](https://developer.apple.com/Objective-C)
 [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)
 
+zhuishushenqi简版 [ZDReader](https://github.com/Noah37/ZDReader) ,缩减了大部分无用功能,项目仅10M,有需要的可前往
+
 **采用Swift语言，仿追书神器做的，主要是练习阅读器的一些技术，包括仿真阅读等。不断更新中......**
 
 **20170607：本次功能变更：增加书架删除，缓存，修复一些缺陷**
@@ -75,12 +77,7 @@ Main development of zhuishushenqi olny support Swift 5.0+.
 
 `$ carthage update --platform iOS`
 
-###Here you can see blow.
-
-
-=======
-
-###效果图如下：
+### 效果图如下：
 
 
 <!--![zhuishushenqi](zhuishushenqi.png)
