@@ -31,19 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        #endif
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        if let newTabVC = UserDefaults.standard.value(forKey: rootVCKey) as? Bool {
+//        if let newTabVC = UserDefaults.standard.value(forKey: rootVCKey) as? Bool {
             let tabBarVC = ZSTabBarController()
             window?.rootViewController = tabBarVC
             window?.makeKeyAndVisible()
 
-        } else {
-            let sideVC = SideViewController.shared
-            sideVC.contentViewController = ZSRootViewController()
-            sideVC.rightViewController = RightViewController()
-            sideVC.leftViewController = LeftViewController()
-            let sideNavVC = ZSBaseNavigationViewController(rootViewController: sideVC)
-            window?.rootViewController = sideNavVC
-            window?.makeKeyAndVisible()
+//        } else {
+//            let sideVC = SideViewController.shared
+//            sideVC.contentViewController = ZSRootViewController()
+//            sideVC.rightViewController = RightViewController()
+//            sideVC.leftViewController = LeftViewController()
+//            let sideNavVC = ZSBaseNavigationViewController(rootViewController: sideVC)
+//            window?.rootViewController = sideNavVC
+//            window?.makeKeyAndVisible()
             
 //            let splash = QSSplashScreen()
 //            let disposeBag = DisposeBag()
@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            splash.subject.subscribe { (event) in
 //
 //                }.disposed(by: disposeBag)
-        }
+//        }
         
         UIApplication.shared.setStatusBarHidden(false, with: .fade)
         #if DEBUG
