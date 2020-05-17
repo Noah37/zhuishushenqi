@@ -390,6 +390,9 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
                 readerVC.hidesBottomBarWhenPushed = true
                 navigationController?.pushViewController(readerVC, animated: true)
                 move(from: indexPath, to: IndexPath(row: 0, section: 0))
+                aikan.update = false
+                ZSShelfManager.share.modifyAikan(aikan)
+                self.tableView.reloadData()
             } else {
                 alert(with: "提示", message: "找不到该书籍", okTitle: "确定")
             }

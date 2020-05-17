@@ -41,6 +41,9 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
     var detailBookDesc:String = ""
     
     var bookType:ZSReaderBookStyle = .online
+    
+    var update:Bool = false
+    var latestChapterName:String = ""
 
     override init() {
         
@@ -77,6 +80,9 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
         self.chaptersReverse = aDecoder.decodeBool(forKey: "chaptersReverse")
         self.chaptersModel = aDecoder.decodeObject(forKey: "chaptersModel") as? [ZSBookChapter] ?? []
         self.bookType = ZSReaderBookStyle(rawValue: aDecoder.decodeInteger(forKey: "bookType")) ?? ZSReaderBookStyle.online
+        self.update = aDecoder.decodeBool(forKey: "update")
+        self.latestChapterName = aDecoder.decodeObject(forKey: "latestChapterName") as? String ?? ""
+
     }
     
     func encode(with aCoder: NSCoder) {
@@ -110,6 +116,9 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
         aCoder.encode(self.chaptersModel, forKey: "chaptersModel")
         aCoder.encode(self.detailBookDesc, forKey: "detailBookDesc")
         aCoder.encode(self.bookType.rawValue, forKey: "bookType")
+        aCoder.encode(self.update, forKey: "update")
+        aCoder.encode(self.latestChapterName, forKey: "latestChapterName")
+
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
@@ -144,6 +153,8 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
         copyModel.chaptersModel = self.chaptersModel
         copyModel.detailBookDesc = self.detailBookDesc
         copyModel.bookType = self.bookType
+        copyModel.update = self.update
+        copyModel.latestChapterName = self.latestChapterName
         return copyModel
     }
 }
