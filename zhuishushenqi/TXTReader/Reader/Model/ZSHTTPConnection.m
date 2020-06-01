@@ -147,7 +147,8 @@ NSString *const ZSHTTPConnectionUploadFileFinished = @"kUploadFileFinished";
     //        [[NSFileManager defaultManager]createDirectoryAtPath:uploadDirPath withIntermediateDirectories:YES attributes:nil error:nil];
     //    }
     
-    NSString *uploadDirPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"Inbox"];
+    // Inbox 创建文件失败
+    NSString *uploadDirPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"LocalBooks"];
     NSString *filePath = [uploadDirPath stringByAppendingPathComponent:filename];
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         storeFile = nil;

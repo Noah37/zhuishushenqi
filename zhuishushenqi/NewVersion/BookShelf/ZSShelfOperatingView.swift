@@ -20,6 +20,10 @@ class ZSShelfOperatingView: UIView {
     
     weak var delegate:ZSShelfOperatingViewDelegate?
     
+    var isLocalBook:Bool = false
+    
+    var bookUrl:String = ""
+    
     lazy var backgroundView:UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)

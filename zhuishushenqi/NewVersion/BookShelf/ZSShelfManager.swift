@@ -56,15 +56,29 @@ class ZSShelfManager {
             if filePath.hasSuffix(txtPathExtension) {
                 let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
                 let bookUrl = "/Documents/Inbox/\(fileFullName)\(txtPathExtension)"
-                if !exist(bookUrl) {
+                let localBookUrl = "/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
+                try? FileManager.default.copyItem(atPath: bookUrl, toPath: localBookUrl)
+            }
+        }
+        let localPath = "\(NSHomeDirectory())/Documents/LocalBooks/"
+        guard let localItems = try? FileManager.default.contentsOfDirectory(atPath: localPath) else { return }
+        for item in localItems {
+            let filePath = path.appending("\(item)")
+            let txtPathExtension = ".txt"
+            if filePath.hasSuffix(txtPathExtension) {
+                let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
+                let localBookUrl = "/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
+                if !exist(localBookUrl) {
                     let shelf = ZSShelfModel()
                     shelf.bookType = .local
                     shelf.bookName = fileFullName
-                    shelf.bookUrl = bookUrl
+                    shelf.bookUrl = localBookUrl
                     books.append(shelf)
                 }
             }
         }
+        
+        
         localBooks.removeAll()
         for book  in books {
             if book.bookType == .local {
@@ -79,6 +93,17 @@ class ZSShelfManager {
     @objc
     private func localChangeNoti(noti:Notification) {
         refresh()
+    }
+    
+    func removeLocalBook(bookUrl:String) {
+        if exist(bookUrl) {
+            books.removeAll { (model) -> Bool in
+                return model.bookUrl == bookUrl
+            }
+            try? FileManager.default.removeItem(atPath:"\(NSHomeDirectory())\(bookUrl)")
+            save()
+            refresh()
+        }
     }
     
     @discardableResult

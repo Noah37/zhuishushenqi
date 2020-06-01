@@ -9,9 +9,10 @@
 import UIKit
 import RxSwift
 
-//#if DEBUG
+#if DEBUG
 //import DoraemonKit
-//#endif
+import FLEX
+#endif
 
 
 let rightScaleX:CGFloat = 0.2
@@ -26,15 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        #if DEBUG
+        #if DEBUG
 //        DoraemonManager.shareInstance().install()
-//        #endif
+        FLEXManager.shared().showExplorer()
+        #endif
         
         window = UIWindow(frame: UIScreen.main.bounds)
 //        if let newTabVC = UserDefaults.standard.value(forKey: rootVCKey) as? Bool {
             let tabBarVC = ZSTabBarController()
             window?.rootViewController = tabBarVC
             window?.makeKeyAndVisible()
+
 
 //        } else {
 //            let sideVC = SideViewController.shared
@@ -153,6 +156,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        let path = "\(NSHomeDirectory())/Documents/Inbox/"
+        ZSShelfManager.share.scanPath(path: path)
         return true
     }
 
