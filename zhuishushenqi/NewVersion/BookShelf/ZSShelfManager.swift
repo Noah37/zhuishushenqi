@@ -19,11 +19,15 @@ class ZSShelfManager {
     
     var books:[ZSShelfModel] = []
     
+    var aikanBooks:[String:ZSAikanParserModel] = [:]
+    
     var localBooks:[ZSShelfModel] = []
     
     let helper = MonitorFileChangeHelp()
     
     var isScanning:Bool = false
+    
+    var queue:DispatchQueue = DispatchQueue(label: "com.shelf.update")
     
     private init(){
         createPath()
@@ -211,9 +215,13 @@ class ZSShelfManager {
         shelfModel.bookUrl = book.bookUrl
         shelfModel.bookType = book.bookType
         if add(shelfModel) {
-            saveAikan(book)
+            queue.async {
+                self.saveAikan(book)
+            }
         } else if modify(shelfModel) {
-            saveAikan(book)
+            queue.async {
+                self.saveAikan(book)
+            }
         }
     }
     
@@ -226,7 +234,9 @@ class ZSShelfManager {
         shelfModel.bookType = book.bookType
         if remove(shelfModel) {
             // save aikan
-            saveAikan(book)
+            queue.async {
+                self.saveAikan(book)
+            }
         }
     }
     
@@ -248,7 +258,9 @@ class ZSShelfManager {
         shelfModel.update = book.update
         shelfModel.latestChapterName = book.latestChapterName
         if modify(shelfModel) {
-            saveAikan(book)
+            queue.async {
+                self.saveAikan(book)
+            }
         }
     }
     
@@ -259,14 +271,20 @@ class ZSShelfManager {
         let aikanFileName = bookUrl.md5()
         let aikanFilePath = booksPath.appending(aikanFileName)
         if let aikanModel = NSKeyedUnarchiver.unarchiveObject(withFile: aikanFilePath) as? ZSAikanParserModel {
-            self.saveAikan(aikanModel)
             return aikanModel
         } else {
-            let aikanURL = URL(fileURLWithPath: aikanFilePath)
-            if let data = try? Data(contentsOf: aikanURL) {
-                let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any]
-                let aikanModel = ZSAikanParserModel.deserialize(from: json)
-                return aikanModel
+            if let aikanBook = aikanBooks[shelf.bookUrl] {
+                return aikanBook
+            } else {
+                let aikanURL = URL(fileURLWithPath: aikanFilePath)
+                if let data = try? Data(contentsOf: aikanURL) {
+                    let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any]
+                    let aikanModel = ZSAikanParserModel.deserialize(from: json)
+                    if let aikan = aikanModel {
+                        aikanBooks[shelf.bookUrl] = aikan
+                    }
+                    return aikanModel
+                }
             }
         }
         return nil
