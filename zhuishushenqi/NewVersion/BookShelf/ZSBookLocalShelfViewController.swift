@@ -37,7 +37,7 @@ class ZSBookLocalShelfViewController: BaseViewController,UITableViewDataSource,U
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
-        
+        tableView.reloadData()
     }
     
     private func setupNavItem() {

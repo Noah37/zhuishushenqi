@@ -261,12 +261,21 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     func shelfCell(cell: ZSShelfTableViewCell, clickMore: UIButton) {
         if let indexPath = tableView.indexPath(for: cell) {
             let book = ZSShelfManager.share.books[indexPath.row]
-            guard let aikan = ZSShelfManager.share.aikan(book) else { return }
-            let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
-            opView.delegate = self
-            opView.configure(book: aikan)
-            opView.indexPath = indexPath
-            opView.show(inView: view.window ?? view)
+            if book.bookType == .online {
+                guard let aikan = ZSShelfManager.share.aikan(book) else { return }
+                let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
+                opView.delegate = self
+                opView.configure(book: aikan)
+                opView.indexPath = indexPath
+                opView.show(inView: view.window ?? view)
+            } else {
+                let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
+                opView.delegate = self
+                opView.isLocalBook = true
+                opView.bookUrl = book.bookUrl
+                opView.indexPath = indexPath
+                opView.show(inView: view.window ?? view)
+            }
         }
     }
     
@@ -301,6 +310,9 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
                 tableView.reloadData()
                 Toast.show(tip: "删除成功", .success, 1)
             }
+        } else if opView.isLocalBook {
+            ZSShelfManager.share.removeLocalBook(bookUrl: opView.bookUrl)
+            tableView.reloadData()
         }
     }
     
@@ -390,6 +402,9 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
                 readerVC.hidesBottomBarWhenPushed = true
                 navigationController?.pushViewController(readerVC, animated: true)
                 move(from: indexPath, to: IndexPath(row: 0, section: 0))
+                aikan.update = false
+                ZSShelfManager.share.modifyAikan(aikan)
+                self.tableView.reloadData()
             } else {
                 alert(with: "提示", message: "找不到该书籍", okTitle: "确定")
             }

@@ -131,14 +131,21 @@ extension ZSSettingViewController:UITableViewDataSource,UITableViewDelegate {
     
     func showExchangeAlert() {
         // 新版本弹窗入口
-       let alertVC = UIAlertController(title: "提示", message: "现已开发追书神器新版本，是否切换至新版[切换后无法撤销]？", preferredStyle: UIAlertController.Style.alert)
+       let alertVC = UIAlertController(title: "提示", message: "是否切换至旧版？", preferredStyle: UIAlertController.Style.alert)
        let okAction = UIAlertAction(title: "确定", style: UIAlertAction.Style.default) { (action) in
-           let tabVC = ZSTabBarController()
+           let sideVC = SideViewController.shared
+           sideVC.contentViewController = ZSRootViewController()
+           sideVC.rightViewController = RightViewController()
+           sideVC.leftViewController = LeftViewController()
+           let sideNavVC = ZSBaseNavigationViewController(rootViewController: sideVC)
            let delegate = UIApplication.shared.delegate as! AppDelegate
-           delegate.lastTabVC = delegate.window!.rootViewController!
-           UIView.transition(from: delegate.window!.rootViewController!.view, to: tabVC.view, duration: 1, options: UIView.AnimationOptions.transitionCrossDissolve, completion: { (finished) in
-               delegate.window?.rootViewController = tabVC
-               UserDefaults.standard.setValue(true, forKey: rootVCKey)
+           let tabVC = delegate.window!.rootViewController!
+           delegate.lastTabVC = tabVC
+           UIView.transition(from: tabVC.view, to: sideNavVC.view, duration: 1, options: UIView.AnimationOptions.transitionCrossDissolve, completion: { (finished) in
+                if finished {
+                    delegate.window?.rootViewController = sideNavVC
+                    UserDefaults.standard.setValue(true, forKey: rootVCKey)
+                }
            })
        }
        let cancelAction = UIAlertAction(title: "取消", style: UIAlertAction.Style.default) { (action) in

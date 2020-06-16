@@ -57,15 +57,29 @@ class ZSShelfManager {
             if filePath.hasSuffix(txtPathExtension) {
                 let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
                 let bookUrl = "/Documents/Inbox/\(fileFullName)\(txtPathExtension)"
-                if !exist(bookUrl) {
+                let localBookUrl = "/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
+                try? FileManager.default.copyItem(atPath: bookUrl, toPath: localBookUrl)
+            }
+        }
+        let localPath = "\(NSHomeDirectory())/Documents/LocalBooks/"
+        guard let localItems = try? FileManager.default.contentsOfDirectory(atPath: localPath) else { return }
+        for item in localItems {
+            let filePath = path.appending("\(item)")
+            let txtPathExtension = ".txt"
+            if filePath.hasSuffix(txtPathExtension) {
+                let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
+                let localBookUrl = "/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
+                if !exist(localBookUrl) {
                     let shelf = ZSShelfModel()
                     shelf.bookType = .local
                     shelf.bookName = fileFullName
-                    shelf.bookUrl = bookUrl
+                    shelf.bookUrl = localBookUrl
                     books.append(shelf)
                 }
             }
         }
+        
+        
         localBooks.removeAll()
         for book  in books {
             if book.bookType == .local {
@@ -80,6 +94,17 @@ class ZSShelfManager {
     @objc
     private func localChangeNoti(noti:Notification) {
         refresh()
+    }
+    
+    func removeLocalBook(bookUrl:String) {
+        if exist(bookUrl) {
+            books.removeAll { (model) -> Bool in
+                return model.bookUrl == bookUrl
+            }
+            try? FileManager.default.removeItem(atPath:"\(NSHomeDirectory())\(bookUrl)")
+            save()
+            refresh()
+        }
     }
     
     @discardableResult
@@ -220,6 +245,8 @@ class ZSShelfManager {
         shelfModel.author = book.bookAuthor
         shelfModel.bookUrl = book.bookUrl
         shelfModel.bookType = book.bookType
+        shelfModel.update = book.update
+        shelfModel.latestChapterName = book.latestChapterName
         if modify(shelfModel) {
             saveAikan(book)
         }
@@ -365,6 +392,10 @@ class ZSShelfModel: NSObject,NSCoding, HandyJSON {
     var author:String = ""
     // 根据url查找对应的model
     var bookUrl:String = ""
+    // 是否更新
+    var update:Bool = false
+    // 最近更新章节
+    var latestChapterName:String = ""
     
     // 是否本地书籍
     var bookType:ZSReaderBookStyle = .online
@@ -379,7 +410,8 @@ class ZSShelfModel: NSObject,NSCoding, HandyJSON {
         coder.encode(self.author, forKey: "author")
         coder.encode(self.bookUrl, forKey: "bookUrl")
         coder.encode(self.bookType.rawValue, forKey: "bookType")
-
+        coder.encode(self.update, forKey: "update")
+        coder.encode(self.latestChapterName, forKey: "latestChapterName")
     }
     
     required init?(coder: NSCoder) {
@@ -388,5 +420,7 @@ class ZSShelfModel: NSObject,NSCoding, HandyJSON {
         self.author = coder.decodeObject(forKey: "author") as? String ?? ""
         self.bookUrl = coder.decodeObject(forKey: "bookUrl") as? String ?? ""
         self.bookType = ZSReaderBookStyle(rawValue: coder.decodeInteger(forKey: "bookType")) ?? .online
+        self.update = coder.decodeBool(forKey: "update")
+        self.latestChapterName = coder.decodeObject(forKey: "latestChapterName") as? String ?? ""
     }
 }

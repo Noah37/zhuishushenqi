@@ -63,8 +63,10 @@ class ZSForumViewController: BaseViewController,UITableViewDelegate, UITableView
            let delegate = UIApplication.shared.delegate as! AppDelegate
            delegate.lastTabVC = delegate.window!.rootViewController!
            UIView.transition(from: delegate.window!.rootViewController!.view, to: tabVC.view, duration: 1, options: UIView.AnimationOptions.transitionCrossDissolve, completion: { (finished) in
-               delegate.window?.rootViewController = tabVC
-               UserDefaults.standard.setValue(true, forKey: rootVCKey)
+                if finished {
+                    delegate.window?.rootViewController = tabVC
+                    UserDefaults.standard.setValue(true, forKey: rootVCKey)
+                }
            })
        }
        let cancelAction = UIAlertAction(title: "取消", style: UIAlertAction.Style.default) { (action) in
