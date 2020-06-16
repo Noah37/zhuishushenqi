@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HandyJSON
 
 func cache(value:Int ,for key:String) {
     UserDefaults.standard.set(value, forKey: key)
@@ -165,7 +166,7 @@ class ZSReaderTheme {
     
 }
 
-enum ZSReaderBookStyle:Int {
+enum ZSReaderBookStyle:Int, HandyJSONEnum {
     case online
     case local
 }

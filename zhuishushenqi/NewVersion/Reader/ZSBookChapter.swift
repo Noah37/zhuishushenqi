@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import HandyJSON
 
-class ZSBookChapter:NSObject, NSCoding {
+class ZSBookChapter:NSObject, NSCoding, HandyJSON {
     
     static let defaultContent = "正在获数据，请稍候..."
 
@@ -25,7 +26,7 @@ class ZSBookChapter:NSObject, NSCoding {
     
     var pages:[ZSBookPage] = []
     
-    override init() {
+    required override init() {
         
     }
     
@@ -103,7 +104,7 @@ class ZSBookChapter:NSObject, NSCoding {
     }
 }
 
-class ZSBookPage:NSObject, NSCoding {
+class ZSBookPage:NSObject, NSCoding, HandyJSON {
     
     var content:String = ""
     var chapterName:String = ""
@@ -112,7 +113,7 @@ class ZSBookPage:NSObject, NSCoding {
     var pageIndex:Int = 0
     var totalPages:Int = 0
     
-    override init() {
+    required override init() {
         
     }
     

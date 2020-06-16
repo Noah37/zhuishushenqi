@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import HandyJSON
 
-class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
+class ZSAikanParserModel: NSObject, NSCoding, NSCopying, HandyJSON {
     
     
     var errDate:Date?
@@ -42,7 +43,7 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying {
     
     var bookType:ZSReaderBookStyle = .online
 
-    override init() {
+    required override init() {
         
     }
     

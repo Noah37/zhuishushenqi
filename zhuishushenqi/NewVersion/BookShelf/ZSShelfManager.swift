@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HandyJSON
 
 class ZSShelfManager {
     
@@ -231,7 +232,15 @@ class ZSShelfManager {
         let aikanFileName = bookUrl.md5()
         let aikanFilePath = booksPath.appending(aikanFileName)
         if let aikanModel = NSKeyedUnarchiver.unarchiveObject(withFile: aikanFilePath) as? ZSAikanParserModel {
+            self.saveAikan(aikanModel)
             return aikanModel
+        } else {
+            let aikanURL = URL(fileURLWithPath: aikanFilePath)
+            if let data = try? Data(contentsOf: aikanURL) {
+                let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any]
+                let aikanModel = ZSAikanParserModel.deserialize(from: json)
+                return aikanModel
+            }
         }
         return nil
     }
@@ -243,6 +252,13 @@ class ZSShelfManager {
         let aikanFilePath = booksHistoryPath.appending(aikanFileName)
         if let aikanModel = NSKeyedUnarchiver.unarchiveObject(withFile: aikanFilePath) as? ZSReadHistory {
             return aikanModel
+        } else {
+            let aikanURL = URL(fileURLWithPath: aikanFilePath)
+            if let data = try? Data(contentsOf: aikanURL) {
+                let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any]
+                let readModel = ZSReadHistory.deserialize(from: json)
+                return readModel
+            }
         }
         return nil
     }
@@ -252,7 +268,11 @@ class ZSShelfManager {
         let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
         let aikanFileName = history.chapter.bookUrl.md5()
         let aikanFilePath = booksHistoryPath.appending(aikanFileName)
-        NSKeyedArchiver.archiveRootObject(history, toFile: aikanFilePath)
+        if let json = history.toJSON() {
+            if let data:NSData = try? JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.fragmentsAllowed) as NSData {
+                data.write(toFile: aikanFilePath, atomically: true)
+            }
+        }
     }
     
     func removeHistory(_ history:ZSReadHistory) {
@@ -277,7 +297,11 @@ class ZSShelfManager {
         let bookUrl = book.bookUrl
         let aikanFileName = bookUrl.md5()
         let aikanFilePath = booksPath.appending(aikanFileName)
-        NSKeyedArchiver.archiveRootObject(book, toFile: aikanFilePath)
+        if let json = book.toJSON() {
+            if let data:NSData = try? JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.fragmentsAllowed) as NSData {
+                data.write(toFile: aikanFilePath, atomically: true)
+            }
+        }
     }
     
     private func unpack() {
@@ -285,13 +309,24 @@ class ZSShelfManager {
         let booksPath = documentPath.appending("/\(shelfBooksPath)/\(shelfBooksPathKey.md5())")
         if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: booksPath) as? [ZSShelfModel] {
             self.books = objs
+        } else {
+            let booksUrl = URL(fileURLWithPath: booksPath)
+            if let data = try? Data(contentsOf: booksUrl) {
+                let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [[String:Any]]
+                if let shelfs = [ZSShelfModel].deserialize(from: json) as? [ZSShelfModel] {
+                    self.books = shelfs
+                }
+            }
         }
     }
     
     private func save() {
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
         let booksPath = documentPath.appending("/\(shelfBooksPath)/\(shelfBooksPathKey.md5())")
-        NSKeyedArchiver.archiveRootObject(self.books, toFile: booksPath)
+        let json = self.books.toJson()
+        if let data:NSData = try? JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.fragmentsAllowed) as NSData {
+            data.write(toFile: booksPath, atomically: true)
+        }
     }
     
     private func index(_ book:ZSShelfModel) ->Int {
@@ -323,7 +358,7 @@ class ZSShelfManager {
     }
 }
 
-class ZSShelfModel: NSObject,NSCoding {
+class ZSShelfModel: NSObject,NSCoding, HandyJSON {
     
     var icon:String = ""
     var bookName:String = ""
@@ -334,7 +369,7 @@ class ZSShelfModel: NSObject,NSCoding {
     // 是否本地书籍
     var bookType:ZSReaderBookStyle = .online
     
-    override init() {
+    required override init() {
         
     }
     

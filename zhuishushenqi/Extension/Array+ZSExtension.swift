@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HandyJSON
 
 extension Array {
     func find <T: Equatable> (array: [T], item : T) ->Int? {
@@ -52,4 +53,17 @@ extension Array where Element:NSCopying {
     }
 }
 
+extension Array where Element:HandyJSON {
+    
+    func toJson() ->[[String:Any]] {
+        var array:[[String:Any]] = []
+        for item in self {
+            if let json = item.toJSON() {
+                array.append(json)
+            }
+        }
+        return array
+    }
+    
+}
 

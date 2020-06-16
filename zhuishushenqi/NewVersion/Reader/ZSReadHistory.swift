@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import HandyJSON
 
-class ZSReadHistory:NSObject, NSCoding {
+class ZSReadHistory:NSObject, NSCoding, HandyJSON {
     // 记录当前章节
     var chapter:ZSBookChapter!
     // 记录当前页码
@@ -18,7 +19,7 @@ class ZSReadHistory:NSObject, NSCoding {
         }
     }
     
-    override init() {
+    required override init() {
         
     }
     
