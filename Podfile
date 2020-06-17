@@ -41,6 +41,7 @@ pod 'Zip'
 pod 'RxAlamofire'
 pod 'RxCocoa'
 pod 'UICircularProgressRing'
+pod 'RealmSwift'
 
 # local pods
 pod 'ZSAPI', :path => "zhuishushenqi/NewVersion/ZSAPI"
