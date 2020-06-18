@@ -208,145 +208,79 @@ class ZSShelfManager {
     }
     
     func addAikan(_ book:ZSAikanParserModel) {
-        let shelfModel = ZSShelfModel()
-        shelfModel.icon = book.bookIcon.length > 0 ? book.bookIcon:book.detailBookIcon
-        shelfModel.bookName = book.bookName
-        shelfModel.author = book.bookAuthor
-        shelfModel.bookUrl = book.bookUrl
-        shelfModel.bookType = book.bookType
+        let shelfModel = book.transformShelf()
         if add(shelfModel) {
-            queue.async {
-                self.saveAikan(book)
-            }
+            saveAikan(book)
         } else if modify(shelfModel) {
-            queue.async {
-                self.saveAikan(book)
-            }
+            saveAikan(book)
         }
     }
     
     func removeAikan(_ book:ZSAikanParserModel) {
-        let shelfModel = ZSShelfModel()
-        shelfModel.icon = book.bookIcon.length > 0 ? book.bookIcon:book.detailBookIcon
-        shelfModel.bookName = book.bookName
-        shelfModel.author = book.bookAuthor
-        shelfModel.bookUrl = book.bookUrl
-        shelfModel.bookType = book.bookType
+        let shelfModel = book.transformShelf()
         if remove(shelfModel) {
             // save aikan
-            queue.async {
-                self.saveAikan(book)
-            }
+            saveAikan(book)
         }
     }
     
     func removeAikan(bookUrl:String) {
-        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksPath = documentPath.appending("/\(shelfBooksPath)/")
-        let aikanFileName = bookUrl.md5()
-        let aikanFilePath = booksPath.appending(aikanFileName)
-        try? FileManager.default.removeItem(atPath: aikanFilePath)
+        let aikanFilePath = aikansPath(url: bookUrl)
+        ZSShelfStorage.share.delete(path: aikanFilePath)
     }
     
     func modifyAikan(_ book:ZSAikanParserModel) {
-        let shelfModel = ZSShelfModel()
-        shelfModel.icon = book.bookIcon.length > 0 ? book.bookIcon:book.detailBookIcon
-        shelfModel.bookName = book.bookName
-        shelfModel.author = book.bookAuthor
-        shelfModel.bookUrl = book.bookUrl
-        shelfModel.bookType = book.bookType
-        shelfModel.update = book.update
-        shelfModel.latestChapterName = book.latestChapterName
+        let shelfModel = book.transformShelf()
         if modify(shelfModel) {
-            queue.async {
-                self.saveAikan(book)
-            }
+            saveAikan(book)
         }
     }
     
-    func aikan(_ shelf:ZSShelfModel) ->ZSAikanParserModel? {
-        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksPath = documentPath.appending("/\(shelfBooksPath)/")
-        let bookUrl = shelf.bookUrl
-        let aikanFileName = bookUrl.md5()
-        let aikanFilePath = booksPath.appending(aikanFileName)
-        if let aikanModel = NSKeyedUnarchiver.unarchiveObject(withFile: aikanFilePath) as? ZSAikanParserModel {
-            return aikanModel
+    func aikan(_ shelf:ZSShelfModel, block: @escaping (_ aikan:ZSAikanParserModel?)->Void) {
+        let aikanFilePath = aikansPath(url: shelf.bookUrl)
+        if let aikanBook = aikanBooks[shelf.bookUrl] {
+            block(aikanBook)
         } else {
-            if let aikanBook = aikanBooks[shelf.bookUrl] {
-                return aikanBook
-            } else {
-                let aikanURL = URL(fileURLWithPath: aikanFilePath)
-                if let data = try? Data(contentsOf: aikanURL) {
-                    let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any]
-                    let aikanModel = ZSAikanParserModel.deserialize(from: json)
-                    if let aikan = aikanModel {
-                        aikanBooks[shelf.bookUrl] = aikan
-                    }
-                    return aikanModel
+            ZSShelfStorage.share.unarchive(path: aikanFilePath, block: { [weak self] result in
+                if let aikanModel = result as? ZSAikanParserModel {
+                    self?.aikanBooks[shelf.bookUrl] = aikanModel
+                    block(aikanModel)
+                } else {
+                    block(nil)
                 }
-            }
+            })
         }
-        return nil
     }
     
-    func history(_ bookUrl:String) ->ZSReadHistory? {
-        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
-        let aikanFileName = bookUrl.md5()
-        let aikanFilePath = booksHistoryPath.appending(aikanFileName)
-        if let aikanModel = NSKeyedUnarchiver.unarchiveObject(withFile: aikanFilePath) as? ZSReadHistory {
-            return aikanModel
-        } else {
-            let aikanURL = URL(fileURLWithPath: aikanFilePath)
-            if let data = try? Data(contentsOf: aikanURL) {
-                let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any]
-                let readModel = ZSReadHistory.deserialize(from: json)
-                return readModel
+    func history(_ bookUrl:String, block:@escaping (_ history:ZSReadHistory?)->Void) {
+        let aikanFilePath = historyStorePath(url: bookUrl)
+        ZSShelfStorage.share.unarchive(path: aikanFilePath, block: { result in
+            if let history = result as? ZSReadHistory  {
+                block(history)
+            } else {
+                block(nil)
             }
-        }
-        return nil
+        })
     }
     
     func addHistory(_ history:ZSReadHistory)  {
-        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
-        let aikanFileName = history.chapter.bookUrl.md5()
-        let aikanFilePath = booksHistoryPath.appending(aikanFileName)
-        if let json = history.toJSON() {
-            if let data:NSData = try? JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.fragmentsAllowed) as NSData {
-                data.write(toFile: aikanFilePath, atomically: true)
-            }
-        }
+        let aikanFilePath = historyStorePath(url: history.chapter.bookUrl)
+        ZSShelfStorage.share.archive(obj: history, path: aikanFilePath)
     }
     
     func removeHistory(_ history:ZSReadHistory) {
-        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
-        let aikanFileName = history.chapter.bookUrl.md5()
-        let aikanFilePath = booksHistoryPath.appending(aikanFileName)
-        try? FileManager.default.removeItem(atPath: aikanFilePath)
+        let aikanFilePath = historyStorePath(url: history.chapter.bookUrl)
+        ZSShelfStorage.share.delete(path: aikanFilePath)
     }
     
     func removeHistory(bookUrl:String) {
-        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
-        let aikanFileName = bookUrl.md5()
-        let aikanFilePath = booksHistoryPath.appending(aikanFileName)
-        try? FileManager.default.removeItem(atPath: aikanFilePath)
+        let aikanFilePath = historyStorePath(url: bookUrl)
+        ZSShelfStorage.share.delete(path: aikanFilePath)
     }
     
     private func saveAikan(_ book:ZSAikanParserModel) {
-        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksPath = documentPath.appending("/\(shelfBooksPath)/")
-        let bookUrl = book.bookUrl
-        let aikanFileName = bookUrl.md5()
-        let aikanFilePath = booksPath.appending(aikanFileName)
-        if let json = book.toJSON() {
-            if let data:NSData = try? JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.fragmentsAllowed) as NSData {
-                data.write(toFile: aikanFilePath, atomically: true)
-            }
-        }
+        let aikanFilePath = aikansPath(url: book.bookUrl)
+        ZSShelfStorage.share.archive(obj: book, path: aikanFilePath)
     }
     
     private func unpack() {
@@ -366,12 +300,8 @@ class ZSShelfManager {
     }
     
     private func save() {
-        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksPath = documentPath.appending("/\(shelfBooksPath)/\(shelfBooksPathKey.md5())")
-        let json = self.books.toJson()
-        if let data:NSData = try? JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.fragmentsAllowed) as NSData {
-            data.write(toFile: booksPath, atomically: true)
-        }
+        let booksP = booksPath()
+        ZSShelfStorage.share.archive(obj: self.books, path: booksP)
     }
     
     private func index(_ book:ZSShelfModel) ->Int {
@@ -385,6 +315,28 @@ class ZSShelfManager {
             index += 1
         }
         return exitIndex
+    }
+    
+    private func aikansPath(url:String) ->String {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+        let booksPath = documentPath.appending("/\(shelfBooksPath)/")
+        let aikanFileName = url.md5()
+        let aikanFilePath = booksPath.appending(aikanFileName)
+        return aikanFilePath
+    }
+    
+    private func booksPath() ->String {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+        let booksPath = documentPath.appending("/\(shelfBooksPath)/\(shelfBooksPathKey.md5())")
+        return booksPath
+    }
+    
+    private func historyStorePath(url:String) ->String {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+        let booksHistoryPath = documentPath.appending("/\(shelfBooksHistoryPath)/")
+        let aikanFileName = url.md5()
+        let aikanFilePath = booksHistoryPath.appending(aikanFileName)
+        return aikanFilePath
     }
     
     private func createPath() {

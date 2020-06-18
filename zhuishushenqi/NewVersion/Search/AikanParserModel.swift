@@ -158,4 +158,16 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying, HandyJSON {
         copyModel.latestChapterName = self.latestChapterName
         return copyModel
     }
+    
+    func transformShelf() ->ZSShelfModel {
+        let shelfModel = ZSShelfModel()
+        shelfModel.icon = self.bookIcon.length > 0 ? self.bookIcon:self.detailBookIcon
+        shelfModel.bookName = self.bookName
+        shelfModel.author = self.bookAuthor
+        shelfModel.bookUrl = self.bookUrl
+        shelfModel.bookType = self.bookType
+        shelfModel.update = self.update
+        shelfModel.latestChapterName = self.latestChapterName
+        return shelfModel
+    }
 }

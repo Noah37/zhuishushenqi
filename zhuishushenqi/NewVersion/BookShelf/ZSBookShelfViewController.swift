@@ -262,12 +262,14 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
         if let indexPath = tableView.indexPath(for: cell) {
             let book = ZSShelfManager.share.books[indexPath.row]
             if book.bookType == .online {
-                guard let aikan = ZSShelfManager.share.aikan(book) else { return }
-                let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
-                opView.delegate = self
-                opView.configure(book: aikan)
-                opView.indexPath = indexPath
-                opView.show(inView: view.window ?? view)
+                ZSShelfManager.share.aikan(book) { [weak self] (result) in
+                    guard let aikan = result else { return }
+                    let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
+                    opView.delegate = self
+                    opView.configure(book: aikan)
+                    opView.indexPath = indexPath
+                    opView.show(inView: self?.view.window ?? self!.view)
+                }
             } else {
                 let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
                 opView.delegate = self
@@ -387,26 +389,29 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
         let book = ZSShelfManager.share.books[indexPath.row]
         if book.bookType == .local {
             Toast.showProgress(tip: "加载中", onView: view)
-            if let aikan = ZSShelfManager.share.aikan(book) {
-                jumpReader(book: aikan, indexPath: indexPath)
+            ZSShelfManager.share.aikan(book) { [weak self] (result) in
+                if let aikan = result {
+                    self?.jumpReader(book: aikan, indexPath: indexPath)
+                } else if let shelf = QSReaderParse.parse(shelf: book) {
+                    ZSShelfManager.share.addAikan(shelf)
+                    self?.jumpReader(book: shelf, indexPath: indexPath)
+                }
+                Toast.hiden()
             }
-            else if let shelf = QSReaderParse.parse(shelf: book) {
-                ZSShelfManager.share.addAikan(shelf)
-                jumpReader(book: shelf, indexPath: indexPath)
-            }
-            Toast.hiden()
         } else {
-            guard let aikan = ZSShelfManager.share.aikan(book) else { return }
-            if aikan.chaptersModel.count > 0 {
-                let readerVC = ZSReaderController(chapter: nil, aikan)
-                readerVC.hidesBottomBarWhenPushed = true
-                navigationController?.pushViewController(readerVC, animated: true)
-                move(from: indexPath, to: IndexPath(row: 0, section: 0))
-                aikan.update = false
-                ZSShelfManager.share.modifyAikan(aikan)
-                self.tableView.reloadData()
-            } else {
-                alert(with: "提示", message: "找不到该书籍", okTitle: "确定")
+            ZSShelfManager.share.aikan(book) { [weak self] (result) in
+                guard let aikan = result else { return }
+                if aikan.chaptersModel.count > 0 {
+                    let readerVC = ZSReaderController(chapter: nil, aikan)
+                    readerVC.hidesBottomBarWhenPushed = true
+                    self?.navigationController?.pushViewController(readerVC, animated: true)
+                    self?.move(from: indexPath, to: IndexPath(row: 0, section: 0))
+                    aikan.update = false
+                    ZSShelfManager.share.modifyAikan(aikan)
+                    self?.tableView.reloadData()
+                } else {
+                    self?.alert(with: "提示", message: "找不到该书籍", okTitle: "确定")
+                }
             }
         }
     }

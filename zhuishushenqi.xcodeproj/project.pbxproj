@@ -33,6 +33,8 @@
 		3D1FFDF623CC52E10017ECE7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDF523CC52E10017ECE7 /* Color.swift */; };
 		3D1FFDF823CC586B0017ECE7 /* ReaderNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDF723CC586B0017ECE7 /* ReaderNavigationBar.swift */; };
 		3D1FFDFA23CC5B880017ECE7 /* ReaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFDF923CC5B880017ECE7 /* ReaderBar.swift */; };
+		3D1FFEF0249B523300832576 /* ZSSyncStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFEEF249B523300832576 /* ZSSyncStorage.swift */; };
+		3D1FFEF2249B562500832576 /* ZSShelfStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FFEF1249B562500832576 /* ZSShelfStorage.swift */; };
 		3D2006D1216F36BE00C326B4 /* ZSReaderBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */; };
 		3D2006D3216F443A00C326B4 /* ZSSpeakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */; };
 		3D2006D5216F478C00C326B4 /* ZSSpeakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */; };
@@ -652,6 +654,8 @@
 		3D1FFDF523CC52E10017ECE7 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		3D1FFDF723CC586B0017ECE7 /* ReaderNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderNavigationBar.swift; sourceTree = "<group>"; };
 		3D1FFDF923CC5B880017ECE7 /* ReaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderBar.swift; sourceTree = "<group>"; };
+		3D1FFEEF249B523300832576 /* ZSSyncStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSyncStorage.swift; sourceTree = "<group>"; };
+		3D1FFEF1249B562500832576 /* ZSShelfStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSShelfStorage.swift; sourceTree = "<group>"; };
 		3D2006D0216F36BE00C326B4 /* ZSReaderBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderBaseViewController.swift; sourceTree = "<group>"; };
 		3D2006D2216F443A00C326B4 /* ZSSpeakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerViewController.swift; sourceTree = "<group>"; };
 		3D2006D4216F478C00C326B4 /* ZSSpeakerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSpeakerCell.swift; sourceTree = "<group>"; };
@@ -1470,6 +1474,8 @@
 				3DE3AF8023D0622C00D74C1F /* ZSShelfOperatingView.swift */,
 				3D448E5722C501C40099B6E8 /* NavigationBar.swift */,
 				3D05BCBF23C5EAFE001EAB2A /* ZSShelfManager.swift */,
+				3D1FFEEF249B523300832576 /* ZSSyncStorage.swift */,
+				3D1FFEF1249B562500832576 /* ZSShelfStorage.swift */,
 				B2840F3322C85B75009C9116 /* ZSBookShelfViewModel.swift */,
 				3D448E5622C501C40099B6E8 /* ZSBookShelfViewController.swift */,
 				B209975023DBFA2D00E37FD3 /* ZSBookLocalShelfViewController.swift */,
@@ -3411,8 +3417,6 @@
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/MLeaksFinder/MLeaksFinder.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
@@ -3444,8 +3448,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MLeaksFinder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
@@ -3523,6 +3525,7 @@
 				B2C0DF2E20D4CB350057DC84 /* User.swift in Sources */,
 				B2C0DF2120D4CB350057DC84 /* ZSReaderViewModel.swift in Sources */,
 				B2B02E4C1EA9A9CA00A6880A /* ZSCatelogViewController.swift in Sources */,
+				3D1FFEF2249B562500832576 /* ZSShelfStorage.swift in Sources */,
 				B24B3F5620ECA04B0098ACE5 /* Array+ZSExtension.swift in Sources */,
 				B24B3F5020E8885A0098ACE5 /* ZSSearchHeaderView.swift in Sources */,
 				3DB1FDB12334A8BE00CAC8C0 /* ZSReaderCache.swift in Sources */,
@@ -3609,6 +3612,7 @@
 				B278AA8C1F395F30000A0D55 /* LookBookViewController.swift in Sources */,
 				3DEFD99123BDB12200116ECD /* ZSRefreshTextHeader.swift in Sources */,
 				B2B4BC261E7EA4AB000CC201 /* RootViewController.swift in Sources */,
+				3D1FFEF0249B523300832576 /* ZSSyncStorage.swift in Sources */,
 				B2580E231E9B284900455AFE /* QSHotwords.swift in Sources */,
 				B2C63A3223C1A44B0083C987 /* ZSReaderDownloader.swift in Sources */,
 				3DECC39222461E1900EEB146 /* ZSVoicePlayerView.swift in Sources */,

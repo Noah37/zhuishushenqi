@@ -49,8 +49,10 @@ class ZSReaderBaseViewModel {
     func bookReload() {
         // 阅读历史记录保存
         guard let book = model else { return }
-        if let history = ZSShelfManager.share.history(book.bookUrl) {
-            readHistory = history
+        ZSShelfManager.share.history(book.bookUrl) { [weak self] (result) in
+            if let history = result {
+                self?.readHistory = history
+            }
         }
     }
     
