@@ -90,6 +90,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         let tapGesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
         view.addGestureRecognizer(tapGesture)
         changeReaderType()
+        updateHistory()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -199,6 +200,14 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             vc.view.bounds = view.bounds
         }
         bind()
+    }
+    
+    private func updateHistory() {
+        viewModel.bookReload { [weak self] in
+            if let history = self?.viewModel.readHistory {
+                self?.pref.readerVC?.jumpPage(page: history.page, false, .forward)
+            }
+        }
     }
     
     @objc

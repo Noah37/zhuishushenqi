@@ -17,6 +17,12 @@ class ZSShelfStorage {
         self.syncStorage = ZSSyncStorage(serialQueue:  DispatchQueue(label: "ZSSQ.ZSSyncStorage.SerialQueue"), concurrentQueue:DispatchQueue(label: "ZSSQ.ZSSyncStorage.ConcurrentQueue", qos: .userInitiated, attributes: .concurrent))
     }
     
+    func asyncMain(block:@escaping()->Void) {
+        DispatchQueue.main.async {
+            block()
+        }
+    }
+    
     func write(data:NSData?, path:String) {
         if data == nil || path.count == 0 {
             return
@@ -28,12 +34,16 @@ class ZSShelfStorage {
     
     func read(path:String, block:@escaping(_ data:NSData?) ->Void) {
         if path.count == 0 {
-            block(nil)
+            asyncMain {
+                block(nil)
+            }
             return
         }
-        syncStorage.async_barrier {
+        syncStorage.async { [weak self] in
             let data:NSData? = FileManager.default.contents(atPath: path) as NSData?
-            block(data)
+            self?.asyncMain {
+                block(data)
+            }
         }
     }
     
@@ -58,15 +68,21 @@ class ZSShelfStorage {
     
     func unarchive(path:String, block:@escaping(_ obj:Any?) ->Void) {
         if path.count == 0 {
-            block(nil)
+            asyncMain {
+                block(nil)
+            }
             return
         }
-        syncStorage.async_barrier {
+        syncStorage.async { [weak self] in
             if let data = FileManager.default.contents(atPath: path) {
                 let obj:Any? = NSKeyedUnarchiver.unarchiveObject(with: data)
-                block(obj)
+                self?.asyncMain {
+                    block(obj)
+                }
             } else {
-                block(nil)
+                self?.asyncMain {
+                    block(nil)
+                }
             }
         }
     }

@@ -17,7 +17,7 @@ enum ZSChapterType {
 class ZSReaderBaseViewModel {
     
 
-    var model:ZSAikanParserModel? { didSet { bookReload() }}
+    var model:ZSAikanParserModel? { didSet { bookReload({}) }}
     
     // 设置首次进入时指定的章节，如从详情页的目录进入
     var originalChapter:ZSBookChapter?
@@ -46,12 +46,16 @@ class ZSReaderBaseViewModel {
         }
     }
     
-    func bookReload() {
-        // 阅读历史记录保存
-        guard let book = model else { return }
+    func bookReload(_ block: @escaping ()->Void) {
+        // 阅读历史记录保存nil
+        guard let book = model else {
+            block()
+            return
+        }
         ZSShelfManager.share.history(book.bookUrl) { [weak self] (result) in
             if let history = result {
                 self?.readHistory = history
+                block()
             }
         }
     }

@@ -121,7 +121,8 @@ class ZSShelfTableViewCell: UITableViewCell {
         booknameLB.text = model.bookName
         authorLB.text = model.author
         latestChapterLB.text = "最近更新: \(model.latestChapterName)"
-        updateLB.isHidden = !model.update
+        updateLB.isHidden = (!model.update || model.bookType == .local)
+        latestChapterLB.isHidden = model.bookType == .local
         latestChapterLB.textColor = latestColor(update: model.update)
         let icon = model.icon
         let resource = QSResource(url: URL(string: icon) ?? URL(string: "www.baidu.com")!)

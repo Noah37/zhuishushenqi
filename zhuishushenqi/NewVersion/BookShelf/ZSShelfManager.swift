@@ -60,9 +60,11 @@ class ZSShelfManager {
             let txtPathExtension = ".txt"
             if filePath.hasSuffix(txtPathExtension) {
                 let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
-                let bookUrl = "/Documents/Inbox/\(fileFullName)\(txtPathExtension)"
-                let localBookUrl = "/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
-                try? FileManager.default.copyItem(atPath: bookUrl, toPath: localBookUrl)
+                let bookUrl = "\(NSHomeDirectory())/Documents/Inbox/\(fileFullName)\(txtPathExtension)"
+                let localBookUrl = "\(NSHomeDirectory())/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
+                if !FileManager.default.fileExists(atPath: localBookUrl) {
+                    try? FileManager.default.copyItem(atPath: bookUrl, toPath: localBookUrl)
+                }
             }
         }
         let localPath = "\(NSHomeDirectory())/Documents/LocalBooks/"
@@ -239,7 +241,11 @@ class ZSShelfManager {
     func aikan(_ shelf:ZSShelfModel, block: @escaping (_ aikan:ZSAikanParserModel?)->Void) {
         let aikanFilePath = aikansPath(url: shelf.bookUrl)
         if let aikanBook = aikanBooks[shelf.bookUrl] {
-            block(aikanBook)
+            if aikanBook.bookType == .local && aikanBook.chaptersModel.count == 0 {
+                block(nil)
+            } else {
+                block(aikanBook)
+            }
         } else {
             ZSShelfStorage.share.unarchive(path: aikanFilePath, block: { [weak self] result in
                 if let aikanModel = result as? ZSAikanParserModel {

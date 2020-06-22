@@ -47,7 +47,7 @@ class QSReaderParse: NSObject {
             return nil
         }
         //章节名过滤，只有特定的名称才能识别，不过可以更改正则，做更多的的适配
-        let parten = "第[0-9一二三四五六七八九十百千]*[章回].*"
+        let parten = "第[0-9一二三四五六七八九十百千]*[章回节].*"
         let txt =  content(shelf: shelf)
         let reg = try? NSRegularExpression(pattern: parten, options: .caseInsensitive)
         if let match = reg?.matches(in: txt, options: .reportCompletion, range: NSMakeRange(0, txt.nsString.length)) {
@@ -84,6 +84,14 @@ class QSReaderParse: NSObject {
                     }
                 }
                 lastRange = range
+            }
+            if chapters.count == 0 {
+                let chapter = ZSBookChapter()
+                chapter.bookUrl = shelf.bookUrl
+                chapter.chapterName = ""
+                chapter.chapterContent = txt
+                chapter.chapterIndex = 0
+                chapters.append(chapter)
             }
             book.chaptersModel = chapters
             return book
