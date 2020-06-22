@@ -229,6 +229,23 @@ extension String {
     var nsString:NSString {
         return (self as NSString)
     }
+
+    static func stringFromDataDetectingEncoding(data: Data, suggestedEncodings: [String.Encoding] = []) -> (string: String, encoding: String.Encoding, lossy: Bool)? {
+                
+        var outString: NSString? = nil
+        var lossyConversion: ObjCBool = false
+                
+        var suggestedEncodingsValues:[NSNumber] = []
+        suggestedEncodingsValues = suggestedEncodings.map { (encode) -> NSNumber in
+            return NSNumber.init(value: encode.rawValue)
+        }
+        
+        let encoding = NSString.stringEncoding(for: data as Data, encodingOptions: [StringEncodingDetectionOptionsKey.suggestedEncodingsKey:suggestedEncodingsValues], convertedString: &outString, usedLossyConversion: &lossyConversion)
+        
+        guard let foundString = outString else { return nil }
+        
+        return (string: foundString as String, encoding: String.Encoding.init(rawValue: encoding), lossy: lossyConversion.boolValue)
+    }
 }
 
 extension Optional {

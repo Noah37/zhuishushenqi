@@ -392,7 +392,7 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
         if book.bookType == .local {
             Toast.showProgress(tip: "加载中", onView: view.window!)
             ZSShelfManager.share.aikan(book) { [weak self] (result) in
-                if let aikan = result {
+                if let aikan = result, aikan.chaptersModel.count != 1 {
                     self?.jumpReader(book: aikan, indexPath: indexPath)
                 } else
                     if let shelf = QSReaderParse.parse(shelf: book) {

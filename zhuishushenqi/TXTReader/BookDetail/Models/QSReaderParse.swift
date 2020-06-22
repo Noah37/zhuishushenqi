@@ -29,17 +29,23 @@ class QSReaderParse: NSObject {
     }
     
     class func content(shelf:ZSShelfModel) ->String {
-        let path = NSHomeDirectory().appending(shelf.bookUrl) 
-        let encode = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
+        let path = NSHomeDirectory().appending(shelf.bookUrl)
+        let gbk = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
+        let gb2312 = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_2312_80.rawValue))
+        let utf8 = String.Encoding.utf8
+        let unicode = String.Encoding.unicode
+        
+        let encodeArray = [String.Encoding(rawValue: gbk), String.Encoding(rawValue: gb2312), utf8, unicode]
         let url = URL(fileURLWithPath: path)
-        if let content = try? String(contentsOf: url, encoding: String.Encoding(rawValue: encode)) {
-            return content
-        } else if let content = try? String(contentsOf: url, encoding: .utf8) {
-            return content
-        } else if let content = try? String(contentsOf: url, encoding: .unicode) {
-            return content
-        }
-        return ""
+        let data = try! Data(contentsOf: url)
+        
+        let contentGBK = try? String(contentsOfFile: path, encoding: .gbk)
+        let contentGB2312 = try? String(contentsOfFile: path, encoding: String.Encoding(rawValue: gb2312))
+        let contentUTF8 = try? String(contentsOfFile: path, encoding: unicode)
+
+        
+        guard let result = String.stringFromDataDetectingEncoding(data: data, suggestedEncodings:encodeArray) else { return "" }
+        return result.0
     }
     
     class func parse(shelf:ZSShelfModel)-> ZSAikanParserModel? {
@@ -65,6 +71,7 @@ class QSReaderParse: NSObject {
                 if match.count == 1 {
                     if index == 0 {
                         chapter.chapterName = txt.nsString.substring(with: range)
+                        chapter.bookType = shelf.bookType
                         chapter.chapterContent = self.trim(str: txt.nsString.substring(with: NSMakeRange(range.location, txt.nsString.length - range.location)))
                         chapter.chapterIndex = index
                         chapters.append(chapter)
@@ -73,11 +80,13 @@ class QSReaderParse: NSObject {
                     if index != 0 && index != match.count {
                         range = match[index].range
                         chapter.chapterName = txt.nsString.substring(with:lastRange!)
+                        chapter.bookType = shelf.bookType
                         chapter.chapterContent = self.trim(str: txt.nsString.substring(with: NSMakeRange(lastRange!.location, range.location - lastRange!.location)))
                         chapter.chapterIndex = index - 1
                         chapters.append(chapter)
                     } else if index == match.count {
                         chapter.chapterName = txt.nsString.substring(with: lastRange!)
+                        chapter.bookType = shelf.bookType
                         chapter.chapterContent = self.trim(str: txt.nsString.substring(with: NSMakeRange(lastRange!.location, txt.nsString.length - lastRange!.location)))
                         chapter.chapterIndex = index - 1
                         chapters.append(chapter)

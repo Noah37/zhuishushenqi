@@ -14,4 +14,6 @@
 - (NSString *)urlDecode;
 - (NSString *)zs_urlDecode;
 
++ (NSStringEncoding)nh_stringEncodingForData:(NSData *)data encodingOptions:(NSDictionary<NSStringEncodingDetectionOptionsKey, id> *)opts convertedString:(NSString * _Nullable *)string usedLossyConversion:(BOOL *)usedLossyConversion;
+
 @end

@@ -151,6 +151,9 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
                 }
             }
         } else if let history = viewModel.readHistory {
+            if history.chapter.contentNil() {
+                history.chapter.calPages()
+            }
             pref.readerVC?.jumpPage(page: history.page, false, .forward)
         }
         else {
