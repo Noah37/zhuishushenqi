@@ -214,6 +214,7 @@ class ZSShelfManager {
     
     func addAikan(_ book:ZSAikanParserModel) {
         let shelfModel = book.transformShelf()
+        aikanBooks[book.bookUrl] = book
         if add(shelfModel) {
             saveAikan(book)
         } else if modify(shelfModel) {
@@ -244,7 +245,7 @@ class ZSShelfManager {
     func aikan(_ shelf:ZSShelfModel, block: @escaping (_ aikan:ZSAikanParserModel?)->Void) {
         let aikanFilePath = aikansPath(url: shelf.bookUrl)
         if let aikanBook = aikanBooks[shelf.bookUrl] {
-            if aikanBook.bookType == .local && aikanBook.chaptersModel.count == 0 {
+            if aikanBook.bookType == .local && (aikanBook.chaptersModel.count == 0 || aikanBook.chaptersModel.count == 1) {
                 block(nil)
             } else {
                 block(aikanBook)
