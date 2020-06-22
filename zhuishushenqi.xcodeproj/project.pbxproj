@@ -94,6 +94,8 @@
 		3D6CCAC02379550C004D46CE /* ZSSourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6CCABF2379550C004D46CE /* ZSSourcesViewController.swift */; };
 		3D6CCAC2237956FB004D46CE /* ZSSourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6CCAC1237956FB004D46CE /* ZSSourceManager.swift */; };
 		3D6CCAC423796155004D46CE /* ZSSourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6CCAC323796155004D46CE /* ZSSourceCell.swift */; };
+		3D77E3DD24A0B27F00BFB27F /* 1908大军阀[校对版].txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D77E3DC24A0B27E00BFB27F /* 1908大军阀[校对版].txt */; };
+		3D77E3DF24A0B2EF00BFB27F /* copy in Resources */ = {isa = PBXBuildFile; fileRef = 3D77E3DE24A0B2EF00BFB27F /* copy */; };
 		3D82F9EB22C9DD5D00F035CB /* ZSMineNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82F9EA22C9DD5D00F035CB /* ZSMineNavigationBar.swift */; };
 		3D82F9ED22C9EFA800F035CB /* ZSDetailButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82F9EC22C9EFA800F035CB /* ZSDetailButtonCell.swift */; };
 		3D82F9EF22CA01A100F035CB /* ZSMineMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82F9EE22CA01A100F035CB /* ZSMineMenuItem.swift */; };
@@ -715,6 +717,8 @@
 		3D6CCABF2379550C004D46CE /* ZSSourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSourcesViewController.swift; sourceTree = "<group>"; };
 		3D6CCAC1237956FB004D46CE /* ZSSourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSourceManager.swift; sourceTree = "<group>"; };
 		3D6CCAC323796155004D46CE /* ZSSourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSourceCell.swift; sourceTree = "<group>"; };
+		3D77E3DC24A0B27E00BFB27F /* 1908大军阀[校对版].txt */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = text; name = "1908大军阀[校对版].txt"; path = "../../../../../../../Downloads/1908大军阀[校对版].txt"; sourceTree = "<group>"; };
+		3D77E3DE24A0B2EF00BFB27F /* copy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = copy; sourceTree = "<group>"; };
 		3D82F9EA22C9DD5D00F035CB /* ZSMineNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSMineNavigationBar.swift; sourceTree = "<group>"; };
 		3D82F9EC22C9EFA800F035CB /* ZSDetailButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDetailButtonCell.swift; sourceTree = "<group>"; };
 		3D82F9EE22CA01A100F035CB /* ZSMineMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSMineMenuItem.swift; sourceTree = "<group>"; };
@@ -2427,6 +2431,8 @@
 				3DDEEB00214B5D59003D12DB /* UIFont+ZSExtension.h */,
 				3DDEEB01214B5D59003D12DB /* UIFont+ZSExtension.m */,
 				B2B4BA1A1E7EA4A8000CC201 /* String+QSExtension.swift */,
+				3D77E3DC24A0B27E00BFB27F /* 1908大军阀[校对版].txt */,
+				3D77E3DE24A0B2EF00BFB27F /* copy */,
 				B251F89B2030350E004AAF95 /* Dictionary+QSExtension.swift */,
 				B24B3F5520ECA04B0098ACE5 /* Array+ZSExtension.swift */,
 				B2B4BA1B1E7EA4A8000CC201 /* UIImageView+zhuishu.swift */,
@@ -3257,6 +3263,7 @@
 				B2C0DF5320D4CB350057DC84 /* QSRecommendCell.xib in Resources */,
 				3D3BA0002160C5D700B0C80E /* speaker.json in Resources */,
 				B252D49C210EF3960091858E /* LICENSE.txt in Resources */,
+				3D77E3DF24A0B2EF00BFB27F /* copy in Resources */,
 				B2C0DF5520D4CB350057DC84 /* QSDiscussCell.xib in Resources */,
 				B2C0DF3420D4CB350057DC84 /* Chapters.json in Resources */,
 				B2C0DF4220D4CB350057DC84 /* QSBookListViewCell.xib in Resources */,
@@ -3298,6 +3305,7 @@
 				B200D2001EEDB1FE003A42E3 /* QSIntroduceReadCell.xib in Resources */,
 				3D0D709D23C88B30006902E8 /* HtmlParserModelData_edit.dat in Resources */,
 				B2B8A21922C71641005527C8 /* mjRefreshHeadTitle.plist in Resources */,
+				3D77E3DD24A0B27F00BFB27F /* 1908大军阀[校对版].txt in Resources */,
 				3D3AB5DC214E99FE00E9C246 /* fz-wbt.ttf in Resources */,
 				B2C0DF4620D4CB350057DC84 /* UserfulCell.xib in Resources */,
 				B2B4BBEA1E7EA4AB000CC201 /* EmptyView.xib in Resources */,

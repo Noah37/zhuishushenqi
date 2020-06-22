@@ -54,17 +54,19 @@ class ZSShelfManager {
             return
         }
         isScanning = true
-        guard let items = try? FileManager.default.contentsOfDirectory(atPath: path) else { return }
-        for item in items {
-            let filePath = path.appending("\(item)")
-            let txtPathExtension = ".txt"
-            if filePath.hasSuffix(txtPathExtension) {
-                let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
-                let bookUrl = "/Documents/Inbox/\(fileFullName)\(txtPathExtension)"
-                let localBookUrl = "/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
-                try? FileManager.default.copyItem(atPath: bookUrl, toPath: localBookUrl)
+        if let items = try? FileManager.default.contentsOfDirectory(atPath: path)  {
+            for item in items {
+                let filePath = path.appending("\(item)")
+                let txtPathExtension = ".txt"
+                if filePath.hasSuffix(txtPathExtension) {
+                    let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
+                    let bookUrl = "/Documents/Inbox/\(fileFullName)\(txtPathExtension)"
+                    let localBookUrl = "/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
+                    try? FileManager.default.copyItem(atPath: bookUrl, toPath: localBookUrl)
+                }
             }
         }
+        
         let localPath = "\(NSHomeDirectory())/Documents/LocalBooks/"
         guard let localItems = try? FileManager.default.contentsOfDirectory(atPath: localPath) else { return }
         for item in localItems {

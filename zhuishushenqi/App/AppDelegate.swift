@@ -112,6 +112,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ZSBookManager.shared
         
+        let path = "\(NSHomeDirectory())/Documents/Inbox/"
+        ZSShelfManager.share.scanPath(path: path)
+
+        
 //        WeiboSDK.enableDebugMode(false)
 //        WeiboSDK.registerApp(ZSThirdLogin.WBAppID)
         

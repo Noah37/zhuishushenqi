@@ -64,9 +64,13 @@ class ZSShelfStorage {
         syncStorage.async_barrier {
             if let data = FileManager.default.contents(atPath: path) {
                 let obj:Any? = NSKeyedUnarchiver.unarchiveObject(with: data)
-                block(obj)
+                DispatchQueue.main.async {
+                    block(obj)
+                }
             } else {
-                block(nil)
+                DispatchQueue.main.async {
+                    block(nil)
+                }
             }
         }
     }

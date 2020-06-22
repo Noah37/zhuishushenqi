@@ -17,7 +17,14 @@ class ZSBookChapter:NSObject, NSCoding, HandyJSON {
     var bookUrl:String = ""
     var chapterUrl:String = ""
     var chapterName:String = ""
-    var chapterContent:String = "" { didSet { calPages() } }
+    var chapterContent:String = "" {
+        didSet {
+            // 本地书籍获取章节z时再计算
+            if bookType == .online {
+                calPages()
+            }
+        }
+    }
     // 当前数组中的序号,与书籍中对应的序号可能有出入
     var chapterIndex:Int = 0
     
@@ -25,6 +32,8 @@ class ZSBookChapter:NSObject, NSCoding, HandyJSON {
     var ranges:[NSRange] = []
     
     var pages:[ZSBookPage] = []
+    
+    var bookType:ZSReaderBookStyle = .online
     
     required override init() {
         
