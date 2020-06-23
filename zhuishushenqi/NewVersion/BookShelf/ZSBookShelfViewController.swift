@@ -261,23 +261,25 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     func shelfCell(cell: ZSShelfTableViewCell, clickMore: UIButton) {
         if let indexPath = tableView.indexPath(for: cell) {
             let book = ZSShelfManager.share.books[indexPath.row]
-            if book.bookType == .online {
-                ZSShelfManager.share.aikan(book) { [weak self] (result) in
-                    guard let aikan = result else { return }
-                    let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
-                    opView.delegate = self
-                    opView.configure(book: aikan)
-                    opView.indexPath = indexPath
-                    opView.show(inView: self?.view.window ?? self!.view)
-                }
-            } else {
+            ZSShelfManager.share.aikan(book) { [weak self] (result) in
+                guard let aikan = result else { return }
                 let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
                 opView.delegate = self
-                opView.isLocalBook = true
-                opView.bookUrl = book.bookUrl
+                opView.configure(book: aikan)
                 opView.indexPath = indexPath
-                opView.show(inView: view.window ?? view)
+                opView.isLocalBook = aikan.bookType == .local
+                opView.bookUrl = aikan.bookUrl
+                opView.show(inView: self?.view.window ?? self!.view)
             }
+//            if book.bookType == .online {
+//            } else {
+//                let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
+//                opView.delegate = self
+//                opView.isLocalBook = true
+//                opView.bookUrl = book.bookUrl
+//                opView.indexPath = indexPath
+//                opView.show(inView: view.window ?? view)
+//            }
         }
     }
     
@@ -388,11 +390,13 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let book = ZSShelfManager.share.books[indexPath.row]
         if book.bookType == .local {
-            Toast.showProgress(tip: "加载中", onView: view)
+            Toast.showProgress(tip: "加载中", onView: view.window!)
             ZSShelfManager.share.aikan(book) { [weak self] (result) in
                 if let aikan = result, aikan.chaptersModel.count != 1 {
                     self?.jumpReader(book: aikan, indexPath: indexPath)
-                } else if let shelf = QSReaderParse.parse(shelf: book) {
+                } 
+                else
+                    if let shelf = QSReaderParse.parse(shelf: book) {
                     ZSShelfManager.share.addAikan(shelf)
                     self?.jumpReader(book: shelf, indexPath: indexPath)
                 }

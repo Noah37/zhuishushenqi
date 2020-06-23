@@ -94,6 +94,14 @@ class QSReaderParse: NSObject {
                 }
                 lastRange = range
             }
+            if chapters.count == 0 {
+                let chapter = ZSBookChapter()
+                chapter.bookUrl = shelf.bookUrl
+                chapter.chapterName = ""
+                chapter.chapterContent = txt
+                chapter.chapterIndex = 0
+                chapters.append(chapter)
+            }
             book.chaptersModel = chapters
             return book
         }
