@@ -16,4 +16,6 @@
 
 + (NSStringEncoding)nh_stringEncodingForData:(NSData *)data encodingOptions:(NSDictionary<NSStringEncodingDetectionOptionsKey, id> *)opts convertedString:(NSString * _Nullable *)string usedLossyConversion:(BOOL *)usedLossyConversion;
 
++ (NSString *)fileEncoding:(NSString *)path;
+
 @end

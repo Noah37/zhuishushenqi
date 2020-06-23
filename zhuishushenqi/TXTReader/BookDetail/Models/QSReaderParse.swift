@@ -38,14 +38,34 @@ class QSReaderParse: NSObject {
         let encodeArray = [String.Encoding(rawValue: gbk), String.Encoding(rawValue: gb2312), utf8, unicode]
         let url = URL(fileURLWithPath: path)
         let data = try! Data(contentsOf: url)
-        
-        let contentGBK = try? String(contentsOfFile: path, encoding: .gbk)
-        let contentGB2312 = try? String(contentsOfFile: path, encoding: String.Encoding(rawValue: gb2312))
-        let contentUTF8 = try? String(contentsOfFile: path, encoding: unicode)
 
-        
+        let encoding = NSString.fileEncoding(path)
         guard let result = String.stringFromDataDetectingEncoding(data: data, suggestedEncodings:encodeArray) else { return "" }
         return result.0
+    }
+    
+    // failed to get chardet, use NSString.fileEncoding
+    class func encode(path:String) ->UnsafeMutablePointer<CChar>? {
+        var buf:UnsafeMutablePointer<CChar>?
+        
+        let file = fopen(path, "r")
+        if file == nil {
+            print("打开文件失败！")
+            return nil
+        }
+        let len = fread(buf, CChar.bitWidth, 2048, file)
+        fclose(file)
+        let ud = uchardet_new()
+        if uchardet_handle_data(ud, buf, len) != 0 {
+            print("分析编码失败！")
+            return nil
+        }
+        uchardet_data_end(ud)
+        
+        let encode = uchardet_get_charset(ud)
+        print("文本的编码方式是：\(String(cString: encode!))")
+        uchardet_delete(ud)
+        return UnsafeMutablePointer(mutating: encode)
     }
     
     class func parse(shelf:ZSShelfModel)-> ZSAikanParserModel? {

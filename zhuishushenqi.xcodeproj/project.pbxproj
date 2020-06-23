@@ -43,6 +43,7 @@
 		3D2330E321F6F39D00EFE522 /* FloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2330E221F6F39D00EFE522 /* FloatExtensions.swift */; };
 		3D2330E521F9CC6F00EFE522 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2330E421F9CC6F00EFE522 /* IntExtensions.swift */; };
 		3D252CE0219175FD0051B60D /* ZSDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D252CDF219175FC0051B60D /* ZSDatabase.swift */; };
+		3D26002724A1B61000458B58 /* libuchardet-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D26002524A1B61000458B58 /* libuchardet-ios.a */; };
 		3D28402822841281009463A3 /* ZSDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D28402722841281009463A3 /* ZSDetailSection.swift */; };
 		3D28402A2284267C009463A3 /* ZSDetailInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2840292284267C009463A3 /* ZSDetailInfoCell.swift */; };
 		3D29C7AB233381A600113A25 /* ZSReaderVCProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D29C7AA233381A600113A25 /* ZSReaderVCProtocol.swift */; };
@@ -336,7 +337,7 @@
 		B25D1AD9230293BB00B1F786 /* ZSForumPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25D1AD8230293BB00B1F786 /* ZSForumPageCell.swift */; };
 		B25EB92A21933A6D000D3657 /* ZSWriteReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92921933A6D000D3657 /* ZSWriteReview.swift */; };
 		B25EB92C2194986C000D3657 /* ZSEncryptorAESUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92B2194986C000D3657 /* ZSEncryptorAESUtils.swift */; };
-		B25EB92F2194999E000D3657 /* FBEncryptorAESUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.m */; };
+		B25EB92F2194999E000D3657 /* FBEncryptorAESUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.mm */; };
 		B25EB93221949AF1000D3657 /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = B25EB93121949AF1000D3657 /* FBEncryptorAES.m */; };
 		B26286CA1EEA46DD005A1A8A /* QSIntroducePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26286C91EEA46DD005A1A8A /* QSIntroducePage.swift */; };
 		B263ACDF1EE679830096CE80 /* HomeListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B263ACDD1EE679830096CE80 /* HomeListViewCell.swift */; };
@@ -665,8 +666,8 @@
 		3D2330E221F6F39D00EFE522 /* FloatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatExtensions.swift; sourceTree = "<group>"; };
 		3D2330E421F9CC6F00EFE522 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		3D252CDF219175FC0051B60D /* ZSDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDatabase.swift; sourceTree = "<group>"; };
-		3D26002124A1A77D00458B58 /* libuchardet-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libuchardet-ios.a"; sourceTree = "<group>"; };
-		3D26002224A1A79000458B58 /* uchardet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = uchardet.h; sourceTree = "<group>"; };
+		3D26002524A1B61000458B58 /* libuchardet-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libuchardet-ios.a"; sourceTree = "<group>"; };
+		3D26002624A1B61000458B58 /* uchardet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uchardet.h; sourceTree = "<group>"; };
 		3D28402722841281009463A3 /* ZSDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDetailSection.swift; sourceTree = "<group>"; };
 		3D2840292284267C009463A3 /* ZSDetailInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSDetailInfoCell.swift; sourceTree = "<group>"; };
 		3D29C7AA233381A600113A25 /* ZSReaderVCProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReaderVCProtocol.swift; sourceTree = "<group>"; };
@@ -1072,7 +1073,7 @@
 		B25EB92921933A6D000D3657 /* ZSWriteReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWriteReview.swift; sourceTree = "<group>"; };
 		B25EB92B2194986C000D3657 /* ZSEncryptorAESUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSEncryptorAESUtils.swift; sourceTree = "<group>"; };
 		B25EB92D2194999E000D3657 /* FBEncryptorAESUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAESUtils.h; sourceTree = "<group>"; };
-		B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAESUtils.m; sourceTree = "<group>"; };
+		B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FBEncryptorAESUtils.mm; sourceTree = "<group>"; };
 		B25EB93021949AF1000D3657 /* FBEncryptorAES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAES.h; sourceTree = "<group>"; };
 		B25EB93121949AF1000D3657 /* FBEncryptorAES.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
 		B26286C91EEA46DD005A1A8A /* QSIntroducePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroducePage.swift; sourceTree = "<group>"; };
@@ -1397,6 +1398,7 @@
 				B22182CD1DA4058E002458D2 /* libsqlite3.tbd in Frameworks */,
 				3DD08407215698E5008E3B4A /* iflyMSC.framework in Frameworks */,
 				B22182C91DA40582002458D2 /* MobileCoreServices.framework in Frameworks */,
+				3D26002724A1B61000458B58 /* libuchardet-ios.a in Frameworks */,
 				B22182C71DA4057A002458D2 /* Accelerate.framework in Frameworks */,
 				B22182C51DA40570002458D2 /* AssetsLibrary.framework in Frameworks */,
 				B22182C31DA40566002458D2 /* ImageIO.framework in Frameworks */,
@@ -1469,11 +1471,11 @@
 			path = SwiftStdlib;
 			sourceTree = "<group>";
 		};
-		3D26002024A1A77000458B58 /* uchardet */ = {
+		3D26002424A1B61000458B58 /* uchardet */ = {
 			isa = PBXGroup;
 			children = (
-				3D26002224A1A79000458B58 /* uchardet.h */,
-				3D26002124A1A77D00458B58 /* libuchardet-ios.a */,
+				3D26002524A1B61000458B58 /* libuchardet-ios.a */,
+				3D26002624A1B61000458B58 /* uchardet.h */,
 			);
 			path = uchardet;
 			sourceTree = "<group>";
@@ -2172,7 +2174,7 @@
 				B25EB92B2194986C000D3657 /* ZSEncryptorAESUtils.swift */,
 				3DE393EA21A3EB2D00890488 /* ZSJSON.swift */,
 				B25EB92D2194999E000D3657 /* FBEncryptorAESUtils.h */,
-				B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.m */,
+				B25EB92E2194999E000D3657 /* FBEncryptorAESUtils.mm */,
 				B25EB93021949AF1000D3657 /* FBEncryptorAES.h */,
 				B25EB93121949AF1000D3657 /* FBEncryptorAES.m */,
 				B266C66821A6FCC3006B5A15 /* ZSDBManager.h */,
@@ -2281,7 +2283,7 @@
 		B278AA9F1F396773000A0D55 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				3D26002024A1A77000458B58 /* uchardet */,
+				3D26002424A1B61000458B58 /* uchardet */,
 				B21C732C23657ACE00E9D148 /* OCGumbo */,
 				3DECC39722464C4E00EEB146 /* XimalayaSDK_iOS_5.5.1 */,
 				B2CA80E821797B9C007A3EE7 /* ThirdLoginSDK */,
@@ -3914,7 +3916,7 @@
 				3D82F9ED22C9EFA800F035CB /* ZSDetailButtonCell.swift in Sources */,
 				B2A7CD81217C5E5E0067D25B /* ZSUserBookshelf.swift in Sources */,
 				3DECC38C22460DD000EEB146 /* ZSSegmenuViewController.swift in Sources */,
-				B25EB92F2194999E000D3657 /* FBEncryptorAESUtils.m in Sources */,
+				B25EB92F2194999E000D3657 /* FBEncryptorAESUtils.mm in Sources */,
 				B252D493210EF3960091858E /* DDNumber.m in Sources */,
 				3D096BF722CF76A70005C9EA /* ZSRefreshFooter.swift in Sources */,
 				B2FCAA8B1E9C82CE0064837C /* QSSearchItem.swift in Sources */,
@@ -4181,7 +4183,6 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/zhuishushenqi/TXTReader/Speech/Model",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -4199,6 +4200,7 @@
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK/WeChatSDK1.8.3",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK/libWeiboSDK",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/XimalayaSDK_iOS_5.5.1",
+					"$(PROJECT_DIR)/zhuishushenqi/Vendor/uchardet",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
@@ -4232,7 +4234,6 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/zhuishushenqi/TXTReader/Speech/Model",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4246,6 +4247,7 @@
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK/WeChatSDK1.8.3",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/ThirdLoginSDK/libWeiboSDK",
 					"$(PROJECT_DIR)/zhuishushenqi/Vendor/XimalayaSDK_iOS_5.5.1",
+					"$(PROJECT_DIR)/zhuishushenqi/Vendor/uchardet",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = (
