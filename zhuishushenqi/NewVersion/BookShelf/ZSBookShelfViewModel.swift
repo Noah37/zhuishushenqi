@@ -37,7 +37,7 @@ class ZSBookShelfViewModel {
         }
         let books = ZSShelfManager.share.books
         for book in books {
-            ZSShelfManager.share.aikan(book) { [weak self] (result) in
+            ZSShelfManager.share.getAikanModel(book) { [weak self] (result) in
                 guard let src = result else { return }
                 self?.searchViewModel.getChapter(src: src, bookUrl: book.bookUrl) { (chapters, info) in
                     let lastChapter = chapters.last

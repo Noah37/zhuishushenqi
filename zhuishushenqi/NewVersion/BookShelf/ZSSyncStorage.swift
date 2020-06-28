@@ -21,21 +21,24 @@ class ZSSyncStorage {
     
     func sync(execute block: () -> Void) {
         serialQueue.sync {
-            print("Current_Thread:\(Thread.current)")
             block()
         }
     }
     
     func async_barrier(execute block: @escaping() -> Void) {
         concurrentQueue.async(flags: .barrier) {
-            print("Current_Thread:\(Thread.current)")
             block()
         }
     }
     
     func async( block : @escaping () -> Void) {
+        concurrentQueue.async {
+            block()
+        }
+    }
+    
+    func async_serial( block : @escaping () -> Void) {
         serialQueue.async {
-            print("Current_Thread:\(Thread.current)")
             block()
         }
     }

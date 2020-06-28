@@ -17,7 +17,16 @@ class ZSShelfManager {
     
     static let share = ZSShelfManager()
     
-    var books:[ZSShelfModel] = []
+    var books:[ZSShelfModel] {
+        get {
+            let booksP = booksPath()
+            return ZSShelfStorage.share.object(for: booksP) as? [ZSShelfModel] ?? []
+        }
+        set {
+            let booksP = booksPath()
+            ZSShelfStorage.share.setObject(obj: newValue, path: booksP)
+        }
+    }
     
     var aikanBooks:[String:ZSAikanParserModel] = [:]
     
@@ -31,7 +40,6 @@ class ZSShelfManager {
     
     private init(){
         createPath()
-        unpack()
         local()
     }
     
@@ -120,7 +128,6 @@ class ZSShelfManager {
     func add(_ book:ZSShelfModel) ->Bool {
         if !exist(book) {
             books.append(book)
-            save()
             return true
         }
         return false
@@ -131,7 +138,6 @@ class ZSShelfManager {
         let exitIndex = index(book)
         if exitIndex >= 0 && exitIndex < books.count {
             books.remove(at: exitIndex)
-            save()
             return true
         }
         return false
@@ -156,7 +162,6 @@ class ZSShelfManager {
         if exitIndex >= 0 && exitIndex < books.count {
             books.remove(at: exitIndex)
             books.insert(book, at: exitIndex)
-            save()
             return true
         }
         return false
@@ -175,7 +180,6 @@ class ZSShelfManager {
         let book = books[from]
         if remove(book) {
             books.insert(book, at: to)
-            save()
         }
     }
     
@@ -214,11 +218,14 @@ class ZSShelfManager {
     
     func addAikan(_ book:ZSAikanParserModel) {
         let shelfModel = book.transformShelf()
-        aikanBooks[book.bookUrl] = book
         if add(shelfModel) {
-            saveAikan(book)
+            setAikan(model: book) { (result) in
+                
+            }
         } else if modify(shelfModel) {
-            saveAikan(book)
+            setAikan(model: book) { (result) in
+                
+            }
         }
     }
     
@@ -226,39 +233,41 @@ class ZSShelfManager {
         let shelfModel = book.transformShelf()
         if remove(shelfModel) {
             // save aikan
-            saveAikan(book)
+            let aikanFilePath = aikansPath(url: book.bookUrl)
+            ZSShelfStorage.share.removeObject(path: aikanFilePath)
         }
     }
     
     func removeAikan(bookUrl:String) {
         let aikanFilePath = aikansPath(url: bookUrl)
-        ZSShelfStorage.share.delete(path: aikanFilePath)
+        ZSShelfStorage.share.removeObject(path: aikanFilePath)
     }
     
     func modifyAikan(_ book:ZSAikanParserModel) {
         let shelfModel = book.transformShelf()
         if modify(shelfModel) {
-            saveAikan(book)
+            setAikan(model: book) { (result) in
+                
+            }
         }
     }
     
-    func aikan(_ shelf:ZSShelfModel, block: @escaping (_ aikan:ZSAikanParserModel?)->Void) {
+    func getAikanModel(_ shelf:ZSShelfModel, block: @escaping (_ aikan:ZSAikanParserModel?)->Void)  {
         let aikanFilePath = aikansPath(url: shelf.bookUrl)
-        if let aikanBook = aikanBooks[shelf.bookUrl] {
-            if aikanBook.bookType == .local && (aikanBook.chaptersModel.count == 0 || aikanBook.chaptersModel.count == 1) {
-                block(nil)
-            } else {
-                block(aikanBook)
+        let queue = DispatchQueue(label: "com.getaikanQueue", qos: DispatchQoS.default, attributes: DispatchQueue.Attributes.concurrent)
+        queue.async {
+            let aikan = ZSShelfStorage.share.object(for: aikanFilePath) as? ZSAikanParserModel
+            DispatchQueue.main.async {
+                block(aikan)
             }
-        } else {
-            ZSShelfStorage.share.unarchive(path: aikanFilePath, block: { [weak self] result in
-                if let aikanModel = result as? ZSAikanParserModel {
-                    self?.aikanBooks[shelf.bookUrl] = aikanModel
-                    block(aikanModel)
-                } else {
-                    block(nil)
-                }
-            })
+        }
+    }
+    
+    func setAikan(model: ZSAikanParserModel, block: @escaping (_ aikan:Bool)->Void) {
+        let aikanFilePath = aikansPath(url: model.bookUrl)
+        let result = ZSShelfStorage.share.setObject(obj: model, path: aikanFilePath)
+        DispatchQueue.main.async {
+            block(result)
         }
     }
     
@@ -288,30 +297,12 @@ class ZSShelfManager {
         ZSShelfStorage.share.delete(path: aikanFilePath)
     }
     
-    private func saveAikan(_ book:ZSAikanParserModel) {
-        let aikanFilePath = aikansPath(url: book.bookUrl)
-        ZSShelfStorage.share.archive(obj: book, path: aikanFilePath)
-    }
-    
-    private func unpack() {
-        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
-        let booksPath = documentPath.appending("/\(shelfBooksPath)/\(shelfBooksPathKey.md5())")
-        if let objs = NSKeyedUnarchiver.unarchiveObject(withFile: booksPath) as? [ZSShelfModel] {
-            self.books = objs
-        } else {
-            let booksUrl = URL(fileURLWithPath: booksPath)
-            if let data = try? Data(contentsOf: booksUrl) {
-                let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [[String:Any]]
-                if let shelfs = [ZSShelfModel].deserialize(from: json) as? [ZSShelfModel] {
-                    self.books = shelfs
-                }
-            }
-        }
-    }
-    
     private func save() {
         let booksP = booksPath()
-        ZSShelfStorage.share.archive(obj: self.books, path: booksP)
+        let queue = DispatchQueue(label: "com.saveshelfQueue", qos: DispatchQoS.default, attributes: DispatchQueue.Attributes.concurrent)
+        queue.async {
+            ZSShelfStorage.share.setObject(obj: self.books, path: booksP)
+        }
     }
     
     private func index(_ book:ZSShelfModel) ->Int {

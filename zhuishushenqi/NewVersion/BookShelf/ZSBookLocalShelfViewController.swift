@@ -88,7 +88,7 @@ class ZSBookLocalShelfViewController: BaseViewController,UITableViewDataSource,U
         tableView.deselectRow(at: indexPath, animated: true)
         showActivityView()
         let shelf = ZSShelfManager.share.localBooks[indexPath.row]
-        ZSShelfManager.share.aikan(shelf) { [weak self] (aikan) in
+        ZSShelfManager.share.getAikanModel(shelf) { [weak self] (aikan) in
             if let book = aikan {
                 self?.jumpReader(book: book, indexPath: indexPath)
             } else if let book = QSReaderParse.parse(shelf: shelf) {

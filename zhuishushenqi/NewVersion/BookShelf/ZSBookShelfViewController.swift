@@ -259,27 +259,25 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     
     //MARK: - ZSShelfTableViewCellDelegate
     func shelfCell(cell: ZSShelfTableViewCell, clickMore: UIButton) {
-        if let indexPath = tableView.indexPath(for: cell) {
-            let book = ZSShelfManager.share.books[indexPath.row]
-            ZSShelfManager.share.aikan(book) { [weak self] (result) in
-                guard let aikan = result else { return }
-                let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
-                opView.delegate = self
-                opView.configure(book: aikan)
-                opView.indexPath = indexPath
-                opView.isLocalBook = aikan.bookType == .local
-                opView.bookUrl = aikan.bookUrl
-                opView.show(inView: self?.view.window ?? self!.view)
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let book = ZSShelfManager.share.books[indexPath.row]
+        ZSShelfManager.share.getAikanModel(book) { [weak self] (result) in
+            guard let aikan = result else {
+                Toast.show(tip: "找不到该书籍", ToastType.failure, 2)
+                if book.bookType == .local {
+                    return
+                }
+                ZSShelfManager.share.remove(book)
+                self?.tableView.reloadData()
+                return
             }
-//            if book.bookType == .online {
-//            } else {
-//                let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
-//                opView.delegate = self
-//                opView.isLocalBook = true
-//                opView.bookUrl = book.bookUrl
-//                opView.indexPath = indexPath
-//                opView.show(inView: view.window ?? view)
-//            }
+            let opView = ZSShelfOperatingView(frame: UIScreen.main.bounds)
+            opView.delegate = self
+            opView.configure(book: aikan)
+            opView.indexPath = indexPath
+            opView.isLocalBook = aikan.bookType == .local
+            opView.bookUrl = aikan.bookUrl
+            opView.show(inView: self?.view.window ?? self!.view)
         }
     }
     
@@ -391,7 +389,7 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
         let book = ZSShelfManager.share.books[indexPath.row]
         if book.bookType == .local {
             Toast.showProgress(tip: "加载中", onView: view.window!)
-            ZSShelfManager.share.aikan(book) { [weak self] (result) in
+            ZSShelfManager.share.getAikanModel(book) { [weak self] (result) in
                 if let aikan = result, aikan.chaptersModel.count != 1 {
                     self?.jumpReader(book: aikan, indexPath: indexPath)
                 } 
@@ -403,7 +401,7 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
                 Toast.hiden()
             }
         } else {
-            ZSShelfManager.share.aikan(book) { [weak self] (result) in
+            ZSShelfManager.share.getAikanModel(book) { [weak self] (result) in
                 guard let aikan = result else { return }
                 if aikan.chaptersModel.count > 0 {
                     let readerVC = ZSReaderController(chapter: nil, aikan)
