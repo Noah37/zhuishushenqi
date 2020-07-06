@@ -79,9 +79,7 @@ class ZSShelfStorage {
         syncStorage.sync {
             self.cacheDict[path] = obj
         }
-        syncStorage.async_barrier { [weak self] in
-            self?.saveFile(path: path, obj: obj)
-        }
+        saveFile(path: path, obj: obj)
         let end = CFAbsoluteTimeGetCurrent()
         print("set object for key:\(path), time:\(end - start)")
         return true
@@ -94,9 +92,7 @@ class ZSShelfStorage {
         if path.length == 0 {
             return false
         }
-        syncStorage.async_barrier { [weak self] in
-            self?.removeFile(path: path)
-        }
+        removeFile(path: path)
         let end = CFAbsoluteTimeGetCurrent()
         print("set object for key:\(path), time:\(end - start)")
         return true

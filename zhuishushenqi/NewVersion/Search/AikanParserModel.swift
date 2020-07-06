@@ -170,4 +170,15 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying, HandyJSON {
         shelfModel.latestChapterName = self.latestChapterName
         return shelfModel
     }
+    
+    func updateShelf(shelf:ZSShelfModel) ->ZSShelfModel {
+//        shelf.icon = self.bookIcon.length > 0 ? self.bookIcon:self.detailBookIcon
+//        shelf.bookName = self.bookName
+//        shelf.author = self.bookAuthor
+//        shelf.bookUrl = self.bookUrl
+//        shelf.bookType = self.bookType
+        shelf.update = self.update
+        shelf.latestChapterName = self.latestChapterName
+        return shelf
+    }
 }

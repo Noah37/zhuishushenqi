@@ -30,6 +30,8 @@ class ZSBookLocalShelfViewController: BaseViewController,UITableViewDataSource,U
             make.top.equalToSuperview().offset(kNavgationBarHeight)
         }
         setupNavItem()
+        let path = "\(NSHomeDirectory())/Documents/Inbox/"
+        ZSShelfManager.share.scanPath(path: path)
         title = "本地书架"
         NotificationCenter.default.addObserver(self, selector: #selector(localChangeNoti(noti:)), name: NSNotification.Name.LocalShelfChanged, object: nil)
     }

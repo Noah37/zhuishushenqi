@@ -260,7 +260,8 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     //MARK: - ZSShelfTableViewCellDelegate
     func shelfCell(cell: ZSShelfTableViewCell, clickMore: UIButton) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        let book = ZSShelfManager.share.books[indexPath.row]
+        let bookPath = ZSShelfManager.share.books[indexPath.row]
+        guard let book = ZSShelfManager.share.getShelfModel(bookPath: bookPath) else { return }
         ZSShelfManager.share.getAikanModel(book) { [weak self] (result) in
             guard let aikan = result else {
                 Toast.show(tip: "找不到该书籍", ToastType.failure, 2)
@@ -380,13 +381,16 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
         let cell = tableView.qs_dequeueReusableCell(ZSShelfTableViewCell.self)
         cell?.selectionStyle = .none
         let book = ZSShelfManager.share.books[indexPath.row]
-        cell?.configure(model: book)
+        if let model = ZSShelfManager.share.getShelfModel(bookPath: book) {
+            cell?.configure(model: model)
+        }
         cell?.delegate = self
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let book = ZSShelfManager.share.books[indexPath.row]
+        let bookPath = ZSShelfManager.share.books[indexPath.row]
+        guard let book = ZSShelfManager.share.getShelfModel(bookPath: bookPath) else { return }
         if book.bookType == .local {
             Toast.showProgress(tip: "加载中", onView: view.window!)
             ZSShelfManager.share.getAikanModel(book) { [weak self] (result) in

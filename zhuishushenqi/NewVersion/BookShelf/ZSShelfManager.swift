@@ -17,17 +17,14 @@ class ZSShelfManager {
     
     static let share = ZSShelfManager()
     
-    var books:[ZSShelfModel] {
-        get {
-            let booksP = booksPath()
-            return ZSShelfStorage.share.object(for: booksP) as? [ZSShelfModel] ?? []
-        }
-        set {
-            let booksP = booksPath()
-            ZSShelfStorage.share.setObject(obj: newValue, path: booksP)
+    // 每个book的localPath
+    var books:[String] = [] {
+        didSet {
+            let path = booksPath()
+            ZSShelfStorage.share.setObject(obj: books, path: path)
         }
     }
-    
+
     var aikanBooks:[String:ZSAikanParserModel] = [:]
     
     var localBooks:[ZSShelfModel] = []
@@ -40,7 +37,37 @@ class ZSShelfManager {
     
     private init(){
         createPath()
+        unpackBooksFile()
         local()
+    }
+    
+    func unpackBooksFile() {
+        let booksP = booksPath()
+        if let books = ZSShelfStorage.share.object(for: booksP) as? [String] {
+            self.books = books
+            for bookPath in books {
+                let fullPath = shelfModelPath(url: bookPath)
+                ZSShelfStorage.share.object(for: fullPath)
+            }
+        }
+    }
+    
+    func saveShelfModel(shelf:ZSShelfModel) {
+        let fullPath = shelfModelPath(url: shelf.bookUrl)
+        ZSShelfStorage.share.setObject(obj: shelf, path: fullPath)
+    }
+    
+    func getShelfModel(bookPath:String)->ZSShelfModel? {
+        let shelfPath = shelfModelPath(url: bookPath)
+        if let shelf = ZSShelfStorage.share.object(for: shelfPath) as? ZSShelfModel {
+           return shelf
+        }
+        return nil
+    }
+    
+    func removeBook(bookPath:String) {
+        let bookPath = shelfModelPath(url: bookPath)
+        ZSShelfStorage.share.removeObject(path: bookPath)
     }
     
     func refresh() {
@@ -77,7 +104,7 @@ class ZSShelfManager {
                 }
             }
         }
-        
+        localBooks.removeAll()
         let localPath = "\(NSHomeDirectory())/Documents/LocalBooks/"
         guard let localItems = try? FileManager.default.contentsOfDirectory(atPath: localPath) else { return }
         for item in localItems {
@@ -86,21 +113,17 @@ class ZSShelfManager {
             if filePath.hasSuffix(txtPathExtension) {
                 let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
                 let localBookUrl = "/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
+                let shelf = ZSShelfModel()
+                shelf.bookType = .local
+                shelf.bookName = fileFullName
+                shelf.bookUrl = localBookUrl
                 if !exist(localBookUrl) {
-                    let shelf = ZSShelfModel()
-                    shelf.bookType = .local
-                    shelf.bookName = fileFullName
-                    shelf.bookUrl = localBookUrl
-                    books.append(shelf)
+                    books.append(localBookUrl)
+                    localBooks.append(shelf)
+                    saveShelfModel(shelf: shelf)
+                } else if !localBooks.contains(shelf) {
+                    localBooks.append(shelf)
                 }
-            }
-        }
-        
-        
-        localBooks.removeAll()
-        for book  in books {
-            if book.bookType == .local {
-                localBooks.append(book)
             }
         }
         isScanning = false
@@ -116,7 +139,7 @@ class ZSShelfManager {
     func removeLocalBook(bookUrl:String) {
         if exist(bookUrl) {
             books.removeAll { (model) -> Bool in
-                return model.bookUrl == bookUrl
+                return model == bookUrl
             }
             try? FileManager.default.removeItem(atPath:"\(NSHomeDirectory())\(bookUrl)")
             save()
@@ -126,8 +149,9 @@ class ZSShelfManager {
     
     @discardableResult
     func add(_ book:ZSShelfModel) ->Bool {
-        if !exist(book) {
-            books.append(book)
+        if !exist(book.bookUrl) {
+            books.append(book.bookUrl)
+            saveShelfModel(shelf: book)
             return true
         }
         return false
@@ -135,9 +159,10 @@ class ZSShelfManager {
     
     @discardableResult
     func remove(_ book:ZSShelfModel) ->Bool {
-        let exitIndex = index(book)
+        let exitIndex = index(book.bookUrl)
         if exitIndex >= 0 && exitIndex < books.count {
             books.remove(at: exitIndex)
+            removeBook(bookPath: book.bookUrl)
             return true
         }
         return false
@@ -147,7 +172,7 @@ class ZSShelfManager {
     func remove(_ bookUrl:String) ->Bool {
         var index = 0
         for book in books {
-            if book.bookUrl == bookUrl {
+            if book == bookUrl {
                 books.remove(at: index)
                 break
             }
@@ -158,10 +183,10 @@ class ZSShelfManager {
     
     @discardableResult
     func modify(_ book:ZSShelfModel) ->Bool {
-        let exitIndex = index(book)
+        let exitIndex = index(book.bookUrl)
         if exitIndex >= 0 && exitIndex < books.count {
             books.remove(at: exitIndex)
-            books.insert(book, at: exitIndex)
+            books.insert(book.bookUrl, at: exitIndex)
             return true
         }
         return false
@@ -186,7 +211,7 @@ class ZSShelfManager {
     func exist(_ bookUrl:String) ->Bool {
         var exist = false
         for bk in self.books {
-            if bk.bookUrl == bookUrl {
+            if bk == bookUrl {
                 exist = true
                 break
             }
@@ -208,7 +233,7 @@ class ZSShelfManager {
     func exist(_ book:ZSShelfModel) -> Bool {
         var exist = false
         for bk in self.books {
-            if bk.bookUrl == book.bookUrl {
+            if bk == book.bookUrl {
                 exist = true
                 break
             }
@@ -244,11 +269,21 @@ class ZSShelfManager {
     }
     
     func modifyAikan(_ book:ZSAikanParserModel) {
-        let shelfModel = book.transformShelf()
-        if modify(shelfModel) {
-            setAikan(model: book) { (result) in
-                
+        let bookPath = shelfModelPath(url: book.bookUrl)
+        func updateAikan(shelf:ZSShelfModel, book:ZSAikanParserModel) {
+            if modify(shelf) {
+                setAikan(model: book) { (result) in
+                    
+                }
             }
+        }
+        if let shelf = ZSShelfStorage.share.object(for: bookPath) as? ZSShelfModel {
+            let shelf = book.updateShelf(shelf: shelf)
+            saveShelfModel(shelf: shelf)
+            updateAikan(shelf: shelf, book: book)
+        } else {
+            let shelfModel = book.transformShelf()
+            updateAikan(shelf: shelfModel, book: book)
         }
     }
     
@@ -305,17 +340,28 @@ class ZSShelfManager {
         }
     }
     
-    private func index(_ book:ZSShelfModel) ->Int {
+    private func index(_ bookPath:String) ->Int {
         var index = 0
         var exitIndex = -1
         for bk in self.books {
-            if bk.bookUrl == book.bookUrl {
+            if bk == bookPath {
                 exitIndex = index
                 break
             }
             index += 1
         }
         return exitIndex
+    }
+    
+    private func shelfModelPath(url:String) ->String {
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+        let booksPath = documentPath.appending("/\(shelfBooksPath)/books/")
+        let aikanFileName = url.md5()
+        let aikanFilePath = booksPath.appending(aikanFileName)
+        if !FileManager.default.fileExists(atPath: booksPath, isDirectory: nil) {
+            try? FileManager.default.createDirectory(atPath: booksPath, withIntermediateDirectories: true, attributes: nil)
+        }
+        return aikanFilePath
     }
     
     private func aikansPath(url:String) ->String {
@@ -393,5 +439,21 @@ class ZSShelfModel: NSObject,NSCoding, HandyJSON {
         self.bookType = ZSReaderBookStyle(rawValue: coder.decodeInteger(forKey: "bookType")) ?? .online
         self.update = coder.decodeBool(forKey: "update")
         self.latestChapterName = coder.decodeObject(forKey: "latestChapterName") as? String ?? ""
+    }
+}
+
+extension Array where Element:ZSShelfModel {
+    func contains(_ element: Element) -> Bool {
+        if self.count == 0 {
+            return false
+        }
+        var contain:Bool = false
+        for item in self {
+            if item.bookUrl == element.bookUrl {
+                contain = true
+                break
+            }
+        }
+        return contain
     }
 }
