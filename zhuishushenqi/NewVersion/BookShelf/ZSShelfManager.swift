@@ -8,6 +8,7 @@
 
 import UIKit
 import HandyJSON
+import YungCache
 
 class ZSShelfManager {
     
@@ -17,11 +18,14 @@ class ZSShelfManager {
     
     static let share = ZSShelfManager()
     
+    let booksCache:Cache<Data>
+    
     // 每个book的localPath
     var books:[String] = [] {
         didSet {
             let path = booksPath()
             ZSShelfStorage.share.setObject(obj: books, path: path)
+            
         }
     }
 
@@ -36,6 +40,7 @@ class ZSShelfManager {
     var queue:DispatchQueue = DispatchQueue(label: "com.shelf.update")
     
     private init(){
+        booksCache = Cache<Data>(path: shelfBooksPath)
         createPath()
         unpackBooksFile()
         local()

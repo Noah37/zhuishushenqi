@@ -41,6 +41,7 @@ pod 'Zip'
 pod 'RxAlamofire'
 pod 'RxCocoa'
 pod 'UICircularProgressRing'
+pod 'YungCache', :git => 'https://github.com/Noah37/YungCache.git'
 
 # local pods
 pod 'ZSAPI', :path => "zhuishushenqi/NewVersion/ZSAPI"
