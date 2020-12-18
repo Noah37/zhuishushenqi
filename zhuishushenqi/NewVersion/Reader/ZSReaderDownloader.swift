@@ -105,10 +105,10 @@ class ZSReaderDownloader {
         }
     }
     
-    private func contentReplace(string:String, reg:String) ->String {
+    func contentReplace(string:String, reg:String) ->String {
         var resultString = string
         guard let data = reg.data(using: .utf8) else { return resultString }
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [[String:Any]] else {
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.fragmentsAllowed) as? [[String:Any]] else {
             return resultString
         }
         
@@ -117,14 +117,18 @@ class ZSReaderDownloader {
             if let noRegular = dict["noRegular"] as? Bool {
                 if !noRegular {
                     let regStr = try? NSRegularExpression(pattern: first, options: NSRegularExpression.Options.caseInsensitive)
-                    if let results = regStr?.matches(in: string, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, string.length)) {
+                    if let results = regStr?.matches(in: resultString, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, resultString.oc_length)) {
+                        var removeLength = 0
                         for result in results {
-                            let range = result.range
-                            let subString = resultString.substingInRange(range.location..<(range.location + range.length)) ?? ""
-                            resultString = resultString.replacingOccurrences(of: subString, with: "")
+                            var range = result.range
+                            range.location = range.location - removeLength
+                            let subString = resultString.asNSString().substring(with: range)
+                            resultString = resultString.asNSString().replacingOccurrences(of: subString, with: "")
+                            removeLength = removeLength + subString.oc_length
                         }
                     }
                 } else {
+                    let location = resultString.asNSString().range(of: first).location
                     resultString = resultString.replacingOccurrences(of: first, with: "")
                 }
             }

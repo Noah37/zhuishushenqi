@@ -192,6 +192,10 @@ extension String {
         return self.lengthOfBytes(using: .utf8)
     }
     
+    var oc_length:Int {
+        return self.asNSString().length
+    }
+    
     var toArray:Array<[String:Any]>? {
         var json = self
         if json.contains("\\") {

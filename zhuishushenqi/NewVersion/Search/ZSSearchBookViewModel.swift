@@ -170,10 +170,11 @@ class ZSSearchBookViewModel {
     
     func request(text:String,completion:@escaping(_ book:ZSAikanParserModel)->Void) {
         let htmlText = "<ul class=\"list-group\"><li class=\"list-group-item active\">章节目录</li><li class=\"list-group-item\"><a href=\"/book/81837/169064600.html\">咳咳，假酒喝多了，请个假</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169056339.html\">第1429章 地狱归来</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169056338.html\">第1428章 相隔一个世纪的返航</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169041719.html\">第1427章 远方的故人</a></li><li class=\"list-group-item\"><a href=\"/book/81837/169041712.html\">第1426章 天宫！</a></li><li class=\"list-group-item tac\"><a href=\"/book/81837/\"><strong>查看全部章节</strong></a></li></ul>"
-        if let document = OCGumboDocument(htmlString: htmlText) {
+        let qukanshuHtml = "<div class=\"c_row\"><div class=\"fl\"><a href=\"http://www.qudushu.com/book/info/1184/1184434.html\" target=\"_blank\"><img src=\"http://www.qudushu.com/files/article/image/1184/1184434/1184434s.jpg\" onerror=\"this.src='/modules/article/images/nocover.jpg'\" style=\"width:80px;height:100px;margin:5px 15px 5px 0px;\"></a></div><div><div><span class=\"c_subject\"><a href=\"http://www.qudushu.com/book/info/1184/1184434.html\">学霸的黑科技系统</a></span> / <a href=\"http://www.qudushu.com/html/1184/1184434/\" target=\"_blank\">目录</a></div><div class=\"c_tag\"><span class=\"c_label\">作者：</span><span class=\"c_value\">晨星LL</span><span class=\"c_label\">类别：</span><span class=\"c_value\">玄幻魔法</span><span class=\"c_label\">字数：</span><span class=\"c_value\">6107980</span><span class=\"c_label\">状态：</span><span class=\"c_value\">连载</span></div><div class=\"c_description\">...</div><div class=\"c_tag\"><span class=\"c_label\">最新章节：</span><span class=\"c_value\"><a href=\"http://www.qudushu.com/html/1184/1184434/119670772.html\" target=\"_blank\">番外1 后日谈</a></span><span class=\"c_label\">更新：</span><span class=\"c_value\">20-05-28</span></div></div><div class=\"cb\"></div></div>"
+        if let document = OCGumboDocument(htmlString: qukanshuHtml) {
             let parse = AikanHtmlParser()
 //            let objs = ZSAikanHtmlParser.string(node: document, aikanString: "@.list-group li a@12@abs:href", text: false)
-            let objs = parse.string(withGumboNode: document, withAikanString: "@.list-group li a@12@abs:href", withText: false)
+            let objs = parse.string(withGumboNode: document, withAikanString: "@.c_tag .c_value a@0@", withText: false)
             print(objs)
         }
         

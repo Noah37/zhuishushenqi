@@ -53,6 +53,7 @@
 
 **20200517：本次功能变更：书架内容展示添加最近更新章节**
 
+**20201219：本次功能变更：添加规则验证页面，添加新的书源前可逐条验证规则后添加**
 
 ----
 
@@ -92,7 +93,8 @@ Main development of zhuishushenqi olny support Swift 5.0+.
 ![zhuishenqiimg](images/qs_readerMain.png)
 ![zhuishenqiimg](images/qs_changeSource.png)-->
 
-<img src="images/qs_bookshelf.png" width="20%" height="20%" /><img src="images/qs_reader.png" width="20%" height="20%" /><img src="images/qs_readerMain.png" width="20%" height="20%" /><img src="images/qs_changeSource.png" width="20%" height="20%" />
+<img src="images/qs_bookshelf.png" width="20%" height="20%" /><img src="images/qs_reader.png" width="20%" height="20%" /><img src="images/qs_readerMain.png" width="20%" height="20%" /><img src="images/qs_changeSource.png" width="20%" height="20%" /><img src="images/regular_verify.png" width="20%" height="20%" />
+
 
 ## Contact
 

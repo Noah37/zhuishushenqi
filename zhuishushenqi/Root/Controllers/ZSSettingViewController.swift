@@ -36,8 +36,11 @@ class ZSSettingViewController: BaseViewController {
     
     func setupMenu() {
         let source = ZSMineMenuItem(type: .account, disclosureType: .controllerWithTitle,cellType: .indicator, isSwitchOn: false, title: "书源设置", icon: "personal_icon_account_24_24_24x24_", detailTitle: nil, disclosureText: nil)
+        let regularVerify = ZSMineMenuItem(type: .level, disclosureType: .controllerWithTitle,cellType: .none, isSwitchOn: false, title: "书源规则验证", icon: "personal_icon_account_24_24_24x24_", detailTitle: nil, disclosureText: nil)
+
         let exchangeToOld = ZSMineMenuItem(type: .vip, disclosureType: .controllerWithTitle,cellType: .none, isSwitchOn: false, title: "切换旧版", icon: "personal_icon_account_24_24_24x24_", detailTitle: nil, disclosureText: nil)
         menu.append(source)
+        menu.append(regularVerify)
         menu.append(exchangeToOld)
     }
     
@@ -124,6 +127,12 @@ extension ZSSettingViewController:UITableViewDataSource,UITableViewDelegate {
             break
         case .vip:
             showExchangeAlert()
+            break
+        case .level:
+            let regVC = ZSRegularVerifyViewController()
+            regVC.title = item.title
+            self.navigationController?.pushViewController(regVC, animated: true)
+            break
         default:
             break
         }
