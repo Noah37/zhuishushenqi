@@ -139,7 +139,7 @@ CHECKOUT OPTIONS:
     :commit: 593a51c8f83e3afbc533b030e391d1f273daadfb
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
   YungCache:
-    :commit: 09d68071bb1e9152d7a96ba29f90ff2d4cf537c9
+    :commit: 212a30c1897188c2c1c075f672d6ef9fe2d46b89
     :git: https://github.com/Noah37/YungCache.git
 
 SPEC CHECKSUMS:
@@ -165,7 +165,7 @@ SPEC CHECKSUMS:
   UICircularProgressRing: 907613633e76e561b972a3868c95517d14c71006
   WechatOpenSDK: 3117412f8aafde4758cac1e8d20b93c67cafcfef
   Weibo_SDK: 13b51503b929ae645f52e5cf584093e6a269bcd9
-  YungCache: 269273df387aea05cea513453766eba4945ec1d2
+  YungCache: b7ed30234691288cdb5cc8ace57cc8aab9bd265f
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
@@ -177,4 +177,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 359df3361f522b5c331834506e90a77b8967f11c
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.9.3

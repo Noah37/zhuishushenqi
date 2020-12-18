@@ -19,13 +19,12 @@ class ZSShelfManager {
     static let share = ZSShelfManager()
     
     let booksCache:Cache<Data>
+    let shelfsCache:Cache<Data>
     
     // 每个book的localPath
     var books:[String] = [] {
         didSet {
-            let path = booksPath()
-            ZSShelfStorage.share.setObject(obj: books, path: path)
-            
+            booksCache.setObjs(books, forKey: shelfBooksPath)
         }
     }
 
@@ -41,30 +40,28 @@ class ZSShelfManager {
     
     private init(){
         booksCache = Cache<Data>(path: shelfBooksPath)
+        shelfsCache = Cache<Data>(path: "\(shelfBooksPath)/books")
         createPath()
         unpackBooksFile()
         local()
     }
     
     func unpackBooksFile() {
-        let booksP = booksPath()
-        if let books = ZSShelfStorage.share.object(for: booksP) as? [String] {
+        if let books:[String] = booksCache.getObj(forKey: shelfBooksPath) {
             self.books = books
             for bookPath in books {
                 let fullPath = shelfModelPath(url: bookPath)
-                ZSShelfStorage.share.object(for: fullPath)
+                let aikan:ZSShelfModel? = shelfsCache.getObj(forKey: fullPath)
             }
         }
     }
     
     func saveShelfModel(shelf:ZSShelfModel) {
-        let fullPath = shelfModelPath(url: shelf.bookUrl)
-        ZSShelfStorage.share.setObject(obj: shelf, path: fullPath)
+        shelfsCache.setObj(shelf, forKey: "\(shelf.bookUrl)")
     }
     
     func getShelfModel(bookPath:String)->ZSShelfModel? {
-        let shelfPath = shelfModelPath(url: bookPath)
-        if let shelf = ZSShelfStorage.share.object(for: shelfPath) as? ZSShelfModel {
+        if let shelf:ZSShelfModel = shelfsCache.getObj(forKey: "\(bookPath)") {
            return shelf
         }
         return nil
@@ -72,7 +69,7 @@ class ZSShelfManager {
     
     func removeBook(bookPath:String) {
         let bookPath = shelfModelPath(url: bookPath)
-        ZSShelfStorage.share.removeObject(path: bookPath)
+        shelfsCache.removeObject(forKey: bookPath.asNSString())
     }
     
     func refresh() {
@@ -264,13 +261,13 @@ class ZSShelfManager {
         if remove(shelfModel) {
             // save aikan
             let aikanFilePath = aikansPath(url: book.bookUrl)
-            ZSShelfStorage.share.removeObject(path: aikanFilePath)
+            booksCache.removeObject(forKey: aikanFilePath.asNSString())
         }
     }
     
     func removeAikan(bookUrl:String) {
         let aikanFilePath = aikansPath(url: bookUrl)
-        ZSShelfStorage.share.removeObject(path: aikanFilePath)
+        booksCache.removeObject(forKey: aikanFilePath.asNSString())
     }
     
     func modifyAikan(_ book:ZSAikanParserModel) {
@@ -282,7 +279,7 @@ class ZSShelfManager {
                 }
             }
         }
-        if let shelf = ZSShelfStorage.share.object(for: bookPath) as? ZSShelfModel {
+        if let shelf:ZSShelfModel = shelfsCache.getObj(forKey: book.bookUrl) {
             let shelf = book.updateShelf(shelf: shelf)
             saveShelfModel(shelf: shelf)
             updateAikan(shelf: shelf, book: book)
@@ -293,10 +290,9 @@ class ZSShelfManager {
     }
     
     func getAikanModel(_ shelf:ZSShelfModel, block: @escaping (_ aikan:ZSAikanParserModel?)->Void)  {
-        let aikanFilePath = aikansPath(url: shelf.bookUrl)
         let queue = DispatchQueue(label: "com.getaikanQueue", qos: DispatchQoS.default, attributes: DispatchQueue.Attributes.concurrent)
         queue.async {
-            let aikan = ZSShelfStorage.share.object(for: aikanFilePath) as? ZSAikanParserModel
+            let aikan:ZSAikanParserModel? = self.booksCache.getObj(forKey: shelf.bookUrl)
             DispatchQueue.main.async {
                 block(aikan)
             }
@@ -304,10 +300,9 @@ class ZSShelfManager {
     }
     
     func setAikan(model: ZSAikanParserModel, block: @escaping (_ aikan:Bool)->Void) {
-        let aikanFilePath = aikansPath(url: model.bookUrl)
-        let result = ZSShelfStorage.share.setObject(obj: model, path: aikanFilePath)
+        booksCache.setObj(model, forKey: model.bookUrl)
         DispatchQueue.main.async {
-            block(result)
+            block(true)
         }
     }
     
@@ -341,7 +336,7 @@ class ZSShelfManager {
         let booksP = booksPath()
         let queue = DispatchQueue(label: "com.saveshelfQueue", qos: DispatchQoS.default, attributes: DispatchQueue.Attributes.concurrent)
         queue.async {
-            ZSShelfStorage.share.setObject(obj: self.books, path: booksP)
+            self.booksCache.setObjs(self.books, forKey: booksP)
         }
     }
     
