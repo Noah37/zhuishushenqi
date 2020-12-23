@@ -2,8 +2,8 @@
 //  MagnifiterView.m
 //  CoreTextDemo
 //
-//  Created by caonongyun on 5/8/14.
-//  Copyright (c) 2014 caonongyun. All rights reserved.
+//  Created by yung on 5/8/14.
+//  Copyright (c) 2014 yung. All rights reserved.
 //
 
 #import "MagnifiterView.h"

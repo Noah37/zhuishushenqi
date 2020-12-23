@@ -2,7 +2,7 @@
 //  QSIntroducePage.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/6/9.
+//  Created by yung on 2017/6/9.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

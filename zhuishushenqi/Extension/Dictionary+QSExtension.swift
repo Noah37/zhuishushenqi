@@ -2,7 +2,7 @@
 //  Dictionary.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2018/2/11.
+//  Created by yung on 2018/2/11.
 //  Copyright © 2018年 QS. All rights reserved.
 //
 
@@ -50,6 +50,22 @@ extension Dictionary {
             if let jsonString = String(data: data, encoding: .utf8) {
                 return jsonString
             }
+        }
+        return ""
+    }
+}
+
+extension Dictionary where Key == String {
+    subscript(bool key:String) ->Bool {
+        if let value = self[key] as? Bool {
+            return value
+        }
+        return false
+    }
+    
+    subscript(string key:String) ->String {
+        if let value = self[key] as? String {
+            return value
         }
         return ""
     }

@@ -2,7 +2,7 @@
 //  AikanParserModel.m
 //  ZSSouShu
 //
-//  Created by caonongyun on 2019/10/8.
+//  Created by yung on 2019/10/8.
 //  Copyright © 2019 CJ. All rights reserved.
 //
 

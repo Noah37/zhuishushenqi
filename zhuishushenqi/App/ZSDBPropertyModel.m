@@ -2,7 +2,7 @@
 //  ZSDBPropertyModel.m
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2018/11/23.
+//  Created by yung on 2018/11/23.
 //  Copyright © 2018年 QS. All rights reserved.
 //
 

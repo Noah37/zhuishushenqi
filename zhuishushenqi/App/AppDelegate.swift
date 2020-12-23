@@ -32,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FLEXManager.shared().showExplorer()
         #endif
         
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(type(of: self).removeAllObjects), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+        
         window = UIWindow(frame: UIScreen.main.bounds)
 //        if let newTabVC = UserDefaults.standard.value(forKey: rootVCKey) as? Bool {
             let tabBarVC = ZSTabBarController()
@@ -149,6 +152,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if store?.isTableExists(searchHistory) == false {
             store?.createTable(withName: searchHistory)
+        }
+    }
+    
+    @objc
+    func removeAllObjects() {
+        let alert = UIAlertController(title: "提示", message: "内存警告", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "确定", style: .default) { (action) in
+            
+        }
+        alert.addAction(confirmAction)
+        if let vc = self.window?.rootViewController {
+            vc.present(alert, animated: true, completion: nil)
         }
     }
     

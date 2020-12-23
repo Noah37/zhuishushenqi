@@ -2,7 +2,7 @@
 //  ZSConfigUtil.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2019/6/30.
+//  Created by yung on 2019/6/30.
 //  Copyright © 2019 QS. All rights reserved.
 //
 

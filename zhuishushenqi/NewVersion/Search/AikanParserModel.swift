@@ -2,7 +2,7 @@
 //  AikanParserModel.swift
 //  CJReader
 //
-//  Created by caonongyun on 2019/10/9.
+//  Created by yung on 2019/10/9.
 //
 
 import UIKit

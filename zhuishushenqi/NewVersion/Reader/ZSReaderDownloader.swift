@@ -2,12 +2,13 @@
 //  ZSBookDownloader.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2020/1/5.
+//  Created by yung on 2020/1/5.
 //  Copyright © 2020 QS. All rights reserved.
 //
 
 import UIKit
 import Alamofire
+import YungNetworkTool
 
 // 下载完成后放入内存缓存中
 class ZSReaderDownloader {
@@ -40,6 +41,28 @@ class ZSReaderDownloader {
         cancel = true
     }
     
+    func requestData(url:String, handler:@escaping ZSBaseCallback<Data>) {
+        let task = DataTask(url: url)
+        task.resultHandler = { (data, error) in
+            handler(data)
+        }
+        task.resume()
+    }
+    
+    func requestString(url:String,
+                       encoding:String.Encoding,
+                       contentReg:String,
+                       contentReplaceReg:String,
+                       handler:@escaping ZSBaseCallback<String>) {
+        requestData(url: url) { [weak self] (data) in
+            guard let strongSelf = self else { return }
+            guard let responseData = data else { return }
+            let originContent = strongSelf.getContent(htmlData: responseData, reg: contentReg, encoding: encoding)
+            let targetContent = strongSelf.contentTrim(content: originContent, reg: contentReplaceReg)
+            handler(targetContent)
+        }
+    }
+    
     func download(book:ZSAikanParserModel, start:Int, handler:@escaping ZSBaseCallback<Int>) {
         let chaptersInfo = book.chaptersModel
         let totalChapterCount = chaptersInfo.count
@@ -60,53 +83,49 @@ class ZSReaderDownloader {
                 let timeouts = timeout.flatMap { DispatchTime.now() + $0 }
                     ?? DispatchTime.distantFuture
                 _ = self.semaphore.wait(timeout: timeouts)
-                self.download(chapter: chapter,book: book, reg: book.content) { (chapter) in
+                let encoding = String.Encoding.zs_encoding(str: book.searchEncoding)
+                self.requestString(url: chapter.chapterUrl, encoding: encoding, contentReg: book.content, contentReplaceReg: book.contentReplace, handler: { [weak self ](resultString) in
+                    guard let strongSelf = self else { return }
+                    guard let string = resultString else { return }
+                    chapter.chapterContent = string
+                    ZSBookCache.share.cacheContent(content: chapter, for: book.bookName)
                     DispatchQueue.main.async {
                         handler(index)
                     }
-                    self.semaphore.signal()
-                }
+                    strongSelf.semaphore.signal()
+                })
             }
         }
     }
     
     func download(chapter:ZSBookChapter, book:ZSAikanParserModel, reg:String,_ handler:@escaping ZSReaderBaseCallback<ZSBookChapter>) {
         let key = chapter.chapterUrl
-        download(for: key,book:book, reg: reg) { [unowned self] (contentString) in
-            if let content = contentString, content.length > 0 {
-                let contentReplaceString = self.contentReplace(string: content, reg: book.contentReplace)
-                let brContent = contentReplaceString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                let noBrContent = self.defaultContentReplace(string: brContent)
-                chapter.chapterContent = noBrContent
-                ZSBookCache.share.cacheContent(content: chapter, for: book.bookName)
-                handler(chapter)
+        let encoding = String.Encoding.zs_encoding(str: book.searchEncoding)
+        requestString(url: key, encoding: encoding, contentReg: book.content, contentReplaceReg: book.contentReplace) { [weak chapter](resultString) in
+            guard let strongChapter = chapter else { return }
+            if let string = resultString {
+                strongChapter.chapterContent = string
+                ZSBookCache.share.cacheContent(content: strongChapter, for: book.bookName)
+                handler(strongChapter)
             } else {
-                handler(chapter)
+                handler(strongChapter)
             }
         }
     }
-    private func download(for key:String, book:ZSAikanParserModel, reg:String,_ handler:@escaping ZSBaseCallback<String>) {
-        let link = key
-        var headers = SessionManager.defaultHTTPHeaders
-        headers["User-Agent"] = YouShaQiUserAgent
-        let manager = SessionManager.default
-        manager.delegate.sessionDidReceiveChallenge = {
-            session,challenge in
-            return  (URLSession.AuthChallengeDisposition.useCredential,URLCredential(trust:challenge.protectionSpace.serverTrust!))
-        }
-        Alamofire.request(link, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData { (data) in
-
-            if let htmlData = data.data {
-                let htmlString = String(data: htmlData, encoding: String.Encoding.zs_encoding(str: book.searchEncoding)) ?? ""
-                guard let document = OCGumboDocument(htmlString: htmlString) else { return }
-                let parse = AikanHtmlParser()
-//                let contentString = ZSAikanHtmlParser.string(node: document, aikanString: reg, text: true)
-                let contentString = parse.string(withGumboNode: document, withAikanString: reg, withText: false)
-                handler(contentString)
-            } else {
-                handler("")
-            }
-        }
+    
+    func getContent(htmlData:Data, reg:String, encoding:String.Encoding) ->String {
+        let htmlString = String(data: htmlData, encoding: encoding) ?? ""
+        guard let document = OCGumboDocument(htmlString: htmlString) else { return "" }
+        let parse = AikanHtmlParser()
+        let contentString = parse.string(withGumboNode: document, withAikanString: reg, withText: false)
+        return contentString
+    }
+    
+    func contentTrim(content:String, reg:String) -> String {
+        let contentReplaceString = contentReplace(string: content, reg: reg)
+        let brContent = contentReplaceString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        let noBrContent = defaultContentReplace(string: brContent)
+        return noBrContent
     }
     
     func contentReplace(string:String, reg:String) ->String {
@@ -118,26 +137,30 @@ class ZSReaderDownloader {
         
         for dict in json {
             let first = dict["first"] as? String ?? ""
-            if let noRegular = dict["noRegular"] as? Bool {
-                if !noRegular {
-                    let regStr = try? NSRegularExpression(pattern: first, options: NSRegularExpression.Options.caseInsensitive)
-                    if let results = regStr?.matches(in: resultString, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, resultString.oc_length)) {
-                        var removeLength = 0
-                        for result in results {
-                            var range = result.range
-                            range.location = range.location - removeLength
-                            let subString = resultString.asNSString().substring(with: range)
-                            resultString = resultString.asNSString().replacingOccurrences(of: subString, with: "")
-                            removeLength = removeLength + subString.oc_length
-                        }
-                    }
-                } else {
-                    let location = resultString.asNSString().range(of: first).location
-                    resultString = resultString.replacingOccurrences(of: first, with: "")
-                }
+            let noRegular:Bool = dict[bool:"noRegular"]
+            if !noRegular {
+                resultString = regularString(string: resultString, first: first)
+            } else {
+                resultString = resultString.replacingOccurrences(of: first, with: "")
             }
         }
         
+        return resultString
+    }
+    
+    private func regularString(string:String, first:String) ->String {
+        var resultString = string
+        let regStr = try? NSRegularExpression(pattern: first, options: NSRegularExpression.Options.caseInsensitive)
+        if let results = regStr?.matches(in: resultString, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, resultString.oc_length)) {
+            var removeLength = 0
+            for result in results {
+                var range = result.range
+                range.location = range.location - removeLength
+                let subString = resultString.ocString.substring(with: range)
+                resultString = resultString.ocString.replacingOccurrences(of: subString, with: "")
+                removeLength = removeLength + subString.oc_length
+            }
+        }
         return resultString
     }
     

@@ -2,7 +2,7 @@
 //  QSSplashScreen.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/6/8.
+//  Created by yung on 2017/6/8.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

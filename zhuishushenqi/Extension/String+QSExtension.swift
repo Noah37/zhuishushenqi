@@ -180,6 +180,14 @@ extension String {
         return (self as NSString)
     }
     
+    var ocString:NSString {
+        return (self as NSString)
+    }
+    
+    var nsString:NSString {
+        return (self as NSString)
+    }
+    
     func isEmpty() ->Bool {
         if self == "" || self.count == 0 {
             return true
@@ -229,9 +237,6 @@ extension String {
             }
         }
         return nil
-    }
-    var nsString:NSString {
-        return (self as NSString)
     }
 
     static func stringFromDataDetectingEncoding(data: Data, suggestedEncodings: [String.Encoding] = []) -> (string: String, encoding: String.Encoding, lossy: Bool)? {

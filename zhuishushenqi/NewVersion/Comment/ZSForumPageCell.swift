@@ -2,7 +2,7 @@
 //  ZSForumPageCell.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2019/8/13.
+//  Created by yung on 2019/8/13.
 //  Copyright © 2019 QS. All rights reserved.
 //
 

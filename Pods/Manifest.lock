@@ -41,6 +41,8 @@ PODS:
   - WechatOpenSDK (1.8.3)
   - Weibo_SDK (3.2.6)
   - YungCache (0.1.0)
+  - YungNetworkTool (0.1.1):
+    - Alamofire
   - YYCategories (1.0.4):
     - YYCategories/no-arc (= 1.0.4)
   - YYCategories/no-arc (1.0.4)
@@ -84,6 +86,7 @@ DEPENDENCIES:
   - WechatOpenSDK (= 1.8.3)
   - Weibo_SDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
   - YungCache (from `https://github.com/Noah37/YungCache.git`)
+  - YungNetworkTool (from `https://github.com/Noah37/YungNetworkTool.git`)
   - YYCategories
   - YYImage
   - YYModel
@@ -127,6 +130,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
   YungCache:
     :git: https://github.com/Noah37/YungCache.git
+  YungNetworkTool:
+    :git: https://github.com/Noah37/YungNetworkTool.git
   ZSAPI:
     :path: zhuishushenqi/NewVersion/ZSAPI
   ZSAppConfig:
@@ -141,6 +146,9 @@ CHECKOUT OPTIONS:
   YungCache:
     :commit: 212a30c1897188c2c1c075f672d6ef9fe2d46b89
     :git: https://github.com/Noah37/YungCache.git
+  YungNetworkTool:
+    :commit: ef70e6d80dd7426aa2c916f2a339a867e6c4d849
+    :git: https://github.com/Noah37/YungNetworkTool.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -166,6 +174,7 @@ SPEC CHECKSUMS:
   WechatOpenSDK: 3117412f8aafde4758cac1e8d20b93c67cafcfef
   Weibo_SDK: 13b51503b929ae645f52e5cf584093e6a269bcd9
   YungCache: b7ed30234691288cdb5cc8ace57cc8aab9bd265f
+  YungNetworkTool: 8aa7db5f174f46fa0461ffc0e5dd596261d434bd
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
@@ -175,6 +184,6 @@ SPEC CHECKSUMS:
   ZSAppConfig: 52ccb894481ecaa28452d42d4d42db7a678d2786
   ZSExtension: 040334c0092668a134ecdc621c6ea129eb1faf40
 
-PODFILE CHECKSUM: 359df3361f522b5c331834506e90a77b8967f11c
+PODFILE CHECKSUM: 305694b6620443c606aa742ec53fa4d7d265116c
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0

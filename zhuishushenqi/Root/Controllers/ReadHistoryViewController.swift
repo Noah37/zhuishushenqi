@@ -2,7 +2,7 @@
 //  ReadHistoryViewController.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/6/17.
+//  Created by yung on 2017/6/17.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

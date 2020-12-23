@@ -2,7 +2,7 @@
 //  UIView+frameAdjust.m
 //  fenbi
 //
-//  Created by caonongyun on 2017/7/25.
+//  Created by yung on 2017/7/25.
 //  Copyright (c) 2012年 Fenbi.com . All rights reserved.
 //
 
