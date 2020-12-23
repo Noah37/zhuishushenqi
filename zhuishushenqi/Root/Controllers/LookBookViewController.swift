@@ -2,7 +2,7 @@
 //  LookBookViewController.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/6/18.
+//  Created by yung on 2017/6/18.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

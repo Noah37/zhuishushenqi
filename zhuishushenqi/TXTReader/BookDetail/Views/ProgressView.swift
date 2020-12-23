@@ -2,7 +2,7 @@
 //  ProgressView.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/4/28.
+//  Created by yung on 2017/4/28.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

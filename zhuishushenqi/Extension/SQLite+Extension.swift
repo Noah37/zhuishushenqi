@@ -2,7 +2,7 @@
 //  SQLite+Extension.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2018/8/11.
+//  Created by yung on 2018/8/11.
 //  Copyright © 2018年 QS. All rights reserved.
 //
 

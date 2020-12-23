@@ -2,7 +2,7 @@
 //  QSIntroduceReadCell.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/6/12.
+//  Created by yung on 2017/6/12.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

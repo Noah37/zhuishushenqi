@@ -2,12 +2,13 @@
 //  ZSBookDownloader.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2020/1/5.
+//  Created by yung on 2020/1/5.
 //  Copyright © 2020 QS. All rights reserved.
 //
 
 import UIKit
 import Alamofire
+import YungNetworkTool
 
 // 下载完成后放入内存缓存中
 class ZSReaderDownloader {
@@ -36,6 +37,21 @@ class ZSReaderDownloader {
         cancel = true
     }
     
+    func requestData(url:String, handler:@escaping ZSBaseCallback<Data>) {
+        let task = DataTask(url: url)
+        task.resultHandler = { (data, error) in
+            handler(data)
+        }
+        task.resume()
+    }
+    
+    func contentTrim(content:String, reg:String) -> String {
+        let contentReplaceString = self.contentReplace(string: content, reg: reg)
+        let brContent = contentReplaceString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        let noBrContent = self.defaultContentReplace(string: brContent)
+        return noBrContent
+    }
+    
     func download(book:ZSAikanParserModel, start:Int, handler:@escaping ZSBaseCallback<Int>) {
         let chaptersInfo = book.chaptersModel
         let totalChapterCount = chaptersInfo.count
@@ -52,18 +68,39 @@ class ZSReaderDownloader {
                 if ZSBookCache.share.isContentExist(key, book: book.bookName) {
                     continue
                 }
-                let timeout:Double? = 10.00
-                let timeouts = timeout.flatMap { DispatchTime.now() + $0 }
-                    ?? DispatchTime.distantFuture
-                _ = self.semaphore.wait(timeout: timeouts)
-                self.download(chapter: chapter,book: book, reg: book.content) { (chapter) in
+                
+                self.requestData(url: chapter.chapterUrl) { [unowned self] (data) in
+                    guard let responseData = data else { return }
+                    let encoding = String.Encoding.zs_encoding(str: book.searchEncoding)
+                    let originContent = self.getContent(htmlData: responseData, reg: book.content, encoding: encoding)
+                    let targetContent = self.contentTrim(content: originContent, reg: book.contentReplace)
+                    chapter.chapterContent = targetContent
+                    ZSBookCache.share.cacheContent(content: chapter, for: book.bookName)
                     DispatchQueue.main.async {
                         handler(index)
                     }
-                    self.semaphore.signal()
                 }
+
+//                let timeout:Double? = 10.00
+//                let timeouts = timeout.flatMap { DispatchTime.now() + $0 }
+//                    ?? DispatchTime.distantFuture
+//                _ = self.semaphore.wait(timeout: timeouts)
+//                self.download(chapter: chapter,book: book, reg: book.content) { (chapter) in
+//                    DispatchQueue.main.async {
+//                        handler(index)
+//                    }
+//                    self.semaphore.signal()
+//                }
             }
         }
+    }
+    
+    func getContent(htmlData:Data, reg:String, encoding:String.Encoding) ->String {
+        let htmlString = String(data: htmlData, encoding: encoding) ?? ""
+        guard let document = OCGumboDocument(htmlString: htmlString) else { return "" }
+        let parse = AikanHtmlParser()
+        let contentString = parse.string(withGumboNode: document, withAikanString: reg, withText: false)
+        return contentString
     }
     
     func download(chapter:ZSBookChapter, book:ZSAikanParserModel, reg:String,_ handler:@escaping ZSReaderBaseCallback<ZSBookChapter>) {

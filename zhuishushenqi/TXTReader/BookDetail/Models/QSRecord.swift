@@ -2,7 +2,7 @@
 //  QSRecord.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2018/2/11.
+//  Created by yung on 2018/2/11.
 //  Copyright © 2018年 QS. All rights reserved.
 //
 

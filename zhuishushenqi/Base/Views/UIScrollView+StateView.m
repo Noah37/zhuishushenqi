@@ -2,7 +2,7 @@
 //  UIScrollView+StateView.m
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/8/23.
+//  Created by yung on 2017/8/23.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

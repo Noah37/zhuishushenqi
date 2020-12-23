@@ -2,7 +2,7 @@
 //  QSDiscussCell.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/4/24.
+//  Created by yung on 2017/4/24.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

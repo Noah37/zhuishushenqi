@@ -6,7 +6,7 @@ extension String {
   Localizable.strings
   zhuishushenqi
 
-  Created by caonongyun on 2017/8/10.
+  Created by yung on 2017/8/10.
   Copyright © 2017年 QS. All rights reserved.
 */
 

@@ -2,7 +2,7 @@
 //  ZSThirdLoginView.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2018/10/23.
+//  Created by yung on 2018/10/23.
 //  Copyright © 2018年 QS. All rights reserved.
 //
 

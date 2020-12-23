@@ -2,7 +2,7 @@
 //  ReaderStyle.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2017/8/9.
+//  Created by yung on 2017/8/9.
 //  Copyright © 2017年 QS. All rights reserved.
 //
 

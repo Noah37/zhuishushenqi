@@ -2,7 +2,7 @@
 //  ZSReaderStyleSelectionView.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2020/2/1.
+//  Created by yung on 2020/2/1.
 //  Copyright © 2020 QS. All rights reserved.
 //
 

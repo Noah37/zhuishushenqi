@@ -2,7 +2,7 @@
 //  ZSBestReviewView.swift
 //  zhuishushenqi
 //
-//  Created by caonongyun on 2018/10/27.
+//  Created by yung on 2018/10/27.
 //  Copyright © 2018年 QS. All rights reserved.
 //
 
