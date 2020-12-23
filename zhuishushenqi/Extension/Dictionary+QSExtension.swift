@@ -55,6 +55,22 @@ extension Dictionary {
     }
 }
 
+extension Dictionary where Key == String {
+    subscript(bool key:String) ->Bool {
+        if let value = self[key] as? Bool {
+            return value
+        }
+        return false
+    }
+    
+    subscript(string key:String) ->String {
+        if let value = self[key] as? String {
+            return value
+        }
+        return ""
+    }
+}
+
 extension Dictionary where Value: Any {
     
     func decoding<T>(with key: Key) -> T? {
