@@ -24,14 +24,14 @@ class ZSRegularVerifyViewController: BaseViewController {
         view.addSubview(parseBT)
         view.addSubview(resultLabel)
         typeSelect.snp.makeConstraints { (make) in
-            make.width.equalTo(200)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
             make.height.equalTo(40)
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(kNavgationBarHeight + 40)
+            make.top.equalToSuperview().offset(kNavgationBarHeight + 20)
         }
         
         htmlTextTV.snp.makeConstraints { [unowned self] (make) in
-            make.top.equalTo(self.typeSelect.snp_bottomMargin).offset(60)
+            make.top.equalTo(self.typeSelect.snp_bottomMargin).offset(20)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(200)

@@ -18,13 +18,17 @@ class ZSReaderDownloader {
     
     static let share = ZSReaderDownloader()
     
-    let defaultReplaces:[String:String] = ["<br/>":"\n",
+    let defaultReplaces:[String:String] = ["<br/>\n":"",
                                                   "<p>":"",
                                                   "</p>":"",
                                                   "&ldquo;":"",
                                                   "&rdquo;":"",
                                                   "&hellip;":"",
-                                                  "</div>":""]
+                                                  "</div>":"",
+                                                  "&nbsp;":" ",
+                                                  "<br />":"",
+                                                  "<br/>":"\n"
+                                                  ]
     
     private var cancel = false
     
