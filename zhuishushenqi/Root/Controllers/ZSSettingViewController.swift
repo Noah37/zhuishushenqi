@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FLEX
 
 class ZSSettingViewController: BaseViewController {
     
@@ -80,8 +81,15 @@ extension ZSSettingViewController:UITableViewDataSource,UITableViewDelegate {
         cell?.detailTextHandler = {
             
         }
-        cell?.switchHandler = { isOn in
-            
+        cell?.switchHandler = { [weak item] isOn in
+            guard let sItem = item else { return }
+            if sItem.type == .darkmode {
+                if isOn {
+                    FLEXManager.shared().showExplorer()
+                } else {
+                    FLEXManager.shared().hideExplorer()
+                }
+            }
         }
         return cell!
     }
