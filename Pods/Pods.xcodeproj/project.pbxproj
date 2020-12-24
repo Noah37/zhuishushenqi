@@ -8593,36 +8593,6 @@
 			};
 			name = Debug;
 		};
-		26C7144A8B335FBB1D8E4C8A8A1FD5B5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4AAF96CF5189051B3564232D3ABAA01 /* YungNetworkTool.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/YungNetworkTool/YungNetworkTool-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/YungNetworkTool/YungNetworkTool-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/YungNetworkTool/YungNetworkTool.modulemap";
-				PRODUCT_MODULE_NAME = YungNetworkTool;
-				PRODUCT_NAME = YungNetworkTool;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		273602DB53A6EB3FF82F3674AC73C3F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 46FE61AD448855FB8B3DC882A94A5B7D /* ZSAppConfig.debug.xcconfig */;
@@ -9087,37 +9057,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		696A2A8EEB23D017A2293585878B4916 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57D6541E6F0EE49D28DFCF6A320E9F7B /* YungNetworkTool.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/YungNetworkTool/YungNetworkTool-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/YungNetworkTool/YungNetworkTool-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/YungNetworkTool/YungNetworkTool.modulemap";
-				PRODUCT_MODULE_NAME = YungNetworkTool;
-				PRODUCT_NAME = YungNetworkTool;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		6A3AD404B8C000300D75BBF0B78C04E8 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -10235,6 +10174,37 @@
 			};
 			name = Debug;
 		};
+		DF305920D193CF51A8A5882BA62244FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4AAF96CF5189051B3564232D3ABAA01 /* YungNetworkTool.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/YungNetworkTool/YungNetworkTool-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/YungNetworkTool/YungNetworkTool-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/YungNetworkTool/YungNetworkTool.modulemap";
+				PRODUCT_MODULE_NAME = YungNetworkTool;
+				PRODUCT_NAME = YungNetworkTool;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		E8886BE148557B679CA1F8E825F0F735 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9A4AF6DCDD8AD9A752B8A1807FB9196E /* PKHUD.release.xcconfig */;
@@ -10330,6 +10300,38 @@
 				MODULEMAP_FILE = "Target Support Files/FBRetainCycleDetector/FBRetainCycleDetector.modulemap";
 				PRODUCT_MODULE_NAME = FBRetainCycleDetector;
 				PRODUCT_NAME = FBRetainCycleDetector;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F58B729F25D637EABCEABC62AEE28597 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57D6541E6F0EE49D28DFCF6A320E9F7B /* YungNetworkTool.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/YungNetworkTool/YungNetworkTool-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/YungNetworkTool/YungNetworkTool-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/YungNetworkTool/YungNetworkTool.modulemap";
+				PRODUCT_MODULE_NAME = YungNetworkTool;
+				PRODUCT_NAME = YungNetworkTool;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -10743,8 +10745,8 @@
 		CB99FAD1DED7B347A8ECB124EADA0976 /* Build configuration list for PBXNativeTarget "YungNetworkTool" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				26C7144A8B335FBB1D8E4C8A8A1FD5B5 /* Debug */,
-				696A2A8EEB23D017A2293585878B4916 /* Release */,
+				DF305920D193CF51A8A5882BA62244FB /* Debug */,
+				F58B729F25D637EABCEABC62AEE28597 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -39,9 +39,14 @@ class ZSSettingViewController: BaseViewController {
         let regularVerify = ZSMineMenuItem(type: .level, disclosureType: .controllerWithTitle,cellType: .none, isSwitchOn: false, title: "书源规则验证", icon: "personal_icon_account_24_24_24x24_", detailTitle: nil, disclosureText: nil)
 
         let exchangeToOld = ZSMineMenuItem(type: .vip, disclosureType: .controllerWithTitle,cellType: .none, isSwitchOn: false, title: "切换旧版", icon: "personal_icon_account_24_24_24x24_", detailTitle: nil, disclosureText: nil)
+        let flex = ZSMineMenuItem(type: .darkmode, disclosureType: .controllerWithTitle,cellType: .swtch, isSwitchOn: false, title: "FLEX开启", icon: "personal_icon_darkmode_24_24_23x23_", detailTitle: nil, disclosureText: nil)
+        let doraemon = ZSMineMenuItem(type: .darkmode, disclosureType: .controllerWithTitle,cellType: .swtch, isSwitchOn: false, title: "Doraemon开启", icon: "personal_icon_darkmode_24_24_23x23_", detailTitle: nil, disclosureText: nil)
+
         menu.append(source)
         menu.append(regularVerify)
         menu.append(exchangeToOld)
+        menu.append(flex)
+        menu.append(doraemon)
     }
     
     func setupSubviews(){

@@ -40,7 +40,7 @@ class ZSBookShelfViewModel {
             guard let book = ZSShelfManager.share.getShelfModel(bookPath: bookPath) else { return }
             ZSShelfManager.share.getAikanModel(book) { [weak self] (result) in
                 guard let src = result else { return }
-                self?.searchViewModel.getChapter(src: src, bookUrl: book.bookUrl) { (chapters, info) in
+                self?.searchViewModel.getBookInfo(src: src, bookUrl: book.bookUrl) { (chapters, info) in
                     let lastChapter = chapters.last
                     if chapters.count != src.chaptersModel.count {
                         src.chaptersModel = chapters

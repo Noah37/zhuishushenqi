@@ -195,6 +195,35 @@ extension String {
         return false
     }
     
+    func schemeURLString(_ host:String = "") ->String {
+        var urlString:String = self
+        if !urlString.hasPrefix("http") {
+            if urlString.hasPrefix("/") && host.hasSuffix("/") {
+                let host = host.qs_subStr(start: 0, length: host.length - 1)
+                urlString = "\(host)\(urlString)"
+            } else {
+                urlString = "\(host)\(urlString)"
+            }
+        }
+        return urlString
+    }
+    
+    func httpScheme()->String {
+        var icon = self
+        if icon.hasPrefix("//") {
+            icon = icon.replacingOccurrences(of: "//", with: "http://")
+        }
+        return icon
+    }
+    
+    func httpsScheme()->String {
+        var icon = self
+        if icon.hasPrefix("//") {
+            icon = icon.replacingOccurrences(of: "//", with: "https://")
+        }
+        return icon
+    }
+    
     //MARK: - transform
     var length:Int {
         return self.lengthOfBytes(using: .utf8)

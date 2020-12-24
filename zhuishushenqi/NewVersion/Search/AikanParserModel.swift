@@ -122,6 +122,43 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying, HandyJSON {
 
     }
     
+    func copySelf() ->ZSAikanParserModel {
+        let copyModel = ZSAikanParserModel()
+        copyModel.errDate = self.errDate
+        copyModel.searchUrl = self.searchUrl
+        copyModel.name = self.name
+        copyModel.type = self.type
+        copyModel.enabled = self.enabled
+        copyModel.checked = self.checked
+        copyModel.searchEncoding = self.searchEncoding
+        copyModel.host = self.host
+        copyModel.contentReplace = self.contentReplace
+        copyModel.contentRemove = self.contentRemove
+        copyModel.contentTagReplace = self.contentTagReplace
+        copyModel.content = self.content
+        copyModel.chapterUrl = self.chapterUrl
+        copyModel.chapterName = self.chapterName
+        copyModel.chapters = self.chapters
+        copyModel.detailBookIcon = self.detailBookIcon
+        copyModel.detailChaptersUrl = self.detailChaptersUrl
+        copyModel.bookLastChapterName = self.bookLastChapterName
+        copyModel.bookUpdateTime = self.bookUpdateTime
+        copyModel.bookUrl = self.bookUrl
+        copyModel.bookIcon = self.bookIcon
+        copyModel.bookDesc = self.bookDesc
+        copyModel.bookCategory = self.bookCategory
+        copyModel.bookAuthor = self.bookAuthor
+        copyModel.bookName = self.bookName
+        copyModel.books = self.books
+        copyModel.chaptersReverse = self.chaptersReverse
+        copyModel.chaptersModel = self.chaptersModel
+        copyModel.detailBookDesc = self.detailBookDesc
+        copyModel.bookType = self.bookType
+        copyModel.update = self.update
+        copyModel.latestChapterName = self.latestChapterName
+        return copyModel
+    }
+    
     func copy(with zone: NSZone? = nil) -> Any {
         let copyModel = ZSAikanParserModel()
         copyModel.errDate = self.errDate
@@ -180,5 +217,16 @@ class ZSAikanParserModel: NSObject, NSCoding, NSCopying, HandyJSON {
         shelf.update = self.update
         shelf.latestChapterName = self.latestChapterName
         return shelf
+    }
+    
+    
+    /// 是否是可用的model
+    func available() ->Bool {
+        if bookAuthor.length == 0 &&
+            bookName.length == 0 ||
+            bookUrl.length == 0 {
+            return false
+        }
+        return true
     }
 }
