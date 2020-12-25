@@ -188,6 +188,7 @@
 		3DFBDEDD21F1A7ED00AED519 /* ZSCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFBDEDC21F1A7EC00AED519 /* ZSCacheHelper.swift */; };
 		3DFCF6EF21E6470000D3A8EC /* ZSVoucherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCF6EE21E6470000D3A8EC /* ZSVoucherView.swift */; };
 		3DFCF6F421E9984100D3A8EC /* ZSSwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCF6F321E9984000D3A8EC /* ZSSwipeCell.swift */; };
+		3DFE8E812595D4280044DCEB /* ZSAddSourceTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE8E802595D4280044DCEB /* ZSAddSourceTextField.m */; };
 		567D4C5122D3A2E149B8AD65 /* Pods_zhuishushenqi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DD667D5A369B09442DE895 /* Pods_zhuishushenqi.framework */; };
 		AD065949258C66D1009009FA /* ZSRegularVerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD065948258C66D1009009FA /* ZSRegularVerifyViewController.swift */; };
 		B200D1FF1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200D1FD1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift */; };
@@ -876,6 +877,8 @@
 		3DFBDEDC21F1A7EC00AED519 /* ZSCacheHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCacheHelper.swift; sourceTree = "<group>"; };
 		3DFCF6EE21E6470000D3A8EC /* ZSVoucherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSVoucherView.swift; sourceTree = "<group>"; };
 		3DFCF6F321E9984000D3A8EC /* ZSSwipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSSwipeCell.swift; sourceTree = "<group>"; };
+		3DFE8E7F2595D4270044DCEB /* ZSAddSourceTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSAddSourceTextField.h; sourceTree = "<group>"; };
+		3DFE8E802595D4280044DCEB /* ZSAddSourceTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSAddSourceTextField.m; sourceTree = "<group>"; };
 		AD065948258C66D1009009FA /* ZSRegularVerifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRegularVerifyViewController.swift; sourceTree = "<group>"; };
 		B08901F972525F29A370AA86 /* Pods-zhuishushenqi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zhuishushenqi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi.debug.xcconfig"; sourceTree = "<group>"; };
 		B200D1FD1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroduceReadCell.swift; sourceTree = "<group>"; };
@@ -1559,6 +1562,8 @@
 				3D82F9EE22CA01A100F035CB /* ZSMineMenuItem.swift */,
 				B2683D1422D1CDA900FE9CF0 /* ZSMineViewModel.swift */,
 				3D6CCABB23794D2C004D46CE /* ZSSetting.swift */,
+				3DFE8E7F2595D4270044DCEB /* ZSAddSourceTextField.h */,
+				3DFE8E802595D4280044DCEB /* ZSAddSourceTextField.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -3503,6 +3508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DD0842521569A95008E3B4A /* AKPickerView.m in Sources */,
+				3DFE8E812595D4280044DCEB /* ZSAddSourceTextField.m in Sources */,
 				3DDB6CAD2130F4BC00E8698D /* CTDisplayView.m in Sources */,
 				3D2330E321F6F39D00EFE522 /* FloatExtensions.swift in Sources */,
 				B29CFB73217B1CC00006F294 /* ZSMyService.swift in Sources */,

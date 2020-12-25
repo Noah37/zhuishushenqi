@@ -524,7 +524,7 @@ public class BookManager {
     
     func localBookInfo(key:String)->BookDetail?{
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last?.appending("/\(key)")
-        let url = URL(fileURLWithPath: path ?? "www.baidu.com")
+        let url = URL(fileURLWithPath: path ?? "https://www.baidu.com")
         if let data = try? Data(contentsOf: url, options: Data.ReadingOptions.mappedIfSafe) {
             let obj = NSKeyedUnarchiver.unarchiveObject(with: data) as? BookDetail
             return obj
@@ -608,7 +608,7 @@ public class BookManager {
     //MARK: -  数据持久化方法
     func qs_data(forKey:String) ->Data?{
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last?.appending("/\(forKey.md5())")
-        let url = URL(fileURLWithPath: path ?? "www.baidu.com")
+        let url = URL(fileURLWithPath: path ?? "https://www.baidu.com")
         let data = try? Data(contentsOf: url, options: Data.ReadingOptions.mappedIfSafe)
         return data
     }
@@ -630,7 +630,7 @@ public class BookManager {
         }
 
         _diskQueue.async {
-            let url = URL(fileURLWithPath: path ?? "www.baidu.com")
+            let url = URL(fileURLWithPath: path ?? "https://www.baidu.com")
             do{
                 try data.write(to: url)
             }catch let error {

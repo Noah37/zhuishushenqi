@@ -45,7 +45,7 @@ extension ZSSpeakerViewController:UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.qs_dequeueReusableCell(ZSSpeakerCell.self)
         cell?.accessoryType = .disclosureIndicator
         let speaker = TTSConfig.share.allSpeakers[indexPath.row]
-        let url = URL(string: speaker.largeIcon) ?? URL(string:"www.baidu.com")!
+        let url = URL(string: speaker.largeIcon) ?? URL(string:"https://www.baidu.com")!
         let resource:QSResource = QSResource(url: url)
         cell?.imageView?.kf.setImage(with: resource)
         cell?.textLabel?.text = speaker.nickname

@@ -10,7 +10,7 @@ import UIKit
 
 typealias ZSSegmentHandler = (_ index:Int)->Void
 
-protocol ZSSegmenuProtocol {
+protocol ZSSegmenuProtocol:class {
     func viewControllersForSegmenu(_ segmenu:ZSSegmenuViewController) ->[UIViewController]
     func segmenu(_ segmenu:ZSSegmenuViewController, didSelectSegAt index:Int)
     func segmenu(_ segmenu:ZSSegmenuViewController, didScrollToSegAt index:Int)
@@ -22,7 +22,7 @@ class ZSSegmenuViewController: UIViewController, ZSSegmentProtocol {
     
     fileprivate var segmentViewController:ZSSegmentViewController = ZSSegmentViewController()
     
-    var delegate:ZSSegmenuProtocol?
+    weak var delegate:ZSSegmenuProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,12 +64,13 @@ class ZSSegmenuViewController: UIViewController, ZSSegmentProtocol {
         segMenu.menuDelegate = self
         self.view.addSubview(segMenu)
         
-        segmentViewController.scrollViewDidEndDeceleratingHandler = { index in
-            self.segMenu.selectIndex(index)
+        segmentViewController.scrollViewDidEndDeceleratingHandler = { [weak self] index in
+            guard let sSelf = self else { return }
+            sSelf.segMenu.selectIndex(index)
         }
-        segmentViewController.delegate = self
-        view.addSubview(segmentViewController.view)
         addChild(segmentViewController)
+        view.addSubview(segmentViewController.view)
+        segmentViewController.delegate = self
     }
     
     func segmentViewControllers() -> [UIViewController] {

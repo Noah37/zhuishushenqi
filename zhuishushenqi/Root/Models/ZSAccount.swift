@@ -10,7 +10,7 @@ import UIKit
 import HandyJSON
 
 
-class ZSAccount: NSObject, HandyJSON {
+class ZSAccount: HandyJSON {
 
     var balance:CGFloat = 0
     var iosBalance:CGFloat = 0
@@ -28,7 +28,7 @@ class ZSAccount: NSObject, HandyJSON {
     var isAppstoreAutoMonthly = false
     var ok = true
     
-    required override init() {}
+    required init() {}
 }
 //{
 //    "balance": 0,

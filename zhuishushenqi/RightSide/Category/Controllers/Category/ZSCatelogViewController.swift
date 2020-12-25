@@ -22,6 +22,7 @@ class ZSCatelogViewController:BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
         self.collectionView.frame = self.view.bounds
     }
     
@@ -39,7 +40,7 @@ class ZSCatelogViewController:BaseViewController {
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate  = self
-        collectionView.isPagingEnabled = true
+//        collectionView.isPagingEnabled = true
         collectionView.register(ZSCatelogCell.self, forCellWithReuseIdentifier: "ZSCatelogCell")
         collectionView.register(ZSCatelogHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "ZSCatelogHeaderView")
         collectionView.showsHorizontalScrollIndicator = false

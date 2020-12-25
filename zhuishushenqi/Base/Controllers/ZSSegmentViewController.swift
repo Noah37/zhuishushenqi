@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol ZSSegmentProtocol {
+protocol ZSSegmentProtocol:class {
     func segmentViewControllers() ->[UIViewController]
 }
 
 class ZSSegmentViewController: UIViewController ,UICollectionViewDelegate{
 
     
-    var delegate:ZSSegmentProtocol?
+    weak var delegate:ZSSegmentProtocol?
     private var collectionView:UICollectionView!
     
     var scrollViewDidEndDeceleratingHandler:ZSSegmentHandler?

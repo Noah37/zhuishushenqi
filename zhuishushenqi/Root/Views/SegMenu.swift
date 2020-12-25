@@ -10,13 +10,13 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-protocol SegMenuDelegate {
+protocol SegMenuDelegate:class {
     func didSelectAtIndex(_ index:Int)
 }
 
 class SegMenu: UIView {
     
-    var menuDelegate:SegMenuDelegate?
+    weak var menuDelegate:SegMenuDelegate?
     var titles:[String] = []
     var selectedIndex = 0
     private let lineTag = 1111
@@ -68,8 +68,8 @@ class SegMenu: UIView {
         var index:Int = 0
         for title in titles {
             let btn = create(title,index + btnBaseTag)
-            btn.rx.tap.subscribe(onNext: {
-                self.segAction(btn)
+            btn.rx.tap.subscribe(onNext: { [weak self] in
+                self?.segAction(btn)
             }).disposed(by: disposeBag)
             addSubview(btn)
             

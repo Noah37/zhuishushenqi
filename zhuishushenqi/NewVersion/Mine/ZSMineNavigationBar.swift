@@ -93,7 +93,7 @@ class ZSMineNavigationBar: UIView {
         type = state
         if state == .login {
             titleLabel.text = title
-            let resource = QSResource(url: URL(string: "\(IMAGE_BASEURL)\(icon ?? "")") ?? URL(string: "www.baidu.com")!)
+            let resource = QSResource(url: URL(string: "\(IMAGE_BASEURL)\(icon ?? "")") ?? URL(string: "https://www.baidu.com")!)
             iconButton.kf.setImage(with: resource, for: .normal)
         }
     }

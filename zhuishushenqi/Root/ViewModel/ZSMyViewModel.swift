@@ -32,29 +32,33 @@ class ZSMyViewModel: NSObject, ZSRefreshProtocol {
     var expiredVoucher:[ZSVoucher] = []
     
     func fetchAccount(token:String ,completion:@escaping ZSBaseCallback<ZSAccount>) {
-        webService.fetchAccount(token: token) { (account) in
-            self.account = account
+        webService.fetchAccount(token: token) { [weak self](account) in
+            guard let sSelf = self else { return }
+            sSelf.account = account
             completion(account)
         }
     }
 
     func fetchCoin(token:String, completion:@escaping ZSBaseCallback<ZSCoin>) {
-        webService.fetchCoin(token: token) { (coin) in
-            self.coin = coin
+        webService.fetchCoin(token: token) { [weak self](coin) in
+            guard let sSelf = self else { return }
+            sSelf.coin = coin
             completion(coin)
         }
     }
     
     func fetchDetail(token:String, completion:@escaping ZSBaseCallback<ZSUserDetail>) {
-        webService.fetchDetail(token: token) { (detail) in
-            self.detail = detail
+        webService.fetchDetail(token: token) { [weak self](detail) in
+            guard let sSelf = self else { return }
+            sSelf.detail = detail
             completion(detail)
         }
     }
     
     func fetchUserBind (token:String, completion:@escaping ZSBaseCallback<ZSUserBind>) {
-        webService.fetchUserBind(token: token) { (bind) in
-            self.bind = bind
+        webService.fetchUserBind(token: token) { [weak self](bind) in
+            guard let sSelf = self else { return }
+            sSelf.bind = bind
             completion(bind)
         }
     }
@@ -97,30 +101,32 @@ class ZSMyViewModel: NSObject, ZSRefreshProtocol {
 //    https://api.zhuishushenqi.com/voucher?token=xAk9Ac8k3Jj9Faf11q8mBVPQ&type=useable&start=0&limit=20
     func fetchVoucher(token:String, type:String, start:Int, limit:Int, completion:@escaping ZSBaseCallback<[ZSVoucher]>) {
         let api = QSAPI.voucherList(token: token, type: type, start: start, limit: limit)
-        webService.fetchVoucherList(url: api.path, param: api.parameters) { (vouchers) in
+        webService.fetchVoucherList(url: api.path, param: api.parameters) { [weak self](vouchers) in
+            guard let sSelf = self else { return }
             if type == "useable" {
-                self.useableVoucher = vouchers ?? []
+                sSelf.useableVoucher = vouchers ?? []
             } else if type == "unuseable" {
-                self.unuseableVoucher = vouchers ?? []
+                sSelf.unuseableVoucher = vouchers ?? []
             } else {
-                self.expiredVoucher = vouchers ?? []
+                sSelf.expiredVoucher = vouchers ?? []
             }
-            self.refreshStatus.value = .headerRefreshEnd
+            sSelf.refreshStatus.value = .headerRefreshEnd
             completion(vouchers)
         }
     }
     
     func fetchMoreVoucher(token:String, type:String, start:Int, limit:Int, completion:@escaping ZSBaseCallback<[ZSVoucher]>) {
         let api = QSAPI.voucherList(token: token, type: type, start: start, limit: limit)
-        webService.fetchVoucherList(url: api.path, param: api.parameters) { (vouchers) in
+        webService.fetchVoucherList(url: api.path, param: api.parameters) { [weak self](vouchers) in
+            guard let sSelf = self else { return }
             if type == "useable" {
-                self.useableVoucher.append(contentsOf: vouchers ?? [])
+                sSelf.useableVoucher.append(contentsOf: vouchers ?? [])
             } else if type == "unuseable" {
-                self.unuseableVoucher.append(contentsOf: vouchers ?? [])
+                sSelf.unuseableVoucher.append(contentsOf: vouchers ?? [])
             } else {
-                self.expiredVoucher.append(contentsOf: vouchers ?? [])
+                sSelf.expiredVoucher.append(contentsOf: vouchers ?? [])
             }
-            self.refreshStatus.value = .footerRefreshEnd
+            sSelf.refreshStatus.value = .footerRefreshEnd
             completion(vouchers)
         }
     }

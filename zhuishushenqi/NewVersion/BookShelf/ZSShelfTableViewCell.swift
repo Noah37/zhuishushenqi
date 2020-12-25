@@ -125,7 +125,7 @@ class ZSShelfTableViewCell: UITableViewCell {
         latestChapterLB.isHidden = model.bookType == .local
         latestChapterLB.textColor = latestColor(update: model.update)
         let icon = model.icon
-        let resource = QSResource(url: URL(string: icon) ?? URL(string: "www.baidu.com")!)
+        let resource = QSResource(url: URL(string: icon) ?? URL(string: "https://www.baidu.com")!)
         imageView?.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"))
     }
     

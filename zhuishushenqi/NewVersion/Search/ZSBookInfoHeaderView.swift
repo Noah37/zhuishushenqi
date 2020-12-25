@@ -101,7 +101,7 @@ class ZSBookInfoHeaderView: UITableViewHeaderFooterView {
     
     func configure(model:ZSAikanParserModel) {
         let icon = model.bookIcon.length > 0 ? model.bookIcon:model.detailBookIcon
-        let resource = QSResource(url: URL(string: icon) ?? URL(string: "www.baidu.com")!)
+        let resource = QSResource(url: URL(string: icon) ?? URL(string: "https://www.baidu.com")!)
         self.iconView.kf.setImage(with: resource,placeholder: UIImage(named: "default_book_cover"))
         self.authorLabel.text = model.bookAuthor
         self.sourceLabel.text = "来源：\(model.name) \(model.host)"

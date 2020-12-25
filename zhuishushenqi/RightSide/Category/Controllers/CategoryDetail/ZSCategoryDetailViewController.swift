@@ -28,8 +28,9 @@ class ZSCatelogDetailViewController:BaseViewController {
     func setupSubviews(){
         title = parameterModel?.major ?? ""
         segmentViewController.delegate = self
-        view.addSubview(segmentViewController.view)
         addChild(segmentViewController)
+        didMove(toParent: self)
+        view.addSubview(segmentViewController.view)
     }
 }
 
@@ -45,8 +46,9 @@ extension ZSCatelogDetailViewController:ZSSegmenuProtocol {
             viewController.viewModel.type = types[i]
             viewController.title = titles[i]
             viewController.viewModel.parameterModel = parameterModel
-            viewController.clickRow = { (book) in
-                self.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: book?._id ?? ""), animated: true)
+            viewController.clickRow = { [weak self](book) in
+                guard let sSelf = self else { return };
+                sSelf.navigationController?.pushViewController(QSBookDetailRouter.createModule(id: book?._id ?? ""), animated: true)
             }
             viewControllers.append(viewController)
         }

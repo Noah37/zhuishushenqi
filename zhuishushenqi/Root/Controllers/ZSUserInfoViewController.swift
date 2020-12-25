@@ -46,15 +46,17 @@ class ZSUserInfoViewController: ZSBaseTableViewController {
     
     func request() {
         view.showProgress()
-        viewModel.fetchDetail(token: ZSLogin.share.token) { (detail) in
-            self.view.hideProgress()
-            self.updateUserInfo()
-            self.tableView.reloadData()
+        viewModel.fetchDetail(token: ZSLogin.share.token) { [weak self](detail) in
+            guard let sSelf = self else { return }
+            sSelf.view.hideProgress()
+            sSelf.updateUserInfo()
+            sSelf.tableView.reloadData()
         }
-        viewModel.fetchUserBind(token: ZSLogin.share.token) { (bind) in
-            self.view.hideProgress()
-            self.updateBind()
-            self.tableView.reloadData()
+        viewModel.fetchUserBind(token: ZSLogin.share.token) { [weak self](bind) in
+            guard let sSelf = self else { return }
+            sSelf.view.hideProgress()
+            sSelf.updateBind()
+            sSelf.tableView.reloadData()
         }
     }
     
@@ -131,9 +133,10 @@ class ZSUserInfoViewController: ZSBaseTableViewController {
                 let center = dict["center"] ?? ""
                 cell?.rightLabel.text = center
                 cell?.rightButton.setTitle("复制", for: .normal)
-                cell?.buttonHandler = { selected in
+                cell?.buttonHandler = { [weak self] selected in
+                    guard let sSelf = self else { return }
                     UIPasteboard.general.string = center
-                    self.view.showTip(tip: "用户ID已复制到您的剪切板")
+                    sSelf.view.showTip(tip: "用户ID已复制到您的剪切板")
                 }
                 return cell!
             } else if type == "bind" {

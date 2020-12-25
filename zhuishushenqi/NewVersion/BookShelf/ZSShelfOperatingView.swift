@@ -209,7 +209,7 @@ class ZSShelfOperatingView: UIView {
     func configure(book:ZSAikanParserModel) {
         self.book = book
         let icon = book.bookIcon.length > 0 ? book.bookIcon:book.detailBookIcon
-        let resource = QSResource(url: URL(string: icon) ?? URL(string: "www.baidu.com")!)
+        let resource = QSResource(url: URL(string: icon) ?? URL(string: "https://www.baidu.com")!)
         bookIconView.kf.setImage(with: resource, placeholder: UIImage(named: "default_book_cover"))
         bookNameLB.text = book.bookName
         authorLB.text = book.bookAuthor

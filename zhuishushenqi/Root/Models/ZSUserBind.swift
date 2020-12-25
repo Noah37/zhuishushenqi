@@ -9,14 +9,14 @@
 import UIKit
 import HandyJSON
 
-class ZSUserBind: NSObject, HandyJSON {
+class ZSUserBind: HandyJSON {
 
     var bind:ZSUserBinds?
     var ok = true
-    required override init() {}
+    required init() {}
 }
 
-class ZSUserBinds: NSObject, HandyJSON {
+class ZSUserBinds: HandyJSON {
     
     var QQ:ZSUserModel?
     var Weixin:ZSUserModel?
@@ -24,13 +24,13 @@ class ZSUserBinds: NSObject, HandyJSON {
     var Xiaomi:ZSUserModel?
     var Mobile:ZSUserModel?
 
-    required override init() {}
+    required init() {}
 }
 
-class ZSUserModel: NSObject, HandyJSON {
+class ZSUserModel: HandyJSON {
     var name:String = ""
     
-    required override init() {}
+    required init() {}
 }
 
 //        {

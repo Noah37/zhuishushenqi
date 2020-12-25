@@ -9,7 +9,7 @@
 import UIKit
 import HandyJSON
 
-class ZSUserDetail: NSObject, HandyJSON {
+class ZSUserDetail: HandyJSON {
     
     var _id:String = ""
     var nickname:String = ""
@@ -29,10 +29,10 @@ class ZSUserDetail: NSObject, HandyJSON {
     var lastDay = 0
     var ok = true
 
-    required override init() {}
+    required init() {}
 }
 
-class ZSUserDetailTodayTask: NSObject,HandyJSON {
+class ZSUserDetailTodayTask: HandyJSON {
     var launch = false
     var post = false
     var comment = false
@@ -41,30 +41,30 @@ class ZSUserDetailTodayTask: NSObject,HandyJSON {
     var share_book = false
     var flopen = false
     
-    required override init() {}
+    required init() {}
 }
 
-class ZSUserDetailThisWeekTask: NSObject, HandyJSON {
+class ZSUserDetailThisWeekTask: HandyJSON {
     var rate = false
-    required override init() {
+    required init() {
         
     }
 }
 
-class ZSUserDetailPostCount: NSObject,HandyJSON {
+class ZSUserDetailPostCount: HandyJSON {
     var posted = 0
     var collected = 0
     
-    required override init() {
+    required init() {
         
     }
 }
 
-class ZSUserDetailBookListCount: NSObject, HandyJSON {
+class ZSUserDetailBookListCount:  HandyJSON {
     var posted = 0
     var collected = 0
     
-    required override init() {
+    required init() {
         
     }
 }

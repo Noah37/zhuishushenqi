@@ -16,187 +16,187 @@ class ZSAddSourceViewController: BaseViewController {
     lazy var booksTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "books"
+        tf.title = "books"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var searchUrlTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
         tf.delegate = self
-        tf.text = "searchUrl"
+        tf.title = "searchUrl"
         return tf
     }()
-    
+
     lazy var nameTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "name"
+        tf.title = "name"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var hostTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "host"
+        tf.title = "host"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var contentTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "content"
+        tf.title = "content"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var chapterUrlTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "chapterUrl"
+        tf.title = "chapterUrl"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var chapterNameTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "chapterName"
+        tf.title = "chapterName"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var chaptersTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "chapters"
+        tf.title = "chapters"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var detailBookIconTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "detailBookIcon"
+        tf.title = "detailBookIcon"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var detailChaptersUrlTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "detailChaptersUrl"
+        tf.title = "detailChaptersUrl"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var bookLastChapterNameTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "bookLastChapterName"
+        tf.title = "bookLastChapterName"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var bookUpdateTimeTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "bookUpdateTime"
+        tf.title = "bookUpdateTime"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var bookUrlTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "bookUrl"
+        tf.title = "bookUrl"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var bookIconTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "bookIcon"
+        tf.title = "bookIcon"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var bookDescTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "bookDesc"
+        tf.title = "bookDesc"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var bookCategoryTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "bookCategory"
+        tf.title = "bookCategory"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var bookAuthorTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "bookAuthor"
+        tf.title = "bookAuthor"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var bookNameTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "bookName"
+        tf.title = "bookName"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var detailBookDescTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "detailBookDesc"
+        tf.title = "detailBookDesc"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var contentRemoveTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "contentRemove"
+        tf.title = "contentRemove"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var contentReplaceTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "contentReplace"
+        tf.title = "contentReplace"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var contentTagRemoveTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "contentTagRemove"
+        tf.title = "contentTagRemove"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var searchEncodingTF:ZSAddLineView = {
         let tf = ZSAddLineView(frame: .zero)
         tf.placeholder = "请输入"
-        tf.text = "searchEncoding"
+        tf.title = "searchEncoding"
         tf.delegate = self
         return tf
     }()
-    
+
     lazy var scrollView:UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.backgroundColor = UIColor.white
@@ -234,156 +234,156 @@ class ZSAddSourceViewController: BaseViewController {
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.bookNameTF)
+        scrollView.addSubview(bookNameTF)
         bookNameTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.booksTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.bookAuthorTF)
+        scrollView.addSubview(bookAuthorTF)
         bookAuthorTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.bookNameTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.bookCategoryTF)
+        scrollView.addSubview(bookCategoryTF)
         bookCategoryTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.bookAuthorTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.bookDescTF)
+        scrollView.addSubview(bookDescTF)
         bookDescTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.bookCategoryTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.bookIconTF)
+        scrollView.addSubview(bookIconTF)
         bookIconTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.bookDescTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.bookUrlTF)
+        scrollView.addSubview(bookUrlTF)
         bookUrlTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.bookIconTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.bookUpdateTimeTF)
+        scrollView.addSubview(bookUpdateTimeTF)
         bookUpdateTimeTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.bookUrlTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.bookLastChapterNameTF)
+        scrollView.addSubview(bookLastChapterNameTF)
         bookLastChapterNameTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.bookUpdateTimeTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.detailChaptersUrlTF)
+        scrollView.addSubview(detailChaptersUrlTF)
         detailChaptersUrlTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.bookLastChapterNameTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.detailBookIconTF)
+        scrollView.addSubview(detailBookIconTF)
         detailBookIconTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.detailChaptersUrlTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.chaptersTF)
+        scrollView.addSubview(chaptersTF)
         chaptersTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.detailBookIconTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.chapterNameTF)
+        scrollView.addSubview(chapterNameTF)
         chapterNameTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.chaptersTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.chapterUrlTF)
+        scrollView.addSubview(chapterUrlTF)
         chapterUrlTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.chapterNameTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.contentTF)
+        scrollView.addSubview(contentTF)
         contentTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.chapterUrlTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.hostTF)
+        scrollView.addSubview(hostTF)
         hostTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.contentTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.nameTF)
+        scrollView.addSubview(nameTF)
         nameTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.hostTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.searchUrlTF)
+        scrollView.addSubview(searchUrlTF)
         searchUrlTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.nameTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.detailBookDescTF)
+        scrollView.addSubview(detailBookDescTF)
         detailBookDescTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.searchUrlTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.contentRemoveTF)
+        scrollView.addSubview(contentRemoveTF)
         contentRemoveTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.detailBookDescTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        
-        scrollView.addSubview(self.contentReplaceTF)
+
+        scrollView.addSubview(contentReplaceTF)
         contentReplaceTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.contentRemoveTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        
-        scrollView.addSubview(self.contentTagRemoveTF)
+
+        scrollView.addSubview(contentTagRemoveTF)
         contentTagRemoveTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.contentReplaceTF.snp.bottom).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-20)
             make.height.equalTo(50)
         }
-        scrollView.addSubview(self.searchEncodingTF)
+        scrollView.addSubview(searchEncodingTF)
         searchEncodingTF.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(20)
             make.top.equalTo(self.contentTagRemoveTF.snp.bottom).offset(10)
@@ -399,29 +399,29 @@ class ZSAddSourceViewController: BaseViewController {
     
     private func reloadData() {
         guard let model = source else { return }
-        booksTF.tfText = model.books
-        bookCategoryTF.tfText = model.bookCategory
-        bookNameTF.tfText = model.bookName
-        bookAuthorTF.tfText = model.bookAuthor
-        bookDescTF.tfText = model.bookDesc
-        bookIconTF.tfText = model.bookIcon
-        bookUrlTF.tfText = model.bookUrl
-        bookUpdateTimeTF.tfText = model.bookUpdateTime
-        bookLastChapterNameTF.tfText = model.bookLastChapterName
-        detailChaptersUrlTF.tfText = model.detailChaptersUrl
-        detailBookIconTF.tfText = model.detailBookIcon
-        chaptersTF.tfText = model.chapters
-        chapterNameTF.tfText = model.chapterName
-        chapterUrlTF.tfText = model.chapterUrl
-        contentTF.tfText = model.content
-        hostTF.tfText = model.host
-        nameTF.tfText = model.name
-        searchUrlTF.tfText = model.searchUrl
-        detailBookDescTF.tfText = model.detailBookDesc
-        searchEncodingTF.tfText = model.searchEncoding
-        contentRemoveTF.tfText = model.contentRemove
-        contentReplaceTF.tfText = model.contentReplace
-        contentTagRemoveTF.tfText = model.contentTagReplace
+        booksTF.text = model.books
+        bookCategoryTF.text = model.bookCategory
+        bookNameTF.text = model.bookName
+        bookAuthorTF.text = model.bookAuthor
+        bookDescTF.text = model.bookDesc
+        bookIconTF.text = model.bookIcon
+        bookUrlTF.text = model.bookUrl
+        bookUpdateTimeTF.text = model.bookUpdateTime
+        bookLastChapterNameTF.text = model.bookLastChapterName
+        detailChaptersUrlTF.text = model.detailChaptersUrl
+        detailBookIconTF.text = model.detailBookIcon
+        chaptersTF.text = model.chapters
+        chapterNameTF.text = model.chapterName
+        chapterUrlTF.text = model.chapterUrl
+        contentTF.text = model.content
+        hostTF.text = model.host
+        nameTF.text = model.name
+        searchUrlTF.text = model.searchUrl
+        detailBookDescTF.text = model.detailBookDesc
+        searchEncodingTF.text = model.searchEncoding
+        contentRemoveTF.text = model.contentRemove
+        contentReplaceTF.text = model.contentReplace
+        contentTagRemoveTF.text = model.contentTagReplace
     }
     
     @objc
@@ -468,10 +468,24 @@ protocol ZSAddLineViewDelegate:UITextFieldDelegate {
     
 }
 
-class ZSAddLineView: UIView, UITextFieldDelegate {
+class ZSAddLineView: UIView {
     var placeholder:String = "" { didSet { textField.placeholder = placeholder } }
-    var text:String = "" { didSet { titleLabel.text = text } }
-    var tfText:String = "" { didSet { textField.text = tfText } }
+    var title:String {
+        set{
+            titleLabel.text = newValue
+        }
+        get{
+            return titleLabel.text ?? ""
+        }
+    }
+    var text:String {
+        set {
+            textField.text = newValue
+        }
+        get {
+            return textField.text ?? ""
+        }
+    }
 
     weak var delegate:ZSAddLineViewDelegate? { didSet {  }  }
     
@@ -517,6 +531,10 @@ class ZSAddLineView: UIView, UITextFieldDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.titleLabel.frame = CGRect(x: 0, y: 0, width: 100, height: self.bounds.height)
-        self.textField.frame = CGRect(x: 120, y: 5, width: self.width - 140, height: self.bounds.height - 10)
+        self.textField.frame = CGRect(x: 120, y: 5, width: self.bounds.size.width - 140, height: self.bounds.height - 10)
+    }
+    
+    deinit {
+        print(titleLabel.text)
     }
 }

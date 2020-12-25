@@ -64,7 +64,7 @@ class ZSSearchResultCell: UITableViewCell {
     
     func configure(model:ZSAikanParserModel) {
         let icon = model.bookIcon.length != 0 ? model.bookIcon:model.detailBookIcon
-        let resource = QSResource(url: URL(string: "\(icon)") ?? URL(string: "www.baidu.com")!)
+        let resource = QSResource(url: URL(string: "\(icon)") ?? URL(string: "https://www.baidu.com")!)
         self.bookIconView.kf.setImage(with: resource,placeholder: UIImage(named: "default_book_cover"))
         self.bookDescLB.text = model.bookDesc.length != 0 ? model.bookDesc:model.detailBookDesc
         self.sourceLB.text = model.name
@@ -85,7 +85,7 @@ class ZSSearchResultCell: UITableViewCell {
     
     override func prepareForReuse() {
 
-        let resource = QSResource(url: URL(string: "") ?? URL(string: "www.baidu.com")!)
+        let resource = QSResource(url: URL(string: "") ?? URL(string: "https://www.baidu.com")!)
         self.bookIconView.kf.setImage(with: resource)
         self.bookDescLB.text = ""
         self.sourceLB.text = ""

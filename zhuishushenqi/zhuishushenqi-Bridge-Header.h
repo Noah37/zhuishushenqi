@@ -40,5 +40,6 @@
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
 #import "uchardet.h"
+#import "ZSAddSourceTextField.h"
 
 #endif /* zhuishushenqi_Bridge_Header_h */

@@ -105,23 +105,19 @@ class ZSWebViewController: BaseViewController {
     }
     
     func createWebViewWithCustomUserAgentWithConfiguratuion(configuration:WKWebViewConfiguration) ->WKWebView? {
-        let webView = UIWebView(frame: self.view.bounds)
-            var userAgent = webView.stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
-            if userAgent.count > 0 {
-                if self.canUAAppendYouShaQi() {
-                    let containYouShaQi = userAgent.contains("/YouShaQi")
-                    if !containYouShaQi {
-                        userAgent.append("/YouShaQi")
-                        let userAgentDict = ["UserAgent":userAgent]
-                        DispatchQueue.global().async {
-                            UserDefaults.standard.register(defaults: userAgentDict)
-                        }
-                    }
-                    let webView = WKWebView(frame: self.view.frame, configuration: configuration)
-                    return webView
-                }
+        let webView = WKWebView(frame: self.view.frame, configuration: configuration)
+        webView.evaluateJavaScript("navigator.userAgent") { (result, error) in
+            let str = "\(String(describing: result))/YouShaQi"
+            let userAgentDict = ["UserAgent":str]
+            UserDefaults.standard.register(defaults: userAgentDict)
+            UserDefaults.standard.synchronize()
+            if #available(iOS 9.0, *) {
+                webView.customUserAgent = str
+            } else {
+                webView.setValue(str, forKey: "applicationNameForUserAgent")
             }
-        return nil
+        }
+        return webView
     }
     
     func canUAAppendYouShaQi() -> Bool {

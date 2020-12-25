@@ -26,13 +26,14 @@ class ZSCatelogDetailViewModel:ZSSegmentBaseViewModel {
         let major = parameterModel?.major ?? ""
         let gender = parameterModel?.gender ?? ""
         let api = ZSAPI.categoryList(gender: gender, type: type, major:  major, minor: "", start: "\(startIndex)", limit: "\(limit)")
-        zs_get(api.path, parameters: api.parameters) { (response) in
+        zs_get(api.path, parameters: api.parameters) { [weak self](response) in
+            guard let sSelf = self else { return }
             guard let books = response?["books"] as? [Any] else {
                 handler?(nil)
                 return
             }
             if let models = [Book].deserialize(from: books) as? [Book] {
-                self.books = models
+                sSelf.books = models
             }
             handler?(nil)
         }
@@ -48,13 +49,14 @@ class ZSCatelogDetailViewModel:ZSSegmentBaseViewModel {
         let major = parameterModel?.major ?? ""
         let gender = parameterModel?.gender ?? ""
         let api = ZSAPI.categoryList(gender: gender, type: type, major:  major, minor: "", start: "\(startIndex)", limit: "\(limit)")
-        zs_get(api.path, parameters: api.parameters) { (response) in
+        zs_get(api.path, parameters: api.parameters) { [weak self](response) in
+            guard let sSelf = self else { return }
             guard let books = response?["books"] as? [Any] else {
                 handler?(nil)
                 return
             }
             if let models = [Book].deserialize(from: books) as? [Book] {
-                self.books.append(contentsOf: models)
+                sSelf.books.append(contentsOf: models)
             }
             handler?(nil)
         }
