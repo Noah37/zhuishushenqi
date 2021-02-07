@@ -25,7 +25,7 @@ class BaseViewController: UIViewController, IndicatableView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = false
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {

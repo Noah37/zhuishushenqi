@@ -33,11 +33,6 @@ class ZSCatelogCell: UICollectionViewCell {
         leftImageView.frame = CGRect(x: titleLabel.frame.maxX + 20, y: self.bounds.height - 80, width: 44 , height: 60)
         centerImageView.frame = CGRect(x: leftImageView.frame.minX + 10, y: leftImageView.frame.minY - 10, width: 50, height: 70)
         rightImageView.frame = CGRect(x: centerImageView.frame.minX + 20, y: centerImageView.frame.minY + 20, width: 40, height: 50)
-        if !self.leftImageView.frame.equalTo(CGRect.zero) {
-            leftImageView.addShadow(cornerRadius: 4)
-        }
-        centerImageView.addShadow(cornerRadius: 4)
-        rightImageView.addShadow(cornerRadius: 4)
     }
     
     func updateCell(_ model:ZSCatelogItem) {
