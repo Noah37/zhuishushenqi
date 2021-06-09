@@ -108,6 +108,8 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             horVC.delegate = self
         }
         pref.readerVC?.bind(toolBar: toolBar)
+        
+        NSString.totalMemory()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -454,8 +454,8 @@ class ZSDisplayView: UIView {
                     switch result {
                     case .success(let value):
                         print(value.image)
-                        self!.imageModels[self?.indexOfModel(model: imageModel, models: self!.imageModels) ?? 0].image = value.image
-                        self?.setNeedsDisplay()
+//                        self!.imageModels[self?.indexOfModel(model: imageModel, models: self!.imageModels) ?? 0].image = value.image
+//                        self?.setNeedsDisplay()
                     case .failure(let error):
                         print(error)
                     }

@@ -11,6 +11,8 @@ import UIKit
 typealias ZSBaseHandler = (_ result:Bool)->Void
 
 class BaseViewController: UIViewController, IndicatableView {
+    
+    var navigationBarHiden:Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,9 @@ class BaseViewController: UIViewController, IndicatableView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = false
+        if navigationBarHiden {
+            navigationController?.setNavigationBarHidden(true, animated: true)
+        }
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {

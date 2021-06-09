@@ -3158,6 +3158,7 @@
 			buildConfigurationList = B2BB5BBE1D8BDF8E00379217 /* Build configuration list for PBXNativeTarget "zhuishushenqi" */;
 			buildPhases = (
 				40CCB42994AEB110993A582E /* [CP] Check Pods Manifest.lock */,
+				F15FD519C17681688971C8E1 /* [CP-User] Run Flutter Build my_flutter Script */,
 				B2BB5B921D8BDF8E00379217 /* Sources */,
 				B2BB5B931D8BDF8E00379217 /* Frameworks */,
 				B2BB5B941D8BDF8E00379217 /* Resources */,
@@ -3424,6 +3425,16 @@
 			shellPath = /bin/sh;
 			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n# Localizable.strings文件路径\nlocalizableFile=\"${SRCROOT}/en.lproj/Localizable.strings\"\n# 生成的swift文件路径（根据个人习惯修改）\nlocalizedFile=\"${SRCROOT}/${PROJECT_NAME}/Extension/LocalizedUtils.swift\"\n# 将localizable.strings中的文本转为swift格式的常量，存入一个临时文件\nsed \"s/^\\\"/  static var localized_/g\" \"${localizableFile}\" | sed \"s/\\\" = \\\"/: String { return \\\"/g\" | sed \"s/;$/.localized }/g\" > \"${localizedFile}.tmp\"\n# 先将localized作为计算属性输出到目标文件\necho -e \"import Foundation\\n\\nextension String {\\n  var localized: String { return NSLocalizedString(self, comment: self) }\" > \"${localizedFile}\"\n# 再将临时文件中的常量增量输出到目标文件\ncat \"${localizedFile}.tmp\" >> \"${localizedFile}\"\n# 最后增量输出一个\"}\"到目标文件，完成输出\necho -e \"\\n}\" >> \"${localizedFile}\"\n# 删除临时文件\nrm \"${localizedFile}.tmp\"\n\n";
 		};
+		F15FD519C17681688971C8E1 /* [CP-User] Run Flutter Build my_flutter Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] Run Flutter Build my_flutter Script";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/my_flutter/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
+		};
 		FD524380448A2648D747098B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3461,6 +3472,8 @@
 				"${BUILT_PRODUCTS_DIR}/ZSAppConfig/ZSAppConfig.framework",
 				"${BUILT_PRODUCTS_DIR}/ZSExtension/ZSExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
+				"${PODS_ROOT}/../my_flutter/.ios/Flutter/App.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flutter/Flutter.framework/Flutter",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -3494,6 +3507,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSAppConfig.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZSExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/App.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flutter.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

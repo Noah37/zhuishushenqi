@@ -25,6 +25,11 @@ class ZSTabBarController: UITabBarController,UITabBarControllerDelegate {
         
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        alert(with: "内存警告", message: "收到内存警告，可能有内存泄露或者内存延迟释放，请检查代码", okTitle: "确认")
+    }
+    
     private func setupSubviews() {
         let homeItem = UITabBarItem(title: "书架", image: UIImage(named: "tab_bookshelf")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "tab_bookshelf_sel")?.withRenderingMode(.alwaysOriginal))
         let channelItem = UITabBarItem(title: "书城", image: UIImage(named: "tab_bookstore")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "tab_bookstore_sel")?.withRenderingMode(.alwaysOriginal))

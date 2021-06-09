@@ -10,6 +10,9 @@ PODS:
     - CocoaLumberjack/Default
   - FBRetainCycleDetector (0.1.4)
   - FLEX (3.1.2)
+  - Flutter (1.0.0)
+  - FlutterPluginRegistrant (0.0.1):
+    - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -21,6 +24,8 @@ PODS:
   - MJRefresh (3.2.0)
   - MLeaksFinder (1.0.0):
     - FBRetainCycleDetector
+  - my_flutter (0.0.1):
+    - Flutter
   - PKHUD (5.3.0)
   - RxAlamofire (5.0.0):
     - RxAlamofire/Core (= 5.0.0)
@@ -72,11 +77,14 @@ DEPENDENCIES:
   - CocoaLumberjack (= 3.4.2)
   - FBRetainCycleDetector
   - FLEX
+  - Flutter (from `my_flutter/.ios/Flutter/engine`)
+  - FlutterPluginRegistrant (from `my_flutter/.ios/Flutter/FlutterPluginRegistrant`)
   - FMDB
   - HandyJSON
   - MBProgressHUD
   - MJRefresh
   - MLeaksFinder
+  - my_flutter (from `my_flutter/.ios/Flutter`)
   - PKHUD
   - RxAlamofire
   - RxCocoa
@@ -126,6 +134,12 @@ SPEC REPOS:
     - Zip
 
 EXTERNAL SOURCES:
+  Flutter:
+    :path: my_flutter/.ios/Flutter/engine
+  FlutterPluginRegistrant:
+    :path: my_flutter/.ios/Flutter/FlutterPluginRegistrant
+  my_flutter:
+    :path: my_flutter/.ios/Flutter
   Weibo_SDK:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
   YungCache:
@@ -157,12 +171,15 @@ SPEC CHECKSUMS:
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FLEX: e13e805fc3eec8732cc227d1f7508770d46e9587
+  Flutter: ac41d61a47ae5bf8195a5598d2d63754888ec0d5
+  FlutterPluginRegistrant: 2afd5ea46d3a949472c9b7da6462d8fbf7d8b16e
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   HandyJSON: 992f2d661716d6a91de82d0056927bc7813b5770
   Kingfisher: dc6e0f53bb5b12c3e75bedb0e01bbd7a640eea69
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
+  my_flutter: 5f71a42a61a499a9f322f2c0f62fc185a5807c9b
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
@@ -184,6 +201,6 @@ SPEC CHECKSUMS:
   ZSAppConfig: 52ccb894481ecaa28452d42d4d42db7a678d2786
   ZSExtension: 040334c0092668a134ecdc621c6ea129eb1faf40
 
-PODFILE CHECKSUM: d5d3ae045145c3c34a7716910b068cc2c07bbaaf
+PODFILE CHECKSUM: 8e821080586e23ffd53a61f2bb2960cad5d982fe
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

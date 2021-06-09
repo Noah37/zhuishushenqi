@@ -332,7 +332,7 @@ class MarkupParser: NSObject {
         var objectReplacementChar:unichar = 0xFFFC
         let content = NSString(characters: &objectReplacementChar, length: 1)
         let attrStr = NSMutableAttributedString(string: String(content), attributes: attrDictionaryDelegate)
-        attrStr.addAttributes(attribute(), range: NSMakeRange(0, attrStr.length))
+//        attrStr.addAttributes(attribute(), range: NSMakeRange(0, attrStr.length))
         return attrStr
     }
 }

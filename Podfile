@@ -1,6 +1,9 @@
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/sinaweibosdk/weibo_ios_sdk.git'
 
+flutter_application_path = '../my_flutter/'
+load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
+
 # 对于Swift应用来说下面两句是必须的
 platform :ios, '10.0'
 use_frameworks!
@@ -12,6 +15,8 @@ branch = ENV['sha']
 # target的名字一般与你的项目名字相同
 target 'zhuishushenqi' do
 project './zhuishushenqi.xcodeproj'
+
+install_all_flutter_pods(flutter_application_path)
 
 pod 'YYText'
 pod 'YYModel'
