@@ -234,4 +234,8 @@ class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
     func selectionView(selectionView: ZSReaderThemeSelectionView, select: ZSReaderStyle) {
         delegate?.bigBar(bigBar: self, readerStyle: select)
     }
+    
+    deinit {
+        QSLog("释放了")
+    }
 }

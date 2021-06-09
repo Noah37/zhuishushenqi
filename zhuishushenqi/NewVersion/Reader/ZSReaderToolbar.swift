@@ -159,6 +159,10 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         hiden(true)
     }
     
+    deinit {
+        QSLog("释放了")
+    }
+    
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let view = super.hitTest(point, with: event)
 //        let readerPoint = self.convert(point, to: readerStyleView)

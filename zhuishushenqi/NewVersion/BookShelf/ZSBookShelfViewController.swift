@@ -400,7 +400,7 @@ extension ZSBookShelfViewController: UITableViewDataSource, UITableViewDelegate 
             ZSShelfManager.share.getAikanModel(book) { [weak self] (result) in
                 if let aikan = result, aikan.chaptersModel.count != 1 {
                     self?.jumpReader(book: aikan, indexPath: indexPath)
-                } 
+                }
                 else
                     if let shelf = QSReaderParse.parse(shelf: book) {
                     ZSShelfManager.share.addAikan(shelf)

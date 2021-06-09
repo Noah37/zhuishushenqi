@@ -141,12 +141,12 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             update(history: viewModel.readHistory!, chapter: oriChapter, page: oriChapter.pages.first!)
             pref.readerVC?.jumpPage(page: oriChapter.pages.first!, false, .forward)
             if oriChapter.contentNil() {
-                viewModel.request(chapter: oriChapter) { [unowned self] (cp,type) in
+                viewModel.request(chapter: oriChapter) { [weak self] (cp,type) in
                     // 比较当前章节与阅读记录中如果不同，说明请求完之前已经翻页了，不再跳转
                     cp.calPages()
                     if cp.chapterUrl == oriChapter.chapterUrl {
-                        self.update(history: self.viewModel.readHistory!, chapter: cp, page: cp.pages.first!)
-                        self.pref.readerVC?.jumpPage(page: cp.pages.first!,false, .forward)
+                        self?.update(history: self?.viewModel.readHistory, chapter: cp, page: cp.pages.first!)
+                        self?.pref.readerVC?.jumpPage(page: cp.pages.first!,false, .forward)
                     }
                 }
             }
@@ -164,12 +164,12 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             initialHistory(chapter: chapter)
             update(history: viewModel.readHistory!, chapter: chapter, page: chapter.pages.first!)
             pref.readerVC?.jumpPage(page: chapter.pages.first!, false, .forward)
-            viewModel.request(chapter: chapter) { [unowned self] (cp,type) in
+            viewModel.request(chapter: chapter) { [weak self] (cp,type) in
                 // 比较当前章节与阅读记录中如果不同，说明请求完之前已经翻页了，不再跳转
                 cp.calPages()
                 if cp.chapterUrl == chapter.chapterUrl {
-                    self.update(history: self.viewModel.readHistory!, chapter: cp, page: cp.pages.first!)
-                    self.pref.readerVC?.jumpPage(page: cp.pages.first!, false, .forward)
+                    self?.update(history: self?.viewModel.readHistory, chapter: cp, page: cp.pages.first!)
+                    self?.pref.readerVC?.jumpPage(page: cp.pages.first!, false, .forward)
                 }
             }
         }
@@ -222,7 +222,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         } else if ZSReaderPref.rightFrame.contains(windowPoint) {
             showNextPage()
         } else {
-            toolBar.show(inView: view.window!, true)
+            toolBar.show(inView: view, true)
         }
     }
     
@@ -283,9 +283,9 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         }
     }
     
-    func update(history:ZSReadHistory, chapter:ZSBookChapter, page:ZSBookPage) {
-        history.chapter = chapter
-        history.page = page
+    func update(history:ZSReadHistory?, chapter:ZSBookChapter, page:ZSBookPage) {
+        history?.chapter = chapter
+        history?.page = page
     }
     
     //MARK: - chapter manage
@@ -539,7 +539,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     }
     
     deinit {
-        
+       QSLog("释放了")
     }
     
     func showPage(chapter:ZSBookChapter, _ page:ZSBookPage? = nil,_ first:Bool = true, handler:ZSReaderBaseCallback<ZSBookPage>?) {

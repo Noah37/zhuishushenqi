@@ -73,6 +73,10 @@ class ZSPageViewController: BaseViewController, ZSReaderVCProtocol {
     private func tapAction(tap:UITapGestureRecognizer) {
         toolBar?.show(inView: view, true)
     }
+    
+    deinit {
+        QSLog("释放了")
+    }
 }
 
 extension ZSPageViewController:UIPageViewControllerDataSource, UIPageViewControllerDelegate {
