@@ -36,6 +36,13 @@ func RGBAColor<T>(_ red:T, _ green:T, _ blue:T, _ alpha:CGFloat? = 1) -> UIColor
 }
 
 extension UIView {
+    func addCorners(corner:UIRectCorner, cornerRadii:CGSize) {
+        let bezierPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: corner, cornerRadii: cornerRadii)
+        let shaperLayer = CAShapeLayer()
+        shaperLayer.path = bezierPath.cgPath
+        layer.mask = shaperLayer
+    }
+    
     func screenShot()->UIImage?{
         let size = self.bounds.size
         let transform:CGAffineTransform = __CGAffineTransformMake(-1, 0, 0, 1, size.width, 0)

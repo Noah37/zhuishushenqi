@@ -18,4 +18,8 @@
 
 + (NSString *)fileEncoding:(NSString *)path;
 
++ (double)totalMemory;
++ (double)availableMemory;
++ (double)getMemoryUsage;
+
 @end

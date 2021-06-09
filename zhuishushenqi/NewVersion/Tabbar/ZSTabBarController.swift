@@ -25,6 +25,29 @@ class ZSTabBarController: UITabBarController,UITabBarControllerDelegate {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+            ZSMemoryFloatingView.show()
+        }
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        guard let currentVC = viewControllers?[selectedIndex] as? UINavigationController else { return false }
+        guard let topVC = currentVC.topViewController  else { return currentVC.prefersStatusBarHidden }
+        guard let presentedVC = topVC.presentedViewController else { return topVC.prefersStatusBarHidden }
+        
+        return presentedVC.prefersStatusBarHidden
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        guard let currentVC = viewControllers?[selectedIndex] as? UINavigationController else { return .lightContent }
+        guard let topVC = currentVC.topViewController  else { return currentVC.preferredStatusBarStyle }
+        guard let presentedVC = topVC.presentedViewController else { return topVC.preferredStatusBarStyle }
+        
+        return presentedVC.preferredStatusBarStyle
+    }
+    
     private func setupSubviews() {
         let homeItem = UITabBarItem(title: "书架", image: UIImage(named: "tab_bookshelf")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "tab_bookshelf_sel")?.withRenderingMode(.alwaysOriginal))
         let channelItem = UITabBarItem(title: "书城", image: UIImage(named: "tab_bookstore")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "tab_bookstore_sel")?.withRenderingMode(.alwaysOriginal))

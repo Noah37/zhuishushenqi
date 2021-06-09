@@ -118,6 +118,10 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
         return UIStatusBarStyle.lightContent
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    
     @objc
     func refreshAction() {
         shelfViewModel?.requestMsg()

@@ -49,7 +49,7 @@ let ScreenWidth = UIScreen.main.bounds.size.width
 let ScreenHeight = UIScreen.main.bounds.size.height
 let SCALE = (ScreenWidth / 320.0)
 let TOP_BAR_Height:CGFloat = 64
-let FOOT_BAR_Height:CGFloat = 49
+let FOOT_BAR_Height:CGFloat = 49 + kTabbarBlankHeight
 let STATEBARHEIGHT = UIApplication.shared.statusBarFrame.height
 let kNavgationBarHeight:CGFloat = (IPHONEX ? 88:64)
 let kTabbarBlankHeight:CGFloat  = (IPHONEX ? 34:0)
@@ -63,7 +63,7 @@ let IPHONE6Plus = UIScreen.instancesRespond(to: #selector(getter: RunLoop.curren
 let IPHONEX_SMALL = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 828, height: 1792).equalTo((UIScreen.main.currentMode?.size)!) : false
 let IPHONEX_MID = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 1125, height: 2436).equalTo((UIScreen.main.currentMode?.size)!) : false
 let IPHONEX_BIG = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 1242, height: 2688).equalTo((UIScreen.main.currentMode?.size)!) : false
-let IPHONEX = IPHONEX_SMALL || IPHONEX_MID || IPHONEX_BIG
+let IPHONEX = IPHONEX_SMALL || IPHONEX_MID || IPHONEX_BIG || iPhone12Series()
 
 
 //根据系统判断 获取iPad的屏幕尺寸
@@ -131,5 +131,23 @@ func calTime(_ action: @escaping () ->Void){
     action()
     let linkTime = (CFAbsoluteTimeGetCurrent() - startTime)
     QSLog("Linked in \(linkTime * 1000.0) ms")
+}
+
+func iPhone12Series() ->Bool {
+    let _12MiniSize = CGSize(width: 360, height: 780)
+    let _12ProSize = CGSize(width: 390, height: 844)
+    let _12ProMaxSize = CGSize(width: 428, height: 926)
+
+    let _12MiniLandscapeSize = CGSize(width: 780, height: 360)
+    let _12ProLandscapeSize = CGSize(width: 844, height: 390)
+    let _12ProMaxLandscapeSize = CGSize(width: 926, height: 428)
+    
+    let isIPhone12Series:Bool = UIScreen.main.bounds.size.equalTo(_12MiniSize) ||
+                            UIScreen.main.bounds.size.equalTo(_12ProSize) ||
+                            UIScreen.main.bounds.size.equalTo(_12ProMaxSize) ||
+                            UIScreen.main.bounds.size.equalTo(_12MiniLandscapeSize) ||
+                            UIScreen.main.bounds.size.equalTo(_12ProLandscapeSize) ||
+                            UIScreen.main.bounds.size.equalTo(_12ProMaxLandscapeSize)
+    return isIPhone12Series
 }
 

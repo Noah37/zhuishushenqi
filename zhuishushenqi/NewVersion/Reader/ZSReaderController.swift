@@ -419,6 +419,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         statusBarHiden = false
         UIView.animate(withDuration: 0.35, animations: {
             self.setNeedsStatusBarAppearanceUpdate()
+            ZSFloatingManager.share.window?.rootViewController?.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
     }
     
@@ -426,6 +427,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         statusBarHiden = true
         UIView.animate(withDuration: 0.35, animations: {
             self.setNeedsStatusBarAppearanceUpdate()
+            ZSFloatingManager.share.window?.rootViewController?.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
     }
     
