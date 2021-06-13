@@ -267,28 +267,61 @@ enum ZSReaderStyle:Int {
     var backgroundImage:UIImage {
         switch self {
         case .yellow:
+            if let image = ZSImage(for: "yellow_mode_bg") {
+                return image
+            }
             return #imageLiteral(resourceName: "yellow_mode_bg")
         case .white:
+            if let image = ZSImage(for: "white_mode_bg") {
+                return image
+            }
             return #imageLiteral(resourceName: "white_mode_bg")
         case .green:
+            if let image = ZSImage(for: "green_mode_bg") {
+                return image
+            }
             return #imageLiteral(resourceName: "green_mode_bg")
 //        case .blackgreen:
 //            return #imageLiteral(resourceName: "new_nav_night_normal")
         case .pink:
+            if let image = ZSImage(for: "violet_mode_bg") {
+                return image
+            }
             return #imageLiteral(resourceName: "violet_mode_bg")
         case .sheepskin:
+            if let image = ZSImage(for: "beijing") {
+                return image
+            }
             return #imageLiteral(resourceName: "beijing")
         case .violet:
+            if let image = ZSImage(for: "violet_mode_bg") {
+                return image
+            }
             return #imageLiteral(resourceName: "violet_mode_bg")
         case .water:
+            if let image = ZSImage(for: "sheepskin_mode_bg") {
+                return image
+            }
             return #imageLiteral(resourceName: "sheepskin_mode_bg")
         case .weekPink:
+            if let image = ZSImage(for: "violet_mode_bg") {
+                return image
+            }
             return #imageLiteral(resourceName: "violet_mode_bg")
         case .weekGreen:
+            if let image = ZSImage(for: "violet_mode_bg") {
+                return image
+            }
             return #imageLiteral(resourceName: "violet_mode_bg")
         case .coffee:
+            if let image = ZSImage(for: "pf_header_bg") {
+                return image
+            }
             return #imageLiteral(resourceName: "pf_header_bg")
         case .night:
+            if let image = ZSImage(for: "blackGreen_mode_bg") {
+                return image
+            }
             return #imageLiteral(resourceName: "blackGreen_mode_bg")
         default:
             return #imageLiteral(resourceName: "violet_mode_bg")
@@ -395,3 +428,8 @@ enum ZSReaderPageStyle:Int {
         return nil
     }
 }
+
+func ZSImage(for name:String, bundle:String = "style") ->UIImage? {
+    return UIImage.image(for: name, bundle: bundle)
+}
+

@@ -438,6 +438,13 @@
 		B2ACA06A212915240032305E /* ZSReviewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA069212915240032305E /* ZSReviewsCell.swift */; };
 		B2ACA06C212915AC0032305E /* ZSReviewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2ACA06B212915AC0032305E /* ZSReviewsCell.xib */; };
 		B2ACA06E212944AC0032305E /* ZSWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACA06D212944AC0032305E /* ZSWebViewController.swift */; };
+		B2AF57F02675FB850080A065 /* qs_bookshelf.png in Resources */ = {isa = PBXBuildFile; fileRef = B2AF57E92675FB850080A065 /* qs_bookshelf.png */; };
+		B2AF57F12675FB850080A065 /* style.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B2AF57EA2675FB850080A065 /* style.bundle */; };
+		B2AF57F22675FB850080A065 /* regular_verify.png in Resources */ = {isa = PBXBuildFile; fileRef = B2AF57EB2675FB850080A065 /* regular_verify.png */; };
+		B2AF57F32675FB850080A065 /* qs_readerMain.png in Resources */ = {isa = PBXBuildFile; fileRef = B2AF57EC2675FB850080A065 /* qs_readerMain.png */; };
+		B2AF57F42675FB850080A065 /* qs_changeSource.png in Resources */ = {isa = PBXBuildFile; fileRef = B2AF57ED2675FB850080A065 /* qs_changeSource.png */; };
+		B2AF57F52675FB850080A065 /* zhuishushenqi.png in Resources */ = {isa = PBXBuildFile; fileRef = B2AF57EE2675FB850080A065 /* zhuishushenqi.png */; };
+		B2AF57F62675FB850080A065 /* qs_reader.png in Resources */ = {isa = PBXBuildFile; fileRef = B2AF57EF2675FB850080A065 /* qs_reader.png */; };
 		B2B02E2B1EA8505200A6880A /* QSTopicDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E251EA8505200A6880A /* QSTopicDetailInteractor.swift */; };
 		B2B02E2C1EA8505200A6880A /* QSTopicDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E261EA8505200A6880A /* QSTopicDetailPresenter.swift */; };
 		B2B02E2D1EA8505200A6880A /* QSTopicDetailProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B02E271EA8505200A6880A /* QSTopicDetailProtocols.swift */; };
@@ -1193,6 +1200,13 @@
 		B2ACA069212915240032305E /* ZSReviewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSReviewsCell.swift; sourceTree = "<group>"; };
 		B2ACA06B212915AC0032305E /* ZSReviewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZSReviewsCell.xib; sourceTree = "<group>"; };
 		B2ACA06D212944AC0032305E /* ZSWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSWebViewController.swift; sourceTree = "<group>"; };
+		B2AF57E92675FB850080A065 /* qs_bookshelf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qs_bookshelf.png; sourceTree = "<group>"; };
+		B2AF57EA2675FB850080A065 /* style.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = style.bundle; sourceTree = "<group>"; };
+		B2AF57EB2675FB850080A065 /* regular_verify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = regular_verify.png; sourceTree = "<group>"; };
+		B2AF57EC2675FB850080A065 /* qs_readerMain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qs_readerMain.png; sourceTree = "<group>"; };
+		B2AF57ED2675FB850080A065 /* qs_changeSource.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qs_changeSource.png; sourceTree = "<group>"; };
+		B2AF57EE2675FB850080A065 /* zhuishushenqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhuishushenqi.png; sourceTree = "<group>"; };
+		B2AF57EF2675FB850080A065 /* qs_reader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qs_reader.png; sourceTree = "<group>"; };
 		B2B02E251EA8505200A6880A /* QSTopicDetailInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTopicDetailInteractor.swift; sourceTree = "<group>"; };
 		B2B02E261EA8505200A6880A /* QSTopicDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTopicDetailPresenter.swift; sourceTree = "<group>"; };
 		B2B02E271EA8505200A6880A /* QSTopicDetailProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSTopicDetailProtocols.swift; sourceTree = "<group>"; };
@@ -2361,6 +2375,20 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		B2AF57E82675FB840080A065 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				B2AF57E92675FB850080A065 /* qs_bookshelf.png */,
+				B2AF57EA2675FB850080A065 /* style.bundle */,
+				B2AF57EB2675FB850080A065 /* regular_verify.png */,
+				B2AF57EC2675FB850080A065 /* qs_readerMain.png */,
+				B2AF57ED2675FB850080A065 /* qs_changeSource.png */,
+				B2AF57EE2675FB850080A065 /* zhuishushenqi.png */,
+				B2AF57EF2675FB850080A065 /* qs_reader.png */,
+			);
+			path = images;
+			sourceTree = SOURCE_ROOT;
+		};
 		B2B02E3B1EA891E700A6880A /* CategoryDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -2394,6 +2422,7 @@
 				B26286BE1EEA46C7005A1A8A /* IntroducePage */,
 				B2B4BA651E7EA4A8000CC201 /* TXTReader */,
 				B278AA9F1F396773000A0D55 /* Vendor */,
+				B2AF57E82675FB840080A065 /* images */,
 				B2B4BBDC1E7EA4AB000CC201 /* ViewController.swift */,
 				B2B4B9F81E7EA4A8000CC201 /* Assets.xcassets */,
 				B2B4BA0E1E7EA4A8000CC201 /* LaunchScreen.storyboard */,
@@ -3320,6 +3349,7 @@
 				B2C0DF5920D4CB350057DC84 /* BookDetailHeader.xib in Resources */,
 				B24B3F4E20E534390098ACE5 /* ZSSearchViewCell.xib in Resources */,
 				B278AA941F395FA4000A0D55 /* QSHelpViewCell.xib in Resources */,
+				B2AF57F62675FB850080A065 /* qs_reader.png in Resources */,
 				B252D4C5210F0B990091858E /* theadbg.png in Resources */,
 				B252D4C4210F0B990091858E /* titlebg.png in Resources */,
 				B2B4BBF11E7EA4AB000CC201 /* Main.storyboard in Resources */,
@@ -3327,6 +3357,7 @@
 				B2C0DF4C20D4CB350057DC84 /* BookCommentCell.xib in Resources */,
 				B2B4BBF01E7EA4AB000CC201 /* LaunchScreen.storyboard in Resources */,
 				B21C736723657E1400E9D148 /* HtmlParserModelData.dat in Resources */,
+				B2AF57F12675FB850080A065 /* style.bundle in Resources */,
 				B2C0DF4520D4CB350057DC84 /* ChangeSourceCell.xib in Resources */,
 				B2EE7CF41F3BFC7B00BE997C /* Localizable.strings in Resources */,
 				B2C0DF7A20D4CB6D0057DC84 /* TXTReader.storyboard in Resources */,
@@ -3337,9 +3368,11 @@
 				3D3AB5D2214E98AC00E9C246 /* hylst.ttf in Resources */,
 				B29B4FA31E8257BC008852E3 /* DynamicCell.xib in Resources */,
 				B2ACA06521244B3D0032305E /* ZSSetting.plist in Resources */,
+				B2AF57F52675FB850080A065 /* zhuishushenqi.png in Resources */,
 				B2B4BC211E7EA4AB000CC201 /* TopicDetailHeaderCell.xib in Resources */,
 				B2C0DF4320D4CB350057DC84 /* .DS_Store~HEAD in Resources */,
 				B2C0DF5820D4CB350057DC84 /* HotCommentCell.xib in Resources */,
+				B2AF57F22675FB850080A065 /* regular_verify.png in Resources */,
 				B278AA991F396074000A0D55 /* ReadHistoryCell.xib in Resources */,
 				B252D4C3210F0B990091858E /* bg.png in Resources */,
 				B21C735323657ACF00E9D148 /* char_ref.rl in Resources */,
@@ -3353,10 +3386,13 @@
 				B2B4BBEA1E7EA4AB000CC201 /* EmptyView.xib in Resources */,
 				3DE393E921A3B84600890488 /* BookShelf.json in Resources */,
 				B20D74091EED7D250034516F /* QSIntroduceCell.xib in Resources */,
+				B2AF57F02675FB850080A065 /* qs_bookshelf.png in Resources */,
+				B2AF57F42675FB850080A065 /* qs_changeSource.png in Resources */,
 				B2C0DF3B20D4CB350057DC84 /* ChapterInfo.json in Resources */,
 				B2B4BC1D1E7EA4AB000CC201 /* ThemeTopicCell.xib in Resources */,
 				3DECC3E522464C5000EEB146 /* XMResource.bundle in Resources */,
 				3D3AB5D4214E98B800E9C246 /* Redocn.ttf in Resources */,
+				B2AF57F32675FB850080A065 /* qs_readerMain.png in Resources */,
 				B203BB691E9E142C00F9C052 /* QSHistoryCell.xib in Resources */,
 				B252D49B210EF3960091858E /* README.markdown in Resources */,
 			);
@@ -3445,7 +3481,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n# Localizable.strings文件路径\nlocalizableFile=\"${SRCROOT}/en.lproj/Localizable.strings\"\n# 生成的swift文件路径（根据个人习惯修改）\nlocalizedFile=\"${SRCROOT}/${PROJECT_NAME}/Extension/LocalizedUtils.swift\"\n# 将localizable.strings中的文本转为swift格式的常量，存入一个临时文件\nsed \"s/^\\\"/  static var localized_/g\" \"${localizableFile}\" | sed \"s/\\\" = \\\"/: String { return \\\"/g\" | sed \"s/;$/.localized }/g\" > \"${localizedFile}.tmp\"\n# 先将localized作为计算属性输出到目标文件\necho -e \"import Foundation\\n\\nextension String {\\n  var localized: String { return NSLocalizedString(self, comment: self) }\" > \"${localizedFile}\"\n# 再将临时文件中的常量增量输出到目标文件\ncat \"${localizedFile}.tmp\" >> \"${localizedFile}\"\n# 最后增量输出一个\"}\"到目标文件，完成输出\necho -e \"\\n}\" >> \"${localizedFile}\"\n# 删除临时文件\nrm \"${localizedFile}.tmp\"\n\n";
+			shellScript = "#bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n# Localizable.strings文件路径\n#localizableFile=\"${SRCROOT}/en.lproj/Localizable.strings\"\n# 生成的swift文件路径（根据个人习惯修改）\n#localizedFile=\"${SRCROOT}/${PROJECT_NAME}/Extension/LocalizedUtils.swift\"\n# 将localizable.strings中的文本转为swift格式的常量，存入一个临时文件\n#sed \"s/^\\\"/  static var localized_/g\" \"${localizableFile}\" | sed \"s/\\\" = \\\"/: String { return \\\"/g\" | sed \"s/;$/.localized }/g\" > \"${localizedFile}.tmp\"\n# 先将localized作为计算属性输出到目标文件\n#echo -e \"import Foundation\\n\\nextension String {\\n  var localized: String { return NSLocalizedString(self, comment: self) }\" > \"${localizedFile}\"\n# 再将临时文件中的常量增量输出到目标文件\n#cat \"${localizedFile}.tmp\" >> \"${localizedFile}\"\n# 最后增量输出一个\"}\"到目标文件，完成输出\n# echo -e \"\\n}\" >> \"${localizedFile}\"\n# 删除临时文件\n# rm \"${localizedFile}.tmp\"\n\necho \"build_products_dir: ${BUILT_PRODUCTS_DIR}\"\nFILES=$(ls ${BUILT_PRODUCTS_DIR})\nfor file in $FILES\ndo \n    if [ \"${file##*.}\"x = \"bundle\"x ];then\n        echo \"bundle file name is :${file}\"\n        echo ${TARGET_NAME}\n        cp -rf \"${BUILT_PRODUCTS_DIR}/${file}\" \"${BUILT_PRODUCTS_DIR}/${TARGET_NAME}.app/\"\n    fi\ndone\n";
 		};
 		FD524380448A2648D747098B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -9,6 +9,26 @@
 import Foundation
 import UIKit
 
+extension UIImage {
+    
+    /// 从磁盘bundle中获取图片，不缓存，对象释放后内存即释放
+    /// - Parameters:
+    ///   - name: 图片名称，如果不包含后缀，则默认PNG
+    ///   - bundle: bundle名称，如果不包含后缀，则默认bundle
+    class func image(for name:String, bundle:String) ->UIImage? {
+        let bundleName = bundle.contains(".") ? bundle:"\(bundle).bundle"
+        let stylePath = Bundle.main.path(forResource: bundleName, ofType: nil) ?? ""
+        let styleBundle = Bundle(path: stylePath)
+        let imageHasSuffix = name.contains(".")
+        let imageNameWithSuffix = imageHasSuffix ? name:"\(name).png"
+        let imagePath = "\(styleBundle?.resourcePath ?? "")/\(imageNameWithSuffix)"
+        if let image = UIImage(contentsOfFile: imagePath) {
+            return image
+        }
+        return nil
+    }
+}
+
 extension UIImage{
     static func image(with base64:String) -> UIImage? {
         let data:Data? = Data(base64Encoded: base64, options: .ignoreUnknownCharacters)
