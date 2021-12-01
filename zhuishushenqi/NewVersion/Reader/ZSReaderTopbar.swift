@@ -25,10 +25,19 @@ class ZSReaderTopbar: UIView {
         bt.addTarget(self, action: #selector(backAction(bt:)), for: .touchUpInside)
         return bt
     }()
+    
+    lazy var titleLabel:UILabel = {
+        let view = UILabel()
+        view.textAlignment = .center
+        view.textColor = UIColor.white
+        view.font = UIFont.systemFont(ofSize: 17)
+        return view
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(backButton)
+        addSubview(titleLabel)
         backgroundColor = UIColor.black
     }
     
@@ -40,6 +49,7 @@ class ZSReaderTopbar: UIView {
         super.layoutSubviews()
         let statusHeight = UIApplication.shared.statusBarFrame.height
         backButton.frame = CGRect(x: 10, y: statusHeight + 5, width: 60, height: 30)
+        titleLabel.frame = CGRect(origin: CGPoint(x: 70, y: statusHeight + 5), size: CGSize(width: ScreenWidth - 140, height: 30))
     }
     
     @objc

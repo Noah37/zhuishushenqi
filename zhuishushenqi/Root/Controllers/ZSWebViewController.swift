@@ -39,6 +39,7 @@ class ZSWebViewController: BaseViewController {
         super.viewDidLoad()
 
         setupSubviews()
+        navigationBarHiden = false
     }
     
     override func viewWillAppear(_ animated: Bool) {

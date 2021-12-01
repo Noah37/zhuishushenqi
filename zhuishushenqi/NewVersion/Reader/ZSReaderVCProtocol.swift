@@ -11,7 +11,7 @@ import Foundation
 typealias ZSReaderPageHandler = ()->Void
 
 
-protocol ZSReaderVCProtocol {
+protocol ZSReaderVCProtocol:UIViewController {
     
     // 遵循协议的子页面向reader索取page
     var nextPageHandler:ZSReaderPageHandler? { get set }

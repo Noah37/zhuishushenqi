@@ -70,6 +70,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         viewModel.model = model
         toolBar.progress(minValue: 0, maxValue: Float(model.chaptersModel.count))
         toolBar.delegate = self
+        toolBar.bind(title: model.bookName)
         touchArea.delegate = self
         pref.bookType = bookType
         load()
@@ -81,6 +82,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         viewModel.model = model
         toolBar.progress(minValue: 0, maxValue: Float(model.chaptersModel.count))
         toolBar.delegate = self
+        toolBar.bind(title: model.bookName)
         touchArea.delegate = self
         load()
     }
@@ -91,12 +93,13 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         view.addGestureRecognizer(tapGesture)
         changeReaderType()
         updateHistory()
+        view.addSubview(touchArea)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        if let vc = pref.readerVC as? UIViewController {
+        if let vc = pref.readerVC {
             vc.view.bounds = view.bounds
         }
         if let horVC = pref.readerVC as? ZSHorizonalViewController {
@@ -112,16 +115,12 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        ZSBookMemoryCache.share.removeAllCache()
     }
     
     override func popAction() {
         pref.readerVC?.destroy()
-        if let vc = pref.readerVC as? UIViewController {
-            vc.willMove(toParent: self)
-            vc.view.removeFromSuperview()
-            vc.removeFromParent()
-        }
+        removeReaderVC()
         ZSBookMemoryCache.share.removeAllCache()
         super.popAction()
     }
@@ -130,6 +129,14 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         // 请求当前章节
         viewModel.request { (_) in
             
+        }
+    }
+    
+    func removeReaderVC() {
+        if let vc = pref.readerVC {
+            vc.willMove(toParent: self)
+            vc.view.removeFromSuperview()
+            vc.removeFromParent()
         }
     }
     
@@ -190,9 +197,9 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
                 horVC.delegate = self
             }
         }
-        if let vc = pref.readerVC as? UIViewController {
+        if let vc = pref.readerVC {
             if let _ = vc.view.superview {
-                return
+                removeReaderVC()
             }
             addChild(vc)
             view.addSubview(vc.view)
@@ -509,10 +516,13 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     }
     
     func toolBar(toolBar: ZSReaderToolbar, animationStyle: UIButton) {
-
+        
     }
     
     func toolBar(toolBar:ZSReaderToolbar, select style:ZSReaderPageStyle) {
+        toolBar.hiden(true)
+        removeReaderVC()
+        ZSReader.share.pageStyle = style
         changeReaderType(true)
     }
     

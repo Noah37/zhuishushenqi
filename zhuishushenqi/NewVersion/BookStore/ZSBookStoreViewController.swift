@@ -35,7 +35,7 @@ class ZSBookStoreViewController: BaseViewController,ZSDiscoverNavigationBarDeleg
         webViewController.view.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(self.navgationBar.snp.bottom)
-            make.height.equalTo(ScreenHeight - kNavgationBarHeight - FOOT_BAR_Height - kTabbarBlankHeight)
+            make.height.equalTo(ScreenHeight - kNavgationBarHeight - FOOT_BAR_Height)
         }
     }
     

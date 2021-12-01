@@ -32,6 +32,8 @@ class ZSReaderStyleSelectionView: UIButton, UITableViewDataSource, UITableViewDe
 //        tableView.backgroundView = blurEffectView
         return tableView
     }()
+    
+    var style:ZSReaderPageStyle!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,6 +41,7 @@ class ZSReaderStyleSelectionView: UIButton, UITableViewDataSource, UITableViewDe
         backgroundColor = UIColor.black
         addSubview(tableView)
         addTarget(self, action: #selector(touchAction(bt:)), for: .touchUpInside)
+        style = ZSReader.share.pageStyle
     }
     
     required init?(coder: NSCoder) {
@@ -61,20 +64,20 @@ class ZSReaderStyleSelectionView: UIButton, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.qs_dequeueReusableCell(ZSReaderStyleSelectionCell.self)
-        let style = ZSReaderPageStyle(rawValue: indexPath.row)
+        let pageStyle = ZSReaderPageStyle(rawValue: indexPath.row)
         cell?.contentView.backgroundColor = UIColor.black
         cell?.textLabel?.textColor = UIColor.white
-        cell?.textLabel?.text = style?.styleName
-        cell?.isStyleSelected = style == ZSReader.share.pageStyle
+        cell?.textLabel?.text = pageStyle?.styleName
+        cell?.isStyleSelected = pageStyle == style
         cell?.selectionStyle = .none
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let style = ZSReaderPageStyle(rawValue: indexPath.row) ?? ZSReader.share.pageStyle
-        ZSReader.share.pageStyle = style
+        let pageStyle:ZSReaderPageStyle = ZSReaderPageStyle(rawValue: indexPath.row) ?? style
+        style = pageStyle
         tableView.reloadData()
-        delegate?.style(selectionView: self, select: style)
+        delegate?.style(selectionView: self, select: pageStyle)
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {

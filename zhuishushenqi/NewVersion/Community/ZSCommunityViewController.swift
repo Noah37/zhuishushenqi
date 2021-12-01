@@ -72,7 +72,7 @@ class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDel
         tableView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(self.navigationBar.snp_bottom)
-            make.height.equalTo(ScreenHeight - kNavgationBarHeight - kTabbarBlankHeight - FOOT_BAR_Height)
+            make.height.equalTo(ScreenHeight - kNavgationBarHeight - FOOT_BAR_Height)
         }
         let mj_header = ZSRefreshTextHeader(refreshingTarget: self, refreshingAction: #selector(refreshAction))
         mj_header?.endRefreshingCompletionBlock = { [weak mj_header] in

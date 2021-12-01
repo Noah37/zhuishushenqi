@@ -141,6 +141,10 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         }
     }
     
+    func bind(title:String) {
+        topBar.titleLabel.text = title
+    }
+    
     func enableFontPlus(_ enable:Bool) {
         self.bottomBigBar.fontPlusButton.isEnabled = enable
         self.bottomBigBar.fontSizeLabel.text = "\(ZSReader.share.theme.fontSize.size)"

@@ -163,9 +163,11 @@ class ZSMemoryFloatingView: ZSFloatingView {
     private func timerAction(timer:Timer) {
         let totalMemoryMBytes = NSString.totalMemory()
         let availableMemoryMBytes = NSString.availableMemory()
+        let memoryUsageMBytes = NSString.getMemoryUsage()
         let usageMemoryPercent = (totalMemoryMBytes - availableMemoryMBytes)/totalMemoryMBytes
         memoryState = memoryState.get(percent: CGFloat(usageMemoryPercent))
-        memoryUsageLabel.text = String(format: "%.2f%%", usageMemoryPercent * 100)
+//        memoryUsageLabel.text = String(format: "%.2f%%", usageMemoryPercent * 100)
+        memoryUsageLabel.text = String(format: "%.1fMB", memoryUsageMBytes)
         percent = CGFloat(usageMemoryPercent)
         setNeedsLayout()
         layoutIfNeeded()

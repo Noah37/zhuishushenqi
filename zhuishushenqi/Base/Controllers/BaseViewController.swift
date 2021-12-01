@@ -27,9 +27,7 @@ class BaseViewController: UIViewController, IndicatableView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if navigationBarHiden {
-            navigationController?.setNavigationBarHidden(true, animated: true)
-        }
+        navigationController?.setNavigationBarHidden(navigationBarHiden, animated: true)
         ZSFloatingManager.share.window?.rootViewController?.setNeedsStatusBarAppearanceUpdate()
     }
     
