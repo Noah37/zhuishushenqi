@@ -34,7 +34,7 @@ class ZSPageViewController: BaseViewController, ZSReaderVCProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationBarHiden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
