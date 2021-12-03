@@ -120,11 +120,11 @@ class ZSReaderViewController: BaseViewController  {
                     let initString = "appid=\(appid)"
                     IFlySpeechUtility.createUtility(initString)
                     self.voiceBook.engineCloud()
-                    if let vc = self.curViewController() {
-                        if let readerVC = vc as? QSTextReaderController {
-                            self.voiceBook.start(sentence: readerVC.currentReaderVC.page?.content ?? "")
-                        }
-                    }
+                    self.voiceBook.start(sentence: "")
+//                    if let vc = self.curViewController() {
+//                        if let readerVC = vc as? QSTextReaderController {
+//                        }
+//                    }
                 }
             } else {
                 self.voiceBook.pause()

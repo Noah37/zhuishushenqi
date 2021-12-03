@@ -103,10 +103,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IFlySetting.setLogFilePath(paths)
 //        let appid = "5ba0b197"
         let xfyj = "5445f87d"
-//        let zssq = "566551f4"
+        let zssq = "566551f4"
 //        let xfyj2 = "591a4d99"
-        let initString = "appid=\(xfyj)"
-        IFlySpeechUtility.createUtility(initString)
+        let initString = "appid=\(zssq)"
+//        IFlySpeechUtility.createUtility(initString)
         
         // 提前解析
         DispatchQueue.global().async {

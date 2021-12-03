@@ -79,6 +79,12 @@ class ZSShelfManager {
     
     func local() {
         let path = "\(NSHomeDirectory())/Documents/Inbox/"
+        let localPath = "\(NSHomeDirectory())/Documents/LocalBooks/"
+        let isDirectory:UnsafeMutablePointer<ObjCBool>? = UnsafeMutablePointer.allocate(capacity: 1)
+        let localPathExist = FileManager.default.fileExists(atPath: localPath, isDirectory: isDirectory)
+        if !localPathExist {
+            try? FileManager.default.createDirectory(atPath: localPath, withIntermediateDirectories: true, attributes: nil)
+        }
         scanPath(path: path)
         helper.watcher(forPath: path) { [weak self] (type) in
             self?.scanPath(path: path)
@@ -108,7 +114,10 @@ class ZSShelfManager {
         }
         localBooks.removeAll()
         let localPath = "\(NSHomeDirectory())/Documents/LocalBooks/"
-        guard let localItems = try? FileManager.default.contentsOfDirectory(atPath: localPath) else { return }
+        guard let localItems = try? FileManager.default.contentsOfDirectory(atPath: localPath) else {
+            isScanning = false
+            return
+        }
         for item in localItems {
             let filePath = path.appending("\(item)")
             let txtPathExtension = ".txt"

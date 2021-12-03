@@ -63,6 +63,11 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     var statusBarStyle:UIStatusBarStyle = .lightContent
     var statusBarHiden:Bool = true
     var touchArea:ZSReaderTouchArea = ZSReaderTouchArea(frame: UIScreen.main.bounds)
+    lazy var speechView:ZSSpeechView = {
+        let speechView = ZSSpeechView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+        return speechView
+    }()
+    var voiceBook:VoiceBook = VoiceBook()
     
     convenience init(chapter:ZSBookChapter?,_ model:ZSAikanParserModel, bookType:ZSReaderBookStyle = .online) {
         self.init()
@@ -94,6 +99,55 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         changeReaderType()
         updateHistory()
         view.addSubview(touchArea)
+        
+        speechView.startHandler = { selected in
+            if selected! {
+                if self.voiceBook.isSpeaking() {
+                    self.voiceBook.stop()
+                }
+                let speaker = self.speechView.speakers[Int(self.speechView.speakerPicker.selectedItem)]
+                if speaker.engineType == .local {
+//                    let appid = "5ba0b197"
+//                    let xfyj = "5445f87d"
+//                    //        let xfyj2 = "591a4d99"
+//                    let initString = "appid=\(xfyj)"
+//                    IFlySpeechUtility.createUtility(initString)
+                    
+                    
+                    let speakerPath = "\(filePath)\(speaker.name).jet"
+                    self.voiceBook.config.speakerPath = speakerPath
+                    self.voiceBook.config.voiceID = "\(speaker.speakerId)"
+                    
+                    self.voiceBook.engineLocal()
+                    self.voiceBook.start(sentence: self.viewModel.page?.content ?? "")
+                } else {
+                    let appid = "5ba0b197"
+//                    let xfyj = "5445f87d"
+//                    let xfyj2 = "591a4d99"
+//                    let zssq = "566551f4"
+                    let initString = "appid=\(appid)"
+                    IFlySpeechUtility.createUtility(initString)
+                    self.voiceBook.setVcn(name: speaker.name)
+                    self.voiceBook.engineCloud()
+                    self.voiceBook.start(sentence: self.viewModel.page?.content ?? "")
+                }
+            } else {
+                self.voiceBook.pause()
+            }
+        }
+        
+        speechView.stopHandler = { _ in
+            self.voiceBook.stop()
+            self.speechView.removeFromSuperview()
+        }
+        
+        voiceBook.completeHandler = { error in
+            QSLog(error)
+            if error?.errorCode == 0 {
+                // 读完了,自动翻下一页
+                
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,6 +200,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             oriChapter.calPages()
             initialHistory(chapter: oriChapter)
             update(history: viewModel.readHistory!, chapter: oriChapter, page: oriChapter.pages.first!)
+            viewModel.page = oriChapter.pages.first!
             pref.readerVC?.jumpPage(page: oriChapter.pages.first!, false, .forward)
             if oriChapter.contentNil() {
                 viewModel.request(chapter: oriChapter) { [weak self] (cp,type) in
@@ -153,6 +208,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
                     cp.calPages()
                     if cp.chapterUrl == oriChapter.chapterUrl {
                         self?.update(history: self?.viewModel.readHistory, chapter: cp, page: cp.pages.first!)
+                        self?.viewModel.page = cp.pages.first!
                         self?.pref.readerVC?.jumpPage(page: cp.pages.first!,false, .forward)
                     }
                 }
@@ -161,6 +217,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             if history.chapter.contentNil() {
                 history.chapter.calPages()
             }
+            viewModel.page = history.page
             pref.readerVC?.jumpPage(page: history.page, false, .forward)
         }
         else {
@@ -170,12 +227,14 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             }
             initialHistory(chapter: chapter)
             update(history: viewModel.readHistory!, chapter: chapter, page: chapter.pages.first!)
+            viewModel.page = chapter.pages.first!
             pref.readerVC?.jumpPage(page: chapter.pages.first!, false, .forward)
             viewModel.request(chapter: chapter) { [weak self] (cp,type) in
                 // 比较当前章节与阅读记录中如果不同，说明请求完之前已经翻页了，不再跳转
                 cp.calPages()
                 if cp.chapterUrl == chapter.chapterUrl {
                     self?.update(history: self?.viewModel.readHistory, chapter: cp, page: cp.pages.first!)
+                    self?.viewModel.page = cp.pages.first!
                     self?.pref.readerVC?.jumpPage(page: cp.pages.first!, false, .forward)
                 }
             }
@@ -186,6 +245,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         if change {
             pref.change()
             if let history = viewModel.readHistory {
+                viewModel.page = history.page
                 pref.readerVC?.jumpPage(page: history.page, false, .forward)
             }
             if let horVC = pref.readerVC as? ZSHorizonalViewController {
@@ -215,6 +275,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     private func updateHistory() {
         viewModel.bookReload { [weak self] in
             if let history = self?.viewModel.readHistory {
+                self?.viewModel.page = history.page
                 self?.pref.readerVC?.jumpPage(page: history.page, false, .forward)
             }
         }
@@ -350,8 +411,10 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         let chapter = zs_currentChapter()
         if let lastPage = chapter.getLastPage(page: history.page) {
             if let _ = pref.readerVC as? ZSPageViewController {
+                viewModel.page = lastPage
                 pref.readerVC?.jumpPage(page: lastPage, false, .reverse)
             } else if let _ = pref.readerVC as? ZSHorizonalViewController {
+                viewModel.page = lastPage
                 pref.readerVC?.jumpPage(page: lastPage, true, .reverse)
             }
             update(history: history, chapter: chapter, page: lastPage)
@@ -366,8 +429,10 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         if let nextPage = chapter.getNextPage(page: history.page) {
             update(history: history, chapter: chapter, page: nextPage)
             if let _ = pref.readerVC as? ZSPageViewController {
+                viewModel.page = nextPage
                 pref.readerVC?.jumpPage(page: nextPage, false, .forward)
             } else if let _ = pref.readerVC as? ZSHorizonalViewController {
+                viewModel.page = nextPage
                 pref.readerVC?.jumpPage(page: nextPage, true, .forward)
             }
         } else if let nextChapter = zs_nextChapter() { // 新章节
@@ -380,6 +445,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         if chapter.pages.count > 0 {
             let page = first ? chapter.pages.first!:chapter.pages.last!
             update(history: history, chapter: chapter, page: page)
+            viewModel.page = page
             pref.readerVC?.jumpPage(page: page, false, direction)
         }
     }
@@ -387,10 +453,12 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     func show(chapter:ZSBookChapter,_ page:ZSBookPage? = nil,_ next:Bool = true,_ animated:Bool = false,_ direction:UIPageViewController.NavigationDirection = .forward) {
         guard let history = viewModel.readHistory else { return }
         if let p = page {
+            viewModel.page = p
             pref.readerVC?.jumpPage(page: p, animated, direction)
             update(history: history, chapter: chapter, page: p)
         } else if !chapter.contentNil(){
             let page = next ? chapter.pages.first!:chapter.pages.last!
+            viewModel.page = page
             pref.readerVC?.jumpPage(page: page, animated, direction)
             update(history: history, chapter: chapter, page: page)
         } else {
@@ -398,6 +466,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             chapter.calPages()
             // 更新历史记录
             let page = chapter.pages.first!
+            viewModel.page = page
             pref.readerVC?.jumpPage(page: page, animated, direction)
             update(history: history, chapter: chapter, page: page)
             request(chapter: chapter) { [weak self] (cp,type) in
@@ -420,6 +489,11 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     func toolBar(toolBar: ZSReaderToolbar, clickBack: UIButton) {
         popAction()
         viewModel.saveHistory()
+    }
+    
+    func toolBar(toolBar: ZSReaderToolbar, clickListen: UIButton) {
+        toolBar.hiden(true)
+        speechView.show()
     }
     
     func toolBarWillShow(toolBar: ZSReaderToolbar) {
@@ -473,6 +547,13 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     
     func toolBar(toolBar:ZSReaderToolbar, clickSetting:UIButton) {
         
+    }
+    
+    func toolBar(toolBar: ZSReaderToolbar, clickMore: UIButton) {
+        toolBar.hiden(false)
+        let moreVC = QSMoreSettingController()
+        let nav = UINavigationController(rootViewController: moreVC)
+        present(nav, animated: true, completion: nil)
     }
     
     func toolBar(toolBar:ZSReaderToolbar, progress:Float) {

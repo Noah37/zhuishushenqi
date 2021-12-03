@@ -10,6 +10,7 @@ import UIKit
 
 protocol ZSReaderTopbarDelegate:class {
     func topBar(topBar:ZSReaderTopbar, clickBack:UIButton)
+    func topBar(topBar:ZSReaderTopbar, clickListen:UIButton)
 }
 
 class ZSReaderTopbar: UIView {
@@ -33,11 +34,19 @@ class ZSReaderTopbar: UIView {
         view.font = UIFont.systemFont(ofSize: 17)
         return view
     }()
+    
+    lazy var listenButton:UIButton = {
+        let bt = UIButton(type: .custom)
+        bt.setImage(UIImage(named: "readAloud"), for: .normal)
+        bt.addTarget(self, action: #selector(listenAction(bt:)), for: .touchUpInside)
+        return bt
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(backButton)
         addSubview(titleLabel)
+        addSubview(listenButton)
         backgroundColor = UIColor.black
     }
     
@@ -50,10 +59,16 @@ class ZSReaderTopbar: UIView {
         let statusHeight = UIApplication.shared.statusBarFrame.height
         backButton.frame = CGRect(x: 10, y: statusHeight + 5, width: 60, height: 30)
         titleLabel.frame = CGRect(origin: CGPoint(x: 70, y: statusHeight + 5), size: CGSize(width: ScreenWidth - 140, height: 30))
+        listenButton.frame = CGRect(origin: CGPoint(x: self.bounds.size.width - 50, y: statusHeight), size: CGSize(width: 49, height: 49))
     }
     
     @objc
     private func backAction(bt:UIButton) {
         delegate?.topBar(topBar: self, clickBack: bt)
+    }
+    
+    @objc
+    private func listenAction(bt:UIButton) {
+        delegate?.topBar(topBar: self, clickListen: bt)
     }
 }

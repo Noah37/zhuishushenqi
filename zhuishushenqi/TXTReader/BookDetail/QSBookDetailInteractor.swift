@@ -56,7 +56,7 @@ class QSBookDetailInteractor: QSBookDetailInteractorProtocol {
     
     func requestAllChapters(withUrl url:String,param:[String:Any]){
         //先查询书籍来源，根据来源返回的id再查询所有章节
-        zs_get(url, parameters: param) { (response) in
+        zs_getObj(url, parameters: param) { (response) in
             if let resources = response  {
                 
                 if let res = [ResourceModel].deserialize(from: resources as? [Any]) as? [ResourceModel] {

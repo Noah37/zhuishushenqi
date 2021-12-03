@@ -75,6 +75,26 @@ public func zs_get(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBa
 }
 
 @discardableResult
+public func zs_getObj(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<Any>?) -> DataRequest {
+    var headers = SessionManager.defaultHTTPHeaders
+    headers["User-Agent"] = YouShaQiUserAgent
+    let req = request(urlStr, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
+        if let data = response.data {
+            if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String:Any] {
+                handler?(json)
+            } else if let jsonArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [[String:Any]] {
+                handler?(jsonArray)
+            } else {
+                handler?([])
+            }
+        } else {
+            handler?([])
+        }
+    }
+    return req
+}
+
+@discardableResult
 public func zs_delete(_ urlStr: String,parameters: Parameters? = nil,_ handler:ZSBaseCallback<[String:Any]>?) -> DataRequest {
     var headers = SessionManager.defaultHTTPHeaders
     headers["User-Agent"] = YouShaQiUserAgent

@@ -53,7 +53,8 @@ class ZSSpeakerCell: UITableViewCell {
         super.layoutSubviews()
         self.imageView?.frame = CGRect(x: 15, y: 10, width: 50, height: 50)
         self.imageView?.qs_addCorner(radius: 25)
-        
+        self.textLabel?.frame = CGRect(x: 80, y: 15, width: 100, height: 20.34)
+        self.detailTextLabel?.frame = CGRect(x: 80, y: 37, width: 100, height: 14.34)
     }
 
 }

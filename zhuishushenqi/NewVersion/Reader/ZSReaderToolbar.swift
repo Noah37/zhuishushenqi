@@ -10,11 +10,13 @@ import UIKit
 
 protocol ZSReaderToolbarDelegate:class {
     func toolBar(toolBar:ZSReaderToolbar, clickBack:UIButton)
+    func toolBar(toolBar:ZSReaderToolbar, clickListen:UIButton)
     func toolBar(toolBar:ZSReaderToolbar, clickLast:UIButton)
     func toolBar(toolBar:ZSReaderToolbar, clickNext:UIButton)
     func toolBar(toolBar:ZSReaderToolbar, clickCatalog:UIButton)
     func toolBar(toolBar:ZSReaderToolbar, clickDark:UIButton)
     func toolBar(toolBar:ZSReaderToolbar, clickSetting:UIButton)
+    func toolBar(toolBar:ZSReaderToolbar, clickMore:UIButton)
     func toolBar(toolBar:ZSReaderToolbar, progress:Float)
     func toolBar(toolBar:ZSReaderToolbar, lightProgress:Float)
     func toolBar(toolBar:ZSReaderToolbar, readerStyle:ZSReaderStyle)
@@ -185,6 +187,10 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         delegate?.toolBar(toolBar: self, clickBack: clickBack)
     }
     
+    func topBar(topBar: ZSReaderTopbar, clickListen: UIButton) {
+        delegate?.toolBar(toolBar: self, clickListen: clickListen)
+    }
+    
     //MARK: - ZSReaderBottomBarDelegate
     func bottomBar(bottomBar:ZSReaderBottomBar, clickLast:UIButton) {
         delegate?.toolBar(toolBar: self, clickLast: clickLast)
@@ -236,6 +242,10 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         bigBar.isHidden = true
         readerStyleView.frame = CGRect(x: 0, y: self.bounds.height - 375, width: self.bounds.width, height: 375)
         readerStyleView.tableView.reloadData()
+    }
+    
+    func bigBar(bigBar: ZSReaderBottomBigBar, moreSetting: UIButton) {
+        delegate?.toolBar(toolBar: self, clickMore: moreSetting)
     }
     
     //MARK: - ZSReaderStyleSelectionViewDelegate

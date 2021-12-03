@@ -34,6 +34,8 @@ class ZSReaderBaseViewModel {
         }
     }
     
+    var page:ZSBookPage?
+    
     fileprivate var webService = ZSReaderWebService()
     
     init() {

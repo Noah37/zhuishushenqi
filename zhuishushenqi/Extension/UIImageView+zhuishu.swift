@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 extension UIImageView{
     func qs_setBookCoverWithURLString(urlString:String){
@@ -56,6 +57,56 @@ extension UIImageView{
         maskLayer.frame = self.bounds
         maskLayer.path = maskPath.cgPath
         self.layer.mask = maskLayer
+    }
+}
+
+public struct ZSWrapper<Base> {
+    public let base: Base
+    public init(_ base: Base) {
+        self.base = base
+    }
+}
+
+public protocol ZSCompatible: AnyObject { }
+
+public protocol ZSCompatibleValue {}
+
+extension ZSCompatible {
+    /// Gets a namespace holder for zs compatible types.
+    public var zs: ZSWrapper<Self> {
+        get { return ZSWrapper(self) }
+        set { }
+    }
+}
+
+extension ZSCompatibleValue {
+    /// Gets a namespace holder for zs compatible types.
+    public var zs: ZSWrapper<Self> {
+        get { return ZSWrapper(self) }
+        set { }
+    }
+}
+
+extension ZSWrapper where Base: UIImageView {
+    func setImage(imageUrl:String, placeHolder:String? = nil) {
+        let url = URL(string: imageUrl)
+        guard let imageURL = url else {
+            QSLog("Invalid URL")
+            return
+        }
+        let resource:QSResource = QSResource(url: imageURL)
+    }
+}
+
+extension UIImageView {
+    func setImage(imageUrl:String, placeHolder:String? = nil) {
+        let url = URL(string: imageUrl)
+        guard let imageURL = url else {
+            QSLog("Invalid URL")
+            return
+        }
+        let resource:QSResource = QSResource(url: imageURL)
+        self.kf.setImage(with: resource, placeholder: UIImage(named: placeHolder ?? ""))
     }
 }
 

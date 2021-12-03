@@ -11,6 +11,12 @@ import HandyJSON
 
 //https://ttsh5.openspeech.cn/tts-h5/speaker/list
 
+enum EngineType:String {
+    case auto   = "auto"
+    case local  = "local"
+    case cloud = "cloud"
+}
+
 class Speaker: HandyJSON {
     
     var accent = "普通话"
@@ -19,7 +25,7 @@ class Speaker: HandyJSON {
     var commonExpirationDate = ""
     var desc = ""
     var downloads = 20806
-    var engineType = "local"
+    var engineType = EngineType.local
     var engineVersion = 1
     var ent = ""
     var experienceExpirationDate = ""

@@ -14,6 +14,7 @@ protocol ZSReaderBottomBigBarDelegate:class {
     func bigBar(bigBar:ZSReaderBottomBigBar, fontAdd:UIButton)
     func bigBar(bigBar:ZSReaderBottomBigBar, fontPlus:UIButton)
     func bigBar(bigBar:ZSReaderBottomBigBar, animationStyle:UIButton)
+    func bigBar(bigBar:ZSReaderBottomBigBar, moreSetting:UIButton)
 }
 
 class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
@@ -68,7 +69,7 @@ class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
         bt.setTitleColor(UIColor.white, for: .normal)
         bt.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         bt.setImage(UIImage(named: "icon_tools_setting_30x30_"), for: .normal)
-        bt.addTarget(self, action: #selector(settingAction(bt:)), for: .touchUpInside)
+        bt.addTarget(self, action: #selector(moreAction(bt:)), for: .touchUpInside)
         return bt
     }()
     
@@ -210,6 +211,11 @@ class ZSReaderBottomBigBar: UIView, ZSReaderThemeSelectionViewDelegate {
     @objc
     private func settingAction(bt:UIButton) {
         
+    }
+    
+    @objc
+    private func moreAction(bt:UIButton) {
+        delegate?.bigBar(bigBar: self, moreSetting: bt)
     }
     
     @objc

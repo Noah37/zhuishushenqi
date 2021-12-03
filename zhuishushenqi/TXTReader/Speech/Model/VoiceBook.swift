@@ -94,7 +94,11 @@ iflySpeechSynthesizer?.setParameter("http://yuji.xf-yun.com/msp.do", forKey: "se
         }
         // start之前设置的config有效
 //        setupSpeech()
-        iflySpeechSynthesizer?.startSpeaking(sentence)
+        if sentence.count > 0 {
+            iflySpeechSynthesizer?.startSpeaking(sentence)
+        } else {
+            iflySpeechSynthesizer?.startSpeaking(text)
+        }
     }
     
     public func stop() {
@@ -163,6 +167,11 @@ iflySpeechSynthesizer?.setParameter("http://yuji.xf-yun.com/msp.do", forKey: "se
 //            }
 //        }
 //    }
+    
+    /// 设置发音人
+    public func setVcn(name:String) {
+        config.vcnName = name
+    }
     
     /// 语音合成引擎变更为离线
     public func engineLocal() {
