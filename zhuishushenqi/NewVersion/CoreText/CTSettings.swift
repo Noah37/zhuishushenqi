@@ -43,7 +43,9 @@ class CTSettings {
     
     //1
     // MARK: - Properties
-    let margin: CGFloat = 20
+    var margin: CGFloat = 20 {
+        didSet { setMargin(margin: margin) }
+    }
     var columnsPerPage: CGFloat!
     var pageRect: CGRect!
     var columnRect: CGRect!
@@ -57,6 +59,14 @@ class CTSettings {
         //3
         pageRect = UIScreen.main.bounds.insetBy(dx: margin, dy: margin)
         //4
+        columnRect = CGRect(x: 0,
+                            y: 0,
+                            width: pageRect.width / columnsPerPage,
+                            height: pageRect.height).insetBy(dx: margin, dy: margin)
+    }
+    
+    func setMargin(margin:CGFloat) {
+        pageRect = UIScreen.main.bounds.insetBy(dx: margin, dy: margin)
         columnRect = CGRect(x: 0,
                             y: 0,
                             width: pageRect.width / columnsPerPage,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PageView: CTDisplayView {
+class PageView: ZSDisplayView {
 
     // size color
     
@@ -31,8 +31,18 @@ class PageView: CTDisplayView {
         config.paragraphSpace = ZSReader.share.theme.paragraphSpace
         config.textFont = UIFont.systemFont(ofSize: fontSize)
         //            attribute = CTFrameParser.attributes(with: config)
-        let data:CoreTextData = CTFrameParser.parseContent(attributedText, config: config)
-        self.data = data
+//        let data:CoreTextData = CTFrameParser.parseContent(attributedText, config: config)
+//        self.data = data
+        let settings = CTSettings.shared
+        settings.margin = ZSReader.share.contentFrame.origin.x
+        let parser = MarkupParser()
+        parser.font = UIFont.systemFont(ofSize: fontSize)
+        parser.color = AppStyle.shared.reader.textColor
+        parser.lineSpace = lineSpace
+        parser.fontSize = fontSize
+        parser.paragraphSpace = ZSReader.share.theme.paragraphSpace
+        parser.parseContent(attributedText, settings: settings)
+        self.buildContent(attr: parser.attrString, andImages: [], settings: settings)
         setNeedsDisplay()
     }
     

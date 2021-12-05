@@ -14,6 +14,8 @@ class ZSDisplayView: UIView {
     // MARK: - Properties
     var ctFrame: CTFrame?
     
+    var coreHeight: CGFloat = 0
+    
     var images: [(image: UIImage, frame: CGRect)] = []
     
     var imageModels:[ZSImageData] = []
@@ -47,8 +49,8 @@ class ZSDisplayView: UIView {
             longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
             addGestureRecognizer(longPress)
         }
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
-        addGestureRecognizer(tap)
+        _ = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+//        addGestureRecognizer(tap)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -109,19 +111,19 @@ class ZSDisplayView: UIView {
         let leftRect = rects.first!
         let rightRect = rects.last!
         if leftCursor == nil {
-            let rect = CGRect(x: leftRect.minX - 2, y: bounds.height - leftRect.origin.y - rightRect.height - 6, width: 10, height: leftRect.height + 6)
+            let rect = CGRect(x: leftRect.minX - 5, y: leftRect.origin.y - 10, width: 10, height: leftRect.height + 6)
             leftCursor = ZSTouchAnchorView(frame: rect)
             addSubview(leftCursor)
         } else {
-            let rect = CGRect(x: leftRect.minX - 2, y: bounds.height - leftRect.origin.y - rightRect.height - 6, width: 10, height: leftRect.height + 6)
+            let rect = CGRect(x: leftRect.minX - 5, y: leftRect.origin.y - 10, width: 10, height: leftRect.height + 6)
             leftCursor.frame = rect
         }
         if rightCursor == nil {
-            let rect = CGRect(x: rightRect.maxX - 2, y: bounds.height - rightRect.origin.y - rightRect.height - 6, width: 10, height: rightRect.height + 6)
+            let rect = CGRect(x: rightRect.maxX - 2, y: rightRect.origin.y - 10, width: 10, height: rightRect.height + 6)
             rightCursor = ZSTouchAnchorView(frame: rect)
             addSubview(rightCursor)
         } else {
-            rightCursor.frame = CGRect(x: rightRect.maxX - 4, y: bounds.height - rightRect.origin.y - rightRect.height - 6, width: 10, height: rightRect.height + 6)
+            rightCursor.frame = CGRect(x: rightRect.maxX - 4, y: rightRect.origin.y - 10, width: 10, height: rightRect.height + 6)
         }
     }
     
@@ -211,12 +213,12 @@ class ZSDisplayView: UIView {
         guard range.location != NSNotFound else {
             return rects
         }
-        var lines = CTFrameGetLines(ctframe) as Array
+        let lines = CTFrameGetLines(ctframe) as Array
         var origins = [CGPoint](repeating: CGPoint.zero, count: lines.count)
         CTFrameGetLineOrigins(ctframe, CFRange(location: 0, length: 0), &origins)
         for index in 0..<lines.count {
             let line = lines[index] as! CTLine
-            let origin = origins[index]
+            let origin = origins[lines.count - index - 1]
             let lineCFRange = CTLineGetStringRange(line)
             if lineCFRange.location != NSNotFound {
                 let lineRange = NSRange(location: lineCFRange.location, length: lineCFRange.length)
@@ -244,16 +246,18 @@ class ZSDisplayView: UIView {
         guard let ctFrame = self.ctFrame else {
             return touchRange
         }
-        var lines = CTFrameGetLines(ctFrame) as Array
+        let lines = CTFrameGetLines(ctFrame) as Array
         var origins = [CGPoint](repeating: CGPoint.zero, count: lines.count)
         CTFrameGetLineOrigins(ctFrame, CFRange(location: 0, length: 0), &origins)
         for index in 0..<lines.count {
+            let num = lines.count - index - 1
             let line = lines[index] as! CTLine
-            let origin = origins[index]
+            let origin = origins[num]
             var ascent: CGFloat = 0
             var descent: CGFloat = 0
+            
             CTLineGetTypographicBounds(line, &ascent, &descent, nil)
-            let lineRect = CGRect(x: origin.x, y: bounds.height - origin.y - (ascent + descent), width: CTLineGetOffsetForStringIndex(line, 100000, nil), height: ascent + descent)
+            let lineRect = CGRect(x: origin.x, y: origin.y - descent, width: CTLineGetOffsetForStringIndex(line, 100000, nil), height: ascent + descent)
             if lineRect.contains(point) {
                 let lineRange = CTLineGetStringRange(line)
                 for rangeIndex in 0..<lineRange.length {
@@ -271,7 +275,7 @@ class ZSDisplayView: UIView {
                             var ascent: CGFloat = 0
                             var descent: CGFloat = 0
                             CTRunGetTypographicBounds(run, CFRange(location: 0, length: 0), &ascent, &descent, nil)
-                            let frame = CGRect(x: offsetX, y: bounds.height - origin.y - (ascent + descent), width: (offsetX2 - offsetX)*2, height: ascent + descent)
+                            let frame = CGRect(x: offsetX, y: origin.y - descent, width: (offsetX2 - offsetX)*2, height: ascent + descent)
                             if frame.contains(point) {
                                 touchRange = NSRange(location: location, length: min(2, lineRange.length + lineRange.location - location))
                             }
@@ -294,6 +298,7 @@ class ZSDisplayView: UIView {
         path.addRect(CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: settings.pageRect.width, height: textSize.height)))
         let ctframe = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), path, nil)
         self.ctFrame = ctframe
+        self.coreHeight = textSize.height
         self.imageModels = andImages
         attachImages(andImages, ctframe: ctframe, margin: settings.margin)
         setNeedsDisplay()
@@ -419,12 +424,12 @@ class ZSDisplayView: UIView {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
         context.textMatrix = .identity
-        context.translateBy(x: 0, y: bounds.size.height)
+        context.translateBy(x: 0, y: coreHeight)
         context.scaleBy(x: 1.0, y: -1.0)
         
         if rects.count > 0 {
             let lineRects = rects.map { rect -> CGRect in
-                return CGRect(x: rect.origin.x + 2, y: rect.origin.y, width: rect.width, height: rect.height)
+                return CGRect(x: rect.origin.x - 2, y: coreHeight - rect.origin.y - rect.height + 6, width: rect.width + 4, height: rect.height)
             }
             let fillPath = CGMutablePath()
             UIColor(red:0.92, green:0.5, blue:0.5, alpha:1.00).withAlphaComponent(0.5).setFill()

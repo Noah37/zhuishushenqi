@@ -28,6 +28,12 @@ class MarkupParser: NSObject {
     // MARK: - Properties
     var color: UIColor = .gray
     var fontName: String = "Arial"
+    var fontSize: CGFloat = 13
+    var font: UIFont = UIFont.systemFont(ofSize: 13)
+    var lineSpace: CGFloat = 0
+    var paragraphSpace: CGFloat = 0
+    
+    
     var attrString: NSMutableAttributedString!
     var images: [[String: Any]] = []
     
@@ -51,6 +57,28 @@ class MarkupParser: NSObject {
 //
 //    //{{type:image,url:http%3A%2F%2Fstatics.zhuishushenqi.com%2Fpost%2F151678369762541,size:420-422}}
 //    static NSString *const kBookPattern = @"(\\{\\{.*?\\}\\})";
+    
+    // 根据配置获取富文本格式
+    func attributes() ->[NSAttributedString.Key:Any] {
+        let fontRef = CTFontCreateWithName("ArialMT" as CFString, fontSize, nil)
+        let settingCount = 3
+        let settings:[CTParagraphStyleSetting] =
+            [
+                CTParagraphStyleSetting(spec: CTParagraphStyleSpecifier.lineSpacingAdjustment, valueSize: MemoryLayout<CGFloat>.size, value: &lineSpace),
+                CTParagraphStyleSetting(spec: CTParagraphStyleSpecifier.maximumLineSpacing, valueSize: MemoryLayout<CGFloat>.size, value: &lineSpace),
+                CTParagraphStyleSetting(spec: CTParagraphStyleSpecifier.minimumLineSpacing, valueSize: MemoryLayout<CGFloat>.size, value: &lineSpace),
+        ]
+        let paragraph = CTParagraphStyleCreate(settings, settingCount)
+        
+        let textColor = color
+        
+        let attr:[NSAttributedString.Key:Any] = [
+            NSAttributedString.Key.foregroundColor:textColor.cgColor,
+            NSAttributedString.Key.font:fontRef,
+            NSAttributedString.Key.paragraphStyle:paragraph
+        ]
+        return attr
+    }
     
     func attribute() ->[NSAttributedString.Key:Any] {
         let defaultFont: UIFont = .systemFont(ofSize: UIScreen.main.bounds.size.height / 40)
@@ -91,7 +119,7 @@ class MarkupParser: NSObject {
                 let chunkStr = String(chunkSubStr)
                 if let preTextRange = content.range(from: NSMakeRange(lastRange.location + lastRange.length, chunk.range.location - lastRange.location - lastRange.length)) {
                     let preText = String(content[preTextRange])
-                    let text = NSMutableAttributedString(string: preText, attributes: attribute())
+                    let text = NSMutableAttributedString(string: preText, attributes: attributes())
                     attrString.append(text)
                 }
                 // image
@@ -128,7 +156,7 @@ class MarkupParser: NSObject {
             if lastRange.location + lastRange.length < content.count {
                 if let remainContentRange = content.range(from: NSMakeRange(lastRange.location + lastRange.length, content.count - lastRange.location - lastRange.length)) {
                     let remainContent = String(content[remainContentRange])
-                    let text = NSMutableAttributedString(string: remainContent, attributes: attribute())
+                    let text = NSMutableAttributedString(string: remainContent, attributes: attributes())
                     attrString.append(text)
                 }
             }
