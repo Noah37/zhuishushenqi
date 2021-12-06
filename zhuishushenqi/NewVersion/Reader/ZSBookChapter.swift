@@ -68,7 +68,10 @@ class ZSBookChapter:NSObject, NSCoding, HandyJSON {
         var size = ZSReader.share.contentFrame
         var top:CGFloat = 0
         let bottom:CGFloat = 30
-        let orientation = UIApplication.shared.statusBarOrientation
+        var orientation:UIInterfaceOrientation = .portrait
+        DispatchQueue.main.async {
+            orientation = UIApplication.shared.statusBarOrientation
+        }
         if orientation.isPortrait && IPHONEX {
             top = 30
         }

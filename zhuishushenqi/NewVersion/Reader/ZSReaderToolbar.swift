@@ -83,17 +83,43 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         addSubview(bottomBar)
         addSubview(bottomBigBar)
         addSubview(readerStyleView)
+        isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
         bgView.addGestureRecognizer(tap)
-        let pan = UIPanGestureRecognizer { (_) in
-            
-        }
-        addGestureRecognizer(pan)
+//        let pan = UIPanGestureRecognizer { (_) in
+//            
+//        }
+//        addGestureRecognizer(pan)
+        bgView.frame = CGRect(x: 0, y: topBar.height, width: self.bounds.width, height: self.bounds.height - topBar.height - bottomBar.height)
     }
     
     func progress(minValue:Float,maxValue:Float) {
         bottomBar.progressBar.minimumValue = minValue
         bottomBar.progressBar.maximumValue = maxValue
+    }
+    
+    func show(_ animated:Bool) {
+        bottomBar.isHidden = false
+        bottomBigBar.isHidden = true
+        readerStyleView.isHidden = true
+        if animated {
+            self.delegate?.toolBarWillShow(toolBar: self)
+            UIView.animate(withDuration: 0.5, animations: {
+                self.topBar.frame.origin.y = 0
+                self.bottomBar.frame.origin.y = self.bounds.height - self.bottomBarHeight
+                self.bottomBigBar.frame.origin.y = self.bounds.height - self.bottomBarBigHeight - kTabbarBlankHeight
+                self.delegate?.toolBarDidShow(toolBar: self)
+            }) { (finish) in
+            }
+//            inView.addSubview(self)
+        } else {
+            self.delegate?.toolBarWillShow(toolBar: self)
+            self.topBar.frame.origin.y = 0
+            self.bottomBar.frame.origin.y = self.bounds.height - self.bottomBarHeight
+            self.bottomBigBar.frame.origin.y = self.bounds.height - self.bottomBarBigHeight - kTabbarBlankHeight
+//            inView.addSubview(self)
+            self.delegate?.toolBarDidShow(toolBar: self)
+        }
     }
     
     func show(inView:UIView,_ animated:Bool) {
@@ -128,8 +154,8 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
                 self.bottomBar.frame.origin.y = self.bounds.height
                 self.bottomBigBar.frame.origin.y = self.bounds.height
                 self.readerStyleView.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 375)
-                self.delegate?.toolBarDidHiden(toolBar: self)
             }) { (finish) in
+                self.delegate?.toolBarDidHiden(toolBar: self)
                 self.removeFromSuperview()
             }
         } else {
@@ -212,6 +238,7 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         delegate?.toolBar(toolBar: self, clickSetting: clickSetting)
         bottomBar.isHidden = true
         bottomBigBar.isHidden = false
+        bgView.frame = CGRect(x: 0, y: topBar.height, width: self.bounds.width, height: self.bounds.height - topBar.height - bottomBigBar.height)
     }
     
     func bottomBar(bottomBar:ZSReaderBottomBar, progress:Float) {

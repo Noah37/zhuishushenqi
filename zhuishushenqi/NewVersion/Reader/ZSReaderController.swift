@@ -98,21 +98,21 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         view.addGestureRecognizer(tapGesture)
         changeReaderType()
         updateHistory()
-//        ZSReaderTouchManager.share.show(view: touchArea)
         
-        speechView.startHandler = { selected in
+        speechView.startHandler = { [weak self] selected in
+            guard let strongSelf = self else { return }
             if selected! {
-                if self.voiceBook.isSpeaking() {
-                    self.voiceBook.stop()
+                if strongSelf.voiceBook.isSpeaking() {
+                    strongSelf.voiceBook.stop()
                 }
-                let speaker = self.speechView.speakers[Int(self.speechView.speakerPicker.selectedItem)]
+                let speaker = strongSelf.speechView.speakers[Int(strongSelf.speechView.speakerPicker.selectedItem)]
                 if speaker.engineType == .local {
                     let speakerPath = "\(filePath)\(speaker.name).jet"
-                    self.voiceBook.config.speakerPath = speakerPath
-                    self.voiceBook.config.voiceID = "\(speaker.speakerId)"
+                    strongSelf.voiceBook.config.speakerPath = speakerPath
+                    strongSelf.voiceBook.config.voiceID = "\(speaker.speakerId)"
                     
-                    self.voiceBook.engineLocal()
-                    self.voiceBook.start(sentence: self.viewModel.page?.content ?? "")
+                    strongSelf.voiceBook.engineLocal()
+                    strongSelf.voiceBook.start(sentence: strongSelf.viewModel.page?.content ?? "")
                 } else {
                     let appid = "5ba0b197"
 //                    let xfyj = "5445f87d"
@@ -120,18 +120,18 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
 //                    let zssq = "566551f4"
                     let initString = "appid=\(appid)"
                     IFlySpeechUtility.createUtility(initString)
-                    self.voiceBook.setVcn(name: speaker.name)
-                    self.voiceBook.engineCloud()
-                    self.voiceBook.start(sentence: self.viewModel.page?.content ?? "")
+                    strongSelf.voiceBook.setVcn(name: speaker.name)
+                    strongSelf.voiceBook.engineCloud()
+                    strongSelf.voiceBook.start(sentence: strongSelf.viewModel.page?.content ?? "")
                 }
             } else {
-                self.voiceBook.pause()
+                strongSelf.voiceBook.pause()
             }
         }
         
-        speechView.stopHandler = { _ in
-            self.voiceBook.stop()
-            self.speechView.removeFromSuperview()
+        speechView.stopHandler = { [weak self] _ in
+            self?.voiceBook.stop()
+            self?.speechView.removeFromSuperview()
         }
         
         voiceBook.completeHandler = { error in
@@ -283,7 +283,9 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         } else if ZSReaderPref.rightFrame.contains(windowPoint) {
             showNextPage()
         } else {
-            toolBar.show(inView: view, true)
+//            ZSReaderTouchManager.share.show(view: touchArea)
+            ZSReaderTouchManager.share.show(view: toolBar)
+            toolBar.show(true)
         }
     }
     
@@ -480,12 +482,14 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     
     //MARK: - ZSReaderToolbarDelegate
     func toolBar(toolBar: ZSReaderToolbar, clickBack: UIButton) {
+        ZSReaderTouchManager.share.hiden(view: toolBar)
         popAction()
         viewModel.saveHistory()
     }
     
     func toolBar(toolBar: ZSReaderToolbar, clickListen: UIButton) {
         toolBar.hiden(true)
+        ZSReaderTouchManager.share.hiden(view: speechView)
         speechView.show()
     }
     
@@ -510,7 +514,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     }
     
     func toolBarDidHiden(toolBar: ZSReaderToolbar) {
-        
+        ZSReaderTouchManager.share.hiden(view: toolBar)
     }
     
     func toolBar(toolBar:ZSReaderToolbar, clickLast:UIButton) {
