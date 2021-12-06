@@ -43,8 +43,10 @@ class ZSReaderDownloader {
     
     func requestData(url:String, handler:@escaping ZSBaseCallback<Data>) {
         let task = DataTask(url: url)
-        task.resultHandler = { (data, error) in
-            handler(data)
+        task.resultHandler = { [weak self] (data, error) in
+            self?.queue.async {
+                handler(data)
+            }
         }
         task.resume()
     }

@@ -12,6 +12,34 @@ protocol ZSReaderTouchAreaDelegate:class {
     func touchAreaTapCenter(touchAres:ZSReaderTouchArea)
 }
 
+class ZSReaderTouchManager {
+    
+    var touchWindow:ZSReaderTouchWindow!
+    
+    static let share = ZSReaderTouchManager()
+    private init() {
+        touchWindow = ZSReaderTouchWindow()
+        touchWindow.frame = UIScreen.main.bounds
+        touchWindow.windowLevel = .normal
+        touchWindow.backgroundColor = UIColor.clear
+    }
+    
+    func show(view:UIView) {
+        touchWindow.addSubview(view)
+        touchWindow.isHidden = false
+    }
+    
+    func hiden(view:UIView) {
+        view.removeFromSuperview()
+        touchWindow.isHidden = true
+    }
+    
+}
+
+class ZSReaderTouchWindow: UIWindow {
+    
+}
+
 class ZSReaderTouchArea: UIView, UIGestureRecognizerDelegate {
     
     private lazy var backgroundView:UIView = {
@@ -33,7 +61,9 @@ class ZSReaderTouchArea: UIView, UIGestureRecognizerDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(backgroundView)
-        isUserInteractionEnabled = false
+        isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+        addGestureRecognizer(tap)
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +72,11 @@ class ZSReaderTouchArea: UIView, UIGestureRecognizerDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+    }
+    
+    @objc
+    private func tapAction(tap:UITapGestureRecognizer) {
+        delegate?.touchAreaTapCenter(touchAres: self)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

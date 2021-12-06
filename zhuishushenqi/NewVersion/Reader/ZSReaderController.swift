@@ -98,7 +98,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         view.addGestureRecognizer(tapGesture)
         changeReaderType()
         updateHistory()
-        view.addSubview(touchArea)
+//        ZSReaderTouchManager.share.show(view: touchArea)
         
         speechView.startHandler = { selected in
             if selected! {
@@ -107,13 +107,6 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
                 }
                 let speaker = self.speechView.speakers[Int(self.speechView.speakerPicker.selectedItem)]
                 if speaker.engineType == .local {
-//                    let appid = "5ba0b197"
-//                    let xfyj = "5445f87d"
-//                    //        let xfyj2 = "591a4d99"
-//                    let initString = "appid=\(xfyj)"
-//                    IFlySpeechUtility.createUtility(initString)
-                    
-                    
                     let speakerPath = "\(filePath)\(speaker.name).jet"
                     self.voiceBook.config.speakerPath = speakerPath
                     self.voiceBook.config.voiceID = "\(speaker.speakerId)"
@@ -265,8 +258,8 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             view.addSubview(vc.view)
             vc.didMove(toParent: self)
             touchArea.removeFromSuperview()
-            view.addSubview(touchArea)
-            view.bringSubviewToFront(touchArea)
+//            view.addSubview(touchArea)
+//            view.bringSubviewToFront(touchArea)
             vc.view.bounds = view.bounds
         }
         bind()

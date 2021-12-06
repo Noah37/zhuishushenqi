@@ -63,6 +63,9 @@ class PageViewController: UIViewController {
     
     var isShowPayView:Bool = false
     
+    var startEditingHandler:ZSDisplayHandler?
+    var endEditingHandler:ZSDisplayHandler?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setSubviews()
@@ -234,6 +237,12 @@ class PageViewController: UIViewController {
         let pageView = PageView()
         pageView.frame = ZSReader.share.contentFrame
         pageView.backgroundColor = UIColor.clear
+        pageView.startEditingHandler = { [weak self] in
+            self?.startEditingHandler?()
+        }
+        pageView.endEditingHandler = { [weak self] in
+            self?.endEditingHandler?()
+        }
         return pageView
     }()
 

@@ -13,7 +13,20 @@ class ZSPageViewController: BaseViewController, ZSReaderVCProtocol {
     
     var lastPageHandler: ZSReaderPageHandler?
     
-    fileprivate var pageVC:PageViewController = PageViewController()
+    var startEditingHandler:ZSDisplayHandler?
+    var endEditingHandler:ZSDisplayHandler?
+
+    
+    fileprivate var pageVC:PageViewController = PageViewController() {
+        didSet {
+            pageVC.startEditingHandler = { [weak self] in
+                self?.startEditingHandler?()
+            }
+            pageVC.endEditingHandler = { [weak self] in
+                self?.endEditingHandler?()
+            }
+        }
+    }
     
     weak var toolBar:ZSReaderToolbar?
     

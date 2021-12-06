@@ -9,6 +9,8 @@
 import UIKit
 import Kingfisher
 
+typealias ZSDisplayHandler = ()->Void
+
 class ZSDisplayView: UIView {
     
     // MARK: - Properties
@@ -16,30 +18,34 @@ class ZSDisplayView: UIView {
     
     var coreHeight: CGFloat = 0
     
-    var images: [(image: UIImage, frame: CGRect)] = []
+    fileprivate var images: [(image: UIImage, frame: CGRect)] = []
     
-    var imageModels:[ZSImageData] = []
+    fileprivate var imageModels:[ZSImageData] = []
 
     // MARK: - Properties
-    var imageIndex: Int!
+    fileprivate var imageIndex: Int!
     
-    var longPress:UILongPressGestureRecognizer!
+    fileprivate var longPress:UILongPressGestureRecognizer!
     
-    var originRange = NSRange(location: 0, length: 0)
+    fileprivate var originRange = NSRange(location: 0, length: 0)
     
-    var selectedRange = NSRange(location: 0, length: 0)
+    fileprivate var selectedRange = NSRange(location: 0, length: 0)
     
-    var attributeString:NSMutableAttributedString = NSMutableAttributedString(string: "")
+    fileprivate var attributeString:NSMutableAttributedString = NSMutableAttributedString(string: "")
     
-    var rects:[CGRect] = []
+    fileprivate var rects:[CGRect] = []
     
-    var leftCursor:ZSTouchAnchorView!
-    var rightCursor:ZSTouchAnchorView!
+    fileprivate var leftCursor:ZSTouchAnchorView!
+    fileprivate var rightCursor:ZSTouchAnchorView!
     
     // 移动光标
-    private var isTouchCursor = false
+    var isTouchCursor = false
+    // 编辑回调
+    var startEditingHandler:ZSDisplayHandler?
+    var endEditingHandler:ZSDisplayHandler?
     private var touchRightCursor = false
     private var touchOriginRange = NSRange(location: 0, length: 0)
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -93,11 +99,13 @@ class ZSDisplayView: UIView {
             selectedRange = range
             rects = rangeRects(range: selectedRange, ctframe: ctFrame)
             showCursor()
+            startEditingHandler?()
             setNeedsDisplay()
             break
         case .ended:
             break
         case .cancelled:
+            endEditingHandler?()
             break
         default:
             break
