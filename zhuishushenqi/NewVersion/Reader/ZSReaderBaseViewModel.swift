@@ -128,7 +128,9 @@ class ZSReaderBaseViewModel {
             }
         }
         ZSReaderDownloader.share.download(chapter: chapter, book: model!, reg: model?.content ?? "") { (cp) in
-            callback(cp, .online)
+            DispatchQueue.main.async {
+                callback(cp, .online)
+            }
             self.preRequest(chapter: chapter)
         }
     }

@@ -34,6 +34,12 @@ class ZSReaderTouchManager {
         touchWindow.isHidden = true
     }
     
+    func hiden() {
+        touchWindow.isHidden = true
+        for subview in touchWindow.subviews {
+            subview.removeFromSuperview()
+        }
+    }
 }
 
 class ZSReaderTouchWindow: UIWindow {

@@ -98,49 +98,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         view.addGestureRecognizer(tapGesture)
         changeReaderType()
         updateHistory()
-        
-        speechView.startHandler = { [weak self] selected in
-            guard let strongSelf = self else { return }
-            if selected! {
-                if strongSelf.voiceBook.isSpeaking() {
-                    strongSelf.voiceBook.stop()
-                }
-                let speaker = strongSelf.speechView.speakers[Int(strongSelf.speechView.speakerPicker.selectedItem)]
-                if speaker.engineType == .local {
-                    let speakerPath = "\(filePath)\(speaker.name).jet"
-                    strongSelf.voiceBook.config.speakerPath = speakerPath
-                    strongSelf.voiceBook.config.voiceID = "\(speaker.speakerId)"
-                    
-                    strongSelf.voiceBook.engineLocal()
-                    strongSelf.voiceBook.start(sentence: strongSelf.viewModel.page?.content ?? "")
-                } else {
-                    let appid = "5ba0b197"
-//                    let xfyj = "5445f87d"
-//                    let xfyj2 = "591a4d99"
-//                    let zssq = "566551f4"
-                    let initString = "appid=\(appid)"
-                    IFlySpeechUtility.createUtility(initString)
-                    strongSelf.voiceBook.setVcn(name: speaker.name)
-                    strongSelf.voiceBook.engineCloud()
-                    strongSelf.voiceBook.start(sentence: strongSelf.viewModel.page?.content ?? "")
-                }
-            } else {
-                strongSelf.voiceBook.pause()
-            }
-        }
-        
-        speechView.stopHandler = { [weak self] _ in
-            self?.voiceBook.stop()
-            self?.speechView.removeFromSuperview()
-        }
-        
-        voiceBook.completeHandler = { error in
-            QSLog(error)
-            if error?.errorCode == 0 {
-                // 读完了,自动翻下一页
-                
-            }
-        }
+        setupSpeech()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -170,6 +128,30 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         removeReaderVC()
         ZSBookMemoryCache.share.removeAllCache()
         super.popAction()
+    }
+    
+    private func setupSpeech() {
+        speechView.startHandler = { [weak self] selected in
+            guard let strongSelf = self else { return }
+            if selected! {
+                strongSelf.startSpeech()
+            } else {
+                strongSelf.pauseSpeech()
+            }
+        }
+        
+        speechView.stopHandler = { [weak self] _ in
+            self?.stopSpeech()
+            self?.speechView.hiden()
+        }
+        
+        voiceBook.completeHandler = { [weak self] error in
+            QSLog(error)
+            if error?.errorCode == 0 {
+                // 读完了,自动翻下一页
+                self?.continueSpeech()
+            }
+        }
     }
     
     private func request() {
@@ -276,6 +258,16 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     
     @objc
     private func tapAction(tap:UITapGestureRecognizer) {
+        var isEditing:Bool = false
+        if let horVC = pref.readerVC as? ZSPageViewController {
+            if let pageVC = horVC.horizonalController.viewControllers?.first as? PageViewController {
+                isEditing = pageVC.isPageEditing
+                pageVC.clearEditing()
+            }
+        }
+        if isEditing {
+            return
+        }
         let point = tap.location(in: view)
         let windowPoint = view.convert(point, to: view.window!)
         if ZSReaderPref.leftFrame.contains(windowPoint) {
@@ -283,9 +275,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         } else if ZSReaderPref.rightFrame.contains(windowPoint) {
             showNextPage()
         } else {
-//            ZSReaderTouchManager.share.show(view: touchArea)
-            ZSReaderTouchManager.share.show(view: toolBar)
-            toolBar.show(true)
+            toolBar.show(inView: view, true)
         }
     }
     
@@ -482,14 +472,12 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     
     //MARK: - ZSReaderToolbarDelegate
     func toolBar(toolBar: ZSReaderToolbar, clickBack: UIButton) {
-        ZSReaderTouchManager.share.hiden(view: toolBar)
         popAction()
         viewModel.saveHistory()
     }
     
     func toolBar(toolBar: ZSReaderToolbar, clickListen: UIButton) {
         toolBar.hiden(true)
-        ZSReaderTouchManager.share.hiden(view: speechView)
         speechView.show()
     }
     
@@ -514,7 +502,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     }
     
     func toolBarDidHiden(toolBar: ZSReaderToolbar) {
-        ZSReaderTouchManager.share.hiden(view: toolBar)
+        
     }
     
     func toolBar(toolBar:ZSReaderToolbar, clickLast:UIButton) {
@@ -651,10 +639,57 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             }
         }
     }
+    
+    //MARK: - speech
+    func startSpeech() {
+        if voiceBook.isSpeaking() {
+            resumeSpeech()
+            return
+        }
+        let speaker = speechView.speakers[Int(speechView.speakerPicker.selectedItem)]
+        if speaker.engineType == .local {
+            let speakerPath = "\(filePath)\(speaker.name).jet"
+            voiceBook.config.speakerPath = speakerPath
+            voiceBook.config.voiceID = "\(speaker.speakerId)"
+            
+            voiceBook.engineLocal()
+            voiceBook.start(sentence: viewModel.page?.content ?? "")
+        } else {
+            let appid = "5ba0b197"
+            //                    let xfyj = "5445f87d"
+            //                    let xfyj2 = "591a4d99"
+            //                    let zssq = "566551f4"
+            let initString = "appid=\(appid)"
+            IFlySpeechUtility.createUtility(initString)
+            voiceBook.setVcn(name: speaker.name)
+            voiceBook.engineCloud()
+            voiceBook.start(sentence: viewModel.page?.content ?? "")
+        }
+    }
+    
+    func pauseSpeech() {
+        voiceBook.pause()
+    }
+    
+    func resumeSpeech() {
+        voiceBook.resume()
+    }
+    
+    func stopSpeech() {
+        voiceBook.stop()
+    }
+    
+    /// 一段播完了，开始下一段
+    func continueSpeech() {
+        
+    }
 }
 
 extension ZSReaderController:UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        if let currentPage = pageViewController.viewControllers?.first as? PageViewController {
+            currentPage.clearEditing()
+        }
         let pageVC = PageViewController()
         guard let history = viewModel.readHistory else { return nil }
         guard let page = history.page else { return nil }
@@ -674,6 +709,9 @@ extension ZSReaderController:UIPageViewControllerDataSource, UIPageViewControlle
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        if let currentPage = pageViewController.viewControllers?.first as? PageViewController {
+            currentPage.clearEditing()
+        }
         let pageVC = PageViewController()
         guard let history = viewModel.readHistory else { return nil }
         guard let page = history.page else { return nil }

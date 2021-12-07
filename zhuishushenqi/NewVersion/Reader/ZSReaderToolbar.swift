@@ -45,6 +45,8 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         return topBar.frame.origin.y >= 0
     }
     
+    var superTapGesture:UITapGestureRecognizer?
+    
     lazy var bgView:UIView = {
         let view = UIView(frame: UIScreen.main.bounds)
         view.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
@@ -98,31 +100,23 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
         bottomBar.progressBar.maximumValue = maxValue
     }
     
-    func show(_ animated:Bool) {
-        bottomBar.isHidden = false
-        bottomBigBar.isHidden = true
-        readerStyleView.isHidden = true
-        if animated {
-            self.delegate?.toolBarWillShow(toolBar: self)
-            UIView.animate(withDuration: 0.5, animations: {
-                self.topBar.frame.origin.y = 0
-                self.bottomBar.frame.origin.y = self.bounds.height - self.bottomBarHeight
-                self.bottomBigBar.frame.origin.y = self.bounds.height - self.bottomBarBigHeight - kTabbarBlankHeight
-                self.delegate?.toolBarDidShow(toolBar: self)
-            }) { (finish) in
+    func gesture(for view:UIView) ->UITapGestureRecognizer? {
+        let gestures = view.gestureRecognizers ?? []
+        var gesture:UITapGestureRecognizer?
+        for ges in gestures {
+            if ges.isKind(of: UITapGestureRecognizer.self) {
+                gesture = ges as? UITapGestureRecognizer
+                break
             }
-//            inView.addSubview(self)
-        } else {
-            self.delegate?.toolBarWillShow(toolBar: self)
-            self.topBar.frame.origin.y = 0
-            self.bottomBar.frame.origin.y = self.bounds.height - self.bottomBarHeight
-            self.bottomBigBar.frame.origin.y = self.bounds.height - self.bottomBarBigHeight - kTabbarBlankHeight
-//            inView.addSubview(self)
-            self.delegate?.toolBarDidShow(toolBar: self)
         }
+        return gesture
     }
     
     func show(inView:UIView,_ animated:Bool) {
+        if let gesture = gesture(for: inView) {
+            superTapGesture = gesture
+            inView.removeGestureRecognizer(gesture)
+        }
         bottomBar.isHidden = false
         bottomBigBar.isHidden = true
         readerStyleView.isHidden = true
@@ -147,6 +141,11 @@ class ZSReaderToolbar: UIView, ZSReaderTopbarDelegate, ZSReaderBottomBarDelegate
     }
     
     func hiden(_ animated:Bool) {
+        if let gesture = superTapGesture {
+            if let superView = self.superview {
+                superView.addGestureRecognizer(gesture)
+            }
+        }
         if animated {
             self.delegate?.toolBarWillHiden(toolBar: self)
             UIView.animate(withDuration: 0.5, animations: {

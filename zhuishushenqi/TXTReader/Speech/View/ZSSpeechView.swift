@@ -118,7 +118,11 @@ class ZSSpeechView: UIView {
     func show() {
         speakers = TTSConfig.share.availableSpeakers()
         speakerPicker.reloadData()
-//        KeyWindow?.addSubview(self)
+        KeyWindow?.addSubview(self)
+    }
+    
+    func hiden() {
+        removeFromSuperview()
     }
 
     override init(frame: CGRect) {

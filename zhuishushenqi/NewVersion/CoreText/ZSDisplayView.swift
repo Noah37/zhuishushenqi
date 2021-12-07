@@ -40,6 +40,11 @@ class ZSDisplayView: UIView {
     
     // 移动光标
     var isTouchCursor = false
+    
+    // 是否编辑状态
+    var isEditing:Bool {
+        return rects.count > 0
+    }
     // 编辑回调
     var startEditingHandler:ZSDisplayHandler?
     var endEditingHandler:ZSDisplayHandler?
@@ -61,6 +66,12 @@ class ZSDisplayView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func clearEditing() {
+        rects = []
+        hideCursor()
+        setNeedsDisplay()
     }
     
     @objc
@@ -437,7 +448,7 @@ class ZSDisplayView: UIView {
         
         if rects.count > 0 {
             let lineRects = rects.map { rect -> CGRect in
-                return CGRect(x: rect.origin.x - 2, y: coreHeight - rect.origin.y - rect.height + 6, width: rect.width + 4, height: rect.height)
+                return CGRect(x: rect.origin.x - 2, y: coreHeight - rect.origin.y - rect.height, width: rect.width + 4, height: rect.height)
             }
             let fillPath = CGMutablePath()
             UIColor(red:0.92, green:0.5, blue:0.5, alpha:1.00).withAlphaComponent(0.5).setFill()

@@ -63,6 +63,8 @@ class PageViewController: UIViewController {
     
     var isShowPayView:Bool = false
     
+    var isPageEditing:Bool { return pageView.isEditing }
+    
     var startEditingHandler:ZSDisplayHandler?
     var endEditingHandler:ZSDisplayHandler?
     
@@ -231,6 +233,10 @@ class PageViewController: UIViewController {
             timeLabel.textColor = AppStyle.shared.reader.textColor
             batteryView.batteryColor = AppStyle.shared.reader.batteryColor
         }
+    }
+    
+    func clearEditing() {
+        pageView.clearEditing()
     }
     
     lazy var pageView:PageView = {
