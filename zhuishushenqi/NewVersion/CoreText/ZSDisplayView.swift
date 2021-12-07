@@ -127,6 +127,7 @@ class ZSDisplayView: UIView {
         guard rects.count > 0 else {
             return
         }
+        showMenuController()
         let leftRect = rects.first!
         let rightRect = rects.last!
         if leftCursor == nil {
@@ -147,6 +148,7 @@ class ZSDisplayView: UIView {
     }
     
     func hideCursor() {
+        hideMenuController()
         if leftCursor != nil {
             leftCursor.removeFromSuperview()
             leftCursor = nil
@@ -237,7 +239,12 @@ class ZSDisplayView: UIView {
         CTFrameGetLineOrigins(ctframe, CFRange(location: 0, length: 0), &origins)
         for index in 0..<lines.count {
             let line = lines[index] as! CTLine
-            let origin = origins[lines.count - index - 1]
+            let origin = origins[index]
+            var ascent: CGFloat = 0
+            var descent: CGFloat = 0
+            CTLineGetTypographicBounds(line, &ascent, &descent, nil)
+//            let rect = CGRect(x: origin.x, y: coreHeight - origin.y - ascent, width: self.bounds.width, height: ascent + descent)
+//            rects.append(rect)
             let lineCFRange = CTLineGetStringRange(line)
             if lineCFRange.location != NSNotFound {
                 let lineRange = NSRange(location: lineCFRange.location, length: lineCFRange.length)
@@ -249,7 +256,7 @@ class ZSDisplayView: UIView {
                     let end = min(lineRange.location + lineRange.length, range.location + range.length)
                     contentRange.length = end - contentRange.location
                     CTLineGetTypographicBounds(line, &ascent, &descent, nil)
-                    let y = origin.y - descent
+                    let y = coreHeight - origin.y - ascent
                     startX = CTLineGetOffsetForStringIndex(line, contentRange.location, nil)
                     let endX = CTLineGetOffsetForStringIndex(line, contentRange.location + contentRange.length, nil)
                     let rect = CGRect(x: origin.x + startX, y: y, width: endX - startX, height: ascent + descent)
@@ -498,4 +505,68 @@ class ZSDisplayView: UIView {
         }
         return index
     }
+}
+
+extension ZSDisplayView {
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    @objc
+    func copyItemFunc() {
+        
+    }
+    
+    func showMenuController() {
+        if self.becomeFirstResponder() {
+            let selectionRect = rectForMenuController()
+            let menu = UIMenuController.shared
+            let copyItem = UIMenuItem(title: "Copy", action: #selector(copyItemFunc))
+            menu.menuItems = [copyItem]
+            menu.setTargetRect(selectionRect, in: self)
+            menu.setMenuVisible(true, animated: true)
+        }
+    }
+    
+    func hideMenuController() {
+        if self.resignFirstResponder() {
+            let menu = UIMenuController.shared
+            menu.setMenuVisible(false, animated: true)
+        }
+    }
+    
+    func rectForMenuController()->CGRect {
+        guard let firstRect = rects.first else { return CGRect.zero }
+        guard let lastRect = rects.last else { return CGRect.zero }
+        var menuRect:CGRect = CGRect.zero
+        // 尝试在第一行的上方展示
+        if firstRect.origin.y < 50 {
+            menuRect = CGRect(x: bounds.width/2 - 50, y: lastRect.origin.y + 50, width: 100, height: 30)
+        } else {
+            menuRect = CGRect(x: bounds.width/2 - 50, y: firstRect.origin.y - 50, width: 100, height: 30)
+        }
+        return menuRect
+    }
+    
+//    - (void)showMenuController {
+//        if ([self becomeFirstResponder]) {
+//            CGRect selectionRect = [self rectForMenuController];
+//            // 翻转坐标系
+//            CGAffineTransform transform =  CGAffineTransformMakeTranslation(0, self.bounds.size.height);
+//            transform = CGAffineTransformScale(transform, 1.f, -1.f);
+//            selectionRect = CGRectApplyAffineTransform(selectionRect, transform);
+//
+//            UIMenuController *theMenu = [UIMenuController sharedMenuController];
+//            [theMenu setTargetRect:selectionRect inView:self];
+//            [theMenu setMenuVisible:YES animated:YES];
+//        }
+//    }
+//
+//    - (void)hideMenuController {
+//        if ([self resignFirstResponder]) {
+//            UIMenuController *theMenu = [UIMenuController sharedMenuController];
+//            [theMenu setMenuVisible:NO animated:YES];
+//        }
+//    }
 }
