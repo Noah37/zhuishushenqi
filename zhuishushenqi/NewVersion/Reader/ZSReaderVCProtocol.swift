@@ -17,6 +17,10 @@ protocol ZSReaderVCProtocol:UIViewController {
     var nextPageHandler:ZSReaderPageHandler? { get set }
     var lastPageHandler:ZSReaderPageHandler? { get set }
     
+    func nextParagraph(string:String) ->String
+    
+    func startEdit(for string:String)
+    
     func bind(toolBar:ZSReaderToolbar)
     
     func destroy()
@@ -25,4 +29,5 @@ protocol ZSReaderVCProtocol:UIViewController {
     
     // reader调用子页面更新page
     func jumpPage(page:ZSBookPage,_ animated:Bool,_ direction:UIPageViewController.NavigationDirection)
+
 }

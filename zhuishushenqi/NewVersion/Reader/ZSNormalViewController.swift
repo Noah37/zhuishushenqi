@@ -43,6 +43,14 @@ class ZSNormalViewController: BaseViewController, ZSReaderVCProtocol {
         pageViewController.newPage = page
     }
     
+    func nextParagraph(string:String) -> String {
+        return pageViewController.nextParagraph(string: string)
+    }
+    
+    func startEdit(for string:String) {
+        pageViewController.startEdit(for: string)
+    }
+    
     func bind(toolBar: ZSReaderToolbar) {
         self.toolBar = toolBar
     }

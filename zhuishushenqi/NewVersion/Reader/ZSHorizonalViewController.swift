@@ -46,6 +46,14 @@ class ZSHorizonalViewController: BaseViewController, ZSReaderVCProtocol {
         }
     }
     
+    func nextParagraph(string:String) -> String {
+        return pageVC.nextParagraph(string: string)
+    }
+    
+    func startEdit(for string:String) {
+        pageVC.startEdit(for: string)
+    }
+    
     func bind(toolBar: ZSReaderToolbar) {
         self.toolBar = toolBar
     }

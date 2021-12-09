@@ -45,6 +45,10 @@ class ZSDisplayView: UIView {
     var isEditing:Bool {
         return rects.count > 0
     }
+    // 段落划分
+    var paragraphes:[String] {
+        return attributeString.string.components(separatedBy: "\n")
+    }
     // 编辑回调
     var startEditingHandler:ZSDisplayHandler?
     var endEditingHandler:ZSDisplayHandler?
@@ -72,6 +76,43 @@ class ZSDisplayView: UIView {
         rects = []
         hideCursor()
         setNeedsDisplay()
+    }
+    
+    func range(for string:String) ->NSRange {
+        attributeString.string.ocString.range(of: string)
+    }
+    
+    func startEdit(for string:String) {
+        let selectedRange = range(for: string)
+        rects = rangeRects(range: selectedRange, ctframe: ctFrame)
+        setNeedsDisplay()
+    }
+    
+    func nextParagraph(string:String) -> String {
+        var paragraghString:String = getNextUnEmptyParagarph(index: -1)
+        if string.count == 0 {
+            return paragraghString
+        }
+        for paragraph in paragraphes {
+            if paragraph.contains(string) {
+                if let index = paragraphes.firstIndex(of: paragraph) {
+                    paragraghString = getNextUnEmptyParagarph(index: index)
+                    break
+                }
+            }
+        }
+        return paragraghString
+    }
+    
+    fileprivate func getNextUnEmptyParagarph(index:Int) ->String {
+        if (index + 1) >= paragraphes.count {
+            return ""
+        }
+        let string = paragraphes[index + 1]
+        if string.count > 0 {
+            return string
+        }
+        return getNextUnEmptyParagarph(index: index + 1)
     }
     
     @objc
@@ -515,17 +556,24 @@ extension ZSDisplayView {
     
     @objc
     func copyItemFunc() {
-        
+        UIPasteboard.general.string = self.attributeString.string.qs_subStr(range: selectedRange)
+        clearEditing()
     }
     
     func showMenuController() {
         if self.becomeFirstResponder() {
-            let selectionRect = rectForMenuController()
+            let selectionRectTuple = rectForMenuController()
             let menu = UIMenuController.shared
-            let copyItem = UIMenuItem(title: "Copy", action: #selector(copyItemFunc))
-            menu.menuItems = [copyItem]
-            menu.setTargetRect(selectionRect, in: self)
-            menu.setMenuVisible(true, animated: true)
+            menu.arrowDirection = selectionRectTuple.1
+            if menu.isMenuVisible {
+                menu.setTargetRect(selectionRectTuple.0, in: self)
+                menu.update()
+            } else {
+                let copyItem = UIMenuItem(title: "Copy", action: #selector(copyItemFunc))
+                menu.menuItems = [copyItem]
+                menu.setTargetRect(selectionRectTuple.0, in: self)
+                menu.setMenuVisible(true, animated: true)
+            }
         }
     }
     
@@ -536,37 +584,18 @@ extension ZSDisplayView {
         }
     }
     
-    func rectForMenuController()->CGRect {
-        guard let firstRect = rects.first else { return CGRect.zero }
-        guard let lastRect = rects.last else { return CGRect.zero }
+    func rectForMenuController()->(CGRect, UIMenuController.ArrowDirection) {
+        guard let firstRect = rects.first else { return (CGRect.zero, .default) }
+        guard let lastRect = rects.last else { return (CGRect.zero, .default) }
         var menuRect:CGRect = CGRect.zero
-        // 尝试在第一行的上方展示
+        var direction:UIMenuController.ArrowDirection = .default
+        // 尝试在第一行的下方展示
         if firstRect.origin.y < 50 {
-            menuRect = CGRect(x: bounds.width/2 - 50, y: lastRect.origin.y + 50, width: 100, height: 30)
+            menuRect = CGRect(x: lastRect.origin.x + (lastRect.width - lastRect.origin.x)/2, y: lastRect.origin.y, width: 100, height: 30)
+            direction = .up
         } else {
-            menuRect = CGRect(x: bounds.width/2 - 50, y: firstRect.origin.y - 50, width: 100, height: 30)
+            menuRect = CGRect(x: firstRect.origin.x + (firstRect.width - firstRect.origin.x)/2, y: firstRect.origin.y - 20, width: 100, height: 30)
         }
-        return menuRect
+        return (menuRect, direction)
     }
-    
-//    - (void)showMenuController {
-//        if ([self becomeFirstResponder]) {
-//            CGRect selectionRect = [self rectForMenuController];
-//            // 翻转坐标系
-//            CGAffineTransform transform =  CGAffineTransformMakeTranslation(0, self.bounds.size.height);
-//            transform = CGAffineTransformScale(transform, 1.f, -1.f);
-//            selectionRect = CGRectApplyAffineTransform(selectionRect, transform);
-//
-//            UIMenuController *theMenu = [UIMenuController sharedMenuController];
-//            [theMenu setTargetRect:selectionRect inView:self];
-//            [theMenu setMenuVisible:YES animated:YES];
-//        }
-//    }
-//
-//    - (void)hideMenuController {
-//        if ([self resignFirstResponder]) {
-//            UIMenuController *theMenu = [UIMenuController sharedMenuController];
-//            [theMenu setMenuVisible:NO animated:YES];
-//        }
-//    }
 }

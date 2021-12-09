@@ -239,6 +239,14 @@ class PageViewController: UIViewController {
         pageView.clearEditing()
     }
     
+    func nextParagraph(string:String) -> String {
+        return pageView.nextParagraph(string: string)
+    }
+    
+    func startEdit(for string:String) {
+        pageView.startEdit(for: string)
+    }
+    
     lazy var pageView:PageView = {
         let pageView = PageView()
         pageView.frame = ZSReader.share.contentFrame

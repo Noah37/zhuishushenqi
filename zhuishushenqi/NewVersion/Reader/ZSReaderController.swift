@@ -643,8 +643,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     //MARK: - speech
     func startSpeech() {
         if voiceBook.isSpeaking() {
-            resumeSpeech()
-            return
+            stopSpeech()
         }
         let speaker = speechView.speakers[Int(speechView.speakerPicker.selectedItem)]
         if speaker.engineType == .local {
@@ -653,7 +652,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             voiceBook.config.voiceID = "\(speaker.speakerId)"
             
             voiceBook.engineLocal()
-            voiceBook.start(sentence: viewModel.page?.content ?? "")
+            continueSpeech()
         } else {
             let appid = "5ba0b197"
             //                    let xfyj = "5445f87d"
@@ -663,7 +662,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             IFlySpeechUtility.createUtility(initString)
             voiceBook.setVcn(name: speaker.name)
             voiceBook.engineCloud()
-            voiceBook.start(sentence: viewModel.page?.content ?? "")
+            continueSpeech()
         }
     }
     
@@ -681,7 +680,18 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
     
     /// 一段播完了，开始下一段
     func continueSpeech() {
-        
+        var paragraph: String = viewModel.page?.content ?? ""
+        paragraph = pref.readerVC?.nextParagraph(string: voiceBook.speakText) ?? ""
+        if paragraph.count > 0 {
+            pref.readerVC?.startEdit(for: paragraph)
+            voiceBook.start(sentence: paragraph)
+        } else {
+            // 翻页
+            showNextPage()
+            paragraph = pref.readerVC?.nextParagraph(string: "") ?? ""
+            pref.readerVC?.startEdit(for: paragraph)
+            voiceBook.start(sentence: paragraph)
+        }
     }
 }
 

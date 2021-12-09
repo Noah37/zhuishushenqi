@@ -60,6 +60,14 @@ class ZSPageViewController: BaseViewController, ZSReaderVCProtocol {
         }
     }
     
+    func nextParagraph(string:String) -> String {
+        return pageVC.nextParagraph(string: string)
+    }
+    
+    func startEdit(for string:String) {
+        pageVC.startEdit(for: string)
+    }
+    
     func bind(toolBar: ZSReaderToolbar) {
         self.toolBar = toolBar
     }
@@ -79,7 +87,13 @@ class ZSPageViewController: BaseViewController, ZSReaderVCProtocol {
     
     func jumpPage(page: ZSBookPage,_ animated:Bool = false,_ direction:UIPageViewController.NavigationDirection = .forward) {
         pageVC.newPage = page
-        horizonalController.setViewControllers([pageVC], direction: UIPageViewController.NavigationDirection.forward, animated: animated, completion: nil)
+        var viewControllers:[UIViewController] = [pageVC]
+        if animated {
+            let backgroundVC = QSReaderBackgroundViewController()
+            backgroundVC.setBackground(viewController: pageVC)
+            viewControllers = [pageVC, backgroundVC]
+        }
+        horizonalController.setViewControllers(viewControllers, direction: direction, animated: animated, completion: nil)
     }
     
     @objc
