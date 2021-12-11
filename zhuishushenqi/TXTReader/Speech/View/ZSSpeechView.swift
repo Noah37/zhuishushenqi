@@ -9,23 +9,46 @@
 import UIKit
 
 
+protocol ZSSpeechDelegate:class {
+    // 改变朗读速度 0-100
+    func speechView(speechView:ZSSpeechView, change speed:Float)
+    
+    // 变更发音人
+    func speechView(speechView:ZSSpeechView, change speaker:Speaker)
+    
+    // 变更定时时间
+    func speechView(speechView:ZSSpeechView, change time:TimeInterval)
+}
+
+
 class ZSSpeechView: UIView {
     
-    var speakers:[Speaker] = []
+    fileprivate var speakers:[Speaker] = []
 
-    var timers:[String] = ["5分钟","15分钟","30分钟","60分钟"]
+    fileprivate var timers:[[String:Any]] = [
+        ["title":"5分钟","time":300.00],
+        ["title":"15分钟","time":900.00],
+        ["title":"30分钟","time":1800.00],
+        ["title":"60分钟","time":3600.00]
+    ]
     
     var startHandler:ZSBaseCallback<Bool>?
     
     var stopHandler:ZSBaseCallback<Void>?
     
-    lazy var backgroundView:UIView = {
+    var speaker:Speaker {
+        return speakers[Int(speakerPicker.selectedItem)]
+    }
+    
+    weak var delegate:ZSSpeechDelegate?
+    
+    fileprivate lazy var backgroundView:UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight))
         view.isUserInteractionEnabled = true
         return view
     }()
     
-    lazy var readerView:UIView = {
+    fileprivate lazy var readerView:UIView = {
         let view = UIView(frame: CGRect.zero)
         view.backgroundColor = UIColor.black
         view.alpha = 0.8
@@ -33,14 +56,17 @@ class ZSSpeechView: UIView {
         return view
     }()
     
-    lazy var speedSlider:UISlider = {
+    fileprivate lazy var speedSlider:UISlider = {
         let slider = UISlider(frame: CGRect.zero)
         slider.minimumTrackTintColor = UIColor.red
-        slider.value = 0.5
+        slider.maximumValue = 100
+        slider.minimumValue = 0
+        slider.value = 50
+        slider.addTarget(self, action: #selector(speedChange(slider:)), for: .valueChanged)
         return slider
     }()
     
-    lazy var timerPicker:AKPickerView = {
+    fileprivate lazy var timerPicker:AKPickerView = {
         let picker = AKPickerView(frame: CGRect.zero)
         picker.delegate = self;
         picker.dataSource = self;
@@ -56,7 +82,7 @@ class ZSSpeechView: UIView {
         return picker
     }()
     
-    lazy var speakerPicker:AKPickerView = {
+    fileprivate lazy var speakerPicker:AKPickerView = {
         let picker = AKPickerView(frame: CGRect.zero)
         picker.delegate = self;
         picker.dataSource = self;
@@ -72,25 +98,25 @@ class ZSSpeechView: UIView {
         return picker
     }()
     
-    lazy var speedView:ZSSpeechLine = {
+    fileprivate lazy var speedView:ZSSpeechLine = {
         let speedLine = ZSSpeechLine(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 60))
         speedLine.titleLabel.text = "语速:"
         return speedLine
     }()
     
-    lazy var speakerView:ZSSpeechLine = {
+    fileprivate lazy var speakerView:ZSSpeechLine = {
         let speedLine = ZSSpeechLine(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 60))
         speedLine.titleLabel.text = "发音:"
         return speedLine
     }()
     
-    lazy var timerView:ZSSpeechLine = {
+    fileprivate lazy var timerView:ZSSpeechLine = {
         let speedLine = ZSSpeechLine(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 60))
         speedLine.titleLabel.text = "定时:"
         return speedLine
     }()
     
-    lazy var stopButton:UIButton = {
+    fileprivate lazy var stopButton:UIButton = {
         let button = UIButton(type: .custom)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.white.cgColor
@@ -100,7 +126,7 @@ class ZSSpeechView: UIView {
         return button
     }()
     
-    lazy var startButton:UIButton = {
+    fileprivate lazy var startButton:UIButton = {
         let button = UIButton(type: .custom)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.white.cgColor
@@ -111,10 +137,6 @@ class ZSSpeechView: UIView {
         return button
     }()
     
-    func setupSpeech() {
-        
-    }
-    
     func show() {
         speakers = TTSConfig.share.availableSpeakers()
         speakerPicker.reloadData()
@@ -123,6 +145,11 @@ class ZSSpeechView: UIView {
     
     func hiden() {
         removeFromSuperview()
+    }
+    
+    @objc
+    fileprivate func speedChange(slider:UISlider) {
+        delegate?.speechView(speechView: self, change: slider.value)
     }
 
     override init(frame: CGRect) {
@@ -196,11 +223,15 @@ extension ZSSpeechView:AKPickerViewDataSource,AKPickerViewDelegate {
             }
             return "在线优声"
         }
-        return timers[item]
+        return timers[item]["title"] as? String ?? ""
     }
     
     func pickerView(_ pickerView: AKPickerView!, didSelectItem item: Int) {
-        
+        if pickerView == speakerPicker {
+            delegate?.speechView(speechView: self, change: speakers[item])
+        } else {
+            delegate?.speechView(speechView: self, change: timers[item]["time"] as? TimeInterval ?? 0.0)
+        }
     }
 }
 

@@ -93,15 +93,14 @@ class ZSReaderViewController: BaseViewController  {
                 if self.voiceBook.isSpeaking() {
                     self.voiceBook.stop()
                 }
-                if self.speechView.speakers.count > self.speechView.speakerPicker.selectedItem {
+                let speaker = self.speechView.speaker
+                if speaker.engineType == .local {
 //                    let appid = "5ba0b197"
 //                    let xfyj = "5445f87d"
 //                    //        let xfyj2 = "591a4d99"
 //                    let initString = "appid=\(xfyj)"
 //                    IFlySpeechUtility.createUtility(initString)
-                    
-                    let speaker = self.speechView.speakers[Int(self.speechView.speakerPicker.selectedItem)]
-                    
+
                     let speakerPath = "\(filePath)\(speaker.name).jet"
                     self.voiceBook.config.speakerPath = speakerPath
                     self.voiceBook.config.voiceID = "\(speaker.speakerId)"

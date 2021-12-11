@@ -645,7 +645,7 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
         if voiceBook.isSpeaking() {
             stopSpeech()
         }
-        let speaker = speechView.speakers[Int(speechView.speakerPicker.selectedItem)]
+        let speaker = speechView.speaker
         if speaker.engineType == .local {
             let speakerPath = "\(filePath)\(speaker.name).jet"
             voiceBook.config.speakerPath = speakerPath
