@@ -54,7 +54,7 @@ struct ZSReaderPref {
     }
 }
 
-class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCatalogViewControllerDelegate,ZSReaderTouchAreaDelegate, UIGestureRecognizerDelegate {
+class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCatalogViewControllerDelegate,ZSReaderTouchAreaDelegate {
     
     var pref:ZSReaderPref = ZSReaderPref()
     var viewModel:ZSReaderBaseViewModel = ZSReaderBaseViewModel()

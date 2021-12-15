@@ -20,7 +20,7 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
     
     lazy var bookView:ZSSearchBookView = {
         let view = ZSSearchBookView(frame: .zero)
-        view.viewModel = self.viewModel
+        view.viewModel = viewModel
         view.clickHandler = { [weak self] word in
             self?.searchHotClick(word: word)
         }
@@ -43,7 +43,7 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     func setupSubviews() {
@@ -56,12 +56,12 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
         }
         bookView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.top.equalTo(self.topBar.snp.bottom)
+            make.top.equalTo(topBar.snp.bottom)
             make.height.equalTo(ScreenHeight - kNavgationBarHeight - 22)
         }
         resultView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.top.equalTo(self.topBar.snp.bottom)
+            make.top.equalTo(topBar.snp.bottom)
             make.height.equalTo(ScreenHeight - kNavgationBarHeight - 22)
         }
         resultView.isHidden = true
@@ -75,7 +75,7 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
     func resultClick(model:ZSAikanParserModel) {
         let infoVC = ZSSearchInfoViewController()
         infoVC.model = model
-        self.navigationController?.pushViewController(infoVC, animated: true)
+        navigationController?.pushViewController(infoVC, animated: true)
     }
     
     func request(text:String) {
@@ -95,22 +95,22 @@ class ZSSearchBookViewController: BaseViewController,ZSTopSearchBarProtocol  {
     
     func zsTopSearchBar(topSearchBar: ZSTopSearchBar, searchTextFieldEditChanged text: String) {
         if text.length == 0 {
-            self.resultView.isHidden = true
-            self.viewModel.stopRequestBooks()
-            self.resultView.clearBooks()
-            self.view.endEditing(true)
+            resultView.isHidden = true
+            viewModel.stopRequestBooks()
+            resultView.clearBooks()
+            view.endEditing(true)
         }
     }
     
     func zsTopSearchBar(topSearchBar: ZSTopSearchBar, searchTextFieldReturn text: String) {
         if text.length > 0 {
-            self.view.endEditing(true)
+            view.endEditing(true)
             request(text: text)
         }
     }
     
     func zsTopSearchBarCancelButtonClick(topSearchBar: ZSTopSearchBar) {
-        self.navigationController?.popViewController(animated: false)
+        navigationController?.popViewController(animated: false)
     }
 
 }

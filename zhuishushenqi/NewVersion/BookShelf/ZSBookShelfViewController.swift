@@ -108,7 +108,7 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
         automaticallyAdjustsScrollViewInsets = false
         self.tableView.reloadData()
         ZSShelfManager.share.refresh()

@@ -61,7 +61,9 @@ class ZSReaderDownloader {
             guard let responseData = data else { return }
             let originContent = strongSelf.getContent(htmlData: responseData, reg: contentReg, encoding: encoding)
             let targetContent = strongSelf.contentTrim(content: originContent, reg: contentReplaceReg)
-            handler(targetContent)
+            DispatchQueue.main.async {
+                handler(targetContent)
+            }
         }
     }
     

@@ -48,10 +48,10 @@ class ZSShelfManager {
     
     func unpackBooksFile() {
         if let books:[String] = booksCache.getObj(forKey: shelfBooksPath) {
-            self.books = books
+            self.books = books.filterDuplicates({$0})
             for bookPath in books {
                 let fullPath = shelfModelPath(url: bookPath)
-                let aikan:ZSShelfModel? = shelfsCache.getObj(forKey: fullPath)
+                let _:ZSShelfModel? = shelfsCache.getObj(forKey: fullPath)
             }
         }
     }
@@ -128,11 +128,7 @@ class ZSShelfManager {
                 shelf.bookType = .local
                 shelf.bookName = fileFullName
                 shelf.bookUrl = localBookUrl
-                if !exist(localBookUrl) {
-                    books.append(localBookUrl)
-                    localBooks.append(shelf)
-                    saveShelfModel(shelf: shelf)
-                } else if !localBooks.contains(shelf) {
+                if !localBooks.contains(shelf) {
                     localBooks.append(shelf)
                 }
             }

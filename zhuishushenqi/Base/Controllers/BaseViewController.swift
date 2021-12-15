@@ -10,7 +10,7 @@ import UIKit
 
 typealias ZSBaseHandler = (_ result:Bool)->Void
 
-class BaseViewController: UIViewController, IndicatableView {
+class BaseViewController: UIViewController, IndicatableView, UIGestureRecognizerDelegate {
     
     var navigationBarHiden:Bool = false
 
@@ -23,11 +23,12 @@ class BaseViewController: UIViewController, IndicatableView {
         navigationController?.navigationBar.barTintColor = UIColor.white
         let backItem = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(popAction))
         self.navigationItem.backBarButtonItem = backItem
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(navigationBarHiden, animated: true)
+//        navigationController?.setNavigationBarHidden(navigationBarHiden, animated: true)
         ZSFloatingManager.share.window?.rootViewController?.setNeedsStatusBarAppearanceUpdate()
     }
     
@@ -59,6 +60,11 @@ class BaseViewController: UIViewController, IndicatableView {
     
     @objc func popAction(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - UIGestureRecognizerDelegate
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     //MARK: - progress
