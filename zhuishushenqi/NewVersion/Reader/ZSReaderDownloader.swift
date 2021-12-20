@@ -43,10 +43,8 @@ class ZSReaderDownloader {
     
     func requestData(url:String, handler:@escaping ZSBaseCallback<Data>) {
         let task = DataTask(url: url)
-        task.resultHandler = { [weak self] (data, error) in
-            self?.queue.async {
-                handler(data)
-            }
+        task.resultHandler = { (data, error) in
+            handler(data)
         }
         task.resume()
     }
@@ -56,13 +54,19 @@ class ZSReaderDownloader {
                        contentReg:String,
                        contentReplaceReg:String,
                        handler:@escaping ZSBaseCallback<String>) {
+        func callback(handler:@escaping ZSBaseCallback<String>, content:String) {
+            DispatchQueue.main.async {
+                handler(content)
+            }
+        }
         requestData(url: url) { [weak self] (data) in
             guard let strongSelf = self else { return }
-            guard let responseData = data else { return }
-            let originContent = strongSelf.getContent(htmlData: responseData, reg: contentReg, encoding: encoding)
-            let targetContent = strongSelf.contentTrim(content: originContent, reg: contentReplaceReg)
-            DispatchQueue.main.async {
-                handler(targetContent)
+            if let responseData = data {
+                let originContent = strongSelf.getContent(htmlData: responseData, reg: contentReg, encoding: encoding)
+                let targetContent = strongSelf.contentTrim(content: originContent, reg: contentReplaceReg)
+                callback(handler: handler, content: targetContent)
+            } else {
+                callback(handler: handler, content: "")
             }
         }
     }
