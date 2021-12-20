@@ -120,7 +120,7 @@ class ZSReaderBaseViewModel {
         // 是否存在缓存了
         guard let book = model else { return }
         let exist = ZSBookCache.share.isContentExist(chapter.chapterUrl, book: book.bookName)
-        if exist {
+        if exist && !chapter.contentNil() {
             if let chapter = ZSBookCache.share.content(for: chapter.chapterUrl, book: book.bookName) {
                 callback(chapter, .memory)
                 self.preRequest(chapter: chapter)
