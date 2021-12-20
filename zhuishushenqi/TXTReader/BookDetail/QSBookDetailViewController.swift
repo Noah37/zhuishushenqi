@@ -56,6 +56,11 @@ class QSBookDetailViewController: BaseViewController,UITableViewDataSource,UITab
         presenter?.viewDidLoad(id: id)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     func initSubview(){
         let titleView = UIView(frame: CGRect(x: 0,y: 0,width: 120,height: 30))
         let titleLabel = UILabel(frame: CGRect(x: 0,y: 0,width: 90,height: 30))

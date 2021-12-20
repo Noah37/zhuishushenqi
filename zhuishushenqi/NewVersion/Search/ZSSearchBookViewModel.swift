@@ -227,7 +227,9 @@ class ZSSearchBookViewModel {
                 book.detailBookIcon = bookDetailInfo[string:sself.detailBookIcon]
                 book.bookLastChapterName = book.bookLastChapterName.length > 0 ? book.bookLastChapterName: bookDetailInfo[string:sself.bookLastChapterName]
                 book.bookUpdateTime = book.bookUpdateTime.length > 0 ? book.bookUpdateTime:bookDetailInfo[string:sself.bookUpdateTime]
-                completion(book)
+                DispatchQueue.main.async {
+                    completion(book)
+                }
             }
         }
     }

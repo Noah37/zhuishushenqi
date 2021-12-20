@@ -87,6 +87,9 @@ Main development of zhuishushenqi olny support Swift 5.0+.
 
 =======
 
+## regular
+ [添加来源](addSource.md)
+
 ### 效果图如下：
 <!--![zhuishushenqi](zhuishushenqi.png)
 ![zhuishenqiing](images/qs_bookshelf.png)

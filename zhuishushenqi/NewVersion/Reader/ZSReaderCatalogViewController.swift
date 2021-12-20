@@ -96,7 +96,9 @@ class ZSReaderCatalogViewController: BaseViewController , ZSSearchInfoTableViewC
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let chapter = self.model?.chaptersModel[indexPath.row] {
             ZSReaderDownloader.share.download(chapter: chapter,book:model!, reg: model!.content) { [weak self] (chapter) in
-                DispatchQueue.main.async {
+                if chapter.contentNil() {
+                    Toast.show(tip: "下载失败", .failure, 1)
+                } else {
                     self?.tableView.reloadData()
                 }
             }

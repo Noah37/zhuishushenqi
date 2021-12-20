@@ -49,7 +49,7 @@ class ZSMineViewController: BaseViewController, ZSMineNavigationBarDelegate {
         tableView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(kNavgationBarHeight)
-            make.height.equalTo(ScreenHeight - kNavgationBarHeight - kTabbarBlankHeight - FOOT_BAR_Height)
+            make.height.equalTo(ScreenHeight - kNavgationBarHeight - FOOT_BAR_Height)
         }
         observe()
         setupMenu()
