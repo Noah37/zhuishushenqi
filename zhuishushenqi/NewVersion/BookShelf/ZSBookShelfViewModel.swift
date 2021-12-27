@@ -33,9 +33,6 @@ class ZSBookShelfViewModel {
     func requestMsg(completion: @escaping(_ index:Int)->Void) {
         shelvesWebService.fetchShelfMsg { [weak self] (message) in
             self?.shelfMsg = message
-            DispatchQueue.main.async {
-                completion(0)
-            }
             self?.update(completion: completion)
         }
     }
@@ -53,10 +50,14 @@ class ZSBookShelfViewModel {
                         src.update = true
                     }
                     src.latestChapterName = lastChapter?.chapterName ?? ""
-                    ZSShelfManager.share.modifyAikan(src)
+                    DispatchQueue.global().sync {
+                        ZSShelfManager.share.modifyAikan(src)
+                    }
                     let index = books.index(of: bookPath) ?? -1
-                    DispatchQueue.main.async {
-                        completion(index)
+                    if index == books.count - 1 {
+                        DispatchQueue.main.async {
+                            completion(index)
+                        }
                     }
                 }
             }
