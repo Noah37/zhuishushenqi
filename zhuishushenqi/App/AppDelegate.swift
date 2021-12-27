@@ -8,15 +8,18 @@
 
 import UIKit
 import RxSwift
+import GoogleMobileAds
 
 #if DEBUG
 //import DoraemonKit
 import FLEX
+import ZSAppConfig
 #endif
 
 
 let rightScaleX:CGFloat = 0.2
 let rootVCKey = "rootVCKey"
+let GADUnitID = "ca-app-pub-6271484308025079/5733340734"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,9 +27,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var lastTabVC:UIViewController?
+    
+    var appOpenAd:GADAppOpenAd?
+    
+    var loadTime:Date?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        AppOpenAdManager.shared.loadAd()
+        
+        BUAdManager.shared.loadAd()
+
         #if DEBUG
 //        DoraemonManager.shareInstance().install()
         FLEXManager.shared().showExplorer()
@@ -35,43 +47,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(type(of: self).removeAllObjects), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-//        if let newTabVC = UserDefaults.standard.value(forKey: rootVCKey) as? Bool {
-            let tabBarVC = ZSTabBarController()
-            window?.rootViewController = tabBarVC
-            window?.makeKeyAndVisible()
-
-
-//        } else {
-//            let sideVC = SideViewController.shared
-//            sideVC.contentViewController = ZSRootViewController()
-//            sideVC.rightViewController = RightViewController()
-//            sideVC.leftViewController = LeftViewController()
-//            let sideNavVC = ZSBaseNavigationViewController(rootViewController: sideVC)
-//            window?.rootViewController = sideNavVC
-//            window?.makeKeyAndVisible()
+        
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        let tabBarVC = ZSTabBarController()
+//        window?.rootViewController = tabBarVC
             
-//            let splash = QSSplashScreen()
-//            let disposeBag = DisposeBag()
-//            splash.show {
-//                // 新版本特性
-//                let firstRun = USER_DEFAULTS.object(forKey: "FIRSTRUN") as? Bool
-//                if firstRun == nil {
-//                    USER_DEFAULTS.set(false, forKey: "FIRSTRUN")
-//                    let introduce = QSIntroducePage()
-//                    introduce.show(completion: {
-//                        // 根据性别推荐书籍(第一次安装才会出现) 由home页面自己发起
-//                        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue:SHOW_RECOMMEND)))
-//                    })
-//                }else{
-//                    let mainWindow:UIWindow? = (UIApplication.shared.delegate?.window)!
-//                    mainWindow?.makeKeyAndVisible()
-//                }
+//        let splash = QSSplashScreen()
+//        let disposeBag = DisposeBag()
+//        splash.show { [weak self] in
+//            // 新版本特性
+//            let firstRun = USER_DEFAULTS.object(forKey: "FIRSTRUN") as? Bool
+//            if firstRun == nil {
+//                USER_DEFAULTS.set(false, forKey: "FIRSTRUN")
+//                let introduce = QSIntroducePage()
+//                introduce.show(completion: {
+//                    // 根据性别推荐书籍(第一次安装才会出现) 由home页面自己发起
+//                    NotificationCenter.default.post(Notification(name: Notification.Name(rawValue:SHOW_RECOMMEND)))
+//                })
+//            }else{
+//                self?.window?.makeKeyAndVisible()
 //            }
-//            splash.subject.subscribe { (event) in
-//
-//                }.disposed(by: disposeBag)
 //        }
+//        splash.subject.subscribe { (event) in
+//
+//            }.disposed(by: disposeBag)
         
         UIApplication.shared.setStatusBarHidden(false, with: .fade)
         #if DEBUG
@@ -247,6 +246,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        let rootViewController = application.windows.first(
+              where: { $0.isKeyWindow })?.rootViewController
+        if let rootViewController = rootViewController {
+          // Do not show app open ad if the current view controller is SplashViewController.
+          if rootViewController is SplashViewController {
+            return
+          }
+          AppOpenAdManager.shared.showAdIfAvailable(viewController: rootViewController)
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

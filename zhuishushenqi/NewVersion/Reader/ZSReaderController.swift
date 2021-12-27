@@ -693,6 +693,11 @@ class ZSReaderController: BaseViewController, ZSReaderToolbarDelegate,ZSReaderCa
             voiceBook.start(sentence: paragraph)
         }
     }
+    
+    //MARK: - UIGestureRecognizer
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
 }
 
 extension ZSReaderController:UIPageViewControllerDataSource, UIPageViewControllerDelegate {
