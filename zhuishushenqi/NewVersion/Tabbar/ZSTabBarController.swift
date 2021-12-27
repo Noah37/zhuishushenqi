@@ -18,6 +18,7 @@ class ZSTabBarController: UITabBarController,UITabBarControllerDelegate {
         delegate = self
         
         setupSubviews()
+//        BUAdManager.shared.startBUAdSDK(viewController: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,12 +77,10 @@ class ZSTabBarController: UITabBarController,UITabBarControllerDelegate {
         mineNav.tabBarItem = mineItem
         
         viewControllers = [homeNav, channelNav, dynamicNav, vipNav, mineNav]
-        for (_, item) in tabBar.items!.enumerated() {
-            let normalAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 0.48, green: 0.48, blue: 0.48, alpha: 1.0)]
-            let selectedAttributes = [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#A70B0B")]
-            item.setTitleTextAttributes(normalAttributes, for: .normal)
-            item.setTitleTextAttributes(selectedAttributes as [NSAttributedString.Key : Any], for: .selected)
-        }
+        let normalAttributes = [NSAttributedString.Key.foregroundColor:UIColor(hexString: "7A7A7A")]
+        let selectedAttributes = [NSAttributedString.Key.foregroundColor:UIColor(hexString: "#A70B0B")]
+        UITabBarItem.appearance().setTitleTextAttributes(normalAttributes as [NSAttributedString.Key : Any], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes(selectedAttributes as [NSAttributedString.Key : Any], for: .selected)
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {

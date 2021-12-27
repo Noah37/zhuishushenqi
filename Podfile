@@ -50,6 +50,9 @@ pod 'Zip'
 pod 'RxAlamofire'
 pod 'RxCocoa'
 pod 'UICircularProgressRing'
+pod 'RCBacktrace', '~> 0.1.6'
+pod 'Google-Mobile-Ads-SDK'
+pod 'Ads-CN'
 pod 'YungCache', :git => 'https://github.com/Noah37/YungCache.git'
 pod 'YungNetworkTool', :git => 'https://github.com/Noah37/YungNetworkTool.git'
 
@@ -61,13 +64,31 @@ pod 'ZSExtension', :path => "zhuishushenqi/NewVersion/ZSExtension"
 end
 
 post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    # 我們也可以懶惰不用 if，讓所有 pod 的版本都設為一樣的
-    target.build_configurations.each do |config|
-      config.build_settings['SWIFT_VERSION'] = '5.0'
-    end
+
+  ## Fix for XCode 12.5
+  find_and_replace("Pods/FBRetainCycleDetector/FBRetainCycleDetector/Layout/Classes/FBClassStrongLayout.mm",
+                      "layoutCache[currentClass] = ivars;", "layoutCache[(id<NSCopying>)currentClass] = ivars;")
+    
+#  installer.pods_project.targets.each do |target|
+#    # 我們也可以懶惰不用 if，讓所有 pod 的版本都設為一樣的
+#    target.build_configurations.each do |config|
+#      config.build_settings['SWIFT_VERSION'] = '5.0'
+#    end
     
 #    if ['RxSwift', 'RxSwiftExt', 'RxCocoa', 'RxDataSources', 'ProtocolBuffers-Swift'].include? target.name
 #    end
+#  end
+end
+
+def find_and_replace(dir, findstr, replacestr)
+  Dir[dir].each do |name|
+      text = File.read(name)
+      replace = text.gsub(findstr,replacestr)
+      if text != replace
+          puts "Fix: " + name
+          File.open(name, "w") { |file| file.puts replace }
+          STDOUT.flush
+      end
   end
+  Dir[dir + '*/'].each(&method(:find_and_replace))
 end

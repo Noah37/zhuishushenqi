@@ -70,38 +70,32 @@ class QSSplashScreen: NSObject {
         }
         
         // request splash image
-//        QSNetwork.request(splashURL) { (response) in
-//            let splash =  response.json?["splash"] as? [[String:Any]]
-//            if (splash?.count ?? 0) > 0{
-//                if let splashInfo = splash?[0] {
-//                    // save splash info,download image and save it
-//                    self.splashInfo = splashInfo
-//                    self.downloadSplashImage()
-//                }else{
-//                    self.hide()
-//                }
-//            }else {
-//            }
-//        }
-        self.hide()
+        zs_getObj(splashURL) { (response) in
+            if let splash =  response as? [String:Any] {
+                if let splashInfo = splash["splash"] as? [[String:Any]] {
+                    // save splash info,download image and save it
+                    self.splashInfo = splashInfo.first ?? [:]
+                    self.downloadSplashImage()
+                } else{
+                    self.hide()
+                }
+            } else {
+                self.hide()
+            }
+        }
     }
     
     func downloadSplashImage(){
         let urlString = getSplashURLString()
         zs_download(url: urlString) { (response) in
-            
+            guard let path = response?["url"] as? String else    { return }
+            guard let splachImage = UIImage(contentsOfFile: path) else { return }
+            self.splashInfo[self.splashImageNameKey] = path.ocString.lastPathComponent
+            let cacheBasePath = "/ZSSQ/Splash"
+            ZSCacheHelper.shared.storage(obj: self.splashInfo, for: self.splashInfoKey, cachePath: cacheBasePath)
+            self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
+            self.splashRootVC?.setSplashImage(image: splachImage)
         }
-//        QSNetwork.download(urlString) { (fileURL, response, error) in
-//            QSLog("\(fileURL?.path ?? "")")
-//            let splashImage = UIImage(contentsOfFile: fileURL?.path ?? "")
-//            self.splashInfo[self.splashImageNameKey] = fileURL?.lastPathComponent ?? ""
-//            let path = "/ZSSQ/Splash"
-//            ZSCacheHelper.shared.storage(obj: self.splashInfo, for: self.splashInfoKey, cachePath: path)
-//            self.perform(#selector(self.showSplash), with: nil, afterDelay: 1.0)
-//            if let image  = splashImage {
-//                self.splashRootVC?.setSplashImage(image: image)
-//            }
-//        }
     }
     
     @objc func showSplash(){
