@@ -148,7 +148,7 @@ DEPENDENCIES:
   - ZSExtension (from `zhuishushenqi/NewVersion/ZSExtension`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/CocoaPods/Specs:
     - Ads-CN
     - Alamofire
     - Cache
@@ -253,4 +253,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d23f409f469d9e61efa867671ba63d950b5ddbac
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.1

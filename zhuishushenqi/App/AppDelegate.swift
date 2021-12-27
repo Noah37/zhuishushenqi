@@ -34,8 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
-        AppOpenAdManager.shared.loadAd()
+        // Cause UI API called on a background thread issue.
+//        GADMobileAds.sharedInstance().start(completionHandler: nil)
+//        AppOpenAdManager.shared.loadAd()
         
         BUAdManager.shared.loadAd()
 
@@ -173,6 +174,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     }
     
+    func showSplash(application: UIApplication) {
+        let rootViewController = application.windows.first(
+              where: { $0.isKeyWindow })?.rootViewController
+        if let rootViewController = rootViewController {
+          // Do not show app open ad if the current view controller is SplashViewController.
+          if rootViewController is SplashViewController {
+            return
+          }
+            BUAdManager.shared.startBUAdSDK(viewController: rootViewController)
+//          AppOpenAdManager.shared.showAdIfAvailable(viewController: rootViewController)
+        }
+    }
+    
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         let path = "\(NSHomeDirectory())/Documents/Inbox/"
         ZSShelfManager.share.scanPath(path: path)
@@ -217,6 +231,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        showSplash(application: application)
         let pasteboard = UIPasteboard.general
         let items = pasteboard.items
         for item in items {
@@ -246,15 +261,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        let rootViewController = application.windows.first(
-              where: { $0.isKeyWindow })?.rootViewController
-        if let rootViewController = rootViewController {
-          // Do not show app open ad if the current view controller is SplashViewController.
-          if rootViewController is SplashViewController {
-            return
-          }
-          AppOpenAdManager.shared.showAdIfAvailable(viewController: rootViewController)
-        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

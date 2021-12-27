@@ -27,8 +27,15 @@ class SplashViewController: UIViewController, AppOpenAdManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AppOpenAdManager.shared.appOpenAdManagerDelegate = self
-        startTimer()
+        BUAdManager.shared.completion = { [weak self] in
+            self?.startMainScreen()
+        }
+//        startTimer()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        BUAdManager.shared.startBUAdSDK(viewController: self)
     }
     
     @objc func decrementCounter() {
@@ -38,7 +45,8 @@ class SplashViewController: UIViewController, AppOpenAdManagerDelegate {
         } else {
             splashScreenLabel.text = "Done."
             countdownTimer?.invalidate()
-            AppOpenAdManager.shared.showAdIfAvailable(viewController: self)
+            BUAdManager.shared.startBUAdSDK(viewController: self)
+//            AppOpenAdManager.shared.showAdIfAvailable(viewController: self)
         }
     }
     

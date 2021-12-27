@@ -10,6 +10,8 @@ import Foundation
 import BUAdSDK
 import UIKit
 
+typealias BUAdHandler = ()->Void
+
 class BUAdManager:NSObject {
     
     private static let appKey = "5256970"
@@ -23,6 +25,8 @@ class BUAdManager:NSObject {
     private var startTime:CFTimeInterval = 0
     
     private var loadAdSuccess:Bool = false
+    
+    var completion:BUAdHandler?
     
     func loadAd() {
         let territory = UserDefaults.standard.integer(forKey: "territory")
@@ -44,6 +48,8 @@ class BUAdManager:NSObject {
     func startBUAdSDK(viewController:UIViewController) {
         if loadAdSuccess {
             addSplashAD(viewController: viewController)
+        } else {
+            completion?()
         }
     }
     
@@ -71,6 +77,7 @@ extension BUAdManager:BUSplashAdDelegate {
     }
     
     func splashAdDidClose(_ splashAd: BUSplashAdView) {
+        completion?()
         removeSplashAd()
     }
     
@@ -79,6 +86,7 @@ extension BUAdManager:BUSplashAdDelegate {
     }
     
     func splashAd(_ splashAd: BUSplashAdView, didFailWithError error: Error?) {
+        completion?()
         removeSplashAd()
     }
     

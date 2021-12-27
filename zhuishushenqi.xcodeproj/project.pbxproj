@@ -193,7 +193,6 @@
 		3DF6238D277970270049FD73 /* AppOpenAdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6238C277970260049FD73 /* AppOpenAdManager.swift */; };
 		3DF6238F277970B80049FD73 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6238E277970B80049FD73 /* SplashViewController.swift */; };
 		3DF623912779AE100049FD73 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF623902779AE100049FD73 /* AdSupport.framework */; };
-		3DF623932779AE240049FD73 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF623922779AE230049FD73 /* AppTrackingTransparency.framework */; };
 		3DF623952779AE4D0049FD73 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF623942779AE4D0049FD73 /* CoreLocation.framework */; };
 		3DF623972779AE7B0049FD73 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF623962779AE7B0049FD73 /* JavaScriptCore.framework */; };
 		3DF623992779AE8C0049FD73 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF623982779AE8C0049FD73 /* MapKit.framework */; };
@@ -1442,7 +1441,6 @@
 				3DF623992779AE8C0049FD73 /* MapKit.framework in Frameworks */,
 				3DF623972779AE7B0049FD73 /* JavaScriptCore.framework in Frameworks */,
 				3DF623952779AE4D0049FD73 /* CoreLocation.framework in Frameworks */,
-				3DF623932779AE240049FD73 /* AppTrackingTransparency.framework in Frameworks */,
 				3DF623912779AE100049FD73 /* AdSupport.framework in Frameworks */,
 				B2A7CD83217F33230067D25B /* Photos.framework in Frameworks */,
 				3DD0843C2157C136008E3B4A /* Contacts.framework in Frameworks */,

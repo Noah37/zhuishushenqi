@@ -153,10 +153,15 @@ class ZSBookShelfViewController: BaseViewController, NavigationBarDelegate, ZSBo
     
     func observe() {
         shelfViewModel = ZSBookShelfViewModel()
-        shelfViewModel?.reloadBlock = { [weak self] in
+        shelfViewModel?.reloadBlock = { [weak self] row in
             DispatchQueue.main.async {
                 self?.stopRefresh()
-                self?.tableView.reloadData()
+                if row >= 0 {
+                    let indexPath = IndexPath(row: row, section: 0)
+                    self?.tableView.reloadRows(at: [indexPath], with: .none)
+                } else {
+                    self?.tableView.reloadData()
+                }
             }
         }
         NotificationCenter.default.addObserver(self, selector: #selector(localChangeNoti(noti:)), name: NSNotification.Name.ShelfChanged, object: nil)

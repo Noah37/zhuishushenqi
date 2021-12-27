@@ -11,36 +11,36 @@ import UIKit
 class ZSBookShelfViewModel {
     
     var viewDidLoad: ()->() = {}
-    var reloadBlock: ()->() = {}
+    var reloadBlock: (_ row:Int)->() = { row in }
     var shelfMsg:ZSShelfMessage?
     var searchViewModel:ZSSearchBookViewModel = ZSSearchBookViewModel()
     fileprivate let shelvesWebService = ZSShelfWebService()
     
     init() {
         viewDidLoad = { [weak self] in
-            self?.requestMsg(completion: {
-                self?.reloadBlock()
+            self?.requestMsg(completion: { index in
+                self?.reloadBlock(index)
             })
         }
     }
     
     func requestMsg() {
-        requestMsg { [weak self] in
-            self?.reloadBlock()
+        requestMsg { [weak self] index in
+            self?.reloadBlock(index)
         }
     }
     
-    func requestMsg(completion: @escaping()->Void) {
+    func requestMsg(completion: @escaping(_ index:Int)->Void) {
         shelvesWebService.fetchShelfMsg { [weak self] (message) in
             self?.shelfMsg = message
             DispatchQueue.main.async {
-                completion()
+                completion(0)
             }
             self?.update(completion: completion)
         }
     }
     
-    func update(completion:@escaping() ->Void) {
+    func update(completion:@escaping(_ index:Int) ->Void) {
         let books = ZSShelfManager.share.books
         for bookPath in books {
             guard let book = ZSShelfManager.share.getShelfModel(bookPath: bookPath) else { return }
@@ -54,8 +54,9 @@ class ZSBookShelfViewModel {
                     }
                     src.latestChapterName = lastChapter?.chapterName ?? ""
                     ZSShelfManager.share.modifyAikan(src)
+                    let index = books.index(of: bookPath) ?? -1
                     DispatchQueue.main.async {
-                        completion()
+                        completion(index)
                     }
                 }
             }
