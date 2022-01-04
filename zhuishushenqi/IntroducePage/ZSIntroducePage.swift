@@ -20,13 +20,8 @@ class ZSIntroducePage {
     func show(completion:Completion?){
         self.completion = completion
         detachRootViewController()
-        if #available(iOS 13.0, *) {
-            if let windowScene = UIApplication.windowScene {
-                splashWindow = UIWindow(windowScene: windowScene)
-            }
-        } else {
-            splashWindow = UIWindow(frame: UIScreen.main.bounds)
-        }
+        splashWindow = UIWindow(frame: UIScreen.main.bounds)
+        splashWindow?.windowLevel = .statusBar
         splashWindow?.frame = UIScreen.main.bounds
         splashWindow?.backgroundColor = UIColor.white
         introduceRootVC = QSIntroduceViewController()
@@ -34,13 +29,12 @@ class ZSIntroducePage {
             self.hide()
         }
         splashWindow?.rootViewController = introduceRootVC
-        splashWindow?.makeKeyAndVisible()
+        splashWindow?.isHidden = false
     }
     
     func hide(){
         attachRootViewController()
-        let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
-        keyWindow?.makeKeyAndVisible()
+        splashWindow?.isHidden = true
         if let complete = completion {
             complete()
         }

@@ -51,7 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 新版本特性
         let firstRun = USER_DEFAULTS.bool(forKey: UserDefaults.firstRunKey)
         if !firstRun {
-            USER_DEFAULTS.set(false, forKey: UserDefaults.firstRunKey)
+            USER_DEFAULTS.set(true, forKey: UserDefaults.firstRunKey)
+            USER_DEFAULTS.synchronize()
             ZSIntroducePage.shared.show {
                 // 根据性别推荐书籍(第一次安装才会出现) 由home页面自己发起
                 NotificationCenter.default.post(Notification(name: Notification.Name(rawValue:SHOW_RECOMMEND)))
@@ -78,6 +79,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
         let navbarTitleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )]
         UINavigationBar.appearance().titleTextAttributes = navbarTitleTextAttributes
+        
+        UITabBar.appearance().tintColor = UIColor ( red: 0.7235, green: 0.0, blue: 0.1146, alpha: 1.0 )
         
 //        let APP_KEY = "e31646fa4555ea3472d4114921ee192e"
 //        let APP_SECRET = "b961a55b60fbd7129e49a986e44352fb"

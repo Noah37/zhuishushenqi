@@ -39,6 +39,9 @@ class ZSBookShelfViewModel {
     
     func update(completion:@escaping(_ index:Int) ->Void) {
         let books = ZSShelfManager.share.books
+        if books.count == 0 {
+            completion(-1)
+        }
         for bookPath in books {
             guard let book = ZSShelfManager.share.getShelfModel(bookPath: bookPath) else { return }
             ZSShelfManager.share.getAikanModel(book) { [weak self] (result) in
@@ -53,7 +56,7 @@ class ZSBookShelfViewModel {
                     DispatchQueue.global().sync {
                         ZSShelfManager.share.modifyAikan(src)
                     }
-                    let index = books.index(of: bookPath) ?? -1
+                    let index = books.firstIndex(of: bookPath) ?? -1
                     if index == books.count - 1 {
                         DispatchQueue.main.async {
                             completion(-1)
