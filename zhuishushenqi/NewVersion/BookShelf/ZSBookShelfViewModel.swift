@@ -56,7 +56,7 @@ class ZSBookShelfViewModel {
                     let index = books.index(of: bookPath) ?? -1
                     if index == books.count - 1 {
                         DispatchQueue.main.async {
-                            completion(index)
+                            completion(-1)
                         }
                     }
                 }

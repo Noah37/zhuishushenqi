@@ -12,6 +12,17 @@ import UIKit
 #if DEBUG
 extension UIApplication {
     
+    @available(iOS 13.0, *)
+    static let windowScene:UIWindowScene? = UIApplication.shared.connectedScenes.filter { $0.activationState == .foregroundActive }.first as? UIWindowScene
+    
+    var keywindow:UIWindow? {
+        if #available(iOS 13.0, *) {
+            return UIApplication.windowScene?.windows.first(where: { $0.isKeyWindow })
+        } else {
+            return UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+        }
+    }
+    
     private class ApplicationState {
         
         static let shared = ApplicationState()

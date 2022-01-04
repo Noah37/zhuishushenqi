@@ -27,6 +27,7 @@ class BUAdManager:NSObject {
     private var loadAdSuccess:Bool = false
     
     var completion:BUAdHandler?
+    var success:BUAdHandler?
     
     func loadAd() {
         let territory = UserDefaults.standard.integer(forKey: "territory")
@@ -73,7 +74,7 @@ class BUAdManager:NSObject {
 extension BUAdManager:BUSplashAdDelegate {
     
     func splashAdDidLoad(_ splashAd: BUSplashAdView) {
-        
+        success?()
     }
     
     func splashAdDidClose(_ splashAd: BUSplashAdView) {
@@ -82,7 +83,8 @@ extension BUAdManager:BUSplashAdDelegate {
     }
     
     func splashAdDidClickSkip(_ splashAd: BUSplashAdView) {
-        
+        completion?()
+        removeSplashAd()
     }
     
     func splashAd(_ splashAd: BUSplashAdView, didFailWithError error: Error?) {
@@ -91,6 +93,10 @@ extension BUAdManager:BUSplashAdDelegate {
     }
     
     func splashAdCountdown(toZero splashAd: BUSplashAdView) {
+        
+    }
+    
+    func splashAdDidCloseOtherController(_ splashAd: BUSplashAdView, interactionType: BUInteractionType) {
         
     }
 }

@@ -16,42 +16,41 @@
 
 import UIKit
 
-class SplashViewController: UIViewController, AppOpenAdManagerDelegate {
+class SplashViewController: UIViewController {
     /// Number of seconds remaining to show the app open ad.
     /// This simulates the time needed to load the app.
-    var secondsRemaining: Int = 5
+    var secondsRemaining: Int = 1
     /// The countdown timer.
     var countdownTimer: Timer?
-    /// Text that indicates the number of seconds left to show an app open ad.
-    @IBOutlet weak var splashScreenLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         BUAdManager.shared.completion = { [weak self] in
+            self?.stopTimer()
             self?.startMainScreen()
         }
-//        startTimer()
+        BUAdManager.shared.success = { [weak self] in
+            self?.stopTimer()
+        }
+        BUAdManager.shared.startBUAdSDK(viewController: self)
+        startTimer()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        BUAdManager.shared.startBUAdSDK(viewController: self)
     }
     
     @objc func decrementCounter() {
         secondsRemaining -= 1
         if secondsRemaining > 0 {
-            splashScreenLabel.text = "App is done loading in: \(secondsRemaining)"
+            
         } else {
-            splashScreenLabel.text = "Done."
             countdownTimer?.invalidate()
-            BUAdManager.shared.startBUAdSDK(viewController: self)
-//            AppOpenAdManager.shared.showAdIfAvailable(viewController: self)
+            startMainScreen()
         }
     }
     
     func startTimer() {
-        splashScreenLabel.text = "App is done loading in: \(secondsRemaining)"
         countdownTimer = Timer.scheduledTimer(
             timeInterval: 1.0,
             target: self,
@@ -60,18 +59,19 @@ class SplashViewController: UIViewController, AppOpenAdManagerDelegate {
             repeats: true)
     }
     
+    func stopTimer() {
+        countdownTimer?.invalidate()
+        countdownTimer = nil
+    }
+    
     func startMainScreen() {
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         let mainViewController = mainStoryBoard.instantiateViewController(
             withIdentifier: "MainStoryBoard")
-        present(mainViewController, animated: false) {
-            self.dismiss(animated: false) {
-                // Find the keyWindow which is currently being displayed on the device,
-                // and set its rootViewController to mainViewController.
-                let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
-                keyWindow?.rootViewController = mainViewController
-            }
-        }
+        // Find the keyWindow which is currently being displayed on the device,
+        // and set its rootViewController to mainViewController.
+        let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+        keyWindow?.rootViewController = mainViewController
     }
     
     // MARK: AppOpenAdManagerDelegate

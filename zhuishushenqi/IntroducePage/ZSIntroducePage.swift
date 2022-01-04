@@ -1,5 +1,5 @@
 //
-//  QSIntroducePage.swift
+//  ZSIntroducePage.swift
 //  zhuishushenqi
 //
 //  Created by yung on 2017/6/9.
@@ -8,9 +8,11 @@
 
 import UIKit
 
-var introduceWindow:UIWindow?
-
-class QSIntroducePage: NSObject {
+class ZSIntroducePage {
+    
+    static let shared = ZSIntroducePage()
+    
+    var splashWindow:UIWindow?
     
     var completion:Completion?
     private var introduceRootVC:QSIntroduceViewController?
@@ -18,39 +20,45 @@ class QSIntroducePage: NSObject {
     func show(completion:Completion?){
         self.completion = completion
         detachRootViewController()
-        let splashWindoww = UIWindow(frame: UIScreen.main.bounds)
-        splashWindoww.backgroundColor = UIColor.white
+        if #available(iOS 13.0, *) {
+            if let windowScene = UIApplication.windowScene {
+                splashWindow = UIWindow(windowScene: windowScene)
+            }
+        } else {
+            splashWindow = UIWindow(frame: UIScreen.main.bounds)
+        }
+        splashWindow?.frame = UIScreen.main.bounds
+        splashWindow?.backgroundColor = UIColor.white
         introduceRootVC = QSIntroduceViewController()
         introduceRootVC?.completion = {
             self.hide()
         }
-        splashWindoww.rootViewController = introduceRootVC
-        introduceWindow = splashWindoww
-        introduceWindow?.makeKeyAndVisible()
+        splashWindow?.rootViewController = introduceRootVC
+        splashWindow?.makeKeyAndVisible()
     }
     
     func hide(){
         attachRootViewController()
-        let mainWindow:UIWindow? = (UIApplication.shared.delegate?.window)!
-        mainWindow?.makeKeyAndVisible()
+        let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+        keyWindow?.makeKeyAndVisible()
         if let complete = completion {
             complete()
         }
     }
 }
 
-extension QSIntroducePage {
+extension ZSIntroducePage {
     func detachRootViewController(){
         if originalRootViewController == nil {
-            let mainWindow:UIWindow? = (UIApplication.shared.delegate?.window)!
-            originalRootViewController = mainWindow?.rootViewController
+            let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+            originalRootViewController = keyWindow?.rootViewController
         }
     }
     
     func attachRootViewController(){
         if originalRootViewController != nil {
-            let mainWindow:UIWindow? = (UIApplication.shared.delegate?.window)!
-            mainWindow?.rootViewController = originalRootViewController
+            let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+            keyWindow?.rootViewController = originalRootViewController
         }
     }
 }
