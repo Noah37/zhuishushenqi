@@ -73,13 +73,13 @@ class ZSShelfManager {
     }
     
     func refresh() {
-        let path = "\(NSHomeDirectory())/Documents/Inbox/"
+        let path = ZSShelfConstant.inboxPath
         scanPath(path: path)
     }
     
     func local() {
-        let path = "\(NSHomeDirectory())/Documents/Inbox/"
-        let localPath = "\(NSHomeDirectory())/Documents/LocalBooks/"
+        let path = ZSShelfConstant.inboxPath
+        let localPath = ZSShelfConstant.localBooksPath
         let isDirectory:UnsafeMutablePointer<ObjCBool>? = UnsafeMutablePointer.allocate(capacity: 1)
         let localPathExist = FileManager.default.fileExists(atPath: localPath, isDirectory: isDirectory)
         if !localPathExist {
@@ -103,8 +103,8 @@ class ZSShelfManager {
                 let txtPathExtension = ".txt"
                 if filePath.hasSuffix(txtPathExtension) {
                     let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
-                    let bookUrl = "\(NSHomeDirectory())/Documents/Inbox/\(fileFullName)\(txtPathExtension)"
-                    let localBookUrl = "\(NSHomeDirectory())/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
+                    let bookUrl = "\(ZSShelfConstant.inboxPath)\(fileFullName)\(txtPathExtension)"
+                    let localBookUrl = "\(ZSShelfConstant.localBooksPath)\(fileFullName)\(txtPathExtension)"
                     if !FileManager.default.fileExists(atPath: localBookUrl) {
                         
                         try? FileManager.default.copyItem(atPath: bookUrl, toPath: localBookUrl)
@@ -113,7 +113,7 @@ class ZSShelfManager {
             }
         }
         localBooks.removeAll()
-        let localPath = "\(NSHomeDirectory())/Documents/LocalBooks/"
+        let localPath = ZSShelfConstant.localBooksPath
         guard let localItems = try? FileManager.default.contentsOfDirectory(atPath: localPath) else {
             isScanning = false
             return
@@ -123,7 +123,7 @@ class ZSShelfManager {
             let txtPathExtension = ".txt"
             if filePath.hasSuffix(txtPathExtension) {
                 let fileFullName = filePath.nsString.lastPathComponent.replacingOccurrences(of: txtPathExtension, with: "")
-                let localBookUrl = "/Documents/LocalBooks/\(fileFullName)\(txtPathExtension)"
+                let localBookUrl = "\(ZSShelfConstant.localBooks)\(fileFullName)\(txtPathExtension)"
                 let shelf = ZSShelfModel()
                 shelf.bookType = .local
                 shelf.bookName = fileFullName
@@ -445,6 +445,12 @@ class ZSShelfModel: NSObject,NSCoding, HandyJSON {
         self.update = coder.decodeBool(forKey: "update")
         self.latestChapterName = coder.decodeObject(forKey: "latestChapterName") as? String ?? ""
     }
+}
+
+class ZSShelfConstant {
+    static let inboxPath = "\(NSHomeDirectory())/Documents/Inbox/"
+    static let localBooksPath = "\(NSHomeDirectory())/Documents/LocalBooks/"
+    static let localBooks = "/Documents/LocalBooks/"
 }
 
 extension Array where Element:ZSShelfModel {

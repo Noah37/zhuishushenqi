@@ -38,14 +38,25 @@ class ZSBookShelfViewModel {
     }
     
     func update(completion:@escaping(_ index:Int) ->Void) {
+        func callback(index:Int) {
+            DispatchQueue.main.async {
+                completion(index)
+            }
+        }
         let books = ZSShelfManager.share.books
         if books.count == 0 {
             completion(-1)
         }
         for bookPath in books {
-            guard let book = ZSShelfManager.share.getShelfModel(bookPath: bookPath) else { return }
+            guard let book = ZSShelfManager.share.getShelfModel(bookPath: bookPath) else {
+                callback(index: -1)
+                return
+            }
             ZSShelfManager.share.getAikanModel(book) { [weak self] (result) in
-                guard let src = result else { return }
+                guard let src = result else {
+                    callback(index: -1)
+                    return
+                }
                 self?.searchViewModel.getBookInfo(src: src, bookUrl: book.bookUrl) { (chapters, info) in
                     let lastChapter = chapters.last
                     if chapters.count != src.chaptersModel.count {
@@ -58,9 +69,7 @@ class ZSBookShelfViewModel {
                     }
                     let index = books.firstIndex(of: bookPath) ?? -1
                     if index == books.count - 1 {
-                        DispatchQueue.main.async {
-                            completion(-1)
-                        }
+                        callback(index: -1)
                     }
                 }
             }
