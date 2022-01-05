@@ -18,7 +18,6 @@ class ZSTabBarController: UITabBarController,UITabBarControllerDelegate {
         delegate = self
         
         setupSubviews()
-//        BUAdManager.shared.startBUAdSDK(viewController: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {

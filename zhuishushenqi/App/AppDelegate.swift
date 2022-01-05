@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.shared.statusBarStyle = .lightContent
         }
         #if DEBUG
-            let fpsLabel = V2FPSLabel(frame: CGRect(x:15, y:ScreenHeight-40, width:55,height: 20));
+            let fpsLabel = V2FPSLabel(frame: CGRect(x:15, y:ScreenHeight-100, width:55,height: 20));
             self.window?.addSubview(fpsLabel);
         #else
         #endif
@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ZSBookManager.shared
         
-        let path = "\(NSHomeDirectory())/Documents/Inbox/"
+        let path = ZSShelfConstant.inboxPath
         ZSShelfManager.share.scanPath(path: path)
 
         
@@ -180,7 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        let path = "\(NSHomeDirectory())/Documents/Inbox/"
+        let path = ZSShelfConstant.inboxPath
         ZSShelfManager.share.scanPath(path: path)
         return true
     }

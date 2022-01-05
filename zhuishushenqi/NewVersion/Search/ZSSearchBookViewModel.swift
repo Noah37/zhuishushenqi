@@ -236,11 +236,11 @@ class ZSSearchBookViewModel {
     
     func getBookInfo(src:ZSAikanParserModel, bookUrl:String, completion:@escaping(_ chapters:[ZSBookChapter], _ bookDetailInfo:[String:String])->Void) {
         NET.requestData(url: bookUrl) { [weak self](data) in
-            guard let sself = self else { return }
-            guard let responseData = data else { return }
+            guard let sself = self else { completion([],[:]); return }
+            guard let responseData = data else { completion([],[:]); return }
             let htmlString = String(data: responseData, encoding: String.Encoding.zs_encoding(str: src.searchEncoding)) ?? ""
             let noTagString = sself.contentTagRemove(string: htmlString, reg: src.contentTagReplace, encoding: src.searchEncoding)
-            guard let document = OCGumboDocument(htmlString: noTagString) else { return }
+            guard let document = OCGumboDocument(htmlString: noTagString) else { completion([],[:]); return }
             let parse = AikanHtmlParser()
             var bookDetailInfo:[String:String] = [:]
             bookDetailInfo[sself.detailBookDesc] = parse.string(withGumboNode: document, withAikanString: src.detailBookDesc, withText: false)
@@ -253,7 +253,7 @@ class ZSSearchBookViewModel {
                 var chapterDir = parse.string(withGumboNode: document, withAikanString: reg, withText: false)
                 chapterDir = chapterDir.schemeURLString(src.host)
                 sself.getDetailChapters(chaptersUrl: chapterDir, bookUrl: bookUrl, src: src) { (chapters) in
-                    guard let chapterModels = chapters else { return }
+                    guard let chapterModels = chapters else { completion([],[:]); return }
                     completion(chapterModels, bookDetailInfo)
                 }
             } else {
