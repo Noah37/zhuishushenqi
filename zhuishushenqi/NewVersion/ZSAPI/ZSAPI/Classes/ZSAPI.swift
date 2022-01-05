@@ -143,6 +143,25 @@ public enum ZSAPI {
     case unimportant(token:String)
     // 社区tweet详情
     case post(key:String)
+    // 新版社区
+    case communityHot(start:Int, limit:Int)
+    // 社区回复
+    case bookAidAnswer(key:String)
+    // 热评
+    case bookAidBestComment(key:String)
+    // 一般评价
+    case bookAidComments(key:String)
+    // 社区提问
+    case bookAidQuestion(key:String)
+    // 社区书籍
+    case forumBook(key:String)
+    // 精确搜索
+    case accurateSearch(author:String, key:String, userId:String)
+    // 详情推荐
+    case bookRecommend(key:String, position:String, ts:Double)
+    // 章节内容
+    case chapterContent(key:String, token:String, thirdToken:String)
+//http://bookapi01.zhuishushenqi.com/book/crypto/chapterContent/5ec241a4f4fdb43320c34521?token=&third-token=0e05f2d6a4e2080EB811f1DA087eE362%3A75616d677637696a616a62627045d0b944fd1fa0ab281b3ce8f71eb65ae1ac96a6fbfe28829107b72e07c7f46375b7
 }
 //https://api.ximalaya.com/openapi-gateway-app/v2/albums/list?access_token=906bbf257eddd7ba84ceec277bdef5b5&app_key=e31646fa4555ea3472d4114921ee192e&client_os_type=1&device=iPhone&device_id=F6F542A1-1676-4D28-96C2-CF9D2F52F5FD&pack_id=com.ifmoc.ZhuiShuShenQi&sdk_version=5.4.7&calc_dimension=1&category_id=3&count=20&page=1&tag_name=%E8%A8%80%E6%83%85&type=0&sig=8db40bb73de647a3baba9afb4635eb8e&
 
@@ -336,6 +355,42 @@ extension ZSAPI:ZSTargetType{
         case let .post(key):
             pathComponent = "/post/\(key)?keepImage=1"
             break
+        case let .communityHot(_, _):
+        //http://community.zhuishushenqi.com/community/hots?start=20&limit=20&group=-1
+            pathComponent = "/community/hots"
+            break
+        case let .bookAidAnswer(key):
+//        https://community.zhuishushenqi.com/bookAid/answer/61d51a802c4c7a0001fb6530
+            pathComponent = "/bookAid/answer/\(key)"
+            break
+        case let .bookAidBestComment(key):
+//        https://community.zhuishushenqi.com/bookAid/answer/61d51a802c4c7a0001fb6530/bestComments
+            pathComponent = "/bookAid/answer/\(key)/bestComments"
+            break
+        case let .bookAidComments(key):
+//        https://community.zhuishushenqi.com/bookAid/answer/61af751d2c4c7a0001fb52ca/comments
+            pathComponent = "/bookAid/answer/\(key)/comments"
+            break
+        case let .bookAidQuestion(key):
+//        https://community.zhuishushenqi.com/bookAid/question/61d3c9e82c4c7a0001fb6496?token=&packageName=com.ifmoc.ZhuiShuShenQi
+            pathComponent = "/bookAid/question/\(key)?token=&packageName=com.ifmoc.ZhuiShuShenQi"
+            break
+        case let .forumBook(key):
+//        http://community.zhuishushenqi.com/forum/book/5ec241a4f4fdb43320c34521/hot?block=all_review
+            pathComponent = "/forum/book/\(key)/hot?block=all_review"
+            break
+        case let.accurateSearch(author, key, userId):
+//        http://b.zhuishushenqi.com/books/accurate-search-author?author=%E5%86%99%E7%A6%BB%E5%A3%B0&packageName=com.ifmoc.ZhuiShuShenQi&bookId=5ec241a4f4fdb43320c34521&userid=yk_ff4ef77e9f4b19f3281bb
+            pathComponent = "/books/accurate-search-author"
+            break
+        case let .bookRecommend(key, position, ts):
+//        http://b.zhuishushenqi.com/book/5ec241a4f4fdb43320c34521/recommend?packageName=com.ifmoc.ZhuiShuShenQi&position=detail&ts=1641396502
+            pathComponent = "/book/\(key)/recommend"
+            break
+        case let .chapterContent(key, token, thirdToken):
+            //http://bookapi01.zhuishushenqi.com/book/crypto/chapterContent/5ec241a4f4fdb43320c34521?token=&third-token=0e05f2d6a4e2080EB811f1DA087eE362%3A75616d677637696a616a62627045d0b944fd1fa0ab281b3ce8f71eb65ae1ac96a6fbfe28829107b72e07c7f46375b7
+            pathComponent = "/book/crypto/chapterContent/\(key)"
+            break
         default:
             pathComponent = ""
             break
@@ -363,6 +418,24 @@ extension ZSAPI:ZSTargetType{
             urlString = "https://api.zhuishushenqi.com"
         case .important(_):
             urlString = "https://api.zhuishushenqi.com"
+        case .communityHot(_, _):
+            urlString = "http://community.zhuishushenqi.com"
+        case .bookAidAnswer(_):
+            urlString = "https://community.zhuishushenqi.com"
+        case .bookAidBestComment(_):
+            urlString = "https://community.zhuishushenqi.com"
+        case .bookAidComments(_):
+            urlString = "https://community.zhuishushenqi.com"
+        case .bookAidQuestion(_):
+            urlString = "https://community.zhuishushenqi.com"
+        case .forumBook(_):
+            urlString = "http://community.zhuishushenqi.com"
+        case .accurateSearch(_, _, _):
+            urlString = "http://b.zhuishushenqi.com"
+        case .bookRecommend(_, _, _):
+            urlString = "http://b.zhuishushenqi.com"
+        case .chapterContent(_, _, _):
+            urlString = "http://bookapi.zhuishushenqi.com"
         default:
             urlString = "http://api.zhuishushenqi.com"
         }
@@ -482,6 +555,36 @@ extension ZSAPI:ZSTargetType{
             return ["token":"\(token)"]
         case let .unimportant(token):
             return ["token":"\(token)"]
+        case let .communityHot(start, limit):
+            return ["start":start,
+                    "limit":limit,
+                    "group":-1]
+        case .bookAidAnswer(_):
+            return nil
+        case .bookAidBestComment(_):
+            return nil
+        case .bookAidComments(_):
+            return nil
+        case .bookAidQuestion(_):
+            return nil
+        case let .accurateSearch(author, key, userId):
+            return [
+                "author":"\(author)",
+                "bookId":"\(key)",
+                "userid":"\(userId)",
+                "packageName":"com.ifmoc.ZhuiShuShenQi"
+            ]
+        case let .bookRecommend(key, position, ts):
+            return [
+                "ts":"\(ts)",
+                "position":"\(position)",
+                "packageName":"com.ifmoc.ZhuiShuShenQi"
+            ]
+        case let .chapterContent(key, token, thirdToken):
+            return [
+                "token":"\(token)",
+                "third-token":"\(thirdToken)"
+            ]
         default:
             return nil
         }
