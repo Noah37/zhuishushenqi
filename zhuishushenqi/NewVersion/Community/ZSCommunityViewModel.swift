@@ -15,6 +15,9 @@ class ZSCommunityViewModel {
     
     var twitters:[QSHotModel] = []
     
+    private var start:Int = 0
+    private var limit:Int = 20
+    
     init() {
         viewDidLoad = { [weak self] in
             self?.requestCommunity(completion: { [weak self] in
@@ -92,6 +95,15 @@ class ZSCommunityViewModel {
             } else {
                 completion(false)
             }
+        }
+    }
+    
+    //MARK: - 社区
+    func getCommunity(completion:@escaping()->Void) {
+        let api = ZSAPI.communityHot(start: start, limit: limit)
+        ZSNet.getJSON(api.path, parameters: api.parameters) { (json) in
+            guard let feeds = json?["feeds"] as? [[String:Any]] else {  completion(); return }
+            
         }
     }
 }

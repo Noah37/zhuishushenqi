@@ -89,6 +89,7 @@ class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDel
     @objc
     private func refreshAction() {
         self.viewModel.requestCommunity()
+        self.viewModel.getCommunity()
     }
     
     @objc
