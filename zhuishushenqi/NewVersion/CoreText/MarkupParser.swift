@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreText
+import HandyJSON
 
 enum ZSParseType: String, Codable {
     case none = ""
@@ -18,10 +19,18 @@ enum ZSParseType: String, Codable {
     case post = "post"
 }
 
-struct ZSImageParse:Codable {
+struct ZSImageParse:HandyJSON {
     var type:ZSParseType = .image
     var url:String = ""
-    var size:CGSize = CGSize.zero
+    var size:String = "" {
+        didSet {
+            let sizeArray = size.components(separatedBy: "-")
+            if sizeArray.count == 2 {
+                imageSize = CGSize(width: Double(sizeArray.first!) ?? 0, height: Double(sizeArray.last!) ?? 0)
+            }
+        }
+    }
+    var imageSize:CGSize = .zero
 }
 
 class MarkupParser: NSObject {
@@ -58,6 +67,8 @@ class MarkupParser: NSObject {
 //    //{{type:image,url:http%3A%2F%2Fstatics.zhuishushenqi.com%2Fpost%2F151678369762541,size:420-422}}
 //    static NSString *const kBookPattern = @"(\\{\\{.*?\\}\\})";
     
+//    "content": "\n{{type:book,id:5ec6a64273f1fa0f00ca4122,title:我的徒弟都是大反派,author:谋生任转蓬,cover:/agent/http%3A%2F%2Fimg.13***%2Fapi%2Fv1%2Fbookcenter%2Fcover%2F1%2F3458246%2F3458246_c43a9d1461c04a6ea6eb8425ecc6e980.jpg%2F,allowFree:true,latelyFollower:23815,wordCount:4417679,allowMonthly:true,contentType:txt,superscript:,isSerial:false,retentionRatio:79.81,majorCateV2:,minorCateV2:东方玄幻,onShelve:true}}\n\n睁眼醒来发现自己身处异世，武功全无，身边还都是一个个想要逼死师父的大反派，怎一个惨字了得？！看猪脚是如何通过系统的帮助吊打众人，重返巅峰，纵横天下！此书格局很大，一环扣一环，整体架构严谨，但文笔还需继续加强，不过作为新人来讲已经很不错了，强行安利一波！男主的人设是个糟老头子，一开始也就没什么颜值了，刚穿越过去的时候想要低调但实力不允许啊！",
+    
     // 根据配置获取富文本格式
     func attributes() ->[NSAttributedString.Key:Any] {
         let fontRef = CTFontCreateWithName("ArialMT" as CFString, fontSize, nil)
@@ -86,6 +97,15 @@ class MarkupParser: NSObject {
         let style = NSMutableParagraphStyle()
         style.alignment = NSTextAlignment.left
         let attrs = [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font,NSAttributedString.Key.paragraphStyle:style] as [NSAttributedString.Key : Any]
+        return attrs
+    }
+    
+    func bookAttribute() ->[NSAttributedString.Key:Any] {
+        let defaultFont: UIFont = .systemFont(ofSize: 13)
+        let font = UIFont(name: fontName, size: 13) ?? defaultFont
+        let style = NSMutableParagraphStyle()
+        style.alignment = NSTextAlignment.left
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.orange, NSAttributedString.Key.font: font,NSAttributedString.Key.paragraphStyle:style] as [NSAttributedString.Key : Any]
         return attrs
     }
     
@@ -122,22 +142,31 @@ class MarkupParser: NSObject {
                     let text = NSMutableAttributedString(string: preText, attributes: attributes())
                     attrString.append(text)
                 }
-                // image
+                // image or book
                 if chunkStr.contains("{{") {
-                    let imageModel = parse(imageStr: chunkStr)
-                    if imageModel.type == .image {
-                        var imageData = ZSImageData()
-                        imageData.position = attrString.length
-                        imageData.parse = imageModel
-                        images.append(imageData)
-                        var width: CGFloat = imageData.parse?.size.width ?? 0
-                        var height: CGFloat = imageData.parse?.size.height ?? 0
-                        if width > settings.pageRect.width {
-                            height = height/width * settings.pageRect.width
-                            width = settings.pageRect.width
+                    let bookAndImageDict = getDict(bookAndImage: chunkStr)
+                    let type = bookAndImageDict["type"] as? String ?? ""
+                    if type == ZSParseType.book.rawValue {
+                        let book = parseBook(dict: bookAndImageDict)
+                        let text = NSMutableAttributedString(string: "《\(book.title)》", attributes: bookAttribute())
+                        books.append(book)
+                        attrString.append(text)
+                    } else if type == ZSParseType.image.rawValue {
+                        let imageModel = parse(imageDict: bookAndImageDict)
+                        if imageModel.type == .image {
+                            var imageData = ZSImageData()
+                            imageData.position = attrString.length
+                            imageData.parse = imageModel
+                            images.append(imageData)
+                            var width: CGFloat = imageData.parse?.imageSize.width ?? 0
+                            var height: CGFloat = imageData.parse?.imageSize.height ?? 0
+                            if width > settings.pageRect.width {
+                                height = height/width * settings.pageRect.width
+                                width = settings.pageRect.width
+                            }
+                            let attr = configImage(width: width, height: height)
+                            attrString.append(attr)
                         }
-                        let attr = configImage(width: width, height: height)
-                        attrString.append(attr)
                     }
                 } else if chunkStr.contains("[[") { // link(post/booklist)
                     if let linkData = linkDara(str: chunkStr) {
@@ -145,12 +174,13 @@ class MarkupParser: NSObject {
                         let text = NSMutableAttributedString(string: linkData.title, attributes: linkAttribute())
                         attrString.append(text)
                     }
-                } else if chunkStr.contains("《") {
-                    let text = NSMutableAttributedString(string: chunkStr, attributes: linkAttribute())
-                    let book = parse(book: chunkStr)
-                    books.append(book)
-                    attrString.append(text)
                 }
+//                else if chunkStr.contains("《") {
+//                    let text = NSMutableAttributedString(string: chunkStr, attributes: linkAttribute())
+//                    let book = parse(book: chunkStr)
+//                    books.append(book)
+//                    attrString.append(text)
+//                }
                 lastRange = chunk.range
             }
             if lastRange.location + lastRange.length < content.count {
@@ -174,38 +204,36 @@ class MarkupParser: NSObject {
         }
     }
     
-    func parse(book:String) ->ZSBookData {
-        var bookModel = ZSBookData()
-        bookModel.content = book
-        bookModel.type = .book
-        return bookModel
-    }
-    
-    func parse(imageStr: String) ->ZSImageParse {
-        var chunkStr = imageStr.replacingOccurrences(of: "{{", with: "")
+    func getDict(bookAndImage:String) ->[String:Any] {
+        var chunkStr = bookAndImage.replacingOccurrences(of: "{{", with: "")
         chunkStr = chunkStr.replacingOccurrences(of: "}}", with: "")
-        var imageDic:[String:Any] = [:]
+        var bookAndImageDic:[String:Any] = [:]
         let keyValueString = chunkStr.components(separatedBy: ",")
         for item in keyValueString {
             let keyValues = item.components(separatedBy: ":")
             if keyValues.count != 2 {
                 continue
             }
-            if keyValues.first! != "size" {
-                imageDic[keyValues.first!] = keyValues.last!.removingPercentEncoding ?? ""
-                continue
-            }
-            let sizes = keyValues.last!.components(separatedBy: "-")
-            if sizes.count != 2 {
-                continue
-            }
-            let size = CGSize(width: Double(sizes.first!) ?? 0, height: Double(sizes.last!) ?? 0)
-            imageDic[keyValues.first!] = size
+            let key = keyValues.first!
+            let value = keyValues.last!
+            bookAndImageDic[key] = value
         }
-        var imageParse = ZSImageParse()
-        imageParse.type = ZSParseType.init(rawValue: imageDic["type"] as? String ?? "") ?? .none
-        imageParse.size = imageDic["size"] as? CGSize ?? CGSize.zero
-        imageParse.url = imageDic["url"] as? String ?? ""
+        return bookAndImageDic
+    }
+    
+    func parseBook(dict:[String:Any]) ->ZSBookData {
+        let bookModel = ZSBookData()
+        if let bookModel = ZSBookData.deserialize(from: dict, designatedPath: nil) {
+            return bookModel
+        }
+        return bookModel
+    }
+    
+    func parse(imageDict:[String:Any]) ->ZSImageParse {
+        let imageParse = ZSImageParse()
+        if let imageParse = ZSImageParse.deserialize(from: imageDict, designatedPath: nil) {
+            return imageParse
+        }
         return imageParse
     }
     
@@ -242,6 +270,11 @@ class MarkupParser: NSObject {
                 break
             }
         }
+        return nil
+    }
+    
+    func bookData() ->ZSBookData? {
+        
         return nil
     }
     

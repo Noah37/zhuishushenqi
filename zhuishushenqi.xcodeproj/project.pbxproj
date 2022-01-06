@@ -207,6 +207,7 @@
 		3DFE8E812595D4280044DCEB /* ZSAddSourceTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE8E802595D4280044DCEB /* ZSAddSourceTextField.m */; };
 		567D4C5122D3A2E149B8AD65 /* Pods_zhuishushenqi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DD667D5A369B09442DE895 /* Pods_zhuishushenqi.framework */; };
 		AD065949258C66D1009009FA /* ZSRegularVerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD065948258C66D1009009FA /* ZSRegularVerifyViewController.swift */; };
+		ADCB1BEE278732E300289C83 /* ZSCommunityHotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB1BED278732E300289C83 /* ZSCommunityHotCell.swift */; };
 		B200D1FF1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200D1FD1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift */; };
 		B200D2001EEDB1FE003A42E3 /* QSIntroduceReadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B200D1FE1EEDB1FE003A42E3 /* QSIntroduceReadCell.xib */; };
 		B200D2221EEE44AB003A42E3 /* QSLaunchRecView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B200D2211EEE44AB003A42E3 /* QSLaunchRecView.xib */; };
@@ -926,6 +927,7 @@
 		3DFE8E7F2595D4270044DCEB /* ZSAddSourceTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZSAddSourceTextField.h; sourceTree = "<group>"; };
 		3DFE8E802595D4280044DCEB /* ZSAddSourceTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZSAddSourceTextField.m; sourceTree = "<group>"; };
 		AD065948258C66D1009009FA /* ZSRegularVerifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSRegularVerifyViewController.swift; sourceTree = "<group>"; };
+		ADCB1BED278732E300289C83 /* ZSCommunityHotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZSCommunityHotCell.swift; sourceTree = "<group>"; };
 		B08901F972525F29A370AA86 /* Pods-zhuishushenqi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zhuishushenqi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-zhuishushenqi/Pods-zhuishushenqi.debug.xcconfig"; sourceTree = "<group>"; };
 		B200D1FD1EEDB1FE003A42E3 /* QSIntroduceReadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSIntroduceReadCell.swift; sourceTree = "<group>"; };
 		B200D1FE1EEDB1FE003A42E3 /* QSIntroduceReadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSIntroduceReadCell.xib; sourceTree = "<group>"; };
@@ -1591,6 +1593,7 @@
 				B2683D0022D089FE00FE9CF0 /* ZSDynamicHeaderView.swift */,
 				3DBC088E22CB02030004B3F4 /* ZSCommunityNavigationBar.swift */,
 				3DBC089222CB54DD0004B3F4 /* ZSCommunityCell.swift */,
+				ADCB1BED278732E300289C83 /* ZSCommunityHotCell.swift */,
 				3DBC089422CB56C60004B3F4 /* ZSInsertedBookScoreView.swift */,
 				3D096BF622CF76A70005C9EA /* ZSRefreshFooter.swift */,
 				B2683CFE22D083B200FE9CF0 /* ZSNoNetworkView.swift */,
@@ -3864,6 +3867,7 @@
 				B2C0DF7920D4CB6D0057DC84 /* BookCommentViewController.swift in Sources */,
 				3D33B4D322BB6C40000C2D8D /* DispatchTime+Extension.swift in Sources */,
 				B2583CBD1EA782C2004178F3 /* QSThemeTopicRouter.swift in Sources */,
+				ADCB1BEE278732E300289C83 /* ZSCommunityHotCell.swift in Sources */,
 				B2C0DF7820D4CB6D0057DC84 /* QSBookCommentPresenter.swift in Sources */,
 				B2B4BBE31E7EA4AB000CC201 /* XYCBaseModel.m in Sources */,
 				3DDB6CB52130F63300E8698D /* RegexKitLite.m in Sources */,

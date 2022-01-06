@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import HandyJSON
+//{{type:book,id:5ec6a64273f1fa0f00ca4122,title:我的徒弟都是大反派,author:谋生任转蓬,cover:/agent/http%3A%2F%2Fimg.13***%2Fapi%2Fv1%2Fbookcenter%2Fcover%2F1%2F3458246%2F3458246_c43a9d1461c04a6ea6eb8425ecc6e980.jpg%2F,allowFree:true,latelyFollower:23815,wordCount:4417679,allowMonthly:true,contentType:txt,superscript:,isSerial:false,retentionRatio:79.81,majorCateV2:,minorCateV2:东方玄幻,onShelve:true}}
 
 struct ZSImageData {
     var parse:ZSImageParse?
@@ -25,9 +27,24 @@ struct ZSLinkData {
     var type:ZSParseType = .link
 }
 
-struct ZSBookData {
+struct ZSBookData:HandyJSON {
     var content:String = ""
     var type:ZSParseType = .book
+    var id:String = ""
+    var title:String = ""
+    var author:String = ""
+    var cover:String = ""
+    var allowFree:Bool = true
+    var latelyFollower:Int = 0
+    var wordCount:Int = 0
+    var allowMonthly:Bool = false
+    var contentType:String = "txt"
+    var superscript:String = ""
+    var isSerial:Bool = false
+    var retentionRatio:Double = 0
+    var majorCateV2:String = ""
+    var minorCateV2:String = ""
+    var onShelve:Bool = false
 }
 
 struct ZSTextData {

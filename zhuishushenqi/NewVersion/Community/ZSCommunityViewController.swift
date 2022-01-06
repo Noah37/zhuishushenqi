@@ -8,7 +8,7 @@
 import UIKit
 import MJRefresh
 
-class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDelegate, ZSCommunityCellDelegate {
+class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDelegate, ZSCommunityHotCellDelegate {
     
     lazy var navImages:[ShelfNav] = {
         var images:[ShelfNav] = []
@@ -37,7 +37,7 @@ class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDel
         if #available(iOS 11, *) {
             tableView.contentInsetAdjustmentBehavior = .never
         }
-        tableView.qs_registerCellClass(ZSCommunityCell.self)
+        tableView.qs_registerCellClass(ZSCommunityHotCell.self)
         let blurEffect = UIBlurEffect(style: .extraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         tableView.backgroundView = blurEffectView
@@ -89,7 +89,9 @@ class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDel
     @objc
     private func refreshAction() {
         self.viewModel.requestCommunity()
-        self.viewModel.getCommunity()
+        self.viewModel.getCommunity {
+            
+        }
     }
     
     @objc
@@ -128,37 +130,63 @@ class ZSCommunityViewController: BaseViewController, ZSCommunityNavigationBarDel
     }
     
     //MARK: - ZSCommunityCellDelegate
-    func community(cell: ZSCommunityCell, clickIcon: UIButton) {
+//    func community(cell: ZSCommunityCell, clickIcon: UIButton) {
+//        guard let indexPath = tableView.indexPath(for: cell) else {
+//            return
+//        }
+//        let dynamicVC = ZSUserDynamicViewController()
+//        dynamicVC.id = viewModel.twitters[indexPath.row].user._id
+//        dynamicVC.hidesBottomBarWhenPushed = true
+//        navigationController?.pushViewController(dynamicVC, animated: true)
+//    }
+//
+//    func community(cell: ZSCommunityCell, clickFocus: UIButton) {
+//        guard let indexPath = tableView.indexPath(for: cell) else {
+//            return
+//        }
+//        let id = self.viewModel.twitters[indexPath.row].user._id
+//        if cell.focusState == false {
+//            self.viewModel.focus(id: id) { [weak cell] (result) in
+//                cell?.focusState = result ? !cell!.focusState:cell!.focusState
+//            }
+//        } else {
+//            self.viewModel.unFocus(id: id) { [weak cell] (result) in
+//                cell?.focusState = result ? !cell!.focusState:cell!.focusState
+//            }
+//        }
+//    }
+//
+//    func community(cell: ZSCommunityCell, clickMsg: UIButton) {
+//
+//    }
+//
+//    func community(cell: ZSCommunityCell, clickShare: UIButton) {
+//
+//    }
+    
+    func community(cell: ZSCommunityHotCell, clickIcon: UIButton) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return
         }
         let dynamicVC = ZSUserDynamicViewController()
-        dynamicVC.id = viewModel.twitters[indexPath.row].user._id
+        dynamicVC.id = viewModel.hots[indexPath.row].author._id
         dynamicVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(dynamicVC, animated: true)
     }
     
-    func community(cell: ZSCommunityCell, clickFocus: UIButton) {
+    func community(cell: ZSCommunityHotCell, clickFocus: UIButton) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             return
         }
-        let id = self.viewModel.twitters[indexPath.row].user._id
-        if cell.focusState == false {
-            self.viewModel.focus(id: id) { [weak cell] (result) in
-                cell?.focusState = result ? !cell!.focusState:cell!.focusState
-            }
-        } else {
-            self.viewModel.unFocus(id: id) { [weak cell] (result) in
-                cell?.focusState = result ? !cell!.focusState:cell!.focusState
-            }
-        }
-    }
-    
-    func community(cell: ZSCommunityCell, clickMsg: UIButton) {
+        let id = self.viewModel.hots[indexPath.row].author._id
         
     }
     
-    func community(cell: ZSCommunityCell, clickShare: UIButton) {
+    func community(cell: ZSCommunityHotCell, clickMsg: UIButton) {
+        
+    }
+    
+    func community(cell: ZSCommunityHotCell, clickShare: UIButton) {
         
     }
 }
@@ -169,15 +197,13 @@ extension ZSCommunityViewController:UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.twitters.count
+        return self.viewModel.hots.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = self.viewModel.twitters[indexPath.row]
-        if let book = model.tweet.book {
-            return book.title.count == 0 ? (382 - 125):382
-        }
-        return 382 - 125
+        let model = self.viewModel.hots[indexPath.row]
+        return model.title.count == 0 ? (382 - 125):382
+//        return 382 - 125
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -189,18 +215,18 @@ extension ZSCommunityViewController:UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.qs_dequeueReusableCell(ZSCommunityCell.self)
+        let cell = tableView.qs_dequeueReusableCell(ZSCommunityHotCell.self)
         cell?.selectionStyle = .none
-        cell?.congfigure(model: self.viewModel.twitters[indexPath.row])
+        cell?.congfigure(model: self.viewModel.hots[indexPath.row])
         cell?.delegate = self
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = self.viewModel.twitters[indexPath.row]
+        let model = self.viewModel.hots[indexPath.row]
         let forumVC = ZSForumPageViewController()
         forumVC.hidesBottomBarWhenPushed = true
-        forumVC.viewModel.id = model.tweet.post._id
+        forumVC.viewModel.id = model._id
         self.navigationController?.pushViewController(forumVC, animated: true)
     }
 }

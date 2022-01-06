@@ -12,7 +12,7 @@ import HandyJSON
 
 struct ZSCommunityHot : HandyJSON {
 
-    var id : String = ""
+    var _id : String = ""
     var author : ZSCommunityAuthor!
     var authorId : String = ""
     var block : String = ""
@@ -37,7 +37,7 @@ struct ZSCommunityBook : HandyJSON {
 
 struct ZSCommunityAuthor : HandyJSON {
 
-    var id : String = ""
+    var _id : String = ""
     var avatar : String = ""
     var follower : Int = 0
     var following : Int = 0
