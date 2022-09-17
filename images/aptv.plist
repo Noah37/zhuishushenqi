@@ -11,7 +11,7 @@
                     <key>kind</key>
                     <string>software-package</string>
                     <key>url</key>
-                    <string>http://192.168.0.100/hello/aptv.ipa</string>          <!-- ipa的http地址 -->
+                    <string>http://192.168.0.100:8080/hello/aptv.ipa</string>          <!-- ipa的http地址 -->
                 </dict>
                 <dict>
                     <key>kind</key>
